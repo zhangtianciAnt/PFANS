@@ -228,7 +228,7 @@
           <el-row :gutter="32">
             <el-col :span="24">
               <template>
-                <el-form-item :label="$t('label.PFANS3007VIEW_USECOPUN')">
+                <el-form-item :label="$t('label.PFANS3007VIEW_USECOUPON')">
                   <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height" v-if="showdata">
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
@@ -240,9 +240,9 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" @change="changecopunnumber"
-                                  v-model="scope.row.copunnumber">
-                        </el-input>
+                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                                         v-model="scope.row.copunnumber">
+                        </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
@@ -272,9 +272,9 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" @change="changecopunnumber"
-                                  v-model="scope.row.copunnumber">
-                        </el-input>
+                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                                         v-model="scope.row.copunnumber">
+                        </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
@@ -287,7 +287,7 @@
                                      prop="copunusenumber">
                       <template slot-scope="scope">
                         <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0" :max="100"
-                                         style="width: 100%"
+                                         style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
                       </template>
@@ -304,9 +304,9 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" @change="changecopunnumber"
-                                  v-model="scope.row.copunnumber">
-                        </el-input>
+                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                                         v-model="scope.row.copunnumber">
+                        </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
@@ -452,6 +452,9 @@
                 }
             }
             return {
+                copunnumber1: '',
+                copunnumber2: '',
+                copunnumber3: '',
                 error: '',
                 loading: false,
                 canStart: false,
@@ -674,16 +677,21 @@
                             let dictionaryInfo = getDictionaryInfo('PR010001');
                             if (dictionaryInfo) {
                                 this.tableD2[0].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber1 = dictionaryInfo.value2;
                                 this.tableD2[0].copunvalue = dictionaryInfo.value3;
-                            };
+                            }
+                            ;
                             dictionaryInfo = getDictionaryInfo('PR010002');
                             if (dictionaryInfo) {
                                 this.tableD2[1].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber2 = dictionaryInfo.value2;
                                 this.tableD2[1].copunvalue = dictionaryInfo.value3;
-                            };
+                            }
+                            ;
                             dictionaryInfo = getDictionaryInfo('PR010003');
                             if (dictionaryInfo) {
                                 this.tableD2[2].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber3 = dictionaryInfo.value2;
                                 this.tableD2[2].copunvalue = dictionaryInfo.value3;
                             }
                         }
@@ -697,16 +705,21 @@
                             let dictionaryInfo = getDictionaryInfo('PR011001');
                             if (dictionaryInfo) {
                                 this.tableD3[0].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber1 = dictionaryInfo.value2;
                                 this.tableD3[0].copunvalue = dictionaryInfo.value3;
-                            };
+                            }
+                            ;
                             dictionaryInfo = getDictionaryInfo('PR011002');
                             if (dictionaryInfo) {
                                 this.tableD3[1].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber2 = dictionaryInfo.value2;
                                 this.tableD3[1].copunvalue = dictionaryInfo.value3;
-                            };
+                            }
+                            ;
                             dictionaryInfo = getDictionaryInfo('PR011003');
                             if (dictionaryInfo) {
                                 this.tableD3[2].copunnumber = dictionaryInfo.value2;
+                                this.copunnumber3 = dictionaryInfo.value2;
                                 this.tableD3[2].copunvalue = dictionaryInfo.value3;
                             }
                         }
@@ -787,33 +800,37 @@
             getcopunusenumber(val) {
                 if (this.form.condominiumcompany === "PR007001") {
                     this.tableD2.copunusenumber = val;
-                    this.tableD2[0].copunnumber.value = ( this.tableD2[0].copunnumber.value) - ( this.tableD2[0].copunusenumber.value);
-                    this.tableD2[1].copunnumber.value = ( this.tableD2[1].copunnumber.value) - ( this.tableD2[1].copunusenumber.value);
-                    this.tableD2[2].copunnumber.value = ( this.tableD2[2].copunnumber.value) - ( this.tableD2[2].copunusenumber.value);
+                    this.tableD2[0].copunnumber = (this.copunnumber1) - (this.tableD2[0].copunusenumber);
+                    this.tableD2[1].copunnumber = (this.copunnumber2) - (this.tableD2[1].copunusenumber);
+                    this.tableD2[2].copunnumber = (this.copunnumber3) - (this.tableD2[2].copunusenumber);
+
                 }
                 if (this.form.condominiumcompany === "PR007002") {
                     this.tableD3.copunusenumber = val;
-                    this.tableD3[0].copunnumber.value = ( this.tableD3[0].copunnumber.value) - ( this.tableD3[0].copunusenumber.value);
-                    this.tableD3[1].copunnumber.value = ( this.tableD3[1].copunnumber.value) - ( this.tableD3[1].copunusenumber.value);
-                    this.tableD3[2].copunnumber.value = ( this.tableD3[2].copunnumber.value) - ( this.tableD3[2].copunusenumber.value);
+                    this.tableD3[0].copunnumber = (this.copunnumber1) - (this.tableD3[0].copunusenumber);
+                    this.tableD3[1].copunnumber = (this.copunnumber2) - (this.tableD3[1].copunusenumber);
+                    this.tableD3[2].copunnumber = (this.copunnumber3) - (this.tableD3[2].copunusenumber);
                 }
             },
             //使用金额
             changemoneys(val) {
                 this.form.usemoney = val;
-                this.form.moneys.value = (this.form.moneys.value)-val;
+                this.form.moneys.value = (this.form.moneys.value) - val;
             },
             //预算单位
             getbudgetunit(val) {
                 this.form.budgetunit = val;
             },
-            getcondominiumcompany(val) {
+            getcondominiumcompany(val) {//111
                 this.form.condominiumcompany = val;
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
                     this.form.moneys = dictionaryInfo.value2;
                 }
                 if (val === "PR007001") {
+                    this.copunnumber1 = '';
+                    this.copunnumber2 = '';
+                    this.copunnumber3 = '';
                     this.show2 = true;
                     this.show3 = false;
                     this.show = false;
@@ -823,20 +840,28 @@
                     let dictionaryInfo = getDictionaryInfo('PR010001');
                     if (dictionaryInfo) {
                         this.tableD2[0].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber1 = dictionaryInfo.value2;
                         this.tableD2[0].copunvalue = dictionaryInfo.value3;
-                    };
+                    }
+                    ;
                     dictionaryInfo = getDictionaryInfo('PR010002');
                     if (dictionaryInfo) {
                         this.tableD2[1].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber2 = dictionaryInfo.value2;
                         this.tableD2[1].copunvalue = dictionaryInfo.value3;
-                    };
+                    }
+                    ;
                     dictionaryInfo = getDictionaryInfo('PR010003');
                     if (dictionaryInfo) {
                         this.tableD2[2].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber3 = dictionaryInfo.value2;
                         this.tableD2[2].copunvalue = dictionaryInfo.value3;
                     }
                 }
                 if (val === "PR007002") {
+                    this.copunnumber1 = '';
+                    this.copunnumber2 = '';
+                    this.copunnumber3 = '';
                     this.show3 = true;
                     this.show2 = false;
                     this.show = false;
@@ -846,18 +871,21 @@
                     let dictionaryInfo = getDictionaryInfo('PR011001');
                     if (dictionaryInfo) {
                         this.tableD3[0].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber1 = dictionaryInfo.value2;
                         this.tableD3[0].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR011002');
                     if (dictionaryInfo) {
                         this.tableD3[1].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber2 = dictionaryInfo.value2;
                         this.tableD3[1].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR011003');
                     if (dictionaryInfo) {
                         this.tableD3[2].copunnumber = dictionaryInfo.value2;
+                        this.copunnumber3 = dictionaryInfo.value2;
                         this.tableD3[2].copunvalue = dictionaryInfo.value3;
                     }
                 }
