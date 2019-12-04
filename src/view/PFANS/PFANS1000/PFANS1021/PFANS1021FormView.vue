@@ -248,7 +248,7 @@
           code1: 'PR003',
           code2: 'PR003',
           code3: 'PR003',
-          disabled: true,
+          disabled: false,
           menuList: [],
         rules: {
           user_id: [
