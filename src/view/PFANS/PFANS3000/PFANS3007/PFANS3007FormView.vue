@@ -318,7 +318,7 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0" :max="100"
+                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -667,11 +667,21 @@
                     .then(response => {
                         this.form = response.japancondominium;
                         if (response.usecoupon.length > 0) {
-                            this.tableD = response.usecoupon;
+                            if(this.form.condominiumcompany === "PR007001"){
+                                this.tableD2 = response.usecoupon;
+                            }
+                            if(this.form.condominiumcompany === "PR007002"){
+                                this.tableD3 = response.usecoupon;
+                            }
                         }
                         this.userlist = this.form.userid;
                         this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD));
+                        if(this.form.condominiumcompany === "PR007001"){
+                            this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD2));
+                        }
+                        if(this.form.condominiumcompany === "PR007002"){
+                            this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD3));
+                        }
                         if (this.form.condominiumcompany === 'PR007001') {
                             this.show2 = true;
                             this.show3 = false;
@@ -785,21 +795,6 @@
                 this.form.status = '0';
                 this.buttonClick("update");
             },
-            deleteRow(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                }
-            },
-            addRow() {
-                this.tableD.push({
-                    usecouponid: "",
-                    japancondominiumid: "",
-                    copuntype: "",
-                    copunnumber: "",
-                    copunvalue: "",
-                    copunusenumber: "",
-                });
-            },
             //使用卷数（有问题）
             getcopunusenumber(val) {
                 if (this.form.condominiumcompany === "PR007001") {
@@ -912,88 +907,127 @@
             }
             ,
             buttonClick(val) {
-                this.$refs["refform"].validate(valid => {
-                    if (valid) {
-                        if( this.form.condominiumcompany === "PR007001"){
-                            this.form.copunusenumber = this.tableData2[0].copunusenumber;
-                        }
-                        this.loading = true;
-                        this.form.userid = this.userlist;
-                        this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.usecoupon = [];
-                        for (let i = 0; i < this.tableD.length; i++) {
-                            if (this.tableD[i].copuntype !== "" || this.tableD[i].copunnumber !== "" || this.tableD[i].copunvalue !== "" || this.tableD[i].copunusenumber !== "") {
-                                this.baseInfo.usecoupon.push(
-                                    {
-                                        usecouponid: this.tableD[i].usecouponid,
-                                        japancondominiumid: this.tableD[i].japancondominiumid,
-                                        copuntype: this.tableD[i].copuntype,
-                                        copunnumber: this.tableD[i].copunnumber,
-                                        copunvalue: this.tableD[i].copunvalue,
-                                        copunusenumber: this.tableD[i].copunusenumber,
-                                    }
-                                );
-                            }
-                        }
-                        if (this.$route.params._id) {
-                            this.baseInfo.japancondominium.japancondominiumid = this.$route.params._id;
+                this.tableD2;
+                if (val === "back") {
+                    this.paramsTitle();
+                } else {
+                    this.$refs["refform"].validate(valid => {
+                        if (valid) {
                             this.loading = true;
-                            this.$store
-                                .dispatch('PFANS3007Store/updateJapanCondominium', this.baseInfo)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_02"),
-                                        type: 'success',
-                                        duration: 5 * 1000
+                            this.form.userid = this.userlist;
+                            this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
+                            this.baseInfo.usecoupon = [];
+                            if (this.form.condominiumcompany === "PR007001") {
+                                for (let i = 0; i < this.tableD2.length; i++) {
+                                    if (this.tableD2[i].copuntype !== "" || this.tableD2[i].copunnumber !== "" || this.tableD2[i].copunvalue !== "" || this.tableD2[i].copunusenumber !== "") {
+                                        if(this.tableD2[i].copuntype === "G劵")
+                                        {
+                                            this.tableD2[i].copuntype = "PR010001";
+                                        }
+                                        if(this.tableD2[i].copuntype === "M劵")
+                                        {
+                                            this.tableD2[i].copuntype = "PR010002";
+                                        }
+                                        if(this.tableD2[i].copuntype === "Q劵")
+                                        {
+                                            this.tableD2[i].copuntype = "PR010003";
+                                        }
+                                        this.baseInfo.usecoupon.push(
+                                            {
+                                                usecouponid: this.tableD2[i].usecouponid,
+                                                japancondominiumid: this.tableD2[i].japancondominiumid,
+                                                copuntype: this.tableD2[i].copuntype,
+                                                copunnumber: this.tableD2[i].copunnumber,
+                                                copunvalue: this.tableD2[i].copunvalue,
+                                                copunusenumber: this.tableD2[i].copunusenumber,
+                                            }
+                                        );
+                                    }
+                                }
+                            }
+                            if (this.form.condominiumcompany === "PR007002") {
+                                for (let i = 0; i < this.tableD3.length; i++) {
+                                    if (this.tableD3[i].copuntype !== "" || this.tableD3[i].copunnumber !== "" || this.tableD3[i].copunvalue !== "" || this.tableD3[i].copunusenumber !== "") {
+                                        if(this.tableD3[i].copuntype === "H劵")
+                                        {
+                                            this.tableD3[i].copuntype = "PR011001";
+                                        }
+                                        if(this.tableD3[i].copuntype === "F劵")
+                                        {
+                                            this.tableD3[i].copuntype = "PR011002";
+                                        }
+                                        if(this.tableD3[i].copuntype === "P劵")
+                                        {
+                                            this.tableD3[i].copuntype = "PR011003";
+                                        }
+                                        this.baseInfo.usecoupon.push(
+                                            {
+                                                usecouponid: this.tableD3[i].usecouponid,
+                                                japancondominiumid: this.tableD3[i].japancondominiumid,
+                                                copuntype: this.tableD3[i].copuntype,
+                                                copunnumber: this.tableD3[i].copunnumber,
+                                                copunvalue: this.tableD3[i].copunvalue,
+                                                copunusenumber: this.tableD3[i].copunusenumber,
+                                            }
+                                        );
+                                    }
+                                }
+                            }
+                            if (this.$route.params._id) {
+                                this.baseInfo.japancondominium.japancondominiumid = this.$route.params._id;
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS3007Store/updateJapanCondominium', this.baseInfo)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        if (val !== "update") {
+                                            Message({
+                                                message: this.$t("normal.success_02"),
+                                                type: 'success',
+                                                duration: 5 * 1000
+                                            });
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        }
                                     })
-                                    if (val !== "update") {
+                                    .catch(error => {
                                         Message({
-                                            message: this.$t("normal.success_02"),
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        })
+                                        this.loading = false;
+                                    })
+                            } else {
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS3007Store/createJapanCondominium', this.baseInfo)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_01"),
                                             type: 'success',
                                             duration: 5 * 1000
                                         });
                                         if (this.$store.getters.historyUrl) {
                                             this.$router.push(this.$store.getters.historyUrl);
                                         }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
                                     })
-                                    this.loading = false;
-                                })
-                        } else {
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS3007Store/createJapanCondominium', this.baseInfo)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
     }
