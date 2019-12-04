@@ -61,16 +61,16 @@
                 <el-input v-model="form.extension" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="16">
+            <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input v-model="form.email" type="textarea" :disabled="!disabled" style="width: 34rem" maxlength='50'></el-input>
+                <el-input v-model="form.email" :disabled="!disabled" style="width: 11rem" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS1021FORMVIEW_REASON')" prop="reason">
-                  <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 57rem"></el-input>
+                  <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
