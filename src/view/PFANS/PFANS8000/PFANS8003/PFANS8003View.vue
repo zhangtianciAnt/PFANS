@@ -1,13 +1,11 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer
-      v-loading="loading" :noback="noback" :title="title">
+      v-loading="loading" :noback="noback">
       <div slot="customize">
-        <el-form label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
-          <table cellspacing="0" border="1" style="width:90rem;height:50rem;border-collapse: collapse ">
+        <el-form label-position="left" label-width="8rem" ref="form" style="padding: 2rem;height: 35rem">
             <div v-html="this.form.richtext">
             </div>
-          </table>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -28,7 +26,6 @@
                 form: {
                     richtext: ""
                 },
-                title: 'label.PFANS8008FORMVIEW_RICHTEXT',
                 noback: true,
             }
         },
