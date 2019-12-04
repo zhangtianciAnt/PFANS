@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <el-card class="box-card">
+    <el-card class="box-card" style="min-height: 600px">
       <div>
         <div @click="submitForm(1)" class="m-content">
           <el-col :span="18">
