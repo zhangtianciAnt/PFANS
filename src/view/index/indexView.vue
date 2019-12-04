@@ -17,7 +17,6 @@ text-overflow: ellipsis;
 overflow: hidden;
 float: left;
 padding: 1rem 0rem;
-height: 5rem;
 line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
                 <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
                 {{$t('label.INDEX_DSPSX')}}

@@ -8,6 +8,8 @@
                    class="demo-ruleForm" :rules="rules">
             <el-container>
               <el-aside style="width: 58%;height: 40rem">
+                <el-row>
+                  <el-col :span="11">
                 <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
                               style="width: 5%" prop="log_date">
                   <el-date-picker
@@ -19,12 +21,14 @@
                   >
                   </el-date-picker>
                 </el-form-item>
-                <el-row>
+                  </el-col>
+                  <el-col :span="10">
                   <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
                     <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
                                      :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
                     ></el-input-number>
                   </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <div v-show="isShow">
@@ -43,7 +47,7 @@
                     </el-col>
                     <el-col :span="10">
                       <el-form-item>
-                        <el-link style="width: 9rem;color: #5d9cec" target="_blank" :underline="false"
+                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank" :underline="false"
                                  @click="program=true" type="primary">
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
                         </el-link>
