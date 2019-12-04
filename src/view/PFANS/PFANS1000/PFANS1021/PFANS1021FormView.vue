@@ -22,8 +22,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :error="error"  :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disabled" :error="error" :selectType="selectType" :userlist="userlist"
+              <el-form-item :error="erroruser"  :label="$t('label.applicant')" prop="user_id">
+                <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 10.15rem"></user>
               </el-form-item>
             </el-col>
@@ -78,25 +78,25 @@
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="165">
+              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="165" :error="errortitle">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.title">
-                  </el-input>
+                  <user :disabled="!disabled" :error="errortitle" :selectType="selectType" :userlist="userlist1"
+                        @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="165" :error="errordetailcenter">
+              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="165">
                 <template slot-scope="scope">
-                  <org  :orglist="detailcenterorglist" :error="errordetailcenter" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getCenterId"></org>
+                  <el-input v-model="scope.row.detailcenter_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="165" :error="errordetailgroup">
+              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="165">
                 <template slot-scope="scope">
-                  <org  :orglist="detailgrouporglist" :error="errordetailgroup" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getGroupId"></org>
+                  <el-input v-model="scope.row.detailgroup_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="165" :error="errordetailteam">
+              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="165">
                 <template slot-scope="scope">
-                  <org  :orglist="detailteamorglist" :error="errordetailteam" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getTeamId"></org>
+                  <el-input v-model="scope.row.detailteam_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="165">
@@ -113,7 +113,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="165">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="form.startdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.startdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="165">
@@ -140,10 +140,10 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :errorentrymanager="errorentrymanager" width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="165">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :errorentrymanager="errorentrymanager" :selectType="selectType" :userlist="userlist1"
-                        @getUserids="getUserids1" style="width: 10.15rem"></user>
+                  <user :disabled="!disabled" :error="errorentrymanager" :selectType="selectType" :userlist="userlist2"
+                        @getUserids="getUserids2" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.operation')" align="center" width="180">
@@ -180,36 +180,42 @@
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import {getDictionaryInfo} from "../../../../utils/customize";
+  import org from "../../../components/org";
   import moment from "moment";
 
   export default {
     name: 'PFANS1021FormView',
     components: {
-      EasyNormalContainer,
-      getOrgInfoByUserId,
-      dicselect,
-      user
+        EasyNormalContainer,
+        getOrgInfoByUserId,
+        dicselect,
+        user,
+        org
     },
     data() {
       var checkuser = (rule, value, callback) => {
         if(!value || value === '' || value ==="undefined"){
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
         }else{
-          this.error = "";
+          this.erroruser = "";
           return callback();
         }
 
       };
       return {
-        userlist: "",
-        loading: false,
-        error: '',
-        selectType: "Single",
-        title: 'title.PFANS1021VIEW',
-        buttonList: [],
-        multiple: false,
+          baseInfo: {},
+          userlist: "",
+          userlist1: "",
+          userlist2: "",
+          loading: false,
+          erroruser: '',
+          errortitle: '',
+          errorentrymanager: '',
+          selectType: "Single",
+          title: 'title.PFANS1021VIEW',
+          buttonList: [],
+          multiple: false,
         form: {
             center_id: '',
             group_id: '',
@@ -222,9 +228,27 @@
             email: '',
             reason: '',
         },
+          tableD: [
+              {
+                  securitydetailid: '',
+                  securityid: '',
+                  title:'',
+                  detailcenter_id:'',
+                  detailgroup_id:'',
+                  detailteam_id:'',
+                  phonenumber:'',
+                  emaildetail:'',
+                  startdate:'',
+                  fabuilding:'',
+                  fbbuilding:'',
+                  entrymanager:'',
+              },
+          ],
           code: 'PR002',
           code1: 'PR003',
-          disabled: true,
+          code2: 'PR003',
+          code3: 'PR003',
+          disabled: false,
           menuList: [],
         rules: {
           user_id: [
@@ -250,10 +274,12 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
+          .dispatch('PFANS1021Store/getSecurityOne', {"securityid": this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
+            this.userlist1 = this.form.title;
+            this.userlist2 = this.form.entrymanager;
             this.loading = false;
           })
           .catch(error => {
@@ -273,16 +299,12 @@
         this.form.team_id = lst.teamNmae;
         this.form.user_id = this.$store.getters.userinfo.userid;
         }
-          if (this.form.uploadfile != "") {
-              let uploadfile = this.form.uploadfile.split(";");
-              for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(",")[0] != "") {
-                      let o = {};
-                      o.name = uploadfile[i].split(",")[0];
-                      o.url = uploadfile[i].split(",")[1];
-                      this.fileList.push(o)
-                  }
-              }
+          if (this.userlist1 !== null && this.userlist1 !== '') {
+              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              this.form.detailcenter_id = lst.centerNmae;
+              this.form.detailgroup_id = lst.groupNmae;
+              this.form.detailteam_id = lst.teamNmae;
+              this.form.title = this.$store.getters.userinfo.userid;
           }
         this.loading = false;
       }
@@ -299,50 +321,6 @@
           }
         ];
       }
-        if (this.form.careerplan === '1') {
-            this.show = true;
-            this.show1 = false;
-            this.rules.businessplantype[0].required = true;
-            this.rules.businessplanbalance[0].required = true;
-            this.rules.classificationtype[0].required = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        } else {
-            this.show = false;
-            this.show1 = false;
-            this.rules.businessplantype[0].required = false;
-            this.rules.businessplanbalance[0].required = false;
-            this.rules.classificationtype[0].required = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }
-        if (this.form.decisive === "PJ011001") {
-            this.show4 = false;
-            this.show5 = false;
-            this.show6 = true;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }else if (this.form.decisive === "PJ011002") {
-            this.show4 = true;
-            this.show5 = false;
-            this.show6 = true;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }else if (this.form.decisive === "PJ011003") {
-            this.show4 = false;
-            this.show5 = true;
-            this.show6 = false;
-            this.rules.startdate[0].required = true;
-            this.rules.enddate[0].required = true;
-            this.rules.period[0].required = false;
-        }else if (this.form.decisive === "PJ011004") {
-            this.show4 = false;
-            this.show5 = false;
-            this.show6 = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-            this.rules.period[0].required = false;
-        }
     },
     methods: {
       getUserids(val) {
@@ -353,106 +331,45 @@
         this.form.group_id = lst.groupNmae;
         this.form.team_id = lst.teamNmae;
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
-          this.error = "";
+          this.erroruser = "";
         }
       },
+        getUserids1(val) {
+            this.userlist1 = val;
+            this.form.title = val;
+            let lst = getOrgInfoByUserId(val);
+            this.form.detailcenter_id = lst.centerNmae;
+            this.form.detailgroup_id = lst.groupNmae;
+            this.form.detailteam_id = lst.teamNmae;
+            if (!this.form.title || this.form.title === '' || val === "undefined") {
+                this.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                this.errortitle = "";
+            }
+        },
+        getUserids2(val) {
+            this.userlist2 = val;
+            this.form.entrymanager = val;
+            if (!this.form.title || this.form.title === '' || val === "undefined") {
+                this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.entrymanager');
+            } else {
+                this.errorentrymanager = "";
+            }
+        },
       getType(val) {
         this.form.type = val;
       },
+        getFabuilding(val) {
+        this.form.fabuilding = val;
+      },
         getSubtype(val) {
-        this.form.subtype = val;
-      },
-      getAddbook(val) {
-        this.form.addbook = val;
-        if (val === "PJ010001") {
-          this.show3 = true;
-        }else if (val === "PJ010002") {
-          this.show3 = false;
-        }
-      },
-        getDecisive(val) {
-            this.form.decisive = val;
-            let dictionaryInfo = getDictionaryInfo(val);
-            if (val === "PJ011001") {
-                this.show4 = false;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011002") {
-                this.show4 = true;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011003") {
-                this.show4 = true;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011004") {
-                this.show4 = false;
-                this.show5 = true;
-                this.show6 = false;
-                this.rules.startdate[0].required = true;
-                this.rules.enddate[0].required = true;
-                this.rules.period[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011005") {
-                this.show4 = false;
-                this.show5 = false;
-                this.show6 = false;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                this.rules.period[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }
+            this.form.subtype = val;
         },
-      getSalequotation(val) {
-        this.form.salequotation = val;
-        if (val === "PJ013002") {
-          this.show2 = false;
-        }else if (val === "PJ013001") {
-          this.show2 = true;
-        }else if (val === "PJ013003") {
-          this.show2 = true;
-        }
-      },
-      radiochange(val){
-          this.form.careerplan = val;
-        if (val === '1') {
-          this.show = true;
-          this.show1 = false;
-          if(this.form.businessplantype === 'PR002005'){
-              this.show1 = true;
-              this.rules.classificationtype[0].required = true;
-          }
-          this.rules.businessplantype[0].required = true;
-          this.rules.businessplanbalance[0].required = true;
-        }else {
-          this.show = false;
-          this.show1 = false;
-          this.rules.businessplantype[0].required = false;
-          this.rules.businessplanbalance[0].required = false;
-          this.rules.classificationtype[0].required = false;
-        }
-      },
+        getFbbuilding(val) {
+            this.form.fbbuilding = val;
+        },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -469,102 +386,61 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
-        fileError(err, file, fileList){
-            Message({
-                message: this.$t("normal.error_04"),
-                type: 'error',
-                duration: 5 * 1000
+        deleteRow(index, rows) {
+            if (rows.length > 1) {
+                rows.splice(index, 1);
+            }
+        },
+        addRow() {
+            this.tableD.push({
+                securitydetailid: '',
+                securityid: '',
+                title:'',
+                detailcenter_id:'',
+                detailgroup_id:'',
+                detailteam_id:'',
+                phonenumber:'',
+                emaildetail:'',
+                startdate:'',
+                fabuilding:'',
+                fbbuilding:'',
+                entrymanager:'',
             });
         },
-        fileRemove(file, fileList){
-            this.fileList = [];
-            this.form.uploadfile = "";
-            for (var item of fileList) {
-                let o = {};
-                o.name = item.name;
-                o.url = item.url;
-                this.fileList.push(o);
-                this.form.uploadfile += item.name + "," + item.url + ";"
-            }
-        },
-        fileDownload(file) {
-            if (file.url) {
-                var url = downLoadUrl(file.url);
-                window.open(url);
-            }
-
-        },
-        fileSuccess(response, file, fileList) {
-            this.fileList = [];
-            this.form.uploadfile = "";
-            for (var item of fileList) {
-                let o = {};
-                o.name = item.name;
-                if (!item.url) {
-                    o.url = item.response.info;
-                } else {
-                    o.url = item.url;
-                }
-                this.fileList.push(o);
-                this.form.uploadfile += o.name + "," + o.url + ";"
-            }
-        },
-      paramsTitle(){
-        this.$router.push({
-          name: 'PFANS1001FormView',
-          params: {
-            title: 4,
-          },
-        });
-      },
       buttonClick(val) {
-        if (val === 'back') {
-          this.paramsTitle();
-        } else {
           this.$refs["refform"].validate(valid => {
             if (valid) {
               this.loading = true;
-              if (this.form.careerplan === '0') {
-                this.form.businessplantype = "";
-                this.form.businessplanbalance = "";
-                this.form.classificationtype = "";
-              }
-              if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = "";
-              }
-                if (this.form.businessplantype === 'PR002002') {
-                    this.form.classificationtype = "";
-                }
-                if (this.form.businessplantype === 'PR002003') {
-                    this.form.classificationtype = "";
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                    this.form.classificationtype = "";
-                }
-              if (this.form.salequotation === 'PJ013001') {
-                this.form.reasonsforquotation = "";
-              }
-              if (this.form.salequotation === 'PJ013003') {
-                this.form.reasonsforquotation = "";
-              }
-                if (this.form.decisive === 'PJ011001') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
-                if (this.form.decisive === 'PJ011002') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
-                if (this.form.decisive === 'PJ011004') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
+              this.baseInfo = {};
               this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-              this.form.equipment = "0";
+              this.baseInfo.softwaretransfer = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.notification = [];
+              for (let i = 0; i < this.tableD.length; i++) {
+                    if (this.tableD[i].title !== '' || this.tableD[i].detailcenter_id !== '' || this.tableD[i].detailgroup_id !== '' ||
+                        this.tableD[i].detailteam_id !== '' || this.tableD[i].phonenumber !== '' || this.tableD[i].emaildetail !== ''
+                        || this.tableD[i].startdate !== '' || this.tableD[i].fabuilding !== '' || this.tableD[i].fbbuilding !== '' || this.tableD[i].entrymanager !== '') {
+                        this.baseInfo.notification.push(
+                            {
+                                securitydetailid: this.tableD[i].securitydetailid,
+                                securityid: this.tableD[i].securityid,
+                                title: this.tableD[i].title,
+                                detailcenter_id: this.tableD[i].detailcenter_id,
+                                detailgroup_id: this.tableD[i].detailgroup_id,
+                                detailteam_id: this.tableD[i].detailteam_id,
+                                phonenumber: this.tableD[i].phonenumber,
+                                emaildetail: this.tableD[i].emaildetail,
+                                startdate: this.tableD[i].startdate,
+                                fabuilding: this.tableD[i].fabuilding,
+                                fbbuilding: this.tableD[i].fbbuilding,
+                                entrymanager: this.tableD[i].entrymanager,
+                            },
+                        );
+                    }
+                }
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', this.form)
+                  .dispatch('PFANS1021Store/updateSecurity', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -574,7 +450,6 @@
                               type: 'success',
                               duration: 5 * 1000
                           });
-                          this.paramsTitle();
                       }
                   })
                   .catch(error => {
@@ -588,7 +463,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', this.form)
+                  .dispatch('PFANS1021Store/createSecurity', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -597,7 +472,6 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
-                    this.paramsTitle();
                   })
                   .catch(error => {
                     Message({
@@ -610,7 +484,6 @@
               }
             }
           });
-        }
       }
     }
   }

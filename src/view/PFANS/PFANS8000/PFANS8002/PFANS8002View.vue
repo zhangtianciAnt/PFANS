@@ -10,7 +10,7 @@
                 <el-table-column :label="$t('label.information_title')" align="center" prop="title" width="500%">
                 </el-table-column>
                 <el-table-column :label="$t('label.information_content')" align="center" prop="content"
-                                 width="500%">
+                                 width="400%">
                 </el-table-column>
                 <el-table-column :label="$t('label.information_start')" align="center" prop="createon" width="410%">
                 </el-table-column>
@@ -29,7 +29,7 @@
                 <el-table-column :label="$t('label.information_title')" align="center" prop="title" width="500%">
                 </el-table-column>
                 <el-table-column :label="$t('label.information_content')" align="center" prop="content"
-                                 width="500%">
+                                 width="400%">
                 </el-table-column>
                 <el-table-column :label="$t('label.information_start')" align="center" prop="createon" width="410%">
                 </el-table-column>
