@@ -254,7 +254,7 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0" :max="100"
+                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
                                          style="width: 100%"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -286,7 +286,7 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0" :max="100"
+                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -477,6 +477,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                 ],
                 tableD2: [
@@ -487,6 +488,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                     {
                         usecouponid: "",
@@ -495,6 +497,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                     {
                         usecouponid: "",
@@ -503,6 +506,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                 ],
                 tableD3: [
@@ -513,6 +517,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                     {
                         usecouponid: "",
@@ -521,6 +526,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                     {
                         usecouponid: "",
@@ -529,6 +535,7 @@
                         copunnumber: "",
                         copunvalue: "",
                         copunusenumber: "",
+                        rowindex: "",
                     },
                 ],
                 baseInfo: {},
@@ -568,11 +575,6 @@
                         message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
                         trigger: 'change'
                     }],
-                    errortype: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_ERRORTYPE'),
-                        trigger: 'change',
-                    }],
                     businesscity: [{
                         required: true,
                         message: this.$t('normal.error_08') + this.$t('label.PFANS3007VIEW_BUSINESSCITY'),
@@ -585,13 +587,13 @@
                     }],
                     condominiumcompany: [{
                         required: true,
-                        message: this.$t("normal.error_08") + this.$t("label.PFANS3007VIEW_CONDOMINIUMCOMPANY"),
-                        trigger: "blur"
+                        message: this.$t("normal.error_09") + this.$t("label.PFANS3007VIEW_CONDOMINIUMCOMPANY"),
+                        trigger: "change"
                     }],
                     apartmentplace: [{
                         required: true,
-                        message: this.$t("normal.error_08") + this.$t("label.PFANS3007VIEW_APARTMENTPLACE"),
-                        trigger: "blur"
+                        message: this.$t("normal.error_09") + this.$t("label.PFANS3007VIEW_APARTMENTPLACE"),
+                        trigger: "change"
                     }],
                     housenumber: [{
                         required: true,
@@ -665,8 +667,11 @@
                     .then(response => {
                         this.form = response.japancondominium;
                         if (response.usecoupon.length > 0) {
-                            this.tableD = response.usecoupon
+                            this.tableD = response.usecoupon;
                         }
+                        this.userlist = this.form.userid;
+                        this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
+                        this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD));
                         if (this.form.condominiumcompany === 'PR007001') {
                             this.show2 = true;
                             this.show3 = false;
@@ -723,7 +728,6 @@
                                 this.tableD3[2].copunvalue = dictionaryInfo.value3;
                             }
                         }
-                        this.userlist = this.form.userid;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -821,7 +825,7 @@
             getbudgetunit(val) {
                 this.form.budgetunit = val;
             },
-            getcondominiumcompany(val) {//111
+            getcondominiumcompany(val) {
                 this.form.condominiumcompany = val;
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
@@ -834,6 +838,7 @@
                     this.show2 = true;
                     this.show3 = false;
                     this.show = false;
+                    this.form.apartmentplace = null;
                     this.showdata2 = true;
                     this.showdata3 = false;
                     this.showdata = false;
@@ -865,6 +870,7 @@
                     this.show3 = true;
                     this.show2 = false;
                     this.show = false;
+                    this.form.apartmentplace = null;
                     this.showdata3 = true;
                     this.showdata2 = false;
                     this.showdata = false;
@@ -908,6 +914,9 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
+                        if( this.form.condominiumcompany === "PR007001"){
+                            this.form.copunusenumber = this.tableData2[0].copunusenumber;
+                        }
                         this.loading = true;
                         this.form.userid = this.userlist;
                         this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
