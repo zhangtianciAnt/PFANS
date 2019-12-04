@@ -1245,19 +1245,25 @@
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_QQH')"
                     align="center"
-                    prop="january"
+                    prop="lastdiligence"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
-                    :label="$t('label.PFANS2005FORMVIEW_BQH')"
+                    :label="$t('label.PFANS2005FORMVIEW_DBQH')"
                     align="center"
-                    prop="february"
+                    prop="lastshortdeficiency"
+                    width="150%"
+                  ></el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2005FORMVIEW_CBQH')"
+                    align="center"
+                    prop="lastchronicdeficiency"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
-                    prop="march"
+                    prop="lasttotal"
                     width="150%"
                   ></el-table-column>
                 </el-table-column>
@@ -1265,32 +1271,50 @@
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_QQH')"
                     align="center"
-                    prop="january"
+                    prop="thisdiligence"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisdiligence"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
-                    :label="$t('label.PFANS2005FORMVIEW_BQH')"
+                    :label="$t('label.PFANS2005FORMVIEW_DBQH')"
                     align="center"
-                    prop="february"
+                    prop="thisshortdeficiency"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisshortdeficiency"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2005FORMVIEW_CBQH')"
+                    align="center"
+                    prop="thischronicdeficiency"
+                    width="150%"
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thischronicdeficiency"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
-                    prop="march"
+                    prop="thistotal"
                     width="150%"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_REMARKS')"
                   align="center"
-                  prop="total"
+                  prop="remarks"
                   width="120%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_KCJL')"
                   align="center"
-                  prop="total"
+                  prop="give"
                   width="120%"
                 ></el-table-column>
               </el-table>
@@ -1333,62 +1357,62 @@
                 <el-table-column
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
                   align="center"
-                  prop="user_id"
+                  prop="rn"
                   width="160%"
                 ></el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_XYCY')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRJB')"
                     align="center"
-                    prop="january"
+                    prop="lastweekdays"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRSY1')"
                     align="center"
-                    prop="january"
+                    prop="lastlatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRJB')"
                     align="center"
-                    prop="february"
+                    prop="lastrestDay"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRSY1')"
                     align="center"
-                    prop="january"
+                    prop="lastrestlatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDJB')"
                     align="center"
-                    prop="march"
+                    prop="lastlegal"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDSY1')"
                     align="center"
-                    prop="january"
+                    prop="lastlegallatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DX')"
                     align="center"
-                    prop="april"
+                    prop="lastreplace"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
                     align="center"
-                    prop="may"
+                    prop="lasttotalh"
                     width="110%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
-                    prop="june"
+                    prop="lasttotaly"
                     width="110%"
                   ></el-table-column>
                 </el-table-column>
@@ -1396,92 +1420,94 @@
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRJB')"
                     align="center"
-                    prop="january"
+                    prop="thisweekdays"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisweekdays"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRSY1')"
                     align="center"
-                    prop="january"
+                    prop="thislatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRJB')"
                     align="center"
-                    prop="february"
+                    prop="thisrestDay"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisrestDay"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRSY1')"
                     align="center"
-                    prop="january"
+                    prop="thisrestlatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDJB')"
                     align="center"
-                    prop="march"
+                    prop="thislegal"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thislegal"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDSY1')"
                     align="center"
-                    prop="january"
+                    prop="thislegallatenight"
                     width="150%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DX')"
                     align="center"
-                    prop="april"
+                    prop="thisreplace"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisreplace"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DXN')"
                     align="center"
-                    prop="april"
+                    prop="thisreplace3"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.thisreplace3"></el-input>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
                     align="center"
-                    prop="may"
+                    prop="thistotalh"
                     width="110%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
-                    prop="june"
+                    prop="thistotaly"
                     width="110%"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_REMARKS')"
                     align="center"
-                    prop="june"
+                    prop="remarks"
                     width="110%"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_KASUKE')"
                   align="center"
-                  prop="total"
-                  width="120%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2005FORMVIEW_SYJBY')"
-                  align="center"
-                  prop="total"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2005FORMVIEW_SZ')"
-                  align="center"
-                  prop="total"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2005FORMVIEW_ZH')"
-                  align="center"
-                  prop="total"
+                  prop="subsidy"
                   width="120%"
                 ></el-table-column>
               </el-table>

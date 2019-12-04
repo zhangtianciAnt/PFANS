@@ -363,7 +363,6 @@ padding: 0 0.8rem;">&nbsp;
       },
       handleDateClick: function(info) {
         this.day = moment(info.date).format('YYYY-MM-DD');
-        this._id = row.informationid;
         this.$router.push({
           name: 'PFANS5008FormView',
           params: {
