@@ -3,14 +3,14 @@
     <el-row>
       <el-col :span="12">
         <el-row>
-        <div>
-          <div style="  border: 0.1rem solid #e0e0e0;
+          <div>
+            <div style="  border: 0.1rem solid #e0e0e0;
 cursor: pointer;
 width: 50%;
 height: 6rem;
 " @click="clickDSP">
-            <img style="height: 2rem">
-            <div style="width: 16rem;
+              <img style="height: 2rem">
+              <div style="width: 16rem;
 margin-left: 5rem;
 margin-top: 1rem;
 text-overflow: ellipsis;
@@ -19,11 +19,11 @@ float: left;
 padding: 1rem 0rem;
 height: 5rem;
 line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
-              <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
-              {{$t('label.INDEX_DSPSX')}}
+                <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
+                {{$t('label.INDEX_DSPSX')}}
+              </div>
             </div>
           </div>
-        </div>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -74,11 +74,11 @@ line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
         <div style="margin-top: 3rem;margin-left: 5rem">
           <el-row>
             <el-col :span="22">
-          <full-calendar :first-day="firstDay" :header='header'
-                         :locale='locale' :plugins="calendarPlugins"
-                         @dateClick="handleDateClick"
-                         defaultView="dayGridMonth"
-          />
+              <full-calendar :first-day="firstDay" :header='header'
+                             :locale='locale' :plugins="calendarPlugins"
+                             @dateClick="handleDateClick"
+                             defaultView="dayGridMonth"
+              />
             </el-col>
           </el-row>
         </div>
@@ -103,15 +103,15 @@ line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
  background-color: #CD96CD;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="GRZX">
+          border-radius: 5rem; " @click="submitForm(1)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
                   </div>
                 </div>
-                <div style="margin-top:1rem;margin-left: 1.3rem">
-                  <span>{{$t('label.INDEX_GRZX')}}</span>
+                <div style="margin-top:1rem;margin-left: 2.1rem">
+                  <span>{{$t('title.PFANS5008VIEW')}}</span>
                 </div>
               </div>
             </el-col>
@@ -121,7 +121,7 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #5d9cec;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="SJFX">
+          border-radius: 5rem; " @click="submitForm(2)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -129,8 +129,8 @@ padding: 0 0.8rem;">&nbsp;
                   </div>
 
                 </div>
-                <div style="margin-top:1rem;margin-left: 1.3rem">
-                  <span>{{$t('label.INDEX_SJFX')}}</span>
+                <div style="margin-top:1rem;margin-left: 0.5rem">
+                  <span>{{$t('title.PFANS2005VIEW')}}</span>
                 </div>
               </div>
             </el-col>
@@ -140,7 +140,7 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #4e86f8;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="SZ">
+          border-radius: 5rem; " @click="submitForm(3)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -148,8 +148,8 @@ padding: 0 0.8rem;">&nbsp;
                   </div>
 
                 </div>
-                <div style="margin-top:1rem;margin-left: 2.1rem">
-                  <span>{{$t('label.INDEX_SZ')}}</span>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS2017VIEW')}}</span>
                 </div>
               </div>
             </el-col>
@@ -159,7 +159,7 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #9E9E9E;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="GD">
+          border-radius: 5rem; " @click="submitForm(4)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -167,55 +167,36 @@ padding: 0 0.8rem;">&nbsp;
                   </div>
 
                 </div>
-                <div style="margin-top:1rem;margin-left: 2.1rem">
-                  <span>{{$t('label.INDEX_GD')}}</span>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS4001VIEW')}}</span>
                 </div>
               </div>
             </el-col>
             <el-col :span="3">
               <div>
                 <div style="
- background-color: #CD96CD;
+background-color: green;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="GRZX">
+          border-radius: 5rem; " @click="submitForm(5)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
                   </div>
                 </div>
-                <div style="margin-top:1rem;margin-left: 1.3rem">
-                  <span>{{$t('label.INDEX_GRZX')}}</span>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS5001VIEW')}}</span>
                 </div>
               </div>
             </el-col>
             <el-col :span="3">
               <div>
                 <div style="
-background-color: #5d9cec;
+background-color: #8a6d3b;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="SJFX">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem;margin-left: 1.3rem">
-                  <span>{{$t('label.INDEX_SJFX')}}</span>
-                </div>
-              </div>
-            </el-col>
-            <el-col :span="3">
-              <div>
-                <div style="
-background-color: #4e86f8;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem; " @click="SZ">
+          border-radius: 5rem; " @click="submitForm(6)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -223,18 +204,36 @@ padding: 0 0.8rem;">&nbsp;
                   </div>
 
                 </div>
-                <div style="margin-top:1rem;margin-left: 2.1rem">
-                  <span>{{$t('label.INDEX_SZ')}}</span>
+                <div style="margin-top:1rem">
+                  <span>{{$t('title.PFANS2020VIEW')}}</span>
                 </div>
               </div>
             </el-col>
             <el-col :span="3">
               <div>
                 <div style="
-background-color: #9E9E9E;
+background-color: red;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="GD">
+          border-radius: 5rem; " @click="submitForm(7)">
+                  <img style="height: 2rem">
+                  <div style="    float: right;
+color: red;
+padding: 0 0.8rem;">&nbsp;
+                  </div>
+                </div>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS2023VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div style="
+background-color: yellow;
+          width: 6.8rem;
+          height: 6.8rem;
+          border-radius: 5rem; " @click="submitForm(8)">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -242,8 +241,8 @@ padding: 0 0.8rem;">&nbsp;
                   </div>
 
                 </div>
-                <div style="margin-top:1rem;margin-left: 2.1rem">
-                  <span>{{$t('label.INDEX_GD')}}</span>
+                <div style="margin-top:1rem;margin-left: 0.7rem">
+                  <span>{{$t('title.PFANS2022VIEW')}}</span>
                 </div>
               </div>
             </el-col>
@@ -254,154 +253,176 @@ padding: 0 0.8rem;">&nbsp;
   </div>
 </template>
 <script>
-    import FullCalendar from '@fullcalendar/vue'
-    import dayGridPlugin from '@fullcalendar/daygrid'
-    import timeGridPlugin from '@fullcalendar/timegrid'
-    import interactionPlugin from '@fullcalendar/interaction'
-    import moment from 'moment'
-    import EasyNumBar from "@/components/EasyNumBar";
-    import {Message} from 'element-ui'
+  import FullCalendar from '@fullcalendar/vue';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import moment from 'moment';
+  import EasyNumBar from '@/components/EasyNumBar';
+  import {Message} from 'element-ui';
 
-    export default {
-        name: "indexView",
-        data() {
-            return {
-                _id: '',
-                DSPSX: '',
-                YSPSX: '',
-                YBHSX: '',
-                availablestate: '',
-                DataList2: [{}],
-                calendarPlugins: [
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin],
-                locale: 'cn',
-                listQuery: {
-                    page: 1,
-                    limit: 10
-                },
-                header: {
-                    right: 'prev,next today',
-                    center: 'title',
-                    left: 'month,agendaWeek,agendaDay'
-                },
-                firstDay: 1,
-                showNonCurrentDates: false,
-                activeName: "first",
-            };
+  export default {
+    name: 'indexView',
+    data() {
+      return {
+        _id: '',
+        DSPSX: '',
+        YSPSX: '',
+        YBHSX: '',
+        availablestate: '',
+        DataList2: [{}],
+        calendarPlugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin],
+        locale: 'cn',
+        listQuery: {
+          page: 1,
+          limit: 10,
         },
-        components: {
-            FullCalendar,
-            EasyNumBar
+        header: {
+          right: 'prev,next today',
+          center: 'title',
+          left: 'month,agendaWeek,agendaDay',
         },
-        methods: {
-            clickDSP() {
-                this.$router.push({
-                    name: 'PFANS8002View',
-                });
-            },
-            Clickckgd() {
-                this.$router.push({
-                    name: 'PFANS8008',
-                    params: {
-                        availablestate: '0',
-                    }
-                });
-
-            },
-            GRZX() {
-                this.$router.push({
-                    name: 'PFANS4001View',
-                });
-            },
-            SJFX() {
-                this.$router.push({
-                    name: '',
-                });
-            },
-            SZ() {
-                this.$router.push({
-                    name: '',
-                });
-            },
-            GD() {
-                this.$router.push({
-                    name: '',
-                });
-            },
-            rowclickDataList2(row, event, column) {
-                this._id = row.informationid;
-                this.$router.push({
-                    name: 'PFANS8003View',
-                    params: {
-                        _id: this._id,
-                        readonly: 1
-                    }
-                });
-            },
-            handleDateClick: function (info) {
-                this.day = moment(info.date).format('YYYY-MM-DD')
-                this._id = row.informationid;
-                this.$router.push({
-                    name: 'PFANS5008FormView',
-                    params: {
-                        date: this.day,
-                        disabled: true
-                    }
-                });
-            },
-            getGSDT() {
-                this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
-                    let data = [];
-                    for (let j = 0; j < response.length; j++) {
-                        if (response[j].creaton !== null && response[j].creaton !== "") {
-                            response[j].creaton = moment(response[j].creaton).format("YYYY-MM-DD");
-                        }
-                        let obj = {};
-                        obj.title = response[j].title;
-                        obj.url = response[j].url
-                        obj.creaton = response[j].creaton
-                        obj.informationid = response[j].informationid
-                        obj.availablestate = response[j].availablestate
-                        data[j] = obj;
-                    }
-                    this.DataList2 = data.slice(0, 7);
-                }).catch(err => {
-                    Message({
-                        message: err,
-                        type: 'error',
-                        duration: 5 * 1000
-                    })
-                });
-            },
-            getMessageData() {
-                this.$store
-                    .dispatch('indexStore/get', {})
-                    .then(response => {
-                        let sum = 0;
-                        for (let i = 0; i < response.length; i++) {
-                            if (response[i].status === '0') {
-                                sum = sum + 1
-                                this.DSPSX = sum;
-                            }
-                        }
-                    })
-                    .catch(err => {
-                        Message({
-                            message: err,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-                    });
-            },
-        },
-        mounted() {
-            this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-            this.getMessageData();
-            this.getGSDT();
+        firstDay: 1,
+        showNonCurrentDates: false,
+        activeName: 'first',
+      };
+    },
+    components: {
+      FullCalendar,
+      EasyNumBar,
+    },
+    methods: {
+      submitForm(val) {
+        if (val === 1) {
+          this.$router.push({
+            name: 'PFANS5008View',
+          });
         }
-    };
+        if (val === 2) {
+          this.$router.push({
+            name: 'PFANS2005View',
+          });
+        }
+        if (val === 3) {
+          this.$router.push({
+            name: 'PFANS2017View',
+          });
+        }
+        if (val === 4) {
+          this.$router.push({
+            name: 'PFANS4001View',
+          });
+        }
+        if (val === 5) {
+          this.$router.push({
+            name: 'PFANS5001View',
+          });
+        }
+        if (val === 6) {
+          this.$router.push({
+            name: 'PFANS2020View',
+          });
+        }
+        if (val === 7) {
+          this.$router.push({
+            name: 'PFANS2023View',
+          });
+        }
+        if (val === 8) {
+          this.$router.push({
+            name: 'PFANS2022View',
+          });
+        }
+      },
+      clickDSP() {
+        this.$router.push({
+          name: 'PFANS8002View',
+        });
+      },
+      Clickckgd() {
+        this.$router.push({
+          name: 'PFANS8008',
+          params: {
+            availablestate: '0',
+          },
+        });
+
+      },
+      rowclickDataList2(row, event, column) {
+        this._id = row.informationid;
+        this.$router.push({
+          name: 'PFANS8003View',
+          params: {
+            _id: this._id,
+            readonly: 1,
+          },
+        });
+      },
+      handleDateClick: function(info) {
+        this.day = moment(info.date).format('YYYY-MM-DD');
+        this._id = row.informationid;
+        this.$router.push({
+          name: 'PFANS5008FormView',
+          params: {
+            date: this.day,
+            disabled: true,
+          },
+        });
+      },
+      getGSDT() {
+        this.$store.dispatch('PFANS8008Store/getInformation').then(response => {
+          let data = [];
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].creaton !== null && response[j].creaton !== '') {
+              response[j].creaton = moment(response[j].creaton).format('YYYY-MM-DD');
+            }
+            let obj = {};
+            obj.title = response[j].title;
+            obj.url = response[j].url;
+            obj.creaton = response[j].creaton;
+            obj.informationid = response[j].informationid;
+            obj.availablestate = response[j].availablestate;
+            data[j] = obj;
+          }
+          this.DataList2 = data.slice(0, 7);
+        }).catch(err => {
+          Message({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+      },
+      getMessageData() {
+        this.$store
+          .dispatch('indexStore/get', {})
+          .then(response => {
+            let sum = 0;
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].status === '0') {
+                sum = sum + 1;
+                this.DSPSX = sum;
+              }
+            }
+          })
+          .catch(err => {
+            Message({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+    },
+    mounted() {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      this.getMessageData();
+      this.getGSDT();
+    },
+  };
 </script>
 <style lang="scss">
   .DataListStyle {
