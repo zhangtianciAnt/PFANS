@@ -3529,7 +3529,8 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === '16' || tab.index === '2' || tab.index === '3') {
+        if (tab.index === '16' || tab.index === '2' || tab.index === '3' || tab.index === '8' ||
+          tab.index === '9') {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === '0' ||
@@ -3537,8 +3538,6 @@
           tab.index === '5' ||
           tab.index === '6' ||
           tab.index === '7' ||
-          tab.index === '8' ||
-          tab.index === '9' ||
           tab.index === '10' ||
           tab.index === '11' ||
           tab.index === '12' ||
@@ -3920,6 +3919,8 @@
           this.baseInfo.otherOne = [];
           this.baseInfo.contrast = [];
           this.baseInfo.otherTwo = [];
+          this.baseInfo.Lackattendance = [];
+          this.baseInfo.Residual = [];
           if (this.tab === '2') {
             for (let i = 0; i < this.tableQT1Woman.length; i++) {
               this.baseInfo.otherOne.push({
@@ -3933,6 +3934,26 @@
                 othertwo_id: this.tableQT2[i].othertwo_id,
                 rootknot: this.tableQT2[i].rootknot,
                 giving_id: this.tableQT2[i].giving_id,
+              });
+            }
+          } else if (this.tab === '8') {
+            for (let i = 0; i < this.tableQQ.length; i++) {
+              this.baseInfo.Lackattendance.push({
+                lackattendance_id: this.tableQQ[i].lackattendance_id,
+                thisdiligence: this.tableQQ[i].thisdiligence,
+                thisshortdeficiency: this.tableQQ[i].thisshortdeficiency,
+                thischronicdeficiency: this.tableQQ[i].thischronicdeficiency,
+              });
+            }
+          } else if (this.tab === '9') {
+            for (let i = 0; i < this.tableCY.length; i++) {
+              this.baseInfo.Residual.push({
+                residual_id: this.tableCY[i].residual_id,
+                thisweekdays: this.tableCY[i].thisweekdays,
+                thisrestDay: this.tableCY[i].thisrestDay,
+                thislegal: this.tableCY[i].thislegal,
+                thisreplace: this.tableCY[i].thisreplace,
+                thisreplace3: this.tableCY[i].thisreplace3,
               });
             }
           } else if (this.tab === '16') {
