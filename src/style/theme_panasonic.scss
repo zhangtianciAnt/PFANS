@@ -1,0 +1,54 @@
+.theme_base{
+  .front{
+    color: #2a2a2a;
+    font-family: Helvetica Arial;
+  }
+  .System_front{
+    font-size: 1.25rem !important;
+  }
+  .Title_front{
+    font-size: 1.125rem !important;
+  }
+  .Menu_front{
+    font-size: 1rem !important;
+  }
+  .Content_front{
+    font-size: 0.875rem !important;
+  }
+  .Sub_Content_front{
+    font-size: 0.75rem !important;
+  }
+  .main_color{
+    color: #005BAA;
+  }
+  .sub_color_blue{
+    color: #005BAA;
+  }
+  .sub_color_green{
+     color: #009966;
+   }
+  .sub_color_yellow{
+    color: #F9E30E;
+  }
+  .sub_color_red{
+    color: #DF4848;
+  }
+  .main_bg_color{
+    background-color: #005BAA;
+  }
+  .sub_bg_color_blue{
+    background-color: #005BAA;
+  }
+  .sub_bg_color_green{
+    background-color: #009966;
+  }
+  .sub_bg_color_yellow{
+    color: #F9E30E;
+  }
+  .sub_bg_color_red{
+    background-color: #DF4848;
+  }
+  .sub_bg_color_grey{
+    background-color: #f7f8fd;
+  }
+}

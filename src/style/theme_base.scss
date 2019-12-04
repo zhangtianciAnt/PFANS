@@ -1,0 +1,48 @@
+.theme_base{
+  .front{
+    color: #2a2a2a;
+    font-family: Helvetica Arial;
+  }
+  .System_front{
+    font-size: 1.25rem !important;
+  }
+  .Title_front{
+    font-size: 1.125rem !important;
+  }
+  .Menu_front{
+    font-size: 1rem !important;
+  }
+  .Content_front{
+    font-size: 0.875rem !important;
+  }
+  .Sub_Content_front{
+    font-size: 0.75rem !important;
+  }
+  .main_color{
+    color: #4e86f8;
+  }
+  .sub_color_blue{
+    color: #81b2ec;
+  }
+  .sub_color_green{
+     color: #40cb82;
+   }
+  .sub_color_red{
+    color: #fe5959;
+  }
+  .main_bg_color{
+    background-color: #4e86f8;
+  }
+  .sub_bg_color_blue{
+    background-color: #81b2ec;
+  }
+  .sub_bg_color_green{
+    background-color: #40cb82;
+  }
+  .sub_bg_color_red{
+    background-color: #fe5959;
+  }
+  .sub_bg_color_grey{
+    background-color: #f7f8fd;
+  }
+}
