@@ -26,14 +26,21 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 9.2rem" v-model="form.user_id"></user>
-              </el-form-item>
+                <user :disabled="!disable"
+                      :error="error"
+                      :selectType="selectType"
+                      :userlist="userlist"
+                      @getUserids="getUserids"
+                      style="width: 9.2rem"
+                      v-model="form.user_id"
+                ></user></el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="!disable" style="width:11rem" v-model="form.stype"></el-input>
-              </el-form-item>
+                <el-input :disabled="!disable"
+                          style="width:11rem"
+                          v-model="form.type"
+                ></el-input></el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.subtype')" >
@@ -41,7 +48,7 @@
                            :data="form.subtype"
                            :disabled="!disable"
                            :multiple="multiple"
-                           @change="changecurrencychoice"
+                           @change="changesubtype"
                            style="width: 11rem">
                 </dicselect>
               </el-form-item>
@@ -49,37 +56,40 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorapplicationdate" :label="$t('label.application_date')" prop="application_date">
-                <el-date-picker
-                  :disabled="!disable"
-                  :error="errorapplicationdate"
-                  style="width:11rem"
-                  type="date"
-                  v-model="form.application_date">
-                </el-date-picker>
+              <el-form-item :label="$t('label.application')">
+                <el-date-picker :disabled="!disable"
+                                style="width:11rem"
+                                type="date"
+                                v-model="form.application"
+                ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.email')" prop="email">
-                <el-input
-                  :disabled="!disable" maxlength="20" style="width: 11rem"
-                  v-model="form.email"></el-input>
+              <el-form-item :label="$t('label.email')">
+                <el-input :disabled="!disable"
+                          maxlength="20"
+                          style="width: 11rem"
+                          v-model="form.email"
+                ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')">
-                <el-input :disabled="!disable" style="width: 11rem" v-model="form.extension" maxlength="11" ></el-input>
-              </el-form-item>
+                <el-input :disabled="!disable"
+                          style="width: 11rem"
+                          v-model="form.extension"
+                          maxlength="11"
+                ></el-input></el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_IDTYPE')" >
-                <dicselect :code="code1"
+                <dicselect :code="code"
                            :data="form.idtype"
                            :disabled="!disable"
                            :multiple="multiple"
-                           @change="changecurrencychoice"
+                           @change="changeidtype"
                            style="width: 11rem">
                 </dicselect>
               </el-form-item>
@@ -90,6 +100,162 @@
               <div class="sub_color_blue" >{{$t('label.PFANS1017FORMVIEW_NEW')}}</div>
             </el-col>
           </el-row>
+
+
+
+
+<!---->
+          <el-row style="padding-top:1.5rem" >
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
+              <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center"  width="150" >
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" v-model="scope.row.number" style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column >
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center"  width="150">
+                <template slot-scope="scope">
+                  <dicselect
+                      :code="code"
+                      :data="form.usertype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="changeusertype"
+                      style="width: 100%"
+                  ></dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" v-model="scope.row.username" style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_SURNAME')" align="center" width="130">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" v-model="scope.row.surname" style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_MING')" align="center" width="130">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" v-model="scope.row.ming" style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
+                <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.account" style="width: 100%">
+                    </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_TRANSMISSION')" align="center" width="150">
+                <template slot-scope="scope">
+                    <dicselect
+                      :code="code"
+                      :data="form.transmission"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="changetransmission"
+                      style="width: 100%"
+                    ></dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-date-picker :disabled="!disable"
+                                    style="width: 100%"
+                                    type="date"
+                                    v-model="form.waitfortime"
+                  ></el-date-picker>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.budgetunit')" align="center" width="150">
+                <template slot-scope="scope">
+                  <dicselect
+                    :code="code"
+                    :data="form.budgetunit"
+                    :disabled="!disable"
+                    :multiple="multiple"
+                    @change="changebudgetunit"
+                    style="width: 100%"
+                  ></dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_CYBOZU')" align="center" width="150">
+                <template slot-scope="scope">
+                  <dicselect
+                    :code="code"
+                    :data="form.cybozu"
+                    :disabled="!disable"
+                    :multiple="multiple"
+                    @change="changecybozu"
+                    style="width: 8rem"
+                  ></dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-date-picker :disabled="!disable"
+                                  style="width: 100%"
+                                    type="date"
+                                    v-model="form.expecttime"
+                  ></el-date-picker>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_DOMAINACCOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <dicselect
+                      :code="code"
+                      :data="form.domainaccount"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="changedomainaccount"
+                      style="width: 100%"
+                  ></dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-date-picker :disabled="!disable"
+                                  style="width: 100%"
+                                    type="date"
+                                    v-model="form.forwardtime"
+                  ></el-date-picker>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" v-model="scope.row.preparefor" style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.operation')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-button
+                    @click.native.prevent="deleteRow1(scope.$index, tableT)"
+                    type="danger"
+                    size="small"
+                    plain
+                    :disabled="!disable"
+                  >{{$t('button.delete')}}
+                  </el-button>
+                  <el-button
+                    @click="addRow1()"
+                    type="primary"
+                    size="small"
+                    plain
+                    :disabled="!disable"
+                  >{{$t('button.insert')}}
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-row>
+<!---->
+
+
+
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -112,25 +278,38 @@
         },
         data() {
             return {
+                multiple: false,
+                selectType: "Single",
+                error: '',
                 title: "title.PFANS1017VIEW",
                 tabIndex: 0,
                 form: {
                     center_id: '',
                     group_id: '',
                     team_id: '',
+                    user_id: '',
+                    type: '',
+                    subtype: '',
+                    application: '',
+                    email: '',
+                    extension: '',
+                    idtype: '',
                 },
                 tableT: [{
-                    publicexpenseid: "",
-                    trafficdetails_id: "",
-                    trafficdate: "",
-                    region: "",
-                    vehicle: "",
-                    startingpoint: "",
-                    rmb: "",
-                    foreigncurrency: "",
-                    annexno: "",
-                    rowindex: "",
-                    display: true,
+                    number: "",
+                    usertype: "",
+                    username: "",
+                    surname: "",
+                    ming: "",
+                    account: "",
+                    transmission: "",
+                    waitfortime: "",
+                    budgetunit: "",
+                    cybozu: "",
+                    expecttime: "",
+                    domainaccount: "",
+                    forwardtime: "",
+                    preparefor: "",
                 }],
                 disabled: false,
                 rules: {},
@@ -218,47 +397,11 @@
             //         },
             //     });
             // },
-            addRow() {
+            addRow1() {
                 this.tableT.push({
-                    trafficdetails_id: "",
-                    publicexpenseid: "",
-                    trafficdate: "",
-                    region: "",
-                    vehicle: "",
-                    startingpoint: "",
-                    rmb: "",
-                    foreigncurrency: "",
-                    annexno: "",
-                    rowindex: "",
-                    display: true
+                    user: "",
+                    reason: "",
                 });
-            },
-            getTsummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                    } else {
-                        sums[index] = '--'
-                    }
-                });
-                this.getMoney(sums);
-                this.getforeigncurrency(sums);
-                this.getValue(sums);
-                return sums;
             },
             buttonClick(val) {
                 if (val === 'back') {
@@ -268,7 +411,7 @@
                         if (valid) {
                             this.loading = true
                             if (this.$route.params._id) {
-                                this.form.loanapplication_id = this.$route.params._id;
+                                this.form.psdcd_id = this.$route.params._id;
                                 this.$store
                                     .dispatch('PFANS1017Store/updatePsdcd', this.form)
                                     .then(response => {
