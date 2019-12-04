@@ -18,8 +18,8 @@ overflow: hidden;
 float: left;
 padding: 1rem 0rem;
 height: 5rem;
-line-height: 1.8rem;color: #F9E30E" @click="clickDSP">{{$t('label.INDEX_NY')}}
-              <span style="font-size:5rem">{{this.DSPSX}}</span>
+line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
+              <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
               {{$t('label.INDEX_DSPSX')}}
             </div>
           </div>
@@ -331,13 +331,12 @@ padding: 0 0.8rem;">&nbsp;
                 });
             },
             rowclickDataList2(row, event, column) {
-                debugger
-                this.row = row.url.replace("/", "");
                 this._id = row.informationid;
                 this.$router.push({
-                    name: this.row,
+                    name: 'PFANS8003View',
                     params: {
                         _id: this._id,
+                        readonly: 1
                     }
                 });
             },
