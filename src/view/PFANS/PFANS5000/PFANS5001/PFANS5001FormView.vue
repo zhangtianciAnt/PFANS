@@ -227,6 +227,25 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.enclosure')">
+                        <el-upload
+                          :action="upload"
+                          :file-list="fileList"
+                          :on-remove="fileRemove"
+                          :on-preview="fileDownload"
+                          :on-success="fileSuccess"
+                          :on-error="fileError"
+                          class="upload-demo"
+                          drag
+                          ref="upload">
+                          <i class="el-icon-upload"></i>
+                          <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                        </el-upload>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
                 </el-form>
               </div>
             </el-tab-pane>
@@ -342,7 +361,6 @@
                   </el-table-column>
                 </el-table>
               </el-form-item>
-
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -354,6 +372,7 @@
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import user from "../../../components/user.vue";
     import dicselect from "../../../components/dicselect.vue";
+    import {uploadUrl} from '@/utils/customize';
     import {Message} from 'element-ui';
 
     export default {
@@ -556,7 +575,8 @@
                 code6: 'PP007',
                 code7: 'PG017',
                 code8: 'PG017',
-
+                fileList: [],
+                upload: uploadUrl(),
             }
         },
         mounted() {
@@ -574,7 +594,6 @@
                         if (response.projectresources.length > 0) {
                             this.tableE = response.projectresources
                         }
-
                         this.loading = false;
                     })
                     .catch(error => {
@@ -583,6 +602,17 @@
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        if (this.form.uploadfile != "") {
+                            let uploadfile = this.form.uploadfile.split(";");
+                            for (var i = 0; i < uploadfile.length; i++) {
+                                if (uploadfile[i].split(",")[0] != "") {
+                                    let o = {};
+                                    o.name = uploadfile[i].split(",")[0];
+                                    o.url = uploadfile[i].split(",")[1];
+                                    this.fileList.push(o)
+                                }
+                            }
+                        }
                         this.loading = false;
                     });
 
@@ -672,7 +702,46 @@
                 this.form.status = '0';
                 this.buttonClick("update");
             },
+            fileError(err, file, fileList){
+                Message({
+                    message: this.$t("normal.error_04"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
+            },
+            fileRemove(file, fileList){
+                this.fileList = [];
+                this.form.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    o.url = item.url;
+                    this.fileList.push(o);
+                    this.form.uploadfile += item.name + "," + item.url + ";"
+                }
+            },
+            fileDownload(file) {
+                if (file.url) {
+                    var url = downLoadUrl(file.url);
+                    window.open(url);
+                }
 
+            },
+            fileSuccess(response, file, fileList) {
+                this.fileList = [];
+                this.form.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    if (!item.url) {
+                        o.url = item.response.info;
+                    } else {
+                        o.url = item.url;
+                    }
+                    this.fileList.push(o);
+                    this.form.uploadfile += o.name + "," + o.url + ";"
+                }
+            },
             deleteRow(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
@@ -695,9 +764,7 @@
                     role: "",
                 });
             },
-            //保存，创建
             buttonClick(val) {
-
                 this.form.leaderid = this.userlist;
                 this.form.managerid = this.userlist1;
                 this.$refs['from1'].validate(valid => {
