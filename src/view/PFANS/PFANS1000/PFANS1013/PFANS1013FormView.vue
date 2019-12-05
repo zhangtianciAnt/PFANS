@@ -1335,13 +1335,13 @@
         }
         //等级
         var varrank;
-        //出差补助
-        var varbusiness;
         let dictionaryInfo = getDictionaryInfo("PR021006");
         if (dictionaryInfo) {
           varrank = dictionaryInfo.value1;
         }
         varrank = varrank.substr(1,1);
+        //出差补助
+        var varbusiness;
         if(Number(varrank) < 7){
           let businessdic = getDictionaryInfode(row.exitarea,"R7以下",row.facilitytype);
           if (businessdic) {
