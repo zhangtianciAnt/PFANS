@@ -43,8 +43,9 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2014VIEW_HOURS')" prop="worktime">
+              <el-form-item :error="errorrworktime" :label="$t('label.PFANS2014VIEW_HOURS')" prop="worktime">
                 <el-time-select
+                  :error="errorrworktime"
                   :disabled="!disable"
                   :picker-options="{
                     start: '00:00',
@@ -98,27 +99,27 @@
                     this.error = '';
                 }
             };
-              var validateimplement_date = (rule, value, callback) => {
-                if (value) {
-                    if (moment(this.form.implement_date).format('YYYY-MM') <= moment(new Date()).format('YYYY-MM-DD')) {
-                        callback(new Error(this.$t('label.PFANS2014FORMVIEW_IMPLEMENTDATECHECK')));
-                    } else {
-                        if (moment(this.form.implement_date).format('DD') !== '01') {
-                            callback(new Error(this.$t('label.PFANS2014FORMVIEW_ZHI')));
-                        } else {
-                            if (this.form.implement_date !== null && this.form.implement_date !== '') {
-                                if (moment(value).format('YYYY-MM-DD') <= moment(this.form.application_date).format('YYYY-MM-DD')) {
-                                    callback(new Error(this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date')));
-                                    this.errorrapplicationdate = this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date');
-                                } else {
-                                    callback();
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    callback();
-                }
+            var validateimplement_date = (rule, value, callback) => {
+              if (value) {
+                  if (moment(this.form.implement_date).format('YYYY-MM') <= moment(new Date()).format('YYYY-MM-DD')) {
+                      callback(new Error(this.$t('label.PFANS2014FORMVIEW_IMPLEMENTDATECHECK')));
+                  } else {
+                      if (moment(this.form.implement_date).format('DD') !== '01') {
+                          callback(new Error(this.$t('label.PFANS2014FORMVIEW_ZHI')));
+                      } else {
+                          if (this.form.implement_date !== null && this.form.implement_date !== '') {
+                              if (moment(value).format('YYYY-MM-DD') <= moment(this.form.application_date).format('YYYY-MM-DD')) {
+                                  callback(new Error(this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date')));
+                                  this.errorrapplicationdate = this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date');
+                              } else {
+                                  callback();
+                              }
+                          }
+                      }
+                  }
+              } else {
+                  callback();
+              }
             };
             var validateapplication_date = (rule, value, callback) => {
                 if (this.form.application_date !== null && this.form.application_date !== '') {
@@ -134,9 +135,34 @@
                     this.errorrapplicationdate = '';
                 }
             };
+            var validateworktime = (rule, value, callback) => {
+                if (this.form.worktime !== null && this.form.worktime !== '') {
+                    if(this.workshift_start != '' && this.workshift_start != 'undefined'
+                        && this.workshift_end != '' && this.workshift_end != 'undefined' ){
+                        if(Number(value.replace(":","")) >= this.workshift_start && Number(value.replace(":","")) <= this.workshift_end){
+                            callback();
+                            this.errorrworktime = '';
+                        }
+                        else{
+                            callback(new Error(this.$t('label.PFANS2014FORMVIEW_WORKTIME')));
+                            this.errorrworktime = this.$t('label.PFANS2014FORMVIEW_WORKTIME');
+                        }
+                    }
+                    else{
+                        callback();
+                        this.errorrworktime = '';
+                    }
+                } else {
+                    callback();
+                    this.errorrworktime = '';
+                }
+            };
             return {
+                workshift_start: '',
+                workshift_end: '',
                 errorrapplicationdate: '',
                 errorrimplementdate: '',
+                errorrworktime: '',
                 loading: false,
                 error: '',
                 selectType: "Single",
@@ -163,8 +189,9 @@
                     worktime: [{
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.PFANS2014VIEW_HOURS'),
-                        trigger: "blur"
-                    }],
+                        trigger: "change"
+                    },
+                        {validator: validateworktime, trigger: "change"}],
                     application_date: [{
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.application_date'),
@@ -257,65 +284,95 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
-                        this.loading = true
-                        if (this.$route.params._id) {
-                            this.form.flexibleworkid = this.$route.params._id;
-                            this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                            this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
-                            this.$store
-                                .dispatch('PFANS2014Store/updateFlexiblework', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false
-                                    if(val !== "update"){
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
+                        this.loading = true;
+                        this.$store
+                            .dispatch('PFANS2018Store/getFpans2018List', {})
+                            .then(response => {
+                                if (response.length > 0) {
+                                    for (let i = 0; i < response.length; i++) {
+                                        if (response[i].workshift_start !== null && response[i].workshift_start !== "" &&
+                                            response[i].workshift_end !== null && response[i].workshift_end !== "") {
+                                            this.workshift_start = Number(response[i].workshift_start.replace(":",""));
+                                            this.workshift_end = Number(response[i].workshift_end.replace(":",""));
+                                            val = Number(this.form.worktime.replace(":",""));
+                                            if(val >= this.workshift_start && val <= this.workshift_end){
+                                                if (this.$route.params._id) {
+                                                    this.form.flexibleworkid = this.$route.params._id;
+                                                    this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
+                                                    this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
+                                                    this.$store
+                                                        .dispatch('PFANS2014Store/updateFlexiblework', this.form)
+                                                        .then(response => {
+                                                            this.data = response;
+                                                            this.loading = false
+                                                            if(val !== "update"){
+                                                                Message({
+                                                                    message: this.$t("normal.success_02"),
+                                                                    type: 'success',
+                                                                    duration: 5 * 1000
+                                                                });
+                                                                if (this.$store.getters.historyUrl) {
+                                                                    this.$router.push(this.$store.getters.historyUrl);
+                                                                }
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            Message({
+                                                                message: error,
+                                                                type: 'error',
+                                                                duration: 5 * 1000
+                                                            });
+                                                            this.loading = false
+                                                        })
+                                                } else {
+                                                    this.loading = true
+                                                    this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
+                                                    this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
+                                                    this.$store
+                                                        .dispatch('PFANS2014Store/createFlexiblework', this.form)
+                                                        .then(response => {
+                                                            this.data = response;
+                                                            this.loading = false
+                                                            Message({
+                                                                message: this.$t("normal.success_01"),
+                                                                type: 'success',
+                                                                duration: 5 * 1000
+                                                            });
+                                                            if (this.$store.getters.historyUrl) {
+                                                                this.$router.push(this.$store.getters.historyUrl);
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            Message({
+                                                                message: error,
+                                                                type: 'error',
+                                                                duration: 5 * 1000
+                                                            });
+                                                            this.loading = false
+                                                        })
+                                                }
+                                            }
+                                            else{
+                                                this.errorrworktime = this.$t('label.PFANS2014FORMVIEW_WORKTIME');
+                                                this.loading = false;
+                                                return;
+                                            }
                                         }
                                     }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false
-                                })
-                        } else {
-                            this.loading = true
-                            this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                            this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
-                            this.$store
-                                .dispatch('PFANS2014Store/createFlexiblework', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false
-                                })
-                        }
+                                }
+                                this.loading = false;
+                            })
+                            .catch(error => {
+                                Message({
+                                    message: error,
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                            })
                     }
                 });
-            }
+            },
         }
     }
 </script>

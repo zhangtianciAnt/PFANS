@@ -129,19 +129,12 @@
                     },
                     {
                         code: 'time_start',
-                        label: 'label.start',
+                        label: 'label.PFANS5008FORMVIEW_SC',
                         width: 140,
                         fix: false,
                         filter: true
                     },
-                    {
 
-                        code: 'time_end',
-                        label: 'label.end',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
                     {
                         code: 'work_memo',
                         label: 'label.PFANS5008VIEW_GZBZ',
@@ -270,11 +263,7 @@
                                         response[j].center_name = lst.centerNmae;
                                         response[j].group_name = lst.groupNmae;
                                         response[j].team_name = lst.teamNmae;
-
                                         response[j].log_date = moment(response[j].log_date).format("YYYY-MM-DD");
-                                        if (response[j].time_start !== null && response[j].time_start !== "") {
-                                            response[j].time_start = moment(response[j].time_start).format("HH:mm");
-                                        }
                                         if (response[j].time_end !== null && response[j].time_end !== "") {
                                             response[j].time_end = moment(response[j].time_end).format("HH:mm");
                                         }
