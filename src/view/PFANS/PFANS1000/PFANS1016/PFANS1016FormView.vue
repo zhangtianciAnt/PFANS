@@ -43,7 +43,7 @@
                 ></el-input></el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.subtype')" >
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_TYPESOF')" >
                 <dicselect :code="code1"
                            :data="form.typesof"
                            :disabled="!disable"
@@ -55,6 +55,15 @@
             </el-col>
           </el-row>
           <el-row>
+<!--         操作種類:   -->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_OPERATIONTYPE')">
+                <el-input :disabled="!disable"
+                          style="width: 11rem"
+                          v-model="form.operationtype"
+                          maxlength="11"
+                ></el-input></el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
                 <el-date-picker :disabled="!disable"
@@ -74,7 +83,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')">
+              <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')">
                 <el-input :disabled="!disable"
                           style="width: 11rem"
                           v-model="form.extension"
@@ -84,9 +93,21 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1017FORMVIEW_IDTYPE')" >
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')" >
                 <dicselect :code="code"
-                           :data="form.idtype"
+                           :data="form.manager"
+                           :disabled="!disable"
+                           :multiple="multiple"
+                           @change="changeidtype"
+                           style="width: 11rem">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')" >
+                <dicselect :code="code"
+                           :data="form.reason"
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changeidtype"
@@ -95,139 +116,82 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue" >{{$t('label.PFANS1017FORMVIEW_NEW')}}</div>
-            </el-col>
-          </el-row>
-
 
 
 
           <!---->
           <el-row style="padding-top:1.5rem" >
             <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
-              <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center"  width="150" >
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.number" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column >
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
                     :code="code"
-                    :data="form.usertype"
+                    :data="form.sourceipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changeusertype"
+                    @change="changesourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.username" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_SURNAME')" align="center" width="130">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.surname" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_MING')" align="center" width="130">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.ming" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.account" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_TRANSMISSION')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
                     :code="code"
-                    :data="form.transmission"
+                    :data="form.sourceipaddress"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changetransmission"
+                    @change="changesourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-date-picker :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="form.waitfortime"
-                  ></el-date-picker>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.budgetunit')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
                     :code="code"
-                    :data="form.budgetunit"
+                    :data="form.communication"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changebudgetunit"
+                    @change="changesourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_CYBOZU')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
                     :code="code"
-                    :data="form.cybozu"
+                    :data="form.destinationipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changecybozu"
-                    style="width: 8rem"
-                  ></dicselect>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-date-picker :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="form.expecttime"
-                  ></el-date-picker>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_DOMAINACCOUNT')" align="center" width="150">
-                <template slot-scope="scope">
-                  <dicselect
-                    :code="code"
-                    :data="form.domainaccount"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changedomainaccount"
+                    @change="changesourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="150">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="form.forwardtime"
-                  ></el-date-picker>
+                  <dicselect
+                    :code="code"
+                    :data="form.destinationipaddress"
+                    :disabled="!disable"
+                    :multiple="multiple"
+                    @change="changesourceipgroup"
+                    style="width: 100%"
+                  ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="150">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.preparefor" style="width: 100%">
-                  </el-input>
+                  <dicselect
+                    :code="code"
+                    :data="form.protocol"
+                    :disabled="!disable"
+                    :multiple="multiple"
+                    @change="changesourceipgroup"
+                    style="width: 100%"
+                  ></dicselect>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.operation')" align="center" width="150">
@@ -253,8 +217,6 @@
             </el-table>
           </el-row>
           <!---->
-
-
 
         </el-form>
       </div>
@@ -290,43 +252,20 @@
           user_id: '',
           type: '',
           typesof: '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-
-
-
-
-
-
+          operationtype: '',
+          application: '',
+          email: '',
+          extension: '',
+          manager: '',
+          reason: '',
         },
         tableT: [{
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-    : '',
-
+          sourceipgroup: '',
+          sourceipaddress: '',
+          communication: '',
+          destinationipgroup: '',
+          destinationipaddress: '',
+          protocol: '',
         }],
         disabled: false,
         rules: {},
