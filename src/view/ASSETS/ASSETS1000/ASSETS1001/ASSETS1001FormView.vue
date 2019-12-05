@@ -1,7 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container">
+    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick" ref="container">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
@@ -14,10 +13,10 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="stockstatus">
                 <dicselect
-                  :code="code"
+                  :code="code2"
                   :data="form.stockstatus"
                   :multiple="multiple"
-                  @change="getErrorType"
+                  @change="getStockstatus"
                   style="width: 11rem">
                 </dicselect>
               </el-form-item>
@@ -27,10 +26,10 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
                 <dicselect
-                  :code="code"
+                  :code="code1"
                   :data="form.typeassets"
                   :multiple="multiple"
-                  @change="getErrorType"
+                  @change="getTypeassets"
                   style="width: 11rem">
                 </dicselect>
               </el-form-item>
@@ -38,10 +37,10 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETSTATUS')" prop="assetstatus">
                 <dicselect
-                  :code="code"
+                  :code="code3"
                   :data="form.assetstatus"
                   :multiple="multiple"
-                  @change="getErrorType"
+                  @change="getAssetstatus"
                   style="width: 11rem">
                 </dicselect>
               </el-form-item>
@@ -56,7 +55,13 @@
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <org :orglist="this.orglist" :orgtype="orgtype"></org>
+                <org
+                  :orglist="form.usedepartment"
+                  orgtype="1"
+                  style="width: 9rem"
+                  selectType="Single"
+                  @getOrgids="getCenterid"
+                ></org>
               </el-form-item>
             </el-col>
           </el-row>
@@ -70,7 +75,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.1rem"></user>
+                      @getUserids="getUserids" style="width: 10.2rem"></user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -91,6 +96,7 @@
     import {Message} from 'element-ui';
     import dicselect from '../../../components/dicselect.vue';
     import user from '../../../components/user.vue';
+    import org from "@/view/components/org";
     import {getOrgInfoByUserId} from '@/utils/customize';
     import moment from 'moment';
     import {getDictionaryInfo,uploadUrl} from '../../../../utils/customize';
@@ -102,6 +108,7 @@
       ASSETS1001View,
       dicselect,
       user,
+      org
     },
     data() {
       return {
@@ -122,7 +129,9 @@
           assetstatus: '',
           stockstatus: '',
         },
-        code: 'PR013',
+        code1: 'PA001',
+        code2: 'PA002',
+        code3: 'PA003',
         multiple: false,
       };
     },
@@ -196,6 +205,14 @@
       }
     },
     methods: {
+      getCenterid(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.usedepartment === "") {
+          this.error = this.$t("normal.error_08") + "center";
+        } else {
+          this.error = "";
+        }
+      },
       getOvertimelist() {
         this.loading = true;
         this.$store
@@ -247,28 +264,14 @@
           this.error = '';
         }
       },
-      getErrorType(val) {
-        let dictionaryInfo = getDictionaryInfo(val);
-        if (dictionaryInfo) {
-          this.form.enclosureexplain = dictionaryInfo.value2;
-        }
-        this.form.errortype = val;
+      getStockstatus(val) {
+        this.form.stockstatus = val;
       },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick("update");
+      getAssetstatus(val) {
+        this.form.assetstatus = val;
       },
-      start() {
-        this.form.status = '2';
-        this.buttonClick("update");
-      },
-      end() {
-        this.form.status = '0';
-        this.buttonClick("update");
+      getTypeassets(val) {
+        this.form.typeassets = val;
       },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
