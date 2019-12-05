@@ -366,6 +366,7 @@
                       :max="1000000000"
                       :min="0"
                       :precision="2"
+                      :no="scope.row"
                       @change="changeRMB(scope.row)"
                       controls-position="right"
                       style="width: 100%"
@@ -500,13 +501,14 @@
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
+                      :no="scope.row"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodationallowance"
-                      @change="changeRMB"
+                      @change="changeaccommodationallowance(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -514,13 +516,14 @@
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
+                      :no="scope.row"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodation"
-                      @change="changeForeigncurrency"
+                      @change="changeaccommodation(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -563,7 +566,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="150" v-if="showAout" prop="plane">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="200" v-if="showAout" prop="plane" >
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -1186,7 +1189,7 @@
       change2(val){
         this.result2.forEach( res => {
           if(res.loanapplication_id === val){
-            this.form.loanamount = (res.moneys).toFixed(2);
+            this.form.loanamount = res.moneys;
           }
         });
       },
@@ -1510,6 +1513,24 @@
       changeForeigncurrency(newValue) {
         if (newValue.foreigncurrency > 0) {
           newValue.rmb = "";
+          newValue.display = false;
+          this.$nextTick(() => {
+            newValue.display = true
+          })
+        }
+      },
+      changeaccommodationallowance(newValue) {
+        if (newValue.accommodationallowance > 0) {
+          newValue.accommodation = "";
+          newValue.display = false;
+          this.$nextTick(() => {
+            newValue.display = true
+          })
+        }
+      },
+      changeaccommodation(newValue) {
+        if (newValue.accommodation > 0) {
+          newValue.accommodationallowance = "";
           newValue.display = false;
           this.$nextTick(() => {
             newValue.display = true
