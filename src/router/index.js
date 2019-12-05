@@ -44,6 +44,8 @@ import PFANS1017View from '@/view/PFANS/PFANS1000/PFANS1017/PFANS1017View.vue'
 import PFANS1017FormView from '@/view/PFANS/PFANS1000/PFANS1017/PFANS1017FormView.vue'
 import PFANS1021View from '@/view/PFANS/PFANS1000/PFANS1021/PFANS1021View.vue'
 import PFANS1021FormView from '@/view/PFANS/PFANS1000/PFANS1021/PFANS1021FormView.vue'
+import PFANS1023View from '@/view/PFANS/PFANS1000/PFANS1023/PFANS1023View.vue'
+import PFANS1023FormView from '@/view/PFANS/PFANS1000/PFANS1023/PFANS1023FormView.vue'
 import PFANS1034View from '@/view/PFANS/PFANS1000/PFANS1034/PFANS1034View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
@@ -103,6 +105,8 @@ import PFANS8001View from '@/view/PFANS/PFANS8000/PFANS8001/PFANS8001View.vue'
 import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
 import PFANS8007View from '@/view/PFANS/PFANS8000/PFANS8007/PFANS8007View.vue'
+import ASSETS1001View from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001View.vue'
+import ASSETS1001FormView from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001FormView.vue'
 Vue.use(Router);
 
 const routes = [
@@ -302,6 +306,16 @@ const routes = [
         path: '/PFANS1021FormView',
         name: 'PFANS1021FormView',
         component: PFANS1021FormView,
+      },
+      {
+        path: '/PFANS1023View',
+        name: 'PFANS1023View',
+        component: PFANS1023View,
+      },
+      {
+        path: '/PFANS1023FormView',
+        name: 'PFANS1023FormView',
+        component: PFANS1023FormView,
       },
       {
         path: '/PFANS1034View',
@@ -606,6 +620,16 @@ const routes = [
         path: '/PFANS8008FormView',
         name: 'PFANS8008FormView',
         component: PFANS8008FormView,
+      },
+      {
+        path: '/ASSETS1001View',
+        name: 'ASSETS1001View',
+        component: ASSETS1001View,
+      },
+      {
+        path: '/ASSETS1001FormView',
+        name: 'ASSETS1001FormView',
+        component: ASSETS1001FormView,
       },
     ]
   }

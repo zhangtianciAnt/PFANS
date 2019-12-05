@@ -1,31 +1,31 @@
 import request from '../../../../utils/request'
 
-export function getSecurity() {
+export function getConfidential() {
   return request({
-    url: 'security/get',
+    url: 'confidential/get',
     method: 'get'
   })
 }
 
 export function selectById(data) {
   return request({
-    url: 'security/selectById',
+    url: 'confidential/selectById',
     method: 'post',
     data: data
   })
 }
 
-export function updateSecurity(data) {
+export function updateConfidential(data) {
   return request({
-    url: 'security/update',
+    url: 'confidential/update',
     method: 'post',
     data: data
   })
 }
 
-export function createSecurity(data) {
+export function createConfidential(data) {
   return request({
-    url: 'security/create',
+    url: 'confidential/create',
     method: 'post',
     data: data
   })

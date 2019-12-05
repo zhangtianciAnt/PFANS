@@ -1,13 +1,13 @@
-import {getPsdcd, getPsdcdOne, updatePsdcd, createPsdcd} from './PFANS1017Api'
+import {getRouting, getRoutingOne, updateRouting, createRouting} from './PFANS1016Api'
 
-const PFANS1017Store = {
+const PFANS1016Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getPsdcd() {
+    getRouting() {
       return new Promise((resolve, reject) => {
-        getPsdcd().then(response => {
+        getRouting().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -19,9 +19,9 @@ const PFANS1017Store = {
       })
     },
 
-    getPsdcdOne({commit}, data) {
+    getRoutingOne({commit}, data) {
       return new Promise((resolve, reject) => {
-        getPsdcdOne(data).then(response => {
+        getRoutingOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -33,9 +33,9 @@ const PFANS1017Store = {
       })
     },
 
-    updatePsdcd({commit}, data) {
+    updateRouting({commit}, data) {
       return new Promise((resolve, reject) => {
-        updatePsdcd(data).then(response => {
+        updateRouting(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -47,9 +47,9 @@ const PFANS1017Store = {
       })
     },
 
-    createPsdcd({commit}, data) {
+    createRouting({commit}, data) {
       return new Promise((resolve, reject) => {
-        createPsdcd(data).then(response => {
+        createRouting(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -63,4 +63,4 @@ const PFANS1017Store = {
   }
 };
 
-export default PFANS1017Store;
+export default PFANS1016Store;
