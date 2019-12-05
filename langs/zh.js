@@ -259,6 +259,8 @@ module.exports = {
     PFANS8007VIEW: "工作日设置",
     ASSETS1001VIEW: "资产",
     ASSETS1001FORMVIEW: "资产详情",
+    ASSETS1002VIEW: "盘点计划",
+    ASSETS1002FORMVIEW: "盘点计划详情",
   },
   label: {
     pfanstype: "申請種類",
