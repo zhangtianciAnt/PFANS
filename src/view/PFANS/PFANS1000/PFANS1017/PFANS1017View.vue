@@ -49,22 +49,8 @@
                         filter: true
                     },
                     {
-                        code: 'worktime',
-                        label: 'label.PFANS2014VIEW_HOURS',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'implement_date',
-                        label: 'label.PFANS2014FORMVIEW_STARTDATE',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'status',
-                        label: 'label.approval_status',
+                        code: 'application',
+                        label: 'label.application',
                         width: 150,
                         fix: false,
                         filter: true

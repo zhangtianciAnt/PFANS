@@ -40,26 +40,22 @@
 
           <el-row style="padding-top:1.5rem">
             <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
-              <el-table-column :label="$t('label.user_name')" align="center" width="400%">
+              <el-table-column :label="$t('label.user_name')" align="center" width="400">
                 <template slot-scope="scope">
-                  <el-form-item prop="">
                     <user
                       :disabled="!disable"
                       :no="scope.row"
                       @getUserids="getuserid"
                       :userlist="scope.row.user"
                       selectType="Single"
-                      style="width:70%"
+                      style="width:100%"
                     ></user>
-                  </el-form-item>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
                 <template slot-scope="scope">
-                  <el-form-item prop="">
                     <el-input :disabled="!disable" v-model="scope.row.reason" style="width: 18rem">
                     </el-input>
-                  </el-form-item>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.operation')" width="200" align="center">
