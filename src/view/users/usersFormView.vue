@@ -586,7 +586,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')" prop="rank">
-                    <dicselect code="PJ016" class="width" @change="changeRank" :data="form.rank"></dicselect>
+                    <dicselect code="PR021" class="width" @change="changeRank" :data="form.rank"></dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>

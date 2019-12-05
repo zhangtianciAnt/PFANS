@@ -233,28 +233,28 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copuntype">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copunvalue">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
+                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
                                          style="width: 100%"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -265,28 +265,28 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copuntype">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copunvalue">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
+                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0" :max="Number(scope.row.copunnumbermax)"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -297,28 +297,28 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copuntype">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.copunvalue">
+                        <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :precision="0" :step="1" :min="0"
+                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0" :max="Number(scope.row.copunnumbermax)"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -352,7 +352,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007FORMVIEW_PAYMONEY')" prop="paymoney">
-                  <el-input-number :disabled="!disable" controls-position="right" :precision="0" :step="1" :min="0"
+                  <el-input-number :disabled="true" controls-position="right" :precision="0" :step="1" :min="0"
                                    :max="9999999999" style="width: 11rem"
                                    v-model.trim="form.paymoney"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
@@ -452,9 +452,6 @@
                 }
             }
             return {
-                copunnumber1: '',
-                copunnumber2: '',
-                copunnumber3: '',
                 moneys1: '',
                 moneys2: '',
                 error: '',
@@ -480,6 +477,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                 ],
                 tableD2: [
@@ -491,6 +489,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                     {
                         usecouponid: "",
@@ -500,6 +499,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                     {
                         usecouponid: "",
@@ -509,6 +509,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                 ],
                 tableD3: [
@@ -520,6 +521,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                     {
                         usecouponid: "",
@@ -529,6 +531,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                     {
                         usecouponid: "",
@@ -538,6 +541,7 @@
                         copunvalue: "",
                         copunusenumber: "",
                         rowindex: "",
+                        copunnumbermax: "",
                     },
                 ],
                 baseInfo: {},
@@ -669,36 +673,30 @@
                     .then(response => {
                         this.form = response.japancondominium;
                         if (response.usecoupon.length > 0) {
-                            if(this.form.condominiumcompany === "PR007001"){
+                            if (this.form.condominiumcompany === "PR007001") {
                                 this.tableD2 = response.usecoupon;
                                 for (let i = 0; i < this.tableD2.length; i++) {
-                                    if(this.tableD2[i].copuntype === "PR010001")
-                                    {
+                                    if (this.tableD2[i].copuntype === "PR010001") {
                                         this.tableD2[i].copuntype = "G劵";
                                     }
-                                    if(this.tableD2[i].copuntype === "PR010002")
-                                    {
+                                    if (this.tableD2[i].copuntype === "PR010002") {
                                         this.tableD2[i].copuntype = "M劵";
                                     }
-                                    if(this.tableD2[i].copuntype === "PR010003")
-                                    {
+                                    if (this.tableD2[i].copuntype === "PR010003") {
                                         this.tableD2[i].copuntype = "Q劵";
                                     }
                                 }
                             }
-                            if(this.form.condominiumcompany === "PR007002"){
+                            if (this.form.condominiumcompany === "PR007002") {
                                 this.tableD3 = response.usecoupon;
                                 for (let i = 0; i < this.tableD2.length; i++) {
-                                    if(this.tableD3[i].copuntype === "H劵")
-                                    {
+                                    if (this.tableD3[i].copuntype === "H劵") {
                                         this.tableD3[i].copuntype = "PR011001";
                                     }
-                                    if(this.tableD3[i].copuntype === "F劵")
-                                    {
+                                    if (this.tableD3[i].copuntype === "F劵") {
                                         this.tableD3[i].copuntype = "PR011002";
                                     }
-                                    if(this.tableD3[i].copuntype === "P劵")
-                                    {
+                                    if (this.tableD3[i].copuntype === "P劵") {
                                         this.tableD3[i].copuntype = "PR011003";
                                     }
                                 }
@@ -706,10 +704,10 @@
                         }
                         this.userlist = this.form.userid;
                         this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
-                        if(this.form.condominiumcompany === "PR007001"){
+                        if (this.form.condominiumcompany === "PR007001") {
                             this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD2));
                         }
-                        if(this.form.condominiumcompany === "PR007002"){
+                        if (this.form.condominiumcompany === "PR007002") {
                             this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD3));
                         }
                         if (this.form.condominiumcompany === 'PR007001') {
@@ -722,28 +720,30 @@
                             let dictionaryInfo = getDictionaryInfo('PR010001');
                             if (dictionaryInfo) {
                                 this.tableD2[0].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber1 = dictionaryInfo.value2;
+                                this.tableD2[0].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[0].copunvalue = dictionaryInfo.value3;
                             }
                             ;
                             dictionaryInfo = getDictionaryInfo('PR010002');
                             if (dictionaryInfo) {
                                 this.tableD2[1].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber2 = dictionaryInfo.value2;
+                                this.tableD2[1].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[1].copunvalue = dictionaryInfo.value3;
                             }
                             ;
                             dictionaryInfo = getDictionaryInfo('PR010003');
                             if (dictionaryInfo) {
                                 this.tableD2[2].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber3 = dictionaryInfo.value2;
+                                this.tableD2[2].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[2].copunvalue = dictionaryInfo.value3;
-                            };
+                            }
+                            ;
                             dictionaryInfo = getDictionaryInfo('PR007001');
                             if (dictionaryInfo) {
                                 this.form.moneys = dictionaryInfo.value2;
                                 this.moneys1 = dictionaryInfo.value2;
-                            };
+                            }
+                            ;
                         }
                         if (this.form.condominiumcompany === 'PR007002') {
                             this.show3 = true;
@@ -755,21 +755,21 @@
                             let dictionaryInfo = getDictionaryInfo('PR011001');
                             if (dictionaryInfo) {
                                 this.tableD3[0].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber1 = dictionaryInfo.value2;
+                                this.tableD3[0].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[0].copunvalue = dictionaryInfo.value3;
                             }
                             ;
                             dictionaryInfo = getDictionaryInfo('PR011002');
                             if (dictionaryInfo) {
                                 this.tableD3[1].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber2 = dictionaryInfo.value2;
+                                this.tableD3[1].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[1].copunvalue = dictionaryInfo.value3;
                             }
                             ;
                             dictionaryInfo = getDictionaryInfo('PR011003');
                             if (dictionaryInfo) {
                                 this.tableD3[2].copunnumber = dictionaryInfo.value2;
-                                this.copunnumber3 = dictionaryInfo.value2;
+                                this.tableD3[2].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[2].copunvalue = dictionaryInfo.value3;
                             }
                             ;
@@ -777,7 +777,8 @@
                             if (dictionaryInfo) {
                                 this.form.moneys = dictionaryInfo.value2;
                                 this.moneys2 = dictionaryInfo.value2;
-                            };
+                            }
+                            ;
                         }
                         this.loading = false;
                     })
@@ -840,16 +841,16 @@
             getcopunusenumber(val) {
                 if (this.form.condominiumcompany === "PR007001") {
                     this.tableD2.copunusenumber = val;
-                    this.tableD2[0].copunnumber = (this.copunnumber1) - (this.tableD2[0].copunusenumber);
-                    this.tableD2[1].copunnumber = (this.copunnumber2) - (this.tableD2[1].copunusenumber);
-                    this.tableD2[2].copunnumber = (this.copunnumber3) - (this.tableD2[2].copunusenumber);
+                    this.tableD2[0].copunnumber = (this.tableD2[0].copunnumbermax) - (this.tableD2[0].copunusenumber);
+                    this.tableD2[1].copunnumber = (this.tableD2[1].copunnumbermax) - (this.tableD2[1].copunusenumber);
+                    this.tableD2[2].copunnumber = (this.tableD2[2].copunnumbermax) - (this.tableD2[2].copunusenumber);
 
                 }
                 if (this.form.condominiumcompany === "PR007002") {
                     this.tableD3.copunusenumber = val;
-                    this.tableD3[0].copunnumber = (this.copunnumber1) - (this.tableD3[0].copunusenumber);
-                    this.tableD3[1].copunnumber = (this.copunnumber2) - (this.tableD3[1].copunusenumber);
-                    this.tableD3[2].copunnumber = (this.copunnumber3) - (this.tableD3[2].copunusenumber);
+                    this.tableD3[0].copunnumber = (this.tableD3[0].copunnumbermax) - (this.tableD3[0].copunusenumber);
+                    this.tableD3[1].copunnumber = (this.tableD3[1].copunnumbermax) - (this.tableD3[1].copunusenumber);
+                    this.tableD3[2].copunnumber = (this.tableD3[2].copunnumbermax) - (this.tableD3[2].copunusenumber);
                 }
             },
             //使用金额
@@ -857,9 +858,11 @@
                 this.form.usemoney = val;
                 if (this.form.condominiumcompany === "PR007001") {
                     this.form.moneys = (this.moneys1) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD2[0].copunvalue) * (this.tableD2[0].copunusenumber) - (this.tableD2[1].copunvalue) * (this.tableD2[1].copunusenumber) - (this.tableD2[2].copunvalue) * (this.tableD2[2].copunusenumber)
                 }
                 if (this.form.condominiumcompany === "PR007002") {
                     this.form.moneys = (this.moneys2) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD3[0].copunvalue) * (this.tableD3[0].copunusenumber) - (this.tableD3[1].copunvalue) * (this.tableD3[1].copunusenumber) - (this.tableD3[2].copunvalue) * (this.tableD3[2].copunusenumber)
                 }
             },
             //预算单位
@@ -872,10 +875,8 @@
                 if (dictionaryInfo) {
                     this.form.moneys = dictionaryInfo.value2;
                 }
+                debugger;
                 if (val === "PR007001") {
-                    this.copunnumber1 = '';
-                    this.copunnumber2 = '';
-                    this.copunnumber3 = '';
                     this.moneys1 = '';
                     this.moneys1 = '';
                     this.show2 = true;
@@ -888,33 +889,31 @@
                     let dictionaryInfo = getDictionaryInfo('PR010001');
                     if (dictionaryInfo) {
                         this.tableD2[0].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber1 = dictionaryInfo.value2;
+                        this.tableD2[0].copunnumbermax = dictionaryInfo.value2;
                         this.tableD2[0].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR010002');
                     if (dictionaryInfo) {
                         this.tableD2[1].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber2 = dictionaryInfo.value2;
+                        this.tableD2[1].copunnumbermax = dictionaryInfo.value2;
                         this.tableD2[1].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR010003');
                     if (dictionaryInfo) {
                         this.tableD2[2].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber3 = dictionaryInfo.value2;
+                        this.tableD2[2].copunnumbermax = dictionaryInfo.value2;
                         this.tableD2[2].copunvalue = dictionaryInfo.value3;
                     }
                     dictionaryInfo = getDictionaryInfo('PR007001');
                     if (dictionaryInfo) {
                         this.form.moneys = dictionaryInfo.value2;
                         this.moneys1 = dictionaryInfo.value2;
-                    };
+                    }
+                    ;
                 }
                 if (val === "PR007002") {
-                    this.copunnumber1 = '';
-                    this.copunnumber2 = '';
-                    this.copunnumber3 = '';
                     this.show3 = true;
                     this.show2 = false;
                     this.show = false;
@@ -925,28 +924,30 @@
                     let dictionaryInfo = getDictionaryInfo('PR011001');
                     if (dictionaryInfo) {
                         this.tableD3[0].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber1 = dictionaryInfo.value2;
+                        this.tableD3[0].copunnumbermax = dictionaryInfo.value2;
                         this.tableD3[0].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR011002');
                     if (dictionaryInfo) {
                         this.tableD3[1].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber2 = dictionaryInfo.value2;
+                        this.tableD3[1].copunnumbermax = dictionaryInfo.value2;
                         this.tableD3[1].copunvalue = dictionaryInfo.value3;
                     }
                     ;
                     dictionaryInfo = getDictionaryInfo('PR011003');
                     if (dictionaryInfo) {
                         this.tableD3[2].copunnumber = dictionaryInfo.value2;
-                        this.copunnumber3 = dictionaryInfo.value2;
+                        this.tableD3[2].copunnumbermax = dictionaryInfo.value2;
                         this.tableD3[2].copunvalue = dictionaryInfo.value3;
-                    };
+                    }
+                    ;
                     dictionaryInfo = getDictionaryInfo('PR007002');
                     if (dictionaryInfo) {
                         this.form.moneys = dictionaryInfo.value2;
                         this.moneys2 = dictionaryInfo.value2;
-                    };
+                    }
+                    ;
                 }
             }
             ,
@@ -978,16 +979,13 @@
                             if (this.form.condominiumcompany === "PR007001") {
                                 for (let i = 0; i < this.tableD2.length; i++) {
                                     if (this.tableD2[i].copuntype !== "" || this.tableD2[i].copunnumber !== "" || this.tableD2[i].copunvalue !== "" || this.tableD2[i].copunusenumber !== "") {
-                                        if(this.tableD2[i].copuntype === "G劵")
-                                        {
+                                        if (this.tableD2[i].copuntype === "G劵") {
                                             this.tableD2[i].copuntype = "PR010001";
                                         }
-                                        if(this.tableD2[i].copuntype === "M劵")
-                                        {
+                                        if (this.tableD2[i].copuntype === "M劵") {
                                             this.tableD2[i].copuntype = "PR010002";
                                         }
-                                        if(this.tableD2[i].copuntype === "Q劵")
-                                        {
+                                        if (this.tableD2[i].copuntype === "Q劵") {
                                             this.tableD2[i].copuntype = "PR010003";
                                         }
                                         this.baseInfo.usecoupon.push(
@@ -1006,16 +1004,13 @@
                             if (this.form.condominiumcompany === "PR007002") {
                                 for (let i = 0; i < this.tableD3.length; i++) {
                                     if (this.tableD3[i].copuntype !== "" || this.tableD3[i].copunnumber !== "" || this.tableD3[i].copunvalue !== "" || this.tableD3[i].copunusenumber !== "") {
-                                        if(this.tableD3[i].copuntype === "H劵")
-                                        {
+                                        if (this.tableD3[i].copuntype === "H劵") {
                                             this.tableD3[i].copuntype = "PR011001";
                                         }
-                                        if(this.tableD3[i].copuntype === "F劵")
-                                        {
+                                        if (this.tableD3[i].copuntype === "F劵") {
                                             this.tableD3[i].copuntype = "PR011002";
                                         }
-                                        if(this.tableD3[i].copuntype === "P劵")
-                                        {
+                                        if (this.tableD3[i].copuntype === "P劵") {
                                             this.tableD3[i].copuntype = "PR011003";
                                         }
                                         this.baseInfo.usecoupon.push(

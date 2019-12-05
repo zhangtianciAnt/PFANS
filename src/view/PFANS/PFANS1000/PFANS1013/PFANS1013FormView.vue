@@ -208,6 +208,7 @@
                       :min="0"
                       :max="9999999999"
                       :precision="2"
+                      :step="0.01"
                       controls-position="right"
                       @change="gettotal"
                       v-model="form.totalpay"
@@ -266,6 +267,7 @@
                 <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"width="150" prop="ratecurrency">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :precision="2"
                       controls-position="right"
@@ -278,6 +280,7 @@
                 <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"width="150" prop="usdcurrency">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :precision="2"
                       controls-position="right"
@@ -290,6 +293,7 @@
                 <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"width="150" prop="jpycurrency">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :precision="2"
                       controls-position="right"
@@ -302,6 +306,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center"width="150" prop="rmb">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :precision="2"
                       controls-position="right"
@@ -314,6 +319,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center"width="150" prop="total">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :precision="2"
                       controls-position="right"
@@ -360,6 +366,7 @@
                       :max="1000000000"
                       :min="0"
                       :precision="2"
+                      :no="scope.row"
                       @change="changeRMB(scope.row)"
                       controls-position="right"
                       style="width: 100%"
@@ -494,13 +501,14 @@
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
+                      :no="scope.row"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodationallowance"
-                      @change="changeRMB"
+                      @change="changeaccommodationallowance(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -508,13 +516,14 @@
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
+                      :no="scope.row"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodation"
-                      @change="changeForeigncurrency"
+                      @change="changeaccommodation(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -557,7 +566,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="150" v-if="showAout" prop="plane">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="200" v-if="showAout" prop="plane" >
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -694,9 +703,8 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getDictionaryInfo,getDictionaryInfode,getUserInfo} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
-  import {getDictionaryInfo} from "../../../../utils/customize";
   import {telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
 
@@ -902,6 +910,7 @@
         canStart: false,
         result:"",
         result2:"",
+        rank:"",
       };
     },
     mounted() {
@@ -952,18 +961,19 @@
               this.form.type = '2';
               this.show = false;
               this.show2 = true;
-              this.showdata = false;
-              this.showdata2 = true;
-              this.showAinner = false;
-              this.showAout = true;
               this.showforeigncurrency = true;
 
             }
+            //
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
             this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
             this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+            let user = getUserInfo(this.userlist);
+            if (user) {
+              this.rank = user.userinfo.rank;
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -982,6 +992,11 @@
           this.form.groupid = lst.groupNmae;
           this.form.teamid = lst.teamNmae;
           this.form.userid = this.$store.getters.userinfo.userid;
+
+          let user = getUserInfo(this.userlist);
+          if (user) {
+            this.rank = user.userinfo.rank;
+          }
         }
         if(this.form.type==='1'){
           this.showdata=true;
@@ -1174,7 +1189,7 @@
       change2(val){
         this.result2.forEach( res => {
           if(res.loanapplication_id === val){
-            this.form.loanamount = (res.moneys).toFixed(2);
+            this.form.loanamount = res.moneys;
           }
         });
       },
@@ -1287,18 +1302,20 @@
       getvehicle(val,row){
         row.vehicle=val;
         if(val==='PJ025001'){
-          debugger;
           row.train=getDictionaryInfo(val).value2;
         }
       },
       getmovementtime(val,row){
         row.movementtime=val;
+        this.getTravel(row);
       },
       getexitarea(val,row){
         row.exitarea=val;
+        this.getTravel(row);
       },
       getfacilitytype(val,row){
         row.facilitytype=val;
+        this.getTravel(row);
       },
       getforeign(sums){
         if(this.form.type==='1'){
@@ -1309,19 +1326,64 @@
         }
 
       },
+      getTravel(row){
+        //移动时间
+        var varmovementtime2 = 1;
+        let movementtimedic = getDictionaryInfo(row.movementtime);
+        if (movementtimedic) {
+          varmovementtime2 = movementtimedic.value2;
+        }
+        //等级
+        var varrank;
+        let dictionaryInfo = getDictionaryInfo("PR021006");
+        if (dictionaryInfo) {
+          varrank = dictionaryInfo.value1;
+        }
+        varrank = varrank.substr(1,1);
+        //出差补助
+        var varbusiness;
+        if(Number(varrank) < 7){
+          let businessdic = getDictionaryInfode(row.exitarea,"R7以下",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }else if(Number(varrank) === 8){
+          let businessdic = getDictionaryInfode(row.exitarea,"出向者",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }else if(Number(varrank) > 8){
+          let businessdic = getDictionaryInfode(row.exitarea,"R8以上",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }
+        var vartravel = 0;
+        if(varmovementtime2 != "" && varmovementtime2 != undefined
+          && varbusiness != "" && varbusiness != undefined){
+          vartravel = Number(varmovementtime2) * Number(varbusiness);
+        }
+        row.travel = vartravel;
+      },
       gettotal(val){
         if(this.form.type==='1'){
-          this.form.totalpay=this.tableDValue[1];
+          this.form.totalpay= Math.round((this.tableDValue[5]) * 10) / 10;
           this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
         }else if(this.form.type==='2'){
           if(this.form.currency==='PJ003001'){
-            this.form.totalpay=this.tableValue[5];
+            if(this.tableValue.length > 5){
+              this.form.totalpay = Math.round((this.tableValue[5]) * 10) / 10;
+            }
             this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }else if(this.form.currency==='PJ003002'){
-            this.form.totalpay=this.tableValue[5];
+            if(this.tableValue.length > 5){
+              this.form.totalpay= Math.round((this.tableValue[5]) * 10) / 10;
+            }
             this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }else {
-            this.form.totalpay=this.tableValue[5];
+            if(this.tableValue.length > 5){
+              this.form.totalpay= Math.round((this.tableValue[5]) * 10) / 10;
+            }
             this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }
         }
@@ -1425,6 +1487,24 @@
       changeForeigncurrency(newValue) {
         if (newValue.foreigncurrency > 0) {
           newValue.rmb = "";
+          newValue.display = false;
+          this.$nextTick(() => {
+            newValue.display = true
+          })
+        }
+      },
+      changeaccommodationallowance(newValue) {
+        if (newValue.accommodationallowance > 0) {
+          newValue.accommodation = "";
+          newValue.display = false;
+          this.$nextTick(() => {
+            newValue.display = true
+          })
+        }
+      },
+      changeaccommodation(newValue) {
+        if (newValue.accommodation > 0) {
+          newValue.accommodationallowance = "";
           newValue.display = false;
           this.$nextTick(() => {
             newValue.display = true

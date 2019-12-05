@@ -10,14 +10,14 @@
   import {getStatus, getUserInfo} from '@/utils/customize'
 
   export default {
-    name: 'PFANS1016View',
+    name: 'PFANS1019View',
     components: {
       EasyNormalTable,
     },
     data() {
       return {
         loading: false,
-        title: 'title.PFANS1016VIEW',
+        title: 'title.PFANS1017VIEW',
         data: [],
         columns: [
           {
@@ -48,6 +48,13 @@
             fix: false,
             filter: true
           },
+          {
+            code: 'application',
+            label: 'label.application',
+            width: 150,
+            fix: false,
+            filter: true
+          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -55,13 +62,13 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
-        row: 'routing_id',
+        row: 'trialsoft_id',
       }
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1016Store/getRouting')
+        .dispatch('PFANS1019Store/getTrialsoft')
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             let user = getUserInfo(response[j].user_id);
@@ -91,7 +98,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.routing_id
+        this.rowid = row.trialsoft_id
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -105,7 +112,7 @@
             return
           }
           this.$router.push({
-            name: 'PFANS1016FormView',
+            name: 'PFANS1019FormView',
             params: {
               _id: this.rowid,
               disabled: false
@@ -114,7 +121,7 @@
         }
         if (val === 'insert') {
           this.$router.push({
-            name: 'PFANS1016FormView',
+            name: 'PFANS1019FormView',
             params: {
               _id: '',
               disabled: true
@@ -131,7 +138,7 @@
             return
           }
           this.$router.push({
-            name: 'PFANS1016FormView',
+            name: 'PFANS1019FormView',
             params: {
               _id: this.rowid,
               disabled: true
@@ -146,4 +153,3 @@
 <style lang="scss" rel="stylesheet/scss">
 
 </style>
-
