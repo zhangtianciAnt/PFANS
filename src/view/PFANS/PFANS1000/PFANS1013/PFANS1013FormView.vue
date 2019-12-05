@@ -1326,103 +1326,44 @@
         }
 
       },
-      getTravel(row){//111
-
-        // alert(row.movementtime);
-        // // if(row.facilitytype === "PJ020001"){
-        // // }else if(row.facilitytype === "PJ020002"){
-        // // }else if(row.facilitytype === "PJ020003"){
-        // // }else{
-        // // }
-        // debugger;
-        //等级
-        // var varrank;
-        // let dictionaryInfo = getDictionaryInfo("PR021006");
-        // if (dictionaryInfo) {
-        //   varrank = dictionaryInfo.value1;
-        // }
-        // varrank = varrank.substr(1,1);
-        // //地域
-        // // var varexitarea;
-        // // let exitareadic = getDictionaryInfo(row.exitarea);
-        // // if (exitareadic) {
-        // //   varexitarea = exitareadic.value1;
-        // // }
-        // //设施类型
-        // var varfacilitytype;
-        // let facilitytypedic = getDictionaryInfo(row.facilitytype);
-        // if (facilitytypedic) {
-        //   varfacilitytype = facilitytypedic.value2;
-        // }
-        // //移动时间
-        // var varmovementtime1;
-        // var varmovementtime2 = 1;
-        // let movementtimedic = getDictionaryInfo(row.movementtime);
-        // if (movementtimedic) {
-        //   varmovementtime1 = movementtimedic.value1;
-        //   varmovementtime2 = movementtimedic.value2;
-        // }
-
-        //
-        // var vartravelallowancedata = '';
-
-        // alert(vartravelallowancedata);
-
-
-
-
-
-        //出差补助
-        var varmovementtime2;
-        let movementtimedic = getDictionaryInfode("PJ032",row.exitarea,row.facilitytype);
+      getTravel(row){
+        //移动时间
+        var varmovementtime2 = 1;
+        let movementtimedic = getDictionaryInfo(row.movementtime);
         if (movementtimedic) {
-          varmovementtime2 = movementtimedic.value4;
+          varmovementtime2 = movementtimedic.value2;
         }
-        alert(varmovementtime2);
-
-        // let movementtimedic = getDictionaryInfo(row.movementtime);
-        // if (movementtimedic) {
-        //   varmovementtime1 = movementtimedic.value1;
-        //   varmovementtime2 = movementtimedic.value2;
-        // }
-          if(row.exitarea === "PJ017001"){  //日本
-            if(this.rank==='PJ016001'){ //  R7以下
-              if(row.facilitytype==='PJ020001'){//设施类型
-
-
-              }else if (row.facilitytype=== 'PJ020002'){
-
-              }else  if(row.facilitytype=== 'PJ020003'){
-
-              }else if(row.facilitytype=== 'PJ020004'){
-
-              }
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016002'){ //   R8以上
-
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016003'){ // 出向者
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }
-          }else if(row.exitarea === "PJ017002"){ //第一区域
-            if(this.rank==='PJ016001'){ //  R7以下
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016002'){ //   R8以上
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016003'){ // 出向者
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }
-          }else if(row.exitarea === "PJ017003"){ //第二区域
-            if(this.rank==='PJ016001'){ //  R7以下
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016002'){ //   R8以上
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }else if(this.rank==='PJ016003'){ // 出向者
-              vartravelallowancedata = varfacilitytype * varmovementtime2;
-            }
+        //等级
+        var varrank;
+        //出差补助
+        var varbusiness;
+        let dictionaryInfo = getDictionaryInfo("PR021006");
+        if (dictionaryInfo) {
+          varrank = dictionaryInfo.value1;
+        }
+        varrank = varrank.substr(1,1);
+        if(Number(varrank) < 7){
+          let businessdic = getDictionaryInfode(row.exitarea,"R7以下",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
           }
-
-
+        }else if(Number(varrank) === 8){
+          let businessdic = getDictionaryInfode(row.exitarea,"出向者",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }else if(Number(varrank) > 8){
+          let businessdic = getDictionaryInfode(row.exitarea,"R8以上",row.facilitytype);
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }
+        var vartravel = 0;
+        if(varmovementtime2 != "" && varmovementtime2 != undefined
+          && varbusiness != "" && varbusiness != undefined){
+          vartravel = Number(varmovementtime2) * Number(varbusiness);
+        }
+        row.travel = vartravel;
       },
       gettotal(val){
         if(this.form.type==='1'){

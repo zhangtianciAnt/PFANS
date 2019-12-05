@@ -230,12 +230,10 @@ export function getDictionaryInfode(value1,value2,value3) {
   let info = null;
   if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {
     for (let dictionary of store.getters.dictionaryList) {
-      // if (dictionary.code === code) {
         if (dictionary.value1 === value1 && dictionary.value2 === value2 && dictionary.value3 === value3) {
           info = dictionary;
           break
         }
-      // }
     }
   }
   return info
