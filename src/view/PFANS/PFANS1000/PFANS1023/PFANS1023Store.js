@@ -1,19 +1,19 @@
 import {
-  getSecurity,
+  getConfidential,
   selectById,
-  updateSecurity,
-  createSecurity,
+  updateConfidential,
+  createConfidential,
   getForSelect,
-  } from './PFANS1021Api'
+  } from './PFANS1023Api'
 
-  const PFANS1021Store = {
+  const PFANS1023Store = {
     namespaced: true,
     state: {},
     mutations: {},
     actions: {
-      getSecurity() {
+      getConfidential() {
         return new Promise((resolve, reject) => {
-          getSecurity().then(response => {
+          getConfidential().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -37,9 +37,9 @@ import {
           })
         })
       },
-      updateSecurity({ commit },data) {
+      updateConfidential({ commit },data) {
         return new Promise((resolve, reject) => {
-          updateSecurity(data).then(response => {
+          updateConfidential(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -50,9 +50,9 @@ import {
           })
         })
       },
-      createSecurity({ commit },data) {
+      createConfidential({ commit },data) {
         return new Promise((resolve, reject) => {
-          createSecurity(data).then(response => {
+          createConfidential(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -79,4 +79,4 @@ import {
     }
   };
 
-  export default PFANS1021Store;
+  export default PFANS1023Store;

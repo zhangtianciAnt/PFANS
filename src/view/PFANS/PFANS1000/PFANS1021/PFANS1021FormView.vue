@@ -17,7 +17,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.team')" prop="team_id">
+              <el-form-item :label="$t('label.team')">
                 <el-input v-model="form.team_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
@@ -29,20 +29,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <dicselect
-                  :code="code"
-                  :data="form.type"
-                  :multiple="multiple"
-                  @change="getType"
-                  style="width: 11rem"
-                  :disabled="!disabled">
-                </dicselect>
+                <el-input v-model="form.type" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.subtype')" prop="subtype">
                 <dicselect
-                  :code="code1"
+                  :code="code"
                   :data="form.subtype"
                   :multiple="multiple"
                   @change="getSubtype"
@@ -76,55 +69,55 @@
             </el-row>
           <el-row>
             <el-col :span="8">
-              <div class="sub_color_blue" >{{$t('label.PFANS1008FORMVIEW_CROSSINGDEPARTMENT')}}</div>
+              <div class="sub_color_blue" >{{$t('label.PFANS1021FORMVIEW_DETAIL')}}</div>
             </el-col>
           </el-row>
           <el-row>
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="165" :error="errortitle">
+              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="175" :error="errortitle">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errortitle" :selectType="selectType" :userlist="userlist1"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="165">
+              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="140">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailcenter_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="165">
+              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="140">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailgroup_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="165">
+              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="140">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailteam_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="140">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.phonenumber">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="165">
+              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="140">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.emaildetail">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="140">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.startdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="175">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code1"
                     :data="form.fabuilding"
                     :multiple="multiple"
                     @change="getFabuilding"
@@ -133,10 +126,10 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="175">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code3"
+                    :code="code2"
                     :data="form.fbbuilding"
                     :multiple="multiple"
                     @change="getFbbuilding"
@@ -145,7 +138,7 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="175">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorentrymanager" :selectType="selectType" :userlist="userlist2"
                         @getUserids="getUserids2" style="width: 10.15rem"></user>
@@ -208,26 +201,26 @@
         }
 
       };
-        // var checkperson = (rule, value, callback) => {
-        //     if(!value || value === ''){
-        //         this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
-        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
-        //     }else{
-        //         this.errorperson = "";
-        //         return callback();
-        //     }
-        //
-        // };
-        // var checkperson = (rule, value, callback) => {
-        //     if(!value || value === ''){
-        //         this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
-        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
-        //     }else{
-        //         this.errorperson = "";
-        //         return callback();
-        //     }
-        //
-        // };
+        var checktitle = (rule, value, callback) => {
+            if(!value || value === ''){
+                this.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+            }else{
+                this.errortitle = "";
+                return callback();
+            }
+
+        };
+        var checkentrymanager = (rule, value, callback) => {
+            if(!value || value === ''){
+                this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')));
+            }else{
+                this.errorentrymanager = "";
+                return callback();
+            }
+
+        };
       return {
           baseInfo: {},
           userlist: "",
@@ -269,10 +262,9 @@
                   entrymanager:'',
               },
           ],
-          code: 'PR002',
-          code1: 'PR003',
-          code2: 'PR003',
-          code3: 'PR003',
+          code: 'PJ029',
+          code1: 'PJ030',
+          code2: 'PJ031',
           disabled: false,
           menuList: [],
         rules: {
@@ -283,6 +275,20 @@
               trigger: 'change'
             },
           ],
+            title: [
+                {
+                    required: true,
+                    validator: checktitle,
+                    trigger: 'change'
+                },
+            ],
+            entrymanager: [
+                {
+                    required: true,
+                    validator: checkentrymanager,
+                    trigger: 'change'
+                },
+            ],
             reason: [
             {
               required: true,
@@ -290,17 +296,46 @@
               trigger: 'change'
             },
           ],
+            application: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.application_date'),
+                    trigger: 'change'
+                },
+            ],
+            type: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.pfanstype'),
+                    trigger: 'change'
+                },
+            ],
+            subtype: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.subtype'),
+                    trigger: 'change'
+                },
+            ],
+            email: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.email'),
+                    trigger: 'change'
+                },
+            ],
         },
           canStart:false,
       };
     },
 
     mounted() {
+      this.loading = true;
       if (this.$route.params._id) {
-        this.loading = true;
         this.$store
           .dispatch('PFANS1021Store/selectById', {"securityid": this.$route.params._id})
           .then(response => {
+              debugger;
             this.form = response;
             this.userlist = this.form.user_id;
             this.userlist1 = this.form.title;
@@ -316,21 +351,13 @@
             this.loading = false;
           })
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        this.form.user_id = this.$store.getters.userinfo.userid;
-        }
-          this.userlist1 = this.$store.getters.userinfo.userid;
-          if (this.userlist1 !== null && this.userlist1 !== '') {
+          this.userlist = this.$store.getters.userinfo.userid;
+          if (this.userlist !== null && this.userlist !== '') {
               let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-              this.form.detailcenter_id = lst.centerNmae;
-              this.form.detailgroup_id = lst.groupNmae;
-              this.form.detailteam_id = lst.teamNmae;
-              this.form.title = this.$store.getters.userinfo.userid;
+              this.form.center_id = lst.centerNmae;
+              this.form.group_id = lst.groupNmae;
+              this.form.team_id = lst.teamNmae;
+              this.form.user_id = this.$store.getters.userinfo.userid;
           }
         this.loading = false;
       }
@@ -438,9 +465,9 @@
             if (valid) {
               this.loading = true;
               this.baseInfo = {};
-              this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-              this.baseInfo.softwaretransfer = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.notification = [];
+              this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+              this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.securitydetail = [];
               for (let i = 0; i < this.tableD.length; i++) {
                     if (this.tableD[i].title !== '' || this.tableD[i].detailcenter_id !== '' || this.tableD[i].detailgroup_id !== '' ||
                         this.tableD[i].detailteam_id !== '' || this.tableD[i].phonenumber !== '' || this.tableD[i].emaildetail !== ''
@@ -464,7 +491,7 @@
                     }
                 }
               if (this.$route.params._id) {
-                this.form.judgementid = this.$route.params._id;
+                this.form.securityid = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1021Store/updateSecurity', this.baseInfo)
                   .then(response => {
