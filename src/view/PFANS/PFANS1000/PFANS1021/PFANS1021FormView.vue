@@ -75,6 +75,11 @@
               </el-col>
             </el-row>
           <el-row>
+            <el-col :span="8">
+              <div class="sub_color_blue" >{{$t('label.PFANS1008FORMVIEW_CROSSINGDEPARTMENT')}}</div>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
@@ -203,6 +208,26 @@
         }
 
       };
+        // var checkperson = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
+        //     }else{
+        //         this.errorperson = "";
+        //         return callback();
+        //     }
+        //
+        // };
+        // var checkperson = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
+        //     }else{
+        //         this.errorperson = "";
+        //         return callback();
+        //     }
+        //
+        // };
       return {
           baseInfo: {},
           userlist: "",
@@ -274,7 +299,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1021Store/getSecurityOne', {"securityid": this.$route.params._id})
+          .dispatch('PFANS1021Store/selectById', {"securityid": this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
@@ -299,6 +324,7 @@
         this.form.team_id = lst.teamNmae;
         this.form.user_id = this.$store.getters.userinfo.userid;
         }
+          this.userlist1 = this.$store.getters.userinfo.userid;
           if (this.userlist1 !== null && this.userlist1 !== '') {
               let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
               this.form.detailcenter_id = lst.centerNmae;
@@ -353,7 +379,7 @@
             this.userlist2 = val;
             this.form.entrymanager = val;
             if (!this.form.title || this.form.title === '' || val === "undefined") {
-                this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.entrymanager');
+                this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
             } else {
                 this.errorentrymanager = "";
             }

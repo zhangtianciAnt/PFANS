@@ -15,9 +15,9 @@ export function getCompanyProjectList(data) {
   })
 }
 
-export function getSecurityOne(data) {
+export function selectById(data) {
   return request({
-    url: 'security/one',
+    url: 'security/selectById',
     method: 'post',
     data: data
   })

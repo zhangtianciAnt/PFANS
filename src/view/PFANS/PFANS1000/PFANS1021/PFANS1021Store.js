@@ -1,6 +1,6 @@
 import {
   getSecurity,
-  getSecurityOne,
+  selectById,
   updateSecurity,
   createSecurity,
   getForSelect,
@@ -25,9 +25,9 @@ import {
           })
         })
       },
-      getSecurityOne({ commit },data) {
+      selectById({ commit },data) {
         return new Promise((resolve, reject) => {
-          getSecurityOne(data).then(response => {
+          selectById(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
