@@ -69,7 +69,7 @@
                 <el-date-picker :disabled="!disable"
                                 style="width:11rem"
                                 type="date"
-                                v-model="form.application"
+                                v-model="form.payment"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -253,7 +253,7 @@
           type: '',
           typesof: '',
           operationtype: '',
-          application: '',
+          payment: '',
           email: '',
           extension: '',
           manager: '',

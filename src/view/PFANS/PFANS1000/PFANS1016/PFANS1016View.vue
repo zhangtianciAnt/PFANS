@@ -55,7 +55,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
-        row: 'psdcd_id',
+        row: 'routing_id',
       }
     },
     mounted() {
@@ -91,7 +91,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.psdcd_id
+        this.rowid = row.routing_id
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
