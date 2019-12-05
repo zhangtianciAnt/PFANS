@@ -15,8 +15,8 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getUserInfo} from '@/utils/customize'
-    let moment = require("moment");
+    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+    import moment from "moment";
 
     export default {
         name: "PFANS1013View",
@@ -94,7 +94,14 @@
                         width: 100,
                         fix: false,
                         filter: true
-                    }
+                    },
+                  {
+                    code: 'status',
+                    label: 'label.approval_status',
+                    width: 120,
+                    fix: false,
+                    filter: true
+                  }
                 ],
                 buttonList: [
                     {
@@ -142,6 +149,9 @@
                         if (response[j].startdate !== null && response[j].startdate !== "") {
                             response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
                         }
+                      if (response[j].status !== null && response[j].status !== "") {
+                        response[j].status = getStatus(response[j].status);
+                      }
                         if (response[j].enddate !== null && response[j].enddate !== "") {
                             response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
                         }

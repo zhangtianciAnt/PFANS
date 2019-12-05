@@ -139,29 +139,29 @@
             submitForm(val) {
                 let letname = "";
                 if (val === 1) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1016FormView");
-                    letname = 'PFANS1016FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1016View");
+                    letname = 'PFANS1016View';
                 }else if (val === 2) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1017FormView");
-                    letname = 'PFANS1017FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1017View");
+                    letname = 'PFANS1017View';
                 }else if (val === 3) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1018FormView");
-                    letname = 'PFANS1018FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1018View");
+                    letname = 'PFANS1018View';
                 }else if (val === 4) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1019FormView");
-                    letname = 'PFANS1019FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1019View");
+                    letname = 'PFANS1019View';
                 }else if (val === 5) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1020FormView");
-                    letname = 'PFANS1020FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1020View");
+                    letname = 'PFANS1020View';
                 } else if (val === 6) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1021FormView");
-                    letname = 'PFANS1021FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1021View");
+                    letname = 'PFANS1021View';
                 } else if (val === 7) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1022FormView");
-                    letname = 'PFANS1022FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1022View");
+                    letname = 'PFANS1022View';
                 } else if (val === 8) {
-                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1023FormView");
-                    letname = 'PFANS1023FormView';
+                    this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1023View");
+                    letname = 'PFANS1023View';
                 }
                 this.$router.push({
                     name: letname,

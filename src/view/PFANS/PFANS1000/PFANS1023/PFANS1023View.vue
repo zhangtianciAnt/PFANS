@@ -11,14 +11,14 @@
   import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
 
   export default {
-    name: 'PFANS1021View',
+    name: 'PFANS1023View',
     components: {
       EasyNormalTable
     },
     data() {
       return {
         loading: false,
-        title: "title.PFANS1021VIEW",
+        title: "title.PFANS1023VIEW",
         data: [],
         columns: [
           {
@@ -63,13 +63,13 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
-        row : 'securityid'
+        row : 'confidentialid'
       };
     },
     mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1021Store/getSecurity')
+          .dispatch('PFANS1023Store/getConfidential')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let lst = getOrgInfoByUserId(response[j].user_id);
@@ -99,7 +99,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.securityid;
+        this.rowid = row.confidentialid;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -113,7 +113,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1021FormView',
+            name: 'PFANS1023FormView',
             params: {
               _id: this.rowid,
               disabled: true
@@ -130,7 +130,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1021FormView',
+            name: 'PFANS1023FormView',
             params: {
               _id: this.rowid,
               disabled: false
@@ -139,7 +139,7 @@
         }
         if (val === 'insert') {
           this.$router.push({
-            name: 'PFANS1021FormView',
+            name: 'PFANS1023FormView',
             params: {
               _id: '',
               disabled: true
