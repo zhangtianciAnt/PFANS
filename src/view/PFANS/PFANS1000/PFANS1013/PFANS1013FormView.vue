@@ -1374,7 +1374,7 @@
 
         //出差补助
         var varmovementtime2;
-        let movementtimedic = getDictionaryInfo1("PJ032",row.exitarea,row.facilitytype);
+        let movementtimedic = getDictionaryInfode("PJ032",row.exitarea,row.facilitytype);
         if (movementtimedic) {
           varmovementtime2 = movementtimedic.value4;
         }
