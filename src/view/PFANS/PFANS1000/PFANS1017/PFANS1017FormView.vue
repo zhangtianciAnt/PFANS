@@ -397,12 +397,6 @@
             //         },
             //     });
             // },
-            addRow1() {
-                this.tableT.push({
-                    user: "",
-                    reason: "",
-                });
-            },
             buttonClick(val) {
                 if (val === 'back') {
                     this.paramsTitle();
@@ -414,18 +408,20 @@
                                 this.form.psdcd_id = this.$route.params._id;
                                 this.$store
                                     .dispatch('PFANS1017Store/updatePsdcd', this.form)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false
-                                        if(val !== "update"){
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            this.paramsTitle();
-                                        }
-                                    })
+                                  .then(response => {
+                                    this.data = response;
+                                    this.loading = false
+                                    if(val !== "update"){
+                                      Message({
+                                        message: this.$t("normal.success_02"),
+                                        type: 'success',
+                                        duration: 5 * 1000
+                                      });
+                                      if (this.$store.getters.historyUrl) {
+                                        this.$router.push(this.$store.getters.historyUrl);
+                                      }
+                                    }
+                                  })
                                     .catch(error => {
                                         Message({
                                             message: error,
@@ -446,7 +442,9 @@
                                             type: 'success',
                                             duration: 5 * 1000
                                         });
-                                        this.paramsTitle();
+                                      if (this.$store.getters.historyUrl) {
+                                        this.$router.push(this.$store.getters.historyUrl);
+                                      }
                                     })
                                     .catch(error => {
                                         Message({

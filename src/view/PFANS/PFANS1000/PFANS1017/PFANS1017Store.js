@@ -1,6 +1,6 @@
 import {getPsdcd, getPsdcdOne, updatePsdcd, createPsdcd} from './PFANS1017Api'
 
-const PFANS1006Store = {
+const PFANS1017Store = {
   namespaced: true,
   state: {},
   mutations: {},
