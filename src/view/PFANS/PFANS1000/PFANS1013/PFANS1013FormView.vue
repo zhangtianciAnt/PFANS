@@ -703,7 +703,7 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId,getDictionaryInfo,getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getDictionaryInfo,getDictionaryInfode,getUserInfo} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
   import {telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
@@ -1327,69 +1327,102 @@
 
       },
       getTravel(row){//111
-        alert(row.movementtime);
-        // if(row.facilitytype === "PJ020001"){
-        // }else if(row.facilitytype === "PJ020002"){
-        // }else if(row.facilitytype === "PJ020003"){
-        // }else{
-        // }
-        debugger;
-        //地域
-        // var varexitarea;
-        // let exitareadic = getDictionaryInfo(row.exitarea);
-        // if (exitareadic) {
-        //   varexitarea = exitareadic.value1;
-        // }
-        //设施类型
-        var varfacilitytype;
-        let facilitytypedic = getDictionaryInfo(row.facilitytype);
-        if (facilitytypedic) {
-          varfacilitytype = facilitytypedic.value2;
-        }
-        //移动时间
-        var varmovementtime1;
-        var varmovementtime2 = 1;
-        let movementtimedic = getDictionaryInfo(row.movementtime);
-        if (movementtimedic) {
-          varmovementtime1 = movementtimedic.value1;
-          varmovementtime2 = movementtimedic.value2;
-        }
+
+        // alert(row.movementtime);
+        // // if(row.facilitytype === "PJ020001"){
+        // // }else if(row.facilitytype === "PJ020002"){
+        // // }else if(row.facilitytype === "PJ020003"){
+        // // }else{
+        // // }
+        // debugger;
         //等级
-        var varrank;
-        let dictionaryInfo = getDictionaryInfo("PR021006");
-        if (dictionaryInfo) {
-          varrank = dictionaryInfo.value1;
-        }
-        varrank = varrank.substr(1,1);
+        // var varrank;
+        // let dictionaryInfo = getDictionaryInfo("PR021006");
+        // if (dictionaryInfo) {
+        //   varrank = dictionaryInfo.value1;
+        // }
+        // varrank = varrank.substr(1,1);
+        // //地域
+        // // var varexitarea;
+        // // let exitareadic = getDictionaryInfo(row.exitarea);
+        // // if (exitareadic) {
+        // //   varexitarea = exitareadic.value1;
+        // // }
+        // //设施类型
+        // var varfacilitytype;
+        // let facilitytypedic = getDictionaryInfo(row.facilitytype);
+        // if (facilitytypedic) {
+        //   varfacilitytype = facilitytypedic.value2;
+        // }
+        // //移动时间
+        // var varmovementtime1;
+        // var varmovementtime2 = 1;
+        // let movementtimedic = getDictionaryInfo(row.movementtime);
+        // if (movementtimedic) {
+        //   varmovementtime1 = movementtimedic.value1;
+        //   varmovementtime2 = movementtimedic.value2;
+        // }
 
-        var vartravelallowancedata = '';
-        if(row.exitarea === "PJ017001"){  //日本
-          if(Number(varrank) < 7){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }else if(Number(varrank) === 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }else if(Number(varrank) > 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }
-        }else if(row.exitarea === "PJ017002"){ //第一区域
-          if(Number(varrank) < 7){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }else if(Number(varrank) === 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }else if(Number(varrank) > 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }
-        }else if(row.exitarea === "PJ017003"){ //第二区域
-          if(Number(varrank) < 7){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }else if(Number(varrank) === 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
+        //
+        // var vartravelallowancedata = '';
 
-          }else if(Number(varrank) > 8){
-            vartravelallowancedata = varfacilitytype * varmovementtime2;
-          }
+        // alert(vartravelallowancedata);
+
+
+
+
+
+        //出差补助
+        var varmovementtime2;
+        let movementtimedic = getDictionaryInfo1("PJ032",row.exitarea,row.facilitytype);
+        if (movementtimedic) {
+          varmovementtime2 = movementtimedic.value4;
         }
-        alert(vartravelallowancedata);
+        alert(varmovementtime2);
+
+        // let movementtimedic = getDictionaryInfo(row.movementtime);
+        // if (movementtimedic) {
+        //   varmovementtime1 = movementtimedic.value1;
+        //   varmovementtime2 = movementtimedic.value2;
+        // }
+          if(row.exitarea === "PJ017001"){  //日本
+            if(this.rank==='PJ016001'){ //  R7以下
+              if(row.facilitytype==='PJ020001'){//设施类型
+
+
+              }else if (row.facilitytype=== 'PJ020002'){
+
+              }else  if(row.facilitytype=== 'PJ020003'){
+
+              }else if(row.facilitytype=== 'PJ020004'){
+
+              }
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016002'){ //   R8以上
+
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016003'){ // 出向者
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }
+          }else if(row.exitarea === "PJ017002"){ //第一区域
+            if(this.rank==='PJ016001'){ //  R7以下
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016002'){ //   R8以上
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016003'){ // 出向者
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }
+          }else if(row.exitarea === "PJ017003"){ //第二区域
+            if(this.rank==='PJ016001'){ //  R7以下
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016002'){ //   R8以上
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }else if(this.rank==='PJ016003'){ // 出向者
+              vartravelallowancedata = varfacilitytype * varmovementtime2;
+            }
+          }
+
+
       },
       gettotal(val){
         if(this.form.type==='1'){

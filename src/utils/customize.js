@@ -226,6 +226,21 @@ export function getDictionaryInfo(code) {
   return info
 }
 
+export function getDictionaryInfode(code,value1,value3) {
+  let info = null;
+  if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {
+    for (let dictionary of store.getters.dictionaryList) {
+      // if (dictionary.code === code) {
+        if (dictionary.value1 === value1 && dictionary.value3 === value3) {
+          info = dictionary;
+          break
+        }
+      // }
+    }
+  }
+  return info
+}
+
 //获取数据状态
 export function getStatus(status) {
   let info = null;
