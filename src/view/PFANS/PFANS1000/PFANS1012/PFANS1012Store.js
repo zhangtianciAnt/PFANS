@@ -1,4 +1,4 @@
-import {insert, get, selectById, update,getJudgement,getloanapplication} from './PFANS1012Api'
+import {insert, get, selectById, update,getJudgement,getLoanApplication} from './PFANS1012Api'
 
 const PFANS1012Store = {
   namespaced: true,
@@ -75,10 +75,10 @@ const PFANS1012Store = {
         })
       })
     },
-    //裁决号
-    getloanapplication({commit}, data) {
+
+    getLoanApplication({commit}, data) {
       return new Promise((resolve, reject) => {
-        getloanapplication(data).then(response => {
+        getLoanApplication(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -88,7 +88,7 @@ const PFANS1012Store = {
           reject(error);
         })
       })
-    },
+    }
 
 
   }

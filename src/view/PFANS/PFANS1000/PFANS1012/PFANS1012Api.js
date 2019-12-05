@@ -40,11 +40,11 @@ export function getJudgement(data) {
     data: data
   })
 }
-  //暂借款申请编号
-  export function getloanapplication(data) {
-    return request({
-      url: 'publicexpense/getloanapplication',
-      method: 'post',
-      data: data
-    })
+//暂借款申请编号
+export function getLoanApplication(data) {
+  return request({
+    url: 'publicexpense/getLoanApplication',
+    method: 'post',
+    data: data
+  })
 }
