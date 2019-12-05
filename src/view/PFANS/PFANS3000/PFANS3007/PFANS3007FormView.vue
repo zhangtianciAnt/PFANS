@@ -855,7 +855,6 @@
             },
             //使用金额
             changemoneys(val) {
-                debugger
                 this.form.usemoney = val;
                 if (this.form.condominiumcompany === "PR007001") {
                     this.form.moneys = (this.moneys1) - (this.form.usemoney);
