@@ -500,6 +500,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodationallowance"
+                      @change="changeRMB"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -513,6 +514,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.accommodation"
+                      @change="changeForeigncurrency"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -570,15 +572,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAIN')" align="center" width="150" v-else prop="train">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disable"
-                      :max="1000000000"
-                      :min="0"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.train"
-                    ></el-input-number>
+                    <el-input :disabled="!disable" v-model="scope.row.train"  style="width: 100%" @change="getvehicle"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
@@ -891,7 +885,7 @@
         code5: 'PJ025',
         code6: 'PJ026',
         code7: 'PJ027',
-        code8: 'PJ028',
+        code8: 'PJ020',
         code9: 'PJ017',
         multiple: false,
         show1: true,
@@ -1180,7 +1174,7 @@
       change2(val){
         this.result2.forEach( res => {
           if(res.loanapplication_id === val){
-            this.form.loanamount = res.moneys
+            this.form.loanamount = (res.moneys).toFixed(2);
           }
         });
       },
@@ -1277,6 +1271,9 @@
                 return prev;
               }
             }, 0);
+            if(index===5){
+              sums[index]=sums[index].toFixed(2);
+            }
           } else {
             sums[index] = '--'
           }
@@ -1289,6 +1286,10 @@
       },
       getvehicle(val,row){
         row.vehicle=val;
+        if(val==='PJ025001'){
+          debugger;
+          row.train=getDictionaryInfo(val).value2;
+        }
       },
       getmovementtime(val,row){
         row.movementtime=val;
@@ -1310,25 +1311,20 @@
       },
       gettotal(val){
         if(this.form.type==='1'){
-          //this.form.totalpay=sums[4]+this.tableAValue[7]+this.tableAValue[8]+this.tableAValue[9]+this.tableAValue[10]+this.tableRValue[3];
           this.form.totalpay=this.tableDValue[1];
-          this.form.balance=-(this.form.totalpay-this.form.loanamount);
+          this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
         }else if(this.form.type==='2'){
           if(this.form.currency==='PJ003001'){
-            //this.form.totalpay=this.form.totalcurrency*this.form.dollarfxrate+sums[4]+this.tableAValue[7]+this.tableRValue[3];
             this.form.totalpay=this.tableValue[5];
-            this.form.balance=-(this.form.totalpay-this.form.loanamount);
+            this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }else if(this.form.currency==='PJ003002'){
-           // this.form.totalpay=this.form.totalcurrency*this.form.jpyfxrate+sums[4]+this.tableAValue[7]+this.tableRValue[3];
             this.form.totalpay=this.tableValue[5];
-            this.form.balance=-(this.form.totalpay-this.form.loanamount);
+            this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }else {
-            //this.form.totalpay=this.form.totalcurrency*this.form.otherfxrate+sums[4]+this.tableAValue[7]+this.tableRValue[3];
             this.form.totalpay=this.tableValue[5];
-            this.form.balance=-(this.form.totalpay-this.form.loanamount);
+            this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
           }
         }
-
       },
       getValue(sums){
         this.tableData[0].rmb=sums[4];
@@ -1345,27 +1341,27 @@
           this.tableData2[1].usdcurrency=this.tableAValue[8];
           this.tableData2[2].usdcurrency=this.tableAValue[9]+this.tableAValue[10];
           this.tableData2[3].usdcurrency=this.tableRValue[4];
-          for(var i=0;i<4;i++){
-            this.tableData2[i].total=this.tableData2[i].usdcurrency*this.form.dollarfxrate+this.tableData2[i].rmb;
+          for(var i=0;i<this.tableData2.length;i++){
             this.tableData2[i].jpycurrency='';
             this.tableData2[i].ratecurrency='';
+            this.tableData2[i].total=this.tableData2[i].usdcurrency*this.form.dollarfxrate+this.tableData2[i].rmb;
           }
         }else if(this.form.currency==='PJ003002'){
           this.tableData2[0].jpycurrency=sums[5];
           this.tableData2[1].jpycurrency=this.tableAValue[8];
           this.tableData2[2].jpycurrency=this.tableAValue[9]+this.tableAValue[10];
           this.tableData2[3].jpycurrency=this.tableRValue[4];
-          for(var i=0;i<4;i++){
-            this.tableData2[i].total=this.tableData2[i].jpycurrency*this.form.jpyfxrate+this.tableData2[i].rmb;
+          for(var i=0;i<this.tableData2.length;i++){
             this.tableData2[i].usdcurrency='';
             this.tableData2[i].ratecurrency='';
+            this.tableData2[i].total=this.tableData2[i].jpycurrency*this.form.jpyfxrate+this.tableData2[i].rmb;
           }
         }else  if(this.form.currency==='PJ003003'){
           this.tableData2[0].ratecurrency=sums[5];
           this.tableData2[1].ratecurrency=this.tableAValue[8];
           this.tableData2[2].ratecurrency=this.tableAValue[9]+this.tableAValue[10];
           this.tableData2[3].ratecurrency=this.tableRValue[4];
-          for(var i=0;i<4;i++){
+          for(var i=0;i<this.tableData2.length;i++){
             this.tableData2[i].total=this.tableData2[i].ratecurrency*this.form.otherfxrate+this.tableData2[i].rmb;
             this.tableData2[i].usdcurrency='';
             this.tableData2[i].jpycurrency='';
