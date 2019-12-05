@@ -210,7 +210,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4">
-                      <el-select :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.loan">
+                      <el-select :disabled="!disable" style="width: 11rem" v-model="form.loan">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -373,8 +373,8 @@
                 <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="140">
                   <template slot-scope="scope">
                     <el-tooltip class="item" effect="light" :content="scope.row.startingpoint" placement="top" :disabled="scope.row.startingpoint===''?true:false">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.startingpoint"/>
-                      </el-tooltip>
+                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.startingpoint"/>
+                    </el-tooltip>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
@@ -696,7 +696,7 @@
           debitamount: "",
           creditamount: "",
           remarks: "",
-          },
+        },
           {
             abstract: this.$t('label.PFANS1012VIEW_PURCHASEEXPENSEC'),
             subjectnumber: "",
@@ -949,16 +949,6 @@
             });
             this.loading = false;
           })
-        this.$store
-          .dispatch('PFANS1012Store/getloanapplication', {})
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.value = response[i].loanapplication_id;
-              vote.label = response[i].accountnumber;
-              this.options.push(vote)
-            }
-          })
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== "" ) {
@@ -966,6 +956,7 @@
           this.form.centerid = rst.centerNmae;
           this.form.groupid = rst.groupNmae;
           this.form.teamid = rst.teamNmae;
+          this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.form.judgement = this.$route.params._name.join(",");
         this.form.type = this.$route.params._type;
@@ -982,6 +973,16 @@
           this.showdata=true;
         }
       }
+      this.$store
+        .dispatch('PFANS1012Store/getLoanApplication', {})
+        .then(response => {
+          for (let i = 0; i < response.length; i++) {
+            var vote = {};
+            vote.value = response[i].loanapplication_id;
+            vote.label = moment(response[i].application_date).format('YYYY-MM-DD');
+            this.options.push(vote)
+          }
+        })
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1291,7 +1292,7 @@
               sums[index]=sums[index].toFixed(2);
             }
             if(index==5){
-            sums[index]=sums[index].toFixed(2);
+              sums[index]=sums[index].toFixed(2);
             }
           } else {
             sums[index] = '--'
@@ -1300,11 +1301,11 @@
         return sums;
       },
       getMoney(sums) {
-       if( this.form.type === 'PJ001001'){
-         this.form.rmbexpenditure=sums[4];
-       }else {
-         this.form.rmbexpenditure = sums[4] + this.tablePValue[3] + this.tableRValue[3];
-       }
+        if( this.form.type === 'PJ001001'){
+          this.form.rmbexpenditure=sums[4];
+        }else {
+          this.form.rmbexpenditure = sums[4] + this.tablePValue[3] + this.tableRValue[3];
+        }
       },
       getforeigncurrency(sums) {
         if( this.form.type === 'PJ001001'){
@@ -1350,135 +1351,135 @@
         if (val === "save") {
           this.$refs["reff"].validate(valid => {
             if(valid){
-            if( this.form.type === 'PJ001001'){
-              this.form.subjectnumber = this.tableData2[0].subjectnumber;
-              this.form.subjectname = this.tableData2[0].subjectname;
-              this.form.remarks = this.tableData2[0].remarks;
-            }
-            else {
-              this.form.subjectnumber = this.tableData[0].subjectnumber;
-              this.form.subjectname = this.tableData[0].subjectname;
-              this.form.remarks = this.tableData[0].remarks;
-              this.form.purchasesubjectnumber = this.tableData[1].subjectnumber;
-              this.form.purchasesubjectname = this.tableData[1].subjectname;
-              this.form.purchaseremarks = this.tableData[1].remarks;
-              this.form.othersubjectnumber = this.tableData[2].subjectnumber;
-              this.form.othersubjectname = this.tableData[2].subjectname;
-              this.form.otherremarks = this.tableData[2].remarks;
-            }
-            this.baseInfo = {};
-            this.form.user_id = this.userlist;
-            this.form.moneys=(this.form.rmbexpenditure+this.form.tormb).toFixed(2);
-            this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
-            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.trafficdetails = [];
-            this.baseInfo.purchasedetails = [];
-            this.baseInfo.otherdetails = [];
-            for (let i = 0; i < this.tableT.length; i++) {
-              if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
-                || this.tableT[i].rmb !== "" || this.tableT[i].foreigncurrency !== "" || this.tableT[i].annexno !== "") {
-                this.baseInfo.trafficdetails.push(
-                  {
-                    trafficdetails_id: this.tableT[i].trafficdetails_id,
-                    publicexpenseid: this.tableT[i].publicexpenseid,
-                    trafficdate: this.tableT[i].trafficdate,
-                    region: this.tableT[i].region,
-                    vehicle: this.tableT[i].vehicle,
-                    startingpoint: this.tableT[i].startingpoint,
-                    rmb: this.tableT[i].rmb,
-                    foreigncurrency: this.tableT[i].foreigncurrency,
-                    annexno: this.tableT[i].annexno,
-                  }
-                );
+              if( this.form.type === 'PJ001001'){
+                this.form.subjectnumber = this.tableData2[0].subjectnumber;
+                this.form.subjectname = this.tableData2[0].subjectname;
+                this.form.remarks = this.tableData2[0].remarks;
               }
-            }
-            for (let i = 0; i < this.tableP.length; i++) {
-              if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].procurementproject !== ""
-                || this.tableP[i].rmb !== "" || this.tableP[i].foreigncurrency !== "" || this.tableP[i].annexno !== "") {
-                if (this.tableP[i].procurementdetails === ' ') {
-                  this.tableP[i].procurementdetails = '';
+              else {
+                this.form.subjectnumber = this.tableData[0].subjectnumber;
+                this.form.subjectname = this.tableData[0].subjectname;
+                this.form.remarks = this.tableData[0].remarks;
+                this.form.purchasesubjectnumber = this.tableData[1].subjectnumber;
+                this.form.purchasesubjectname = this.tableData[1].subjectname;
+                this.form.purchaseremarks = this.tableData[1].remarks;
+                this.form.othersubjectnumber = this.tableData[2].subjectnumber;
+                this.form.othersubjectname = this.tableData[2].subjectname;
+                this.form.otherremarks = this.tableData[2].remarks;
+              }
+              this.baseInfo = {};
+              this.form.user_id = this.userlist;
+              this.form.moneys=(this.form.rmbexpenditure+this.form.tormb).toFixed(2);
+              this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
+              this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.trafficdetails = [];
+              this.baseInfo.purchasedetails = [];
+              this.baseInfo.otherdetails = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
+                  || this.tableT[i].rmb !== "" || this.tableT[i].foreigncurrency !== "" || this.tableT[i].annexno !== "") {
+                  this.baseInfo.trafficdetails.push(
+                    {
+                      trafficdetails_id: this.tableT[i].trafficdetails_id,
+                      publicexpenseid: this.tableT[i].publicexpenseid,
+                      trafficdate: this.tableT[i].trafficdate,
+                      region: this.tableT[i].region,
+                      vehicle: this.tableT[i].vehicle,
+                      startingpoint: this.tableT[i].startingpoint,
+                      rmb: this.tableT[i].rmb,
+                      foreigncurrency: this.tableT[i].foreigncurrency,
+                      annexno: this.tableT[i].annexno,
+                    }
+                  );
                 }
-                this.baseInfo.purchasedetails.push(
-                  {
-                    purchasedetails_id: this.tableP[i].purchasedetails_id,
-                    publicexpenseid: this.tableP[i].publicexpenseid,
-                    purchasedetailsdate: this.tableP[i].purchasedetailsdate,
-                    procurementdetails: this.tableP[i].procurementdetails,
-                    procurementproject: this.tableP[i].procurementproject,
-                    rmb: this.tableP[i].rmb,
-                    foreigncurrency: this.tableP[i].foreigncurrency,
-                    annexno: this.tableP[i].annexno,
-                  }
-                );
               }
-            }
-            for (let i = 0; i < this.tableR.length; i++) {
-              if (this.tableR[i].otherdetailsdate !== "" || this.tableR[i].costitem !== "" || this.tableR[i].remarks !== ""
-                || this.tableR[i].rmb !== "" || this.tableR[i].foreigncurrency !== "" || this.tableR[i].annexno !== "") {
-                this.baseInfo.otherdetails.push(
-                  {
-                    otherdetails_id: this.tableR[i].otherdetails_id,
-                    publicexpenseid: this.tableR[i].publicexpenseid,
-                    otherdetailsdate: this.tableR[i].otherdetailsdate,
-                    costitem: this.tableR[i].costitem,
-                    remarks: this.tableR[i].remarks,
-                    rmb: this.tableR[i].rmb,
-                    foreigncurrency: this.tableR[i].foreigncurrency,
-                    annexno: this.tableR[i].annexno,
+              for (let i = 0; i < this.tableP.length; i++) {
+                if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].procurementproject !== ""
+                  || this.tableP[i].rmb !== "" || this.tableP[i].foreigncurrency !== "" || this.tableP[i].annexno !== "") {
+                  if (this.tableP[i].procurementdetails === ' ') {
+                    this.tableP[i].procurementdetails = '';
                   }
-                );
+                  this.baseInfo.purchasedetails.push(
+                    {
+                      purchasedetails_id: this.tableP[i].purchasedetails_id,
+                      publicexpenseid: this.tableP[i].publicexpenseid,
+                      purchasedetailsdate: this.tableP[i].purchasedetailsdate,
+                      procurementdetails: this.tableP[i].procurementdetails,
+                      procurementproject: this.tableP[i].procurementproject,
+                      rmb: this.tableP[i].rmb,
+                      foreigncurrency: this.tableP[i].foreigncurrency,
+                      annexno: this.tableP[i].annexno,
+                    }
+                  );
+                }
               }
-            }
-            if (this.$route.params._id) {
-              this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS1012Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
+              for (let i = 0; i < this.tableR.length; i++) {
+                if (this.tableR[i].otherdetailsdate !== "" || this.tableR[i].costitem !== "" || this.tableR[i].remarks !== ""
+                  || this.tableR[i].rmb !== "" || this.tableR[i].foreigncurrency !== "" || this.tableR[i].annexno !== "") {
+                  this.baseInfo.otherdetails.push(
+                    {
+                      otherdetails_id: this.tableR[i].otherdetails_id,
+                      publicexpenseid: this.tableR[i].publicexpenseid,
+                      otherdetailsdate: this.tableR[i].otherdetailsdate,
+                      costitem: this.tableR[i].costitem,
+                      remarks: this.tableR[i].remarks,
+                      rmb: this.tableR[i].rmb,
+                      foreigncurrency: this.tableR[i].foreigncurrency,
+                      annexno: this.tableR[i].annexno,
+                    }
+                  );
+                }
+              }
+              if (this.$route.params._id) {
+                this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1012Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== "update") {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      this.$router.push({
+                        name: 'PFANS1012View',
+                      });
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+              } else {
+                this.$store
+                  .dispatch('PFANS1012Store/insert', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000
                     });
                     this.$router.push({
                       name: 'PFANS1012View',
                     });
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            } else {
-              this.$store
-                .dispatch('PFANS1012Store/insert', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000
-                  });
-                  this.$router.push({
-                    name: 'PFANS1012View',
-                  });
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+              }
             }
           })
         }
