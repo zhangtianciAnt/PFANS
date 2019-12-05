@@ -38,7 +38,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.持出機器媒体')" prop="machinemedia">
+              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MACHINEMEDIA')" prop="machinemedia">
                 <dicselect
                   :code="code"
                   :data="form.machinemedia"
@@ -50,14 +50,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.資産管理番号')" prop="management">
+              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MANAGEMENT')" prop="management">
                 <el-input v-model="form.management" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.持出し適合シール')" prop="compatibleseal">
+                <el-form-item :label="$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL')" prop="compatibleseal">
                   <el-radio-group v-model="radio" @change="getCompatibleseal">
                     <el-radio :label="1" :disabled="!disabled">{{$t('label.yes')}}</el-radio>
                     <el-radio :label="2" :disabled="!disabled">{{$t('label.no')}}</el-radio>
@@ -65,31 +65,31 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.持出日付')" prop="exportdate" >
+                <el-form-item :label="$t('label.PFASN1023FORMVIEW_EXPORTDATE')" prop="exportdate" >
                   <el-date-picker :disabled="!disabled" type="date" v-model="form.exportdate" style="width: 11rem" ></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.返却予定日付')" prop="returndate" >
+                <el-form-item :label="$t('label.PFASN1023FORMVIEW_RETURNDATE')" prop="returndate" >
                   <el-date-picker :disabled="!disabled" type="date" v-model="form.returndate" style="width: 11rem" ></el-date-picker>
                 </el-form-item>
               </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.持出場所')" prop="holdingplace">
+              <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDINGPLACE')" prop="holdingplace">
                 <el-input v-model="form.holdingplace" :disabled="!disabled" style="width: 11rem" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.持出理由')" prop="holdoutreason">
+                <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDOUTREASON')" prop="holdoutreason">
                   <el-input v-model="form.holdoutreason" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                  <div class="sub_color_blue" >{{$t('label.格納データ内容')}}</div>
+                  <div class="sub_color_blue" >{{$t('label.PFASN1023FORMVIEW_STOREDDATA')}}</div>
               </el-col>
             </el-row>
         </el-form>
