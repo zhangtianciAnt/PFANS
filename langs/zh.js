@@ -257,11 +257,13 @@ module.exports = {
     PFANS8001VIEW: "修改密码",
     PFANS8002VIEW: "待办事项",
     PFANS8007VIEW: "工作日设置",
+    ASSETS1001VIEW: "资产",
+    ASSETS1001FORMVIEW: "资产详情",
   },
   label: {
-    pfanstype: "申請種類",
-    subtype: "サブ種類",
-    application: "申請日付",
+    pfanstype: "申請種類",
+    subtype: "サブ種類",
+    application: "申請日付",
     gs: "公司名",
     workflow_name: "流程名",
     workflow_code: "识别码",
@@ -436,42 +438,42 @@ module.exports = {
     PFANS1004VIEW_AMOUNT: "金额",
     PFANS1004VIEW_FREEBORROWINGGIST: '目的・効果・時期・使用責任者などを簡明に\n' +
       '１、　*******開発のため、下記設備が必要です\n' +
-      '①設備/機材本体：\n' +
-      '　　設備名前：　　　　数量：　　　　　　単価（外貨可）：　　　　価額：\n' +
+      '①設備/機材本体:\n' +
+      '　　設備名前:　　　　数量:　　　　　　単価（外貨可）:　　　　価額:\n' +
       ' \n' +
       ' \n' +
       ' \n' +
-      '　②通関税金：\n' +
-      '　　　関　税：計税価*税率＝　****元\n' +
-      '　　　増値税：計税価*13％＝*****元\n' +
+      '　②通関税金:\n' +
+      '　　　関　税:計税価*税率＝　****元\n' +
+      '　　　増値税:計税価*13％＝*****元\n' +
       '２、置き場所及び管理責任者\n' +
-      '置き場所：\n' +
-      '管理責任者：\n' +
-      '３、関連契約NO：' +
-      '４、添付ファイル：INVOICE\n' +
-      '５、その他：加工貿易対象外のため、無償提供。',
+      '置き場所:\n' +
+      '管理責任者:\n' +
+      '３、関連契約NO:' +
+      '４、添付ファイル:INVOICE\n' +
+      '５、その他:加工貿易対象外のため、無償提供。',
     PFANS1004VIEW_FREEOFCHARGEGIST: '目的・効果・時期・使用責任者などを簡明に\n' +
       '１、　*******開発のため、下記設備が必要です\n' +
-      '①設備/機材本体：\n' +
-      '　　設備名前：　　　　数量：　　　　　　単価（外貨可）：　　　　価額：\n' +
+      '①設備/機材本体:\n' +
+      '　　設備名前:　　　　数量:　　　　　　単価（外貨可）:　　　　価額:\n' +
       ' \n' +
       ' \n' +
       ' \n' +
-      '　②通関税金：\n' +
-      '　　　関　税：計税価*税率＝　****元\n' +
-      '　　　増値税：計税価*13％＝*****元\n' +
+      '　②通関税金:\n' +
+      '　　　関　税:計税価*税率＝　****元\n' +
+      '　　　増値税:計税価*13％＝*****元\n' +
       '２、置き場所及び管理責任者\n' +
-      '置き場所：\n' +
-      '管理責任者：\n' +
-      '３、関連契約NO：　　　　　　　　　　　返す予定日付：　　\n' +
-      '４、添付ファイル：INVOICE\n' +
-      '５、その他：加工貿易対象外のため、無償借用。',
+      '置き場所:\n' +
+      '管理責任者:\n' +
+      '３、関連契約NO:　　　　　　　　　　　返す予定日付:　　\n' +
+      '４、添付ファイル:INVOICE\n' +
+      '５、その他:加工貿易対象外のため、無償借用。',
     PFANS1004FORMVIEW_FREEDEVICE: "是否是無償设备",
     PFANS1004FORMVIEW_FREEBORROWING: "無償借用",
     PFANS1004FORMVIEW_FREEOFCHARGE: "無償提供",
-    PFANS1004VIEW_PREDETERMINEDDATE: "返す予定日付：",
-    PFANS1004FORMVIEW_DECISIVE: "决裁类型：",
-    PFANS1004FORMVIEW_PERIOD: "折旧期限：",
+    PFANS1004VIEW_PREDETERMINEDDATE: "返す予定日付:",
+    PFANS1004FORMVIEW_DECISIVE: "决裁类型:",
+    PFANS1004FORMVIEW_PERIOD: "折旧期限:",
     PFANS1005VIEW_ITEM: "項目",
     PFANS1005VIEW_UNITPRICE: "単価",
     PFANS1005VIEW_AMOUNT: "金額",
@@ -635,27 +637,45 @@ module.exports = {
     PFANS1014VIEW_FILESIZE: "大小",
     PFANS1014VIEW_UPDATEDATE: "上传时间",
     PFANS1014VIEW_UPDATEPERSON: "上传者",
-    PFANS1017FORMVIEW_EXTENSION: "内缐",
-    PFANS1017FORMVIEW_SAVEANDROLE: "保存并设置角色",
-    PFANS1017FORMVIEW_IDTYPE: "ID申請穜别",
-    PFANS1017FORMVIEW_NEW: "新規",
-    PFANS1017FORMVIEW_USERTYPE: "ユーザ種類",
-    PFANS1017FORMVIEW_USERNAME: "ユーザ氏名",
-    PFANS1017FORMVIEW_SURNAME: "姓",
-    PFANS1017FORMVIEW_MING: "名",
-    PFANS1017FORMVIEW_ACCOUNT: "元のメールアカウント",
-    PFANS1017FORMVIEW_TRANSMISSION: "社外送信",
-    PFANS1017FORMVIEW_WAITFORTIME: "期待時間",
-    PFANS1017FORMVIEW_CYBOZU: "サイボウズAccount",
-    PFANS1017FORMVIEW_PREPAREFOR: "備考",
-    PFANS1017FORMVIEW_DOMAINACCOUNT: "Domain Account",
+    PFANS1017FORMVIEW_EXTENSION: "内缐",
+    PFANS1017FORMVIEW_SAVEANDROLE: "保存并设置角色",
+    PFANS1017FORMVIEW_IDTYPE: "ID申請穜别",
+    PFANS1017FORMVIEW_NEW: "新規",
+    PFANS1017FORMVIEW_USERTYPE: "ユーザ種類",
+    PFANS1017FORMVIEW_USERNAME: "ユーザ氏名",
+    PFANS1017FORMVIEW_SURNAME: "姓",
+    PFANS1017FORMVIEW_MING: "名",
+    PFANS1017FORMVIEW_ACCOUNT: "元のメールアカウント",
+    PFANS1017FORMVIEW_TRANSMISSION: "社外送信",
+    PFANS1017FORMVIEW_WAITFORTIME: "期待時間",
+    PFANS1017FORMVIEW_CYBOZU: "サイボウズAccount",
+    PFANS1017FORMVIEW_PREPAREFOR: "備考",
+    PFANS1017FORMVIEW_DOMAINACCOUNT: "Domain Account",
+    PFANS1018VIEW_APPLICATIONDAYPAYMENT: "申请日付",
+    PFANS1018VIEW_APPLICATIONDEPLOYMENT: "申请部署",
+    PFANS1018VIEW_ROMANNAME: "ローマ字氏名",
+    PFANS1018FORMVIEW_USINGLEVEL: "使用Level",
+    PFANS1018FORMVIEW_LEVELBUTTOM: "使用Level アクセス権には下記の2種類があ ります。",
     PFANS1021FORMVIEW_REASON: "申请理由",
     PFANS1021FORMVIEW_PHONENUMBER: "電話番号",
     PFANS1021FORMVIEW_STARTDATE: "出勤開始日",
     PFANS1021FORMVIEW_FABUILDING: "４F A棟",
     PFANS1021FORMVIEW_FBBUILDING: "４F B棟",
     PFANS1021FORMVIEW_ENTRYMANAGER: "入室エリア責任者",
-    PFANS1021FORMVIEW_DETAIL:"申请明细",
+    PFANS1021FORMVIEW_DETAIL: "申请明细",
+    PFASN1023FORMVIEW_MACHINEMEDIA: "持出機器媒体",
+    PFASN1023FORMVIEW_MANAGEMENT: "資産管理番号",
+    PFASN1023FORMVIEW_COMPATIBLESEAL: "持出し適合シール",
+    PFASN1023FORMVIEW_EXPORTDATE: "持出日付",
+    PFASN1023FORMVIEW_RETURNDATE: "返却予定日付",
+    PFASN1023FORMVIEW_HOLDINGPLACE: "持出場所",
+    PFASN1023FORMVIEW_HOLDOUTREASON: "持出理由",
+    PFASN1023FORMVIEW_STOREDDATA: "格納データ内容",
+    PFANS1023FORMVIEW_COMPANY: "社内情報",
+    PFANS1023FORMVIEW_SECRET: "秘情報",
+    PFANS1023FORMVIEW_INFORMATION: "厳秘情報",
+    PFANS1023FORMVIEW_INTELLIGENCE: "個人情報秘",
+    PFANS1023FORMVIEW_CONFIDENTIAL: "個人情報厳秘",
     PFANS2001VIEW_POSITIONTITLE: "岗位名称",
     PFANS2001VIEW_PEOPLEREQUIRED: "需求人数",
     PFANS2001VIEW_WORKPLACE: "工作地点",
@@ -864,6 +884,10 @@ module.exports = {
     PFANS2005FORMVIEW_FDSY1: "法定深夜(125%)",
     PFANS2005FORMVIEW_DBQH: "短病欠(H)",
     PFANS2005FORMVIEW_CBQH: "长病欠(H)",
+    PFANS2005FORMVIEW_NEWSTART: "正社員開始日",
+    PFANS2005FORMVIEW_LASTMOUTHATTENDANCE: "先月出勤日数",
+    PFANS2005FORMVIEW_THISMOUTHATTENDANCE: "今月試用社員出勤日数",
+    PFANS2005FORMVIEW_RETIREMENTDATE: "退職日",
     PFANSUSERFORMVIEW_NDSY: "年度赏与（当年度）",
     PFANSUSERFORMVIEW_YFGZ: "应发工资",
     PFANSUSERFORMVIEW_YDSY: "月度赏与",
@@ -920,7 +944,7 @@ module.exports = {
     PFANS2006VIEW_ONLYTAX: "只纳税",
     PFANS2006VIEW_RESIDENTIALTAX: "住房公积金应纳税",
     PFANS2006VIEW_COMPANYBOSS: "其他4公司负担社保（24元）",
-    PFANS2006VIEW_OTHER5: "其他5（保険：福祉)",
+    PFANS2006VIEW_OTHER5: "其他5（保険:福祉)",
     PFANS2006VIEW_RESPONSIBLE: "当月応発工資（工资总额(纳税+免税)+只納税）",
     PFANS2006VIEW_CUMULATIVE: "累計応発工資（当月含）",
     PFANS2006VIEW_INCOME: "累計应纳税所得额",
@@ -1131,7 +1155,7 @@ module.exports = {
       "（书籍、钥匙、设备（开发板/USB/SD/Debuger等）、固定资产、软件转出、薄外资产等）",
     PFANS2026FORMVIEW_DATA2: "确认同意",
     PFANS2026FORMVIEW_DATA3: "确认同意",
-    PFANS2026FORMVIEW_DATA4: "工会相关物品返还（例：书籍等）",
+    PFANS2026FORMVIEW_DATA4: "工会相关物品返还（例:书籍等）",
     PFANS2026FORMVIEW_DATA5: "清偿债务、固定资产、软件转出、薄外资产",
     PFANS2026FORMVIEW_DATA6: "担当起案业务合同交接确认",
     PFANS2026FORMVIEW_DATA7: "徽章、入门卡贴片（两张）、工作服等",
@@ -1324,8 +1348,8 @@ module.exports = {
     PFANS8001VIEW_ERROR6: "两次输入密码不一致!",
     PFANS8001VIEW_GESHI: "新密码格式不正确",
     PFANS8001VIEW_TISHI: "请注意密码有效位大于等于8位且小于等于16位，且必须包含数字，字母，特殊字符三种中的至少两种",
-    PFANS8002VIEW_XXYL: "待办一览",
-    PFANS8002VIEW_JS: "结束",
+    PFANS8002VIEW_XXYL: "待办一览",
+    PFANS8002VIEW_JS: "结束",
     PFANS8007VIEW_FD: "法定节假日",
     PFANS8007VIEW_GX: "公休日",
     PFANS8007VIEW_ZT: "振替休日",
@@ -1437,5 +1461,20 @@ module.exports = {
     PFANSUSERFORMVIEW_DIFFERENCE: "奖金记上区分",
     PFANSUSERFORMVIEW_OLDSTAFF: "老员工",
     PFANSUSERFORMVIEW_NEWSTAFF: "新员工",
+    ASSETS1001VIEW_FILENAME: "件名",
+    ASSETS1001VIEW_TYPEASSETS: "类型",
+    ASSETS1001VIEW_PRICE: "价格",
+    ASSETS1001VIEW_PURCHASETIME: "购入时间",
+    ASSETS1001VIEW_USEDEPARTMENT: "使用部门",
+    ASSETS1001VIEW_PRINCIPAL: "设备负责人",
+    ASSETS1001VIEW_ASSETSTATUS: "资产状态",
+    ASSETS1001VIEW_STOCKSTATUS: "在库状态",
+    ASSETS1001VIEW_BARCODE: "条形码",
+    ASSETS1001VIEW_RESULT: "结果",
+    ASSETS1002VIEW_INVENTORYCYCLE: "盘点周期",
+    ASSETS1002VIEW_TOTALNUMBER: "总设备数",
+    ASSETS1002VIEW_INQUANTITY: "盘点到数量",
+    ASSETS1002VIEW_UNQUANTITY: "未盘点到数量",
+    ASSETS1002VIEW_USERID: "负责人",
   }
 };

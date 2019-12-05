@@ -455,6 +455,8 @@
                 copunnumber1: '',
                 copunnumber2: '',
                 copunnumber3: '',
+                moneys1: '',
+                moneys2: '',
                 error: '',
                 loading: false,
                 canStart: false,
@@ -669,9 +671,37 @@
                         if (response.usecoupon.length > 0) {
                             if(this.form.condominiumcompany === "PR007001"){
                                 this.tableD2 = response.usecoupon;
+                                for (let i = 0; i < this.tableD2.length; i++) {
+                                    if(this.tableD2[i].copuntype === "PR010001")
+                                    {
+                                        this.tableD2[i].copuntype = "G劵";
+                                    }
+                                    if(this.tableD2[i].copuntype === "PR010002")
+                                    {
+                                        this.tableD2[i].copuntype = "M劵";
+                                    }
+                                    if(this.tableD2[i].copuntype === "PR010003")
+                                    {
+                                        this.tableD2[i].copuntype = "Q劵";
+                                    }
+                                }
                             }
                             if(this.form.condominiumcompany === "PR007002"){
                                 this.tableD3 = response.usecoupon;
+                                for (let i = 0; i < this.tableD2.length; i++) {
+                                    if(this.tableD3[i].copuntype === "H劵")
+                                    {
+                                        this.tableD3[i].copuntype = "PR011001";
+                                    }
+                                    if(this.tableD3[i].copuntype === "F劵")
+                                    {
+                                        this.tableD3[i].copuntype = "PR011002";
+                                    }
+                                    if(this.tableD3[i].copuntype === "P劵")
+                                    {
+                                        this.tableD3[i].copuntype = "PR011003";
+                                    }
+                                }
                             }
                         }
                         this.userlist = this.form.userid;
@@ -708,7 +738,12 @@
                                 this.tableD2[2].copunnumber = dictionaryInfo.value2;
                                 this.copunnumber3 = dictionaryInfo.value2;
                                 this.tableD2[2].copunvalue = dictionaryInfo.value3;
-                            }
+                            };
+                            dictionaryInfo = getDictionaryInfo('PR007001');
+                            if (dictionaryInfo) {
+                                this.form.moneys = dictionaryInfo.value2;
+                                this.moneys1 = dictionaryInfo.value2;
+                            };
                         }
                         if (this.form.condominiumcompany === 'PR007002') {
                             this.show3 = true;
@@ -737,6 +772,12 @@
                                 this.copunnumber3 = dictionaryInfo.value2;
                                 this.tableD3[2].copunvalue = dictionaryInfo.value3;
                             }
+                            ;
+                            dictionaryInfo = getDictionaryInfo('PR007002');
+                            if (dictionaryInfo) {
+                                this.form.moneys = dictionaryInfo.value2;
+                                this.moneys2 = dictionaryInfo.value2;
+                            };
                         }
                         this.loading = false;
                     })
@@ -814,7 +855,12 @@
             //使用金额
             changemoneys(val) {
                 this.form.usemoney = val;
-                this.form.moneys.value = (this.form.moneys.value) - val;
+                if (this.form.condominiumcompany === "PR007001") {
+                    this.form.moneys = (this.moneys1) - (this.form.usemoney);
+                }
+                if (this.form.condominiumcompany === "PR007002") {
+                    this.form.moneys = (this.moneys2) - (this.form.usemoney);
+                }
             },
             //预算单位
             getbudgetunit(val) {
@@ -830,6 +876,8 @@
                     this.copunnumber1 = '';
                     this.copunnumber2 = '';
                     this.copunnumber3 = '';
+                    this.moneys1 = '';
+                    this.moneys1 = '';
                     this.show2 = true;
                     this.show3 = false;
                     this.show = false;
@@ -857,6 +905,11 @@
                         this.copunnumber3 = dictionaryInfo.value2;
                         this.tableD2[2].copunvalue = dictionaryInfo.value3;
                     }
+                    dictionaryInfo = getDictionaryInfo('PR007001');
+                    if (dictionaryInfo) {
+                        this.form.moneys = dictionaryInfo.value2;
+                        this.moneys1 = dictionaryInfo.value2;
+                    };
                 }
                 if (val === "PR007002") {
                     this.copunnumber1 = '';
@@ -888,7 +941,12 @@
                         this.tableD3[2].copunnumber = dictionaryInfo.value2;
                         this.copunnumber3 = dictionaryInfo.value2;
                         this.tableD3[2].copunvalue = dictionaryInfo.value3;
-                    }
+                    };
+                    dictionaryInfo = getDictionaryInfo('PR007002');
+                    if (dictionaryInfo) {
+                        this.form.moneys = dictionaryInfo.value2;
+                        this.moneys2 = dictionaryInfo.value2;
+                    };
                 }
             }
             ,

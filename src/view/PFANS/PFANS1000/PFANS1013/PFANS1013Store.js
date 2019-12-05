@@ -1,4 +1,4 @@
-import {create, get, selectById, update} from './PFANS1013Api'
+import {create, get, selectById, update,getdate,getLoanApplication} from './PFANS1013Api'
 
 const PFANS1013Store = {
   namespaced: true,
@@ -60,7 +60,34 @@ const PFANS1013Store = {
           reject(error);
         })
       })
+    },
+    getdate({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getdate(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getLoanApplication({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLoanApplication(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
     }
+
   }
 };
 
