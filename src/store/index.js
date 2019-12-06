@@ -63,6 +63,7 @@ import PFANS8001Store from '../view/PFANS/PFANS8000/PFANS8001/PFANS8001Store'
 import PFANS8007Store from '../view/PFANS/PFANS8000/PFANS8007/PFANS8007Store'
 import PFANS8008Store from '../view/PFANS/PFANS8000/PFANS8008/PFANS8008Store'
 import ASSETS1001Store from '../view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001Store';
+import ASSETS1002Store from '../view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002Store';
 Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
@@ -128,6 +129,7 @@ const store = new Vuex.Store({
     PFANS8007Store,
     PFANS8008Store,
     ASSETS1001Store,
+    ASSETS1002Store,
   },
   getters
 });

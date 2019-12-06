@@ -365,28 +365,6 @@
                           ></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disable"
-                            maxlength="20"
-                            style="width: 100%;"
-                            v-model.trim="scope.row.place"
-                            :no="scope.row"
-                          ></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disable"
-                            maxlength="20"
-                            style="width: 100%;"
-                            v-model.trim="scope.row.place"
-                            :no="scope.row"
-                          ></el-input>
-                        </template>
-                      </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">

@@ -555,6 +555,14 @@ export function menu() {
                 { "_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
               ]
             },
+            {
+              '_id': 'ASSETS1002,', 'name': 'menu.ASSETS1002', 'menuvisible': true, 'menuurl': '/ASSETS1002View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
           ]
         },
 

@@ -183,7 +183,9 @@ module.exports = {
     PFANS3007: "日本出張のマンション予約",
     ASSETS: "资产盘点",
     ASSETS1001: "资产",
-  },
+    ASSETS1002: "盘点",
+
+},
   title: {
     workflow: "流程",
     user: "用户",
@@ -261,10 +263,10 @@ module.exports = {
     PFANS8001VIEW: "修改密码",
     PFANS8002VIEW: "待办事项",
     PFANS8007VIEW: "工作日设置",
-    ASSETS1002VIEW: "盘点计划",
-    ASSETS1002FORMVIEW: "盘点计划详情",
     ASSETS1001VIEW: "资产",
     ASSETS1001FORMVIEW: "资产详情",
+    ASSETS1002VIEW: "盘点计划",
+    ASSETS1002FORMVIEW: "盘点计划详情",
   },
   label: {
     pfanstype: "申請種類",
