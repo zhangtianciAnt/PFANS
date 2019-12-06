@@ -31,7 +31,7 @@
                       :selectType="selectType"
                       :userlist="userlist"
                       @getUserids="getUserids"
-                      style="width: 9.2rem"
+                      style="width:10.14rem"
                       v-model="form.user_id"
                 ></user></el-form-item>
             </el-col>
@@ -65,7 +65,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.email')">
+              <el-form-item :label="$t('label.email')" prop="email">
                 <el-input :disabled="!disable"
                           maxlength="20"
                           style="width: 11rem"
@@ -74,7 +74,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')">
+              <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')" prop="extension">
                 <el-input :disabled="!disable"
                           style="width: 11rem"
                           v-model="form.extension"
@@ -85,7 +85,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_IDTYPE')" >
-                <dicselect :code="code"
+                <dicselect :code="code2"
                            :data="form.idtype"
                            :disabled="!disable"
                            :multiple="multiple"
@@ -106,7 +106,7 @@
 
 <!---->
           <el-row style="padding-top:1.5rem" >
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1051px">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center"  width="150" >
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" v-model="scope.row.number" style="width: 100%">
@@ -116,7 +116,7 @@
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                      :code="code"
+                      :code="code4"
                       :data="form.usertype"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -152,7 +152,7 @@
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_TRANSMISSION')" align="center" width="150">
                 <template slot-scope="scope">
                     <dicselect
-                      :code="code"
+                      :code="code5"
                       :data="form.transmission"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -173,7 +173,7 @@
               <el-table-column :label="$t('label.budgetunit')" align="center" width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code6"
                     :data="form.budgetunit"
                     :disabled="!disable"
                     :multiple="multiple"
@@ -185,7 +185,7 @@
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_CYBOZU')" align="center" width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.cybozu"
                     :disabled="!disable"
                     :multiple="multiple"
@@ -267,6 +267,7 @@
     import {Message} from 'element-ui'
     import user from "../../../components/user.vue";
     import {getOrgInfoByUserId} from '@/utils/customize'
+    import {telephoneNumber,validateEmail} from '@/utils/validate';
     import moment from "moment";
 
     export default {
@@ -277,6 +278,28 @@
             user
         },
         data() {
+          var checkemail = (rule, value, callback) => {
+            if (this.form.email !== null && this.form.email !== '') {
+              if (!validateEmail(value)) {
+                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+              } else {
+                callback();
+              }
+            } else {
+              callback();
+            }
+          };
+          var validateTel = (rule, value, callback) => {
+            if (this.form.extension !== null && this.form.extension !== '') {
+              if (telephoneNumber(value)) {
+                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1017FORMVIEW_EXTENSION')));
+              } else {
+                callback();
+              }
+            } else {
+              callback();
+            }
+          };
             return {
                 multiple: false,
                 selectType: "Single",
@@ -290,7 +313,7 @@
                     user_id: '',
                     type: '',
                     subtype: '',
-                    application: '',
+                    application: moment(new Date()).format("YYYY-MM-DD"),
                     email: '',
                     extension: '',
                     idtype: '',
@@ -311,8 +334,27 @@
                     forwardtime: "",
                     preparefor: "",
                 }],
+                code1: 'PJ037',
+                code2: 'PJ038',
+                code3: 'PJ039',
+                code4: 'PJ040',
+                code5: 'PJ041',
+                code6: 'PG001',
                 disabled: false,
-                rules: {},
+                rules: {
+                  email: [{
+                    // required: true,
+                    // message: this.$t("normal.error_08") + this.$t("label.email"),
+                    // trigger: "blur"
+                  },
+                    {validator: checkemail, trigger: 'blur'}],
+                  extension: [{
+                    // required: true,
+                    // message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+                    // trigger: "blur"
+                  },
+                    {validator: validateTel, trigger: 'blur'}],
+                },
                 canStart: false,
             };
         },
@@ -389,6 +431,21 @@
                 this.form.status = '0';
                 this.buttonClick("update");
             },
+          changesubtype(val) {
+            this.form.subtype = val;
+          },
+          changeidtype(val) {
+            this.form.idtype = val;
+          },
+          changeusertype(val) {
+            this.form.usertype = val;
+          },
+          changetransmission(val) {
+            this.form.transmission = val;
+          },
+          changecybozu(val) {
+            this.form.cybozu = val;
+          },
             // paramsTitle(){
             //     this.$router.push({
             //         name: 'PFANS1001FormView',

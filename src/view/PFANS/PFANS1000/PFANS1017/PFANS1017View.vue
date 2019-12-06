@@ -80,9 +80,9 @@
                         response[j].group_id = response[j].group_id;
                         response[j].team_id = response[j].team_id;
                         response[j].status = getStatus(response[j].status);
-                        if (response[j].implement_date !== null && response[j].implement_date !== '') {
-                            response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
-                        }
+                        // if (response[j].implement_date !== null && response[j].implement_date !== '') {
+                        //     response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
+                        // }
                     }
                     this.data = response;
                     this.loading = false

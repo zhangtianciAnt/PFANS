@@ -67,7 +67,7 @@
 
           <!---->
           <el-row style="padding-top:1.5rem" >
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1051px">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center"  width="150" >
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" v-model="scope.row.number" style="width: 100%">

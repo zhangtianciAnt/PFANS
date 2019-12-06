@@ -270,7 +270,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" align="center" prop="remarks">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" align="center" prop="">
                     <template slot-scope="scope">
                       <el-date-picker :disabled="!disable" :no="scope.row" style="width: 11rem" type="date"
                                       v-model="scope.row.starttime"></el-date-picker>

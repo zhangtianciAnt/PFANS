@@ -74,7 +74,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.email')">
+              <el-form-item :label="$t('label.email')" prop="email">
                 <el-input :disabled="!disable"
                           maxlength="20"
                           style="width: 11rem"
@@ -83,15 +83,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')">
+              <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')" prop="extension">
                 <el-input :disabled="!disable"
                           style="width: 11rem"
                           v-model="form.extension"
-                          maxlength="11"
+                          maxlength="20"
                 ></el-input></el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')" >
                 <dicselect :code="code"
@@ -103,17 +101,29 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-
+          </el-row>
+          <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')" >
-                <dicselect :code="code"
-                           :data="form.reason"
-                           :disabled="!disable"
-                           :multiple="multiple"
-                           @change="changeidtype"
-                           style="width: 11rem">
-                </dicselect>
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PERIOD')" prop="duringdate">
+              <el-date-picker
+                v-model="duringdate"
+                type="daterange"
+                align="right"
+                unlink-panels
+                range-separator="至"
+                start-placeholder="开始日期 "
+                end-placeholder="结束日期"
+                :picker-options="pickerOptions">
+              </el-date-picker>
               </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')" prop="reason">
+                  <el-input :disabled="!disable" :rows="2" type="textarea" style="width:57.1rem" v-model="form.reason">
+                  </el-input>
+                </el-form-item>
             </el-col>
           </el-row>
 
@@ -121,7 +131,7 @@
 
           <!---->
           <el-row style="padding-top:1.5rem" >
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1040px">
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
@@ -182,7 +192,7 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="160">
                 <template slot-scope="scope">
                   <dicselect
                     :code="code"
@@ -229,6 +239,7 @@
   import {Message} from 'element-ui'
   import user from "../../../components/user.vue";
   import {getOrgInfoByUserId} from '@/utils/customize'
+  import {telephoneNumber,validateEmail} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -239,7 +250,57 @@
       user
     },
     data() {
+      var checkemail = (rule, value, callback) => {
+        if (this.form.email !== null && this.form.email !== '') {
+          if (!validateEmail(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      var validateTel = (rule, value, callback) => {
+        if (this.form.extension !== null && this.form.extension !== '') {
+          if (telephoneNumber(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
       return {
+        pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        duringdate: '',
         multiple: false,
         selectType: "Single",
         error: '',
@@ -253,7 +314,7 @@
           type: '',
           typesof: '',
           operationtype: '',
-          payment: '',
+          payment: moment(new Date()).format("YYYY-MM-DD"),
           email: '',
           extension: '',
           manager: '',
@@ -268,7 +329,30 @@
           protocol: '',
         }],
         disabled: false,
-        rules: {},
+        rules: {
+          email: [{
+            required: true,
+            message: this.$t("normal.error_08") + this.$t("label.email"),
+            trigger: "blur"
+          },
+            {validator: checkemail, trigger: 'blur'}],
+          extension: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+            trigger: "blur"
+          },
+            {validator: validateTel, trigger: 'blur'}],
+          reason: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1016FORMVIEW_REASON'),
+            trigger: "blur"
+          }],
+          duringdate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
+            trigger: "change"
+          }],
+        },
         canStart: false,
       };
     },
@@ -295,6 +379,30 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
+            let lettableT = [];
+            let letroutingdetail_id = response.reason.split(";");
+            if (letreason.length > 0) {
+              for (var i = 0; i <= letreason.length - 1; i++) {
+                let letuser = letreason[i].split(",");
+                lettableT.push({
+                  user: letuser[0],
+                  reason: letuser[1]
+                })
+              }
+            }
+            this.tableT = lettableT;
+            this.totaldata = lettableT;
+            this.getList();
+            this.tableP = lettableP;
+            this.totaldatatwo = lettableP;
+            this.getTwo();
+            this.form = response;
+
+
+
+
+
+
             this.loading = false;
           })
           .catch(error => {
