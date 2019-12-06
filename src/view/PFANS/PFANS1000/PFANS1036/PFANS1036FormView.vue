@@ -48,26 +48,20 @@
                     <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column :label="$t('label.人員計画合計')" align="center" width="200">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -75,19 +69,13 @@
                       <el-table-column :label="$t('label.5月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -95,19 +83,13 @@
                       <el-table-column :label="$t('label.6月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -115,19 +97,13 @@
                       <el-table-column :label="$t('label.7月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -135,19 +111,13 @@
                       <el-table-column :label="$t('label.8月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -155,19 +125,13 @@
                       <el-table-column :label="$t('label.9月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -175,19 +139,13 @@
                       <el-table-column :label="$t('label.上期')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -195,19 +153,13 @@
                       <el-table-column :label="$t('label.10月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -215,19 +167,13 @@
                       <el-table-column :label="$t('label.11月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -235,19 +181,13 @@
                       <el-table-column :label="$t('label.12月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -255,19 +195,13 @@
                       <el-table-column :label="$t('label.1月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -275,19 +209,13 @@
                       <el-table-column :label="$t('label.2月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -295,19 +223,13 @@
                       <el-table-column :label="$t('label.3月')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -315,19 +237,13 @@
                       <el-table-column :label="$t('label.下期')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -335,19 +251,13 @@
                       <el-table-column :label="$t('label.年間合计')" align="center" width="300">
                         <el-table-column :label="$t('label.人数')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業工数')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -368,19 +278,13 @@
                       <el-table-column :label="$t('label.4月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -388,19 +292,13 @@
                       <el-table-column :label="$t('label.5月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -408,19 +306,13 @@
                       <el-table-column :label="$t('label.6月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -428,19 +320,13 @@
                       <el-table-column :label="$t('label.7月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -448,19 +334,13 @@
                       <el-table-column :label="$t('label.8月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -468,19 +348,13 @@
                       <el-table-column :label="$t('label.9月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -488,19 +362,13 @@
                       <el-table-column :label="$t('label.上期')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -508,19 +376,13 @@
                       <el-table-column :label="$t('label.10月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -528,19 +390,13 @@
                       <el-table-column :label="$t('label.11月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -548,19 +404,13 @@
                       <el-table-column :label="$t('label.12月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -568,19 +418,13 @@
                       <el-table-column :label="$t('label.1月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -588,19 +432,13 @@
                       <el-table-column :label="$t('label.2月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -608,19 +446,13 @@
                       <el-table-column :label="$t('label.3月')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -628,19 +460,13 @@
                       <el-table-column :label="$t('label.下期')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
@@ -648,43 +474,30 @@
                       <el-table-column :label="$t('label.年間合计')" align="center" width="300">
                         <el-table-column :label="$t('label.給与')" align="center" width="300">
                           <template slot-scope="scope">
-                            <div class="block">
-                              <el-date-picker
-                                :disabled="!disable"
-                                style="width:100%"
-                                type="date"
-                                v-model="scope.row.travelcontentdate">
-                              </el-date-picker>
-                            </div>
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.残業費')" align="center" width="200">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
                     <el-table :data="tableP" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
                         <template slot-scope="scope">
-                          <div class="block">
-                            <el-date-picker
-                              :disabled="!disable"
-                              style="width:100%"
-                              type="date"
-                              v-model="scope.row.travelcontentdate">
-                            </el-date-picker>
-                          </div>
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1002VIEW_PLACE1')" align="center" width="200">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
@@ -720,19 +533,13 @@
                     <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
                         <template slot-scope="scope">
-                          <div class="block">
-                            <el-date-picker
-                              :disabled="!disable"
-                              style="width:100%"
-                              type="date"
-                              v-model="scope.row.travelcontentdate">
-                            </el-date-picker>
-                          </div>
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1002VIEW_PLACE1')" align="center" width="200">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
@@ -833,26 +640,9 @@
                         icon: 'el-icon-check',
                     },
                 ],
-                tableData: [{
-                    abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
-                    subjectnumber: "",
-                    subjectname: "",
-                    budgetunit: "",
-                    debitamount: "",
-                    creditamount: "",
-                    remarks: "",
-                },
+                tableD: [
                     {
-                        abstract: this.$t('label.PFANS1036VIEW_PURCHASEEXPENSEC'),
-                        subjectnumber: "",
-                        subjectname: "",
-                        budgetunit: "",
-                        debitamount: "",
-                        creditamount: "",
-                        remarks: "",
-                    },
-                    {
-                        abstract: this.$t('label.PFANS1036VIEW_OTHEREXPENSEC'),
+                        abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
                         subjectnumber: "",
                         subjectname: "",
                         budgetunit: "",
@@ -861,15 +651,34 @@
                         remarks: "",
                     },
                 ],
-                tableData2: [{
-                    abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
-                    subjectnumber: "",
-                    subjectname: "",
-                    budgetunit: "",
-                    debitamount: "",
-                    creditamount: "",
-                    remarks: "",
-                }],
+                tableE: [
+                    {
+                        abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
+                        subjectnumber: "",
+                        subjectname: "",
+                        budgetunit: "",
+                        debitamount: "",
+                        creditamount: "",
+                        remarks: "",
+                    },
+                    {
+                        abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
+                        subjectnumber: "",
+                        subjectname: "",
+                        budgetunit: "",
+                        debitamount: "",
+                        creditamount: "",
+                        remarks: "",
+                    },
+                    {
+                        abstract: this.$t('label.PFANS1036VIEW_TRAFFICEXPENSEC'),
+                        subjectnumber: "",
+                        subjectname: "",
+                        budgetunit: "",
+                        debitamount: "",
+                        creditamount: "",
+                        remarks: "",
+                    }],
                 tableT: [{
                     publicexpenseid: "",
                     trafficdetails_id: "",
@@ -897,18 +706,6 @@
                     showrow1: false,
                     showrow2: false,
                     showrow3: false,
-                    display: true
-                }],
-                tableR: [{
-                    publicexpenseid: "",
-                    otherdetails_id: "",
-                    otherdetailsdate: "",
-                    costitem: "",
-                    remarks: "",
-                    rmb: "",
-                    foreigncurrency: "",
-                    annexno: "",
-                    rowindex: "",
                     display: true
                 }],
                 baseInfo: {},

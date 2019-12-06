@@ -184,7 +184,6 @@ module.exports = {
     ASSETS: "资产盘点",
     ASSETS1001: "资产",
     ASSETS1002: "盘点",
-
 },
   title: {
     workflow: "流程",
@@ -648,6 +647,7 @@ module.exports = {
     PFANS1013FORMVIEW_R7DOW: "R7以下",
     PFANS1013FORMVIEW_CHUXIANGZHE: "出向者",
     PFANS1013FORMVIEW_R8UP: "R8以上",
+    PFANS1013FORMVIEW_TRAINTICK: "火车票",
     PFANS1014VIEW_FILENAME: "文件名称",
     PFANS1014VIEW_FILESIZE: "大小",
     PFANS1014VIEW_UPDATEDATE: "上传时间",
