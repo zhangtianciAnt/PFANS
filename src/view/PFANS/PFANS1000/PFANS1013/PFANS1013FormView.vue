@@ -232,14 +232,14 @@
                           :summary-method="getDsummaries"
                           show-summary
                           header-cell-class-name="sub_bg_color_grey height"
-                          v-if="showdata" >
+                          v-if="showdata"  >
                   <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="350">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.costitem">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center"width="200" prop="rmb">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center"width="300" prop="rmb">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -258,13 +258,13 @@
                         :summary-method="getsummaries"
                         header-cell-class-name="sub_bg_color_grey height"
                         v-if="showdata2" >
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="300">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="280">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.costitem">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"width="150" prop="ratecurrency">
+                <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"width="140" prop="ratecurrency">
                   <template slot-scope="scope">
                     <el-input-number
                       :no="scope.row"
@@ -277,7 +277,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"width="150" prop="usdcurrency">
+                <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"width="140" prop="usdcurrency">
                   <template slot-scope="scope">
                     <el-input-number
                       :no="scope.row"
@@ -290,7 +290,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"width="150" prop="jpycurrency">
+                <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"width="140" prop="jpycurrency">
                   <template slot-scope="scope">
                     <el-input-number
                       :no="scope.row"
@@ -303,7 +303,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center"width="150" prop="rmb">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center"width="140" prop="rmb">
                   <template slot-scope="scope">
                     <el-input-number
                       :no="scope.row"
@@ -316,7 +316,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center"width="150" prop="total">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center"width="140" prop="total">
                   <template slot-scope="scope">
                     <el-input-number
                       :no="scope.row"
@@ -476,18 +476,27 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" width="100" v-else>
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.city">
+                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.city" style="width: 100%" @change="getCity">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYTYPE')" align="center" width="100">
                   <template slot-scope="scope">
+                    <dicselect :code="code10"
+                               :no="scope.row"
+                               :data="scope.row.facilitytype"
+                               @change="getfacilitytype"
+                               :disabled="!disable"
+                               :multiple="multiple"
+                               v-show="scope.row.showrow">
+                    </dicselect>
                     <dicselect :code="code8"
                                :no="scope.row"
                                :data="scope.row.facilitytype"
                                @change="getfacilitytype"
                                :disabled="!disable"
-                               :multiple="multiple">
+                               :multiple="multiple"
+                               v-show="scope.row.showrow2">
                     </dicselect>
                   </template>
                 </el-table-column>
@@ -584,6 +593,13 @@
                     <el-input :disabled="!disable" v-model="scope.row.train"  style="width: 100%" @change="getvehicle"></el-input>
                   </template>
                 </el-table-column>
+
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" width="150"v-if="showtick" prop="train">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.traintick"  style="width: 100%" ></el-input>
+                  </template>
+                </el-table-column>
+
                 <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" v-model="scope.row.annexno">
@@ -861,9 +877,12 @@
           travel: "",
           relatives: "",
           train: "",
+          traintick:"",
           plane: "",
           annexno: "",
           rowindex: "",
+          showrow:true,
+          showrow2:false
         }],
         tableR: [{
           evectionid: "",
@@ -895,6 +914,8 @@
         code7: 'PJ027',
         code8: 'PJ020',
         code9: 'PJ017',
+        code10: 'PJ035',
+        code11:'PJ036',
         multiple: false,
         show1: true,
         show2: false,
@@ -902,8 +923,11 @@
         show4: false,
         show5: false,
         show: false,
+        showrow:true,
+        showrow2:false,
         showAinner: true,
         showAout: false,
+        showtick:false,
         showdata: true,
         showdata2: false,
         showforeigncurrency: false,
@@ -925,6 +949,15 @@
             }
             if (response.accommodationdetails.length > 0) {
               this.tableA = response.accommodationdetails
+              for (var i = 0; i < this.tableA.length; i++) {
+                if (this.form.type==='1') {
+                  this.tableA[i].showAinner = true;
+                  this.tableA[i].showAout = false;
+                }else if(this.form.type==='2'){
+                  this.tableA[i].showAinner = false;
+                  this.tableA[i].showAout = true;
+                }
+              }
             }
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails
@@ -945,7 +978,6 @@
               this.showAinner = true;
               this.showAout = false;
               this.showforeigncurrency = false;
-
             } else {
               if(this.form.currency==='PJ003001'){
                 this.show4 = true;
@@ -964,7 +996,6 @@
               this.showforeigncurrency = true;
 
             }
-            //
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
@@ -1130,7 +1161,9 @@
           train: "",
           plane: "",
           annexno: "",
-          rowindex: ""
+          rowindex: "",
+          showrow:true,
+          showrow2:false
         });
       },
       addRow4() {
@@ -1301,8 +1334,9 @@
       },
       getvehicle(val,row){
         row.vehicle=val;
-        if(val==='PJ025001'){
-          row.train=getDictionaryInfo(val).value2;
+        if(val==='PJ025004'){
+         this.showtick=true;
+          row.train=row.traintick*0.3;
         }
       },
       getmovementtime(val,row){
@@ -1316,19 +1350,22 @@
       getfacilitytype(val,row){
         row.facilitytype=val;
         this.getTravel(row);
-      },
-      getforeign(sums){
         if(this.form.type==='1'){
-          this.form.totalcurrency=null;
+          row.showrow = true;
+          row.showrow2=false;
+        }else {
+          row.showrow = false;
+          row.showrow2=true;
         }
-        if(this.form.type==='2'){
-          this.form.totalcurrency=sums[5]+this.tableAValue[8]+this.tableAValue[9]+this.tableAValue[10]+this.tableRValue[4];
-        }
-
       },
-      getTravel(row){
+      getCity(val,row){
+        debugger;
+        this.getTravel(row);
+      },
+      getTravel(row){//1111
+        alert(row.city);
         //移动时间
-        var varmovementtime2 = 1;
+        var varmovementtime2;
         let movementtimedic = getDictionaryInfo(row.movementtime);
         if (movementtimedic) {
           varmovementtime2 = movementtimedic.value2;
@@ -1343,28 +1380,95 @@
         //出差补助
         var varbusiness;
         if(Number(varrank) < 7){
-          let businessdic = getDictionaryInfode(row.exitarea,"R7以下",row.facilitytype);
+          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytype);
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
         }else if(Number(varrank) === 8){
-          let businessdic = getDictionaryInfode(row.exitarea,"出向者",row.facilitytype);
+          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytype);
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
         }else if(Number(varrank) > 8){
-          let businessdic = getDictionaryInfode(row.exitarea,"R8以上",row.facilitytype);
+          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytype);
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
         }
-        var vartravel = 0;
-        if(varmovementtime2 != "" && varmovementtime2 != undefined
-          && varbusiness != "" && varbusiness != undefined){
-          vartravel = Number(varmovementtime2) * Number(varbusiness);
+        if(this.form.type === "1"){
+          var varvalueflg1;
+          let dictionaryInfo1 = getDictionaryInfo("PJ035001");
+          if (dictionaryInfo1) {
+            varvalueflg1 = dictionaryInfo1.value2;
+          }
+          var varvalueflg2;
+          var varvalueflg3;
+          let dictionaryInfo2 = getDictionaryInfo("PJ035002");
+          if (dictionaryInfo2) {
+            varvalueflg2 = dictionaryInfo2.value2;
+            varvalueflg3 = dictionaryInfo2.value3;
+          }
+          var varvalueflg4;
+          var varvalueflg5;
+          let dictionaryInfo3 = getDictionaryInfo("PJ035003");
+          if (dictionaryInfo3) {
+            varvalueflg4 = dictionaryInfo3.value2;
+            varvalueflg5 = dictionaryInfo3.value3;
+          }
+          if(row.facilitytype === "PJ035001"){
+            if(row.city != ""){
+              row.travelallowance = varvalueflg1;
+              row.relatives="";
+            }
+          }
+          else if(row.facilitytype === "PJ035002"){
+            row.relatives="";
+            if(row.city != ""){
+              if(row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
+                || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')){
+                row.travelallowance = varvalueflg2;
+              }
+              else{
+                row.travelallowance = varvalueflg3;
+              }
+            }
+          }
+          else if(row.facilitytype === "PJ035003"){
+            if(!(row.movementtime === "PJ027006" || row.movementtime === "PJ027007" || row.movementtime === "PJ027008"
+              || row.movementtime === "PJ027009")){
+              //自宅/亲属家津贴
+              row.relatives = varvalueflg5;
+            }
+            else {
+              row.relatives = varvalueflg5;
+            }
+            if(row.city != "" && row.movementtime != ""){
+              row.travelallowance = varvalueflg4;
+            }
+          }
+          if(row.movementtime != "" && row.facilitytype != "" && row.city != ""){
+            row.travelallowance = Number(row.travelallowance) * varmovementtime2;
+          }
+
         }
-        row.travel = vartravel;
+        else if(this.form.type === "2"){
+          var vartravel = 0;
+          if(varmovementtime2 != "" && varmovementtime2 != undefined
+            && varbusiness != "" && varbusiness != undefined){
+            vartravel = Number(varmovementtime2) * Number(varbusiness);
+          }
+          row.travel = vartravel;
+        }
       },
+  getforeign(sums){
+    if(this.form.type==='1'){
+      this.form.totalcurrency=null;
+    }
+    if(this.form.type==='2'){
+      this.form.totalcurrency=sums[5]+this.tableAValue[8]+this.tableAValue[9]+this.tableAValue[10]+this.tableRValue[4];
+    }
+
+  },
       gettotal(val){
         if(this.form.type==='1'){
           this.form.totalpay= Math.round((this.tableDValue[5]) * 10) / 10;

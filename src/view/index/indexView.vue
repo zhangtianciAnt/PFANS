@@ -1,108 +1,76 @@
 <template>
-  <div style="background-color: white">
+  <div>
     <el-row>
-      <el-col :span="12">
-        <el-row>
-          <div>
-            <div style="  border: 0.1rem solid #e0e0e0;
-cursor: pointer;
-width: 50%;
-height: 6rem;
-" @click="clickDSP">
-              <img style="height: 2rem">
-              <div style="width: 16rem;
-margin-left: 5rem;
-margin-top: 1rem;
-text-overflow: ellipsis;
-overflow: hidden;
-float: left;
-padding: 1rem 0rem;
-line-height: 1.8rem" @click="clickDSP">{{$t('label.INDEX_NY')}}
-                <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
-                {{$t('label.INDEX_DSPSX')}}
+      <el-col :span="12" style="padding: 5px">
+        <el-row style="height: 120px;max-height: 120px">
+          <el-card class="box-card" shadow="hover">
+            <div @click="clickDSP" style="width: 100%;
+              text-align: center;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              float: left;
+              padding: 1rem 0rem;
+              cursor: pointer;
+              line-height: 1.8rem">{{$t('label.INDEX_NY')}}
+              <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
+              {{$t('label.INDEX_DSPSX')}}
+            </div>
+          </el-card>
+        </el-row>
+        <el-row style="padding-top: 5px;height: 380px;max-height: 380px">
+          <el-card class="box-card" shadow="hover">
+            <el-row>
+              <el-col :span="12">
+                <span style="float:left;color: #5d9cec;">{{$t('label.INDEX_GSDT')}}</span>
+              </el-col>
+              <el-col :span="12">
+                <el-link :underline="false" @click="Clickckgd" style="margin-left: 73%;color: #5d9cec"
+                         target="_blank" type="primary">
+                  <span>{{$t('label.INDEX_CKGD')}}</span>
+                </el-link>
+              </el-col>
+            </el-row>
+            <el-divider></el-divider>
+            <el-row style="height:260px;max-height: 260px;overflow: hidden">
+              <div class="DataListStyle">
+                <el-table
+                  :data="DataList2" @row-click="rowclickDataList2">
+                  <el-table-column
+                    prop="title"
+                    width="370">
+                  </el-table-column>
+                  <el-table-column
+                    prop="creaton"
+                    width="220">
+                  </el-table-column>
+                </el-table>
               </div>
-            </div>
-          </div>
+            </el-row>
+          </el-card>
         </el-row>
-        <el-row>
-          <el-col :span="12">
-            <span style="padding: 0 0 0 1rem;color: #5d9cec;">{{$t('label.INDEX_GSDT')}}</span>
-          </el-col>
-          <el-col :span="12">
-            <el-link style="margin-left: 73%;color: #5d9cec" target="_blank" :underline="false"
-                     @click="Clickckgd" type="primary">
-              <span>{{$t('label.INDEX_CKGD')}}</span>
-            </el-link>
-          </el-col>
-        </el-row>
-        <el-tabs
-          style="padding: 0 1rem 0 1rem"
-          v-model="activeName"
-        >
-          <el-tab-pane :disabled=true></el-tab-pane>
-          <el-tab-pane :disabled=true></el-tab-pane>
-          <el-tab-pane :disabled=true></el-tab-pane>
-          <el-tab-pane :disabled=true></el-tab-pane>
-          <el-tab-pane name="first">
-            <div class="DataListStyle">
-              <el-table
-                :data="DataList2"
-                @row-click="rowclickDataList2"
-              >
-                <el-table-column
-                  prop="title"
-                  width="540%">
-                </el-table-column>
-                <el-table-column
-                  prop="creaton"
-                  width="130%"
-                >
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
-
       </el-col>
-      <el-col :span="12">
-
-        <span style="width:80%;margin-top:4rem;font-size:1.8rem">{{$t('label.INDEX_RLRC')}}</span>
-        <div id='three_dot_view'>
-          <label class="gray_line"></label>
-        </div>
-        <div style="margin-top: 3rem;margin-left: 5rem">
-          <el-row>
-            <el-col :span="22">
-              <full-calendar :first-day="firstDay" :header='header'
-                             :locale='locale' :plugins="calendarPlugins"
-                             @dateClick="handleDateClick"
-                             defaultView="dayGridMonth"
-              />
-            </el-col>
-          </el-row>
-        </div>
-
+      <el-col :span="12" style="padding: 5px">
+        <el-row style="height: 498px;max-height: 498px">
+          <full-calendar :first-day="firstDay" :header='header'
+                         :locale='locale' :plugins="calendarPlugins"
+                         @dateClick="handleDateClick" defaultView="dayGridMonth"
+                         height="parent"/>
+        </el-row>
       </el-col>
     </el-row>
-    <el-row style="padding-top: 0.5rem;border-top: 0.5rem solid #f7f8fd;">
-      <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
-      <el-tabs
-        style="padding: 0 1rem 0 1rem"
-        v-model="activeName"
-      >
-        <el-tab-pane :disabled=true></el-tab-pane>
-        <el-tab-pane :disabled=true></el-tab-pane>
-        <el-tab-pane :disabled=true></el-tab-pane>
-        <el-tab-pane :disabled=true></el-tab-pane>
-        <el-tab-pane name="first">
+    <el-row>
+      <el-col :span="24" style="padding: 5px">
+        <el-card class="box-card" shadow="hover">
+          <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
+          <el-divider></el-divider>
           <el-row>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(1)" style="
  background-color: #CD96CD;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(1)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -116,11 +84,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(2)" style="
 background-color: #5d9cec;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(2)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -135,11 +103,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(3)" style="
 background-color: #4e86f8;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(3)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -154,11 +122,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(4)" style="
 background-color: #9E9E9E;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(4)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -173,11 +141,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(5)" style="
 background-color: green;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(5)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -191,11 +159,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(6)" style="
 background-color: #8a6d3b;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(6)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -210,11 +178,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(7)" style="
 background-color: red;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(7)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -228,11 +196,11 @@ padding: 0 0.8rem;">&nbsp;
             </el-col>
             <el-col :span="3">
               <div>
-                <div style="
+                <div @click="submitForm(8)" style="
 background-color: yellow;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; " @click="submitForm(8)">
+          border-radius: 5rem; ">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -246,8 +214,8 @@ padding: 0 0.8rem;">&nbsp;
               </div>
             </el-col>
           </el-row>
-        </el-tab-pane>
-      </el-tabs>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -360,7 +328,7 @@ padding: 0 0.8rem;">&nbsp;
           },
         });
       },
-      handleDateClick: function(info) {
+      handleDateClick: function (info) {
         this.day = moment(info.date).format('YYYY-MM-DD');
         this.$router.push({
           name: 'PFANS5008FormView',
@@ -385,7 +353,7 @@ padding: 0 0.8rem;">&nbsp;
             obj.availablestate = response[j].availablestate;
             data[j] = obj;
           }
-          this.DataList2 = data.slice(0, 7);
+          this.DataList2 = data.slice(0, 5);
         }).catch(err => {
           Message({
             message: err,
@@ -477,6 +445,5 @@ padding: 0 0.8rem;">&nbsp;
     color: white;
     margin: 0;
   }
-
 </style>
 
