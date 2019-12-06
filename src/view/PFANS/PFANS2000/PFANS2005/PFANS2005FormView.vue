@@ -1274,9 +1274,6 @@
                     prop="thisdiligence"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisdiligence"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DBQH')"
@@ -1284,9 +1281,6 @@
                     prop="thisshortdeficiency"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisshortdeficiency"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_CBQH')"
@@ -1294,9 +1288,6 @@
                     prop="thischronicdeficiency"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thischronicdeficiency"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
@@ -1423,9 +1414,6 @@
                     prop="thisweekdays"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisweekdays"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRSY1')"
@@ -1439,9 +1427,6 @@
                     prop="thisrestDay"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisrestDay"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRSY1')"
@@ -1455,9 +1440,6 @@
                     prop="thislegal"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thislegal"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDSY1')"
@@ -1471,9 +1453,6 @@
                     prop="thisreplace"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisreplace"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DXN')"
@@ -1481,9 +1460,6 @@
                     prop="thisreplace3"
                     width="150%"
                   >
-                    <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisreplace3"></el-input>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
@@ -2783,18 +2759,35 @@
         this.$store
           .dispatch('PFANS2005Store/givinglist', {giving_id: this.Giving})
           .then(response => {
-            debugger;
             let lettableQT1Woman = [];
             let lettableQT1Man = [];
             let datalist = [];
             let datalistzxkc = [];
             for (let j = 0; j < response.lackattendance.length; j++) {
+              let user = getUserInfo(response.lackattendance[j].user_id);
+              if (user) {
+                response.lackattendance[j].user_id = getUserInfo(
+                  response.lackattendance[j].user_id,
+                ).userinfo.customername;
+              }
               this.tableQQ = response.lackattendance;
               this.totaldataQQ = response.lackattendance;
               this.ListQQ = 8;
               this.getList();
             }
             for (let j = 0; j < response.residual.length; j++) {
+              let user = getUserInfo(response.residual[j].user_id);
+              if (user) {
+                response.residual[j].user_id = getUserInfo(
+                  response.residual[j].user_id,
+                ).userinfo.customername;
+              }
+              if (response.residual[j].rn !== null && response.residual[j].rn !== '') {
+                let letErrortype = getDictionaryInfo(response.residual[j].rn);
+                if (letErrortype != null) {
+                  response.residual[j].rn = letErrortype.value1;
+                }
+              }
               this.tableCY = response.residual;
               this.totaldataCY = response.residual;
               this.ListCY = 9;
@@ -3555,8 +3548,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === '16' || tab.index === '2' || tab.index === '3' || tab.index === '8' ||
-          tab.index === '9') {
+        if (tab.index === '16' || tab.index === '2' || tab.index === '3'  ) {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === '0' ||
@@ -3564,6 +3556,8 @@
           tab.index === '5' ||
           tab.index === '6' ||
           tab.index === '7' ||
+          tab.index === '8' ||
+          tab.index === '9' ||
           tab.index === '10' ||
           tab.index === '11' ||
           tab.index === '12' ||
@@ -3742,7 +3736,6 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-        debugger;
         if (column.level === 1 && columnIndex === 0) {
           return {
             color: 'white',
@@ -3945,8 +3938,6 @@
           this.baseInfo.otherOne = [];
           this.baseInfo.contrast = [];
           this.baseInfo.otherTwo = [];
-          this.baseInfo.Lackattendance = [];
-          this.baseInfo.Residual = [];
           if (this.tab === '2') {
             for (let i = 0; i < this.tableQT1Woman.length; i++) {
               this.baseInfo.otherOne.push({
@@ -3960,26 +3951,6 @@
                 othertwo_id: this.tableQT2[i].othertwo_id,
                 rootknot: this.tableQT2[i].rootknot,
                 giving_id: this.tableQT2[i].giving_id,
-              });
-            }
-          } else if (this.tab === '8') {
-            for (let i = 0; i < this.tableQQ.length; i++) {
-              this.baseInfo.Lackattendance.push({
-                lackattendance_id: this.tableQQ[i].lackattendance_id,
-                thisdiligence: this.tableQQ[i].thisdiligence,
-                thisshortdeficiency: this.tableQQ[i].thisshortdeficiency,
-                thischronicdeficiency: this.tableQQ[i].thischronicdeficiency,
-              });
-            }
-          } else if (this.tab === '9') {
-            for (let i = 0; i < this.tableCY.length; i++) {
-              this.baseInfo.Residual.push({
-                residual_id: this.tableCY[i].residual_id,
-                thisweekdays: this.tableCY[i].thisweekdays,
-                thisrestDay: this.tableCY[i].thisrestDay,
-                thislegal: this.tableCY[i].thislegal,
-                thisreplace: this.tableCY[i].thisreplace,
-                thisreplace3: this.tableCY[i].thisreplace3,
               });
             }
           } else if (this.tab === '16') {
