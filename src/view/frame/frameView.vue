@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-container>
-      <!-- header -->
       <el-header style="padding: 0" class="main_bg_color">
         <el-col :span="6">
           <EasyLogo maxheight="4rem" title :logo="basselogo"></EasyLogo>
@@ -9,29 +8,7 @@
         <el-col :span="18">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
-              <!--<el-col :span="8" style="text-align: right;margin-top: 0px">-->
-                <!--<EasyLocale></EasyLocale>-->
-              <!--</el-col>-->
-              <el-col :span="12" style="text-align: right">
-                <easy-notice :noticeVal="defaultcount" ref="notice">
-                  <template>
-                    <div slot="messageDetail">
-                      <easynormaltable
-                        ref="easyNormalTable"
-                        @buttonClick="buttonClick"
-                        :data="messageData"
-                        :title="$t('title.imformation')"
-                        :columns="columns"
-                        :formatter="formatter"
-                        :buttonList="buttonList"
-                        :showSelection="false"
-                        @rowClick="rowClick"
-                      ></easynormaltable>
-                    </div>
-                  </template>
-                </easy-notice>
-              </el-col>
-              <el-col :span="12" style="text-align: center">
+              <el-col :span="24" style="text-align: right;padding-right: 20px">
                 <easy-logout></easy-logout>
               </el-col>
             </div>
