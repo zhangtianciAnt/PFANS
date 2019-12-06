@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="12" style="padding: 5px">
         <el-row style="height: 120px;max-height: 120px">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div @click="clickDSP" style="width: 100%;
               text-align: center;
               text-overflow: ellipsis;
@@ -18,7 +18,7 @@
           </el-card>
         </el-row>
         <el-row style="padding-top: 5px;height: 380px;max-height: 380px">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <el-row>
               <el-col :span="12">
                 <span style="float:left;color: #5d9cec;">{{$t('label.INDEX_GSDT')}}</span>
@@ -34,16 +34,14 @@
             <el-row style="height:260px;max-height: 260px;overflow: hidden">
               <div class="DataListStyle">
                 <el-table
-                  :data="DataList2" @row-click="rowclickDataList2"
-                >
+                  :data="DataList2" @row-click="rowclickDataList2">
                   <el-table-column
                     prop="title"
                     width="370">
                   </el-table-column>
                   <el-table-column
                     prop="creaton"
-                    width="220"
-                  >
+                    width="220">
                   </el-table-column>
                 </el-table>
               </div>
@@ -52,170 +50,172 @@
         </el-row>
       </el-col>
       <el-col :span="12" style="padding: 5px">
-          <el-row style="height: 500px;max-height: 500px">
-              <full-calendar :first-day="firstDay" :header='header'
-                             :locale='locale' :plugins="calendarPlugins"
-                             @dateClick="handleDateClick" height="parent"
-                             defaultView="dayGridMonth"/>
-          </el-row>
+        <el-row style="height: 498px;max-height: 498px">
+          <full-calendar :first-day="firstDay" :header='header'
+                         :locale='locale' :plugins="calendarPlugins"
+                         @dateClick="handleDateClick" defaultView="dayGridMonth"
+                         height="parent"/>
+        </el-row>
       </el-col>
     </el-row>
-    <el-row style="padding-top: 0.5rem;border-top: 0.5rem solid #f7f8fd;">
-      <el-card class="box-card">
-      <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
-      <el-divider></el-divider>
-      <el-row>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(1)" style="
+    <el-row>
+      <el-col :span="24" style="padding: 5px">
+        <el-card class="box-card" shadow="hover">
+          <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
+          <el-divider></el-divider>
+          <el-row>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(1)" style="
  background-color: #CD96CD;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
+                  </div>
+                </div>
+                <div style="margin-top:1rem;margin-left: 2.1rem">
+                  <span>{{$t('title.PFANS5008VIEW')}}</span>
+                </div>
               </div>
-            </div>
-            <div style="margin-top:1rem;margin-left: 2.1rem">
-              <span>{{$t('title.PFANS5008VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(2)" style="
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(2)" style="
 background-color: #5d9cec;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
-              </div>
+                  </div>
 
-            </div>
-            <div style="margin-top:1rem;margin-left: 0.5rem">
-              <span>{{$t('title.PFANS2005VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(3)" style="
+                </div>
+                <div style="margin-top:1rem;margin-left: 0.5rem">
+                  <span>{{$t('title.PFANS2005VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(3)" style="
 background-color: #4e86f8;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
-              </div>
+                  </div>
 
-            </div>
-            <div style="margin-top:1rem;margin-left: 1.2rem">
-              <span>{{$t('title.PFANS2017VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(4)" style="
+                </div>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS2017VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(4)" style="
 background-color: #9E9E9E;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
-              </div>
+                  </div>
 
-            </div>
-            <div style="margin-top:1rem;margin-left: 1.2rem">
-              <span>{{$t('title.PFANS4001VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(5)" style="
+                </div>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS4001VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(5)" style="
 background-color: green;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
+                  </div>
+                </div>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS5001VIEW')}}</span>
+                </div>
               </div>
-            </div>
-            <div style="margin-top:1rem;margin-left: 1.2rem">
-              <span>{{$t('title.PFANS5001VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(6)" style="
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(6)" style="
 background-color: #8a6d3b;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
-              </div>
+                  </div>
 
-            </div>
-            <div style="margin-top:1rem">
-              <span>{{$t('title.PFANS2020VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(7)" style="
+                </div>
+                <div style="margin-top:1rem">
+                  <span>{{$t('title.PFANS2020VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(7)" style="
 background-color: red;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
+                  </div>
+                </div>
+                <div style="margin-top:1rem;margin-left: 1.2rem">
+                  <span>{{$t('title.PFANS2023VIEW')}}</span>
+                </div>
               </div>
-            </div>
-            <div style="margin-top:1rem;margin-left: 1.2rem">
-              <span>{{$t('title.PFANS2023VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="3">
-          <div>
-            <div @click="submitForm(8)" style="
+            </el-col>
+            <el-col :span="3">
+              <div>
+                <div @click="submitForm(8)" style="
 background-color: yellow;
           width: 6.8rem;
           height: 6.8rem;
           border-radius: 5rem; ">
-              <img style="height: 2rem">
-              <div style="    float: right;
+                  <img style="height: 2rem">
+                  <div style="    float: right;
 color: red;
 padding: 0 0.8rem;">&nbsp;
-              </div>
+                  </div>
 
-            </div>
-            <div style="margin-top:1rem;margin-left: 0.7rem">
-              <span>{{$t('title.PFANS2022VIEW')}}</span>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      </el-card>
+                </div>
+                <div style="margin-top:1rem;margin-left: 0.7rem">
+                  <span>{{$t('title.PFANS2022VIEW')}}</span>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -445,6 +445,5 @@ padding: 0 0.8rem;">&nbsp;
     color: white;
     margin: 0;
   }
-
 </style>
 
