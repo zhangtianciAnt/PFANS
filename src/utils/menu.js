@@ -25,6 +25,14 @@ export function menu() {
         {
           '_id': 'MANAGEMENT', 'name': 'menu.MANAGEMENT', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
             {
+              '_id': 'PFANS1036', 'name': 'menu.PFANS1036', 'menuvisible': true, 'menuurl': '/PFANS1036View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "PFANS1036_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "PFANS1036_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "PFANS1036_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "PFANS1036_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+            {
               '_id': 'JUDGEMENT', 'name': 'menu.JUDGEMENT', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
                 {
                   '_id': 'PFANS1001', 'name': 'menu.PFANS1001', 'menuvisible': true, 'menuurl': '/PFANS1001View', 'menuicon': '', 'children': [], 'actions': [
@@ -533,6 +541,26 @@ export function menu() {
                 { "_id": "PFANS2000_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
                 { "_id": "PFANS2000_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
                 { "_id": "PFANS2000_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+          ]
+        },
+        {
+          '_id': 'ASSETS', 'name': 'menu.ASSETS', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
+            {
+              '_id': 'ASSETS1001,', 'name': 'menu.ASSETS1001', 'menuvisible': true, 'menuurl': '/ASSETS1001View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+            {
+              '_id': 'ASSETS1002,', 'name': 'menu.ASSETS1002', 'menuvisible': true, 'menuurl': '/ASSETS1002View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
               ]
             },
           ]

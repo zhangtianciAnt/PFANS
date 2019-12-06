@@ -55,13 +55,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <org
-                  :orglist="form.usedepartment"
-                  orgtype="1"
-                  style="width: 9rem"
-                  selectType="Single"
-                  @getOrgids="getCenterid"
-                ></org>
+                <el-input  :disabled="true" style="width: 11rem" v-model="form.usedepartment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -96,10 +90,8 @@
     import {Message} from 'element-ui';
     import dicselect from '../../../components/dicselect.vue';
     import user from '../../../components/user.vue';
-    import org from "@/view/components/org";
-    import {getOrgInfoByUserId} from '@/utils/customize';
     import moment from 'moment';
-    import {getDictionaryInfo,uploadUrl} from '../../../../utils/customize';
+    import {getOrgInfoByUserId} from '@/utils/customize';
 
     export default {
     name: 'ASSETS1001FormView',
@@ -108,7 +100,6 @@
       ASSETS1001View,
       dicselect,
       user,
-      org
     },
     data() {
       return {
@@ -116,7 +107,6 @@
         error: '',
         selectType: 'Single',
         userlist: '',
-        orglist: '',
         title: "title.ASSETS1001FORMVIEW",
         buttonList: [],
         form: {
@@ -139,28 +129,12 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
+          .dispatch('ASSETS1001Store/getOneInfo', {'assets_id': this.$route.params._id})
           .then(response => {
+            debugger;
             this.form = response;
-            this.userlist = this.form.user_id;
-            this.relation = this.form.relation;
-              if (this.form.status === '2') {
-                  this.disable = false;
-              }
-            this.getOvertimelist();
-            if (this.form.uploadfile != "") {
-              let uploadfile = this.form.uploadfile.split(";");
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(",")[0] != "") {
-                  let o = {};
-                  o.name = uploadfile[i].split(",")[0];
-                  o.url = uploadfile[i].split(",")[1];
-                  this.fileList.push(o)
-                }
-              }
-            }
+            this.userlist = this.form.principal;
             this.loading = false;
-
           })
           .catch(error => {
             Message({
@@ -174,12 +148,8 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
-          this.form.user_id = this.$store.getters.userinfo.userid;
+          this.form.usedepartment = lst.centerNmae;
         }
-        this.getOvertimelist();
       }
     },
     created() {
@@ -205,60 +175,9 @@
       }
     },
     methods: {
-      getCenterid(val) {
-        this.getOrgInformation(val);
-        if (!val || this.form.usedepartment === "") {
-          this.error = this.$t("normal.error_08") + "center";
-        } else {
-          this.error = "";
-        }
-      },
-      getOvertimelist() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2016Store/getOvertimelist', {userid: this.userlist, actualsubstitutiondate: null})
-          .then(response => {
-            let letrelation = [];
-            for (let j = 0; j < response.length; j++) {
-              response[j].reserveovertimedate = moment(response[j].reserveovertimedate).format('YYYY-MM-DD');
-              let getOvertimetype = getDictionaryInfo(response[j].overtimetype);
-              if (getOvertimetype !== null && getOvertimetype.code === 'PR013002') {
-                response[j].overtimetype = getOvertimetype.value1;
-              }
-              if (this.relation) {
-                this.showWeekend = true;
-                let a = this.relation.split(',');
-                for (let i = 0; i < a.length; i++) {
-                  if (a[i] === response[j].overtimeid) {
-                    letrelation.push(response[j]);
-                  }
-                }
-              }
-            }
-            if (letrelation.length > 0) {
-              this.options = letrelation;
-              this.form.relation = this.options;
-            } else {
-              this.options = response;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
       getUserids(val) {
-        this.form.user_id = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || val ==="undefined") {
+        this.form.principal = val;
+        if (!this.form.principal || this.form.principal === '' || val ==="undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
           this.error = '';
@@ -276,16 +195,10 @@
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            let letrelation = '';
-            for (let j = 0; j < this.form.relation.length; j++) {
-              letrelation = letrelation + ',' + this.form.relation[j];
-            }
-            this.form.relation = letrelation.substring(1, letrelation.length);
             if (this.$route.params._id) {
-              this.form.abnormalid = this.$route.params._id;
               this.loading = true;
               this.$store
-                .dispatch('PFANS2016Store/updatePfans2016', this.form)
+                .dispatch('ASSETS1001Store/getUpdateInfo', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
@@ -311,7 +224,7 @@
             } else {
               this.loading = true;
               this.$store
-                .dispatch('PFANS2016Store/createPfans2016', this.form)
+                .dispatch('ASSETS1001Store/getInsertInfo', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
