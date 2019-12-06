@@ -31,7 +31,7 @@
               </el-col>
             </el-row>
             <el-divider></el-divider>
-            <el-row style="height:260px;max-height: 260px;overflow: auto;">
+            <el-row style="height:260px;max-height: 260px;overflow: hidden">
               <div class="DataListStyle">
                 <el-table
                   :data="DataList2" @row-click="rowclickDataList2"
@@ -52,12 +52,11 @@
         </el-row>
       </el-col>
       <el-col :span="12" style="padding: 5px">
-          <el-row style="height:500px;max-height: 500px">
+          <el-row style="height: 500px;max-height: 500px">
               <full-calendar :first-day="firstDay" :header='header'
                              :locale='locale' :plugins="calendarPlugins"
-                             @dateClick="handleDateClick" style="height:400px;max-height: 400px"
-                             defaultView="dayGridMonth"
-              />
+                             @dateClick="handleDateClick" height="parent"
+                             defaultView="dayGridMonth"/>
           </el-row>
       </el-col>
     </el-row>
