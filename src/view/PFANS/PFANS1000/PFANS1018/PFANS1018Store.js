@@ -63,19 +63,6 @@ const PFANS1018Store = {
         })
       })
     },
-    getglobalApplyList({ commit },data) {
-      return new Promise((resolve, reject) => {
-        getglobalApplyList(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
   }
 };
 
