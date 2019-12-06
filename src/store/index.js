@@ -33,6 +33,7 @@ import PFANS1019Store from '../view/PFANS/PFANS1000/PFANS1019/PFANS1019Store'
 import PFANS1021Store from '../view/PFANS/PFANS1000/PFANS1021/PFANS1021Store'
 import PFANS1023Store from '../view/PFANS/PFANS1000/PFANS1023/PFANS1023Store'
 import PFANS1034Store from '../view/PFANS/PFANS1000/PFANS1034/PFANS1034Store'
+import PFANS1036Store from '../view/PFANS/PFANS1000/PFANS1036/PFANS1036Store'
 import PFANS2001Store from '../view/PFANS/PFANS2000/PFANS2001/PFANS2001Store'
 import PFANS2002Store from '../view/PFANS/PFANS2000/PFANS2002/PFANS2002Store'
 import PFANS2003Store from '../view/PFANS/PFANS2000/PFANS2003/PFANS2003Store'
@@ -61,6 +62,7 @@ import PFANS5008Store from '../view/PFANS/PFANS5000/PFANS5008/PFANS5008Store'
 import PFANS8001Store from '../view/PFANS/PFANS8000/PFANS8001/PFANS8001Store'
 import PFANS8007Store from '../view/PFANS/PFANS8000/PFANS8007/PFANS8007Store'
 import PFANS8008Store from '../view/PFANS/PFANS8000/PFANS8008/PFANS8008Store'
+import ASSETS1001Store from '../view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001Store';
 Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
@@ -96,6 +98,7 @@ const store = new Vuex.Store({
     PFANS1021Store,
     PFANS1023Store,
     PFANS1034Store,
+    PFANS1036Store,
     PFANS2001Store,
     PFANS2002Store,
     PFANS2003Store,
@@ -124,6 +127,7 @@ const store = new Vuex.Store({
     PFANS8001Store,
     PFANS8007Store,
     PFANS8008Store,
+    ASSETS1001Store,
   },
   getters
 });
