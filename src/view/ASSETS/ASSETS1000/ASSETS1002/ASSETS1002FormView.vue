@@ -56,9 +56,8 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import moment from 'moment';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+  import moment from "moment";
+  import {getUserInfo} from '@/utils/customize';
 
   export default {
     name: 'ASSETS1002FormView',
@@ -95,16 +94,22 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
-        this.loading = true;
+      this.userlist = this.$store.getters.userinfo.userid;
+      this.loading = true;
         this.$store
-          .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
+          .dispatch('ASSETS1002Store/selectAll', {})
           .then(response => {
-            this.form = response.inventoryplan;
-            if (response.assets.length > 0) {
-              this.tableD = response.assets;
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].principal);
+              if (user) {
+                response[j].principal = user.userinfo.customername;
+                response[j].usedepartment = user.userinfo.centername;
+              }
+              if (response[j].purchasetime !== null && response[j].purchasetime !== "") {
+                response[j].purchasetime = moment(response[j].purchasetime).format("YYYY-MM-DD");
+              }
             }
-            this.userlist = this.form.user_id;
+            this.tableD = response;
             this.loading = false;
           })
           .catch(error => {
@@ -115,16 +120,6 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.center_id = lst.centerNmae;
-          this.form.group_id = lst.groupNmae;
-          this.form.team_id = lst.teamNmae;
-          this.form.user_id = this.$store.getters.userinfo.userid;
-        }
-      }
     },
     created() {
       this.disable = this.$route.params.disabled;

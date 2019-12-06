@@ -55,13 +55,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <org
-                  :orglist="form.usedepartment"
-                  orgtype="1"
-                  style="width: 9rem"
-                  selectType="Single"
-                  @getOrgids="getCenterid"
-                ></org>
+                <el-input  :disabled="true" style="width: 11rem" v-model="form.usedepartment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -96,8 +90,8 @@
     import {Message} from 'element-ui';
     import dicselect from '../../../components/dicselect.vue';
     import user from '../../../components/user.vue';
-    import org from "@/view/components/org";
     import moment from 'moment';
+    import {getOrgInfoByUserId} from '@/utils/customize';
 
     export default {
     name: 'ASSETS1001FormView',
@@ -106,7 +100,6 @@
       ASSETS1001View,
       dicselect,
       user,
-      org
     },
     data() {
       return {
@@ -151,6 +144,12 @@
             });
             this.loading = false;
           });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.usedepartment = lst.centerNmae;
+        }
       }
     },
     created() {
@@ -176,14 +175,6 @@
       }
     },
     methods: {
-      getCenterid(val) {
-        this.form.usedepartment = val;
-        if (!val || this.form.usedepartment === "") {
-          this.error = this.$t("normal.error_08") + "center";
-        } else {
-          this.error = "";
-        }
-      },
       getUserids(val) {
         this.form.principal = val;
         if (!this.form.principal || this.form.principal === '' || val ==="undefined") {

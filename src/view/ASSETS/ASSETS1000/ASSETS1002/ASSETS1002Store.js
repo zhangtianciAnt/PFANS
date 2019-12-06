@@ -1,4 +1,4 @@
-import {getInventoryplan,selectById,update,insert} from './ASSETS1002Api'
+import {getInventoryplan,selectAll,update,insert} from './ASSETS1002Api'
 
 const ASSETS1002Store = {
   namespaced: true,
@@ -20,9 +20,9 @@ const ASSETS1002Store = {
       })
     },
 
-    selectById({commit}, data) {
+    selectAll({commit}, data) {
       return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
+        selectAll(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

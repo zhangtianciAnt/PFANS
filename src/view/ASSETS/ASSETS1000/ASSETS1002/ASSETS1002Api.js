@@ -7,9 +7,9 @@ export function getInventoryplan() {
   })
 }
 
-export function selectById(data) {
+export function selectAll(data) {
   return request({
-    url: 'inventoryplan/selectById',
+    url: 'inventoryplan/selectAll',
     method: 'get',
     params: data,
   });
