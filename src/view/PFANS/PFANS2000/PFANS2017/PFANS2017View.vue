@@ -115,21 +115,7 @@
                     },
                     {
                         code: 'punchcardrecord_date',
-                        label: 'label.date',
-                        width: 130,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'time_start',
-                        label: 'label.PFANS2017VIEW_START',
-                        width: 130,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'time_end',
-                        label: 'label.PFANS2017VIEW_END',
+                        label: 'label.PFANS2017VIEW_DKSJ',
                         width: 130,
                         fix: false,
                         filter: true
@@ -151,22 +137,17 @@
                 this.$store
                     .dispatch('PFANS2017Store/getFpans2017List', {})
                     .then(response => {
+                      debugger
                         for (let j = 0; j < response.length; j++) {
                             let user = getUserInfo(response[j].user_id);
                             if (user) {
                                 response[j].user_id = user.userinfo.customername;
                             }
-                            response[j].centerid = response[j].centerid;
-                            response[j].groupid = response[j].groupid;
-                            response[j].teamid = response[j].teamid;
+                            response[j].centerid = response[j].center_id;
+                            response[j].groupid = response[j].group_id;
+                            response[j].teamid = response[j].team_id;
                             if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
-                                response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");
-                            }
-                            if (response[j].time_start !== null && response[j].time_start !== "") {
-                                response[j].time_start = moment(response[j].time_start).format("HH:mm");
-                            }
-                            if (response[j].time_end !== null && response[j].time_end !== "") {
-                                response[j].time_end = moment(response[j].time_end).format("HH:mm");
+                                response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format('YYYY-MM-DD HH:mm:ss');
                             }
                         }
                         this.data = response;
