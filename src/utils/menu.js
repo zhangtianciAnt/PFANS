@@ -545,6 +545,18 @@ export function menu() {
             },
           ]
         },
+        {
+          '_id': 'ASSETS', 'name': 'menu.ASSETS', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
+            {
+              '_id': 'ASSETS1001,', 'name': 'menu.ASSETS1001', 'menuvisible': true, 'menuurl': '/ASSETS1001View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+          ]
+        },
 
       ],
       'child': []
