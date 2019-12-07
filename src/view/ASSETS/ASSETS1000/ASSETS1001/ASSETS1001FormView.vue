@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick" ref="container">
+    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
+                         ref="container">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
@@ -55,7 +56,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <el-input  :disabled="true" style="width: 11rem" v-model="form.usedepartment"></el-input>
+                <el-input :disabled="true" style="width: 11rem" v-model="form.usedepartment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -67,16 +68,17 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
+              <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 10.2rem"></user>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-          <el-col :span="24" align="center">
-            <span>P20191205PC2001</span>
-          </el-col>
+            <el-col :span="24" align="center">
+              <img src='http://barcode.tec-it.com/barcode.ashx?data=P20191207pc2000' alt='Barcode Software by TEC-IT'
+                   border='0'/>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -85,15 +87,15 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
-    import {Message} from 'element-ui';
-    import dicselect from '../../../components/dicselect.vue';
-    import user from '../../../components/user.vue';
-    import moment from 'moment';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
+  import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
+  import moment from 'moment';
+  import {getOrgInfoByUserId} from '@/utils/customize';
 
-    export default {
+  export default {
     name: 'ASSETS1001FormView',
     components: {
       EasyNormalContainer,
@@ -107,7 +109,7 @@
         error: '',
         selectType: 'Single',
         userlist: '',
-        title: "title.ASSETS1001FORMVIEW",
+        title: 'title.ASSETS1001FORMVIEW',
         buttonList: [],
         form: {
           filename: '',
@@ -131,7 +133,6 @@
         this.$store
           .dispatch('ASSETS1001Store/getOneInfo', {'assets_id': this.$route.params._id})
           .then(response => {
-            debugger;
             this.form = response;
             this.userlist = this.form.principal;
             this.loading = false;
@@ -177,7 +178,12 @@
     methods: {
       getUserids(val) {
         this.form.principal = val;
-        if (!this.form.principal || this.form.principal === '' || val ==="undefined") {
+        this.userlist = val;
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst = getOrgInfoByUserId(val);
+          this.form.usedepartment = lst.centerNmae;
+        }
+        if (!this.form.principal || this.form.principal === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
           this.error = '';
@@ -202,15 +208,13 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  if(val !== "update"){
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                      if (this.$store.getters.historyUrl) {
-                          this.$router.push(this.$store.getters.historyUrl);
-                      }
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
                   }
                 })
                 .catch(error => {

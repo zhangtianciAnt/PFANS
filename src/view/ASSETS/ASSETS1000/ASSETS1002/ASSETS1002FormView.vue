@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container">
+                         ref="container">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
@@ -56,7 +56,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import moment from "moment";
+  import moment from 'moment';
   import {getUserInfo} from '@/utils/customize';
 
   export default {
@@ -72,6 +72,7 @@
         loading: false,
         error: '',
         userlist: '',
+        selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
         form: {
@@ -80,15 +81,15 @@
         },
         tableD: [
           {
-            assets_id: '',
-            inventoryplan_id: '',
+            // assets_id: '',
+            // inventoryplan_id: '',
             filename: '',
             typeassets: '',
             price: '',
             purchasetime: '',
             usedepartment: '',
             principal: '',
-          }
+          },
         ],
         baseInfo: {},
       };
@@ -96,30 +97,30 @@
     mounted() {
       this.userlist = this.$store.getters.userinfo.userid;
       this.loading = true;
-        this.$store
-          .dispatch('ASSETS1002Store/selectAll', {})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              let user = getUserInfo(response[j].principal);
-              if (user) {
-                response[j].principal = user.userinfo.customername;
-                response[j].usedepartment = user.userinfo.centername;
-              }
-              if (response[j].purchasetime !== null && response[j].purchasetime !== "") {
-                response[j].purchasetime = moment(response[j].purchasetime).format("YYYY-MM-DD");
-              }
+      this.$store
+        .dispatch('ASSETS1002Store/selectAll', {})
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            let user = getUserInfo(response[j].principal);
+            if (user) {
+              response[j].principal = user.userinfo.customername;
+              response[j].usedepartment = user.userinfo.centername;
             }
-            this.tableD = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+            if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
+              response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
+            }
+          }
+          this.tableD = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
+          this.loading = false;
+        });
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -131,13 +132,8 @@
             icon: 'el-icon-check',
           },
           {
-            key: 'save',
-            name: '保存并打印',
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'printing',
-            name: 'button.printing',
+            key: 'result',
+            name: '查看结果',
             icon: 'el-icon-check',
           },
         ];
@@ -156,13 +152,13 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             this.loading = true;
-            if (this.$route.params._id) {
-              this.$store
-                .dispatch('ASSETS1002Store/update', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if(val !== "update"){
+            if (val === 'save') {
+              if (this.$route.params._id) {
+                this.$store
+                  .dispatch('ASSETS1002Store/update', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
                     Message({
                       message: this.$t('normal.success_02'),
                       type: 'success',
@@ -171,40 +167,41 @@
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
-            } else {
-              this.$store
-                .dispatch('ASSETS1002Store/insert', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
+              } else {
+                this.$store
+                  .dispatch('ASSETS1002Store/insert', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            }
+              }
+            } /*else if (val === 'result') {
+          }*/
           }
         });
       },
