@@ -1,18 +1,19 @@
 import {
-  getSecurity,
+  getHoliday,
   selectById,
-  update,
-  insert,
-  } from './PFANS1021Api'
+  updateHoliday,
+  createHoliday,
+  getForSelect,
+  } from './PFANS1022Api'
 
-  const PFANS1021Store = {
+  const PFANS1022Store = {
     namespaced: true,
     state: {},
     mutations: {},
     actions: {
-      getSecurity() {
+      getHoliday() {
         return new Promise((resolve, reject) => {
-          getSecurity().then(response => {
+          getHoliday().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -36,9 +37,9 @@ import {
           })
         })
       },
-      update({ commit },data) {
+      updateHoliday({ commit },data) {
         return new Promise((resolve, reject) => {
-          update(data).then(response => {
+          updateHoliday(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -49,9 +50,9 @@ import {
           })
         })
       },
-      insert({ commit },data) {
+      createHoliday({ commit },data) {
         return new Promise((resolve, reject) => {
-          insert(data).then(response => {
+          createHoliday(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -59,10 +60,23 @@ import {
             }
           }).catch(error => {
             reject(error);
+          })
+        })
+      },
+      getForSelect ({commit}, data) {
+        return new Promise((resolve, reject) => {
+          getForSelect(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data)
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error)
           })
         })
       },
     }
   };
 
-  export default PFANS1021Store;
+  export default PFANS1022Store;

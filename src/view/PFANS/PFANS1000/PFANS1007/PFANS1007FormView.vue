@@ -141,54 +141,54 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETNAME')" align="center" prop="fixedassetnam" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="false" maxlength="20" v-model="scope.row.fixedassetnam">
+                      <el-input :disabled="false" :no="scope.row" maxlength="20" v-model="scope.row.fixedassetnam">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_MEGASNUMBER')" align="center" prop="megasnumber" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="false" maxlength="20" v-model="scope.row.megasnumber">
+                      <el-input :disabled="false" :no="scope.row" maxlength="20" v-model="scope.row.megasnumber">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETTAGNUMBER')" align="center" prop="settagnumber" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="false" maxlength="20" v-model="scope.row.settagnumber">
+                      <el-input :disabled="false" :no="scope.row" maxlength="20" v-model="scope.row.settagnumber">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_PURCHASETIME')" align="center" prop="purchasedate" width="200">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="false" style="width: 11rem" type="date" v-model="scope.row.purchasedate"></el-date-picker>
+                      <el-date-picker :disabled="false" :no="scope.row" style="width: 11rem" type="date" v-model="scope.row.purchasedate"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_ORIGINALVALUE')" align="center" prop="originalvalue" width="200">
                     <template slot-scope="scope">
-                      <el-input-number @change="change" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.originalvalue">
+                      <el-input-number @change="change" :no="scope.row" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.originalvalue">
                       </el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_YEARSOFUSE')" align="center" prop="yearsofuse" width="200">
                     <template slot-scope="scope">
-                      <el-input-number @change="change" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.yearsofuse">
+                      <el-input-number @change="change" :no="scope.row" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.yearsofuse">
                       </el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_NETWORTH')" align="center" prop="networth" width="200">
                     <template slot-scope="scope">
-                      <el-input-number @change="change" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.networth">
+                      <el-input-number @change="change" :no="scope.row" :disabled="false" :min="0" :precision="2" style="width: 11rem" :max="9999999" controls-position="right" v-model="scope.row.networth">
                       </el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_REASONFORSCRAPPING')" align="center" prop="scrapping" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="false" v-model="scope.row.scrapping">
+                      <el-input :disabled="false" :no="scope.row" v-model="scope.row.scrapping">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.remarks')" align="center" prop="remarks" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="false" v-model="scope.row.remarks">
+                      <el-input :disabled="false" :no="scope.row" v-model="scope.row.remarks">
                       </el-input>
                     </template>
                   </el-table-column>

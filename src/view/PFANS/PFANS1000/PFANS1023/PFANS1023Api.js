@@ -1,21 +1,22 @@
 import request from '../../../../utils/request'
 
-export function getConfidential() {
+export function getConfidential(data) {
   return request({
     url: 'confidential/get',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 
-export function selectById(data) {
+export function getConfidentialOne(data) {
   return request({
-    url: 'confidential/selectById',
+    url: 'confidential/one',
     method: 'post',
     data: data
   })
 }
 
-export function updateConfidential(data) {
+export function update(data) {
   return request({
     url: 'confidential/update',
     method: 'post',
@@ -23,18 +24,10 @@ export function updateConfidential(data) {
   })
 }
 
-export function createConfidential(data) {
+export function insert(data) {
   return request({
-    url: 'confidential/create',
+    url: 'confidential/insert',
     method: 'post',
     data: data
-  })
-}
-
-export function getForSelect (data) {
-  return request({
-    url: 'dictionary/getForSelect',
-    method: 'get',
-    params: data
   })
 }
