@@ -58,7 +58,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import moment from 'moment';
-  import {getUserInfo} from '@/utils/customize';
+  import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: 'ASSETS1002FormView',
@@ -107,6 +107,7 @@
             let inventory = inventorycycle.slice(0, 10);
             let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
             this.form.inventorycycle = inventory + inventory1;
+            this.userlist = response.inventoryplan.userid;
             if (response.assets.length > 0) {
               this.tableD = response.assets;
               for (let j = 0; j < response.assets.length; j++) {
@@ -117,6 +118,12 @@
                 }
                 if (response.assets[j].purchasetime !== null && response.assets[j].purchasetime !== '') {
                   response.assets[j].purchasetime = moment(response.assets[j].purchasetime).format('YYYY-MM-DD');
+                }
+                if (response.assets[j].typeassets !== null && response.assets[j].typeassets !== '') {
+                  let letErrortype = getDictionaryInfo(response.assets[j].typeassets);
+                  if (letErrortype != null) {
+                    response.assets[j].typeassets = letErrortype.value1;
+                  }
                 }
               }
             }
@@ -169,6 +176,12 @@
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
+              }
+              if (response[j].typeassets !== null && response[j].typeassets !== '') {
+                let letErrortype = getDictionaryInfo(response[j].typeassets);
+                if (letErrortype != null) {
+                  response[j].typeassets = letErrortype.value1;
+                }
               }
             }
             this.tableD = response;
