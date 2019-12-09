@@ -70,7 +70,8 @@
  background-color: #CD96CD;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -88,7 +89,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #5d9cec;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -107,7 +109,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #4e86f8;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -126,7 +129,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #9E9E9E;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -145,7 +149,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: green;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -163,7 +168,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: #8a6d3b;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -182,7 +188,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: red;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;
@@ -200,7 +207,8 @@ padding: 0 0.8rem;">&nbsp;
 background-color: yellow;
           width: 6.8rem;
           height: 6.8rem;
-          border-radius: 5rem; ">
+          border-radius: 5rem;
+cursor: pointer">
                   <img style="height: 2rem">
                   <div style="    float: right;
 color: red;

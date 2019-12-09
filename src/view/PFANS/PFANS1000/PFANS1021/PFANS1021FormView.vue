@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.type" :disabled="disabled" style="width: 11rem" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -78,47 +78,48 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="175" :error="errortitle">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :error="errortitle" :selectType="selectType" :userlist="userlist1"
+                  <user :disabled="!disabled" :no="scope.row" :error="errortitle" :selectType="selectType" :userlist="scope.row.title"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="140">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.detailcenter_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.detailcenter_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="140">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.detailgroup_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.detailgroup_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="140">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.detailteam_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.detailteam_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="140">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.phonenumber">
+                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="140">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.emaildetail">
+                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="140">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.startdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.startdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="175">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code1"
-                    :data="form.fabuilding"
+                    :data="scope.row.fabuilding"
                     :multiple="multiple"
                     @change="getFabuilding"
                     style="width: 11rem"
@@ -129,8 +130,9 @@
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="175">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code2"
-                    :data="form.fbbuilding"
+                    :data="scope.row.fbbuilding"
                     :multiple="multiple"
                     @change="getFbbuilding"
                     style="width: 11rem"
@@ -140,7 +142,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="175">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :error="errorentrymanager" :selectType="selectType" :userlist="userlist2"
+                  <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"
                         @getUserids="getUserids2" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
@@ -224,8 +226,6 @@
       return {
           baseInfo: {},
           userlist: "",
-          userlist1: "",
-          userlist2: "",
           loading: false,
           erroruser: '',
           errortitle: '',
@@ -239,7 +239,7 @@
             group_id: '',
             team_id: '',
             user_id: '',
-            type: '',
+            type: this.$t('menu.PFANS1021'),
             subtype: '',
             application: moment(new Date()).format("YYYY-MM-DD"),
             extension: '',
@@ -256,7 +256,7 @@
                   detailteam_id:'',
                   phonenumber:'',
                   emaildetail:'',
-                  startdate:'',
+                  startdate: moment(new Date()).format("YYYY-MM-DD"),
                   fabuilding:'',
                   fbbuilding:'',
                   entrymanager:'',
@@ -290,12 +290,12 @@
                 },
             ],
             reason: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1021FORMVIEW_REASON'),
-              trigger: 'change'
-            },
-          ],
+                {
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS1021FORMVIEW_REASON'),
+                    trigger: 'change'
+                },
+            ],
             application: [
                 {
                     required: true,
@@ -335,12 +335,12 @@
         this.$store
           .dispatch('PFANS1021Store/selectById', {"securityid": this.$route.params._id})
           .then(response => {
-              debugger;
-            this.form = response;
-            this.userlist = this.form.user_id;
-            this.userlist1 = this.form.title;
-            this.userlist2 = this.form.entrymanager;
-            this.loading = false;
+              this.form = response.security;
+              if (response.securitydetail.length > 0) {
+                  this.tableD = response.securitydetail;
+              }
+              this.userlist = this.form.user_id;
+              this.loading = false;
           })
           .catch(error => {
             Message({
@@ -376,69 +376,65 @@
       }
     },
     methods: {
-      getUserids(val) {
-        this.userlist = val;
-        this.form.user_id = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-        } else {
-          this.erroruser = "";
-        }
-      },
-        getUserids1(val) {
-            this.userlist1 = val;
-            this.form.title = val;
+        getUserids(val) {
+           this.userlist = val;
+           this.form.user_id = val;
+           let lst = getOrgInfoByUserId(val);
+           this.form.center_id = lst.centerNmae;
+           this.form.group_id = lst.groupNmae;
+           this.form.team_id = lst.teamNmae;
+           if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
+               this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+           } else {
+               this.erroruser = "";
+           }
+        },
+        getUserids1(val,row) {
+            row.title = val;
             let lst = getOrgInfoByUserId(val);
-            this.form.detailcenter_id = lst.centerNmae;
-            this.form.detailgroup_id = lst.groupNmae;
-            this.form.detailteam_id = lst.teamNmae;
-            if (!this.form.title || this.form.title === '' || val === "undefined") {
-                this.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
+            row.detailcenter_id = lst.centerNmae;
+            row.detailgroup_id = lst.groupNmae;
+            row.detailteam_id = lst.teamNmae;
+            if (!row.title || row.title === '' || val === "undefined") {
+                row.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
-                this.errortitle = "";
+                row.errortitle = "";
             }
         },
-        getUserids2(val) {
+        getUserids2(val,row) {
             this.userlist2 = val;
-            this.form.entrymanager = val;
-            if (!this.form.title || this.form.title === '' || val === "undefined") {
-                this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
+            row.entrymanager = val;
+            if (!row.title || row.title === '' || val === "undefined") {
+                row.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
             } else {
-                this.errorentrymanager = "";
+                row.errorentrymanager = "";
             }
         },
-      getType(val) {
-        this.form.type = val;
-      },
-        getFabuilding(val) {
-        this.form.fabuilding = val;
-      },
+        getFabuilding(val,row) {
+            row.fabuilding = val;
+        },
         getSubtype(val) {
             this.form.subtype = val;
         },
-        getFbbuilding(val) {
-            this.form.fbbuilding = val;
+        getFbbuilding(val,row) {
+            row.fbbuilding = val;
         },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick("update");
-      },
-      start() {
-        this.form.status = '2';
-        this.buttonClick("update");
-      },
-      end() {
-        this.form.status = '0';
-        this.buttonClick("update");
-      },
+        workflowState(val) {
+          if (val.state === '1') {
+            this.form.status = '3';
+          } else if (val.state === '2') {
+            this.form.status = '4';
+          }
+            this.buttonClick("update");
+        },
+        start() {
+            this.form.status = '2';
+            this.buttonClick("update");
+        },
+        end() {
+            this.form.status = '0';
+            this.buttonClick("update");
+        },
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
@@ -454,7 +450,7 @@
                 detailteam_id:'',
                 phonenumber:'',
                 emaildetail:'',
-                startdate:'',
+                startdate: moment(new Date()).format("YYYY-MM-DD"),
                 fabuilding:'',
                 fbbuilding:'',
                 entrymanager:'',
@@ -472,7 +468,7 @@
                     if (this.tableD[i].title !== '' || this.tableD[i].detailcenter_id !== '' || this.tableD[i].detailgroup_id !== '' ||
                         this.tableD[i].detailteam_id !== '' || this.tableD[i].phonenumber !== '' || this.tableD[i].emaildetail !== ''
                         || this.tableD[i].startdate !== '' || this.tableD[i].fabuilding !== '' || this.tableD[i].fbbuilding !== '' || this.tableD[i].entrymanager !== '') {
-                        this.baseInfo.notification.push(
+                        this.baseInfo.securitydetail.push(
                             {
                                 securitydetailid: this.tableD[i].securitydetailid,
                                 securityid: this.tableD[i].securityid,
@@ -493,7 +489,7 @@
               if (this.$route.params._id) {
                 this.form.securityid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1021Store/updateSecurity', this.baseInfo)
+                  .dispatch('PFANS1021Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -503,6 +499,9 @@
                               type: 'success',
                               duration: 5 * 1000
                           });
+                          if (this.$store.getters.historyUrl) {
+                              this.$router.push(this.$store.getters.historyUrl);
+                          }
                       }
                   })
                   .catch(error => {
@@ -516,7 +515,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1021Store/createSecurity', this.baseInfo)
+                  .dispatch('PFANS1021Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -525,6 +524,9 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
+                      if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                      }
                   })
                   .catch(error => {
                     Message({

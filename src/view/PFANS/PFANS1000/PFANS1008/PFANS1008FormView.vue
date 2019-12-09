@@ -112,29 +112,29 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" prop="management" width="165">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.management">
+                  <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.management">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETNAME')" align="center" prop="assetname"  width="165">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.assetname">
+                  <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.assetname">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" prop="person" width="160" :error="errorperson">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :selectType="selectType" :userlist="userlist1" @getUserids="getUserids" :error="errorperson"></user>
+                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.person" @getUserids="getUseridsperson" :error="errorperson"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEAFTER')" align="center" prop="eafter" width="165" :error="erroreafter">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :selectType="selectType" :userlist="userlist2" @getUserids="getUserids" :error="erroreafter"></user>
+                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.eafter" @getUserids="getUseridseafter" :error="erroreafter"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT')" align="center" prop="reason"  width="165">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="50" v-model="scope.row.reason">
+                  <el-input :no="scope.row" :disabled="!disabled" maxlength="50" v-model="scope.row.reason">
                   </el-input>
                 </template>
               </el-table-column>
@@ -178,9 +178,9 @@
   export default {
     name: 'PFANS1008FormView',
     components: {
-      EasyNormalContainer,
-      dicselect,
-      user,
+        EasyNormalContainer,
+        dicselect,
+        user,
         org
     },
     data() {
@@ -263,9 +263,6 @@
           tubegrouporglist: '',
           tubeteamorglist: '',
           userlist: '',
-          userlist1: '',
-          userlist2: '',
-          optionsdata: [],
           loading: false,
           erroruser: '',
           errorferrycenter: '',
@@ -305,7 +302,9 @@
                   management:'',
                   assetname:'',
                   person:'',
+                  errorperson:'',
                   eafter:'',
+                  erroreafter:'',
                   reason:'',
               },
           ],
@@ -427,8 +426,6 @@
                   this.tableD = response.notification;
               }
               this.userlist = this.form.user_id;
-              this.userlist1 = this.form.person;
-              this.userlist2 = this.form.eafter;
               this.loading = false;
           })
           .catch(error => {
@@ -478,6 +475,23 @@
           this.erroruser = "";
         }
       },
+        getUseridsperson(val,row) {
+            row.person = val;
+            if (!row.person || row.person === '' || val === "undefined") {
+                row.errorperson = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                row.errorperson = "";
+            }
+        },
+        getUseridseafter(val,row) {
+            row.eafter = val;
+            let lst = getOrgInfoByUserId(val);
+            if (!row.eafter || row.eafter === '' || val === "undefined") {
+                row.erroreafter = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                row.erroreafter = "";
+            }
+        },
       getCenterId1(val) {
         this.form.ferrycenter_id = val;
         if (!this.form.ferrycenter_id || this.form.ferrycenter_id === '' || val === "undefined") {
@@ -555,7 +569,9 @@
                 management:'',
                 assetname:'',
                 person:'',
+                errorperson:'',
                 eafter:'',
+                erroreafter:'',
                 reason:'',
             });
         },
