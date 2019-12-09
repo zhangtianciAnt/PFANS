@@ -769,7 +769,6 @@
                     <el-input-number
                       v-model="form.salary"
                       :min="0"
-                      :max="100"
                       :precision="2"
                       :step="100"
                       class="width"
@@ -1274,10 +1273,10 @@
       };
 
       return {
-        oldageData: [],
-        houseData: [],
-        medicalData: [],
-        gridData: [],
+        oldageData: null,
+        houseData: null,
+        medicalData: null,
+        gridData: null,
         dialogTableVisible: false,
         dialogTableVisible2: false,
         dialogTableVisible3: false,
@@ -2081,7 +2080,7 @@
           });
         }
 
-        if (this.medicalData.length === 0) {
+        if (this.medicalData === null) {
           this.medicalData = [
             {
               date: new moment().format("YYYY-MM-DD"),
@@ -2103,7 +2102,7 @@
           });
         }
 
-        if (this.houseData.length === 0) {
+        if (this.houseData === null) {
           this.houseData = [
             {
               date: new moment().format("YYYY-MM-DD"),
@@ -2125,7 +2124,7 @@
           });
         }
 
-        if (this.oldageData.length === 0) {
+        if (this.oldageData === null) {
           this.oldageData = [
             {
               date: new moment().format("YYYY-MM-DD"),

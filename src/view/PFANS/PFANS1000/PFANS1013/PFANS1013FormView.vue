@@ -1404,9 +1404,9 @@
         }
       },
       getCity(val,row){
-        this.getTravel(row);
+          this.getTravel(row);
       },
-      getTravel(row){//1111
+      getTravel(row){
         //移动时间
         var varmovementtime2;
         let movementtimedic = getDictionaryInfo(row.movementtime);
@@ -1483,7 +1483,7 @@
               row.relatives = varvalueflg5;
             }
             else {
-              row.relatives = varvalueflg5;
+              row.relatives ="";
             }
             if(row.city != "" && row.movementtime != ""){
               row.travelallowance = varvalueflg4;
