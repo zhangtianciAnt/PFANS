@@ -1,22 +1,22 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :showSelection="showSelection" :columns="columns" :data="data"
-                     :rowid="row_id" ref="roletable" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+                     :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
-            drag
-            ref="uploader"
             :action="postAction"
-            :on-success="handleSuccess"
             :before-upload="handleChange"
             :headers="authHeader"
             :limit=1
             :on-remove="this.clear"
+            :on-success="handleSuccess"
+            drag
             multiple
+            ref="uploader"
           >
             <i class="el-icon-upload"></i>
             <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
@@ -30,7 +30,7 @@
         <span v-if="this.Message">{{this.cuowu}}</span>
         <div v-if="this.result">
           <el-table :data="message">
-            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" prop="hang" width="120%">
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
             </el-table-column>
@@ -87,7 +87,6 @@
         loading: false,
         title: 'title.ASSETS1001VIEW',
         data: [],
-        selectedlist: [],
         columns: [
           {
             code: 'filename',
@@ -154,7 +153,7 @@
       this.getListData();
     },
     methods: {
-      getListData(){
+      getListData() {
         this.loading = true;
         this.$store
           .dispatch('ASSETS1001Store/getList', {})
@@ -175,9 +174,9 @@
                 }
               }
               if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
-                let letErrortype = getDictionaryInfo(response[j].assetstatus);
-                if (letErrortype != null) {
-                  response[j].assetstatus = letErrortype.value1;
+                let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
+                if (letErrortype1 != null) {
+                  response[j].assetstatus = letErrortype1.value1;
                 }
               }
             }
@@ -224,7 +223,6 @@
           this.cuowu = response.message;
           this.Message = true;
         } else {
-          debugger;
           let datalist = [];
           for (let c = 0; c < response.data.length; c++) {
             let error = response.data[c];

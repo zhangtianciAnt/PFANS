@@ -1,4 +1,11 @@
-import {getInventoryplan,selectAll,update,insert} from './ASSETS1002Api'
+import {
+  getInventoryplan,
+  insert,
+  isDelInventory,
+  selectAll,
+  selectById,
+  update,
+} from './ASSETS1002Api';
 
 const ASSETS1002Store = {
   namespaced: true,
@@ -12,12 +19,12 @@ const ASSETS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     selectAll({commit}, data) {
@@ -26,12 +33,12 @@ const ASSETS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     update({commit}, data) {
@@ -40,12 +47,12 @@ const ASSETS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     insert({commit}, data) {
@@ -54,14 +61,42 @@ const ASSETS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+
+    isDelInventory({commit}, data) {
+      return new Promise((resolve, reject) => {
+        isDelInventory(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    selectById({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+  },
 };
 export default ASSETS1002Store;
 

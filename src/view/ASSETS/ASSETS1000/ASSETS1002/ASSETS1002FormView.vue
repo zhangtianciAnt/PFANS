@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         ref="container">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
@@ -9,11 +9,11 @@
             <el-col :span="24">
               <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="inventorycycle">
                 <el-date-picker
-                  v-model="form.inventorycycle"
-                  type="daterange"
+                  :end-placeholder="$t('label.enddate')"
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                   :start-placeholder="$t('label.startdate')"
-                  :end-placeholder="$t('label.enddate')">
+                  type="daterange"
+                  v-model="form.inventorycycle">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -28,7 +28,8 @@
           </el-row>
           <el-row>
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableD" @selection-change="selectionChange"
+                      header-cell-class-name="sub_bg_color_grey height">
               <el-table-column reserve-selection type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>
@@ -76,13 +77,13 @@
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
         form: {
-          inventorycycle: '',
+          inventorycycle: [],
           userid: '',
         },
         tableD: [
           {
-            // assets_id: '',
-            // inventoryplan_id: '',
+            assets_id: '',
+            inventoryplan_id: '',
             filename: '',
             typeassets: '',
             price: '',
@@ -91,12 +92,48 @@
             principal: '',
           },
         ],
+        multipleSelection: [],
         baseInfo: {},
       };
     },
     mounted() {
-      this.userlist = this.$store.getters.userinfo.userid;
-      this.getSelectAll();
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
+          .then(response => {
+            this.form = response.inventoryplan;
+            let inventorycycle = response.inventoryplan.inventorycycle;
+            let inventory = inventorycycle.slice(0, 10);
+            let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
+            this.form.inventorycycle = inventory + inventory1;
+            if (response.assets.length > 0) {
+              this.tableD = response.assets;
+              for (let j = 0; j < response.assets.length; j++) {
+                let user = getUserInfo(response.assets[j].principal);
+                if (user) {
+                  response.assets[j].principal = user.userinfo.customername;
+                  response.assets[j].usedepartment = user.userinfo.centername;
+                }
+                if (response.assets[j].purchasetime !== null && response.assets[j].purchasetime !== '') {
+                  response.assets[j].purchasetime = moment(response.assets[j].purchasetime).format('YYYY-MM-DD');
+                }
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        this.getSelectAll();
+      }
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -116,7 +153,10 @@
       }
     },
     methods: {
-      getSelectAll(){
+      selectionChange(val) {
+        this.multipleSelection = val;
+      },
+      getSelectAll() {
         this.loading = true;
         this.$store
           .dispatch('ASSETS1002Store/selectAll', {})
@@ -145,6 +185,7 @@
       },
       getUserids(val) {
         this.form.user_id = val;
+        this.userlist = val;
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
@@ -155,10 +196,15 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             this.loading = true;
+            this.form.inventorycycle = moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD');
+            this.form.userid = this.userlist;
+            this.baseInfo = {};
+            this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.assets = this.multipleSelection;
             if (val === 'save') {
               if (this.$route.params._id) {
                 this.$store
-                  .dispatch('ASSETS1002Store/update', this.form)
+                  .dispatch('ASSETS1002Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -181,7 +227,7 @@
                   });
               } else {
                 this.$store
-                  .dispatch('ASSETS1002Store/insert', this.form)
+                  .dispatch('ASSETS1002Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
