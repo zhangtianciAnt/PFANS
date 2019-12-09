@@ -634,7 +634,7 @@
                   width="120%"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListJS.page"
                   :page-size="listQueryListJS.limit"
@@ -647,7 +647,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -719,7 +719,7 @@
                     </template>
                   </el-table-column>
                 </el-table>
-                <div class="pagination-container" style="padding-top: 20px">
+                <div class="pagination-container" style="padding-top: 2rem">
                   <el-pagination
                     :current-page.sync="listQueryListQT1Woman.page"
                     :page-size="listQueryListQT1Woman.limit"
@@ -732,7 +732,7 @@
                     <slot>
                       <span
                         class="front Content_front"
-                        style="padding-right: 5px;font-weight: 400"
+                        style="padding-right: 0.5rem;font-weight: 400"
                       >{{$t('table.pagesize')}}</span>
                     </slot>
                   </el-pagination>
@@ -787,7 +787,7 @@
                     prop="handsupport"
                   ></el-table-column>
                 </el-table>
-                <div class="pagination-container" style="padding-top: 20px">
+                <div class="pagination-container" style="padding-top: 2rem">
                   <el-pagination
                     :current-page.sync="listQueryListQT1Man.page"
                     :page-size="listQueryListQT1Man.limit"
@@ -800,7 +800,7 @@
                     <slot>
                       <span
                         class="front Content_front"
-                        style="padding-right: 5px;font-weight: 400"
+                        style="padding-right: 0.5rem;font-weight: 400"
                       >{{$t('table.pagesize')}}</span>
                     </slot>
                   </el-pagination>
@@ -855,7 +855,7 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <div class="pagination-container" style="padding-top: 20px">
+                  <div class="pagination-container" style="padding-top: 2rem">
                     <el-pagination
                       :current-page.sync="listQueryListQT2.page"
                       :page-size="listQueryListQT2.limit"
@@ -868,7 +868,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -917,7 +917,7 @@
                           prop="error"
                         ></el-table-column>
                       </el-table>
-                      <div class="pagination-container" style="padding-top: 20px">
+                      <div class="pagination-container" style="padding-top: 2rem">
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
@@ -930,7 +930,7 @@
                           <slot>
                             <span
                               class="front Content_front"
-                              style="padding-right: 5px;font-weight: 400"
+                              style="padding-right: 0.5rem;font-weight: 400"
                             >{{$t('table.pagesize')}}</span>
                           </slot>
                         </el-pagination>
@@ -986,7 +986,7 @@
                     ></el-table-column>
                     <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"></el-table-column>
                   </el-table>
-                  <div class="pagination-container" style="padding-top: 20px">
+                  <div class="pagination-container" style="padding-top: 2rem">
                     <el-pagination
                       :current-page.sync="listQueryListQT4.page"
                       :page-size="listQueryListQT4.limit"
@@ -999,7 +999,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -1048,7 +1048,7 @@
                           prop="error"
                         ></el-table-column>
                       </el-table>
-                      <div class="pagination-container" style="padding-top: 20px">
+                      <div class="pagination-container" style="padding-top: 2rem">
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
@@ -1061,7 +1061,7 @@
                           <slot>
                             <span
                               class="front Content_front"
-                              style="padding-right: 5px;font-weight: 400"
+                              style="padding-right: 0.5rem;font-weight: 400"
                             >{{$t('table.pagesize')}}</span>
                           </slot>
                         </el-pagination>
@@ -1137,7 +1137,7 @@
                     ></el-table-column>
                     <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"></el-table-column>
                   </el-table>
-                  <div class="pagination-container" style="padding-top: 20px">
+                  <div class="pagination-container" style="padding-top: 2rem">
                     <el-pagination
                       :current-page.sync="listQueryListQT5.page"
                       :page-size="listQueryListQT5.limit"
@@ -1150,7 +1150,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -1199,7 +1199,7 @@
                           prop="error"
                         ></el-table-column>
                       </el-table>
-                      <div class="pagination-container" style="padding-top: 20px">
+                      <div class="pagination-container" style="padding-top: 2rem">
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
@@ -1212,7 +1212,7 @@
                           <slot>
                             <span
                               class="front Content_front"
-                              style="padding-right: 5px;font-weight: 400"
+                              style="padding-right: 0.5rem;font-weight: 400"
                             >{{$t('table.pagesize')}}</span>
                           </slot>
                         </el-pagination>
@@ -1309,7 +1309,7 @@
                   width="120%"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListQQ.page"
                   :page-size="listQueryListQQ.limit"
@@ -1322,7 +1322,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -1487,7 +1487,7 @@
                   width="120%"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListCY.page"
                   :page-size="listQueryListCY.limit"
@@ -1500,7 +1500,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -1565,7 +1565,7 @@
                       prop="other5"
                     ></el-table-column>
                   </el-table>
-                  <div class="pagination-container" style="padding-top: 20px">
+                  <div class="pagination-container" style="padding-top: 2rem">
                     <el-pagination
                       :current-page.sync="listQueryListYDSY.page"
                       :page-size="listQueryListYDSY.limit"
@@ -1578,7 +1578,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -1627,7 +1627,7 @@
                           prop="error"
                         ></el-table-column>
                       </el-table>
-                      <div class="pagination-container" style="padding-top: 20px">
+                      <div class="pagination-container" style="padding-top: 2rem">
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
@@ -1640,7 +1640,7 @@
                           <slot>
                             <span
                               class="front Content_front"
-                              style="padding-right: 5px;font-weight: 400"
+                              style="padding-right: 0.5rem;font-weight: 400"
                             >{{$t('table.pagesize')}}</span>
                           </slot>
                         </el-pagination>
@@ -1858,7 +1858,7 @@
                   prop="total"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListZHSR.page"
                   :page-size="listQueryListZHSR.limit"
@@ -1871,7 +1871,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -1917,7 +1917,7 @@
                   width="120%"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListZXKC.page"
                   :page-size="listQueryListZXKC.limit"
@@ -1930,7 +1930,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -1991,7 +1991,7 @@
                       prop="total"
                     ></el-table-column>
                   </el-table>
-                  <div class="pagination-container" style="padding-top: 20px">
+                  <div class="pagination-container" style="padding-top: 2rem">
                     <el-pagination
                       :current-page.sync="listQueryListFJKC.page"
                       :page-size="listQueryListFJKC.limit"
@@ -2004,7 +2004,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400"
+                          style="padding-right: 0.5remx;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -2053,7 +2053,7 @@
                           prop="error"
                         ></el-table-column>
                       </el-table>
-                      <div class="pagination-container" style="padding-top: 20px">
+                      <div class="pagination-container" style="padding-top: 2rem">
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
@@ -2066,7 +2066,7 @@
                           <slot>
                             <span
                               class="front Content_front"
-                              style="padding-right: 5px;font-weight: 400"
+                              style="padding-right: 0.5rem;font-weight: 400"
                             >{{$t('table.pagesize')}}</span>
                           </slot>
                         </el-pagination>
@@ -2115,7 +2115,7 @@
                   prop="total"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListMS.page"
                   :page-size="listQueryListMS.limit"
@@ -2128,7 +2128,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -2190,7 +2190,7 @@
                   width="120%"
                 ></el-table-column>
               </el-table>
-              <div class="pagination-container" style="padding-top: 20px">
+              <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListLJSJ.page"
                   :page-size="listQueryListLJSJ.limit"
@@ -2203,7 +2203,7 @@
                   <slot>
                     <span
                       class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400"
+                      style="padding-right: 0.5rem;font-weight: 400"
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
@@ -2260,7 +2260,7 @@
                     </template>
                   </el-table-column>
                 </el-table>
-                <div class="pagination-container" style="padding-top: 20px">
+                <div class="pagination-container" style="padding-top: 2rem">
                   <el-pagination
                     :current-page.sync="listQueryListGRDB.page"
                     :page-size="listQueryListGRDB.limit"
@@ -2273,7 +2273,7 @@
                     <slot>
                       <span
                         class="front Content_front"
-                        style="padding-right: 5px;font-weight: 400"
+                        style="padding-right: 0.5rem;font-weight: 400"
                       >{{$t('table.pagesize')}}</span>
                     </slot>
                   </el-pagination>

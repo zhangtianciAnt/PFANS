@@ -29,97 +29,86 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="!disabled6" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.type" :disabled="disabled" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.application_date')" prop="application" >
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.application" style="width: 11rem" ></el-date-picker>
+              <el-form-item :label="$t('label.application_date')" prop="dailypayment" >
+                <el-date-picker :disabled="!disabled" type="date" v-model="form.dailypayment" style="width: 11rem" ></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MACHINEMEDIA')" prop="machinemedia">
-                <dicselect
-                  :code="code"
-                  :data="form.machinemedia"
-                  :multiple="multiple"
-                  @change="getMachinemedia"
-                  style="width: 11rem"
-                  :disabled="!disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MANAGEMENT')" prop="management">
-                <el-input v-model="form.management" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
-              </el-form-item>
-            </el-col>
-            </el-row>
-            <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL')">
-                  <el-radio-group v-model="radio" @change="getCompatibleseal">
-                    <el-radio :label="1" :disabled="!disabled">{{$t('label.yes')}}</el-radio>
-                    <el-radio :label="2" :disabled="!disabled">{{$t('label.no')}}</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFASN1023FORMVIEW_EXPORTDATE')" prop="exportdate" >
-                  <el-date-picker :disabled="!disabled" type="date" v-model="form.exportdate" style="width: 11rem" ></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFASN1023FORMVIEW_RETURNDATE')" prop="returndate" >
-                  <el-date-picker :disabled="!disabled" type="date" v-model="form.returndate" style="width: 11rem" ></el-date-picker>
+                <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="extension">
+                  <el-input v-model="form.extension" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDINGPLACE')" prop="holdingplace">
-                  <el-input v-model="form.holdingplace" :disabled="!disabled" style="width: 11rem" maxlength='50'></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDOUTREASON')" prop="holdoutreason">
-                <el-input v-model="form.holdoutreason" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
             <el-row>
               <el-col :span="8">
                   <div class="sub_color_blue" >{{$t('label.PFASN1023FORMVIEW_STOREDDATA')}}</div>
               </el-col>
             </el-row>
           <el-row>
-            <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_COMPANY')">
-                <el-input v-model="form.company" :disabled="!disabled1" style="width: 11rem"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked2" @change="getChecked2" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_SECRET')">
-                <el-input v-model="form.secret" :disabled="!disabled2" style="width: 11rem"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked3" @change="getChecked3" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_INFORMATION')">
-                <el-input v-model="form.information" :disabled="!disabled3" style="width: 11rem"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked4" @change="getChecked4" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_INTELLIGENCE')">
-                <el-input v-model="form.intelligence" :disabled="!disabled4" style="width: 11rem"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
-                <el-input v-model="form.confidential" :disabled="!disabled5" style="width: 11rem"></el-input>
-              </el-form-item>
-            </el-checkbox>
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
+                               type="index"></el-table-column>
+              <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="175" :error="errorapplication">
+                <template slot-scope="scope">
+                  <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType" :userlist="userlist1"
+                        @getUserids="getUserids1" style="width: 10.15rem"></user>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_KIND')" align="center" prop="kind"  width="175">
+                <template slot-scope="scope">
+                  <dicselect
+                    :no="scope.row"
+                    :code="code"
+                    :data="form.kind"
+                    :multiple="multiple"
+                    @change="getFbbuilding"
+                    style="width: 11rem"
+                    :disabled="!disabled">
+                  </dicselect>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.カード番号')" align="center" prop="cardnumber"  width="140">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.cardnumber">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.休日出勤日付')" align="center" prop="attendancedate"  width="140">
+                <template slot-scope="scope">
+                  <el-date-picker :disabled="!disabled" type="date" :no="scope.row" v-model="scope.row.attendancedate" style="width: 11rem" ></el-date-picker>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.休日出勤理由')" align="center" prop="workreasons"  width="140">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.workreasons">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.operation')" align="center" width="180">
+                <template slot-scope="scope">
+                  <el-button
+                    :disabled="!disabled"
+                    @click.native.prevent="deleteRow(scope.$index, tableD)"
+                    plain
+                    size="small"
+                    type="danger"
+                  >{{$t('button.delete')}}
+                  </el-button>
+                  <el-button
+                    :disabled="!disabled"
+                    @click="addRow()"
+                    plain
+                    size="small"
+                    type="primary"
+                  >{{$t('button.insert')}}
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
           </el-row>
         </el-form>
       </div>
@@ -137,7 +126,7 @@
   import moment from "moment";
 
   export default {
-    name: 'PFANS1023FormView',
+    name: 'PFANS1022FormView',
     components: {
         EasyNormalContainer,
         getOrgInfoByUserId,
@@ -157,17 +146,15 @@
 
       };
       return {
-          checked1: false,
-          checked2: false,
-          checked3: false,
-          checked4: false,
-          checked5: false,
+          baseInfo: {},
           radio: 1,
           userlist: "",
+          userlist1: "",
           loading: false,
           erroruser: '',
+          errorapplication: '',
           selectType: "Single",
-          title: 'title.PFANS1023VIEW',
+          title: 'title.PFANS1022VIEW',
           buttonList: [],
           multiple: false,
         form: {
@@ -175,29 +162,25 @@
             group_id: '',
             team_id: '',
             user_id: '',
-            type: this.$t('menu.PFANS1023'),
-            machinemedia: '',
-            management: '',
-            application: moment(new Date()).format("YYYY-MM-DD"),
-            exportdate: moment(new Date()).format("YYYY-MM-DD"),
-            returndate: moment(new Date()).format("YYYY-MM-DD"),
-            holdingplace: '',
-            compatibleseal: '',
-            holdoutreason: '',
-            company: '',
-            secret: '',
-            information: '',
-            intelligence: '',
-            confident: '',
+            type: this.$t('menu.PFANS1022'),
+            dailypayment: moment(new Date()).format("YYYY-MM-DD"),
+            extension: '',
         },
+          tableD: [
+              {
+                  holidaydetailid: '',
+                  holidayid: '',
+                  application:'',
+                  kind:'',
+                  cardnumber:'',
+                  attendancedate: moment(new Date()).format("YYYY-MM-DD"),
+                  workreasons:'',
+                  startdate: moment(new Date()).format("YYYY-MM-DD"),
+                  enddate: moment(new Date()).format("YYYY-MM-DD"),
+              },
+          ],
           code: 'PJ028',
           disabled: false,
-          disabled1: false,
-          disabled2: false,
-          disabled3: false,
-          disabled4: false,
-          disabled5: false,
-          disabled6: false,
           menuList: [],
         rules: {
           user_id: [
@@ -218,6 +201,13 @@
                 {
                     required: true,
                     message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_MANAGEMENT'),
+                    trigger: 'change'
+                },
+            ],
+            compatibleseal: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL'),
                     trigger: 'change'
                 },
             ],
@@ -262,43 +252,13 @@
     },
 
     mounted() {
-        this.loading = true;
       if (this.$route.params._id) {
+        this.loading = true;
         this.$store
-          .dispatch('PFANS1023Store/getConfidentialOne', {"confidentialid": this.$route.params._id})
+          .dispatch('PFANS1022Store/selectById', {"holidayid": this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
-            if (this.form.company === "") {
-                  this.checked1 = false;
-            }else{
-                  this.checked1 = true;
-                  this.disabled1 = true;
-            }
-            if (this.form.secret === "") {
-                  this.checked2 = false;
-            }else{
-                  this.checked2 = true;
-                  this.disabled2 = true;
-            }
-            if (this.form.information === "") {
-                  this.checked3 = false;
-            }else{
-                  this.checked3 = true;
-                  this.disabled3 = true;
-            }
-            if (this.form.intelligence === "") {
-                  this.checked4 = false;
-            }else{
-                  this.checked4 = true;
-                  this.disabled4 = true;
-            }
-            if (this.form.confident === "") {
-                  this.checked5 = false;
-            }else{
-                  this.checked5 = true;
-                  this.disabled5 = true;
-            }
             this.loading = false;
           })
           .catch(error => {
@@ -348,6 +308,15 @@
           this.erroruser = "";
         }
       },
+        getUserids1(val,row) {
+            this.userlist1 = val;
+            row.application = val;
+            if (!this.form.application || this.form.application === '' || val === "undefined") {
+                this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                this.errorapplication = "";
+            }
+        },
         getMachinemedia(val) {
             this.form.machinemedia = val;
       },
@@ -362,46 +331,6 @@
         },
         getFbbuilding(val) {
             this.form.fbbuilding = val;
-        },
-        getChecked1(val) {
-            this.checked1 = val;
-            if(val === true){
-                this.disabled1 = true;
-            }else{
-                this.disabled1 = false;
-            }
-        },
-        getChecked2(val) {
-            this.checked2 = val;
-            if(val === true){
-                this.disabled2 = true;
-            }else{
-                this.disabled2 = false;
-            }
-        },
-        getChecked3(val) {
-            this.checked3 = val;
-            if(val === true){
-                this.disabled3 = true;
-            }else{
-                this.disabled3 = false;
-            }
-        },
-        getChecked4(val) {
-            this.checked4 = val;
-            if(val === true){
-                this.disabled4 = true;
-            }else{
-                this.disabled4 = false;
-            }
-        },
-        getChecked5(val) {
-            this.checked5 = val;
-            if(val === true){
-                this.disabled5 = true;
-            }else{
-                this.disabled5 = false;
-            }
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -419,30 +348,54 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
+        deleteRow(index, rows) {
+            if (rows.length > 1) {
+                rows.splice(index, 1);
+            }
+        },
+        addRow() {
+            this.tableD.push({
+                holidaydetailid: '',
+                holidayid: '',
+                application:'',
+                kind:'',
+                cardnumber:'',
+                attendancedate: moment(new Date()).format("YYYY-MM-DD"),
+                workreasons:'',
+                startdate: moment(new Date()).format("YYYY-MM-DD"),
+                enddate: moment(new Date()).format("YYYY-MM-DD"),
+            });
+        },
       buttonClick(val) {
           this.$refs["refform"].validate(valid => {
             if (valid) {
-                if (this.checked1 === false) {
-                    this.form.company = "";
-                }
-                if (this.checked2 === false) {
-                    this.form.secret = "";
-                }
-                if (this.checked3 === false) {
-                    this.form.information = "";
-                }
-                if (this.checked4 === false) {
-                    this.form.intelligence = "";
-                }
-                if (this.checked5 === false) {
-                    this.form.confident = "";
-                }
               this.loading = true;
+              this.baseInfo = {};
+              this.baseInfo.holiday = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.holidaydetail = [];
+                for (let i = 0; i < this.tableD.length; i++) {
+                    if (this.tableD[i].application !== '' || this.tableD[i].kind !== '' || this.tableD[i].cardnumber !== '' ||
+                        this.tableD[i].attendancedate !== '' || this.tableD[i].workreasons !== '' || this.tableD[i].startdate !== ''
+                        || this.tableD[i].enddate !== '') {
+                        this.baseInfo.notification.push(
+                            {
+                                holidaydetailid: this.tableD[i].holidaydetailid,
+                                holidayid: this.tableD[i].holidayid,
+                                application: this.tableD[i].application,
+                                kind: this.tableD[i].kind,
+                                cardnumber: this.tableD[i].cardnumber,
+                                attendancedate: this.tableD[i].attendancedate,
+                                workreasons: this.tableD[i].workreasons,
+                                startdate: this.tableD[i].startdate,
+                                enddate: this.tableD[i].enddate,
+                            },
+                        );
+                    }
+                }
               if (this.$route.params._id) {
-                this.form.confidentialid = this.$route.params._id;
-                this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+                this.form.holidayid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1023Store/update', this.form)
+                  .dispatch('PFANS1022Store/updateHoliday', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -452,9 +405,6 @@
                               type: 'success',
                               duration: 5 * 1000
                           });
-                          if (this.$store.getters.historyUrl) {
-                              this.$router.push(this.$store.getters.historyUrl);
-                          }
                       }
                   })
                   .catch(error => {
@@ -465,9 +415,10 @@
                     });
                     this.loading = false;
                   })
+
               } else {
                 this.$store
-                  .dispatch('PFANS1023Store/insert', this.form)
+                  .dispatch('PFANS1022Store/createHoliday', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -476,9 +427,6 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
-                      if (this.$store.getters.historyUrl) {
-                          this.$router.push(this.$store.getters.historyUrl);
-                      }
                   })
                   .catch(error => {
                     Message({

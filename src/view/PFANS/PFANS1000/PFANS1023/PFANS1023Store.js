@@ -1,9 +1,8 @@
 import {
   getConfidential,
-  selectById,
-  updateConfidential,
-  createConfidential,
-  getForSelect,
+  getConfidentialOne,
+  update,
+  insert,
   } from './PFANS1023Api'
 
   const PFANS1023Store = {
@@ -24,9 +23,9 @@ import {
           })
         })
       },
-      selectById({ commit },data) {
+      getConfidentialOne({ commit },data) {
         return new Promise((resolve, reject) => {
-          selectById(data).then(response => {
+          getConfidentialOne(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -37,9 +36,9 @@ import {
           })
         })
       },
-      updateConfidential({ commit },data) {
+      update({ commit },data) {
         return new Promise((resolve, reject) => {
-          updateConfidential(data).then(response => {
+          update(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -50,9 +49,9 @@ import {
           })
         })
       },
-      createConfidential({ commit },data) {
+      insert({ commit },data) {
         return new Promise((resolve, reject) => {
-          createConfidential(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -60,19 +59,6 @@ import {
             }
           }).catch(error => {
             reject(error);
-          })
-        })
-      },
-      getForSelect ({commit}, data) {
-        return new Promise((resolve, reject) => {
-          getForSelect(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data)
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error)
           })
         })
       },

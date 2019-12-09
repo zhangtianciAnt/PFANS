@@ -96,31 +96,7 @@
     },
     mounted() {
       this.userlist = this.$store.getters.userinfo.userid;
-      this.loading = true;
-      this.$store
-        .dispatch('ASSETS1002Store/selectAll', {})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            let user = getUserInfo(response[j].principal);
-            if (user) {
-              response[j].principal = user.userinfo.customername;
-              response[j].usedepartment = user.userinfo.centername;
-            }
-            if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
-              response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
-            }
-          }
-          this.tableD = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getSelectAll();
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -140,6 +116,33 @@
       }
     },
     methods: {
+      getSelectAll(){
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1002Store/selectAll', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].principal);
+              if (user) {
+                response[j].principal = user.userinfo.customername;
+                response[j].usedepartment = user.userinfo.centername;
+              }
+              if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
+                response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
+              }
+            }
+            this.tableD = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       getUserids(val) {
         this.form.user_id = val;
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {

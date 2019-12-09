@@ -151,45 +151,48 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('ASSETS1001Store/getList', {})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            let user = getUserInfo(response[j].principal);
-            if (user) {
-              response[j].principal = user.userinfo.customername;
-              response[j].usedepartment = user.userinfo.centername;
-            }
-            if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
-              response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
-            }
-            if (response[j].typeassets !== null && response[j].typeassets !== '') {
-              let letErrortype = getDictionaryInfo(response[j].typeassets);
-              if (letErrortype != null) {
-                response[j].typeassets = letErrortype.value1;
-              }
-            }
-            if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
-              let letErrortype = getDictionaryInfo(response[j].assetstatus);
-              if (letErrortype != null) {
-                response[j].assetstatus = letErrortype.value1;
-              }
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getListData();
     },
     methods: {
+      getListData(){
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1001Store/getList', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].principal);
+              if (user) {
+                response[j].principal = user.userinfo.customername;
+                response[j].usedepartment = user.userinfo.centername;
+              }
+              if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
+                response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
+              }
+              if (response[j].typeassets !== null && response[j].typeassets !== '') {
+                let letErrortype = getDictionaryInfo(response[j].typeassets);
+                if (letErrortype != null) {
+                  response[j].typeassets = letErrortype.value1;
+                }
+              }
+              if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
+                let letErrortype = getDictionaryInfo(response[j].assetstatus);
+                if (letErrortype != null) {
+                  response[j].assetstatus = letErrortype.value1;
+                }
+              }
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowid = row.assets_id;
       },
@@ -200,6 +203,7 @@
       handleCurrentChange(val) {
         this.listQuery.page = val;
         this.getList();
+        this.getListData();
       },
       getList() {
         this.loading = true;
