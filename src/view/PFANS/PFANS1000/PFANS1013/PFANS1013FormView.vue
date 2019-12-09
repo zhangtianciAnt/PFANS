@@ -448,7 +448,16 @@
                                @change="getvehicle"
                                :data="scope.row.vehicle"
                                :disabled="!disable"
-                               :multiple="multiple">
+                               :multiple="multiple"
+                               v-show="scope.row.showrow3">
+                    </dicselect>
+                    <dicselect :code="code6"
+                               :no="scope.row"
+                               @change="getvehicle"
+                               :data="scope.row.vehicle"
+                               :disabled="!disable"
+                               :multiple="multiple"
+                               v-show="scope.row.showrow4">
                     </dicselect>
                   </template>
                 </el-table-column>
@@ -590,13 +599,31 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAIN')" align="center" width="150" v-else prop="train">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.train"  style="width: 100%" @change="getvehicle"></el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.train"
+                      @change="gettrain"
+                    ></el-input-number>
                   </template>
                 </el-table-column>
 
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" width="150"v-if="showtick" prop="train">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" width="150"v-if="showtick">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.traintick"  style="width: 100%" ></el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.traintick"
+                      @change="gettrain"
+                    ></el-input-number>
                   </template>
                 </el-table-column>
 
@@ -882,7 +909,9 @@
           annexno: "",
           rowindex: "",
           showrow:true,
-          showrow2:false
+          showrow2:false,
+          showrow3:true,
+          showrow4:false
         }],
         tableR: [{
           evectionid: "",
@@ -925,6 +954,8 @@
         show: false,
         showrow:true,
         showrow2:false,
+        showrow3:true,
+        showrow4:false,
         showAinner: true,
         showAout: false,
         showtick:false,
@@ -1163,7 +1194,9 @@
           annexno: "",
           rowindex: "",
           showrow:true,
-          showrow2:false
+          showrow2:false,
+          showrow3:true,
+          showrow4:false
         });
       },
       addRow4() {
@@ -1336,8 +1369,20 @@
         row.vehicle=val;
         if(val==='PJ025004'){
          this.showtick=true;
-          row.train=row.traintick*0.3;
+        }else {
+          this.showtick=false;
         }
+        if(this.form.type==='1'){
+          row.showrow3=true,
+          row.showrow4=false
+        }else {
+          row.showrow3 = false;
+          row.showrow4=true;
+        }
+      },
+      gettrain(val,row){
+        row.traintick=val;
+          row.train=val*0.3;
       },
       getmovementtime(val,row){
         row.movementtime=val;
@@ -1359,11 +1404,9 @@
         }
       },
       getCity(val,row){
-        debugger;
         this.getTravel(row);
       },
       getTravel(row){//1111
-        alert(row.city);
         //移动时间
         var varmovementtime2;
         let movementtimedic = getDictionaryInfo(row.movementtime);
