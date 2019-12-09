@@ -445,19 +445,19 @@
                   <template slot-scope="scope">
                     <dicselect :code="code5"
                                :no="scope.row"
-                               @change="getvehicle"
-                               :data="scope.row.vehicle"
+                               @change="getvehicleon"
+                               :data="scope.row.vehicleon"
                                :disabled="!disable"
                                :multiple="multiple"
-                               v-show="scope.row.showrow3">
+                               v-show="showrow3">
                     </dicselect>
                     <dicselect :code="code6"
                                :no="scope.row"
-                               @change="getvehicle"
-                               :data="scope.row.vehicle"
+                               @change="getvehiclein"
+                               :data="scope.row.vehiclein"
                                :disabled="!disable"
                                :multiple="multiple"
-                               v-show="scope.row.showrow4">
+                               v-show="showrow4">
                     </dicselect>
                   </template>
                 </el-table-column>
@@ -485,7 +485,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" width="100" v-else>
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.city" style="width: 100%" @change="getCity">
+                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.city" style="width: 100%" @blur="getCity(scope.row)">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -493,19 +493,19 @@
                   <template slot-scope="scope">
                     <dicselect :code="code10"
                                :no="scope.row"
-                               :data="scope.row.facilitytype"
-                               @change="getfacilitytype"
+                               :data="scope.row.facilitytypeon"
+                               @change="getfacilitytypeon"
                                :disabled="!disable"
                                :multiple="multiple"
-                               v-show="scope.row.showrow">
+                               v-show="showrow">
                     </dicselect>
                     <dicselect :code="code8"
                                :no="scope.row"
-                               :data="scope.row.facilitytype"
-                               @change="getfacilitytype"
+                               :data="scope.row.facilitytypein"
+                               @change="getfacilitytypein"
                                :disabled="!disable"
                                :multiple="multiple"
-                               v-show="scope.row.showrow2">
+                               v-show="showrow2">
                     </dicselect>
                   </template>
                 </el-table-column>
@@ -584,7 +584,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="200" v-if="showAout" prop="plane" >
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" width="160" v-if="showAout" prop="plane" >
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -622,7 +622,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.traintick"
-                      @change="gettrain"
+                      @change="gettrain(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -892,11 +892,13 @@
           accommodationdetails_id: "",
           accommodationdate: "",
           activitycontent: "",
-          vehicle: "",
+          vehicleon: "",
+          vehiclein: "",
           movementtime: "",
           city: "",
           exitarea: "",
-          facilitytype: "",
+          facilitytypeon: "",
+          facilitytypein: "",
           facilityname: "",
           accommodationallowance: "",
           accommodation: "",
@@ -904,14 +906,10 @@
           travel: "",
           relatives: "",
           train: "",
-          traintick:"",
+          traintick:0,
           plane: "",
           annexno: "",
           rowindex: "",
-          showrow:true,
-          showrow2:false,
-          showrow3:true,
-          showrow4:false
         }],
         tableR: [{
           evectionid: "",
@@ -984,9 +982,22 @@
                 if (this.form.type==='1') {
                   this.tableA[i].showAinner = true;
                   this.tableA[i].showAout = false;
+                  this.showrow3 = true;
+                  this.showrow4 = false;
+                  this.tableA[i].vehicleon = this.tableA[i].vehicle;
+                  this.showrow = true;
+                  this.showrow2 = false;
+                  this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
+
                 }else if(this.form.type==='2'){
                   this.tableA[i].showAinner = false;
                   this.tableA[i].showAout = true;
+                  this.showrow3 = false;
+                  this.showrow4 = true;
+                  this.tableA[i].vehiclein = this.tableA[i].vehicle;
+                  this.showrow = false;
+                  this.showrow2 = true;
+                  this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
                 }
               }
             }
@@ -998,7 +1009,6 @@
               this.showdata2 = false;
               this.showAinner = true;
               this.showAout = false;
-              this.form.type = '1';
               this.show = true;
               this.show2 = false;
               this.show3 = false;
@@ -1009,6 +1019,10 @@
               this.showAinner = true;
               this.showAout = false;
               this.showforeigncurrency = false;
+              this.showrow = true;
+              this.showrow3 = true;
+              this.showrow2 = false;
+              this.showrow4 = false;
             } else {
               if(this.form.currency==='PJ003001'){
                 this.show4 = true;
@@ -1021,11 +1035,13 @@
               this.showdata2 = true;
               this.showAinner = false;
               this.showAout = true;
-              this.form.type = '2';
               this.show = false;
               this.show2 = true;
               this.showforeigncurrency = true;
-
+              this.showrow = false;
+              this.showrow2 = true;
+              this.showrow3 = false;
+              this.showrow4 = true;
             }
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
@@ -1117,6 +1133,11 @@
           this.showAinner=true;
           this.showAout=false;
           this.showforeigncurrency=false;
+          this.showtick=true;
+          this.showrow3=true,
+          this.showrow4=false
+          this.showrow=true,
+          this.showrow2=false
         } else {
           this.show = false;
           this.show2 = true;
@@ -1125,6 +1146,11 @@
           this.showAinner=false;
           this.showAout=true;
           this.showforeigncurrency=true;
+          this.showtick=false;
+          this.showrow3 = false;
+          this.showrow4=true;
+          this.showrow = false;
+          this.showrow2=true;
         }
       },
       getUserids(val) {
@@ -1178,11 +1204,13 @@
           accommodationdetails_id: "",
           accommodationdate: "",
           activitycontent: "",
-          vehicle: "",
+          vehicleon: "",
+          vehiclein: "",
           movementtime: "",
           city: "",
           exitarea:"",
-          facilitytype: "",
+          facilitytypeon: "",
+          facilitytypein: "",
           facilityname: "",
           accommodationallowance: "",
           accommodation: "",
@@ -1193,10 +1221,6 @@
           plane: "",
           annexno: "",
           rowindex: "",
-          showrow:true,
-          showrow2:false,
-          showrow3:true,
-          showrow4:false
         });
       },
       addRow4() {
@@ -1365,24 +1389,20 @@
       getactivitycontent(val,row){
         row.activitycontent=val;
       },
-      getvehicle(val,row){
-        row.vehicle=val;
+      getvehicleon(val,row){
+        row.vehicleon=val;
         if(val==='PJ025004'){
          this.showtick=true;
         }else {
           this.showtick=false;
         }
-        if(this.form.type==='1'){
-          row.showrow3=true,
-          row.showrow4=false
-        }else {
-          row.showrow3 = false;
-          row.showrow4=true;
-        }
       },
-      gettrain(val,row){
-        row.traintick=val;
-          row.train=val*0.3;
+      getvehiclein(val,row){
+        row.vehiclein=val;
+        this.getTravelFly(row);
+      },
+      gettrain(row){
+          row.train=row.traintick*0.3;
       },
       getmovementtime(val,row){
         row.movementtime=val;
@@ -1391,19 +1411,17 @@
       getexitarea(val,row){
         row.exitarea=val;
         this.getTravel(row);
+        this.getTravelFly(row)
       },
-      getfacilitytype(val,row){
-        row.facilitytype=val;
+      getfacilitytypeon(val,row){
+        row.facilitytypeon=val;
         this.getTravel(row);
-        if(this.form.type==='1'){
-          row.showrow = true;
-          row.showrow2=false;
-        }else {
-          row.showrow = false;
-          row.showrow2=true;
-        }
       },
-      getCity(val,row){
+      getfacilitytypein(val,row){
+        row.facilitytypein=val;
+        this.getTravel(row);
+      },
+      getCity(row){
           this.getTravel(row);
       },
       getTravel(row){
@@ -1421,24 +1439,25 @@
         }
         varrank = varrank.substr(1,1);
         //出差补助
-        var varbusiness;
-        if(Number(varrank) < 7){
-          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytype);
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        }else if(Number(varrank) === 8){
-          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytype);
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        }else if(Number(varrank) > 8){
-          let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytype);
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        }
+
         if(this.form.type === "1"){
+          var varbusiness;
+          if(Number(varrank) < 7){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypeon);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }else if(Number(varrank) === 8){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypeon);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }else if(Number(varrank) > 8){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypeon);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }
           var varvalueflg1;
           let dictionaryInfo1 = getDictionaryInfo("PJ035001");
           if (dictionaryInfo1) {
@@ -1458,13 +1477,14 @@
             varvalueflg4 = dictionaryInfo3.value2;
             varvalueflg5 = dictionaryInfo3.value3;
           }
-          if(row.facilitytype === "PJ035001"){
+          if(row.facilitytypeon === "PJ035001"){
             if(row.city != ""){
+              debugger
               row.travelallowance = varvalueflg1;
               row.relatives="";
             }
           }
-          else if(row.facilitytype === "PJ035002"){
+          else if(row.facilitytypeon === "PJ035002"){
             row.relatives="";
             if(row.city != ""){
               if(row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
@@ -1476,7 +1496,7 @@
               }
             }
           }
-          else if(row.facilitytype === "PJ035003"){
+          else if(row.facilitytypeon === "PJ035003"){
             if(!(row.movementtime === "PJ027006" || row.movementtime === "PJ027007" || row.movementtime === "PJ027008"
               || row.movementtime === "PJ027009")){
               //自宅/亲属家津贴
@@ -1489,12 +1509,29 @@
               row.travelallowance = varvalueflg4;
             }
           }
-          if(row.movementtime != "" && row.facilitytype != "" && row.city != ""){
+          if(row.movementtime != "" && row.facilitytypeon != "" && row.city != ""){
             row.travelallowance = Number(row.travelallowance) * varmovementtime2;
           }
-
         }
         else if(this.form.type === "2"){
+          var varbusiness;
+          if(Number(varrank) < 7){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypein);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }else if(Number(varrank) === 8){
+            debugger
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypein);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }else if(Number(varrank) > 8){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypein);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }
           var vartravel = 0;
           if(varmovementtime2 != "" && varmovementtime2 != undefined
             && varbusiness != "" && varbusiness != undefined){
@@ -1502,6 +1539,39 @@
           }
           row.travel = vartravel;
         }
+      },
+      getTravelFly(row){
+        var varrank;
+        debugger;
+        let dictionaryInfo = getDictionaryInfo("PR021006");
+        if (dictionaryInfo) {
+          varrank = dictionaryInfo.value1;
+        }
+        varrank = varrank.substr(1,1);
+        //出差补助
+        var varbusiness;
+        if(Number(varrank) < 7){
+          debugger;
+          let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'));
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }else if(Number(varrank) === 8){
+          let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }else if(Number(varrank) > 8){
+          let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'));
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }
+       if(row.vehiclein ==='PJ026004'){
+         row.accommodationallowance='';
+         row.travelallowance='';
+         row.plane = varbusiness;
+       }
       },
   getforeign(sums){
     if(this.form.type==='1'){
@@ -1514,7 +1584,7 @@
   },
       gettotal(val){
         if(this.form.type==='1'){
-          this.form.totalpay= Math.round((this.tableDValue[5]) * 10) / 10;
+          this.form.totalpay= Math.round((this.tableDValue[1]) * 10) / 10;
           this.form.balance=-(this.form.totalpay-this.form.loanamount).toFixed(2);
         }else if(this.form.type==='2'){
           if(this.form.currency==='PJ003001'){
@@ -1691,16 +1761,26 @@
                   || this.tableA[i].movementtime !== "" || this.tableA[i].city !== "" || this.tableA[i].facilitytype !== "" || this.tableA[i].facilityname !== "" || this.tableA[i].accommodationallowance !== ""
                   || this.tableA[i].accommodation !== "" || this.tableA[i].travelallowance !== "" || this.tableA[i].travel !== "" || this.tableA[i].relatives !== "" || this.tableA[i].train !== ""
                   || this.tableA[i].plane !== "" || this.tableA[i].annexno !== "") {
+                  var varvehiclein;
+                  var varfacilitytypein;
+                  if(this.form.type === "1"){
+                    varvehiclein = this.tableA[i].vehicleon;
+                    varfacilitytypein = this.tableA[i].facilitytypeon;
+                  }
+                  else{
+                    varvehiclein = this.tableA[i].vehiclein;
+                    varfacilitytypein = this.tableA[i].facilitytypein;
+                  }
                   this.baseInfo.accommodationdetails.push(
                     {
                       accommodationdetails_id: this.tableA[i].accommodationdetails_id,
                       evectionid: this.tableA[i].evectionid,
                       accommodationdate: this.tableA[i].accommodationdate,
                       activitycontent: this.tableA[i].activitycontent,
-                      vehicle: this.tableA[i].vehicle,
+                      vehicle: varvehiclein,
                       movementtime: this.tableA[i].movementtime,
                       city: this.tableA[i].city,
-                      facilitytype: this.tableA[i].facilitytype,
+                      facilitytype: varfacilitytypein,
                       facilityname: this.tableA[i].facilityname,
                       accommodationallowance: this.tableA[i].accommodationallowance,
                       accommodation: this.tableA[i].accommodation,
