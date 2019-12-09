@@ -34,12 +34,12 @@
             <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
             </el-table-column>
           </el-table>
-          <div class="pagination-container" style="padding-top: 20px">
+          <div class="pagination-container" style="padding-top: 2rem">
             <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
                            :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
                            @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
               <slot><span class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
             </el-pagination>
           </div>
         </div>
@@ -279,7 +279,7 @@
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .el-icon-upload {
-    font-size: 67px;
+    font-size: 6rem;
     color: #ffffff;
     text-align: center;
   }
