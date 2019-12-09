@@ -10,8 +10,8 @@ export function getHoliday() {
 export function selectById(data) {
   return request({
     url: 'holiday/selectById',
-    method: 'post',
-    data: data
+    method: 'get',
+    params: data
   })
 }
 

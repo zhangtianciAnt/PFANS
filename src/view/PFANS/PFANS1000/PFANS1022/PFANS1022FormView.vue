@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="disabled" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.type" :disabled="disabled1" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -54,7 +54,7 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="175" :error="errorapplication">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType" :userlist="userlist1"
+                  <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType" :userlist="scope.row.application"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
@@ -77,11 +77,13 @@
                   </el-input>
                 </template>
               </el-table-column>
+              <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
               <el-table-column :label="$t('label.休日出勤日付')" align="center" prop="attendancedate"  width="140">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" type="date" :no="scope.row" v-model="scope.row.attendancedate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
+              </el-checkbox>
               <el-table-column :label="$t('label.休日出勤理由')" align="center" prop="workreasons"  width="140">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.workreasons">
@@ -149,7 +151,6 @@
           baseInfo: {},
           radio: 1,
           userlist: "",
-          userlist1: "",
           loading: false,
           erroruser: '',
           errorapplication: '',
@@ -181,6 +182,7 @@
           ],
           code: 'PJ028',
           disabled: false,
+          disabled1: false,
           menuList: [],
         rules: {
           user_id: [
@@ -190,6 +192,13 @@
               trigger: 'change'
             },
           ],
+            dailypayment: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.application_date'),
+                    trigger: 'change'
+                },
+            ],
             machinemedia: [
                 {
                     required: true,
@@ -208,13 +217,6 @@
                 {
                     required: true,
                     message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL'),
-                    trigger: 'change'
-                },
-            ],
-            application: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_09') + this.$t('label.application_date'),
                     trigger: 'change'
                 },
             ],

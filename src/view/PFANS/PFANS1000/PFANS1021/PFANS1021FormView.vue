@@ -78,7 +78,7 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="175" :error="errortitle">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :no="scope.row" :error="errortitle" :selectType="selectType" :userlist="userlist1"
+                  <user :disabled="!disabled" :no="scope.row" :error="errortitle" :selectType="selectType" :userlist="scope.row.title"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
@@ -142,7 +142,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="175">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="userlist2"
+                  <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"
                         @getUserids="getUserids2" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
@@ -226,8 +226,6 @@
       return {
           baseInfo: {},
           userlist: "",
-          userlist1: "",
-          userlist2: "",
           loading: false,
           erroruser: '',
           errortitle: '',
@@ -394,9 +392,9 @@
         getUserids1(val,row) {
             row.title = val;
             let lst = getOrgInfoByUserId(val);
-            this.form.detailcenter_id = lst.centerNmae;
-            this.form.detailgroup_id = lst.groupNmae;
-            this.form.detailteam_id = lst.teamNmae;
+            row.detailcenter_id = lst.centerNmae;
+            row.detailgroup_id = lst.groupNmae;
+            row.detailteam_id = lst.teamNmae;
             if (!row.title || row.title === '' || val === "undefined") {
                 row.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
