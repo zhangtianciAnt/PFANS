@@ -1,14 +1,14 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import { Message } from 'element-ui'
+    import {Message} from 'element-ui'
     import moment from "moment";
-    import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
+    import {getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',
@@ -63,7 +63,7 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
-                row : 'global_id'
+                row: 'global_id'
             };
         },
         mounted() {
@@ -77,7 +77,6 @@
                         response[j].group_id = lst.groupNmae;
                         response[j].team_id = lst.teamNmae;
                         response[j].status = getStatus(response[j].status);
-                        //解决数据库乱码问题
                         let user = getUserInfo(response[j].user_id);
                         if (user) {
                             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
@@ -86,24 +85,6 @@
                             response[j].application = moment(response[j].application).format("YYYY-MM-DD");
                         }
                     }
-                    //     let center = getOrgInfo(response[j].appcenter_id);
-                    //     let group = getOrgInfo(response[j].appgroup_id);
-                    //     let team = getOrgInfo(response[j].appteam_id);
-                    //     response[j].status = getStatus(response[j].status);
-                    //     let lst = getUserInfo(response[j].user_id)
-                    //     if(center){
-                    //         response[j].appcenter_id = center.companyname;
-                    //     }
-                    //     if(group){
-                    //         response[j].appgroup_id = group.companyname;
-                    //     }
-                    //     if(team){
-                    //         response[j].appteam_id = team.departmentname;
-                    //     }
-                    //     if(lst){
-                    //         response[j].user_id = lst.userinfo.customername;
-                    //     }
-                    // }
                     this.data = response;
                     this.loading = false;
                 })
@@ -170,6 +151,6 @@
     }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 
 </style>
