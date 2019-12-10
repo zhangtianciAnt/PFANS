@@ -117,6 +117,7 @@
       },
       buttonClick(val) {
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);
+        this.$store.commit("global/SET_WORKFLOWURL", this.$route.path);
         if ("view" === val) {
           if (!this._id) {
             this.$message.error(this.$t("normal.info_01"));
