@@ -2004,7 +2004,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 0.5remx;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>

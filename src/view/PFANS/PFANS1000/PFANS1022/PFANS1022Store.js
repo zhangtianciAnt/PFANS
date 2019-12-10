@@ -1,9 +1,8 @@
 import {
   getHoliday,
   selectById,
-  updateHoliday,
-  createHoliday,
-  getForSelect,
+  update,
+  insert,
   } from './PFANS1022Api'
 
   const PFANS1022Store = {
@@ -37,9 +36,9 @@ import {
           })
         })
       },
-      updateHoliday({ commit },data) {
+      update({ commit },data) {
         return new Promise((resolve, reject) => {
-          updateHoliday(data).then(response => {
+          update(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -50,9 +49,9 @@ import {
           })
         })
       },
-      createHoliday({ commit },data) {
+      insert({ commit },data) {
         return new Promise((resolve, reject) => {
-          createHoliday(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -60,19 +59,6 @@ import {
             }
           }).catch(error => {
             reject(error);
-          })
-        })
-      },
-      getForSelect ({commit}, data) {
-        return new Promise((resolve, reject) => {
-          getForSelect(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data)
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error)
           })
         })
       },

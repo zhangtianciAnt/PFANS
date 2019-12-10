@@ -15,7 +15,7 @@ export function selectById(data) {
   })
 }
 
-export function updateHoliday(data) {
+export function update(data) {
   return request({
     url: 'holiday/update',
     method: 'post',
@@ -23,18 +23,10 @@ export function updateHoliday(data) {
   })
 }
 
-export function createHoliday(data) {
+export function insert(data) {
   return request({
-    url: 'holiday/create',
+    url: 'holiday/insert',
     method: 'post',
     data: data
-  })
-}
-
-export function getForSelect (data) {
-  return request({
-    url: 'dictionary/getForSelect',
-    method: 'get',
-    params: data
   })
 }

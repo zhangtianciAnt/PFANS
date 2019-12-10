@@ -70,7 +70,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          **************************************************-->
           <!--          申请部署-->
           <el-row>
             <el-col :span="8">
@@ -431,7 +430,6 @@
                 this.buttonClick("update");
             },
             start() {
-                debugger
                 this.form.status = '2';
                 this.buttonClick("update");
             },

@@ -81,9 +81,6 @@
               if (user) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }
-              if (response[j].application !== null && response[j].application !== "") {
-                response[j].application = moment(response[j].application).format("YYYY-MM-DD");
-              }
             }
             this.data = response;
             this.loading = false;
