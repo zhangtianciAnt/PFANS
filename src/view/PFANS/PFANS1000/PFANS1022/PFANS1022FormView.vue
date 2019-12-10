@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="disabled1" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.type" :disabled="!disabled1" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -63,28 +63,47 @@
                   <dicselect
                     :no="scope.row"
                     :code="code"
-                    :data="form.kind"
+                    :data="scope.row.kind"
                     :multiple="multiple"
-                    @change="getFbbuilding"
+                    @change="getKind"
                     style="width: 11rem"
                     :disabled="!disabled">
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.カード番号')" align="center" prop="cardnumber"  width="140">
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_CARDNUMBER')" align="center" prop="cardnumber"  width="140">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.cardnumber">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
-              <el-table-column :label="$t('label.休日出勤日付')" align="center" prop="attendancedate"  width="140">
+              <el-table-column align="center"  width="35">
+              <el-checkbox
+                           v-model="checked1"
+                           @change="getChecked1"
+                           active-value="1"
+                           inactive-value="0"
+              >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center" prop="attendancedate"  width="170" v-show="show1">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" type="date" :no="scope.row" v-model="scope.row.attendancedate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
-              </el-checkbox>
-              <el-table-column :label="$t('label.休日出勤理由')" align="center" prop="workreasons"  width="140">
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="attendancedate"  width="350" v-show="show">
+                <template slot-scope="scope">
+                  <el-date-picker unlink-panels
+                                  class="bigWidth"
+                                  :disabled="!disabled"
+                                  v-model.trim="scope.row.startdate"
+                                  type="daterange"
+                                  :end-placeholder="$t('label.enddate')"
+                                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                  :start-placeholder="$t('label.startdate')"
+                  ></el-date-picker>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_REASONSWORK')" align="center" prop="workreasons"  width="140">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.workreasons">
                   </el-input>
@@ -147,9 +166,20 @@
         }
 
       };
+        var checkapplication = (rule, value, callback) => {
+            if(!value || value === '' || value ==="undefined"){
+                this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+            }else{
+                this.errorapplication = "";
+                return callback();
+            }
+
+        };
       return {
+          value1: '',
           baseInfo: {},
-          radio: 1,
+          checked1: 1,
           userlist: "",
           loading: false,
           erroruser: '',
@@ -176,7 +206,7 @@
                   cardnumber:'',
                   attendancedate: moment(new Date()).format("YYYY-MM-DD"),
                   workreasons:'',
-                  startdate: moment(new Date()).format("YYYY-MM-DD"),
+                  startdate: [],
                   enddate: moment(new Date()).format("YYYY-MM-DD"),
               },
           ],
@@ -192,6 +222,13 @@
               trigger: 'change'
             },
           ],
+            application: [
+                {
+                    required: true,
+                    validator: checkapplication,
+                    trigger: 'change'
+                },
+            ],
             dailypayment: [
                 {
                     required: true,
@@ -199,69 +236,42 @@
                     trigger: 'change'
                 },
             ],
-            machinemedia: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_MACHINEMEDIA'),
-                    trigger: 'change'
-                },
-            ],
-            management: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_MANAGEMENT'),
-                    trigger: 'change'
-                },
-            ],
-            compatibleseal: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL'),
-                    trigger: 'change'
-                },
-            ],
-            exportdate: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_EXPORTDATE'),
-                    trigger: 'change'
-                },
-            ],
-            returndate: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_RETURNDATE'),
-                    trigger: 'change'
-                },
-            ],
-            holdingplace: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_HOLDINGPLACE'),
-                    trigger: 'change'
-                },
-            ],
-            holdoutreason: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFASN1023FORMVIEW_HOLDOUTREASON'),
-                    trigger: 'change'
-                },
-            ],
         },
-          canStart:false,
+          show: false,
+          show1: true,
+          canStart: false,
       };
     },
 
     mounted() {
-      if (this.$route.params._id) {
         this.loading = true;
+      if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1022Store/selectById', {"holidayid": this.$route.params._id})
           .then(response => {
-            this.form = response;
-            this.userlist = this.form.user_id;
-            this.loading = false;
+              debugger;
+              this.form = response.holiday;
+              if (response.holidaydetail.length > 0) {
+
+              for(let j = 0; j < response.holidaydetail.length; j++ ){
+                  if(response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null){
+                      let startdate = response.holidaydetail[j].startdate;
+                      let serdate = startdate.slice(0, 10);
+                      let serdate1 = startdate.slice(startdate.length - 10);
+                      response.holidaydetail[j].startdate = [serdate, serdate1];
+                  }
+              }
+              this.tableD = response.holidaydetail;
+          }
+              if(this.checked1 === 1){
+                  this.show = true;
+                  this.show1 = false;
+              }else if(this.checked1 === 2){
+                  this.show1 = true;
+                  this.show = false;
+              }
+              this.userlist = this.form.user_id;
+              this.loading = false;
           })
           .catch(error => {
             Message({
@@ -311,28 +321,26 @@
         }
       },
         getUserids1(val,row) {
-            this.userlist1 = val;
             row.application = val;
-            if (!this.form.application || this.form.application === '' || val === "undefined") {
-                this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+            if (!row.application || row.application === '' || val === "undefined") {
+                row.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
-                this.errorapplication = "";
+                row.errorapplication = "";
             }
         },
-        getMachinemedia(val) {
-            this.form.machinemedia = val;
-      },
-        getCompatibleseal(val){
-            this.form.compatibleseal = val;
+        getChecked1(val){
+          debugger;
+          this.checked1 = val;
+            if(val === 1){
+                this.show = true;
+                this.show1 = false;
+            }else if(val === 2){
+                this.show1 = true;
+                this.show = false;
+            }
         },
-        getFabuilding(val) {
-            this.form.fabuilding = val;
-      },
-        getSubtype(val) {
-            this.form.subtype = val;
-        },
-        getFbbuilding(val) {
-            this.form.fbbuilding = val;
+        getKind(val,row){
+            row.kind = val;
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -364,7 +372,7 @@
                 cardnumber:'',
                 attendancedate: moment(new Date()).format("YYYY-MM-DD"),
                 workreasons:'',
-                startdate: moment(new Date()).format("YYYY-MM-DD"),
+                startdate: [],
                 enddate: moment(new Date()).format("YYYY-MM-DD"),
             });
         },
@@ -379,7 +387,7 @@
                     if (this.tableD[i].application !== '' || this.tableD[i].kind !== '' || this.tableD[i].cardnumber !== '' ||
                         this.tableD[i].attendancedate !== '' || this.tableD[i].workreasons !== '' || this.tableD[i].startdate !== ''
                         || this.tableD[i].enddate !== '') {
-                        this.baseInfo.notification.push(
+                        this.baseInfo.holidaydetail.push(
                             {
                                 holidaydetailid: this.tableD[i].holidaydetailid,
                                 holidayid: this.tableD[i].holidayid,
@@ -388,7 +396,7 @@
                                 cardnumber: this.tableD[i].cardnumber,
                                 attendancedate: this.tableD[i].attendancedate,
                                 workreasons: this.tableD[i].workreasons,
-                                startdate: this.tableD[i].startdate,
+                                startdate: moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD'),
                                 enddate: this.tableD[i].enddate,
                             },
                         );
@@ -397,7 +405,7 @@
               if (this.$route.params._id) {
                 this.form.holidayid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1022Store/updateHoliday', this.baseInfo)
+                  .dispatch('PFANS1022Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -407,6 +415,9 @@
                               type: 'success',
                               duration: 5 * 1000
                           });
+                          if (this.$store.getters.historyUrl) {
+                              this.$router.push(this.$store.getters.historyUrl);
+                          }
                       }
                   })
                   .catch(error => {
@@ -420,7 +431,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1022Store/createHoliday', this.baseInfo)
+                  .dispatch('PFANS1022Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -429,6 +440,9 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
+                      if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                      }
                   })
                   .catch(error => {
                     Message({
