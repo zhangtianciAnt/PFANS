@@ -171,6 +171,14 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'PFANS1022', 'name': 'menu.PFANS1022', 'menuvisible': false, 'menuurl': '/PFANS1022View', 'menuicon': '', 'children': [], 'actions': [
+                    { "_id": "PFANS1022_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                    { "_id": "PFANS1022_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                    { "_id": "PFANS1022_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                    { "_id": "PFANS1022_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+                  ]
+                },
+                {
                   '_id': 'PFANS1023', 'name': 'menu.PFANS1023', 'menuvisible': false, 'menuurl': '/PFANS1023View', 'menuicon': '', 'children': [], 'actions': [
                     { "_id": "PFANS1023_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
                     { "_id": "PFANS1023_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
