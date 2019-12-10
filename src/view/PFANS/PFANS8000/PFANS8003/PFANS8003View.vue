@@ -1,13 +1,13 @@
 <template>
   <EasyNormalTable
-    :title="title"
+    :buttonList="buttonList"
     :columns="columns"
     :data="data"
+    :rowid="rowid"
+    :title="title"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
-    :buttonList="buttonList"
     v-loading="loading"
-    :rowid="rowid"
   ></EasyNormalTable>
 </template>
 
@@ -73,73 +73,42 @@
       };
     },
     mounted() {
-      this.availablestate = this.$route.params.availablestate;
-      if (this.availablestate) {
-        this.buttonList = [
-          {
-            key: "view",
-            name: "button.view",
-            disabled: false,
-            icon: "el-icon-search"
-          },
-        ];
-        this.loading = true;
-        this.$store.dispatch("PFANS8008Store/getListType").then(response => {
-          this.data = response;
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].availablestate === "0") {
-              if(getUserInfo(
-                this.data[j].createby
-              )!==null) {
-                response[j].createbyname = getUserInfo(
-                  response[j].createby
-                ).userinfo.customername;
-              }
-              response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
-              if (response[j].createon !== null && response[j].createon !== '') {
-                response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
-              }
-            }
-          }
-          this.loading = false;
-        }).catch(error => {
-          this.loading = false;
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        });
-      }else{
-        this.loading = true;
-        this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
-          this.data = response;
-          for (let j = 0; j < this.data.length; j++) {
-            debugger
-            if(getUserInfo(
+      this.buttonList = [
+        {
+          key: "view",
+          name: "button.view",
+          disabled: false,
+          icon: "el-icon-search"
+        },
+      ];
+      this.loading = true;
+      this.$store.dispatch("PFANS8008Store/getListType").then(response => {
+        this.data = response;
+        for (let j = 0; j < response.length; j++) {
+          if (response[j].availablestate === "0") {
+            if (getUserInfo(
               this.data[j].createby
-            )!==null) {
-              this.data[j].createbyname = getUserInfo(
-                this.data[j].createby
+            ) !== null) {
+              response[j].createbyname = getUserInfo(
+                response[j].createby
               ).userinfo.customername;
             }
-            this.data[j].availablestatename =
-              this.data[j].availablestate === "0"
-                ? this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
-                : this.$t("label.PFANS8008FORMVIEW_INVALID");
-            this.data[j].createon = moment(this.data[j].createon).format(
-              "YYYY-MM-DD HH:mm:ss"
-            );
+            response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+            if (response[j].createon !== null && response[j].createon !== '') {
+              response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
+            }
           }
-          this.loading = false;
-        }).catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        });
-      }
+        }
+        this.loading = false;
+      }).catch(error => {
+        this.loading = false;
+        Message({
+          message: error,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      });
+
 
     },
     methods: {

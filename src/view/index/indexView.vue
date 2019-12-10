@@ -241,7 +241,7 @@ padding: 0 0.8rem;">&nbsp;
     data() {
       return {
         _id: '',
-        DSPSX: '',
+        DSPSX: '0',
         YSPSX: '',
         YBHSX: '',
         availablestate: '',
