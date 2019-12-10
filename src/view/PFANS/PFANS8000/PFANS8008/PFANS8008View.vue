@@ -100,22 +100,24 @@
                     this.data = response;
                     for (let j = 0; j < response.length; j++) {
                         if (response[j].availablestate === "0") {
+                          if(getUserInfo(
+                            this.data[j].createby
+                          )!==null) {
                             response[j].createbyname = getUserInfo(
-                                response[j].createby
+                              response[j].createby
                             ).userinfo.customername;
+                          }
                             response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
                             if (response[j].createon !== null && response[j].createon !== '') {
                                 response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                             }
-
                         }
-
                     }
                     this.loading = false;
                 }).catch(error => {
                     this.loading = false;
                     Message({
-                        message: err,
+                        message: error,
                         type: 'error',
                         duration: 5 * 1000
                     })
@@ -125,21 +127,26 @@
                 this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
                     this.data = response;
                     for (let j = 0; j < this.data.length; j++) {
+                      debugger
+                      if(getUserInfo(
+                        this.data[j].createby
+                      )!==null) {
                         this.data[j].createbyname = getUserInfo(
-                            this.data[j].createby
+                          this.data[j].createby
                         ).userinfo.customername;
+                      }
                         this.data[j].availablestatename =
-                            this.data[j].availablestate === "0"
-                                ? this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
-                                : this.$t("label.PFANS8008FORMVIEW_INVALID");
-                        this.data[j].createon = moment(this.data[j].createon).format(
-                            "YYYY-MM-DD HH:mm:ss"
+                        this.data[j].availablestate === "0"
+                          ? this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
+                          : this.$t("label.PFANS8008FORMVIEW_INVALID");
+                      this.data[j].createon = moment(this.data[j].createon).format(
+                        "YYYY-MM-DD HH:mm:ss"
                         );
                     }
                     this.loading = false;
                 }).catch(error => {
                     Message({
-                        message: err,
+                        message: error,
                         type: 'error',
                         duration: 5 * 1000
                     })

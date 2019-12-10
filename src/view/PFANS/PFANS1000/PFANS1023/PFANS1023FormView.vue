@@ -117,7 +117,7 @@
             </el-checkbox>
             <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
               <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
-                <el-input v-model="form.confidential" :disabled="!disabled5" style="width: 11rem"></el-input>
+                <el-input v-model="form.confident" :disabled="!disabled5" style="width: 11rem"></el-input>
               </el-form-item>
             </el-checkbox>
           </el-row>
@@ -269,6 +269,9 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
+              if (this.form.status === '2') {
+                  this.disable = false;
+              }
             if (this.form.company === "") {
                   this.checked1 = false;
             }else{

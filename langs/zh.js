@@ -1419,7 +1419,7 @@ module.exports = {
     PFANS8001VIEW_ERROR6: "两次输入密码不一致!",
     PFANS8001VIEW_GESHI: "新密码格式不正确",
     PFANS8001VIEW_TISHI: "请注意密码有效位大于等于8位且小于等于16位，且必须包含数字，字母，特殊字符三种中的至少两种",
-    PFANS8002VIEW_XXYL: "待办一览",
+    PFANS8002VIEW_XXYL: "待办",
     PFANS8002VIEW_JS: "结束",
     PFANS8007VIEW_FD: "法定节假日",
     PFANS8007VIEW_GX: "公休日",
