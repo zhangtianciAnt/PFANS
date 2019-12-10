@@ -155,7 +155,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'PFANS1019', 'name': 'menu.PFANS1019', 'menuvisible': false, 'menuurl': '/PFANS1019FormView', 'menuicon': '', 'children': [], 'actions': [
+                  '_id': 'PFANS1019', 'name': 'menu.PFANS1019', 'menuvisible': false, 'menuurl': '/PFANS1019View', 'menuicon': '', 'children': [], 'actions': [
                     { "_id": "PFANS1019_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
                     { "_id": "PFANS1019_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
                     { "_id": "PFANS1019_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
