@@ -2759,7 +2759,6 @@
         this.$store
           .dispatch('PFANS2005Store/givinglist', {giving_id: this.Giving})
           .then(response => {
-            debugger;
             let lettableQT1Woman = [];
             let lettableQT1Man = [];
             let datalist = [];
@@ -2820,7 +2819,7 @@
               obj.total = response.disciplinaryVo[i].total;
               datalistzxkc[i] = obj;
               this.tableZXKC = datalistzxkc;
-              this.totaldataZXKC = response.disciplinaryVo;
+              this.totaldataZXKC = datalistzxkc;
               this.ListZXKC = 12;
               this.getList();
             }
