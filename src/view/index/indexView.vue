@@ -49,6 +49,8 @@
                          :locale='locale' :plugins="calendarPlugins"
                          @dateClick="handleDateClick" defaultView="dayGridMonth"
                          height="parent"/>
+
+
         </el-row>
       </el-col>
     </el-row>
