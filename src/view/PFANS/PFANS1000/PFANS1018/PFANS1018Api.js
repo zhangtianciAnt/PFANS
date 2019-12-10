@@ -2,7 +2,6 @@ import request from '../../../../utils/request'
 
 export function getglobal(data) {
   return request({
-    // 主键
     url: 'global/get',
     method: 'get',
     params: data
