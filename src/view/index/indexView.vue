@@ -12,45 +12,43 @@
               padding: 1rem 0rem;
               cursor: pointer;
               line-height: 1.8rem">{{$t('label.INDEX_NY')}}
-              <span style="font-size:5rem;color: #fb6e52">{{this.DSPSX}}</span>
+              <span style="font-size:4.5rem;color: #fb6e52">{{this.DSPSX}}</span>
               {{$t('label.INDEX_DSPSX')}}
             </div>
           </el-card>
         </el-row>
-        <el-row style="padding-top: 5px;height: 380px;max-height: 380px">
+        <el-row style="padding-top: 2px;height: 290px;max-height: 290px">
           <el-card class="box-card" shadow="hover">
             <el-row>
               <el-col :span="12">
-                <span style="float:left;color: #5d9cec;">{{$t('label.INDEX_GSDT')}}</span>
+                <span style="float:left;color: #5d9cec;font-size: 0.85rem;margin-left: 3%">{{$t('label.INDEX_GSDT')}}</span>
               </el-col>
               <el-col :span="12">
-                <el-link :underline="false" @click="Clickckgd" style="margin-left: 73%;color: #5d9cec"
+                <el-link :underline="false" @click="Clickckgd" style="margin-left: 80%;color: #5d9cec"
                          target="_blank" type="primary">
-                  <span>{{$t('label.INDEX_CKGD')}}</span>
+                  <span style="font-size: 0.85rem">{{$t('label.INDEX_CKGD')}}</span>
                 </el-link>
               </el-col>
             </el-row>
             <el-divider></el-divider>
-            <el-row style="height:260px;max-height: 260px;overflow: hidden">
-              <div class="DataListStyle">
-                <el-table
-                  :data="DataList2" @row-click="rowclickDataList2">
-                  <el-table-column
-                    prop="title"
-                    width="370">
-                  </el-table-column>
-                  <el-table-column
-                    prop="creaton"
-                    width="220">
-                  </el-table-column>
-                </el-table>
-              </div>
+            <el-row style="height:190px;max-height: 190px;overflow: hidden">
+              <el-table :show-header=false
+                :data="DataList2" @row-click="rowclickDataList2">
+                <el-table-column
+                  prop="title"
+                  width="370">
+                </el-table-column>
+                <el-table-column
+                  prop="creaton"
+                  width="220">
+                </el-table-column>
+              </el-table>
             </el-row>
           </el-card>
         </el-row>
       </el-col>
       <el-col :span="12" style="padding: 5px">
-        <el-row style="height: 498px;max-height: 498px">
+        <el-row style="height: 400px;max-height: 400px">
           <full-calendar :first-day="firstDay" :header='header'
                          :locale='locale' :plugins="calendarPlugins"
                          @dateClick="handleDateClick" defaultView="dayGridMonth"
@@ -61,12 +59,12 @@
     <el-row>
       <el-col :span="24" style="padding: 5px">
         <el-card class="box-card" shadow="hover">
-          <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
+          <span style="padding: 0 0 0 1rem;color: #5d9cec;font-size: 0.85rem">{{$t('label.INDEX_KJFW')}}</span>
           <el-divider></el-divider>
           <el-row>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png1" style="width: 65%" @click="submitForm(1)">
+                <img :src="png1" style="width: 50%" @click="submitForm(1)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS5008VIEW')}}</span>
@@ -74,7 +72,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png2" style="width: 65%" @click="submitForm(2)">
+                <img :src="png2" style="width: 50%" @click="submitForm(2)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS2005VIEW')}}</span>
@@ -82,7 +80,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png3" style="width: 65%" @click="submitForm(3)">
+                <img :src="png3" style="width: 50%" @click="submitForm(3)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS2017VIEW')}}</span>
@@ -90,7 +88,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png4" style="width: 65%" @click="submitForm(4)">
+                <img :src="png4" style="width: 50%" @click="submitForm(4)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS4001VIEW')}}</span>
@@ -98,7 +96,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png5" style="width: 65%" @click="submitForm(5)">
+                <img :src="png5" style="width: 50%" @click="submitForm(5)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS5001VIEW')}}</span>
@@ -106,7 +104,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png6" style="width: 65%" @click="submitForm(6)">
+                <img :src="png6" style="width: 50%" @click="submitForm(6)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS2020VIEW')}}</span>
@@ -114,7 +112,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png7" style="width: 65%" @click="submitForm(7)">
+                <img :src="png7" style="width: 50%" @click="submitForm(7)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS2023VIEW')}}</span>
@@ -122,7 +120,7 @@
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
-                <img :src="png8" style="width: 65%" @click="submitForm(8)">
+                <img :src="png8" style="width: 50%" @click="submitForm(8)">
               </el-row>
               <el-row style="text-align: center">
                 <span>{{$t('title.PFANS2022VIEW')}}</span>
@@ -319,14 +317,6 @@
   };
 </script>
 <style lang="scss">
-  .DataListStyle {
-    .el-table thead {
-      color: #909399;
-      font-weight: 500;
-      display: none;
-    }
-  }
-
   .fc-unthemed td.fc-sat {
     background: #999;
   }
@@ -372,6 +362,16 @@
     font-size: 1.75em;
     color: white;
     margin: 0;
+  }
+
+  .el-divider--horizontal{
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin-top: 12px;
+    margin-right: 0px;
+    margin-bottom: 12px;
+    margin-left: 0px;
   }
 </style>
 
