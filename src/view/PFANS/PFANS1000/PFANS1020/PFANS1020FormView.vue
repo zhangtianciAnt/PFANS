@@ -277,7 +277,8 @@
             }
         },
         getRank(val,row){
-            row.rand = val;
+          debugger
+          this.tableD.rand = val;
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -317,6 +318,8 @@
               this.baseInfo = {};
               this.baseInfo.outside = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.outsidedetail = [];
+              debugger;
+                console.log("ccc", this.tableD)
                 for (let i = 0; i < this.tableD.length; i++) {
                     if (this.tableD[i].username !== '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
                         this.tableD[i].reason !== '') {
@@ -330,10 +333,12 @@
                                 reason: this.tableD[i].reason,
                             },
                         );
+                        console.log("aaa", this.baseInfo)
                     }
                 }
+                debugger
               if (this.$route.params._id) {
-                this.form.holidayid = this.$route.params._id;
+                this.baseInfo.outsideid = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1020Store/update', this.baseInfo)
                   .then(response => {
