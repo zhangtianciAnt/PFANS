@@ -46,8 +46,13 @@
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
                     <el-table :data="tableA" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
-                      <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                      </el-table-column>
+                        <el-table-column align="center" width="100">
+                          <template slot-scope="scope">
+                            <pane name="1">
+                              {{scope.row.aaa}}
+                            </pane>
+                          </template>
+                        </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
                         <el-table-column :label="$t('label.人数')" align="center" width="100">
@@ -261,17 +266,15 @@
                       </el-table-column>
                     </el-table>
                     <el-table :data="tableB" header-cell-class-name="sub_bg_color_grey height">
-
                       <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
+                        <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
                         </el-table-column>
                       </el-table-column>
-
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
                         <el-table-column :label="$t('label.給与')" align="center" width="100">
                           <template slot-scope="scope">
@@ -485,13 +488,20 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableC" :summary-method="getPSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
+                    <el-table :data="tableC" :summary-method="getCSummaries" show-summary
+                              header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column align="center" width="100">
+                        <template slot-scope="scope">
+                          <pane name="1">
+                            {{scope.row.ccc}}
+                          </pane>
+                        </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.RANK')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
+                          <pane name="1">
+                            {{scope.row.ccc2}}
+                          </pane>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
@@ -905,13 +915,20 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableD" :summary-method="getTSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
+                    <el-table :data="tableD" :summary-method="getDSummaries" show-summary
+                              header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column align="center" width="100">
+                        <template slot-scope="scope">
+                          <pane name="1">
+                            {{scope.row.ccc}}
+                          </pane>
+                        </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.RANK')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
+                          <pane name="1">
+                            {{scope.row.ccc2}}
+                          </pane>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
@@ -1354,13 +1371,13 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
+                <el-tabs v-model="activeName3">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
                     <el-table :data="tableE" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -1369,7 +1386,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -1849,7 +1866,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -1858,7 +1875,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -2081,7 +2098,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -2090,7 +2107,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -2313,7 +2330,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -2322,7 +2339,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -2570,26 +2587,26 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
+                <el-tabs v-model="activeName4">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
                     <el-table :data="tableE" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                          <pane name="1" >
-                            {{scope.row.aaa}}
-                          </pane>
+                            <pane name="1">
+                              {{scope.row.aaa}}
+                            </pane>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                        <pane name="1" >
-                          {{scope.row.bbb}}
-                        </pane>
+                            <pane name="1">
+                              {{scope.row.bbb}}
+                            </pane>
                           </template>
-                      </el-table-column>
+                        </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
@@ -3065,7 +3082,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -3074,7 +3091,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -3297,7 +3314,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -3306,7 +3323,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -3529,7 +3546,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.aaa}}
                             </pane>
                           </template>
@@ -3538,7 +3555,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1" >
+                            <pane name="1">
                               {{scope.row.bbb}}
                             </pane>
                           </template>
@@ -3786,1288 +3803,246 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableZ" header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                    <el-table :data="tableY" header-cell-class-name="sub_bg_color_grey height">
-
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <pane name="1" >
-                              {{scope.row.aaa}}
-                            </pane>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableP" :summary-method="getPSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
+                <el-tabs v-model="activeName5">
+                  <el-table :data="tableJ" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column>
+                      <el-table-column :label="$t('label.内容')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <pane name="1">
+                            {{scope.row.jjj}}
+                          </pane>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.単価（千元）')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <pane name="1">
+                            {{scope.row.jjj2}}
+                          </pane>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column align="center" width="100">
+                        <template slot-scope="scope">
+                          <pane name="1">
+                            {{scope.row.jjj3}}
+                          </pane>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableT" :summary-method="getTSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.回数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.金額')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                  </el-table>
                 </el-tabs>
               </div>
             </el-tab-pane>
@@ -5098,314 +4073,40 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
+                <el-tabs v-model="activeName6">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableZ" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableK" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                    <el-table :data="tableY" header-cell-class-name="sub_bg_color_grey height">
-
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <pane name="1" >
-                              {{scope.row.aaa}}
+                            <pane name="1">
+                              {{scope.row.kkk}}
                             </pane>
                           </template>
                         </el-table-column>
                       </el-table-column>
-
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.1Q')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.2Q')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -5413,97 +4114,41 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.3Q')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.4Q')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -5511,13 +4156,13 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -5525,13 +4170,13 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -5539,844 +4184,766 @@
                         </el-table-column>
                       </el-table-column>
                     </el-table>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <pane name="1">
+                            {{scope.row.aaa}}
+                          </pane>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableP" :summary-method="getPSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
+                    <el-table :data="tableL" :summary-method="getLSummaries" show-summary
+                              header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column>
+                        <el-table-column :label="$t('label.会社名')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.委託レート')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowL(scope.$index, tableL)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowL()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableT" :summary-method="getTSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B2')" name="third">
+                    <el-table :data="tableM" :summary-method="getMSummaries" show-summary
+                              header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column>
+                        <el-table-column :label="$t('label.会社名')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.委託レート')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowM(scope.$index, tableM)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowM()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-tab-pane>
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
+                    <el-table :data="tableN" :summary-method="getNSummaries" show-summary
+                              header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column>
+                        <el-table-column :label="$t('label.会社名')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                      </el-table-column>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.委託レート')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                        <el-table-column :label="$t('label.工数')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.金額')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowN(scope.$index, tableN)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowN()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
@@ -6410,1288 +4977,267 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableZ" header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
+                <el-tabs v-model="activeName7">
+                  <el-table :data="tableO" :summary-method="getOSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column>
+                      <el-table-column :label="$t('label.No.')" align="center" width="100">
+                        <el-table-column>
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
                         </el-table-column>
                       </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.内容（千元）')" align="center" width="100">
+                        <el-table-column>
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.小項目')" align="center" width="100">
+                        <el-table-column>
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.単価（元）')" align="center" width="100">
+                        <el-table-column>
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column>
+                      <el-table-column :label="$t('label.分類')" align="center" width="100">
+                        <el-table-column>
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.上期')" align="center" width="100">
                       <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                    </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.上期')" align="center" width="100">
                       <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
                       </el-table-column>
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
                       <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                    <el-table :data="tableY" header-cell-class-name="sub_bg_color_grey height">
-
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <pane name="1" >
-                              {{scope.row.aaa}}
-                            </pane>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableP" :summary-method="getPSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
+                      <el-table-column :label="$t('label.人数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
+                    </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.年間')" align="center" width="100">
+                      <el-table-column :label="$t('label.合计')" align="center" width="100">
+                        <el-table-column :label="$t('label.人数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
+                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableT" :summary-method="getTSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                  </el-tab-pane>
+                    </el-table-column>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          :disabled="!disable"
+                          @click.native.prevent="deleteRowO(scope.$index, tableO)"
+                          plain
+                          size="small"
+                          type="danger"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          :disabled="!disable"
+                          @click="addRowO()"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
                 </el-tabs>
               </div>
             </el-tab-pane>
@@ -7722,1292 +5268,714 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-tabs v-model="activeName2">
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableZ" header-cell-class-name="sub_bg_color_grey height">
+                <el-tabs v-model="activeName8">
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLTOTAL')" name="first">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
+                        <el-table-column align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.内容')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                    <el-table :data="tableY" header-cell-class-name="sub_bg_color_grey height">
-
-                      <el-table-column>
-                        <el-table-column :label="$t('label.人員計画合計')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <pane name="1" >
-                              {{scope.row.aaa}}
-                            </pane>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column :label="$t('label.年間')" align="center" width="100">
+                        <el-table-column :label="$t('label.合计')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowP(scope.$index, tableP)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowP()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableP" :summary-method="getPSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLDETAILED')" name="second">
+                    <el-table :data="tableQ" :summary-method="getQSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column>
+                        <el-table-column :label="$t('label.No.')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.内容')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.プロジェクト')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column :label="$t('label.年間')" align="center" width="100">
+                        <el-table-column :label="$t('label.合计')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowQ(scope.$index, tableQ)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowQ()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
                       </el-table-column>
                     </el-table>
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableT" :summary-method="getTSummaries" show-summary header-cell-class-name="sub_bg_color_grey height">
-                      <el-table-column align="center" width="100" >
-                      </el-table-column>
-                      <el-table-column :label="$t('label.RANK')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(4-6)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.レート(7-3)')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業/H')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" size="mini"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                    <el-table :data="tableR" header-cell-class-name="sub_bg_color_grey height">
+                      <el-table-column>
+                        <el-table-column :label="$t('label.内容')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.プロジェクト')" align="center" width="100">
+                          <el-table-column>
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
+                      <el-table-column :label="$t('label.年間')" align="center" width="100">
+                        <el-table-column :label="$t('label.合计')" align="center" width="100">
+                          <el-table-column :label="$t('label.計画')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.実績')" align="center" width="100">
+                            <template slot-scope="scope">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                        v-model.trim="scope.row.place"></el-input>
+                            </template>
+                          </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowQ(scope.$index, tableQ)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowQ()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
                 </el-tabs>
               </div>
             </el-tab-pane>
-
           </el-tabs>
         </el-form>
       </div>
@@ -9065,6 +6033,12 @@
                 userlist: "",
                 activeName: 'first',
                 activeName2: 'first',
+                activeName3: 'first',
+                activeName4: 'first',
+                activeName5: 'first',
+                activeName6: 'first',
+                activeName7: 'first',
+                activeName8: 'first',
                 loading: false,
                 disable: false,
                 disablecurr: false,
@@ -9078,133 +6052,239 @@
                 ],
                 tableA: [
                     {
-
+                        aaa:"人員計画合計",
                     },
                 ],
                 tableB: [
                     {
-
+                        aaa:"人員計画合計",
                     },
                     {
-                        aaa:"小計(元)",
+                        aaa: "小計(元)",
                     },
                     {
-                        aaa:"小計(千元)",
-                    },
-                    ],
-                tableC: [
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
+                        aaa: "小計(千元)",
                     },
                 ],
+                tableC: [
+                    {
+                        ccc:"出向者",
+                        ccc2:"参事以上",
+                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
                 tableD: [
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
-                    {
-                    },
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
                 ],
                 tableE: [
                     {
-                        aaa:"償却合計",
-                        bbb:"計画",
+                        aaa: "償却合計",
+                        bbb: "計画",
                     },
                     {
-                        bbb:"実績",
+                        bbb: "実績",
                     },
                 ],
                 tableF: [
-                    {
-                    },
+                    {},
                 ],
                 tableG: [
                     {
-                        aaa:"償却小計",
-                        bbb:"計画",
+                        aaa: "償却小計",
+                        bbb: "計画",
                     },
                     {
-                        bbb:"実績",
+                        bbb: "実績",
                     },
                 ],
                 tableH: [
                     {
-                        aaa:"償却合計",
-                        bbb:"計画",
+                        aaa: "償却小計",
+                        bbb: "計画",
                     },
                     {
-                        bbb:"実績",
+                        bbb: "実績",
                     },
                 ],
                 tableI: [
                     {
-                        aaa:"償却合計",
-                        bbb:"計画",
+                        aaa: "償却小計",
+                        bbb: "計画",
                     },
                     {
-                        bbb:"実績",
+                        bbb: "実績",
                     },
                 ],
                 tableJ: [
                     {
-                        aaa:"償却合計",
-                        bbb:"計画",
+                        jjj: "境内出張",
+                        jjj2: "3.15",
+                        jjj3: "計画",
                     },
                     {
-                        bbb:"実績",
+                        jjj: "",
+                        jjj2: "",
+                        jjj3: "実績",
+                    },
+                    {
+                        jjj: "日本境外出張",
+                        jjj2: "11.1",
+                        jjj3: "計画",
+                    },
+                    {
+                        jjj: "",
+                        jjj2: "",
+                        jjj3: "実績",
+                    },
+                    {
+                        jjj: "日本以外境外出張",
+                        jjj2: "18.9",
+                        jjj3: "計画",
+                    },
+                    {
+                        jjj: "",
+                        jjj2: "",
+                        jjj3: "実績",
+                    },
+                    {
+                        jjj: "合計",
+                        jjj2: "",
+                        jjj3: "計画",
+                    },
+                    {
+                        jjj: "",
+                        jjj2: "",
+                        jjj3: "実績",
                     },
                 ],
                 tableK: [
                     {
-                        aaa:"償却合計",
-                        bbb:"計画",
+                        kkk: "構内委託（Ｂ1）",
                     },
                     {
-                        bbb:"実績",
+                        kkk: "構外委託（Ｂ2）",
                     },
+                    {
+                        kkk: "内部委託（Ｂ3）",
+                    },
+                ],
+                tableL: [
+                    {},
+                ],
+                tableM: [
+                    {},
+                ],
+                tableN: [
+                    {},
+                ],
+                tableO: [
+                    {},
+                ],
+                tableP: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                tableQ: [
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                tableR: [
+                    {},
+                    {},
+                    {},
                 ],
                 baseInfo: {},
                 form: {
@@ -9446,8 +6526,8 @@
             }
         },
         methods: {
-            getPSummaries(param) {
-                const { columns, data } = param;
+            getCSummaries(param) {
+                const {columns, data} = param;
                 const sums = [];
                 columns.forEach((column, index) => {
                     if (index === 0) {
@@ -9472,8 +6552,138 @@
 
                 return sums;
             },
-            getTSummaries(param) {
-                const { columns, data } = param;
+            getDSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '合计';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += ' 元';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+
+                return sums;
+            },
+            getLSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '合计';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += ' 元';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+
+                return sums;
+            },
+            getMSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '合计';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += ' 元';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+
+                return sums;
+            },
+            getNSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '合计';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += ' 元';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+
+                return sums;
+            },
+            getOSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '合计';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += ' 元';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+
+                return sums;
+            },
+            getQSummaries(param) {
+                const {columns, data} = param;
                 const sums = [];
                 columns.forEach((column, index) => {
                     if (index === 0) {
@@ -9601,9 +6811,55 @@
                 }
             },
             addRow() {
-                this.tableF.push({
-
-                });
+                this.tableF.push({});
+            },
+            deleteRowL(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowL() {
+                this.tableL.push({});
+            },
+            deleteRowM(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowM() {
+                this.tableM.push({});
+            },
+            deleteRowN(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowN() {
+                this.tableN.push({});
+            },
+            deleteRowO(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowO() {
+                this.tableO.push({});
+            },
+            deleteRowP(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowP() {
+                this.tableP.push({});
+            },
+            deleteRowQ(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+            },
+            addRowQ() {
+                this.tableQ.push({});
             },
             getprocurementproject(val, row) {
                 row.procurementproject = val;
@@ -9823,15 +7079,18 @@
   .el-table {
     overflow-x: auto;
   }
+
   .el-table__header-wrapper,
   .el-table__body-wrapper,
   .el-table__footer-wrapper {
     overflow: visible;
   }
+
   .el-table::after {
     position: relative;
   }
+
   .el-table--scrollable-x .el-table__body-wrapper {
     overflow: visible;
   }
- </style>
+</style>

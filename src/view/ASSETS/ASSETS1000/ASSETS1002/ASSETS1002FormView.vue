@@ -3,11 +3,11 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
+        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="inventorycycle">
+              <el-form-item :label="$t('label.ASSETS1002VIEW_INVENTORYCYCLE')" prop="inventorycycle">
                 <el-date-picker
                   :end-placeholder="$t('label.enddate')"
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -20,9 +20,9 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="userid">
+              <el-form-item :error="error" :label="$t('label.ASSETS1002VIEW_USERID')" prop="userid">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.1rem"></user>
+                      @getUserids="getUserids" style="width: 12rem"></user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -69,6 +69,15 @@
       user,
     },
     data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value ==="undefined") {
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID')));
+          this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
       return {
         loading: false,
         error: '',
@@ -76,7 +85,6 @@
         selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
-        // formDate: [],
         form: {
           inventorycycle: [],
           userid: '',
@@ -95,10 +103,74 @@
         ],
         multipleSelection: [],
         baseInfo: {},
+        rules: {
+          userid: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          }],
+          inventorycycle: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_INVENTORYCYCLE'),
+            trigger: 'change',
+          },],
+        },
       };
     },
     mounted() {
       if (this.$route.params._id) {
+        this.getSelectById();
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        this.getSelectAll();
+      }
+    },
+    created() {
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'result',
+            name: '查看结果',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'save',
+            name: '结束',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'result',
+            name: '废弃',
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+      this.buttonList = [
+        {
+          key: 'result',
+          name: '查看结果',
+          icon: 'el-icon-check',
+        },
+        {
+          key: 'save',
+          name: '结束',
+          icon: 'el-icon-check',
+        },
+        {
+          key: 'result',
+          name: '废弃',
+          icon: 'el-icon-check',
+        },
+      ];
+    },
+    methods: {
+      getSelectById(){
         this.loading = true;
         this.$store
           .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
@@ -139,29 +211,7 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.getSelectAll();
-      }
-    },
-    created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'result',
-            name: '查看结果',
-            icon: 'el-icon-check',
-          },
-        ];
-      }
-    },
-    methods: {
+      },
       selectionChange(val) {
         this.multipleSelection = val;
       },
@@ -202,7 +252,7 @@
         this.form.user_id = val;
         this.userlist = val;
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+          this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID');
         } else {
           this.error = '';
         }
@@ -264,8 +314,14 @@
                     this.loading = false;
                   });
               }
-            } /*else if (val === 'result') {
-          }*/
+            } else if (val === 'result') {
+              this.$router.push({
+                name: 'ASSETS1002ExportFormView',
+                params: {
+                  _id: this.$route.params._id,
+                },
+              });
+          }
           }
         });
       },

@@ -24,7 +24,6 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            申请人-->
             <el-col :span="8">
               <el-form-item :error="error_applicant" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="error_applicant" :selectType="selectType"
@@ -32,13 +31,11 @@
                       @getUserids="getApplicantids" style="width: 10.15rem"></user>
               </el-form-item>
             </el-col>
-            <!--           申请种类      文本框-->
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
                 <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.type"></el-input>
               </el-form-item>
             </el-col>
-            <!--            サブ種類-->
             <el-col :span="8">
               <el-form-item :label="$t('label.subtype')" prop="subtype">
                 <dicselect
@@ -53,7 +50,6 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            申请日付-->
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
                 <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
@@ -61,7 +57,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          申请理由-->
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')">
@@ -70,7 +65,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          申请部署-->
           <el-row>
             <el-col :span="8">
               <div class="sub_color_blue" type="font-size:6px">{{$t('label.PFANS1018VIEW_APPLICATIONDEPLOYMENT')}}</div>
@@ -94,14 +88,12 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            使用者-->
             <el-col :span="8">
-              <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_id">
+              <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_name">
                 <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"
                       @getUserids="getUserids" style="width: 10.15rem"></user>
               </el-form-item>
             </el-col>
-            <!--            申請種別-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_TYPESOF')" prop="applicationType">
                 <dicselect
@@ -114,7 +106,6 @@
                 ></dicselect>
               </el-form-item>
             </el-col>
-            <!--            E-mail-->
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
@@ -123,21 +114,18 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            ローマ 字氏名-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018VIEW_ROMANNAME')" prop="romanname">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
                           v-model="form.romanname"></el-input>
               </el-form-item>
             </el-col>
-            <!--            内線番号-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
                           v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>
-            <!--            使用Level-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_USINGLEVEL')" prop="useLevel">
                 <dicselect
@@ -151,7 +139,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-
           </el-row>
           <el-row>
             <el-col :span="10">
@@ -176,7 +163,6 @@
 
     export default {
         name: 'PFANS1018FormView',
-        // 组件
         components: {
             EasyNormalContainer,
             PFANS1018View,
@@ -184,9 +170,7 @@
             getOrgInfoByUserId,
             dicselect
         },
-        // 固定写法，验证用户名信息
         data() {
-            // 申请者
             var checkapplicant = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
                     this.error_applicant = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -196,17 +180,15 @@
                     return callback();
                 }
             };
-            // 使用者
             var checkuser = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
-                    this.error_user = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+                    this.error_user = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
                 } else {
                     this.error_user = "";
                     return callback();
                 }
             };
-            //邮箱检验
             var checkemail = (rule, value, callback) => {
                 if (this.form.email !== null && this.form.email !== '') {
                     if (!validateEmail(value)) {
@@ -229,7 +211,6 @@
                 disabled: false,
                 buttonList: [],
                 multiple: false,
-                // 数据库字段
                 form: {
                     global_id: '',
                     type: this.$t('menu.PFANS1018'),
@@ -249,39 +230,25 @@
                     romanname: '',
                     extension: '',
                     applicationType: '',
-                    createby: '',
-                    modifyby: '',
-                    modifyon: '',
-                    owner: '',
                     status: '',
-                    tenantid: '',
                 },
-                // サブ種類
                 code1: 'PJ044',
-                // 使用Level(无数据，待客户消息)
+                //(code2无数据，待客户消息)
                 code2: 'PJ045',
-                // 申請種別
                 code3: 'PJ045',
                 disabled: true,
                 rules: {
                     user_id: [
                         {
                             required: true,
-                            validator: checkuser,
+                            validator: checkapplicant,
                             trigger: 'change'
                         },
                     ],
                     user_name: [
                         {
                             required: true,
-                            validator: checkapplicant,
-                            trigger: 'change'
-                        },
-                    ],
-                    department: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2006VIEW_CLUB'),
+                            validator: checkuser,
                             trigger: 'change'
                         },
                     ],
@@ -295,7 +262,7 @@
                     romanname: [
                         {
                             required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1018VIEW_ROMANNAME'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1018VIEW_ROMANNAME'),
                             trigger: 'change'
                         },
                     ],
@@ -322,11 +289,7 @@
                 },
             };
         },
-        /*
-        created:在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
-        mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。*/
         mounted() {
-            // 使用者
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -346,7 +309,6 @@
                         this.loading = false;
                     })
             } else {
-                //申请者
                 this.userapplicantlist = this.$store.getters.userinfo.userid;
                 if (this.userapplicantlist !== null && this.userapplicantlist !== '') {
                     let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -356,7 +318,6 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.loading = false;
-                //使用者
                 this.useridlist = this.$store.getters.userinfo.userid;
                 if (this.useridlist !== null && this.useridlist !== '') {
                     let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -381,9 +342,7 @@
                 ];
             }
         },
-        //警告框
         methods: {
-            // 申请人
             getApplicantids(val) {
                 this.form.user_id = val;
                 let lst = getOrgInfoByUserId(val);
@@ -391,12 +350,11 @@
                 this.form.appgroup_id = lst.groupNmae;
                 this.form.appteam_id = lst.teamNmae;
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-                    this.error_applicant = this.$t('normal.error_08') + this.$t('label.applicant');
+                    this.error_applicant = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
                     this.error_applicant = "";
                 }
             },
-            // 使用者
             getUserids(val) {
                 this.form.user_name = val;
                 let lst = getOrgInfoByUserId(val);
@@ -404,20 +362,17 @@
                 this.form.group_id = lst.groupNmae;
                 this.form.team_id = lst.teamNmae;
                 if (!this.form.user_name || this.form.user_name === '' || val === "undefined") {
-                    this.error_user = this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_USER');
+                    this.error_user = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
                 } else {
                     this.error_user = "";
                 }
             },
-            //サブ種類
             getSubtype(val) {
                 this.form.subtype = val;
             },
-            //申请种类
             getApplicationtype(val) {
                 this.form.applicationType = val;
             },
-            //使用Level
             getUsinglevel(val) {
                 this.form.useLevel = val;
             },
@@ -437,14 +392,12 @@
                 this.form.status = '0';
                 this.buttonClick("update");
             },
-            // 保存
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
                         this.form.global_id = this.$route.params._id;
                         this.form.payment = moment(this.form.payment).format('YYYY-MM-DD');
                         this.loading = true;
-                        //判断数据库中是否存在该主键
                         if (this.$route.params._id) {
                             this.$store
                                 .dispatch('PFANS1018Store/updateglobalApply', this.form)

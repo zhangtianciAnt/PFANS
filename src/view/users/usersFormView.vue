@@ -161,12 +161,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
-                    <el-input class="width" v-model="form.address" maxlength="50" />
+                    <el-input class="width" v-model="form.address" maxlength="50"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" />
+                    <el-input class="width" v-model="form.email"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -176,12 +176,12 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber" />
+                    <el-input class="width" v-model="form.mobilenumber"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PHONE')" prop="phone">
-                    <el-input class="width" v-model.number="form.phone" maxlength="20" />
+                    <el-input class="width" v-model.number="form.phone" maxlength="20"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -301,13 +301,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('education')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -348,13 +350,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('skill')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -397,13 +401,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('language')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -483,13 +489,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('beforeWork')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -579,11 +587,28 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.type')">
+                    <el-select
+                      v-model="form.type"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      @change="changeRank"
+                    >
+                      <el-option
+                        v-for="item in rank_options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')" prop="rank">
-                    <dicselect code="PR021" class="width" @change="changeRank" :data="form.rank"></dicselect>
+                    <dicselect :code="code" class="width" :data="form.rank" v-if="display"
+                               @change="getRank"></dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -776,7 +801,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible"
@@ -846,7 +872,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible2 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible2"
@@ -908,7 +935,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible3 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible3"
@@ -973,7 +1001,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible4 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible4"
@@ -1078,13 +1107,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('workafter')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -1132,13 +1163,15 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('train')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -1192,18 +1225,37 @@
                       type="danger"
                       size="small"
                       plain
-                    >{{$t('button.delete')}}</el-button>
+                    >{{$t('button.delete')}}
+                    </el-button>
                     <el-button
                       @click="addRow('reward')"
                       type="primary"
                       size="small"
                       plain
-                    >{{$t('button.insert')}}</el-button>
+                    >{{$t('button.insert')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight"></el-tab-pane>
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight">
+
+              <el-row>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
+                  <el-date-picker style="width: 11rem" v-model="form.resignation_date">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('title.PFANS2026VIEW')">
+                    <el-input style="width: 11rem" v-model="form.staffexitprocedure">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+            </el-tab-pane>
           </el-tabs>
         </el-form>
       </div>
@@ -1212,8 +1264,8 @@
 </template>
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import { isvalidPhone } from "@/utils/validate";
-  import { Message } from "element-ui";
+  import {isvalidPhone} from "@/utils/validate";
+  import {Message} from "element-ui";
   import org from "@/view/components/org";
   import dicselect from "../components/dicselect";
   import moment from "moment";
@@ -1273,6 +1325,8 @@
       };
 
       return {
+        code: "",
+        display: true,
         oldageData: null,
         houseData: null,
         medicalData: null,
@@ -1336,41 +1390,49 @@
 
         activeName: "first",
         difference_options: [
-          { value: "1", label: this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF") },
+          {value: "1", label: this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF")},
           {
             value: "2",
             label: this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF")
           }
         ],
         sex_options: [
-          { value: "0", label: this.$t("label.PFANS2002FORMVIEW_BOY") },
+          {value: "0", label: this.$t("label.PFANS2002FORMVIEW_BOY")},
           {
             value: "1",
             label: this.$t("label.PFANS2002FORMVIEW_GRIL")
           }
         ],
+        rank_options: [
+          {value: "0", label: this.$t("label.members")},
+          {
+            value: "1",
+            label: this.$t("label.outgoing")
+          }
+        ],
         laborcontracttype: [
-          { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_FIXEDTIME") },
+          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_FIXEDTIME")},
           {
             value: "1",
             label: this.$t("label.PFANSUSERFORMVIEW_NOFIXEDTIME")
           }
         ],
         marital_options: [
-          { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_UNMARRIED") },
+          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_UNMARRIED")},
           {
             value: "1",
             label: this.$t("label.PFANSUSERFORMVIEW_MARRIED")
           }
         ],
         experience_options: [
-          { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_YES") },
+          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_YES")},
           {
             value: "1",
             label: this.$t("label.PFANSUSERFORMVIEW_NO")
           }
         ],
         form: {
+          type:"",
           centername: "",
           groupname: "",
           teamname: "",
@@ -1424,6 +1486,8 @@
           seatnumber: "",
           salary: "",
           caution: "",
+          resignation_date:"",
+          staffexitprocedure:"",
           oldageinsurance: "",
           houseinsurance: "",
           medicalinsurance: "",
@@ -1447,7 +1511,7 @@
         sex: 0,
         status: "0",
         buttonList: [
-          { key: "userSave", name: this.$t("button.save") },
+          {key: "userSave", name: this.$t("button.save")},
           {
             key: "userSaveToRole",
             name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
@@ -1771,7 +1835,7 @@
               required: true,
               message: this.$t("normal.error_08") + this.$t("label.user_mobile")
             },
-            { validator: validateTel, trigger: "blur" }
+            {validator: validateTel, trigger: "blur"}
           ],
           email: [
             {
@@ -1821,6 +1885,7 @@
       }
     },
     mounted() {
+      debugger
       if (this.$route.params._org) {
         ({
           centername: this.form.centername,
@@ -1950,6 +2015,29 @@
         this.form.degree = val;
       },
       changeRank(val) {
+        if (val) {
+          this.display = false;
+          this.$nextTick(
+            () => {
+              if (this.form.type === '0') {
+                this.code = 'PR021'
+              } else if (this.form.type === '1') {
+                this.code = 'PJ046'
+              }
+              this.form.rank = "";
+              this.display = true;
+            }
+          )
+        }else{
+          if (this.form.type === '0') {
+            this.code = 'PR021'
+          } else if (this.form.type === '1') {
+            this.code = 'PJ046'
+          }
+
+        }
+      },
+      getRank(val) {
         this.form.rank = val;
       },
       getCenterid(val) {
@@ -2017,6 +2105,7 @@
         this.$store
           .dispatch("usersStore/getById", params)
           .then(response => {
+            debugger
             this.form = response.customerInfo.userinfo;
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;
@@ -2032,6 +2121,7 @@
             this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
             this.houseData = this.userInfo.customerInfo.userinfo.houseData;
             this.medicalData = this.userInfo.customerInfo.userinfo.medicalData;
+            this.changeRank();
             this.loading = false;
           })
           .catch(err => {
@@ -2058,7 +2148,7 @@
       },
       Personal() {
         debugger;
-        if (this.gridData.length === 0) {
+        if (this.gridData === null) {
           this.gridData = [
             {
               date: new moment().format("YYYY-MM-DD"),
@@ -2213,7 +2303,7 @@
   };
 </script>
 
-<style rel="stylesheet/scss" lang="scss" >
+<style rel="stylesheet/scss" lang="scss">
   .el-dialog__title {
     color: #75a7ef;
   }
@@ -2221,9 +2311,11 @@
   .el-dialog__body {
     padding-top: 0px;
   }
+
   .width {
     width: 10.7rem;
   }
+
   .user_form {
     .el-input--medium .el-input__inner {
       border: none;
