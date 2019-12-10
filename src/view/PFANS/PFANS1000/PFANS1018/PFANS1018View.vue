@@ -7,7 +7,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import { Message } from 'element-ui'
-    import {getUserInfo,getOrgInfo} from '@/utils/customize';
+    import {getUserInfo,getOrgInfo,getStatus} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',
@@ -48,6 +48,13 @@
                         fix: false,
                         filter: true,
                     },
+                    {
+                        code: 'status',
+                        label: 'label.approval_status',
+                        width: 100,
+                        fix: false,
+                        filter: true,
+                    }
                 ],
                 buttonList: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -67,6 +74,7 @@
                         let center = getOrgInfo(response[j].appcenter_id);
                         let group = getOrgInfo(response[j].appgroup_id);
                         let team = getOrgInfo(response[j].appteam_id);
+                        response[j].status = getStatus(response[j].status);
                         //解决数据库乱码问题
                         let lst = getUserInfo(response[j].user_id)
                         if(center){
