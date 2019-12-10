@@ -271,6 +271,9 @@
                   this.show = false;
               }
               this.userlist = this.form.user_id;
+              if (this.form.status === '2') {
+                  this.disable = false;
+              }
               this.loading = false;
           })
           .catch(error => {
