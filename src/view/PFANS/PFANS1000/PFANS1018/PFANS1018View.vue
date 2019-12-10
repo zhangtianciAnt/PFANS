@@ -7,7 +7,8 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import { Message } from 'element-ui'
-    import {getUserInfo,getOrgInfo,getStatus} from '@/utils/customize';
+    import moment from "moment";
+    import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',
@@ -71,25 +72,38 @@
                 .dispatch('PFANS1018Store/getglobal')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        let center = getOrgInfo(response[j].appcenter_id);
-                        let group = getOrgInfo(response[j].appgroup_id);
-                        let team = getOrgInfo(response[j].appteam_id);
+                        let lst = getOrgInfoByUserId(response[j].user_id);
+                        response[j].center_id = lst.centerNmae;
+                        response[j].group_id = lst.groupNmae;
+                        response[j].team_id = lst.teamNmae;
                         response[j].status = getStatus(response[j].status);
                         //解决数据库乱码问题
-                        let lst = getUserInfo(response[j].user_id)
-                        if(center){
-                            response[j].appcenter_id = center.companyname;
+                        let user = getUserInfo(response[j].user_id);
+                        if (user) {
+                            response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                         }
-                        if(group){
-                            response[j].appgroup_id = group.companyname;
-                        }
-                        if(team){
-                            response[j].appteam_id = team.departmentname;
-                        }
-                        if(lst){
-                            response[j].user_id = lst.userinfo.customername;
+                        if (response[j].application !== null && response[j].application !== "") {
+                            response[j].application = moment(response[j].application).format("YYYY-MM-DD");
                         }
                     }
+                    //     let center = getOrgInfo(response[j].appcenter_id);
+                    //     let group = getOrgInfo(response[j].appgroup_id);
+                    //     let team = getOrgInfo(response[j].appteam_id);
+                    //     response[j].status = getStatus(response[j].status);
+                    //     let lst = getUserInfo(response[j].user_id)
+                    //     if(center){
+                    //         response[j].appcenter_id = center.companyname;
+                    //     }
+                    //     if(group){
+                    //         response[j].appgroup_id = group.companyname;
+                    //     }
+                    //     if(team){
+                    //         response[j].appteam_id = team.departmentname;
+                    //     }
+                    //     if(lst){
+                    //         response[j].user_id = lst.userinfo.customername;
+                    //     }
+                    // }
                     this.data = response;
                     this.loading = false;
                 })
