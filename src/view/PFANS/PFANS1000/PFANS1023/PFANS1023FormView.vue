@@ -58,7 +58,7 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL')">
-                  <el-radio-group v-model="radio" @change="getCompatibleseal">
+                  <el-radio-group v-model="radio">
                     <el-radio :label="1" :disabled="!disabled">{{$t('label.yes')}}</el-radio>
                     <el-radio :label="2" :disabled="!disabled">{{$t('label.no')}}</el-radio>
                   </el-radio-group>
@@ -117,7 +117,7 @@
             </el-checkbox>
             <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
               <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
-                <el-input v-model="form.confidential" :disabled="!disabled5" style="width: 11rem"></el-input>
+                <el-input v-model="form.confident" :disabled="!disabled5" style="width: 11rem"></el-input>
               </el-form-item>
             </el-checkbox>
           </el-row>
@@ -269,6 +269,9 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
+              if (this.form.status === '2') {
+                  this.disable = false;
+              }
             if (this.form.company === "") {
                   this.checked1 = false;
             }else{
@@ -351,9 +354,6 @@
         getMachinemedia(val) {
             this.form.machinemedia = val;
       },
-        getCompatibleseal(val){
-            this.form.compatibleseal = val;
-        },
         getFabuilding(val) {
             this.form.fabuilding = val;
       },
@@ -437,7 +437,8 @@
                 if (this.checked5 === false) {
                     this.form.confident = "";
                 }
-              this.loading = true;
+                this.loading = true;
+                this.form.compatibleseal = this.radio;
               if (this.$route.params._id) {
                 this.form.confidentialid = this.$route.params._id;
                 this.form.application = moment(this.form.application).format('YYYY-MM-DD');
