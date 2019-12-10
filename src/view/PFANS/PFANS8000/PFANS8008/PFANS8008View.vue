@@ -111,9 +111,7 @@
                             if (response[j].createon !== null && response[j].createon !== '') {
                                 response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                             }
-
                         }
-
                     }
                     this.loading = false;
                 }).catch(error => {
