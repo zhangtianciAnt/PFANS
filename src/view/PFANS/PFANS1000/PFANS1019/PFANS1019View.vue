@@ -17,7 +17,7 @@
     data() {
       return {
         loading: false,
-        title: 'title.PFANS1017VIEW',
+        title: 'title.PFANS1019VIEW',
         data: [],
         columns: [
           {
@@ -49,8 +49,8 @@
             filter: true
           },
           {
-            code: 'application',
-            label: 'label.application',
+            code: 'status',
+            label: 'label.approval_status',
             width: 150,
             fix: false,
             filter: true
@@ -80,9 +80,9 @@
             response[j].group_id = response[j].group_id;
             response[j].team_id = response[j].team_id;
             response[j].status = getStatus(response[j].status);
-            if (response[j].implement_date !== null && response[j].implement_date !== '') {
-              response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
-            }
+            // if (response[j].implement_date !== null && response[j].implement_date !== '') {
+            //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
+            // }
           }
           this.data = response;
           this.loading = false

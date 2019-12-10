@@ -33,14 +33,16 @@
                       @getUserids="getUserids"
                       style="width: 9.2rem"
                       v-model="form.user_id"
-                ></user></el-form-item>
+                ></user>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="!disable"
+                <el-input :disabled="true"
                           style="width:11rem"
                           v-model="form.type"
-                ></el-input></el-form-item>
+                ></el-input>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_TYPESOF')" >
@@ -48,21 +50,23 @@
                            :data="form.typesof"
                            :disabled="!disable"
                            :multiple="multiple"
-                           @change="changesubtype"
+                           @change="changetypesof"
                            style="width: 11rem">
                 </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-<!--         操作種類:   -->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_OPERATIONTYPE')">
-                <el-input :disabled="!disable"
-                          style="width: 11rem"
-                          v-model="form.operationtype"
-                          maxlength="11"
-                ></el-input></el-form-item>
+                <dicselect :code="code2"
+                           :data="form.operationtype"
+                           :disabled="!disable"
+                           :multiple="multiple"
+                           @change="changeoperationtype"
+                           style="width: 11rem">
+                </dicselect>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
@@ -92,13 +96,10 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')" >
-                <dicselect :code="code"
-                           :data="form.manager"
-                           :disabled="!disable"
-                           :multiple="multiple"
-                           @change="changeidtype"
-                           style="width: 11rem">
-                </dicselect>
+                <el-input :disabled="!disable"
+                          style="width:11rem"
+                          v-model="form.manager"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -106,13 +107,14 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PERIOD')" prop="duringdate">
               <el-date-picker
-                v-model="duringdate"
+                v-model.trim="form.duringdate"
+                class="bigWidth"
+                :disabled="!disable"
                 type="daterange"
-                align="right"
                 unlink-panels
-                range-separator="至"
-                start-placeholder="开始日期 "
-                end-placeholder="结束日期"
+                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                :start-placeholder="$t('label.startdate')"
+                :end-placeholder="$t('label.enddate')"
                 :picker-options="pickerOptions">
               </el-date-picker>
               </el-form-item>
@@ -135,35 +137,47 @@
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code3"
                     :data="form.sourceipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changesourceipgroup"
+                    v-model="scope.row.sourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="250">
                 <template slot-scope="scope">
-                  <dicselect
-                    :code="code"
-                    :data="form.sourceipaddress"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changesourceipgroup"
-                    style="width: 100%"
-                  ></dicselect>
+                  <div style="width: 100%;float:left">
+                    <div style="width: 70%;float: left">
+                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.sourceipaddresstest" >
+                      </el-input>
+                    </div>
+                    <div style="width: 30%;float: right;margin-top:0.25rem">
+                      <el-button
+                        :no="scope.row"
+                        @click="addSourceipaddress(scope.$index,tableT)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
+                    </div>
+                  </div>
+                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.sourceipaddress" style="width: 100%; padding-top:1rem">
+                  </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code4"
                     :data="form.communication"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changesourceipgroup"
+                    @change="changecommunication"
+                    v-model="scope.row.communication"
                     style="width: 100%"
                   ></dicselect>
                 </template>
@@ -171,43 +185,32 @@
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.destinationipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
-                    @change="changesourceipgroup"
+                    @change="changedestinationipgroup"
+                    v-model="scope.row.destinationipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="150">
                 <template slot-scope="scope">
-                  <dicselect
-                    :code="code"
-                    :data="form.destinationipaddress"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changesourceipgroup"
-                    style="width: 100%"
-                  ></dicselect>
+                  <el-input :disabled="!disable" v-model="scope.row.destinationipaddress" style="width: 100%">
+                  </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="160">
                 <template slot-scope="scope">
-                  <dicselect
-                    :code="code"
-                    :data="form.protocol"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changesourceipgroup"
-                    style="width: 100%"
-                  ></dicselect>
+                  <el-input :disabled="!disable" v-model="scope.row.protocol" style="width: 100%">
+                  </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.operation')" align="center" width="150">
                 <template slot-scope="scope">
                   <el-button
-                    @click.native.prevent="deleteRow1(scope.$index, tableT)"
+                    @click.native.prevent="deleteRow(scope.$index, tableT)"
                     type="danger"
                     size="small"
                     plain
@@ -215,7 +218,7 @@
                   >{{$t('button.delete')}}
                   </el-button>
                   <el-button
-                    @click="addRow1()"
+                    @click="addRow()"
                     type="primary"
                     size="small"
                     plain
@@ -300,18 +303,22 @@
             }
           }]
         },
-        duringdate: '',
+        buttonList: [],
+        baseInfo: {},
+        loading: false,
+        userlist: "",
+        userlist1: "",
+        period: '',
         multiple: false,
         selectType: "Single",
         error: '',
         title: "title.PFANS1016VIEW",
-        tabIndex: 0,
         form: {
           center_id: '',
           group_id: '',
           team_id: '',
           user_id: '',
-          type: '',
+          type: this.$t('menu.PFANS1016'),
           typesof: '',
           operationtype: '',
           payment: moment(new Date()).format("YYYY-MM-DD"),
@@ -319,39 +326,39 @@
           extension: '',
           manager: '',
           reason: '',
+          duringdate: [],
         },
         tableT: [{
+          routingdetail_id: '',
           sourceipgroup: '',
+          sourceipaddresstest: '',
           sourceipaddress: '',
           communication: '',
           destinationipgroup: '',
           destinationipaddress: '',
           protocol: '',
         }],
+        code1: 'PJ042',
+        code2: 'PJ043',
+        code3: '',
+        code4: '',
+        code5: '',
         disabled: false,
         rules: {
-          email: [{
-            required: true,
-            message: this.$t("normal.error_08") + this.$t("label.email"),
-            trigger: "blur"
-          },
+          email: [
             {validator: checkemail, trigger: 'blur'}],
-          extension: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
-            trigger: "blur"
-          },
+          extension: [
             {validator: validateTel, trigger: 'blur'}],
           reason: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1016FORMVIEW_REASON'),
             trigger: "blur"
           }],
-          duringdate: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
-            trigger: "change"
-          }],
+          // period: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
+          //   trigger: "blur"
+          // }],
         },
         canStart: false,
       };
@@ -370,38 +377,24 @@
     },
     mounted() {
       if (this.$route.params._id) {
-        this.loading = true
+        this.loading = true;
         this.$store
-          .dispatch('PFANS1016Store/getRoutingOne', {"routing_id": this.$route.params._id})
+          .dispatch('PFANS1016Store/selectById', {"routing_id": this.$route.params._id})
           .then(response => {
-            this.form = response;
-            this.userlist = this.form.user_id;
             if (this.form.status === '2') {
               this.disable = false;
             }
-            let lettableT = [];
-            let letroutingdetail_id = response.reason.split(";");
-            if (letreason.length > 0) {
-              for (var i = 0; i <= letreason.length - 1; i++) {
-                let letuser = letreason[i].split(",");
-                lettableT.push({
-                  user: letuser[0],
-                  reason: letuser[1]
-                })
-              }
+            this.userlist = response.user_id;
+            this.form = response.routing;
+            let duringdate = response.routing.duringdate;
+            let serdate = duringdate.slice(0, 10);
+            let serdate1 = duringdate.slice(duringdate.length - 10);
+            this.form.duringdate = [serdate, serdate1];
+            debugger;
+            if (response.routingdetail.length > 0) {
+              this.tableT = response.routingdetail;
             }
-            this.tableT = lettableT;
-            this.totaldata = lettableT;
-            this.getList();
-            this.tableP = lettableP;
-            this.totaldatatwo = lettableP;
-            this.getTwo();
-            this.form = response;
-
-
-
-
-
+            this.userlist = this.form.user_id;
 
             this.loading = false;
           })
@@ -425,6 +418,14 @@
       }
     },
     methods: {
+      addSourceipaddress(index, rows){
+        if(rows[index].sourceipaddress === ""){
+          rows[index].sourceipaddress = rows[index].sourceipaddresstest;
+        }
+        else{
+          rows[index].sourceipaddress = rows[index].sourceipaddress + ";" + rows[index].sourceipaddresstest;
+        }
+      },
       getUserids(val) {
         this.form.user_id = val;
         let lst = getOrgInfoByUserId(val);
@@ -453,25 +454,70 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
-      // paramsTitle(){
-      //     this.$router.push({
-      //         name: 'PFANS1001FormView',
-      //         params: {
-      //             title: 6,
-      //         },
-      //     });
-      // },
+      changetypesof(val) {
+        this.form.typesof = val;
+      },
+      changeoperationtype(val) {
+        this.form.operationtype = val;
+      },
+      changesourceipgroup(val) {
+        this.form.sourceipgroup = val;
+      },
+      changecommunication(val) {
+        this.form.communication = val;
+      },
+      changedestinationipgroup(val) {
+        this.form.destinationipgroup = val;
+      },
+
+
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRow() {
+        this.tableT.push({
+          routingdetail_id: '',
+          sourceipgroup: '',
+          sourceipaddresstest: '',
+          sourceipaddress: '',
+          communication: '',
+          destinationipgroup: '',
+          destinationipaddress: '',
+          protocol: '',
+        });
+      },
       buttonClick(val) {
-        if (val === 'back') {
-          this.paramsTitle();
-        } else {
           this.$refs["refform"].validate(valid => {
             if (valid) {
               this.loading = true
+              this.form.duringdate = moment(this.form.duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.duringdate[1]).format('YYYY-MM-DD');
+              this.baseInfo = {};
+              this.form.payment = moment(this.form.payment).format('YYYY-MM-DD');
+              this.baseInfo.routing = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.routingdetail = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].sourceipgroup !== '' || this.tableT[i].sourceipaddress !== '' || this.tableT[i].communication !== '' ||
+                  this.tableT[i].destinationipgroup !== '' || this.tableT[i].destinationipaddress !== '' || this.tableT[i].protocol !== '') {
+                  this.baseInfo.routingdetail.push(
+                    {
+                      routingdetail_id: this.tableT[i].routingdetail_id,
+                      routing_id: this.tableT[i].routing_id,
+                      sourceipgroup: this.tableT[i].sourceipgroup,
+                      sourceipaddress: this.tableT[i].sourceipaddress,
+                      communication: this.tableT[i].communication,
+                      destinationipgroup: this.tableT[i].destinationipgroup,
+                      destinationipaddress: this.tableT[i].destinationipaddress,
+                      protocol: this.tableT[i].protocol,
+                    },
+                  );
+                }
+              }
               if (this.$route.params._id) {
                 this.form.routing_id = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1016Store/updateRouting', this.form)
+                  .dispatch('PFANS1016Store/update', this.baseInfo)
                   .then(response => {
                   this.data = response;
                   this.loading = false
@@ -497,7 +543,7 @@
               } else {
                 this.loading = true
                 this.$store
-                  .dispatch('PFANS1016Store/createRouting', this.form)
+                  .dispatch('PFANS1016Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false
@@ -523,7 +569,6 @@
           });
         }
       }
-    }
   }
 </script>
 

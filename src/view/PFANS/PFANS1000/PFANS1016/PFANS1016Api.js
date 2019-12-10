@@ -2,30 +2,30 @@ import request from '../../../../utils/request'
 
 export function getRouting() {
   return request({
-    url: 'Routing/get',
+    url: 'routing/get',
     method: 'get'
   })
 }
 
-export function getRoutingOne(data) {
+export function selectById(data) {
   return request({
-    url: 'Routing/one',
+    url: 'routing/selectById',
+    method: 'get',
+    params: data
+  })
+}
+
+export function update(data) {
+  return request({
+    url: 'routing/update',
     method: 'post',
     data: data
   })
 }
 
-export function updateRouting(data) {
+export function insert(data) {
   return request({
-    url: 'Routing/update',
-    method: 'post',
-    data: data
-  })
-}
-
-export function createRouting(data) {
-  return request({
-    url: 'Routing/create',
+    url: 'routing/insert',
     method: 'post',
     data: data
   })

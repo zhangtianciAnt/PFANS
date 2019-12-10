@@ -116,7 +116,7 @@
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                      :code="code4"
+                      :code="code3"
                       :data="form.usertype"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -145,14 +145,14 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
                 <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.account" style="width: 100%">
+                    <el-input :disabled="true" v-model="scope.row.account" style="width: 100%">
                     </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_TRANSMISSION')" align="center" width="150">
                 <template slot-scope="scope">
                     <dicselect
-                      :code="code5"
+                      :code="code4"
                       :data="form.transmission"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -166,7 +166,7 @@
                   <el-date-picker :disabled="!disable"
                                     style="width: 100%"
                                     type="date"
-                                    v-model="form.waitfortime"
+                                    v-model="scope.row.waitfortime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
@@ -198,15 +198,15 @@
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disable"
                                   style="width: 100%"
-                                    type="date"
-                                    v-model="form.expecttime"
+                                  type="date"
+                                  v-model="scope.row.expecttime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_DOMAINACCOUNT')" align="center" width="150">
                 <template slot-scope="scope">
                   <dicselect
-                      :code="code"
+                      :code="code5"
                       :data="form.domainaccount"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -219,8 +219,8 @@
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disable"
                                   style="width: 100%"
-                                    type="date"
-                                    v-model="form.forwardtime"
+                                  type="date"
+                                  v-model="scope.row.forwardtime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
@@ -305,6 +305,7 @@
                 selectType: "Single",
                 error: '',
                 title: "title.PFANS1017VIEW",
+                userlist: '',
                 tabIndex: 0,
                 form: {
                     center_id: '',
