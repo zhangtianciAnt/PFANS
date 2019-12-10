@@ -1,12 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer
-      v-loading="loading" :noback="noback">
+      v-loading="loading">
       <div slot="customize">
-        <el-form label-position="left" label-width="8rem" ref="form" style="padding: 2rem;height: 35rem">
-          <div v-html="this.form.richtext">
-          </div>
-        </el-form>
+        <div v-html="this.form.richtext" style="overflow: auto"/>
       </div>
     </EasyNormalContainer>
   </div>
