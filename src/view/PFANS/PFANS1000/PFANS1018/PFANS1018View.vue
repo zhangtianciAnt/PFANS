@@ -8,7 +8,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import { Message } from 'element-ui'
     import moment from "moment";
-    import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo} from '@/utils/customize';
+    import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo,getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',

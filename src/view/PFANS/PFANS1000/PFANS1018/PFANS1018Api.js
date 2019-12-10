@@ -8,6 +8,7 @@ export function getglobal(data) {
     params: data
   })
 }
+
 export function getglobalApplyOne(data) {
   return request({
     url: 'global/one',
@@ -15,6 +16,7 @@ export function getglobalApplyOne(data) {
     data: data
   })
 }
+
 export function updateglobalApply(data) {
   return request({
     url: 'global/update',
@@ -22,6 +24,7 @@ export function updateglobalApply(data) {
     data: data
   })
 }
+
 export function createglobalApply(data) {
   return request({
     url: 'global/create',

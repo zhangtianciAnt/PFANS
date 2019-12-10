@@ -76,6 +76,7 @@
         selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
+        // formDate: [],
         form: {
           inventorycycle: [],
           userid: '',
@@ -102,11 +103,12 @@
         this.$store
           .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
           .then(response => {
+            debugger;
             this.form = response.inventoryplan;
             let inventorycycle = response.inventoryplan.inventorycycle;
             let inventory = inventorycycle.slice(0, 10);
             let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
-            this.form.inventorycycle = inventory + inventory1;
+            this.form.inventorycycle = [inventory, inventory1];
             this.userlist = response.inventoryplan.userid;
             if (response.assets.length > 0) {
               this.tableD = response.assets;
