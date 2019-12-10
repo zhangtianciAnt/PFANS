@@ -76,7 +76,6 @@
         selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
-        // formDate: [],
         form: {
           inventorycycle: [],
           userid: '',
@@ -99,6 +98,41 @@
     },
     mounted() {
       if (this.$route.params._id) {
+        this.getSelectById();
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        this.getSelectAll();
+      }
+    },
+    created() {
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'result',
+            name: '查看结果',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'save',
+            name: '结束',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'result',
+            name: '废弃',
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    methods: {
+      getSelectById(){
         this.loading = true;
         this.$store
           .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
@@ -139,29 +173,7 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.getSelectAll();
-      }
-    },
-    created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'result',
-            name: '查看结果',
-            icon: 'el-icon-check',
-          },
-        ];
-      }
-    },
-    methods: {
+      },
       selectionChange(val) {
         this.multipleSelection = val;
       },
@@ -264,8 +276,14 @@
                     this.loading = false;
                   });
               }
-            } /*else if (val === 'result') {
-          }*/
+            } else if (val === 'result') {
+              this.$router.push({
+                name: 'ASSETS1002ExportFormView',
+                params: {
+                  _id: this.$route.params._id,
+                },
+              });
+          }
           }
         });
       },
