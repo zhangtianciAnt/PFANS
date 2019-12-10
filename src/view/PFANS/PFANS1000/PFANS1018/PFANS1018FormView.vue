@@ -230,12 +230,7 @@
                     romanname: '',
                     extension: '',
                     applicationType: '',
-                    createby: '',
-                    modifyby: '',
-                    modifyon: '',
-                    owner: '',
                     status: '',
-                    tenantid: '',
                 },
                 code1: 'PJ044',
                 //(无数据，待客户消息)
