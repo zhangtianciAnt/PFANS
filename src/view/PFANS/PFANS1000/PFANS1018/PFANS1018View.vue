@@ -1,13 +1,14 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
   </EasyNormalTable>
 </template>
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {Message} from 'element-ui'
-    import {getUserInfo} from '@/utils/customize';
+    import { Message } from 'element-ui'
+    import moment from "moment";
+    import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo,getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',
@@ -55,25 +56,27 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
-                row: 'global_id'
+                row : 'global_id'
             };
         },
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS1018Store/getglobal', {'user_id': this.$route.params._id})
+                .dispatch('PFANS1018Store/getglobal')
                 .then(response => {
-                    debugger;
                     for (let j = 0; j < response.length; j++) {
-                        //解决数据库乱码问题
-                        let lst = getUserInfo(response[j].user_id);
-                        if (lst) {
-                            response[j].user_id = lst.userinfo.customername;
+                        let center = getOrgInfo(response[j].appcenter_id);
+                        let group = getOrgInfo(response[j].appgroup_id);
+                        let team = getOrgInfo(response[j].appteam_id);
+                        if(center){
+                            response[j].appcenter_id = center.companyname;
                         }
-                        //因为数据库中有相应的字段，且columns中code与数据库对应，所以可省略
-                        // response[j].appcenter_id = lst.centerNmae;
-                        // response[j].appgroup_id = lst.groupNmae;
-                        // response[j].appteam_id = lst.teamNmae;
+                        if(group){
+                            response[j].appgroup_id = group.companyname;
+                        }
+                        if(team){
+                            response[j].appteam_id = team.departmentname;
+                        }
                     }
                     this.data = response;
                     this.loading = false;
@@ -141,6 +144,6 @@
     }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style rel="stylesheet/scss" lang="scss">
 
 </style>
