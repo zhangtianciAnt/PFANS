@@ -64,162 +64,69 @@
           <span style="padding: 0 0 0 1rem;color: #5d9cec">{{$t('label.INDEX_KJFW')}}</span>
           <el-divider></el-divider>
           <el-row>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(1)" style="
- background-color: #CD96CD;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-                </div>
-                <div style="margin-top:1rem;margin-left: 2.1rem">
-                  <span>{{$t('title.PFANS5008VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png1" style="width: 65%" @click="submitForm(1)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS5008VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(2)" style="
-background-color: #5d9cec;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem;margin-left: 0.5rem">
-                  <span>{{$t('title.PFANS2005VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png2" style="width: 65%" @click="submitForm(2)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS2005VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(3)" style="
-background-color: #4e86f8;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem;margin-left: 1.2rem">
-                  <span>{{$t('title.PFANS2017VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png3" style="width: 65%" @click="submitForm(3)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS2017VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(4)" style="
-background-color: #9E9E9E;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem;margin-left: 1.2rem">
-                  <span>{{$t('title.PFANS4001VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png4" style="width: 65%" @click="submitForm(4)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS4001VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(5)" style="
-background-color: green;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-                </div>
-                <div style="margin-top:1rem;margin-left: 1.2rem">
-                  <span>{{$t('title.PFANS5001VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png5" style="width: 65%" @click="submitForm(5)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS5001VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(6)" style="
-background-color: #8a6d3b;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem">
-                  <span>{{$t('title.PFANS2020VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png6" style="width: 65%" @click="submitForm(6)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS2020VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(7)" style="
-background-color: red;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-                </div>
-                <div style="margin-top:1rem;margin-left: 1.2rem">
-                  <span>{{$t('title.PFANS2023VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png7" style="width: 65%" @click="submitForm(7)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS2023VIEW')}}</span>
+              </el-row>
             </el-col>
-            <el-col :span="3">
-              <div>
-                <div @click="submitForm(8)" style="
-background-color: yellow;
-          width: 6.8rem;
-          height: 6.8rem;
-          border-radius: 5rem;
-cursor: pointer">
-                  <img style="height: 2rem">
-                  <div style="    float: right;
-color: red;
-padding: 0 0.8rem;">&nbsp;
-                  </div>
-
-                </div>
-                <div style="margin-top:1rem;margin-left: 0.7rem">
-                  <span>{{$t('title.PFANS2022VIEW')}}</span>
-                </div>
-              </div>
+            <el-col :span="3"  style="cursor: pointer">
+              <el-row style="text-align: center">
+                <img :src="png8" style="width: 65%" @click="submitForm(8)">
+              </el-row>
+              <el-row style="text-align: center">
+                <span>{{$t('title.PFANS2022VIEW')}}</span>
+              </el-row>
             </el-col>
           </el-row>
         </el-card>
@@ -235,11 +142,27 @@ padding: 0 0.8rem;">&nbsp;
   import moment from 'moment';
   import EasyNumBar from '@/components/EasyNumBar';
   import {Message} from 'element-ui';
+  import png1 from "@/assets/png/日志.png";
+  import png2 from "@/assets/png/工资日志.png";
+  import png3 from "@/assets/png/打卡记录.png";
+  import png4 from "@/assets/png/印章申请.png";
+  import png5 from "@/assets/png/立项申请.png";
+  import png6 from "@/assets/png/不定时人员考勤.png";
+  import png7 from "@/assets/png/目标管理.png";
+  import png8 from "@/assets/png/礼金申请.png";
 
   export default {
     name: 'indexView',
     data() {
       return {
+        png1:png1,
+        png2:png2,
+        png3:png3,
+        png4:png4,
+        png5:png5,
+        png6:png6,
+        png7:png7,
+        png8:png8,
         _id: '',
         DSPSX: '0',
         YSPSX: '',
