@@ -7,8 +7,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import { Message } from 'element-ui'
-    import moment from "moment";
-    import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo,getOrgInfo} from '@/utils/customize';
+    import {getUserInfo,getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1018View',
@@ -68,6 +67,8 @@
                         let center = getOrgInfo(response[j].appcenter_id);
                         let group = getOrgInfo(response[j].appgroup_id);
                         let team = getOrgInfo(response[j].appteam_id);
+                        //解决数据库乱码问题
+                        let lst = getUserInfo(response[j].user_id)
                         if(center){
                             response[j].appcenter_id = center.companyname;
                         }
@@ -76,6 +77,9 @@
                         }
                         if(team){
                             response[j].appteam_id = team.departmentname;
+                        }
+                        if(lst){
+                            response[j].user_id = lst.userinfo.customername;
                         }
                     }
                     this.data = response;
