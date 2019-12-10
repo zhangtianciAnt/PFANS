@@ -96,7 +96,7 @@
           <el-row>
             <!--            使用者-->
             <el-col :span="8">
-              <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_id">
+              <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_name">
                 <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"
                       @getUserids="getUserids" style="width: 10.15rem"></user>
               </el-form-item>
@@ -186,7 +186,7 @@
         },
         // 固定写法，验证用户名信息
         data() {
-            // 申请者
+            // 申请人
             var checkapplicant = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
                     this.error_applicant = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -199,8 +199,8 @@
             // 使用者
             var checkuser = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
-                    this.error_user = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+                    this.error_user = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
                 } else {
                     this.error_user = "";
                     return callback();
@@ -267,21 +267,14 @@
                     user_id: [
                         {
                             required: true,
-                            validator: checkuser,
+                            validator: checkapplicant,
                             trigger: 'change'
                         },
                     ],
                     user_name: [
                         {
                             required: true,
-                            validator: checkapplicant,
-                            trigger: 'change'
-                        },
-                    ],
-                    department: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2006VIEW_CLUB'),
+                            validator: checkuser,
                             trigger: 'change'
                         },
                     ],
@@ -295,7 +288,7 @@
                     romanname: [
                         {
                             required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1018VIEW_ROMANNAME'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1018VIEW_ROMANNAME'),
                             trigger: 'change'
                         },
                     ],
@@ -381,8 +374,9 @@
                 ];
             }
         },
-        //警告框
+
         methods: {
+            //警告框
             // 申请人
             getApplicantids(val) {
                 this.form.user_id = val;
@@ -391,7 +385,7 @@
                 this.form.appgroup_id = lst.groupNmae;
                 this.form.appteam_id = lst.teamNmae;
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-                    this.error_applicant = this.$t('normal.error_08') + this.$t('label.applicant');
+                    this.error_applicant = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
                     this.error_applicant = "";
                 }
@@ -404,7 +398,7 @@
                 this.form.group_id = lst.groupNmae;
                 this.form.team_id = lst.teamNmae;
                 if (!this.form.user_name || this.form.user_name === '' || val === "undefined") {
-                    this.error_user = this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_USER');
+                    this.error_user = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
                 } else {
                     this.error_user = "";
                 }
