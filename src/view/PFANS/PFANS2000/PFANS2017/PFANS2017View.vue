@@ -93,21 +93,21 @@
                         filter: true
                     },
                     {
-                        code: 'centerid',
+                        code: 'center_id',
                         label: 'label.center',
                         width: 160,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: 'groupid',
+                        code: 'group_id',
                         label: 'label.group',
                         width: 160,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: 'teamid',
+                        code: 'team_id',
                         label: 'label.team',
                         width: 160,
                         fix: false,
@@ -156,9 +156,6 @@
                             if (user) {
                                 response[j].user_id = user.userinfo.customername;
                             }
-                            response[j].centerid = response[j].centerid;
-                            response[j].groupid = response[j].groupid;
-                            response[j].teamid = response[j].teamid;
                             if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
                                 response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");
                             }
@@ -267,7 +264,7 @@
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END')];
-                        const filterVal = ['user_id', 'centerid', 'groupid', 'teamid', 'punchcardrecord_date', 'time_start', 'time_end'];
+                        const filterVal = ['user_id', 'center_id', 'group_id', 'team_id', 'punchcardrecord_date', 'time_start', 'time_end'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2017'));
