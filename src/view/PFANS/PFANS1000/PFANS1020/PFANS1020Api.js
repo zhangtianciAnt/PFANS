@@ -1,15 +1,15 @@
 import request from '../../../../utils/request'
 
-export function getHoliday() {
+export function get() {
   return request({
-    url: 'holiday/get',
+    url: 'outside/get',
     method: 'get'
   })
 }
 
 export function selectById(data) {
   return request({
-    url: 'holiday/selectById',
+    url: 'outside/selectById',
     method: 'get',
     params: data
   })
@@ -17,7 +17,7 @@ export function selectById(data) {
 
 export function update(data) {
   return request({
-    url: 'holiday/update',
+    url: 'outside/update',
     method: 'post',
     data: data
   })
@@ -25,7 +25,7 @@ export function update(data) {
 
 export function insert(data) {
   return request({
-    url: 'holiday/insert',
+    url: 'outside/insert',
     method: 'post',
     data: data
   })

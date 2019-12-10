@@ -2004,7 +2004,7 @@
                       <slot>
                         <span
                           class="front Content_front"
-                          style="padding-right: 0.5remx;font-weight: 400"
+                          style="padding-right: 0.5rem;font-weight: 400"
                         >{{$t('table.pagesize')}}</span>
                       </slot>
                     </el-pagination>
@@ -2759,9 +2759,11 @@
         this.$store
           .dispatch('PFANS2005Store/givinglist', {giving_id: this.Giving})
           .then(response => {
+            debugger;
             let lettableQT1Woman = [];
             let lettableQT1Man = [];
             let datalist = [];
+            let datalistgrdb = [];
             let datalistzxkc = [];
             for (let j = 0; j < response.lackattendance.length; j++) {
               let user = getUserInfo(response.lackattendance[j].user_id);
@@ -2951,16 +2953,16 @@
                 });
                 this.ListOtherOneSex = 2;
               }
+              if (this.ListOtherOneSex === 1) {
+                this.totaldataOtherOneWoman = lettableQT1Woman;
+              } else if (this.ListOtherOneSex === 2) {
+                this.totaldataOtherOneMan = lettableQT1Man;
+              }
+              this.tableQT1Woman = lettableQT1Woman;
+              this.tableQT1Man = lettableQT1Man;
+              this.ListOtherOne = 2;
+              this.getList();
             }
-            if (this.ListOtherOneSex === 1) {
-              this.totaldataOtherOneWoman = lettableQT1Woman;
-            } else if (this.ListOtherOneSex === 2) {
-              this.totaldataOtherOneMan = lettableQT1Man;
-            }
-            this.tableQT1Woman = lettableQT1Woman;
-            this.tableQT1Man = lettableQT1Man;
-            this.ListOtherOne = 2;
-            this.getList();
             for (let a = 0; a < response.otherTwo.length; a++) {
               let user = getUserInfo(response.otherTwo[a].user_id);
               if (user) {
@@ -2979,15 +2981,15 @@
                   response.otherTwo[a].rootknot = letErrortype.value1;
                 }
               }
-              let obj = {};
-              obj.othertwo_id = response.otherTwo[a].othertwo_id;
-              obj.user_id = response.otherTwo[a].user_id;
-              obj.moneys = response.otherTwo[a].moneys;
-              obj.rootknot = response.otherTwo[a].rootknot;
-              obj.type = response.otherTwo[a].type;
-              obj.giving_id = response.otherTwo[a].giving_id;
-              obj.rowindex = a + 1;
-              datalist[a] = obj;
+              let Obj = {};
+              Obj.othertwo_id = response.otherTwo[a].othertwo_id;
+              Obj.user_id = response.otherTwo[a].user_id;
+              Obj.moneys = response.otherTwo[a].moneys;
+              Obj.rootknot = response.otherTwo[a].rootknot;
+              Obj.type = response.otherTwo[a].type;
+              Obj.giving_id = response.otherTwo[a].giving_id;
+              Obj.rowindex = a + 1;
+              datalist[a] = Obj;
               this.tableQT2 = datalist;
               this.totaldataQT2 = datalist;
               this.ListQt2 = 3;
@@ -3141,9 +3143,9 @@
                 obj.difference =
                   response.contrast[j].lastmonth - response.contrast[j].thismonth;
               }
-              datalist[j] = obj;
-              this.tableGRDB = datalist;
-              this.totaldataContrast = datalist;
+              datalistgrdb[j] = obj;
+              this.tableGRDB = datalistgrdb;
+              this.totaldataContrast = datalistgrdb;
               this.listContrast = 16;
               this.getList();
             }
@@ -3375,8 +3377,8 @@
           let start = (this.listQueryListJS.page - 1) * this.listQueryListJS.limit;
           let end = this.listQueryListJS.page * this.listQueryListJS.limit;
           if (this.totaldataBase) {
-            let pList = this.totaldataBase.slice(start, end);
-            this.tableJS = pList;
+            let pListBase = this.totaldataBase.slice(start, end);
+            this.tableJS = pListBase;
             this.totalBase = this.totaldataBase.length;
           }
         }
@@ -3385,14 +3387,14 @@
             if (this.ListOtherOneSex === 1) {
               let start = (this.listQueryListQT1Woman.page - 1) * this.listQueryListQT1Woman.limit;
               let end = this.listQueryListQT1Woman.page * this.listQueryListQT1Woman.limit;
-              let pList = this.totaldataOtherOneWoman.slice(start, end);
-              this.tableQT1Woman = pList;
+              let pListWoman = this.totaldataOtherOneWoman.slice(start, end);
+              this.tableQT1Woman = pListWoman;
               this.totalOtherOne = this.totaldataOtherOneWoman.length;
             } else if (this.ListOtherOneSex === 2) {
               let start = (this.listQueryListQT1Man.page - 1) * this.listQueryListQT1Man.limit;
               let end = this.listQueryListQT1Man.page * this.listQueryListQT1Man.limit;
-              let pList = this.totaldataOtherOneMan.slice(start, end);
-              this.tableQT1Man = pList;
+              let pListMan = this.totaldataOtherOneMan.slice(start, end);
+              this.tableQT1Man = pListMan;
               this.totalOtherOneMan = this.totaldataOtherOneMan.length;
             }
           }
@@ -3401,8 +3403,8 @@
           let start = (this.listQueryListQT2.page - 1) * this.listQueryListQT2.limit;
           let end = this.listQueryListQT2.page * this.listQueryListQT2.limit;
           if (this.totaldataQT2) {
-            let pList = this.totaldataQT2.slice(start, end);
-            this.tableQT2 = pList;
+            let pListQT2 = this.totaldataQT2.slice(start, end);
+            this.tableQT2 = pListQT2;
             this.totalQT2 = this.totaldataQT2.length;
           }
         }
@@ -3410,8 +3412,8 @@
           let start = (this.listQueryListQT4.page - 1) * this.listQueryListQT4.limit;
           let end = this.listQueryListQT4.page * this.listQueryListQT4.limit;
           if (this.totaldataQT4) {
-            let pList = this.totaldataQT4.slice(start, end);
-            this.tableQT4 = pList;
+            let pListQT4 = this.totaldataQT4.slice(start, end);
+            this.tableQT4 = pListQT4;
             this.totalQT4 = this.totaldataQT4.length;
           }
         }
@@ -3419,8 +3421,8 @@
           let start = (this.listQueryListQT5.page - 1) * this.listQueryListQT5.limit;
           let end = this.listQueryListQT5.page * this.listQueryListQT5.limit;
           if (this.totaldataQT5) {
-            let pList = this.totaldataQT5.slice(start, end);
-            this.tableQT5 = pList;
+            let pListQT5 = this.totaldataQT5.slice(start, end);
+            this.tableQT5 = pListQT5;
             this.totalQT5 = this.totaldataQT5.length;
           }
         }
@@ -3432,8 +3434,8 @@
           let start = (this.listQueryListQQ.page - 1) * this.listQueryListQQ.limit;
           let end = this.listQueryListQQ.page * this.listQueryListQQ.limit;
           if (this.totaldataQQ) {
-            let pList = this.totaldataQQ.slice(start, end);
-            this.tableQQ = pList;
+            let pListQQ = this.totaldataQQ.slice(start, end);
+            this.tableQQ = pListQQ;
             this.totalQQ = this.totaldataQQ.length;
           }
         }
@@ -3441,8 +3443,8 @@
           let start = (this.listQueryListCY.page - 1) * this.listQueryListCY.limit;
           let end = this.listQueryListCY.page * this.listQueryListCY.limit;
           if (this.totaldataCY) {
-            let pList = this.totaldataCY.slice(start, end);
-            this.tableCY = pList;
+            let pListCY = this.totaldataCY.slice(start, end);
+            this.tableCY = pListCY;
             this.totalCY = this.totaldataCY.length;
           }
         }
@@ -3450,8 +3452,8 @@
           let start = (this.listQueryListYDSY.page - 1) * this.listQueryListYDSY.limit;
           let end = this.listQueryListYDSY.page * this.listQueryListYDSY.limit;
           if (this.totaldataYDSY) {
-            let pList = this.totaldataYDSY.slice(start, end);
-            this.tableYDSY = pList;
+            let pListYDSY = this.totaldataYDSY.slice(start, end);
+            this.tableYDSY = pListYDSY;
             this.totalYDSY = this.totaldataYDSY.length;
           }
         }
@@ -3459,8 +3461,8 @@
           let start = (this.listQueryListZHSR.page - 1) * this.listQueryListZHSR.limit;
           let end = this.listQueryListZHSR.page * this.listQueryListZHSR.limit;
           if (this.totaldataZHSR) {
-            let pList = this.totaldataZHSR.slice(start, end);
-            this.tableZHSR = pList;
+            let pListZHSR = this.totaldataZHSR.slice(start, end);
+            this.tableZHSR = pListZHSR;
             this.totalZHSR = this.totaldataZHSR.length;
           }
         }
@@ -3468,8 +3470,8 @@
           let start = (this.listQueryListZXKC.page - 1) * this.listQueryListZXKC.limit;
           let end = this.listQueryListZXKC.page * this.listQueryListZXKC.limit;
           if (this.totaldataZXKC) {
-            let pList = this.totaldataZXKC.slice(start, end);
-            this.tableZXKC = pList;
+            let pListZXKC = this.totaldataZXKC.slice(start, end);
+            this.tableZXKC = pListZXKC;
             this.totalZXKC = this.totaldataZXKC.length;
           }
         }
@@ -3477,8 +3479,8 @@
           let start = (this.listQueryListFJKC.page - 1) * this.listQueryListFJKC.limit;
           let end = this.listQueryListFJKC.page * this.listQueryListFJKC.limit;
           if (this.totaldataFJKC) {
-            let pList = this.totaldataFJKC.slice(start, end);
-            this.tableFJKC = pList;
+            let pListFJKC = this.totaldataFJKC.slice(start, end);
+            this.tableFJKC = pListFJKC;
             this.totalFJKC = this.totaldataFJKC.length;
           }
         }
@@ -3486,8 +3488,8 @@
           let start = (this.listQueryListMS.page - 1) * this.listQueryListMS.limit;
           let end = this.listQueryListMS.page * this.listQueryListMS.limit;
           if (this.totaldataDutyfreeVo) {
-            let pList = this.totaldataDutyfreeVo.slice(start, end);
-            this.tableMS = pList;
+            let pListDutyfreeVo = this.totaldataDutyfreeVo.slice(start, end);
+            this.tableMS = pListDutyfreeVo;
             this.totalDutyfreeVo = this.totaldataDutyfreeVo.length;
           }
         }
@@ -3495,8 +3497,8 @@
           let start = (this.listQueryListLJSJ.page - 1) * this.listQueryListLJSJ.limit;
           let end = this.listQueryListLJSJ.page * this.listQueryListLJSJ.limit;
           if (this.totaldataAccumulatedTax) {
-            let pList = this.totaldataAccumulatedTax.slice(start, end);
-            this.tableLJSJ = pList;
+            let pListAccumulatedTax = this.totaldataAccumulatedTax.slice(start, end);
+            this.tableLJSJ = pListAccumulatedTax;
             this.totalAccumulatedTax = this.totaldataAccumulatedTax.length;
           }
         }
@@ -3504,8 +3506,8 @@
           let start = (this.listQueryListGRDB.page - 1) * this.listQueryListGRDB.limit;
           let end = this.listQueryListGRDB.page * this.listQueryListGRDB.limit;
           if (this.totaldataContrast) {
-            let pList = this.totaldataContrast.slice(start, end);
-            this.tableGRDB = pList;
+            let pListContrast = this.totaldataContrast.slice(start, end);
+            this.tableGRDB = pListContrast;
             this.totalContrast = this.totaldataContrast.length;
           }
         }

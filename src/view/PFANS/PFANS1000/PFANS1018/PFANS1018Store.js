@@ -1,10 +1,4 @@
-import {
-  getglobal,
-  getglobalApplyOne,
-  updateglobalApply,
-  createglobalApply,
-  getglobalApplyList
-} from './PFANS1018Api'
+import {createglobalApply, getglobal, getglobalApplyOne, updateglobalApply,} from './PFANS1018Api'
 
 const PFANS1018Store = {
   namespaced: true,
@@ -24,7 +18,7 @@ const PFANS1018Store = {
         })
       })
     },
-    getglobalApplyOne({ commit },data) {
+    getglobalApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getglobalApplyOne(data).then(response => {
           if (response.code === 0) {
@@ -37,7 +31,7 @@ const PFANS1018Store = {
         })
       })
     },
-    updateglobalApply({ commit },data) {
+    updateglobalApply({commit}, data) {
       return new Promise((resolve, reject) => {
         updateglobalApply(data).then(response => {
           if (response.code === 0) {
@@ -50,7 +44,7 @@ const PFANS1018Store = {
         })
       })
     },
-    createglobalApply({ commit },data) {
+    createglobalApply({commit}, data) {
       return new Promise((resolve, reject) => {
         createglobalApply(data).then(response => {
           if (response.code === 0) {

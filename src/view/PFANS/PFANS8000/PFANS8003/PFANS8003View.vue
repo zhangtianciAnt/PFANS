@@ -1,68 +1,140 @@
 <template>
-  <div style="min-height: 100%">
-    <EasyNormalContainer
-      v-loading="loading" :noback="noback">
-      <div slot="customize">
-        <el-form label-position="left" label-width="8rem" ref="form" style="padding: 2rem;height: 35rem">
-            <div v-html="this.form.richtext">
-            </div>
-        </el-form>
-      </div>
-    </EasyNormalContainer>
-  </div>
+  <EasyNormalTable
+    :buttonList="buttonList"
+    :columns="columns"
+    :data="data"
+    :rowid="rowid"
+    :title="title"
+    @buttonClick="buttonClick"
+    @rowClick="rowClick"
+    v-loading="loading"
+  ></EasyNormalTable>
 </template>
-<script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import {Message} from 'element-ui';
-    export default {
-        name: "PFANS8003View",
-        components: {
-            EasyNormalContainer
-        },
-        data() {
-            return {
-                loading: false,
-                _id: '',
-                form: {
-                    richtext: ""
-                },
-                noback: true,
-            }
-        },
-        mounted() {
-            this._id = this.$route.params._id;
-            this.getOneInformation(this._id);
-        },
-        methods: {
-            getOneInformation(information) {
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS8008Store/getOneInformation", information)
-                    .then(response => {
-                        if (response) {
-                            const {
-                                richtext
-                            } = response[0];
-                            this.form = {
-                                richtext
-                            };
-                        }
-                        this.loading = false;
-                    })
-                    .catch(err => {
-                        Message({
-                            message: err,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    });
-            },
-        }
 
+<script>
+  import EasyNormalTable from "@/components/EasyNormalTable";
+  import {getUserInfo} from "../../../../utils/customize";
+  import {Message} from 'element-ui';
+
+  let moment = require("moment");
+  export default {
+    name: "PFANS8003View",
+    components: {
+      EasyNormalTable
+    },
+
+    data() {
+      return {
+        availablestate: '',
+        loading: false,
+        data: [],
+        title: "title.PFANS8008VIEW",
+        buttonList: [
+          {
+            key: "view",
+            name: "button.view",
+            disabled: false,
+            icon: "el-icon-search"
+          }
+        ],
+
+        columns: [
+          {
+            code: "title",
+            label: "label.PFANS8008VIEW_MESSAGE_HEADER",
+            width: 200,
+            fix: false,
+            filter: true
+          },
+          {
+            code: "availablestatename",
+            label: "label.PFANS8008VIEW_AVAILABLESTATE",
+            width: 200,
+            fix: false,
+            filter: true
+          },
+          {
+            code: "createbyname",
+            label: "label.PFANS8008VIEW_CREATEBY",
+            width: 200,
+            fix: false,
+            filter: true
+          },
+          {
+            code: "createon",
+            label: "label.PFANS8008VIEW_RELEASETIME",
+            width: 200,
+            fix: false,
+            filter: true
+          }
+        ],
+        _id: "",
+        rowid: "informationid"
+      };
+    },
+    mounted() {
+      this.buttonList = [
+        {
+          key: "view",
+          name: "button.view",
+          disabled: false,
+          icon: "el-icon-search"
+        },
+      ];
+      this.loading = true;
+      this.$store.dispatch("PFANS8008Store/getListType").then(response => {
+        this.data = response;
+        for (let j = 0; j < response.length; j++) {
+          if (response[j].availablestate === "0") {
+            if (getUserInfo(
+              this.data[j].createby
+            ) !== null) {
+              response[j].createbyname = getUserInfo(
+                response[j].createby
+              ).userinfo.customername;
+            }
+            response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+            if (response[j].createon !== null && response[j].createon !== '') {
+              response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
+            }
+          }
+        }
+        this.loading = false;
+      }).catch(error => {
+        this.loading = false;
+        Message({
+          message: error,
+          type: 'error',
+          duration: 5 * 1000
+        })
+      });
+
+
+    },
+    methods: {
+      rowClick(row) {
+        this._id = row.informationid;
+      },
+      buttonClick(val) {
+        this.$store.commit("global/SET_HISTORYURL", this.$route.path);
+        if ("view" === val) {
+          if (!this._id) {
+            this.$message.error(this.$t("normal.info_01"));
+            return;
+          }
+          this.$router.push({
+            name: "PFANS8003FormView",
+            params: {
+              _id: this._id,
+              disabled: false,
+              readonly: 1
+            }
+          });
+        }
+      }
     }
+  };
 </script>
 
 <style scoped>
-
 </style>

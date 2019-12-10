@@ -7,18 +7,17 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
-  import moment from "moment";
   import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
 
   export default {
-    name: 'PFANS1022View',
+    name: 'PFANS1020View',
     components: {
       EasyNormalTable
     },
     data() {
       return {
         loading: false,
-        title: "title.PFANS1022VIEW",
+        title: "title.PFANS1020VIEW",
         data: [],
         columns: [
           {
@@ -63,13 +62,13 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
-        row : 'holidayid'
+        row : 'outsideid'
       };
     },
     mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1022Store/getHoliday')
+          .dispatch('PFANS1020Store/get')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let lst = getOrgInfoByUserId(response[j].user_id);
@@ -110,7 +109,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1022FormView',
+            name: 'PFANS1020FormView',
             params: {
               _id: this.rowid,
               disabled: true
@@ -127,7 +126,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1022FormView',
+            name: 'PFANS1020FormView',
             params: {
               _id: this.rowid,
               disabled: false
@@ -136,7 +135,7 @@
         }
         if (val === 'insert') {
           this.$router.push({
-            name: 'PFANS1022FormView',
+            name: 'PFANS1020FormView',
             params: {
               _id: '',
               disabled: true

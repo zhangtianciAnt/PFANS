@@ -241,7 +241,7 @@ padding: 0 0.8rem;">&nbsp;
     data() {
       return {
         _id: '',
-        DSPSX: '',
+        DSPSX: '0',
         YSPSX: '',
         YBHSX: '',
         availablestate: '',
@@ -319,17 +319,14 @@ padding: 0 0.8rem;">&nbsp;
       },
       Clickckgd() {
         this.$router.push({
-          name: 'PFANS8008',
-          params: {
-            availablestate: '0',
-          },
+          name: 'PFANS8003View'
         });
 
       },
       rowclickDataList2(row, event, column) {
         this._id = row.informationid;
         this.$router.push({
-          name: 'PFANS8003View',
+          name: 'PFANS8003FormView',
           params: {
             _id: this._id,
             readonly: 1,

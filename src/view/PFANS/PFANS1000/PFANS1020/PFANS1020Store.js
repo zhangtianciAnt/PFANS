@@ -1,18 +1,18 @@
 import {
-  getHoliday,
+  get,
   selectById,
   update,
   insert,
-  } from './PFANS1022Api'
+  } from './PFANS1020Api'
 
-  const PFANS1022Store = {
+  const PFANS1020Store = {
     namespaced: true,
     state: {},
     mutations: {},
     actions: {
-      getHoliday() {
+      get() {
         return new Promise((resolve, reject) => {
-          getHoliday().then(response => {
+          get().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -65,4 +65,4 @@ import {
     }
   };
 
-  export default PFANS1022Store;
+  export default PFANS1020Store;

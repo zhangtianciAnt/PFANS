@@ -37,75 +37,44 @@
                 <el-date-picker :disabled="!disabled" type="date" v-model="form.dailypayment" style="width: 11rem" ></el-date-picker>
               </el-form-item>
             </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="extension">
-                  <el-input v-model="form.extension" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
-                </el-form-item>
-              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
-                  <div class="sub_color_blue" >{{$t('label.PFASN1023FORMVIEW_STOREDDATA')}}</div>
+                  <div class="sub_color_blue" >{{$t('label.PFANS1021FORMVIEW_DETAIL')}}</div>
               </el-col>
             </el-row>
           <el-row>
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="175" :error="errorapplication">
+              <el-table-column :label="$t('label.PFANS1020FORMVIEW_USERNAME')" align="center" prop="username" :error="errorusername">
                 <template slot-scope="scope">
-                  <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType" :userlist="scope.row.application"
+                  <user :disabled="!disabled" :error="errorusername" :no="scope.row" :selectType="selectType" :userlist="scope.row.username"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_KIND')" align="center" prop="kind"  width="175">
+              <el-table-column :label="$t('label.PFANS1020FORMVIEW_RANK')" align="center" prop="rank">
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
                     :code="code"
-                    :data="scope.row.kind"
+                    :data="scope.row.rank"
                     :multiple="multiple"
-                    @change="getKind"
+                    @change="getRank"
                     style="width: 11rem"
                     :disabled="!disabled">
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_CARDNUMBER')" align="center" prop="cardnumber"  width="140">
+              <el-table-column :label="$t('label.PFANS1020FORMVIEW_MAILADDRESS')" align="center" prop="mailaddress">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.cardnumber">
+                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.mailaddress">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column align="center"  width="35">
-              <el-checkbox
-                           v-model="checked1"
-                           @change="getChecked1"
-                           active-value="1"
-                           inactive-value="0"
-              >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center" prop="attendancedate"  width="170" v-show="show1">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_REASON')" align="center" prop="reason">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" :no="scope.row" v-model="scope.row.attendancedate" style="width: 11rem" ></el-date-picker>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="attendancedate"  width="350" v-show="show">
-                <template slot-scope="scope">
-                  <el-date-picker unlink-panels
-                                  class="bigWidth"
-                                  :disabled="!disabled"
-                                  v-model.trim="scope.row.startdate"
-                                  type="daterange"
-                                  :end-placeholder="$t('label.enddate')"
-                                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                                  :start-placeholder="$t('label.startdate')"
-                  ></el-date-picker>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_REASONSWORK')" align="center" prop="workreasons"  width="140">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.workreasons">
+                  <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.reason">
                   </el-input>
                 </template>
               </el-table-column>
@@ -147,7 +116,7 @@
   import moment from "moment";
 
   export default {
-    name: 'PFANS1022FormView',
+    name: 'PFANS1020FormView',
     components: {
         EasyNormalContainer,
         getOrgInfoByUserId,
@@ -166,26 +135,24 @@
         }
 
       };
-        var checkapplication = (rule, value, callback) => {
+        var checkusername = (rule, value, callback) => {
             if(!value || value === '' || value ==="undefined"){
-                this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+                this.errorusername = this.$t('normal.error_09') + this.$t('label.applicant');
                 return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
             }else{
-                this.errorapplication = "";
+                this.errorusername = "";
                 return callback();
             }
 
         };
       return {
-          value1: '',
           baseInfo: {},
-          checked1: 1,
           userlist: "",
           loading: false,
           erroruser: '',
-          errorapplication: '',
+          errorusername: '',
           selectType: "Single",
-          title: 'title.PFANS1022VIEW',
+          title: 'title.PFANS1020VIEW',
           buttonList: [],
           multiple: false,
         form: {
@@ -193,21 +160,17 @@
             group_id: '',
             team_id: '',
             user_id: '',
-            type: this.$t('menu.PFANS1022'),
+            type: this.$t('menu.PFANS1020'),
             dailypayment: moment(new Date()).format("YYYY-MM-DD"),
-            extension: '',
         },
           tableD: [
               {
-                  holidaydetailid: '',
-                  holidayid: '',
-                  application:'',
-                  kind:'',
-                  cardnumber:'',
-                  attendancedate: moment(new Date()).format("YYYY-MM-DD"),
-                  workreasons:'',
-                  startdate: [],
-                  enddate: moment(new Date()).format("YYYY-MM-DD"),
+                  outsidedetailid: '',
+                  outsideid: '',
+                  username:'',
+                  rank:'',
+                  mailaddress:'',
+                  reason:'',
               },
           ],
           code: 'PJ028',
@@ -222,10 +185,10 @@
               trigger: 'change'
             },
           ],
-            application: [
+            username: [
                 {
                     required: true,
-                    validator: checkapplication,
+                    validator: checkusername,
                     trigger: 'change'
                 },
             ],
@@ -237,8 +200,6 @@
                 },
             ],
         },
-          show: false,
-          show1: true,
           canStart: false,
       };
     },
@@ -247,29 +208,13 @@
         this.loading = true;
       if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1022Store/selectById', {"holidayid": this.$route.params._id})
+          .dispatch('PFANS1020Store/selectById', {"outsideid": this.$route.params._id})
           .then(response => {
               debugger;
-              this.form = response.holiday;
-              if (response.holidaydetail.length > 0) {
-
-              for(let j = 0; j < response.holidaydetail.length; j++ ){
-                  if(response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null){
-                      let startdate = response.holidaydetail[j].startdate;
-                      let serdate = startdate.slice(0, 10);
-                      let serdate1 = startdate.slice(startdate.length - 10);
-                      response.holidaydetail[j].startdate = [serdate, serdate1];
-                  }
-              }
-              this.tableD = response.holidaydetail;
+              this.form = response.outside;
+              if (response.outsidedetail.length > 0) {
+              this.tableD = response.outsidedetail;
           }
-              if(this.checked1 === 1){
-                  this.show = true;
-                  this.show1 = false;
-              }else if(this.checked1 === 2){
-                  this.show1 = true;
-                  this.show = false;
-              }
               this.userlist = this.form.user_id;
               if (this.form.status === '2') {
                   this.disable = false;
@@ -324,26 +269,15 @@
         }
       },
         getUserids1(val,row) {
-            row.application = val;
-            if (!row.application || row.application === '' || val === "undefined") {
-                row.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+            row.username = val;
+            if (!row.username || row.username === '' || val === "undefined") {
+                row.errorusername = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
-                row.errorapplication = "";
+                row.errorusername = "";
             }
         },
-        getChecked1(val){
-          debugger;
-          this.checked1 = val;
-            if(val === 1){
-                this.show = true;
-                this.show1 = false;
-            }else if(val === 2){
-                this.show1 = true;
-                this.show = false;
-            }
-        },
-        getKind(val,row){
-            row.kind = val;
+        getRank(val,row){
+            row.rand = val;
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -368,15 +302,12 @@
         },
         addRow() {
             this.tableD.push({
-                holidaydetailid: '',
-                holidayid: '',
-                application:'',
-                kind:'',
-                cardnumber:'',
-                attendancedate: moment(new Date()).format("YYYY-MM-DD"),
-                workreasons:'',
-                startdate: [],
-                enddate: moment(new Date()).format("YYYY-MM-DD"),
+                outsidedetailid: '',
+                outsideid: '',
+                username:'',
+                rank:'',
+                mailaddress:'',
+                reason:'',
             });
         },
       buttonClick(val) {
@@ -384,23 +315,19 @@
             if (valid) {
               this.loading = true;
               this.baseInfo = {};
-              this.baseInfo.holiday = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.holidaydetail = [];
+              this.baseInfo.outside = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.outsidedetail = [];
                 for (let i = 0; i < this.tableD.length; i++) {
-                    if (this.tableD[i].application !== '' || this.tableD[i].kind !== '' || this.tableD[i].cardnumber !== '' ||
-                        this.tableD[i].attendancedate !== '' || this.tableD[i].workreasons !== '' || this.tableD[i].startdate !== ''
-                        || this.tableD[i].enddate !== '') {
-                        this.baseInfo.holidaydetail.push(
+                    if (this.tableD[i].username !== '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
+                        this.tableD[i].reason !== '') {
+                        this.baseInfo.outsidedetail.push(
                             {
-                                holidaydetailid: this.tableD[i].holidaydetailid,
-                                holidayid: this.tableD[i].holidayid,
-                                application: this.tableD[i].application,
-                                kind: this.tableD[i].kind,
-                                cardnumber: this.tableD[i].cardnumber,
-                                attendancedate: this.tableD[i].attendancedate,
-                                workreasons: this.tableD[i].workreasons,
-                                startdate: moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD'),
-                                enddate: this.tableD[i].enddate,
+                                outsidedetailid: this.tableD[i].outsidedetailid,
+                                outsideid: this.tableD[i].outsideid,
+                                username: this.tableD[i].username,
+                                rank: this.tableD[i].rank,
+                                mailaddress: this.tableD[i].mailaddress,
+                                reason: this.tableD[i].reason,
                             },
                         );
                     }
@@ -408,7 +335,7 @@
               if (this.$route.params._id) {
                 this.form.holidayid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1022Store/update', this.baseInfo)
+                  .dispatch('PFANS1020Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -434,7 +361,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1022Store/insert', this.baseInfo)
+                  .dispatch('PFANS1020Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
