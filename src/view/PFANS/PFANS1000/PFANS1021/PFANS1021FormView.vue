@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="disabled" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.type" :disabled="!disabled1" style="width: 11rem" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -266,6 +266,7 @@
           code1: 'PJ030',
           code2: 'PJ031',
           disabled: false,
+          disabled1: false,
           menuList: [],
         rules: {
           user_id: [
