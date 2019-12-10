@@ -206,6 +206,7 @@
 
     mounted() {
         this.loading = true;
+        debugger
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1020Store/selectById', {"outsideid": this.$route.params._id})
@@ -277,8 +278,7 @@
             }
         },
         getRank(val,row){
-          debugger
-          this.tableD.rand = val;
+          row.rank = val;
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -318,8 +318,6 @@
               this.baseInfo = {};
               this.baseInfo.outside = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.outsidedetail = [];
-              debugger;
-                console.log("ccc", this.tableD)
                 for (let i = 0; i < this.tableD.length; i++) {
                     if (this.tableD[i].username !== '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
                         this.tableD[i].reason !== '') {
@@ -333,10 +331,8 @@
                                 reason: this.tableD[i].reason,
                             },
                         );
-                        console.log("aaa", this.baseInfo)
                     }
                 }
-                debugger
               if (this.$route.params._id) {
                 this.baseInfo.outsideid = this.$route.params._id;
                 this.$store
