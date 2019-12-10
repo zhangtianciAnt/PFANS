@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :handleSelectionChange="selectionChange"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
     </EasyNormalTable>
@@ -46,6 +46,7 @@
         </div>
       </div>
     </el-dialog>
+    <div id="qrcode"></div>
   </div>
 </template>
 
@@ -55,6 +56,7 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import QRCode from 'qrcodejs2';
 
   export default {
     name: 'ASSETS1001View',
@@ -142,17 +144,22 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-download'},
-          {'key': 'print', 'name': '打印条形码', 'disabled': false},
+          {'key': 'print', 'name': '打印二维码', 'disabled': false},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         rowid: '',
         row_id: 'assets_id',
+        handleSelection: [],
       };
     },
     mounted() {
       this.getListData();
     },
     methods: {
+      selectionChange(val){
+        debugger;
+        this.handleSelection = val;
+      },
       getListData() {
         this.loading = true;
         this.$store
@@ -302,6 +309,17 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
+        } else if (val === 'print') {
+          debugger;
+          for(let i = 0; i <this.handleSelection.length; i++ ){
+            let qrcode = new QRCode('qrcode', {
+              width: 132,
+              height: 132,
+              text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'), // 二维码地址
+              colorDark : "#000",
+              colorLight : "#fff",
+            })
+          }
         } else if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {

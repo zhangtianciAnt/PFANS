@@ -315,6 +315,7 @@
                   });
               }
             } else if (val === 'result') {
+              alert(this.$route.params._id);
               this.$router.push({
                 name: 'ASSETS1002ExportFormView',
                 params: {

@@ -76,9 +76,9 @@
           </el-row>
           <el-row>
             <el-col :span="24" align="center">
-              <img src='http://barcode.tec-it.com/barcode.ashx?data=P20191207pc2000' alt='Barcode Software by TEC-IT'
-                   border='0'/>
-            </el-col>
+              <el-input v-model="form.aa"></el-input>
+              <div id="qrcode"></div>
+           </el-col>
           </el-row>
         </el-form>
       </div>
@@ -94,6 +94,7 @@
   import user from '../../../components/user.vue';
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
+  import QRCode from 'qrcodejs2';
 
   export default {
     name: 'ASSETS1001FormView',
@@ -120,11 +121,13 @@
           principal: '',
           assetstatus: '',
           stockstatus: '',
+          barcode: '',
         },
         code1: 'PA001',
         code2: 'PA002',
         code3: 'PA003',
         multiple: false,
+        qrcode1: '',
       };
     },
     mounted() {
@@ -146,6 +149,13 @@
             this.loading = false;
           });
       } else {
+        this.qrcode1 = new QRCode('qrcode', {
+          width: 132,
+          height: 132,
+          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'), // 二维码地址
+          colorDark : "#000",
+          colorLight : "#fff",
+        })
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -163,7 +173,7 @@
             icon: 'el-icon-check',
           },
           {
-            key: 'save',
+            key: 'save1',
             name: '保存并打印',
             icon: 'el-icon-check',
           },
@@ -201,54 +211,59 @@
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            if (this.$route.params._id) {
-              this.loading = true;
-              this.$store
-                .dispatch('ASSETS1001Store/getUpdateInfo', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
+            if(val === 'printing'){
+
+            } else if(val === 'save'){
+              this.form.barcode = this.qrcode1._htOption.text;  //当前的二维码
+              if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                  .dispatch('ASSETS1001Store/getUpdateInfo', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+              } else {
+                this.loading = true;
+                this.$store
+                  .dispatch('ASSETS1001Store/getInsertInfo', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
-            } else {
-              this.loading = true;
-              this.$store
-                .dispatch('ASSETS1001Store/getInsertInfo', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
+              }
             }
           }
         });
@@ -258,5 +273,13 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  #qrcode {
+    display: inline-block;
+    img {
+      width: 132px;
+      height: 132px;
+      background-color: #fff; //设置白色背景色
+      padding: 6px; // 利用padding的特性，挤出白边
+    }
+  }
 </style>
