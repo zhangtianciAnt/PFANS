@@ -403,7 +403,6 @@
                         this.form.global_id = this.$route.params._id;
                         this.form.payment = moment(this.form.payment).format('YYYY-MM-DD');
                         this.loading = true;
-                        //判断数据库中是否存在该主键
                         if (this.$route.params._id) {
                             this.$store
                                 .dispatch('PFANS1018Store/updateglobalApply', this.form)
