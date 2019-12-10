@@ -65,7 +65,7 @@
                 <img :src="png1" style="width: 50%" @click="submitForm(1)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS5008VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS5008VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -73,7 +73,7 @@
                 <img :src="png2" style="width: 50%" @click="submitForm(2)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS2005VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2005VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -81,7 +81,7 @@
                 <img :src="png3" style="width: 50%" @click="submitForm(3)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS2017VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2017VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -89,7 +89,7 @@
                 <img :src="png4" style="width: 50%" @click="submitForm(4)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS4001VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS4001VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -97,7 +97,7 @@
                 <img :src="png5" style="width: 50%" @click="submitForm(5)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS5001VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS5001VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -105,7 +105,7 @@
                 <img :src="png6" style="width: 50%" @click="submitForm(6)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS2020VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -113,7 +113,7 @@
                 <img :src="png7" style="width: 50%" @click="submitForm(7)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS2023VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2023VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -121,7 +121,7 @@
                 <img :src="png8" style="width: 50%" @click="submitForm(8)">
               </el-row>
               <el-row style="text-align: center">
-                <span>{{$t('title.PFANS2022VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2022VIEW')}}</span>
               </el-row>
             </el-col>
           </el-row>
