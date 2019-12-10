@@ -206,6 +206,7 @@
 
     mounted() {
         this.loading = true;
+        debugger
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1020Store/selectById', {"outsideid": this.$route.params._id})
@@ -277,7 +278,7 @@
             }
         },
         getRank(val,row){
-            row.rand = val;
+          row.rank = val;
         },
       workflowState(val) {
         if (val.state === '1') {
@@ -333,7 +334,7 @@
                     }
                 }
               if (this.$route.params._id) {
-                this.form.holidayid = this.$route.params._id;
+                this.baseInfo.outsideid = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1020Store/update', this.baseInfo)
                   .then(response => {

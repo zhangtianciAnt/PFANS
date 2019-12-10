@@ -6,7 +6,6 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
-  import moment from 'moment'
   import {getStatus, getUserInfo} from '@/utils/customize'
 
   export default {

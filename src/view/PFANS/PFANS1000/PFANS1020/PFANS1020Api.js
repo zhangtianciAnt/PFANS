@@ -1,6 +1,6 @@
 import request from '../../../../utils/request'
 
-export function get() {
+export function getOutside() {
   return request({
     url: 'outside/get',
     method: 'get'

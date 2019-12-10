@@ -1,4 +1,8 @@
-import {getRouting, getRoutingOne, updateRouting, createRouting} from './PFANS1016Api'
+import {
+  getRouting,
+  selectById,
+  update,
+  insert} from './PFANS1016Api'
 
 const PFANS1016Store = {
   namespaced: true,
@@ -19,9 +23,9 @@ const PFANS1016Store = {
       })
     },
 
-    getRoutingOne({commit}, data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
-        getRoutingOne(data).then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -33,9 +37,9 @@ const PFANS1016Store = {
       })
     },
 
-    updateRouting({commit}, data) {
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
-        updateRouting(data).then(response => {
+        update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -47,9 +51,9 @@ const PFANS1016Store = {
       })
     },
 
-    createRouting({commit}, data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
-        createRouting(data).then(response => {
+        insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

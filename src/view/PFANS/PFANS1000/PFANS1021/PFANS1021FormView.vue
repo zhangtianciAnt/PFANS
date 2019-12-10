@@ -488,7 +488,7 @@
                     }
                 }
               if (this.$route.params._id) {
-                this.form.securityid = this.$route.params._id;
+                this.baseInfo.securityid = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1021Store/update', this.baseInfo)
                   .then(response => {
