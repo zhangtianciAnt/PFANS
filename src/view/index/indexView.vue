@@ -36,11 +36,7 @@
                 :data="DataList2" @row-click="rowclickDataList2">
                 <el-table-column
                   prop="title"
-                  width="370">
-                </el-table-column>
-                <el-table-column
-                  prop="creaton"
-                  width="220">
+                  width="590">
                 </el-table-column>
               </el-table>
             </el-row>
@@ -246,6 +242,7 @@
       },
       rowclickDataList2(row, event, column) {
         this._id = row.informationid;
+        this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8003View");
         this.$router.push({
           name: 'PFANS8003FormView',
           params: {
