@@ -31,14 +31,14 @@
                       :selectType="selectType"
                       :userlist="userlist"
                       @getUserids="getUserids"
-                      style="width: 9.2rem"
+                      style="width:10.14rem"
                       v-model="form.user_id"
                 ></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="!disable"
+                <el-input :disabled="true"
                           style="width:11rem"
                           v-model="form.type"
                           maxlength='36'
@@ -101,7 +101,7 @@
                       :selectType="selectType"
                       :userlist="managerlist"
                       @getUserids="getManager"
-                      style="width: 9.2rem"
+                      style="width:10.14rem"
                       v-model="form.manager"
                 ></user>
               </el-form-item>
@@ -161,6 +161,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="!disable"
                       >{{$t('button.appends')}}
                       </el-button>
                     </div>
@@ -207,6 +208,7 @@
                         :no="scope.row"
                         @click="addDestinationipaddress(scope.$index,tableT)"
                         plain
+                        :disabled="!disable"
                         size="small"
                         type="primary"
                       >{{$t('button.appends')}}
@@ -231,6 +233,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="!disable"
                       >{{$t('button.appends')}}
                       </el-button>
                     </div>
@@ -402,6 +405,7 @@
           {
             key: "save",
             name: "button.save",
+            disabled: false,
             icon: "el-icon-check"
           }
         ];
@@ -457,7 +461,6 @@
           rows[index].sourceipaddress = rows[index].sourceipaddress + ";" + rows[index].sourceipaddresstest;
         }
       },
-
       addDestinationipaddress(index, rows){
         if(rows[index].destinationipaddress === ""){
           rows[index].destinationipaddress = rows[index].destinationipaddresstest;
