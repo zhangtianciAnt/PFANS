@@ -30,7 +30,7 @@
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
             <el-table :data="tableD" @selection-change="selectionChange"
                       header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick">
-              <el-table-column reserve-selection type="selection" width="55"></el-table-column>
+              <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
