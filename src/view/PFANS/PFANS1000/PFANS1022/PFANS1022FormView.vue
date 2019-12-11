@@ -39,7 +39,7 @@
             </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="extension">
-                  <el-input v-model="form.extension" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
+                  <el-input v-model="form.extension" :disabled="!disabled" style="width: 11rem"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -143,6 +143,7 @@
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
+  import {telephoneNumber} from '@/utils/validate';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -173,6 +174,18 @@
             }else{
                 this.errorapplication = "";
                 return callback();
+            }
+
+        };
+        var validateTel = (rule, value, callback) => {
+            if (this.form.extension !== null && this.form.extension !== '') {
+                if (telephoneNumber(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
             }
 
         };
@@ -233,6 +246,12 @@
                 {
                     required: true,
                     message: this.$t('normal.error_09') + this.$t('label.application_date'),
+                    trigger: 'change'
+                },
+            ],
+            extension: [
+                {
+                    validator: validateTel,
                     trigger: 'change'
                 },
             ],
