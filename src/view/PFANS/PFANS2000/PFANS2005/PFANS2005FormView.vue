@@ -2710,8 +2710,46 @@
             total: '',
           },
         ],
-        tableQQ: [{}],
-        tableCY: [{}],
+        tableQQ: [{
+          user_id: '',
+          lastdiligence: '',
+          lastshortdeficiency: '',
+          lastchronicdeficiency: '',
+          lasttotal: '',
+          thisdiligence: '',
+          thisshortdeficiency: '',
+          thischronicdeficiency: '',
+          thistotal: '',
+          remarks: '',
+          give: '',
+          rowindex: '',
+        }],
+        tableCY: [{
+          rowindex: '',
+          user_id: '',
+          rn: '',
+          lastweekdays: '',
+          lastlatenight: '',
+          lastrestDay: '',
+          lastrestlatenight: '',
+          lastlegal: '',
+          lastlegallatenight: '',
+          lastreplace: '',
+          lasttotalh: '',
+          lasttotaly: '',
+          thisweekdays: '',
+          thislatenight: '',
+          thisrestDay: '',
+          thisrestlatenight: '',
+          thislegal: '',
+          thislegallatenight: '',
+          thisreplace: '',
+          thisreplace3: '',
+          thistotalh: '',
+          thistotaly: '',
+          remarks: '',
+          subsidy: '',
+        }],
         tableLJSJ: [
           {
             user_id: '',
@@ -2764,6 +2802,8 @@
             let datalist = [];
             let datalistgrdb = [];
             let datalistzxkc = [];
+            let datalistqq = [];
+            let datalistcy = [];
             for (let j = 0; j < response.lackattendance.length; j++) {
               let user = getUserInfo(response.lackattendance[j].user_id);
               if (user) {
@@ -2771,8 +2811,22 @@
                   response.lackattendance[j].user_id,
                 ).userinfo.customername;
               }
-              this.tableQQ = response.lackattendance;
-              this.totaldataQQ = response.lackattendance;
+              let obj = {};
+              obj.user_id = response.lackattendance[j].user_id;
+              obj.lastdiligence = response.lackattendance[j].lastdiligence;
+              obj.lastshortdeficiency = response.lackattendance[j].lastshortdeficiency;
+              obj.lastchronicdeficiency = response.lackattendance[j].lastchronicdeficiency;
+              obj.lasttotal = response.lackattendance[j].lasttotal;
+              obj.thisdiligence = response.lackattendance[j].thisdiligence;
+              obj.thisshortdeficiency = response.lackattendance[j].thisshortdeficiency;
+              obj.thischronicdeficiency = response.lackattendance[j].thischronicdeficiency;
+              obj.thistotal = response.lackattendance[j].thistotal;
+              obj.remarks = response.lackattendance[j].remarks;
+              obj.give = response.lackattendance[j].give;
+              obj.rowindex = j + 1;
+              datalistqq[j] = obj;
+              this.tableQQ = datalistqq;
+              this.totaldataQQ = datalistqq;
               this.ListQQ = 8;
               this.getList();
             }
@@ -2789,8 +2843,34 @@
                   response.residual[j].rn = letErrortype.value1;
                 }
               }
-              this.tableCY = response.residual;
-              this.totaldataCY = response.residual;
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.residual[j].user_id;
+              obj.rn = response.residual[j].rn;
+              obj.lastweekdays = response.residual[j].lastweekdays;
+              obj.lastlatenight = response.residual[j].lastlatenight;
+              obj.lastrestDay = response.residual[j].lastrestDay;
+              obj.lastrestlatenight = response.residual[j].lastrestlatenight;
+              obj.lastlegal = response.residual[j].lastlegal;
+              obj.lastlegallatenight = response.residual[j].lastlegallatenight;
+              obj.lastreplace = response.residual[j].lastreplace;
+              obj.lasttotalh = response.residual[j].lasttotalh;
+              obj.lasttotaly = response.residual[j].lasttotaly;
+              obj.thisweekdays = response.residual[j].thisweekdays;
+              obj.thislatenight = response.residual[j].thislatenight;
+              obj.thisrestDay = response.residual[j].thisrestDay;
+              obj.thisrestlatenight = response.residual[j].thisrestlatenight;
+              obj.thislegal = response.residual[j].thislegal;
+              obj.thislegallatenight = response.residual[j].thislegallatenight;
+              obj.thisreplace = response.residual[j].thisreplace;
+              obj.thisreplace3 = response.residual[j].thisreplace3;
+              obj.thistotalh = response.residual[j].thistotalh;
+              obj.thistotaly = response.residual[j].thistotaly;
+              obj.remarks = response.residual[j].remarks;
+              obj.subsidy = response.residual[j].subsidy;
+              datalistcy[j] = obj;
+              this.tableCY = datalistcy;
+              this.totaldataCY = datalistcy;
               this.ListCY = 9;
               this.getList();
             }
@@ -3549,7 +3629,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === '16' || tab.index === '2' || tab.index === '3'  ) {
+        if (tab.index === '16' || tab.index === '2' || tab.index === '3') {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === '0' ||

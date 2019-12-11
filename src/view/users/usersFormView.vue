@@ -1404,10 +1404,10 @@
           }
         ],
         rank_options: [
-          {value: "0", label: this.$t("label.members")},
+          {value: "0", label: this.$t("label.PFANSUSERVIEW_MEMBERS")},
           {
             value: "1",
-            label: this.$t("label.outgoing")
+            label: this.$t("label.PFANSUSERVIEW_OUTGOING")
           }
         ],
         laborcontracttype: [

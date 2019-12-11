@@ -269,6 +269,12 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
+              if (this.form.compatibleseal === '1') {
+                  this.radio = 1;
+              }
+              if (this.form.compatibleseal === '2') {
+                  this.radio = 2;
+              }
               if (this.form.status === '2') {
                   this.disable = false;
               }
@@ -301,6 +307,13 @@
             }else{
                   this.checked5 = true;
                   this.disabled5 = true;
+            }
+            if(!this.disabled){
+                this.disabled1 = false;
+                this.disabled2 = false;
+                this.disabled3 = false;
+                this.disabled4 = false;
+                this.disabled5 = false;
             }
             this.loading = false;
           })
