@@ -69,7 +69,7 @@
                 <el-row :gutter="32">
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="relation">
-                      <el-select :disabled="!disable" @change="change" style="width: 11rem" v-model="form.business_id">
+                      <el-select :disabled="!disable" @change="change" style="width: 11rem" v-model="form.relation">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -179,12 +179,24 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_JPY')" v-show="show3">
-                      <el-input :disabled="true" style="width: 11rem" v-model="form.jpyfxrate"></el-input>
+                      <!--<el-input :disabled="true" style="width: 11rem" v-model="form.jpyfxrate"></el-input>-->
+                      <el-input-number
+                        :disabled="true"
+                        :precision="2"
+                        controls-position="right"
+                        v-model="form.jpyfxrate"
+                      ></el-input-number>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_USD')" v-show="show4">
-                      <el-input :disabled="true" style="width: 11rem" v-model="form.dollarfxrate"></el-input>
+                      <!--<el-input :disabled="true" style="width: 11rem" v-model="form.dollarfxrate"></el-input>-->
+                      <el-input-number
+                        :disabled="true"
+                        :precision="2"
+                        controls-position="right"
+                        v-model="form.dollarfxrate"
+                      ></el-input-number>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -360,7 +372,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="130">
                   <template slot-scope="scope">
-                    <el-tooltip :content="scope.row.startingpoint" :disabled="scope.row.startingpoint===''?true:false" class="item" effect="light"
+                    <el-tooltip :content="scope.row.startingpoint" :disabled="scope.row.startingpoint===''?true:false"
+                                class="item" effect="light"
                                 placement="top">
                       <el-input :disabled="!disable" maxlength="20" style="width: 100%"
                                 v-model="scope.row.startingpoint"/>
@@ -541,7 +554,8 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACCOMMODATION')" align="center" prop="accommodation"
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACCOMMODATION')" align="center"
+                                 prop="accommodation"
                                  v-if="showAout" width="150">
                   <template slot-scope="scope">
                     <el-input-number
@@ -557,11 +571,12 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center" prop="travelallowance"
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"
+                                 prop="travelallowance"
                                  v-else width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -599,7 +614,8 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" prop="plane" v-if="showAout"
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" prop="plane"
+                                 v-if="showAout"
                                  width="160">
                   <template slot-scope="scope">
                     <el-input-number
@@ -1660,6 +1676,9 @@
         this.tableData2[0].rmb = sums[4];
         this.tableData2[1].rmb = this.tableAValue[7];
         this.tableData2[3].rmb = this.tableRValue[3];
+        for (var i = 0; i < this.tableData2.length; i++) {
+          this.tableData2[i].total = this.tableData2[i].rmb;
+        }
         if (this.form.currency === 'PJ003001') {
           this.tableData2[0].usdcurrency = sums[5];
           this.tableData2[1].usdcurrency = this.tableAValue[8];
@@ -1689,6 +1708,16 @@
             this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
             this.tableData2[i].usdcurrency = '';
             this.tableData2[i].jpycurrency = '';
+          }
+        }
+      },
+      getsave(){
+        debugger;
+        if(this.tableTValue.length==='1'){
+          if(!this.tableTValue[0].trafficdate &&!this.tableTValue[0].region&&!this.tableTValue[0].startingpoint&&!this.tableTValue[0].rmb&&
+            !this.tableTValue[0].foreigncurrency&&!this.tableTValue[0].annexno){
+            this.tableTValue[0].rmb="";
+            this.tableTValue[0].foreigncurrency="";
           }
         }
       },
@@ -1777,6 +1806,7 @@
         if (val === "save") {
           this.$refs["refform"].validate(valid => {
             if (valid) {
+              this.getsave();
               this.baseInfo = {};
               this.form.user_id = this.userlist;
               this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
@@ -1918,6 +1948,24 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+
+  .el-table {
+    overflow-x: auto;
+  }
+
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+    overflow: visible;
+  }
+
+  .el-table::after {
+    position: relative;
+  }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: visible;
+  }
 
 </style>
 
