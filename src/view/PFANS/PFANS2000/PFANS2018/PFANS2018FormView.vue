@@ -112,6 +112,41 @@
           </el-row>
           <el-row>
             <el-col :span="12">
+              <el-form-item :label="$t('label.PFANS2018VIEW_NIGHTSHIFT')" prop="nightshift_start">
+                <el-time-select
+                  :disabled="!disable"
+                  :picker-options="{
+                    start: '00:00',
+                    step: '00:15',
+                    end: '23:45'}"
+                  style="width:80%"
+                  v-model="form.nightshift_start">
+                </el-time-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="1">
+              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
+                <span>~</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item prop="nightshift_end" label-width="5%">
+                <el-time-select
+                  :disabled="!disable"
+                  :picker-options="{
+                    start: '00:00',
+                    step: '00:15',
+                    end: '23:45'}"
+                  style="width:80%"
+                  v-model="form.nightshift_end">
+                </el-time-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="3">
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_COMPASSIONATELEAVE')" prop="compassionateleave">
                 <el-input-number :disabled="!disable" :min="0" :max="9999" controls-position="right"
                                  :precision="2" :step="0.25" style="width: 80%"
@@ -308,6 +343,28 @@
           callback();
         }
       };
+      var validatenightshiftstart = (rule, value, callback) => {
+          if (value !== null && value !== '') {
+              if (this.form.closingtime_end !== null && this.form.closingtime_end !== '' && value <= this.form.closingtime_end) {
+                  callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTSTART') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2018VIEW_CLOSINGTIMEEND')));
+              } else {
+                  callback();
+              }
+          } else {
+              callback();
+          }
+      };
+      var validatenightshiftend = (rule, value, callback) => {
+          if (value !== null && value !== '') {
+              if (this.form.workshift_start !== null && this.form.workshift_start !== '' && value >= this.form.workshift_start) {
+                  callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTEND') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2018VIEW_WORKSHIFTSTART')));
+              } else {
+                  callback();
+              }
+          } else {
+              callback();
+          }
+      };
       return {
         loading: false,
         title: 'title.PFANS2018VIEW',
@@ -318,6 +375,8 @@
           closingtime_end: '',
           lunchbreak_start: '',
           lunchbreak_end: '',
+          nightshift_start: '',
+          nightshift_end: '',
           compassionateleave: '',
           lateearlyleave: '',
           absenteeism: '',
@@ -368,6 +427,19 @@
             trigger: 'change',
           },
             {validator: validateLunchbreak_end, trigger: 'change'},
+          ],
+           nightshift_start: [{
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
+              trigger: 'change',
+          },
+              {validator: validatenightshiftstart, trigger: 'change'}],
+           nightshift_end: [{
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
+              trigger: 'change',
+          },
+              {validator: validatenightshiftend, trigger: 'change'},
           ],
           compassionateleave: [{
             required: true,
