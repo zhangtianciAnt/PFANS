@@ -46,19 +46,22 @@
                         width: 140,
                         fix: false,
                         filter: true
-                    }, {
+                    },
+                    {
                         code: 'centername',
                         label: 'label.center',
                         width: 140,
                         fix: false,
                         filter: true
-                    }, {
+                    },
+                    {
                         code: 'groupname',
                         label: 'label.group',
                         width: 140,
                         fix: false,
                         filter: true
-                    }, {
+                    },
+                    {
                         code: 'teamname',
                         label: 'label.team',
                         width: 140,
@@ -212,32 +215,27 @@
                 .dispatch('PFANS3007Store/getJapanCondominium', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        //状态
                         if (response[j].status !== null && response[j].status !== "") {
                             response[j].status = getStatus(response[j].status);
                         }
-                        //预算单位
                         if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
                             let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
                             if (letBudgetunit != null) {
                                 response[j].budgetunit = letBudgetunit.value1;
                             }
                         }
-                        //マンション会社
                         if (response[j].condominiumcompany !== null && response[j].condominiumcompany !== "") {
                             let letCondominiumcompany = getDictionaryInfo(response[j].condominiumcompany);
                             if (letCondominiumcompany != null) {
                                 response[j].condominiumcompany = letCondominiumcompany.value1;
                             }
                         }
-                        //マンション場所
                         if (response[j].apartmentplace !== null && response[j].apartmentplace !== "") {
                             let letApartmentplace = getDictionaryInfo(response[j].apartmentplace);
                             if (letApartmentplace != null) {
                                 response[j].apartmentplace = letApartmentplace.value1;
                             }
                         }
-                        //用户
                         let user = getUserInfo(response[j].userid)
                         if (user) {
                             response[j].applicant = user.userinfo.customername;
@@ -245,7 +243,6 @@
                         response[j].centername = response[j].centerid;
                         response[j].groupname = response[j].groupid;
                         response[j].teamname = response[j].teamid;
-                        //日期
                         if (response[j].contractstartdate !== null && response[j].contractstartdate !== "") {
                             response[j].contractstartdate = moment(response[j].contractstartdate).format("YYYY-MM-DD");
                         }
@@ -276,7 +273,6 @@
 
         },
         methods: {
-
             rowClick(row) {
                 this.rowid = row.japancondominiumid;
             },
@@ -326,7 +322,6 @@
                     })
                 }
             },
-
         }
     }
 </script>

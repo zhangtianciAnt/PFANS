@@ -223,8 +223,6 @@
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-
-            <!--            第四页-->
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_RELATION')" name="fourth">
               <div>
                 <el-row :gutter="32">
@@ -577,8 +575,6 @@
                 </el-row>
               </div>
             </el-tab-pane>
-
-            <!--            境外第五页-->
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_MANAGEMENT')" name="fifth">
               <div>
                 <el-row :gutter="32">
@@ -647,8 +643,6 @@
                 </el-row>
               </div>
             </el-tab-pane>
-
-            <!--            境外第六页-->
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_OTHERS1')" name="sixth">
               <div>
                 <el-row :gutter="24">
@@ -817,7 +811,6 @@
                     team_id: '',
                     user_id: '',
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                    //分类
                     businesstype: '',
                     level: '',
                     condominiumcompany: '',
@@ -1384,14 +1377,12 @@
                     this.error = "";
                 }
             },
-            //第一页
             getlevel(val) {
                 this.form.level = val;
             },
             getregion(val) {
                 this.form.region = val;
             },
-            // 第三页
             addRow() {
                 this.tableP.push({
                     travelcontentdate: "",
@@ -1409,8 +1400,6 @@
                 rows[index].place = '';
                 rows[index].content = '';
             },
-            // 第二页
-            //出差目的
             getobjectivetype(val) {
                 this.form.objectivetype = val;
                 if (val === "PJ018005") {
@@ -1421,12 +1410,9 @@
                     this.form.objectivetypeother = null;
                 }
             },
-            //第四页
-            //预算单位
             getbudgetunit(val) {
                 this.form.budgetunit = val;
             },
-            //事业计划
             getplan1(val) {
                 this.form.plan = val;
                 if (val === '1') {
@@ -1439,7 +1425,6 @@
                     this.form.balance = null;
                 }
             },
-            //事业计划类型
             getplantype(val) {
                 this.form.plantype = val;
                 if (val === "PR002005") {
@@ -1450,11 +1435,9 @@
                     this.form.balance = null;
                 }
             },
-            //分类类型
             getclassificationtype(val) {
                 this.form.classificationtype = val;
             },
-            //外币金额（有问题）
             getforeigncurrency(val) {
                 this.form.foreigncurrency = val;
                 if (this.form.foreigncurrency != null && this.form.foreigncurrency !== '') {
@@ -1477,7 +1460,6 @@
                     }
                 }
             },
-            //币种
             getCurrency(val) {
                 this.form.currency = val;
                 if (val === 'PJ003001') {
@@ -1516,7 +1498,6 @@
                     }
                 }
             },
-            //宿泊費用負担
             getaccommodationcost1(val) {
                 this.form.accommodationcost = val;
             },
@@ -1529,8 +1510,6 @@
             getpermit(val) {
                 this.form.permit = val;
             },
-            //第五页
-            //技術の提供*
             getprovision(val) {
                 this.form.provision = val;
                 if (val === '1') {
@@ -1540,7 +1519,6 @@
                     this.form.technology = null;
                 }
             },
-            //該非判定
             getjudgment(val) {
                 this.form.judgment = val;
                 if (val === "PJ023001") {
@@ -1550,7 +1528,6 @@
                     this.form.judgmentno = null;
                 }
             },
-            //ﾊﾝﾄﾞｷｬﾘｰ
             getpassengers1(val) {
                 this.form.passengers = val;
                 if (val === '1') {
@@ -1560,8 +1537,6 @@
                     this.form.fixedassetsno = null;
                 }
             },
-            //第六页
-            //规定外费用
             getexternal(val) {
                 this.form.external = val;
                 if (val === '1') {

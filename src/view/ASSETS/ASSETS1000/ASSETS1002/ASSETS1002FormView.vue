@@ -29,7 +29,7 @@
           <el-row>
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
             <el-table :data="tableD" @selection-change="selectionChange"
-                      header-cell-class-name="sub_bg_color_grey height">
+                      header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick">
               <el-table-column reserve-selection type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>
@@ -58,7 +58,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import moment from 'moment';
-  import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
 
   export default {
     name: 'ASSETS1002FormView',
@@ -70,7 +70,7 @@
     },
     data() {
       var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value ==="undefined") {
+        if (!value || value === '' || value === 'undefined') {
           callback(new Error(this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID')));
           this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID');
         } else {
@@ -92,7 +92,6 @@
         tableD: [
           {
             assets_id: '',
-            inventoryplan_id: '',
             filename: '',
             typeassets: '',
             price: '',
@@ -113,8 +112,10 @@
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_INVENTORYCYCLE'),
             trigger: 'change',
-          },],
+          }],
         },
+        disable: '',
+        rowid: '',
       };
     },
     mounted() {
@@ -122,6 +123,7 @@
         this.getSelectById();
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
+        this.form.userid = this.$store.getters.userinfo.userid;
         this.getSelectAll();
       }
     },
@@ -135,47 +137,50 @@
             icon: 'el-icon-check',
           },
           {
-            key: 'result',
-            name: '查看结果',
+            key: 'vResult',
+            name: 'button.vResult',
             icon: 'el-icon-check',
           },
           {
-            key: 'save',
-            name: '结束',
+            key: 'end',
+            name: 'button.end',
             icon: 'el-icon-check',
           },
           {
-            key: 'result',
-            name: '废弃',
+            key: 'trash',
+            name: 'button.trash',
+            icon: 'el-icon-check',
+          },
+        ];
+      } else {
+        this.buttonList = [
+          {
+            key: 'vResult',
+            name: 'button.vResult',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'end',
+            name: 'button.end',
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'trash',
+            name: 'button.trash',
             icon: 'el-icon-check',
           },
         ];
       }
-      this.buttonList = [
-        {
-          key: 'result',
-          name: '查看结果',
-          icon: 'el-icon-check',
-        },
-        {
-          key: 'save',
-          name: '结束',
-          icon: 'el-icon-check',
-        },
-        {
-          key: 'result',
-          name: '废弃',
-          icon: 'el-icon-check',
-        },
-      ];
     },
     methods: {
-      getSelectById(){
+      rowClick(row) {
+        this.rowid = row.assets_id;
+      },
+      getSelectById() {
         this.loading = true;
         this.$store
           .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
           .then(response => {
-            debugger;
             this.form = response.inventoryplan;
             let inventorycycle = response.inventoryplan.inventorycycle;
             let inventory = inventorycycle.slice(0, 10);
@@ -213,7 +218,12 @@
           });
       },
       selectionChange(val) {
+        this.rowid = '';
         this.multipleSelection = val;
+        this.rowid = val[0].assets_id;
+        for (let i = 1; i < this.multipleSelection.length; i++) {
+          this.rowid = this.rowid + ';' + this.multipleSelection[i].assets_id;
+        }
       },
       getSelectAll() {
         this.loading = true;
@@ -257,72 +267,94 @@
           this.error = '';
         }
       },
+      getUpdate() {
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1002Store/update', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            this.loading = true;
             this.form.inventorycycle = moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD');
             this.form.userid = this.userlist;
             this.baseInfo = {};
             this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.assets = this.multipleSelection;
             if (val === 'save') {
-              if (this.$route.params._id) {
-                this.$store
-                  .dispatch('ASSETS1002Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+              this.baseInfo.assets = this.multipleSelection;
+              this.loading = true;
+              this.$store
+                .dispatch('ASSETS1002Store/insert', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
                   });
-              } else {
-                this.$store
-                  .dispatch('ASSETS1002Store/insert', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
                   });
-              }
-            } else if (val === 'result') {
-              alert(this.$route.params._id);
-              this.$router.push({
-                name: 'ASSETS1002ExportFormView',
-                params: {
-                  _id: this.$route.params._id,
-                },
-              });
+                  this.loading = false;
+                });
+            }
           }
+          if (val === 'vResult') {
+            this.$router.push({
+              name: 'ASSETS1002ExportFormView',
+              params: {
+                _id: this.$route.params._id,
+              },
+            });
+          }
+          if (val === 'trash' || val === 'end') {
+            for (let i = 0; i < this.multipleSelection.length; i++) {
+              let resultFlg = '';
+              if (val === 'end') {
+                resultFlg = '1';
+              } else {
+                resultFlg = '2';
+              }
+              var varrowid = this.rowid.split(';');
+              if (varrowid.length > 0) {
+                for (let j = 0; j < varrowid.length; j++) {
+                  if (varrowid[j] != '') {
+                    if (this.multipleSelection[i].assets_id === varrowid[j]) {
+                      this.multipleSelection[i].result = resultFlg;
+                    }
+                  }
+                }
+              }
+            }
+            this.baseInfo.assets = this.multipleSelection;
+            this.getUpdate();
           }
         });
       },
