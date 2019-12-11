@@ -3126,6 +3126,15 @@
               this.getList();
             }
             for (let j = 0; j < response.base.length; j++) {
+              if (response.base[j].type === '0') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_SFRZ');
+              } else if (response.base[j].type === '1') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_SFTZ');
+              } else if (response.base[j].type === '2') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_NSFCX');
+              }else if (response.base[j].type === '3') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_NVSFCX');
+              }
               let user = getUserInfo(response.base[j].user_id);
               if (user) {
                 response.base[j].user_id = user.userinfo.customername;

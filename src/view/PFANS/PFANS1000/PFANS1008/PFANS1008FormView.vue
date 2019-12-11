@@ -173,6 +173,7 @@
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
+  import {telephoneNumber} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -251,6 +252,18 @@
             }else{
                 this.erroreafter = "";
                 return callback();
+            }
+
+        };
+        var validateTel = (rule, value, callback) => {
+            if (this.form.insidenumber !== null && this.form.insidenumber !== '') {
+                if (telephoneNumber(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
             }
 
         };
@@ -362,6 +375,12 @@
                     trigger: 'change'
                 },
             ],
+            insidenumber: [
+                {
+                    validator: validateTel,
+                    trigger: 'change'
+                },
+            ],
             mobiledate: [
                 {
                     required: true,
@@ -408,10 +427,9 @@
             canStart:false,
         };
     },
-
     mounted() {
-      if (this.$route.params._id) {
         this.loading = true;
+      if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1008Store/selectById', {"softwaretransferid": this.$route.params._id})
           .then(response => {
@@ -439,13 +457,13 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        this.form.user_id = this.$store.getters.userinfo.userid;
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.form.center_id = lst.centerNmae;
+            this.form.group_id = lst.groupNmae;
+            this.form.team_id = lst.teamNmae;
+            this.form.user_id = this.$store.getters.userinfo.userid;
         }
-        this.loading = false;
+          this.loading = false;
       }
     },
     created() {
@@ -485,7 +503,6 @@
         },
         getUseridseafter(val,row) {
             row.eafter = val;
-            let lst = getOrgInfoByUserId(val);
             if (!row.eafter || row.eafter === '' || val === "undefined") {
                 row.erroreafter = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
@@ -611,10 +628,7 @@
                           }
                       }
                       if (this.$route.params._id) {
-                          this.baseInfo.softwaretransfer.softwaretransferid = this.$route.params._id;
-                          this.form.center_id = this.centerorglist;
-                          this.form.group_id = this.grouporglist;
-                          this.form.team_id = this.teamorglist;
+                          this.baseInfo.softwaretransferid = this.$route.params._id;
                           this.form.ferrycenter_id = this.ferrycenterorglist;
                           this.form.ferrygroup_id = this.ferrygrouporglist;
                           this.form.ferryteam_id = this.ferryteamorglist;

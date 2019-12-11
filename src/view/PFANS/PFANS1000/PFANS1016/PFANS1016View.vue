@@ -47,6 +47,13 @@
             fix: false,
             filter: true
           },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 150,
+            fix: false,
+            filter: true
+          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -68,13 +75,7 @@
             {
               response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
             }
-            response[j].center_id = response[j].center_id;
-            response[j].group_id = response[j].group_id;
-            response[j].team_id = response[j].team_id;
             response[j].status = getStatus(response[j].status);
-            // if (response[j].implement_date !== null && response[j].implement_date !== '') {
-            //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
-            // }
           }
           this.data = response;
           this.loading = false

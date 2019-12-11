@@ -29,7 +29,7 @@
           </el-step>
         </el-steps>
 
-        <el-timeline style="padding-top: 30px;max-height: 500px;overflow-y: scroll">
+        <el-timeline style="padding-top: 30px;max-height: 500px;overflow-y: auto">
           <el-timeline-item
             :key="index"
             :timestamp="(item.sdata)" :type="index.toString() === '0'?'primary':'info'"
