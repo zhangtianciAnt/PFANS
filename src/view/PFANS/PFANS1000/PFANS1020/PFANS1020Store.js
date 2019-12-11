@@ -1,5 +1,5 @@
 import {
-  get,
+  getOutside,
   selectById,
   update,
   insert,
@@ -10,9 +10,9 @@ import {
     state: {},
     mutations: {},
     actions: {
-      get() {
+      getOutside() {
         return new Promise((resolve, reject) => {
-          get().then(response => {
+          getOutside().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

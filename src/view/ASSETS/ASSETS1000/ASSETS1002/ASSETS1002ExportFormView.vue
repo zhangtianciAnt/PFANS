@@ -74,14 +74,14 @@
           },
           {
             code: 'barcode',
-            label: 'label.ASSETS1002EXPORTFORMVIEW_BARCODE',
+            label: 'label.ASSETS1001VIEW_BARCODE',
             width: 100,
             fix: false,
             filter: true,
           },
           {
             code: 'result',
-            label: 'label.ASSETS1002EXPORTFORMVIEW_RESULT',
+            label: 'label.ASSETS1001VIEW_RESULT',
             width: 100,
             fix: false,
             filter: true,
@@ -102,31 +102,27 @@
       getListData() {
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1001Store/getList', {})
+          .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              let user = getUserInfo(response[j].principal);
-              if (user) {
-                response[j].principal = user.userinfo.customername;
-                response[j].usedepartment = user.userinfo.centername;
-              }
-              if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
-                response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
-              }
-              if (response[j].typeassets !== null && response[j].typeassets !== '') {
-                let letErrortype = getDictionaryInfo(response[j].typeassets);
-                if (letErrortype != null) {
-                  response[j].typeassets = letErrortype.value1;
+            if (response.assets.length > 0) {
+              this.data = response.assets;
+              for (let j = 0; j < response.assets.length; j++) {
+                let user = getUserInfo(response.assets[j].principal);
+                if (user) {
+                  response.assets[j].principal = user.userinfo.customername;
+                  response.assets[j].usedepartment = user.userinfo.centername;
                 }
-              }
-              if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
-                let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
-                if (letErrortype1 != null) {
-                  response[j].assetstatus = letErrortype1.value1;
+                if (response.assets[j].purchasetime !== null && response.assets[j].purchasetime !== '') {
+                  response.assets[j].purchasetime = moment(response.assets[j].purchasetime).format('YYYY-MM-DD');
+                }
+                if (response.assets[j].typeassets !== null && response.assets[j].typeassets !== '') {
+                  let letErrortype = getDictionaryInfo(response.assets[j].typeassets);
+                  if (letErrortype != null) {
+                    response.assets[j].typeassets = letErrortype.value1;
+                  }
                 }
               }
             }
-            this.data = response;
             this.loading = false;
           })
           .catch(error => {
@@ -153,7 +149,7 @@
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'),
               this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'),
-              this.$t('label.ASSETS1001VIEW_ASSETSTATUS'), this.$t('label.ASSETS1002EXPORTFORMVIEW_BARCODE'), this.$t('label.ASSETS1002EXPORTFORMVIEW_RESULT')];
+              this.$t('label.ASSETS1001VIEW_ASSETSTATUS'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_RESULT')];
             const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'principal', 'assetstatus', 'barcode', 'result'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);

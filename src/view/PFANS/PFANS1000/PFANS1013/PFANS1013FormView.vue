@@ -964,6 +964,7 @@
         result:"",
         result2:"",
         rank:"",
+        kind:""
       };
     },
     mounted() {
@@ -1048,9 +1049,11 @@
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
             this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
             this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
-            let user = getUserInfo(this.userlist);
+            let user = getUserInfo(this.$store.getters.userinfo.userid);
+            //let user = getUserInfo(this.userlist);
             if (user) {
               this.rank = user.userinfo.rank;
+              this.kind=user.userinfo.type;
             }
             this.loading = false;
           })
@@ -1070,10 +1073,11 @@
           this.form.groupid = lst.groupNmae;
           this.form.teamid = lst.teamNmae;
           this.form.userid = this.$store.getters.userinfo.userid;
-
-          let user = getUserInfo(this.userlist);
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          //let user = getUserInfo(this.userlist);
           if (user) {
             this.rank = user.userinfo.rank;
+            this.kind=user.userinfo.type;
           }
         }
         if(this.form.type==='1'){
@@ -1433,27 +1437,30 @@
         }
         //等级
         var varrank;
-        let dictionaryInfo = getDictionaryInfo("PR021006");
+        let dictionaryInfo = getDictionaryInfo(this.rank);
         if (dictionaryInfo) {
           varrank = dictionaryInfo.value1;
         }
-        varrank = varrank.substr(1,1);
+
         //出差补助
 
         if(this.form.type === "1"){
           var varbusiness;
-          if(Number(varrank) < 7){
-            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypeon);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
+          if(this.kind===this.$t("label.members")){
+            varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+            if(Number(varrank) <= 7){
+              let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypeon);
+              if (businessdic) {
+                varbusiness = businessdic.value4;
+              }
+            }else if(Number(varrank) >= 8){
+              let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypeon);
+              if (businessdic) {
+                varbusiness = businessdic.value4;
+              }
             }
-          }else if(Number(varrank) === 8){
+          }else if(this.kind===this.$t("label.outgoing")){
             let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypeon);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }else if(Number(varrank) > 8){
-            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypeon);
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
@@ -1515,7 +1522,26 @@
         }
         else if(this.form.type === "2"){
           var varbusiness;
-          if(Number(varrank) < 7){
+          if(this.kind===this.$t("label.members")){
+            varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+            if(Number(varrank) <= 7){
+              let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypein);
+              if (businessdic) {
+                varbusiness = businessdic.value4;
+              }
+            }else if(Number(varrank) >= 8){
+              let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypein);
+              if (businessdic) {
+                varbusiness = businessdic.value4;
+              }
+            }
+          }else if(this.kind===this.$t("label.outgoing")){
+            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypein);
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }
+         /* if(Number(varrank) < 7){
             let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypein);
             if (businessdic) {
               varbusiness = businessdic.value4;
@@ -1531,7 +1557,7 @@
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
-          }
+          }*/
           var vartravel = 0;
           if(varmovementtime2 != "" && varmovementtime2 != undefined
             && varbusiness != "" && varbusiness != undefined){
@@ -1542,16 +1568,33 @@
       },
       getTravelFly(row){
         var varrank;
-        debugger;
-        let dictionaryInfo = getDictionaryInfo("PR021006");
+        let dictionaryInfo = getDictionaryInfo(this.rank);
         if (dictionaryInfo) {
           varrank = dictionaryInfo.value1;
         }
-        varrank = varrank.substr(1,1);
         //出差补助
         var varbusiness;
-        if(Number(varrank) < 7){
-          debugger;
+        if(this.kind===this.$t("label.members")){
+          varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+          if(Number(varrank) <= 7){
+            let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'));
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }else if(Number(varrank) >= 8){
+            let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'));
+            if (businessdic) {
+              varbusiness = businessdic.value4;
+            }
+          }
+        }else if(this.kind===this.$t("label.outgoing")){
+          let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
+          if (businessdic) {
+            varbusiness = businessdic.value4;
+          }
+        }
+
+       /* if(Number(varrank) <= 7){
           let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'));
           if (businessdic) {
             varbusiness = businessdic.value4;
@@ -1561,12 +1604,12 @@
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
-        }else if(Number(varrank) > 8){
+        }else if(Number(varrank) >= 8){
           let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'));
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
-        }
+        }*/
        if(row.vehiclein ==='PJ026004'){
          row.accommodationallowance='';
          row.travelallowance='';

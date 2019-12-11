@@ -233,7 +233,7 @@
                     status: '',
                 },
                 code1: 'PJ044',
-                //(无数据，待客户消息)
+                //(code2无数据，待客户消息)
                 code2: 'PJ045',
                 code3: 'PJ045',
                 disabled: true,

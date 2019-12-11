@@ -68,7 +68,7 @@
     mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1020Store/get')
+          .dispatch('PFANS1020Store/getOutside')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let lst = getOrgInfoByUserId(response[j].user_id);
@@ -95,7 +95,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.holidayid;
+        this.rowid = row.outsideid;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
