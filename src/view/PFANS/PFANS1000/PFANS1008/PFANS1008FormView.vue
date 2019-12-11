@@ -410,8 +410,8 @@
     },
 
     mounted() {
-      if (this.$route.params._id) {
         this.loading = true;
+      if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1008Store/selectById', {"softwaretransferid": this.$route.params._id})
           .then(response => {
@@ -426,6 +426,9 @@
                   this.tableD = response.notification;
               }
               this.userlist = this.form.user_id;
+              if (this.form.status === '2') {
+                  this.disable = false;
+              }
               this.loading = false;
           })
           .catch(error => {
@@ -485,7 +488,6 @@
         },
         getUseridseafter(val,row) {
             row.eafter = val;
-            let lst = getOrgInfoByUserId(val);
             if (!row.eafter || row.eafter === '' || val === "undefined") {
                 row.erroreafter = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
@@ -611,7 +613,7 @@
                           }
                       }
                       if (this.$route.params._id) {
-                          this.baseInfo.softwaretransfer.softwaretransferid = this.$route.params._id;
+                          this.baseInfo.softwaretransferid = this.$route.params._id;
                           this.form.center_id = this.centerorglist;
                           this.form.group_id = this.grouporglist;
                           this.form.team_id = this.teamorglist;
