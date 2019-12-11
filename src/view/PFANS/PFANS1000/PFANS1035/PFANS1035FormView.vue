@@ -819,7 +819,6 @@
                     this.error = "";
                 }
             },
-            // 第三页
             addRow() {
                 this.tableP.push({
                     travelcontentdate: "",
@@ -837,8 +836,6 @@
                 rows[index].place = '';
                 rows[index].content = '';
             },
-            // 第二页
-            //出差目的
             getobjectivetype(val) {
                 this.form.objectivetype = val;
                 if (val === "PJ018005") {
@@ -849,12 +846,9 @@
                     this.form.objectivetypeother = null;
                 }
             },
-            //第四页
-            //预算单位
             getbudgetunit(val) {
                 this.form.budgetunit = val;
             },
-            //事业计划
             getplan1(val) {
                 this.form.plan = val;
                 if (val === '1') {
@@ -867,7 +861,6 @@
                     this.form.balance = null;
                 }
             },
-            //事业计划类型
             getplantype(val) {
                 this.form.plantype = val;
                 if (val === "PR002005") {
@@ -878,19 +871,15 @@
                     this.form.balance = null;
                 }
             },
-            //分类类型
             getclassificationtype(val) {
                 this.form.classificationtype = val;
             },
-            //宿泊費用負担
             getaccommodationcost1(val) {
                 this.form.accommodationcost = val;
             },
             getaccommodation1(val) {
                 this.form.accommodation = val;
             },
-            //第五页
-            //ﾊﾝﾄﾞｷｬﾘｰ
             getpassengers1(val) {
                 this.form.passengers = val;
                 if (val === '1') {
@@ -900,7 +889,6 @@
                     this.form.fixedassetsno = null;
                 }
             },
-            //规定外费用
             getexternal(val) {
                 this.form.external = val;
                 if (val === '1') {

@@ -240,7 +240,8 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
+                                         @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
@@ -272,7 +273,8 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
+                                         @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
@@ -286,7 +288,8 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0" :max="Number(scope.row.copunnumbermax)"
+                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
+                                         :max="Number(scope.row.copunnumbermax)"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -304,7 +307,8 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
                                      prop="copunnumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%" @change="changecopunnumber" :min="0"
+                        <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
+                                         @change="changecopunnumber" :min="0"
                                          v-model="scope.row.copunnumber">
                         </el-input-number>
                       </template>
@@ -318,7 +322,8 @@
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
                                      prop="copunusenumber">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0" :max="Number(scope.row.copunnumbermax)"
+                        <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
+                                         :max="Number(scope.row.copunnumbermax)"
                                          style="width: 100%" @change="getcopunusenumber"
                                          v-model="scope.row.copunusenumber">
                         </el-input-number>
@@ -388,7 +393,6 @@
             dicselect,
             user
         },
-
         data() {
             var validateUserid = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
@@ -841,7 +845,6 @@
                 this.form.status = '0';
                 this.buttonClick("update");
             },
-            //使用卷数（有问题）
             getcopunusenumber(val) {
                 if (this.form.condominiumcompany === "PR007001") {
                     this.tableD2.copunusenumber = val;
@@ -862,7 +865,6 @@
 
                 }
             },
-            //使用金额
             changeusemoneys(val) {
                 this.form.usemoney = val;
                 if (this.form.condominiumcompany === "PR007001") {
@@ -874,7 +876,6 @@
                     this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD3[0].copunvalue) * (this.tableD3[0].copunusenumber) - (this.tableD3[1].copunvalue) * (this.tableD3[1].copunusenumber) - (this.tableD3[2].copunvalue) * (this.tableD3[2].copunusenumber)
                 }
             },
-            //预算单位
             getbudgetunit(val) {
                 this.form.budgetunit = val;
             },

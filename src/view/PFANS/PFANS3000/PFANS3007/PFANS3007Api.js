@@ -1,14 +1,10 @@
 import request from '../../../../utils/request'
-
-//获取流程列表
 export function getJapanCondominium() {
   return request({
     url: 'japancondominium/get',
     method: 'get'
   })
 }
-
-//根据id获取
 export function selectById(data) {
   return request({
     url: 'japancondominium/selectById',
@@ -16,8 +12,6 @@ export function selectById(data) {
     params: data
   })
 }
-
-//更新流程
 export function updateJapanCondominium(data) {
   return request({
     url: 'japancondominium/update',
@@ -25,8 +19,6 @@ export function updateJapanCondominium(data) {
     data: data
   })
 }
-
-//创建流程
 export function createJapanCondominium(data) {
   return request({
     url: 'japancondominium/create',

@@ -5,7 +5,6 @@ const PFANS1002Store = {
   state: {},
   mutations: {},
   actions: {
-    //获取流程
     getBusiness() {
       return new Promise((resolve, reject) => {
         getBusiness().then(response => {
@@ -19,7 +18,6 @@ const PFANS1002Store = {
         })
       })
     },
-    //获取详细
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
@@ -33,7 +31,6 @@ const PFANS1002Store = {
         })
       })
     },
-    //更新流程
     updateBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
         updateBusiness(data).then(response => {
@@ -47,7 +44,6 @@ const PFANS1002Store = {
         })
       })
     },
-    //创建流程
     createBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
         createBusiness(data).then(response => {
