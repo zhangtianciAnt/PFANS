@@ -833,6 +833,9 @@
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 }
+                rows[index].travelcontentdate = '';
+                rows[index].place = '';
+                rows[index].content = '';
             },
             // 第二页
             //出差目的
