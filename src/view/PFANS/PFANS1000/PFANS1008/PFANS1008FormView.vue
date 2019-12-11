@@ -408,7 +408,6 @@
             canStart:false,
         };
     },
-
     mounted() {
         this.loading = true;
       if (this.$route.params._id) {
@@ -426,9 +425,6 @@
                   this.tableD = response.notification;
               }
               this.userlist = this.form.user_id;
-              if (this.form.status === '2') {
-                  this.disable = false;
-              }
               this.loading = false;
           })
           .catch(error => {
@@ -442,13 +438,12 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        this.form.user_id = this.$store.getters.userinfo.userid;
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.form.center_id = lst.centerNmae;
+            this.form.group_id = lst.groupNmae;
+            this.form.team_id = lst.teamNmae;
         }
-        this.loading = false;
       }
     },
     created() {
@@ -466,7 +461,6 @@
     },
     methods: {
       getUserids(val) {
-          this.userlist = val;
           this.form.user_id = val;
           let lst = getOrgInfoByUserId(val);
           this.form.center_id = lst.centerNmae;
@@ -614,9 +608,6 @@
                       }
                       if (this.$route.params._id) {
                           this.baseInfo.softwaretransferid = this.$route.params._id;
-                          this.form.center_id = this.centerorglist;
-                          this.form.group_id = this.grouporglist;
-                          this.form.team_id = this.teamorglist;
                           this.form.ferrycenter_id = this.ferrycenterorglist;
                           this.form.ferrygroup_id = this.ferrygrouporglist;
                           this.form.ferryteam_id = this.ferryteamorglist;
