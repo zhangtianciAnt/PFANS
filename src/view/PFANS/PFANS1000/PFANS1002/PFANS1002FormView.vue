@@ -142,12 +142,10 @@
                 </el-row>
               </div>
             </el-tab-pane>
-
-            <!--            第二页-->
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_PURPOSE')" name="second">
               <div>
                 <el-row type="flex">
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPE')" prop="objectivetype">
                       <dicselect
                         :code="code3"
@@ -177,8 +175,6 @@
                 </el-row>
               </div>
             </el-tab-pane>
-
-            <!--            第三页-->
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
               <el-table :data="tableP" header-cell-class-name="sub_bg_color_grey height">
                 <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
@@ -309,7 +305,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_MONEYS')" prop="moneys">
                       <el-input-number
-                        :disabled="!disable"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -575,8 +571,7 @@
                         controls-position="right"
                         style="width: 11rem"
                         v-model.trim="form.scheduled">
-                      </el-input-number>
-                      {{$t('label.day')}}
+                      </el-input-number>{{$t('label.day')}}
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1317,6 +1312,65 @@
             this.disable = this.$route.params.disabled;
         },
         methods: {
+            checkRequire() {
+                if (
+                    !this.form.user_id ||
+                    !this.form.applicationdate ||
+                    !this.form.level ||
+                    !this.form.condominiumcompany ||
+                    !this.form.region ||
+                    !this.form.city ||
+                    !this.form.startdate ||
+                    !this.form.enddate
+                ) {
+                    this.activeName = "first";
+                } else if (
+                    !this.form.objectivetype ||
+                    !this.form.objectivetypeother ||
+                    !this.form.details
+                ) {
+                    this.activeName = "second";
+                } else if (
+                    !this.form.budgetunit ||
+                    !this.form.plantype ||
+                    !this.form.classificationtype ||
+                    !this.form.balance ||
+                    !this.form.moneys ||
+                    !this.form.foreigncurrency ||
+                    !this.form.currency ||
+                    !this.form.dollarfxrate ||
+                    !this.form.jpyfxrate ||
+                    !this.form.otherfxrate ||
+                    !this.form.bookingday ||
+                    !this.form.actuarialdate ||
+                    !this.form.loanday ||
+                    !this.form.loanmoney ||
+                    !this.form.accommodationcost ||
+                    !this.form.accommodation ||
+                    !this.form.passportno ||
+                    !this.form.durationstart ||
+                    !this.form.durationend ||
+                    !this.form.visa ||
+                    !this.form.validstart ||
+                    !this.form.validend ||
+                    !this.form.permit ||
+                    !this.form.scheduled
+                ) {
+                    this.activeName = "fouth";
+                } else if (
+                    !this.form.technology ||
+                    !this.form.judgment ||
+                    !this.form.judgmentno ||
+                    !this.form.fixedassetsno
+                ) {
+                    this.activeName = "five";
+                } else if (
+                    !this.form.regulations ||
+                    !this.form.reason
+                ) {
+                    this.activeName = "six";
+                }
+            },
             getUserids(val) {
                 this.form.user_id = val;
                 this.userlist = val;
@@ -1351,6 +1405,9 @@
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 }
+                rows[index].travelcontentdate = '';
+                rows[index].place = '';
+                rows[index].content = '';
             },
             // 第二页
             //出差目的
@@ -1560,6 +1617,7 @@
                     this.paramsTitle();
                 }
                 else {
+                    this.checkRequire();
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
                             this.loading = true;

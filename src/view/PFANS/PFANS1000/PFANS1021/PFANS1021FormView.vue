@@ -76,45 +76,45 @@
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="175" :error="errortitle">
+              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="200" :error="errortitle">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :no="scope.row" :error="errortitle" :selectType="selectType" :userlist="scope.row.title"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="140">
+              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailcenter_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="140">
+              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailgroup_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="140">
+              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.detailteam_id" :no="scope.row" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="140">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="200">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="140">
+              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="200">
                 <template slot-scope="scope">
                   <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="140">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="200">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.startdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="175">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="200">
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
@@ -127,7 +127,7 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="175">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="200">
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
@@ -140,13 +140,13 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="175">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="200">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"
                         @getUserids="getUserids2" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="180">
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     :disabled="!disabled"
@@ -181,6 +181,7 @@
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
+  import {telephoneNumber,validateEmail} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -213,6 +214,18 @@
             }
 
         };
+        var validateTel = (rule, value, callback) => {
+            if (this.form.extension !== null && this.form.extension !== '') {
+                if (telephoneNumber(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+
+        };
         var checkentrymanager = (rule, value, callback) => {
             if(!value || value === ''){
                 this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
@@ -220,6 +233,18 @@
             }else{
                 this.errorentrymanager = "";
                 return callback();
+            }
+
+        };
+        var checkemail = (rule, value, callback) => {
+            if (this.form.email !== null && this.form.email !== '') {
+                if (!validateEmail(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
             }
 
         };
@@ -290,6 +315,12 @@
                     trigger: 'change'
                 },
             ],
+            extension: [
+                {
+                    validator: validateTel,
+                    trigger: 'change'
+                },
+            ],
             reason: [
                 {
                     required: true,
@@ -320,8 +351,7 @@
             ],
             email: [
                 {
-                    required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.email'),
+                    validator: checkemail,
                     trigger: 'change'
                 },
             ],

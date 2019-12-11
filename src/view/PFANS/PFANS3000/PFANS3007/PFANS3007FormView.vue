@@ -343,7 +343,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS3007FORMVIEW_USEMONEY')" prop="usemoney">
                   <el-input-number :disabled="!disable" controls-position="right" :min="0" :max="9999999999"
-                                   @change="changemoneys" style="width: 11rem"
+                                   @change="changeusemoneys" style="width: 11rem"
                                    v-model.trim="form.usemoney"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>
@@ -405,10 +405,12 @@
                         callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
                     } else {
                         this.form.contractdatenumber = moment(this.form.contractenddate).diff(moment(this.form.contractstartdate), 'days') + 1;
+                        this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                         callback()
                     }
                 } else {
                     this.form.contractdatenumber = 0;
+                    this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                     callback()
                 }
             }
@@ -418,10 +420,12 @@
                         callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
                     } else {
                         this.form.contractdatenumber = moment(this.form.contractenddate).diff(moment(this.form.contractstartdate), 'days') + 1;
+                        this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                         callback()
                     }
                 } else {
                     this.form.contractdatenumber = 0;
+                    this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                     callback()
                 }
             }
@@ -844,6 +848,8 @@
                     this.tableD2[0].copunnumber = (this.tableD2[0].copunnumbermax) - (this.tableD2[0].copunusenumber);
                     this.tableD2[1].copunnumber = (this.tableD2[1].copunnumbermax) - (this.tableD2[1].copunusenumber);
                     this.tableD2[2].copunnumber = (this.tableD2[2].copunnumbermax) - (this.tableD2[2].copunusenumber);
+                    this.form.moneys = (this.moneys1) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD2[0].copunvalue) * (this.tableD2[0].copunusenumber) - (this.tableD2[1].copunvalue) * (this.tableD2[1].copunusenumber) - (this.tableD2[2].copunvalue) * (this.tableD2[2].copunusenumber)
 
                 }
                 if (this.form.condominiumcompany === "PR007002") {
@@ -851,10 +857,13 @@
                     this.tableD3[0].copunnumber = (this.tableD3[0].copunnumbermax) - (this.tableD3[0].copunusenumber);
                     this.tableD3[1].copunnumber = (this.tableD3[1].copunnumbermax) - (this.tableD3[1].copunusenumber);
                     this.tableD3[2].copunnumber = (this.tableD3[2].copunnumbermax) - (this.tableD3[2].copunusenumber);
+                    this.form.moneys = (this.moneys2) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD3[0].copunvalue) * (this.tableD3[0].copunusenumber) - (this.tableD3[1].copunvalue) * (this.tableD3[1].copunusenumber) - (this.tableD3[2].copunvalue) * (this.tableD3[2].copunusenumber)
+
                 }
             },
             //使用金额
-            changemoneys(val) {
+            changeusemoneys(val) {
                 this.form.usemoney = val;
                 if (this.form.condominiumcompany === "PR007001") {
                     this.form.moneys = (this.moneys1) - (this.form.usemoney);
@@ -875,7 +884,6 @@
                 if (dictionaryInfo) {
                     this.form.moneys = dictionaryInfo.value2;
                 }
-                debugger;
                 if (val === "PR007001") {
                     this.moneys1 = '';
                     this.moneys1 = '';
@@ -958,6 +966,14 @@
             changetotalcost(val) {
                 this.form.totalcost = val;
                 this.form.dailycost = Math.floor(val / this.form.contractdatenumber);
+                if (this.form.condominiumcompany === "PR007001") {
+                    this.form.moneys = (this.moneys1) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD2[0].copunvalue) * (this.tableD2[0].copunusenumber) - (this.tableD2[1].copunvalue) * (this.tableD2[1].copunusenumber) - (this.tableD2[2].copunvalue) * (this.tableD2[2].copunusenumber)
+                }
+                if (this.form.condominiumcompany === "PR007002") {
+                    this.form.moneys = (this.moneys2) - (this.form.usemoney);
+                    this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD3[0].copunvalue) * (this.tableD3[0].copunusenumber) - (this.tableD3[1].copunvalue) * (this.tableD3[1].copunusenumber) - (this.tableD3[2].copunvalue) * (this.tableD3[2].copunusenumber)
+                }
             }
             ,
             changecopunnumber(val, row) {

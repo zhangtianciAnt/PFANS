@@ -206,12 +206,10 @@
 
     mounted() {
         this.loading = true;
-        debugger
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1020Store/selectById', {"outsideid": this.$route.params._id})
           .then(response => {
-              debugger;
               this.form = response.outside;
               if (response.outsidedetail.length > 0) {
               this.tableD = response.outsidedetail;

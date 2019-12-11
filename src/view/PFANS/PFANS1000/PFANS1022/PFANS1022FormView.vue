@@ -39,7 +39,7 @@
             </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="extension">
-                  <el-input v-model="form.extension" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
+                  <el-input v-model="form.extension" :disabled="!disabled" style="width: 11rem"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -52,13 +52,13 @@
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="175" :error="errorapplication">
+              <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="190" :error="errorapplication">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType" :userlist="scope.row.application"
                         @getUserids="getUserids1" style="width: 10.15rem"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_KIND')" align="center" prop="kind"  width="175">
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_KIND')" align="center" prop="kind"  width="190">
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
@@ -85,12 +85,12 @@
                            inactive-value="0"
               >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center" prop="attendancedate"  width="170" v-show="show1">
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center" prop="attendancedate"  width="190" v-show="show1">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" type="date" :no="scope.row" v-model="scope.row.attendancedate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="attendancedate"  width="350" v-show="show">
+              <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="attendancedate"  width="370" v-show="show">
                 <template slot-scope="scope">
                   <el-date-picker unlink-panels
                                   class="bigWidth"
@@ -143,6 +143,7 @@
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
+  import {telephoneNumber} from '@/utils/validate';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -173,6 +174,18 @@
             }else{
                 this.errorapplication = "";
                 return callback();
+            }
+
+        };
+        var validateTel = (rule, value, callback) => {
+            if (this.form.extension !== null && this.form.extension !== '') {
+                if (telephoneNumber(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
             }
 
         };
@@ -233,6 +246,12 @@
                 {
                     required: true,
                     message: this.$t('normal.error_09') + this.$t('label.application_date'),
+                    trigger: 'change'
+                },
+            ],
+            extension: [
+                {
+                    validator: validateTel,
                     trigger: 'change'
                 },
             ],

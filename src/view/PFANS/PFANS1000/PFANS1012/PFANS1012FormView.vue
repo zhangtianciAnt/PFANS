@@ -34,7 +34,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
-                      <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
@@ -134,8 +134,16 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYRATE')">
-                      <el-input :disabled="!disablecurr" style="width:11rem" v-model="form.currencyrate">
-                      </el-input>
+                      <el-input-number
+                        :disabled="!disablecurr"
+                        :max="999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width: 11rem"
+                        v-model="form.currencyrate">
+                      </el-input-number>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -360,20 +368,20 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.region">
+                    <el-input :disabled="!disable" style="width: 100%" maxlength="20"  v-model="scope.row.region">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.vehicle">
+                    <el-input :disabled="!disable" style="width: 100%"  maxlength="20" v-model="scope.row.vehicle">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="140">
                   <template slot-scope="scope">
                     <el-tooltip class="item" effect="light" :content="scope.row.startingpoint" placement="top" :disabled="scope.row.startingpoint===''?true:false">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.startingpoint"/>
+                      <el-input :disabled="!disable" style="width: 100%"  maxlength="20" v-model="scope.row.startingpoint"/>
                     </el-tooltip>
                   </template>
                 </el-table-column>
@@ -408,7 +416,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.annexno">
+                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.annexno">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -457,7 +465,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_PROCUREMENTDETAILS')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.procurementdetails"
+                    <el-input :disabled="!disable" style="width: 100%" maxlength="20" v-model="scope.row.procurementdetails"
                               v-show="scope.row.showrow">
                     </el-input>
                     <dicselect :code="code6"
@@ -517,7 +525,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.annexno">
+                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.annexno">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -554,13 +562,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.costitem">
+                    <el-input :disabled="!disable" style="width: 100%"  maxlength="20" v-model="scope.row.costitem">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.remarks" >
+                    <el-input :disabled="!disable" style="width: 100%" maxlength="20"  v-model="scope.row.remarks" >
                     </el-input>
                   </template>
                 </el-table-column>
@@ -596,7 +604,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.annexno">
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -1107,16 +1115,35 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        rows[index].trafficdate ='';
+        rows[index].region ='';
+        rows[index].vehicle ='';
+        rows[index].startingpoint ='';
+        rows[index].rmb ='';
+        rows[index].foreigncurrency ='';
+        rows[index].annexno ='';
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        rows[index].purchasedetailsdate ='';
+        rows[index].procurementdetails =' ';
+        rows[index].procurementproject =' ';
+        rows[index].rmb ='';
+        rows[index].foreigncurrency ='';
+        rows[index].annexno ='';
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        rows[index].otherdetailsdate ='';
+        rows[index].costitem ='';
+        rows[index].remarks ='';
+        rows[index].rmb ='';
+        rows[index].foreigncurrency ='';
+        rows[index].annexno ='';
       },
       addRow() {
         this.tableT.push({
