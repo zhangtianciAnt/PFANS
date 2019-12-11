@@ -75,9 +75,6 @@
             {
               response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
             }
-            response[j].center_id = response[j].center_id;
-            response[j].group_id = response[j].group_id;
-            response[j].team_id = response[j].team_id;
             response[j].status = getStatus(response[j].status);
           }
           this.data = response;
