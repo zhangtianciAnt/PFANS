@@ -108,8 +108,7 @@
           </el-row>
           <el-row>
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
-              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" fixed type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.management">
