@@ -615,7 +615,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" width="150"v-if="showtick">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled=true
+                      :disabled="!disable"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
