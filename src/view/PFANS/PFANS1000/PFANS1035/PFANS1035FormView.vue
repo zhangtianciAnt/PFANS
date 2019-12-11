@@ -106,7 +106,7 @@
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_PURPOSE')" name="second">
               <div>
                 <el-row type="flex">
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPE')" prop="objectivetype">
                       <dicselect
                         :code="code1"
@@ -497,7 +497,6 @@
                     plantype: '',
                     classificationtype: '',
                     balance: '',
-                    moneys: '',
                     bookingday: '',
                     loanday: '',
                     loanmoney: '',
@@ -625,13 +624,6 @@
                             message: this.$t("normal.error_08") + this.$t("label.PFANS1002VIEW_BALANCE"),
                             trigger: "blur"
                         },
-                    ],
-                    moneys: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_MONEYS'),
-                            trigger: 'blur',
-                        }
                     ],
                     bookingday: [
                         {
@@ -778,6 +770,42 @@
             this.disable = this.$route.params.disabled;
         },
         methods: {
+            checkRequire() {
+                if (
+                    !this.form.user_id ||
+                    !this.form.applicationdate ||
+                    !this.form.condominiumcompany ||
+                    !this.form.city ||
+                    !this.form.startdate ||
+                    !this.form.enddate
+                ) {
+                    this.activeName = "first";
+                } else if (
+                    !this.form.objectivetype ||
+                    !this.form.objectivetypeother ||
+                    !this.form.details
+                ) {
+                    this.activeName = "second";
+                } else if (
+                    !this.form.budgetunit ||
+                    !this.form.plantype ||
+                    !this.form.classificationtype ||
+                    !this.form.balance ||
+                    !this.form.bookingday ||
+                    !this.form.loanday ||
+                    !this.form.loanmoney ||
+                    !this.form.accommodationcost ||
+                    !this.form.accommodation
+                ) {
+                    this.activeName = "fouth";
+                } else if (
+                    !this.form.fixedassetsno ||
+                    !this.form.regulations ||
+                    !this.form.reason
+                ) {
+                    this.activeName = "five";
+                }
+            },
             getUserids(val) {
                 this.form.user_id = val;
                 this.userlist = val;
@@ -925,6 +953,7 @@
                     this.paramsTitle();
                 }
                 else {
+                    this.checkRequire();
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
                             this.loading = true;
