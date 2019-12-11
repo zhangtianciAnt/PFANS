@@ -22,6 +22,7 @@
         title: 'title.ASSETS1002EXPORTFORMVIEW',
         data: [],
         selectedlist: [],
+        showSelection: true,
         columns: [
           {
             code: 'filename',
@@ -88,7 +89,7 @@
           },
         ],
         buttonList: [
-          {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-upload2'},
+          {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         rowid: '',
@@ -121,6 +122,19 @@
                     response.assets[j].typeassets = letErrortype.value1;
                   }
                 }
+                if (response.assets[j].assetstatus !== null && response.assets[j].assetstatus !== '') {
+                  let letErrortype1 = getDictionaryInfo(response.assets[j].assetstatus);
+                  if (letErrortype1 != null) {
+                    response.assets[j].assetstatus = letErrortype1.value1;
+                  }
+                }
+                if (response.assets[j].result !== null && response.assets[j].result !== '') {
+                  if(response.assets[j].result === "1" ){
+                    response.assets[j].result = this.$t('button.end');
+                  } else {
+                    response.assets[j].result = this.$t('button.trash');
+                  }
+                }
               }
             }
             this.loading = false;
@@ -134,6 +148,15 @@
             this.loading = false;
           });
       },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'timestamp') {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        }));
+      },
       rowClick(row) {
         this.rowid = row.assets_id;
       },
@@ -142,9 +165,11 @@
           this.$router.push({
             name: 'ASSETS1002FormView',
             params: {
+              _id: this.$route.params._id,
             },
           });
-        } else if (val === 'export') {
+        }
+        if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'),

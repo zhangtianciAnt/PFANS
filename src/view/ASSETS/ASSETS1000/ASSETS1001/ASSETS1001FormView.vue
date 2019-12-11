@@ -76,7 +76,6 @@
           </el-row>
           <el-row>
             <el-col :span="24" align="center">
-              <el-input v-model="form.aa"></el-input>
               <div id="qrcode"></div>
            </el-col>
           </el-row>
@@ -137,6 +136,14 @@
           .dispatch('ASSETS1001Store/getOneInfo', {'assets_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            debugger;
+                this.qrcode1 = new QRCode('qrcode', {
+                  width: 132,
+                  height: 132,
+                  text: this.form.barcode, // 二维码地址
+                  colorDark : "#000",
+                  colorLight : "#fff",
+                })
             this.userlist = this.form.principal;
             this.loading = false;
           })
@@ -157,6 +164,7 @@
           colorLight : "#fff",
         })
         this.userlist = this.$store.getters.userinfo.userid;
+        this.form.principal = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.usedepartment = lst.centerNmae;
@@ -173,8 +181,8 @@
             icon: 'el-icon-check',
           },
           {
-            key: 'save1',
-            name: '保存并打印',
+            key: 'savePrt',
+            name: 'button.savePrt',
             icon: 'el-icon-check',
           },
           {
@@ -194,7 +202,7 @@
           this.form.usedepartment = lst.centerNmae;
         }
         if (!this.form.principal || this.form.principal === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+          this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_PRINCIPAL');
         } else {
           this.error = '';
         }
@@ -213,7 +221,8 @@
           if (valid) {
             if(val === 'printing'){
 
-            } else if(val === 'save'){
+            }
+            if(val === 'save'){
               this.form.barcode = this.qrcode1._htOption.text;  //当前的二维码
               if (this.$route.params._id) {
                 this.loading = true;
