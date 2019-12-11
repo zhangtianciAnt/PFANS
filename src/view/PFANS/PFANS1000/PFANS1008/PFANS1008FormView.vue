@@ -110,35 +110,35 @@
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" prop="management" width="165">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.management">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETNAME')" align="center" prop="assetname"  width="165">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETNAME')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.assetname">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" prop="person" width="160" :error="errorperson">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" width="200" :error="errorperson">
                 <template slot-scope="scope">
                   <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.person" @getUserids="getUseridsperson" :error="errorperson"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEAFTER')" align="center" prop="eafter" width="165" :error="erroreafter">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEAFTER')" align="center" width="200" :error="erroreafter">
                 <template slot-scope="scope">
                   <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.eafter" @getUserids="getUseridseafter" :error="erroreafter"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT')" align="center" prop="reason"  width="165">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disabled" maxlength="50" v-model="scope.row.reason">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="180">
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     :disabled="!disabled"

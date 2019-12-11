@@ -65,7 +65,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEES')" v-show="show1">
                 <user :disabled="!disabled" :selectType="selectType" :userlist="userlist1" @getUserids="getUserids"
-                      style="width: 9.2rem"></user>
+                      style="width: 10.15rem"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">

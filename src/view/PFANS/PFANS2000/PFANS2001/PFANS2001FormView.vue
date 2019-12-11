@@ -125,7 +125,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2001VIEW_SUGGESTEDSALARY')">
-                <el-input v-model="form.suggestedsalary" :disabled="!disabled" style="width: 11rem" maxlength='10'></el-input>
+                <el-input-number v-model="form.suggestedsalary" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -137,7 +137,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_AFTERTURNINGPOSITIVE')">
-                    <el-input v-model="form.afterturningpositiv" :disabled="!disabled" style="width: 11rem" maxlength='10'></el-input>
+                    <el-input-number v-model="form.afterturningpositiv" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
