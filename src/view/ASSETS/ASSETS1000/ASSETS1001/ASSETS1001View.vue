@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :handleSelectionChange="selectionChange"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :handleSelectionChange="handleSelectionChange"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
     </EasyNormalTable>
@@ -144,7 +144,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-download'},
-          {'key': 'print', 'name': '打印二维码', 'disabled': false},
+          {'key': 'prtQrcode', 'name': 'button.prtQrcode', 'disabled': false},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         rowid: '',
@@ -156,8 +156,7 @@
       this.getListData();
     },
     methods: {
-      selectionChange(val){
-        debugger;
+      handleSelectionChange(val){
         this.handleSelection = val;
       },
       getListData() {
@@ -291,7 +290,8 @@
               disabled: true,
             },
           });
-        } else if (val === 'edit') {
+        }
+        if (val === 'edit') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -307,10 +307,11 @@
               disabled: true,
             },
           });
-        } else if (val === 'import') {
+        }
+        if (val === 'import') {
           this.daoru = true;
-        } else if (val === 'print') {
-          debugger;
+        }
+        if (val === 'print') {
           for(let i = 0; i <this.handleSelection.length; i++ ){
             let qrcode = new QRCode('qrcode', {
               width: 132,
@@ -320,7 +321,8 @@
               colorLight : "#fff",
             })
           }
-        } else if (val === 'export') {
+        }
+        if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
