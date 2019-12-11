@@ -95,7 +95,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.holidayid;
+        this.rowid = row.outsideid;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
