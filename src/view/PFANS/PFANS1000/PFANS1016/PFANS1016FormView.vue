@@ -38,9 +38,10 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="true"
+                <el-input :disabled="!disable"
                           style="width:11rem"
                           v-model="form.type"
+                          maxlength='36'
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -96,10 +97,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')" >
-                <el-input :disabled="!disable"
-                          style="width:11rem"
-                          v-model="form.manager"
-                ></el-input>
+                <user :disabled="!disable"
+                      :selectType="selectType"
+                      :userlist="managerlist"
+                      @getUserids="getManager"
+                      style="width: 9.2rem"
+                      v-model="form.manager"
+                ></user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -128,21 +132,17 @@
                 </el-form-item>
             </el-col>
           </el-row>
-
-
-
-          <!---->
           <el-row style="padding-top:1.5rem" >
             <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1040px">
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code3"
-                    :data="form.sourceipgroup"
+                    :data="scope.row.sourceipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changesourceipgroup"
-                    v-model="scope.row.sourceipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
@@ -161,7 +161,7 @@
                         plain
                         size="small"
                         type="primary"
-                      >{{$t('button.insert')}}
+                      >{{$t('button.appends')}}
                       </el-button>
                     </div>
                   </div>
@@ -169,15 +169,15 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="100">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code4"
-                    :data="form.communication"
+                    :data="scope.row.communication"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changecommunication"
-                    v-model="scope.row.communication"
                     style="width: 100%"
                   ></dicselect>
                 </template>
@@ -185,25 +185,57 @@
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code5"
-                    :data="form.destinationipgroup"
+                    :no="scope.row"
+                    :code="code3"
+                    :data="scope.row.destinationipgroup"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changedestinationipgroup"
-                    v-model="scope.row.destinationipgroup"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="250">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.destinationipaddress" style="width: 100%">
+                  <div style="width: 100%;float:left">
+                    <div style="width: 70%;float: left">
+                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.destinationipaddresstest" >
+                      </el-input>
+                    </div>
+                    <div style="width: 30%;float: right;margin-top:0.25rem">
+                      <el-button
+                        :no="scope.row"
+                        @click="addDestinationipaddress(scope.$index,tableT)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.appends')}}
+                      </el-button>
+                    </div>
+                  </div>
+                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.destinationipaddress" style="width: 100%; padding-top:1rem">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="160">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="250">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.protocol" style="width: 100%">
+                  <div style="width: 100%;float:left">
+                    <div style="width: 70%;float: left">
+                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.protocoltest" >
+                      </el-input>
+                    </div>
+                    <div style="width: 30%;float: right;margin-top:0.25rem">
+                      <el-button
+                        :no="scope.row"
+                        @click="addProtocol(scope.$index,tableT)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.appends')}}
+                      </el-button>
+                    </div>
+                  </div>
+                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.protocol" style="width: 100%; padding-top:1rem">
                   </el-input>
                 </template>
               </el-table-column>
@@ -229,8 +261,6 @@
               </el-table-column>
             </el-table>
           </el-row>
-          <!---->
-
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -307,8 +337,8 @@
         baseInfo: {},
         loading: false,
         userlist: "",
-        userlist1: "",
-        period: '',
+        managerlist: "",
+        duringdate: '',
         multiple: false,
         selectType: "Single",
         error: '',
@@ -336,12 +366,14 @@
           communication: '',
           destinationipgroup: '',
           destinationipaddress: '',
+          destinationipaddresstest: '',
           protocol: '',
+          protocoltest: '',
         }],
         code1: 'PJ042',
         code2: 'PJ043',
-        code3: '',
-        code4: '',
+        code3: 'PJ048',
+        code4: 'PJ047',
         code5: '',
         disabled: false,
         rules: {
@@ -354,11 +386,11 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1016FORMVIEW_REASON'),
             trigger: "blur"
           }],
-          // period: [{
-          //   required: true,
-          //   message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
-          //   trigger: "blur"
-          // }],
+          duringdate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
+            trigger: "blur"
+          }],
         },
         canStart: false,
       };
@@ -390,12 +422,11 @@
             let serdate = duringdate.slice(0, 10);
             let serdate1 = duringdate.slice(duringdate.length - 10);
             this.form.duringdate = [serdate, serdate1];
-            debugger;
             if (response.routingdetail.length > 0) {
               this.tableT = response.routingdetail;
             }
+            this.managerlist = this.form.manager;
             this.userlist = this.form.user_id;
-
             this.loading = false;
           })
           .catch(error => {
@@ -426,6 +457,23 @@
           rows[index].sourceipaddress = rows[index].sourceipaddress + ";" + rows[index].sourceipaddresstest;
         }
       },
+
+      addDestinationipaddress(index, rows){
+        if(rows[index].destinationipaddress === ""){
+          rows[index].destinationipaddress = rows[index].destinationipaddresstest;
+        }
+        else{
+          rows[index].destinationipaddress = rows[index].destinationipaddress + ";" + rows[index].destinationipaddresstest;
+        }
+      },
+      addProtocol(index, rows){
+        if(rows[index].protocol === ""){
+          rows[index].protocol = rows[index].protocoltest;
+        }
+        else{
+          rows[index].protocol = rows[index].protocol + ";" + rows[index].protocoltest;
+        }
+      },
       getUserids(val) {
         this.form.user_id = val;
         let lst = getOrgInfoByUserId(val);
@@ -437,6 +485,10 @@
         } else {
           this.error = "";
         }
+      },
+      getManager(val) {
+        this.form.manager = val;
+        this.managerlist = val;
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -460,17 +512,15 @@
       changeoperationtype(val) {
         this.form.operationtype = val;
       },
-      changesourceipgroup(val) {
-        this.form.sourceipgroup = val;
+      changesourceipgroup(val,row) {
+        row.sourceipgroup = val;
       },
-      changecommunication(val) {
-        this.form.communication = val;
+      changecommunication(val,row) {
+        row.communication = val;
       },
-      changedestinationipgroup(val) {
-        this.form.destinationipgroup = val;
+      changedestinationipgroup(val,row) {
+        row.destinationipgroup = val;
       },
-
-
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
@@ -485,7 +535,9 @@
           communication: '',
           destinationipgroup: '',
           destinationipaddress: '',
+          destinationipaddresstest: '',
           protocol: '',
+          Protocoltest: '',
         });
       },
       buttonClick(val) {

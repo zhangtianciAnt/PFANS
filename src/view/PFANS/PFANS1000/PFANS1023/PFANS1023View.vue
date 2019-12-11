@@ -72,10 +72,6 @@
           .dispatch('PFANS1023Store/getConfidential')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              let lst = getOrgInfoByUserId(response[j].user_id);
-              response[j].center_id = lst.centerNmae;
-              response[j].group_id = lst.groupNmae;
-              response[j].team_id = lst.teamNmae;
               response[j].status = getStatus(response[j].status);
               let user = getUserInfo(response[j].user_id);
               if (user) {

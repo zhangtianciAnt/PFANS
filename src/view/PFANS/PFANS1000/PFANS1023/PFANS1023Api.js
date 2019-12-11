@@ -1,10 +1,9 @@
 import request from '../../../../utils/request'
 
-export function getConfidential(data) {
+export function getConfidential() {
   return request({
     url: 'confidential/get',
     method: 'get',
-    params: data
   })
 }
 
