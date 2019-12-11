@@ -41,6 +41,7 @@
                 <el-input :disabled="!disable"
                           style="width:11rem"
                           v-model="form.type"
+                          maxlength='36'
                 ></el-input>
               </el-form-item>
             </el-col>
