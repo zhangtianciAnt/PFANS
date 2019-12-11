@@ -548,7 +548,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center" width="150"v-else prop="travelallowance" >
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled=true
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -574,7 +574,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" width="150" v-else prop="relatives">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled=true
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -600,7 +600,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAIN')" align="center" width="150" v-else prop="train">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled=true
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -615,7 +615,7 @@
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" width="150"v-if="showtick">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled=true
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -1446,8 +1446,8 @@
 
         if(this.form.type === "1"){
           var varbusiness;
-          if(this.kind===this.$t("label.members")){
-            varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+          varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+          if(this.kind===this.$t("label.PFANSUSERVIEW_MEMBERS")){
             if(Number(varrank) <= 7){
               let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypeon);
               if (businessdic) {
@@ -1459,7 +1459,7 @@
                 varbusiness = businessdic.value4;
               }
             }
-          }else if(this.kind===this.$t("label.outgoing")){
+          }else if(this.kind===this.$t("label.PFANSUSERVIEW_OUTGOING")){
             let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypeon);
             if (businessdic) {
               varbusiness = businessdic.value4;
@@ -1522,8 +1522,8 @@
         }
         else if(this.form.type === "2"){
           var varbusiness;
-          if(this.kind===this.$t("label.members")){
-            varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+          varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
+          if(this.kind===this.$t("label.PFANSUSERVIEW_MEMBERS")){
             if(Number(varrank) <= 7){
               let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypein);
               if (businessdic) {
@@ -1535,29 +1535,12 @@
                 varbusiness = businessdic.value4;
               }
             }
-          }else if(this.kind===this.$t("label.outgoing")){
+          }else if(this.kind===this.$t("label.PFANSUSERVIEW_OUTGOING")){
             let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypein);
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
           }
-         /* if(Number(varrank) < 7){
-            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'),row.facilitytypein);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }else if(Number(varrank) === 8){
-            debugger
-            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'),row.facilitytypein);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }else if(Number(varrank) > 8){
-            let businessdic = getDictionaryInfode(row.exitarea,this.$t('label.PFANS1013FORMVIEW_R8UP'),row.facilitytypein);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }*/
           var vartravel = 0;
           if(varmovementtime2 != "" && varmovementtime2 != undefined
             && varbusiness != "" && varbusiness != undefined){
@@ -1574,7 +1557,7 @@
         }
         //出差补助
         var varbusiness;
-        if(this.kind===this.$t("label.members")){
+        if(this.kind===this.$t("label.PFANSUSERVIEW_MEMBERS")){
           varrank = varrank.replace("R","").replace("A","").replace("B","").replace("C","");
           if(Number(varrank) <= 7){
             let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_R7DOW'));
@@ -1587,7 +1570,7 @@
               varbusiness = businessdic.value4;
             }
           }
-        }else if(this.kind===this.$t("label.outgoing")){
+        }else if(this.kind===this.$t("label.PFANSUSERVIEW_OUTGOING")){
           let businessdic = getDictionaryInfode(row.vehiclein,row.exitarea,this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
           if (businessdic) {
             varbusiness = businessdic.value4;
@@ -1611,6 +1594,7 @@
           }
         }*/
        if(row.vehiclein ==='PJ026004'){
+         debugger
          row.accommodationallowance='';
          row.travelallowance='';
          row.plane = varbusiness;
