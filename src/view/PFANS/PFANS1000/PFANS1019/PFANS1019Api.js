@@ -2,30 +2,31 @@ import request from '../../../../utils/request'
 
 export function getTrialsoft() {
   return request({
-    url: 'Trialsoft/get',
+    url: 'trialsoft/get',
     method: 'get'
   })
 }
 
-export function getTrialsoftOne(data) {
+export function selectById(data) {
   return request({
-    url: 'Trialsoft/one',
+    url: 'trialsoft/selectById',
+    method: 'get',
+    params: data
+  })
+}
+
+
+export function update(data) {
+  return request({
+    url: 'trialsoft/update',
     method: 'post',
     data: data
   })
 }
 
-export function updateTrialsoft(data) {
+export function insert(data) {
   return request({
-    url: 'Trialsoft/update',
-    method: 'post',
-    data: data
-  })
-}
-
-export function createTrialsoft(data) {
-  return request({
-    url: 'Trialsoft/create',
+    url: 'trialsoft/insert',
     method: 'post',
     data: data
   })

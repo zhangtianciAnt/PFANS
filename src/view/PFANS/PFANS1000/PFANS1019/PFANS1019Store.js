@@ -1,4 +1,4 @@
-import {getTrialsoft, getTrialsoftOne, updateTrialsoft, createTrialsoft} from './PFANS1019Api'
+import {getTrialsoft, selectById, update, insert} from './PFANS1019Api'
 
 const PFANS1019Store = {
   namespaced: true,
@@ -19,9 +19,9 @@ const PFANS1019Store = {
       })
     },
 
-    getTrialsoftOne({commit}, data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
-        getTrialsoftOne(data).then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -33,9 +33,9 @@ const PFANS1019Store = {
       })
     },
 
-    updateTrialsoft({commit}, data) {
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
-        updateTrialsoft(data).then(response => {
+        update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -47,9 +47,9 @@ const PFANS1019Store = {
       })
     },
 
-    createTrialsoft({commit}, data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
-        createTrialsoft(data).then(response => {
+        insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

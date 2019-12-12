@@ -1,4 +1,4 @@
-import {getPsdcd, getPsdcdOne, updatePsdcd, createPsdcd} from './PFANS1017Api'
+import {getPsdcd, selectById, update, insert} from './PFANS1017Api'
 
 const PFANS1017Store = {
   namespaced: true,
@@ -19,9 +19,9 @@ const PFANS1017Store = {
       })
     },
 
-    getPsdcdOne({commit}, data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
-        getPsdcdOne(data).then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -33,9 +33,9 @@ const PFANS1017Store = {
       })
     },
 
-    updatePsdcd({commit}, data) {
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
-        updatePsdcd(data).then(response => {
+        update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -47,9 +47,9 @@ const PFANS1017Store = {
       })
     },
 
-    createPsdcd({commit}, data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
-        createPsdcd(data).then(response => {
+        insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -311,7 +311,7 @@
       return {
         pickerOptions: {
           shortcuts: [{
-            text: '最近一周',
+            text: this.$t('label.PFANS1016FORMVIEW_WEEKEND'),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -319,7 +319,7 @@
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: '最近一个月',
+            text:this.$t('label.PFANS1016FORMVIEW_MONTH'),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -327,7 +327,7 @@
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: '最近三个月',
+            text:this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -377,7 +377,6 @@
         code2: 'PJ043',
         code3: 'PJ048',
         code4: 'PJ047',
-        code5: '',
         disabled: false,
         rules: {
           email: [
