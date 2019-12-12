@@ -287,6 +287,14 @@ export function menu() {
             {
               '_id': 'PFANSATTENDANCE', 'name': 'menu.PFANSATTENDANCE', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
                 {
+                  '_id': 'PFANS2010', 'name': 'menu.PFANS2010', 'menuvisible': true, 'menuurl': '/PFANS2010View', 'menuicon': '', 'children': [], 'actions': [
+                    { "_id": "PFANS2010_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                    { "_id": "PFANS2010_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                    { "_id": "PFANS2010_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                    { "_id": "PFANS2010_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+                  ]
+                },
+                {
                   '_id': 'PFANS2011', 'name': 'menu.PFANS2011', 'menuvisible': true, 'menuurl': '/PFANS2011View', 'menuicon': '', 'children': [], 'actions': [
                     { "_id": "PFANS2011_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
                     { "_id": "PFANS2011_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
