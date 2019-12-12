@@ -1,10 +1,9 @@
 import request from '../../../../utils/request'
 
-export function getAssetinformation(data) {
+export function getAssetinformation() {
   return request({
     url: 'assetinformation/get',
     method: 'get',
-    params: data
   })
 }
 
