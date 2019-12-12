@@ -64,6 +64,7 @@
           limit: 5
         },
         status: '',
+        workflowurl: '',
         total: 0,
         total2: 0,
         dataList: '',
@@ -204,10 +205,12 @@
           }
           let name = this.row.url.replace("/", "");
           this._id = this.row.noticeid;
+          this.workflowurl = this.row.workflowurl.replace("/", "");
           this.$router.push({
             name: name,
             params: {
               _id: this._id,
+              _url: this.workflowurl,
               disabled: false
             }
           })
