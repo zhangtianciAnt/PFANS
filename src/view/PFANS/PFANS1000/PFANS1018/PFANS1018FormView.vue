@@ -121,7 +121,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')">
+              <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
                           v-model="form.extension"></el-input>
               </el-form-item>
@@ -159,7 +159,7 @@
     import {Message} from 'element-ui'
     import {getOrgInfoByUserId} from '@/utils/customize';
     import moment from "moment";
-    import {validateEmail} from "../../../../utils/validate";
+    import {telephoneNumber,validateEmail} from "../../../../utils/validate";
 
     export default {
         name: 'PFANS1018FormView',
@@ -199,6 +199,18 @@
                 } else {
                     callback();
                 }
+            };
+            var validateTel = (rule, value, callback) => {
+                if (this.form.extension !== null && this.form.extension !== '') {
+                    if (telephoneNumber(value)) {
+                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+
             };
             return {
                 loading: false,
@@ -273,6 +285,12 @@
                             trigger: 'change'
                         },
                     ],
+                    extension: [
+                        {
+                            validator: validateTel,
+                            trigger: 'change'
+                        },
+                        {validator: validateTel, trigger: 'blur'}],
                     email: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.email"),

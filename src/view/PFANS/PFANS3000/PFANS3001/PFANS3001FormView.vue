@@ -53,7 +53,7 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')" prop="extensionnumber">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                  <el-input :disabled="!disable" style="width: 11rem"
                             v-model="form.extensionnumber"></el-input>
                 </el-form-item>
               </el-col>
@@ -201,8 +201,9 @@
     },
     data() {
       var validateExtensionnumber = (rule, value, callback) => {
+        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
         if (this.form.extensionnumber !== null && this.form.extensionnumber !== '') {
-          if (telephoneNumber(value)) {
+          if (!this.regExp.test((value))) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
           } else {
             callback();
