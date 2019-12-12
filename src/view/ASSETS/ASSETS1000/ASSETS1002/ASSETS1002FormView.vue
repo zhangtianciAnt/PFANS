@@ -139,17 +139,17 @@
           {
             key: 'vResult',
             name: 'button.vResult',
-            icon: 'el-icon-check',
+            icon: 'el-icon-thumb',
           },
           {
             key: 'end',
             name: 'button.end',
-            icon: 'el-icon-check',
+            icon: 'el-icon-finished',
           },
           {
             key: 'trash',
             name: 'button.trash',
-            icon: 'el-icon-check',
+            icon: 'el-icon-close',
           },
         ];
       } else {
@@ -157,17 +157,17 @@
           {
             key: 'vResult',
             name: 'button.vResult',
-            icon: 'el-icon-check',
+            icon: 'el-icon-thumb',
           },
           {
             key: 'end',
             name: 'button.end',
-            icon: 'el-icon-check',
+            icon: 'el-icon-finished',
           },
           {
             key: 'trash',
             name: 'button.trash',
-            icon: 'el-icon-check',
+            icon: 'el-icon-close',
           },
         ];
       }
