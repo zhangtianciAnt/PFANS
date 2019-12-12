@@ -63,6 +63,7 @@
                                 :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
                                 :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
                                 :data="transfer"
+                                :right-default-checked="determine.project_name"
                                 >
                               </el-transfer>
                               <el-form-item>
@@ -508,7 +509,6 @@
           });
       },
       handleChange(value, direction, movedKeys) {
-        this.optionsdate = [];
         if (direction === 'right') {
           for (var k = 0; k < movedKeys.length; k++) {
             var vote = {};
