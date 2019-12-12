@@ -533,7 +533,6 @@
         },
         methods: {
             getUserids(val) {
-                this.userlist = val;
                 this.form.user_id = val;
                 let lst = getOrgInfoByUserId(val);
                 this.form.center_id = lst.centerNmae;
