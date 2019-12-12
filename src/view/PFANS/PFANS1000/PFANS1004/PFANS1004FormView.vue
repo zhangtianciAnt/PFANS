@@ -236,7 +236,7 @@
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import {getDictionaryInfo, uploadUrl} from "../../../../utils/customize";
+  import {downLoadUrl,getDictionaryInfo, uploadUrl} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -812,7 +812,11 @@
                     this.form.startdate = "";
                     this.form.enddate = "";
                 }
-                if (this.form.decisive === 'PJ011004') {
+                if (this.form.decisive === 'PJ011003') {
+                    this.form.startdate = "";
+                    this.form.enddate = "";
+                }
+                if (this.form.decisive === 'PJ011005') {
                     this.form.startdate = "";
                     this.form.enddate = "";
                 }
