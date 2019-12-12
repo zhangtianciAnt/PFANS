@@ -473,6 +473,7 @@
                     .dispatch('PFANS1007Store/selectById', {"assetinformationid": this.$route.params._id})
                     .then(response => {
                         this.form = response.assetinformation;
+                        this.userlist = this.form.user_id;
                         if (this.form.salequotation === "PJ013001") {
                             this.show = true;
                         }else if (this.form.salequotation === "PJ013003") {
@@ -484,15 +485,6 @@
                         if (response.salesdetails.length > 0) {
                             this.table2 = response.salesdetails;
                         }
-                        this.userlist = this.form.user_id;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
                             for (var i = 0; i < uploadfile.length; i++) {
@@ -504,6 +496,14 @@
                                 }
                             }
                         }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                         this.loading = false;
                     })
             } else {
@@ -585,10 +585,33 @@
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 }
+                if(row.length = 1){
+                    rows[index].fixedassetnam = '';
+                    rows[index].megasnumber = '';
+                    rows[index].settagnumber = '';
+                    rows[index].purchasedate = '';
+                    rows[index].originalvalue = '';
+                    rows[index].yearsofuse = '';
+                    rows[index].networth = '';
+                    rows[index].scrapping = '';
+                    rows[index].remarks = '';
+                }
             },
             deleteRow1(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
+                }
+                if(row.length = 1){
+                    rows[index].fixedassetnam = '';
+                    rows[index].megasnumber = '';
+                    rows[index].settagnumber = '';
+                    rows[index].purchasedate = '';
+                    rows[index].originalvalue = '';
+                    rows[index].networth = '';
+                    rows[index].sellingprice = '';
+                    rows[index].loss = '';
+                    rows[index].scrapping = '';
+                    rows[index].remarks = '';
                 }
             },
             addRow() {
@@ -598,7 +621,7 @@
                     fixedassetnam: '',
                     megasnumber: '',
                     settagnumber: '',
-                    purchasedate: moment(new Date()).format("YYYY-MM-DD"),
+                    purchasedate: '',
                     originalvalue: 0,
                     yearsofuse: 0,
                     networth: 0,
@@ -613,7 +636,7 @@
                     fixedassetnam: '',
                     megasnumber: '',
                     settagnumber: '',
-                    purchasedate: moment(new Date()).format("YYYY-MM-DD"),
+                    purchasedate: '',
                     originalvalue: 0,
                     networth: 0,
                     sellingprice: 0,
