@@ -172,7 +172,6 @@
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
-  import {telephoneNumber} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -255,8 +254,9 @@
 
         };
         var validateTel = (rule, value, callback) => {
+            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
             if (this.form.insidenumber !== null && this.form.insidenumber !== '') {
-                if (telephoneNumber(value)) {
+                if (!this.regExp.test(value)) {
                     callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
                 } else {
                     callback();
@@ -480,7 +480,6 @@
     },
     methods: {
       getUserids(val) {
-          this.userlist = val;
           this.form.user_id = val;
           let lst = getOrgInfoByUserId(val);
           this.form.center_id = lst.centerNmae;
@@ -576,6 +575,15 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
+            }
+            if(row.length = 1){
+                rows[index].management = '';
+                rows[index].assetname = '';
+                rows[index].person = '';
+                rows[index].errorperson = '';
+                rows[index].eafter = '';
+                rows[index].erroreafter = '';
+                rows[index].reason = '';
             }
         },
         addRow() {
