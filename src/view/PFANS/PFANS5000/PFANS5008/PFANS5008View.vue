@@ -343,8 +343,8 @@
                 } else if (val === 'export') {
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [this.$t('label.user_name'), this.$t('label.center'),  this.$t('label.group'),  this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.start'), this.$t('label.end'),this.$t('label.PFANS5008VIEW_GZBZ')];
-                        const filterVal = ['username', 'center_name', 'group_name', 'team_name', 'project_id', 'log_date', 'time_start', 'time_end', 'work_memo'];
+                        const tHeader = [this.$t('label.user_name'), this.$t('label.center'),  this.$t('label.group'),  this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.PFANS5008FORMVIEW_SC'),this.$t('label.PFANS5008VIEW_GZBZ')];
+                        const filterVal = ['username', 'center_name', 'group_name', 'team_name', 'project_id', 'log_date', 'time_start', 'work_memo'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data,  this.$t('menu.PFANS5008'));

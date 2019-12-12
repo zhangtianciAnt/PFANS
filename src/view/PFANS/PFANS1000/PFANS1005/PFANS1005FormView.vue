@@ -48,14 +48,16 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice">
                 <template slot-scope="scope">
-                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="2" :max="9999999" controls-position="right"
+                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="2" :max="9999999"
+                                   controls-position="right"
                                    :step="1" v-model="scope.row.unitprice">
                   </el-input-number>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_QUANTITY')" align="center" prop="numbers">
                 <template slot-scope="scope">
-                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="0" :max="99999" controls-position="right"
+                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="0" :max="99999"
+                                   controls-position="right"
                                    :step="1" v-model="scope.row.numbers">
                   </el-input-number>
                 </template>
@@ -215,8 +217,8 @@
       }
     },
     methods: {
-      changeSum(){
-        this.tableD[0].amount = this.tableD[0].unitprice * this.tableD[0].numbers
+      changeSum() {
+        this.tableD[0].amount = this.tableD[0].unitprice * this.tableD[0].numbers;
       },
       getUserids(val) {
         this.form.user_id = val;
@@ -249,6 +251,12 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        } else if (rows.length === 1) {
+          rows[index].projects = '';
+          rows[index].unitprice = '';
+          rows[index].numbers = '';
+          rows[index].amount = '';
+          rows[index].remarks = '';
         }
       },
       addRow() {
@@ -282,14 +290,14 @@
               this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.shoppingDetailed = [];
               for (let i = 0; i < this.tableD.length; i++) {
-                if (this.tableD[i].unitprice !== '' || this.tableD[i].projects !== '' || this.tableD[i].numbers !== '' ||
-                  this.tableD[i].amount !== '' || this.tableD[i].remarks !== '') {
+                if (this.tableD[i].projects !== '' || this.tableD[i].unitprice > 0 || this.tableD[i].numbers > 0 ||
+                  this.tableD[i].amount > 0 || this.tableD[i].remarks !== '') {
                   this.baseInfo.shoppingDetailed.push(
                     {
                       shoppingdetailed_id: this.tableD[i].shoppingdetailed_id,
                       purchaseApply_id: this.tableD[i].purchaseApply_id,
-                      unitprice: this.tableD[i].unitprice,
                       projects: this.tableD[i].projects,
+                      unitprice: this.tableD[i].unitprice,
                       numbers: this.tableD[i].numbers,
                       amount: this.tableD[i].amount,
                       remarks: this.tableD[i].remarks,
