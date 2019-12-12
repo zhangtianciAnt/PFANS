@@ -91,7 +91,6 @@
         },
         tableD: [
           {
-            assets_id: '',
             filename: '',
             typeassets: '',
             price: '',
@@ -135,21 +134,6 @@
             key: 'save',
             name: 'button.save',
             icon: 'el-icon-check',
-          },
-          {
-            key: 'vResult',
-            name: 'button.vResult',
-            icon: 'el-icon-thumb',
-          },
-          {
-            key: 'end',
-            name: 'button.end',
-            icon: 'el-icon-finished',
-          },
-          {
-            key: 'trash',
-            name: 'button.trash',
-            icon: 'el-icon-close',
           },
         ];
       } else {
@@ -220,7 +204,6 @@
       selectionChange(val) {
         this.rowid = '';
         this.multipleSelection = val;
-        this.rowid = val[0].assets_id;
         for (let i = 1; i < this.multipleSelection.length; i++) {
           this.rowid = this.rowid + ';' + this.multipleSelection[i].assets_id;
         }
