@@ -209,9 +209,7 @@
         this.form.typeassets = val;
       },
       getQr(){
-        // if(this.qrcode1 !== ''){
-        //   this.$('#qrcode').html("");
-        // }
+        document.getElementById('qrcode').innerHTML = '';
         this.qrcode1 = new QRCode('qrcode', {
           width: 132,
           height: 132,

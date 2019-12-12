@@ -3,7 +3,7 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
-      <div id="qrcode" v-html="textaa"></div>
+      <div id="qrcode"></div>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>

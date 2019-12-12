@@ -61,7 +61,7 @@
             child: [
               {
                 code: 'annual_leave',
-                label: 'label.PFANS2013VIEW_ANNUAL_LEAVE',
+                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
                 child: [
                   {
                     code: 'annual_leave_lastyear',
@@ -94,7 +94,7 @@
               },
               {
                 code: 'paid_leave',
-                label: 'label.PFANS2013VIEW_PAID_LEAVE',
+                label: 'label.PFANS2013VIEW_PAIDLEAVE',
                 child: [
                   {
                     code: 'paid_leave_lastyear',
@@ -136,7 +136,7 @@
             child: [
               {
                 code: 'annual_leave',
-                label: 'label.PFANS2013VIEW_ANNUAL_LEAVE',
+                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
                 child: [
                   {
                     code: 'annual_leave_thisyear',
@@ -169,7 +169,7 @@
               },
               {
                 code: 'paid_leave',
-                label: 'label.PFANS2013VIEW_PAID_LEAVE',
+                label: 'label.PFANS2013VIEW_PAIDLEAVE',
                 child: [
                   {
                     code: 'paid_leave_thisyear',

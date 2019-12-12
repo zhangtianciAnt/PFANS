@@ -49,7 +49,7 @@
                       <el-form-item>
                         <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank"
                                  :underline="false"
-                                 @click="program=true" type="primary">
+                                 @click="program=true" type="primary"   :disabled="!disable" >
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
                         </el-link>
                         <el-dialog :visible.sync="program" width="50%">
@@ -62,7 +62,8 @@
                                 :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
                                 :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
                                 :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
-                                :data="transfer">
+                                :data="transfer"
+                                >
                               </el-transfer>
                               <el-form-item>
                                 <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
@@ -126,7 +127,7 @@
                   </template>
                 </el-calendar>
                 <div align="center">
-                  <span v-show="riqi"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
+                  <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
                   <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
                 </div>
                 <el-table
@@ -212,7 +213,7 @@
           project_id: '',
           project_name: [],
         },
-        riqi: true,
+        Riqickeck: true,
         xsTable: false,
         program: false,
         code2: 'PP008',
@@ -518,61 +519,63 @@
         }
       },
       submitForm(determine) {
-        determine.user_id = this.$store.getters.userinfo.userid;
-        const data = [];
-        for (let i = 0; i < this.transfer.length; i++) {
-          for (var m = 0; m < determine.project_id.length; m++) {
-            if (this.transfer[i].key === determine.project_id[m].value) {
-              data.push({
-                project_id: determine.project_id[m].value,
-                project_name: this.transfer[i].label,
-                user_id: determine.user_id,
-              });
+        if(this.determine.project_id!= ""){
+          determine.user_id = this.$store.getters.userinfo.userid;
+          const data = [];
+          for (let i = 0; i < this.transfer.length; i++) {
+            for (var m = 0; m < determine.project_id.length; m++) {
+              if (this.transfer[i].key === determine.project_id[m].value) {
+                data.push({
+                  project_id: determine.project_id[m].value,
+                  project_name: this.transfer[i].label,
+                  user_id: determine.user_id,
+                });
+              }
             }
           }
-        }
-        this.optiondate = data;
-        this.loading = true;
-        for (let i = 0; i < this.optiondate.length; i++) {
-          this.$store
-            .dispatch('PFANS5008Store/createProject', this.optiondate[i])
-            .then(response => {
-              this.List = response;
-              this.$store
-                .dispatch('PFANS5008Store/getProjectList', {})
-                .then(response => {
-                  this.optionsdata = [];
-                  let user_id = this.$store.getters.userinfo.userid;
-                  for (let i = 0; i < response.length; i++) {
-                    if (user_id === response[i].user_id) {
-
-                      var vote = {};
-                      vote.value = response[i].project_id,
-                        vote.lable = response[i].project_name,
-                        this.optionsdata.push(vote);
+          this.optiondate = data;
+          this.loading = true;
+          for (let i = 0; i < this.optiondate.length; i++) {
+            this.$store
+              .dispatch('PFANS5008Store/createProject', this.optiondate[i])
+              .then(response => {
+                this.List = response;
+                this.$store
+                  .dispatch('PFANS5008Store/getProjectList', {})
+                  .then(response => {
+                    this.optionsdata = [];
+                    let user_id = this.$store.getters.userinfo.userid;
+                    for (let i = 0; i < response.length; i++) {
+                      if (user_id === response[i].user_id) {
+                        var vote = {};
+                        vote.value = response[i].project_id,
+                          vote.lable = response[i].project_name,
+                          this.optionsdata.push(vote);
+                      }
                     }
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                    this.loading = false;
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-              this.data = response;
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
+                this.loading = false;
               });
-              this.loading = false;
-            });
+          }
+          this.program = false;
         }
         this.program = false;
       },
@@ -651,10 +654,10 @@
         }
         if (val === 'btnSave') {
           this.companyform.logmanagement_id = this.$route.params._id;
-          this.loading = true;
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               if (this.$route.params._id) {
+                this.loading = true;
                 this.$store
                   .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                   .then(response => {
@@ -784,13 +787,11 @@
         this.companyform.behavior_breakdown = value3;
       },
       clickdata() {
-        debugger
         if (this.companyform.log_date == null) {
-          this.riqi = false;
+          this.Riqickeck = false;
         } else {
-          this.riqi = true;
+          this.Riqickeck = true;
         }
-
         this.xsTable = false;
         this.loading = true;
         this.$store

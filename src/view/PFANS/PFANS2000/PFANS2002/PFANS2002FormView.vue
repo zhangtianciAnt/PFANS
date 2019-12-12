@@ -306,7 +306,7 @@
           >
             <el-row :gutter="20">
               <el-col :span="8">
-                <el-form-item :label="$t('label.center')" label-width="8rem">
+                <el-form-item :label="$t('label.center')" label-width="8.8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.center_id"
@@ -318,7 +318,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.group')" label-width="8rem">
+                <el-form-item :label="$t('label.group')" label-width="8.8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.group_id"
@@ -330,7 +330,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.team')" label-width="8rem">
+                <el-form-item :label="$t('label.team')" label-width="8.8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.team_id"
@@ -377,12 +377,12 @@
                     :disabled="disabled"
                     @change="changeUsing"
                     class="width"
-                    code="PR039"
+                    code="PR051"
                   ></dicselect>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-if="display">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHERS')" label-width="8rem">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHERS')" label-width="8.8rem">
                   <user
                     :disabled="disabled"
                     :userlist="form.others"
@@ -595,7 +595,7 @@
         this.buttonClick("update");
       },
       changeUsing(val) {
-        if (val === "PR039004") {
+        if (val === "PR051004") {
           this.display = true;
         } else {
           this.display = false;
