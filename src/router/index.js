@@ -124,7 +124,6 @@ import ASSETS1002View from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002View.v
 import ASSETS1002FormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002FormView.vue'
 import ASSETS1002ExportFormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002ExportFormView.vue'
 import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.vue'
-import ASSETS1003FormView from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003FormView.vue'
 Vue.use(Router);
 
 const routes = [
@@ -732,11 +731,6 @@ const routes = [
         path: '/ASSETS1003View',
         name: 'ASSETS1003View',
         component: ASSETS1003View,
-      },
-      {
-        path: '/ASSETS1003FormView',
-        name: 'ASSETS1003FormView',
-        component: ASSETS1003FormView,
       },
     ]
   }
