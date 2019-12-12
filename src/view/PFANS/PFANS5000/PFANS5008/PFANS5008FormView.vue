@@ -62,7 +62,8 @@
                                 :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
                                 :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
                                 :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
-                                :data="transfer">
+                                :data="transfer"
+                                >
                               </el-transfer>
                               <el-form-item>
                                 <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
@@ -653,10 +654,10 @@
         }
         if (val === 'btnSave') {
           this.companyform.logmanagement_id = this.$route.params._id;
-          this.loading = true;
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               if (this.$route.params._id) {
+                this.loading = true;
                 this.$store
                   .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                   .then(response => {
