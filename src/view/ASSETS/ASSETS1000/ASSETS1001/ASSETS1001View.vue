@@ -1,8 +1,9 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :handleSelectionChange="handleSelectionChange"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
+      <div id="qrcode" v-html="textaa"></div>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -46,7 +47,6 @@
         </div>
       </div>
     </el-dialog>
-    <div id="qrcode"></div>
   </div>
 </template>
 
@@ -149,16 +149,13 @@
         ],
         rowid: '',
         row_id: 'assets_id',
-        handleSelection: [],
+        selectedlist: [],
       };
     },
     mounted() {
       this.getListData();
     },
     methods: {
-      handleSelectionChange(val){
-        this.handleSelection = val;
-      },
       getListData() {
         this.loading = true;
         this.$store
@@ -311,8 +308,9 @@
         if (val === 'import') {
           this.daoru = true;
         }
-        if (val === 'print') {
-          for(let i = 0; i <this.handleSelection.length; i++ ){
+        if (val === 'prtQrcode') {
+          this.selectedlist = this.$refs.roletable.selectedList;
+          for(let i = 0; i <this.selectedlist.length; i++ ){
             let qrcode = new QRCode('qrcode', {
               width: 132,
               height: 132,
