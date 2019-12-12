@@ -190,6 +190,7 @@ module.exports = {
     ASSETS: "资产盘点",
     ASSETS1001: "资产",
     ASSETS1002: "盘点",
+    ASSETS1003: "服务器地址",
 },
   title: {
     workflow: "流程",
@@ -273,6 +274,7 @@ module.exports = {
     ASSETS1002VIEW: "盘点计划",
     ASSETS1002FORMVIEW: "盘点计划详情",
     ASSETS1002EXPORTFORMVIEW: "盘点详细",
+    ASSETS1003VIEW: "服务器地址",
   },
   label: {
     pfanstype: "申請種類",
@@ -1572,5 +1574,6 @@ module.exports = {
     ASSETS1002FORMVIEW_INVENTORYRANGE: "盘点范围",
     ASSETS1002EXPORTFORMVIEW_BARCODE: "条形码",
     ASSETS1002EXPORTFORMVIEW_RESULT: "结果",
+    ASSETS1003VIEW_FILEADDRESS: "服务器地址",
   }
 };
