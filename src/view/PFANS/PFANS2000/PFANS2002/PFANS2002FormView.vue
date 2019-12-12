@@ -418,6 +418,7 @@
         disbaled: false,
         num: 0,
         activeName: "first",
+          selectType: "Single",
         sex_options: [
           { value: "1", label: this.$t("label.PFANS2002FORMVIEW_BOY") },
           {
