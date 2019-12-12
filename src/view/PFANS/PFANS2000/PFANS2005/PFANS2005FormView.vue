@@ -2646,6 +2646,8 @@
         ],
         tableZHSR: [
           {
+            rowindex: '',
+            user_id: '',
             month1wages: '',
             month1appreciation: '',
             month2wages: '',
@@ -2752,6 +2754,7 @@
         }],
         tableLJSJ: [
           {
+            rowindex: '',
             user_id: '',
             january: '',
             february: '',
@@ -2804,6 +2807,9 @@
             let datalistzxkc = [];
             let datalistqq = [];
             let datalistcy = [];
+            let datalistljsj = [];
+            let datalistms = [];
+            let datalistzhsr = [];
             for (let j = 0; j < response.lackattendance.length; j++) {
               let user = getUserInfo(response.lackattendance[j].user_id);
               if (user) {
@@ -3259,8 +3265,27 @@
                   response.accumulatedTaxVo[j].sumThis -
                   response.accumulatedTaxVo[j].december;
               }
-              this.tableLJSJ = response.accumulatedTaxVo;
-              this.totaldataAccumulatedTax = response.accumulatedTaxVo;
+              let obj = {};
+              obj.rowindex = j + 1 ;
+              obj.user_id =  response.accumulatedTaxVo[j].user_id;
+              obj.january =  response.accumulatedTaxVo[j].january;
+              obj.february =  response.accumulatedTaxVo[j].february;
+              obj.march =  response.accumulatedTaxVo[j].march;
+              obj.april =  response.accumulatedTaxVo[j].april;
+              obj.may =  response.accumulatedTaxVo[j].may;
+              obj.june =  response.accumulatedTaxVo[j].june;
+              obj.july =  response.accumulatedTaxVo[j].july;
+              obj.august =  response.accumulatedTaxVo[j].august;
+              obj.september =  response.accumulatedTaxVo[j].september;
+              obj.october =  response.accumulatedTaxVo[j].october;
+              obj.november =  response.accumulatedTaxVo[j].november;
+              obj.december =  response.accumulatedTaxVo[j].december;
+              obj.sumThis =  response.accumulatedTaxVo[j].sumThis;
+              obj.shouldwages =  response.accumulatedTaxVo[j].shouldwages;
+              obj.balance =  response.accumulatedTaxVo[j].balance;
+              datalistljsj[j] = obj;
+              this.tableLJSJ = datalistljsj;
+              this.totaldataAccumulatedTax = datalistljsj;
               this.listAccumulatedTax = 15;
               this.getList();
             }
@@ -3271,9 +3296,25 @@
                   response.dutyfreeVo[j].user_id,
                 ).userinfo.customername;
               }
-
-              this.tableMS = response.dutyfreeVo;
-              this.totaldataDutyfreeVo = response.dutyfreeVo;
+              let obj = {};
+              obj.rowindex = j + 1 ;
+              obj.user_id =  response.dutyfreeVo[j].user_id;
+              obj.january =  response.dutyfreeVo[j].january;
+              obj.february =  response.dutyfreeVo[j].february;
+              obj.march =  response.dutyfreeVo[j].march;
+              obj.april =  response.dutyfreeVo[j].april;
+              obj.may =  response.dutyfreeVo[j].may;
+              obj.june =  response.dutyfreeVo[j].june;
+              obj.july =  response.dutyfreeVo[j].july;
+              obj.august =  response.dutyfreeVo[j].august;
+              obj.september =  response.dutyfreeVo[j].september;
+              obj.october =  response.dutyfreeVo[j].october;
+              obj.november =  response.dutyfreeVo[j].november;
+              obj.december =  response.dutyfreeVo[j].december;
+              obj.total =  response.dutyfreeVo[j].total;
+              datalistms[j] = obj;
+              this.tableMS = datalistms;
+              this.totaldataDutyfreeVo = datalistms;
               this.listDutyfreeVo = 14;
               this.getList();
             }
@@ -3285,8 +3326,36 @@
                 ).userinfo.customername;
               }
 
-              this.tableZHSR = response.comprehensiveVo;
-              this.totaldataZHSR = response.comprehensiveVo;
+              let obj = {};
+              obj.rowindex = j + 1 ;
+              obj.user_id = response.comprehensiveVo[j].user_id ;
+              obj.month1wages = response.comprehensiveVo[j].month1wages ;
+              obj.month1appreciation = response.comprehensiveVo[j].month1appreciation ;
+              obj.month2wages = response.comprehensiveVo[j].month2wages ;
+              obj.month2appreciation = response.comprehensiveVo[j].month2appreciation ;
+              obj.month3wages = response.comprehensiveVo[j].month3wages ;
+              obj.month3appreciation = response.comprehensiveVo[j].month3appreciation ;
+              obj.month4wages = response.comprehensiveVo[j].month4wages ;
+              obj.month4appreciation = response.comprehensiveVo[j].month4appreciation ;
+              obj.month5wages = response.comprehensiveVo[j].month5wages ;
+              obj.month5appreciation = response.comprehensiveVo[j].month5appreciation ;
+              obj.month6wages = response.comprehensiveVo[j].month6wages ;
+              obj.month6appreciation = response.comprehensiveVo[j].month6appreciation ;
+              obj.month7wages = response.comprehensiveVo[j].month7wages ;
+              obj.month7appreciation = response.comprehensiveVo[j].month7appreciation ;
+              obj.month8wages = response.comprehensiveVo[j].month8wages ;
+              obj.month8appreciation = response.comprehensiveVo[j].month8appreciation ;
+              obj.month9wages = response.comprehensiveVo[j].month9wages ;
+              obj.month9appreciation = response.comprehensiveVo[j].month9appreciation ;
+              obj.month10wages = response.comprehensiveVo[j].month10wages ;
+              obj.month10appreciation = response.comprehensiveVo[j].month10appreciation ;
+              obj.month11wages = response.comprehensiveVo[j].month11wages ;
+              obj.month11appreciation = response.comprehensiveVo[j].month11appreciation ;
+              obj.month12wages = response.comprehensiveVo[j].month12wages ;
+              obj.month12appreciation = response.comprehensiveVo[j].month12appreciation ;
+              datalistzhsr[j] = obj;
+              this.tableZHSR = datalistzhsr;
+              this.totaldataZHSR = datalistzhsr;
               this.ListZHSR = 11;
               this.getList();
             }
@@ -3374,7 +3443,7 @@
         this.getList();
       },
       handleCurrentChangeLJSJ(val) {
-        this.listQueryListKJSJ.page = val;
+        this.listQueryListLJSJ.page = val;
         this.getList();
       },
       handleSizeChangeGRDB(val) {
