@@ -169,19 +169,19 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" type="email"
                                 v-model="form.payeecode"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1" prop="payeebankaccountnumber">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeebankaccountnumber"></el-input>
                     </el-form-item>
@@ -189,7 +189,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1" prop="payeebankaccount">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
@@ -197,19 +197,19 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.name"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.receivables"></el-input>
                     </el-form-item>
@@ -217,7 +217,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
                       <el-select :disabled="!disable" style="width: 11rem" v-model="form.loan">
                         <el-option
                           :key="item.value"
@@ -231,7 +231,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
                       <el-input :disabled="!disable" maxlength="20"
                                 style="width: 11rem" v-model="form.fullname"></el-input>
                     </el-form-item>
@@ -243,7 +243,7 @@
                           header-cell-class-name="sub_bg_color_grey height" v-if="showdata">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.abstract">
+                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -301,7 +301,7 @@
                           header-cell-class-name="sub_bg_color_grey height" v-if="showdata2">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.abstract">
+                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -837,7 +837,52 @@
           accountnumber: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
-            trigger: 'blur',
+            trigger: 'change',
+          }],
+          payeename: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME'),
+            trigger: 'change',
+          }],
+          payeecode: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
+            trigger: 'change',
+          }],
+          payeebankaccountnumber: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER'),
+            trigger: 'change',
+          }],
+          payeebankaccount: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT'),
+            trigger: 'change',
+          }],
+          name: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALNAME'),
+            trigger: 'change',
+          }],
+          code: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALCODE'),
+            trigger: 'change',
+          }],
+          receivables: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME'),
+            trigger: 'change',
+          }],
+          loan: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_TEMPORARYLOAN'),
+            trigger: 'change',
+          }],
+          fullname: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_COMPANYNAME'),
+            trigger: 'change',
           }],
         },
         code1: 'PG002',
@@ -1051,30 +1096,67 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.form.name="";
+          this.form.code="";
+          this.form.accountnumber="";
+          this.form.receivables="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.receivables="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;
           this.show4 = false;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = false;
           this.show4 = true;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.receivables="";
+          this.form.fullname="";
         } else {
           this.show1 = false;
           this.show2 = false;
           this.show3 = false;
           this.show4 = false;
           this.show5 = true;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.receivables="";
+          this.form.loan="";
         }
       },
       getBudge(val) {
@@ -1106,9 +1188,9 @@
           }
           this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
         } else if (val === 'PJ003003') {
-          this.form.currencyrate = '';
+          debugger;
           this.disablecurr = true;
-          this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+          this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
         }
       },
       deleteRow(index, rows) {
@@ -1403,8 +1485,8 @@
               this.baseInfo.purchasedetails = [];
               this.baseInfo.otherdetails = [];
               for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
-                  || this.tableT[i].rmb !== "" || this.tableT[i].foreigncurrency !== "" || this.tableT[i].annexno !== "") {
+                if (this.tableT[i].trafficdate !== null || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
+                  || this.tableT[i].rmb !== "0" || this.tableT[i].foreigncurrency !== "0" || this.tableT[i].annexno !== "") {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -1515,5 +1597,23 @@
   }
 </script>
 <style rel="stylesheet/scss" lang="scss">
+
+  .el-table {
+    overflow-x: auto;
+  }
+
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+    overflow: visible;
+  }
+
+  .el-table::after {
+    position: relative;
+  }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: visible;
+  }
 
 </style>
