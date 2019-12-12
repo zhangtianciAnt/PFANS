@@ -10,24 +10,24 @@
               <el-aside style="width: 58%;height: 40rem">
                 <el-row>
                   <el-col :span="11">
-                <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
-                              style="width: 5%" prop="log_date">
-                  <el-date-picker
-                    @change="clickdata"
-                    v-model="companyform.log_date"
-                    :disabled="!disable"
-                    type="date"
-                    style="width:  11rem"
-                  >
-                  </el-date-picker>
-                </el-form-item>
+                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
+                                  style="width: 5%" prop="log_date">
+                      <el-date-picker
+                        @change="clickdata"
+                        v-model="companyform.log_date"
+                        :disabled="!disable"
+                        type="date"
+                        style="width:  11rem"
+                      >
+                      </el-date-picker>
+                    </el-form-item>
                   </el-col>
                   <el-col :span="10">
-                  <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
-                    <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
-                                     :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
-                    ></el-input-number>
-                  </el-form-item>
+                    <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
+                      <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
+                      ></el-input-number>
+                    </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -47,7 +47,8 @@
                     </el-col>
                     <el-col :span="10">
                       <el-form-item>
-                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank" :underline="false"
+                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank"
+                                 :underline="false"
                                  @click="program=true" type="primary">
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
                         </el-link>
@@ -125,7 +126,7 @@
                   </template>
                 </el-calendar>
                 <div align="center">
-                  <span> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
+                  <span v-show="riqi"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
                   <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
                 </div>
                 <el-table
@@ -211,6 +212,7 @@
           project_id: '',
           project_name: [],
         },
+        riqi: true,
         xsTable: false,
         program: false,
         code2: 'PP008',
@@ -225,6 +227,8 @@
         rules: {
           log_date: [{
             required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5008VIEW_RIQI'),
+            trigger: 'blur',
           },
           ],
         },
@@ -780,6 +784,13 @@
         this.companyform.behavior_breakdown = value3;
       },
       clickdata() {
+        debugger
+        if (this.companyform.log_date == null) {
+          this.riqi = false;
+        } else {
+          this.riqi = true;
+        }
+
         this.xsTable = false;
         this.loading = true;
         this.$store
@@ -846,6 +857,7 @@
       height: 2.8rem;
     }
   }
+
   .el-form-item__error {
     width: 15rem;
   }

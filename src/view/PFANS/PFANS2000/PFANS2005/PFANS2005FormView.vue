@@ -3325,7 +3325,6 @@
                   response.comprehensiveVo[j].user_id,
                 ).userinfo.customername;
               }
-
               let obj = {};
               obj.rowindex = j + 1 ;
               obj.user_id = response.comprehensiveVo[j].user_id ;
