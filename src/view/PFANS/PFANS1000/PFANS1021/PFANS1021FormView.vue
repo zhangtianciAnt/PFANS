@@ -181,7 +181,7 @@
   import { Message } from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
-  import {telephoneNumber,validateEmail} from '@/utils/validate';
+  import {validateEmail} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -215,8 +215,9 @@
 
         };
         var validateTel = (rule, value, callback) => {
+            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
             if (this.form.extension !== null && this.form.extension !== '') {
-                if (telephoneNumber(value)) {
+                if (!this.regExp.test(value)) {
                     callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
                 } else {
                     callback();
@@ -275,16 +276,16 @@
               {
                   securitydetailid: '',
                   securityid: '',
-                  title:'',
-                  detailcenter_id:'',
-                  detailgroup_id:'',
-                  detailteam_id:'',
-                  phonenumber:'',
-                  emaildetail:'',
-                  startdate: moment(new Date()).format("YYYY-MM-DD"),
-                  fabuilding:'',
-                  fbbuilding:'',
-                  entrymanager:'',
+                  title: '',
+                  detailcenter_id: '',
+                  detailgroup_id: '',
+                  detailteam_id: '',
+                  phonenumber: '',
+                  emaildetail: '',
+                  startdate: '',
+                  fabuilding: '',
+                  fbbuilding: '',
+                  entrymanager: '',
               },
           ],
           code: 'PJ029',
@@ -470,6 +471,17 @@
             if (rows.length > 1) {
                 rows.splice(index, 1);
             }
+            if(row.length = 1){
+                rows[index].title = '';
+                rows[index].detailcenter_id = '';
+                rows[index].detailgroup_id = '';
+                rows[index].detailteam_id = '';
+                rows[index].emaildetail = '';
+                rows[index].startdate = '';
+                rows[index].fabuilding = '';
+                rows[index].fbbuilding = '';
+                rows[index].entrymanager = '';
+            }
         },
         addRow() {
             this.tableD.push({
@@ -481,7 +493,7 @@
                 detailteam_id:'',
                 phonenumber:'',
                 emaildetail:'',
-                startdate: moment(new Date()).format("YYYY-MM-DD"),
+                startdate: '',
                 fabuilding:'',
                 fbbuilding:'',
                 entrymanager:'',

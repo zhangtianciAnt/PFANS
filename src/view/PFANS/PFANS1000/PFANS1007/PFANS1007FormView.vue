@@ -125,11 +125,10 @@
                       :on-success="fileSuccess"
                       :on-error="fileError"
                       class="upload-demo"
-                      :disabled="!disabled"
                       drag
                       ref="upload">
                       <i class="el-icon-upload"></i>
-                      <div class="el-upload__text" :disabled="!disabled">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
                     </el-upload>
                   </el-form-item>
                 </el-col>
