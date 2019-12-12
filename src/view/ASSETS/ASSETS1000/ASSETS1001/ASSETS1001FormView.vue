@@ -188,7 +188,7 @@
           {
             key: 'printing',
             name: 'button.printing',
-            icon: 'el-icon-check',
+            icon: 'el-icon-printer',
           },
         ];
       }

@@ -30,7 +30,7 @@
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
             <el-table :data="tableD" @selection-change="selectionChange"
                       header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick">
-              <el-table-column reserve-selection type="selection" width="55"></el-table-column>
+              <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
@@ -139,17 +139,17 @@
           {
             key: 'vResult',
             name: 'button.vResult',
-            icon: 'el-icon-check',
+            icon: 'el-icon-thumb',
           },
           {
             key: 'end',
             name: 'button.end',
-            icon: 'el-icon-check',
+            icon: 'el-icon-finished',
           },
           {
             key: 'trash',
             name: 'button.trash',
-            icon: 'el-icon-check',
+            icon: 'el-icon-close',
           },
         ];
       } else {
@@ -157,17 +157,17 @@
           {
             key: 'vResult',
             name: 'button.vResult',
-            icon: 'el-icon-check',
+            icon: 'el-icon-thumb',
           },
           {
             key: 'end',
             name: 'button.end',
-            icon: 'el-icon-check',
+            icon: 'el-icon-finished',
           },
           {
             key: 'trash',
             name: 'button.trash',
-            icon: 'el-icon-check',
+            icon: 'el-icon-close',
           },
         ];
       }

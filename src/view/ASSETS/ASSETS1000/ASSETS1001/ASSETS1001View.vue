@@ -144,7 +144,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-download'},
-          {'key': 'prtQrcode', 'name': 'button.prtQrcode', 'disabled': false},
+          {'key': 'prtQrcode', 'name': 'button.prtQrcode', 'disabled': false, 'icon': 'el-icon-printer'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         rowid: '',
