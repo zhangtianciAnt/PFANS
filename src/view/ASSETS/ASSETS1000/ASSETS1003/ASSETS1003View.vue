@@ -15,7 +15,7 @@
           <el-row>
             <el-col :span="24" align="center">
               <div id="qrcode"></div>
-           </el-col>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -25,7 +25,6 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import {Message} from 'element-ui';
   import QRCode from 'qrcodejs2';
 
   export default {
@@ -49,17 +48,15 @@
     created() {
     },
     methods: {
-      getAddre(){
-        // if(this.qrcodeC !== ''){
-        //   this.$('#qrcode').html("");
-        // }
-         this.qrcodeC = new QRCode('qrcode', {
+      getAddre() {
+        document.getElementById('qrcode').innerHTML = '';
+        this.qrcodeC = new QRCode('qrcode', {
           width: 132,
           height: 132,
           text: this.form.fileaddress, // 二维码地址
-          colorDark: "#000",
-          colorLight: "#fff",
-        })
+          colorDark: '#000',
+          colorLight: '#fff',
+        });
       },
     },
   };
@@ -68,6 +65,7 @@
 <style lang="scss" rel="stylesheet/scss">
   #qrcode {
     display: inline-block;
+
     img {
       width: 132px;
       height: 132px;

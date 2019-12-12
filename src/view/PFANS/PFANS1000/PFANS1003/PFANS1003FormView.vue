@@ -220,7 +220,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
-  import {getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
+  import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -390,12 +390,12 @@
             },
           ],
         },
-        show: false,
-        show1: false,
-        show2: false,
-        show3: false,
-        show4: true,
-        canStart:false,
+          show: false,
+          show1: false,
+          show2: false,
+          show3: false,
+          show4: true,
+          canStart:false,
           fileList: [],
           upload: uploadUrl(),
       };
@@ -567,9 +567,11 @@
         if (val === 1) {
           this.show4 = true;
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEOFCHARGEGIST');
+          this.rules.gist[0].required = false;
         }else if (val === 2) {
           this.show4 = false;
           this.form.gist = "";
+          this.rules.gist[0].required = true;
         }
       },
       value1change(val){
