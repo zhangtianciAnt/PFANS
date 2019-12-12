@@ -167,7 +167,7 @@ module.exports = {
     PFANS2006: "工资详细",
     PFANS2007: "奖金发送",
     PFANS2009: "工资汇总表(全社)",
-    PFANS2011: "考勤管理",
+    PFANS2010: "考勤管理",
     PFANS2011: "加班申请",
     PFANS2012: "休假申请",
     PFANS2013: "年度休假",
