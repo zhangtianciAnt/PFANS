@@ -35,7 +35,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="dailypayment">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.dailypayment"
+                <el-date-picker :disabled="true" type="date" v-model="form.dailypayment"
                                 style="width: 11rem"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -83,12 +83,14 @@
                   </el-input>
                 </template>
               </el-table-column>
+              //连续
               <el-table-column align="center" width="90">
                 <template slot-scope="scope">
                 <el-checkbox
                   v-model="scope.row.dis"
                   :disabled="!disabled"
-                  @change="getChecked(scope.row.dis)"
+                  :key="index"
+                  @change="getChecked(scope.row.dis,scope.$index)"
                   active-value="1"
                   inactive-value="0"
                 >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
@@ -98,7 +100,7 @@
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center"
                                prop="attendancedate" width="190">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" :readonly="scope.row.dis" type="date" :no="scope.row" v-model="scope.row.attendancedate"
+                  <el-date-picker :disabled="!disabled" :key="index" :readonly="scope.row.dis" type="date" :no="scope.row" v-model="scope.row.attendancedate"
                                   style="width: 11rem"></el-date-picker>
                 </template>
                 //期间
@@ -159,7 +161,6 @@
     import user from "../../../components/user.vue";
     import {Message} from 'element-ui'
     import {getOrgInfoByUserId} from '@/utils/customize';
-    import org from "../../../components/org";
     import moment from "moment";
 
     export default {
@@ -169,7 +170,6 @@
             getOrgInfoByUserId,
             dicselect,
             user,
-            org
         },
         data() {
             var checkuser = (rule, value, callback) => {
@@ -205,7 +205,6 @@
             };
             return {
                 baseInfo: {},
-                // checked: false,
                 userlist: "",
                 loading: false,
                 erroruser: '',
@@ -361,8 +360,15 @@
                     row.errorapplication = "";
                 }
             },
-            getChecked(val) {
-                val = !val
+            //清空操作--多行
+            getChecked(val,index) {
+                for (let i = 0; i < this.tableD.length; i++) {
+                    if (val === true && index === i) {
+                        this.tableD[index].attendancedate = '';
+                    }else{
+                        this.tableD[index].startdate = [];
+                    }
+                }
             },
             getKind(val, row) {
                 row.kind = val;
@@ -461,7 +467,6 @@
                                     });
                                     this.loading = false;
                                 })
-
                         } else {
                             this.$store
                                 .dispatch('PFANS1022Store/insert', this.baseInfo)
