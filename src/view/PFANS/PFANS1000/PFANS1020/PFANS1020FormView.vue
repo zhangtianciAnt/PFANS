@@ -298,6 +298,12 @@
             if (rows.length > 1) {
                 rows.splice(index, 1);
             }
+            if(row.length = 1){
+                rows[index].username = '';
+                rows[index].rank = '';
+                rows[index].mailaddress = '';
+                rows[index].reason = '';
+            }
         },
         addRow() {
             this.tableD.push({

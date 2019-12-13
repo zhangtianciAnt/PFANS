@@ -136,7 +136,6 @@
           .dispatch('ASSETS1001Store/getOneInfo', {'assets_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            debugger;
                 this.qrcode1 = new QRCode('qrcode', {
                   width: 132,
                   height: 132,
@@ -156,13 +155,6 @@
             this.loading = false;
           });
       } else {
-        this.qrcode1 = new QRCode('qrcode', {
-          width: 132,
-          height: 132,
-          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'), // 二维码地址
-          colorDark : "#000",
-          colorLight : "#fff",
-        })
         this.userlist = this.$store.getters.userinfo.userid;
         this.form.principal = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -216,63 +208,80 @@
       getTypeassets(val) {
         this.form.typeassets = val;
       },
+      getQr(){
+        document.getElementById('qrcode').innerHTML = '';
+        this.qrcode1 = new QRCode('qrcode', {
+          width: 132,
+          height: 132,
+          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'), // 二维码地址
+          colorDark : "#000",
+          colorLight : "#fff",
+        })
+      },
+      getSave(){
+        this.form.barcode = this.qrcode1._htOption.text;  //当前的二维码
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('ASSETS1001Store/getUpdateInfo', this.form)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.loading = true;
+          this.$store
+            .dispatch('ASSETS1001Store/getInsertInfo', this.form)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            if(val === 'printing'){
-
-            }
             if(val === 'save'){
-              this.form.barcode = this.qrcode1._htOption.text;  //当前的二维码
-              if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                  .dispatch('ASSETS1001Store/getUpdateInfo', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('ASSETS1001Store/getInsertInfo', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
+              this.getSave();
+            }
+            if(val === 'savePrt'){
+              this.getQr();
+              this.getSave();
+            }
+            if(val === 'printing'){
+              this.getQr();
             }
           }
         });

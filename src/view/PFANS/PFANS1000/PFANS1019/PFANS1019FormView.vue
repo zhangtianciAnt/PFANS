@@ -65,27 +65,27 @@
           <!---->
           <el-row style="padding-top:1.5rem" >
             <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1051px">
-              <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center"  width="150" >
+              <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
+                               type="index"></el-table-column>
+
+
+              <el-table-column  :label="$t('label.PFANS1019FORMVIEW_MACHINENAME')" align="center"  width="150" >
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.number" style="width: 100%">
-                  </el-input>
-                </template>
-              </el-table-column >
-              <el-table-column :label="$t('label.PFANS1019FORMVIEW_MACHINENAME')" align="center"  width="150" >
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.machinename" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.machinename" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column >
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_CUSTOMER')" align="center"  width="150" >
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.customer" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.customer" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column >
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_STARTDATE')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disable"
+                  <el-date-picker
+                    :no="scope.row"
+                    :disabled="!disable"
                                   style="width: 100%"
                                   type="date"
                                   v-model="scope.row.startdate"
@@ -94,7 +94,9 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_ENDDATE')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disable"
+                  <el-date-picker
+                    :no="scope.row"
+                    :disabled="!disable"
                                   style="width: 100%"
                                   type="date"
                                   v-model="scope.row.enddate"
@@ -103,40 +105,41 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_SOFTWARENAME')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.softwarename" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.softwarename"  maxlength="36" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_NATURE')" align="center" width="160">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code"
-                    :data="form.nature"
+                    :data="scope.row.nature"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changenature"
-                    v-model="scope.row.nature"
                     style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_DEVELOPER')" align="center" width="150">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.developer" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.developer" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_EMPLOY')" align="center" width="150">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" v-model="scope.row.employ" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.employ"  maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_SOFTTYPE')" align="center" width="150">
                 <template slot-scope="scope">
                   <dicselect
+                    :no="scope.row"
                     :code="code"
-                    :data="form.softtype"
+                    :data="scope.row.softtype"
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changesofttype"
@@ -166,10 +169,6 @@
               </el-table-column>
             </el-table>
           </el-row>
-          <!---->
-
-
-
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -192,6 +191,8 @@
     },
     data() {
       return {
+        baseInfo: {},
+        loading: false,
         multiple: false,
         selectType: "Single",
         error: '',
@@ -210,18 +211,18 @@
           dailypayment: moment(new Date()).format("YYYY-MM-DD"),
         },
         tableT: [{
-          number: "",
+          trialsoftdetail_id: "",
           machinename: "",
           customer: "",
-          startdate: "",
-          enddate: "",
+          startdate:  moment(new Date()).format("YYYY-MM-DD"),
+          enddate:  moment(new Date()).format("YYYY-MM-DD"),
           softwarename: "",
           nature: "",
           developer: "",
           employ: "",
           softtype: "",
         }],
-        code: '',
+        code: 'PJ040',
       };
     },
     created() {
@@ -231,6 +232,7 @@
           {
             key: "save",
             name: "button.save",
+            disabled: false,
             icon: "el-icon-check"
           }
         ];
@@ -240,12 +242,16 @@
       if (this.$route.params._id) {
         this.loading = true
         this.$store
-          .dispatch('PFANS1019Store/getTrialsoftOne', {"trialsoft_id": this.$route.params._id})
+          .dispatch('PFANS1019Store/selectById', {"trialsoft_id": this.$route.params._id})
           .then(response => {
-            this.form = response;
+            this.userlist = response.user_id;
+            this.form = response.trialsoft;
             this.userlist = this.form.user_id;
             if (this.form.status === '2') {
               this.disable = false;
+            }
+            if (response.trialsoftdetail.length > 0) {
+              this.tableT = response.trialsoftdetail;
             }
             this.loading = false;
           })
@@ -305,7 +311,6 @@
       },
       addRow() {
         this.tableT.push({
-          number: "",
           machinename: "",
           customer: "",
           startdate: "",
@@ -324,17 +329,38 @@
       },
       buttonClick(val) {
           this.$refs["refform"].validate(valid => {
-            debugger;
             if (valid) {
-              debugger;
               this.loading = true
-              debugger;
+              this.form.dailypayment = moment(this.form.dailypayment).format('YYYY-MM-DD');
+              this.baseInfo = {};
+              this.baseInfo.trialsoft = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.trialsoftdetail = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].machinename !== '' || this.tableT[i].customer !== '' || this.tableT[i].startdate !== '' ||
+                  this.tableT[i].enddate !== '' || this.tableT[i].softwarename !== '' || this.tableT[i].nature !== ''||
+                  this.tableT[i].developer !== '' || this.tableT[i].employ !== '' || this.tableT[i].softtype !== '') {
+                  this.baseInfo.trialsoftdetail.push(
+                    {
+                      trialsoftdetail_id: this.tableT[i].trialsoftdetail_id,
+                      trialsoft_id: this.tableT[i].trialsoft_id,
+                      machinename: this.tableT[i].machinename,
+                      customer: this.tableT[i].customer,
+                      startdate: this.tableT[i].startdate,
+                      enddate: this.tableT[i].enddate,
+                      softwarename: this.tableT[i].softwarename,
+                      nature: this.tableT[i].nature,
+                      developer: this.tableT[i].developer,
+                      employ: this.tableT[i].employ,
+                      softtype: this.tableT[i].softtype,
+                    },
+                  );
+                }
+              }
               if (this.$route.params._id) {
-             alert(this.$route.params._id)
                 this.form.trialsoft_id = this.$route.params._id;
                 this.loading = true;
                 this.$store
-                  .dispatch('PFANS1019Store/updateTrialsoft', this.form)
+                  .dispatch('PFANS1019Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false
@@ -360,7 +386,7 @@
               } else {
                 this.loading = true
                 this.$store
-                  .dispatch('PFANS1019Store/createTrialsoft', this.form)
+                  .dispatch('PFANS1019Store/insert', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false

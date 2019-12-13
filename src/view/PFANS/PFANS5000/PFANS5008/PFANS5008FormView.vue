@@ -10,24 +10,24 @@
               <el-aside style="width: 58%;height: 40rem">
                 <el-row>
                   <el-col :span="11">
-                <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
-                              style="width: 5%" prop="log_date">
-                  <el-date-picker
-                    @change="clickdata"
-                    v-model="companyform.log_date"
-                    :disabled="!disable"
-                    type="date"
-                    style="width:  11rem"
-                  >
-                  </el-date-picker>
-                </el-form-item>
+                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
+                                  style="width: 5%" prop="log_date">
+                      <el-date-picker
+                        @change="clickdata"
+                        v-model="companyform.log_date"
+                        :disabled="!disable"
+                        type="date"
+                        style="width:  11rem"
+                      >
+                      </el-date-picker>
+                    </el-form-item>
                   </el-col>
                   <el-col :span="10">
-                  <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
-                    <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
-                                     :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
-                    ></el-input-number>
-                  </el-form-item>
+                    <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
+                      <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
+                      ></el-input-number>
+                    </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
@@ -47,8 +47,9 @@
                     </el-col>
                     <el-col :span="10">
                       <el-form-item>
-                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank" :underline="false"
-                                 @click="program=true" type="primary">
+                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank"
+                                 :underline="false"
+                                 @click="program=true" type="primary"   :disabled="!disable" >
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
                         </el-link>
                         <el-dialog :visible.sync="program" width="50%">
@@ -61,7 +62,9 @@
                                 :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
                                 :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
                                 :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
-                                :data="transfer">
+                                :data="transfer"
+                                :right-default-checked="determine.project_name"
+                                >
                               </el-transfer>
                               <el-form-item>
                                 <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
@@ -125,7 +128,7 @@
                   </template>
                 </el-calendar>
                 <div align="center">
-                  <span> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
+                  <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
                   <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
                 </div>
                 <el-table
@@ -211,6 +214,7 @@
           project_id: '',
           project_name: [],
         },
+        Riqickeck: true,
         xsTable: false,
         program: false,
         code2: 'PP008',
@@ -225,6 +229,8 @@
         rules: {
           log_date: [{
             required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5008VIEW_RIQI'),
+            trigger: 'blur',
           },
           ],
         },
@@ -503,7 +509,6 @@
           });
       },
       handleChange(value, direction, movedKeys) {
-        this.optionsdate = [];
         if (direction === 'right') {
           for (var k = 0; k < movedKeys.length; k++) {
             var vote = {};
@@ -514,61 +519,63 @@
         }
       },
       submitForm(determine) {
-        determine.user_id = this.$store.getters.userinfo.userid;
-        const data = [];
-        for (let i = 0; i < this.transfer.length; i++) {
-          for (var m = 0; m < determine.project_id.length; m++) {
-            if (this.transfer[i].key === determine.project_id[m].value) {
-              data.push({
-                project_id: determine.project_id[m].value,
-                project_name: this.transfer[i].label,
-                user_id: determine.user_id,
-              });
+        if(this.determine.project_id!= ""){
+          determine.user_id = this.$store.getters.userinfo.userid;
+          const data = [];
+          for (let i = 0; i < this.transfer.length; i++) {
+            for (var m = 0; m < determine.project_id.length; m++) {
+              if (this.transfer[i].key === determine.project_id[m].value) {
+                data.push({
+                  project_id: determine.project_id[m].value,
+                  project_name: this.transfer[i].label,
+                  user_id: determine.user_id,
+                });
+              }
             }
           }
-        }
-        this.optiondate = data;
-        this.loading = true;
-        for (let i = 0; i < this.optiondate.length; i++) {
-          this.$store
-            .dispatch('PFANS5008Store/createProject', this.optiondate[i])
-            .then(response => {
-              this.List = response;
-              this.$store
-                .dispatch('PFANS5008Store/getProjectList', {})
-                .then(response => {
-                  this.optionsdata = [];
-                  let user_id = this.$store.getters.userinfo.userid;
-                  for (let i = 0; i < response.length; i++) {
-                    if (user_id === response[i].user_id) {
-
-                      var vote = {};
-                      vote.value = response[i].project_id,
-                        vote.lable = response[i].project_name,
-                        this.optionsdata.push(vote);
+          this.optiondate = data;
+          this.loading = true;
+          for (let i = 0; i < this.optiondate.length; i++) {
+            this.$store
+              .dispatch('PFANS5008Store/createProject', this.optiondate[i])
+              .then(response => {
+                this.List = response;
+                this.$store
+                  .dispatch('PFANS5008Store/getProjectList', {})
+                  .then(response => {
+                    this.optionsdata = [];
+                    let user_id = this.$store.getters.userinfo.userid;
+                    for (let i = 0; i < response.length; i++) {
+                      if (user_id === response[i].user_id) {
+                        var vote = {};
+                        vote.value = response[i].project_id,
+                          vote.lable = response[i].project_name,
+                          this.optionsdata.push(vote);
+                      }
                     }
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                    this.loading = false;
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-              this.data = response;
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
+                this.loading = false;
               });
-              this.loading = false;
-            });
+          }
+          this.program = false;
         }
         this.program = false;
       },
@@ -647,10 +654,10 @@
         }
         if (val === 'btnSave') {
           this.companyform.logmanagement_id = this.$route.params._id;
-          this.loading = true;
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               if (this.$route.params._id) {
+                this.loading = true;
                 this.$store
                   .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                   .then(response => {
@@ -780,6 +787,11 @@
         this.companyform.behavior_breakdown = value3;
       },
       clickdata() {
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
         this.xsTable = false;
         this.loading = true;
         this.$store
@@ -846,6 +858,7 @@
       height: 2.8rem;
     }
   }
+
   .el-form-item__error {
     width: 15rem;
   }

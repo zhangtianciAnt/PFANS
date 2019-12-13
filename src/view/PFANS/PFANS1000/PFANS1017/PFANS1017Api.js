@@ -2,30 +2,30 @@ import request from '../../../../utils/request'
 
 export function getPsdcd() {
   return request({
-    url: 'Psdcd/get',
+    url: 'psdcd/get',
     method: 'get'
   })
 }
 
-export function getPsdcdOne(data) {
+export function selectById(data) {
   return request({
-    url: 'Psdcd/one',
+    url: 'psdcd/selectById',
+    method: 'get',
+    params: data
+  })
+}
+
+export function update(data) {
+  return request({
+    url: 'psdcd/update',
     method: 'post',
     data: data
   })
 }
 
-export function updatePsdcd(data) {
+export function insert(data) {
   return request({
-    url: 'Psdcd/update',
-    method: 'post',
-    data: data
-  })
-}
-
-export function createPsdcd(data) {
-  return request({
-    url: 'Psdcd/create',
+    url: 'psdcd/insert',
     method: 'post',
     data: data
   })
