@@ -116,7 +116,7 @@
                 </el-row>
                 <el-row :gutter="32">
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')">
+                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                       <dicselect
                         :code="code1"
                         :data="form.budgetunit"
@@ -129,7 +129,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')" prop="loan">
+                    <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')">
                       <el-select :disabled="!disable" @change="change2" style="width: 11rem" v-model="form.loan">
                         <el-option
                           :key="item.value"
@@ -452,7 +452,7 @@
                     </el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACTIVITYCONTENT')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACTIVITYCONTENT')" align="center" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code4"
                                :data="scope.row.activitycontent"
@@ -463,7 +463,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code5"
                                :data="scope.row.vehicleon"
@@ -483,7 +483,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code7"
                                :data="scope.row.movementtime"
@@ -494,7 +494,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout" width="100">
+                <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code9"
                                :data="scope.row.exitarea"
@@ -505,14 +505,14 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" v-else width="100">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" v-else width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" :no="scope.row" @blur="getCity(scope.row)" style="width: 100%"
                               v-model="scope.row.city">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYTYPE')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYTYPE')" align="center" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code10"
                                :data="scope.row.facilitytypeon"
@@ -532,7 +532,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" v-model="scope.row.facilityname">
                     </el-input>
@@ -542,7 +542,7 @@
                                  prop="accommodationallowance" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="disaccommod"
+                      :disabled="scope.row.disaccommod"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -559,7 +559,7 @@
                                  v-if="showAout" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="disaccommod"
+                      :disabled="scope.row.disaccommod"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -619,6 +619,7 @@
                                  width="160">
                   <template slot-scope="scope">
                     <el-input-number
+                      :no="scope.row"
                       :disabled="true"
                       :max="1000000000"
                       :min="0"
@@ -649,7 +650,8 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="showtick"
+                      :no="scope.row"
+                      :disabled="scope.row.showtick"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -976,9 +978,9 @@
             message: this.$t("normal.error_09") + this.$t("label.PFANS1013VIEW_RELATION"),
             trigger: "change"
           }],
-          loan: [{
+          budgetunit: [{
             required: true,
-            message: this.$t("normal.error_09") + this.$t("label.PFANS1013FORMVIEW_LOAN"),
+            message: this.$t("normal.error_09") + this.$t("label.budgetunit"),
             trigger: "change"
           }],
         },
@@ -1221,46 +1223,52 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].trafficdate = '';
-        rows[index].region = '';
-        rows[index].vehicle = '';
-        rows[index].startingpoint = '';
-        rows[index].rmb = '';
-        rows[index].foreigncurrency = '';
-        rows[index].annexno = '';
+        if (rows.length === 1) {
+          rows[index].trafficdate = '';
+          rows[index].region = '';
+          rows[index].vehicle = '';
+          rows[index].startingpoint = '';
+          rows[index].rmb = '';
+          rows[index].foreigncurrency = '';
+          rows[index].annexno = '';
+        }
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].accommodationdate = '';
-        rows[index].activitycontent = ' ';
-        rows[index].vehicleon = ' ';
-        rows[index].vehiclein = ' ';
-        rows[index].movementtime = ' ';
-        rows[index].city = '';
-        rows[index].exitarea = ' ';
-        rows[index].facilitytypeon = ' ';
-        rows[index].facilitytypein = ' ';
-        rows[index].facilityname = '';
-        rows[index].accommodationallowance = '';
-        rows[index].accommodation = '';
-        rows[index].travelallowance = '';
-        rows[index].travel = '';
-        rows[index].train = '';
-        rows[index].plane = '';
-        rows[index].annexno = '';
+        if (rows.length === 1) {
+          rows[index].accommodationdate = '';
+          rows[index].activitycontent = ' ';
+          rows[index].vehicleon = ' ';
+          rows[index].vehiclein = ' ';
+          rows[index].movementtime = ' ';
+          rows[index].city = '';
+          rows[index].exitarea = ' ';
+          rows[index].facilitytypeon = ' ';
+          rows[index].facilitytypein = ' ';
+          rows[index].facilityname = '';
+          rows[index].accommodationallowance = '';
+          rows[index].accommodation = '';
+          rows[index].travelallowance = '';
+          rows[index].travel = '';
+          rows[index].train = '';
+          rows[index].plane = '';
+          rows[index].annexno = '';
+        }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].otherdetailsdate = '';
-        rows[index].costitem = '';
-        rows[index].remarks = '';
-        rows[index].rmb = '';
-        rows[index].foreigncurrency = '';
-        rows[index].annexno = '';
+        if (rows.length === 1) {
+          rows[index].otherdetailsdate = '';
+          rows[index].costitem = '';
+          rows[index].remarks = '';
+          rows[index].rmb = '';
+          rows[index].foreigncurrency = '';
+          rows[index].annexno = '';
+        }
       },
       addRow() {
         this.tableT.push({
@@ -1431,6 +1439,9 @@
                 return prev;
               }
             }, 0);
+            if(index==1){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1457,7 +1468,7 @@
               }
             }, 0);
             if (index === 5) {
-              sums[index] = sums[index].toFixed(2);
+              sums[index]=Math.round((sums[index]) * 10) / 10;
             }
           } else {
             sums[index] = '--'
@@ -1472,11 +1483,11 @@
       getvehicleon(val, row) {
         row.vehicleon = val;
         if (val === 'PJ025004') {
-          this.disaccommod = true;
-          this.showtick = false;
+          row.disaccommod = true;
+          row.showtick = false;
         } else {
-          this.disaccommod = false;
-          this.showtick = true;
+          row.disaccommod = false;
+          row.showtick = true;
         }
       },
       getvehiclein(val, row) {
@@ -1644,7 +1655,7 @@
         if (row.vehiclein === 'PJ026004') {
           row.accommodationallowance = '';
           row.travelallowance = '';
-          this.disaccommod = true;
+          row.disaccommod = true;
           row.plane = varbusiness;
         }
       },
