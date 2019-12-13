@@ -199,7 +199,7 @@
                 }
             };
             return {
-                checkboxvalue:'',
+                // checkboxvalue:'',
                 baseInfo: {},
                 checked: false,
                 userlist: "",
@@ -218,7 +218,7 @@
                     type: this.$t('menu.PFANS1022'),
                     dailypayment: moment(new Date()).format("YYYY-MM-DD"),
                     extension: '',
-                    checkboxvalue:'',
+                    // checkboxvalue:'',
                 },
                 tableD: [
                     {
@@ -231,7 +231,7 @@
                         workreasons: '',
                         startdate: [],
                         dis: false,
-                        checkboxvalue:'',
+                        // checkboxvalue:'',
                     },
                     // {
                     //     holidaydetailid: '',
@@ -309,10 +309,10 @@
                         }
                         if (this.checked === false) {
                             this.disabled2 =  true;
-                            this.row.checkboxvalue = 0;
+                            // this.row.checkboxvalue = 0;
                         } else{
                             this.disabled2 = false;
-                            this.row.checkboxvalue = 1;
+                            // this.row.checkboxvalue = 1;
                         }
                         this.userlist = this.form.user_id;
                         if (this.form.status === '2') {
@@ -435,7 +435,7 @@
                                         attendancedate: this.tableD[i].attendancedate,
                                         workreasons: this.tableD[i].workreasons,
                                         startdate: moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD'),
-                                        checkboxvalue:this.tableD[i].checkboxvalue,
+                                        // checkboxvalue:this.tableD[i].checkboxvalue,
                                     },
                                 );
                             }
