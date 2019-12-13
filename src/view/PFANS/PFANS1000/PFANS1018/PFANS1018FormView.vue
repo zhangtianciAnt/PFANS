@@ -122,7 +122,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>
@@ -159,7 +159,7 @@
     import {Message} from 'element-ui'
     import {getOrgInfoByUserId} from '@/utils/customize';
     import moment from "moment";
-    import {telephoneNumber,validateEmail} from "../../../../utils/validate";
+    import {validateEmail} from "../../../../utils/validate";
 
     export default {
         name: 'PFANS1018FormView',
@@ -200,17 +200,17 @@
                     callback();
                 }
             };
-            var validateTel = (rule, value, callback) => {
+            var validateExtensionnumber = (rule, value, callback) => {
+                this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
                 if (this.form.extension !== null && this.form.extension !== '') {
-                    if (telephoneNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                    if (!this.regExp.test((value))) {
+                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER')));
                     } else {
                         callback();
                     }
                 } else {
                     callback();
                 }
-
             };
             return {
                 loading: false,
@@ -245,8 +245,7 @@
                     status: '',
                 },
                 code1: 'PJ044',
-                //(code2无数据，待客户消息)
-                code2: 'PJ045',
+                code2: 'PJ054',
                 code3: 'PJ045',
                 disabled: true,
                 rules: {
@@ -285,12 +284,12 @@
                             trigger: 'change'
                         },
                     ],
-                    extension: [
-                        {
-                            validator: validateTel,
-                            trigger: 'change'
-                        },
-                        {validator: validateTel, trigger: 'blur'}],
+                    extension: [{
+                        required: true,
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
+                        trigger: 'blur',
+                    },
+                        {validator: validateExtensionnumber, trigger: 'blur'}],
                     email: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.email"),

@@ -76,6 +76,12 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                      <el-form-item :label="$t('label.judgement')" v-if="show7" >
+                      <el-input :disabled="true" style="width: 11rem" v-model="form.judgement">
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -142,6 +148,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width: 11rem"
+                        @change="getCurrencyrate"
                         v-model="form.currencyrate">
                       </el-input-number>
                     </el-form-item>
@@ -169,19 +176,19 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" type="email"
                                 v-model="form.payeecode"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1" prop="payeebankaccountnumber">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeebankaccountnumber"></el-input>
                     </el-form-item>
@@ -189,7 +196,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1" prop="payeebankaccount">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
@@ -197,19 +204,19 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.name"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
                       <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
                                 v-model="form.receivables"></el-input>
                     </el-form-item>
@@ -217,7 +224,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
                       <el-select :disabled="!disable" style="width: 11rem" v-model="form.loan">
                         <el-option
                           :key="item.value"
@@ -231,7 +238,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
                       <el-input :disabled="!disable" maxlength="20"
                                 style="width: 11rem" v-model="form.fullname"></el-input>
                     </el-form-item>
@@ -243,7 +250,7 @@
                           header-cell-class-name="sub_bg_color_grey height" v-if="showdata">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.abstract">
+                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -301,7 +308,7 @@
                           header-cell-class-name="sub_bg_color_grey height" v-if="showdata2">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.abstract">
+                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -643,7 +650,6 @@
   import {Message} from 'element-ui';
   import moment from "moment";
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import {telephoneNumber} from '@/utils/validate';
   import dicselect from "../../../components/dicselect";
   import {getDictionaryInfo} from "../../../../utils/customize";
 
@@ -665,11 +671,111 @@
         }
       };
       var checktele = (rule, value, callback) => {
+        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
         if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (telephoneNumber(value)) {
+          if (!this.regExp.test(value)) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
           } else {
             callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatepayeename = (rule, value, callback) => {
+        if (this.show1) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatepayeecode = (rule, value, callback) => {
+        if (this.show1) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatepayeebankaccountnumber = (rule, value, callback) => {
+        if (this.show1) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatepayeebankaccount = (rule, value, callback) => {
+        if (this.show1) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatename = (rule, value, callback) => {
+        if (this.show2) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALNAME')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatecode = (rule, value, callback) => {
+        if (this.show2) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALCODE')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatereceivables = (rule, value, callback) => {
+        if (this.show3) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validateloan = (rule, value, callback) => {
+        if (this.show4) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_TEMPORARYLOAN')));
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatefullname = (rule, value, callback) => {
+        if (this.show5) {
+          if (value) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_COMPANYNAME')));
           }
         } else {
           callback();
@@ -681,6 +787,7 @@
         tableRValue: "",
         error: '',
         options: [],
+        jude:[],
         selectType: "Single",
         title: "title.PFANS1012VIEW",
         userlist: "",
@@ -837,7 +944,52 @@
           accountnumber: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
-            trigger: 'blur',
+            trigger: 'change',
+          }],
+          payeename: [{
+            required: true,
+            validator: validatepayeename,
+            trigger: 'change',
+          }],
+          payeecode: [{
+            required: true,
+            validator: validatepayeecode,
+            trigger: 'change',
+          }],
+          payeebankaccountnumber: [{
+            required: true,
+            validator: validatepayeebankaccountnumber,
+            trigger: 'change',
+          }],
+          payeebankaccount: [{
+            required: true,
+            validator: validatepayeebankaccount,
+            trigger: 'change',
+          }],
+          name: [{
+            required: true,
+            validator: validatename,
+            trigger: 'change',
+          }],
+          code: [{
+            required: true,
+            validator: validatecode,
+            trigger: 'change',
+          }],
+          receivables: [{
+            required: true,
+            validator: validatereceivables,
+            trigger: 'change',
+          }],
+          loan: [{
+            required: true,
+            validator: validateloan,
+            trigger: 'change',
+          }],
+          fullname: [{
+            required: true,
+            validator: validatefullname,
+            trigger: 'change',
           }],
         },
         code1: 'PG002',
@@ -855,6 +1007,7 @@
         show4: false,
         show5: false,
         show6: false,
+        show7: false,
         show: false,
         showrow: true,
         showrow1: false,
@@ -862,6 +1015,9 @@
         showrow3: false,
         showdata:false,
         showdata2:false,
+        showdoll: false,
+        showjpy: false,
+        showother: false,
         canStart: false
       };
     },
@@ -925,10 +1081,25 @@
               this.show6=false;
               this.showdata2=true;
               this.showdata=false;
+              this.show7=false;
               this.tableData2[0].subjectname=this.form.subjectname;
               this.tableData2[0].subjectnumber=this.form.subjectnumber;
               this.tableData2[0].remarks=this.form.remarks;
-            } else {
+            } else if(this.form.type === 'PJ001002'){
+              this.show6=true;
+              this.showdata=true;
+              this.showdata2=false;
+              this.show7=false;
+              this.tableData[0].subjectname=this.form.subjectname;
+              this.tableData[0].subjectnumber=this.form.subjectnumber;
+              this.tableData[0].remarks=this.form.remarks;
+              this.tableData[1].subjectname=this.form.purchasesubjectname;
+              this.tableData[1].subjectnumber=this.form.purchasesubjectnumber;
+              this.tableData[1].remarks=this.form.purchaseremarks;
+              this.tableData[2].subjectname=this.form.othersubjectname;
+              this.tableData[2].subjectnumber=this.form.othersubjectnumber;
+              this.tableData[2].remarks=this.form.otherremarks;
+            }else if(this.form.type === 'PJ001003'){
               this.show6=true;
               this.showdata=true;
               this.showdata2=false;
@@ -941,8 +1112,8 @@
               this.tableData[2].subjectname=this.form.othersubjectname;
               this.tableData[2].subjectnumber=this.form.othersubjectnumber;
               this.tableData[2].remarks=this.form.otherremarks;
+              this.show7=true;
             }
-            this.form.currencyrate=getDictionaryInfo(this.form.currency).value2;
             this.tableData2[0].budgetunit=getDictionaryInfo(this.form.budgetunit).value1;
             for(let i=0;i<this.tableData.length;i++){
               this.tableData[i].budgetunit=getDictionaryInfo(this.form.budgetunit).value1;
@@ -966,19 +1137,31 @@
           this.form.teamid = rst.teamNmae;
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
-        this.form.judgement = this.$route.params._name.join(",");
+        this.jude= this.$route.params._name;
+        for(var i=0;i<this.jude.length;i++){
+          this.form.judgement+=this.jude[i][0].label+",";
+        }
+        this.form.judgement =  this.form.judgement.substring(0,this.form.judgement.length-1);
+
         this.form.type = this.$route.params._type;
         if (this.form.type === 'PJ001001') {
           this.show6 = false;
           this.showdata2=true;
           this.showdata=false;
+          this.show7=false;
           this.form.subjectname=this.tableData2[0].subjectname;
           this.form.subjectnumber=this.tableData2[0].subjectnumber;
           this.form.remarks=this.tableData2[0].remarks;
-        } else {
+        }  else if(this.form.type === 'PJ001002'){
           this.show6 = true;
           this.showdata2=false;
           this.showdata=true;
+          this.show7=false;
+        }else if(this.form.type === 'PJ001003'){
+          this.show6 = true;
+          this.showdata2=false;
+          this.showdata=true;
+          this.show7=true;
         }
       }
       this.$store
@@ -1010,7 +1193,8 @@
     },
     watch: {
       foreigncurrency(val) {
-        this.form.tormb = (val * this.form.currencyrate).toFixed(2);
+        //this.form.tormb = (val * this.form.currencyrate).toFixed(2);
+        this.form.tormb = Math.round((val * this.form.currencyrate) * 10) / 10;
       }
     },
     methods: {
@@ -1051,30 +1235,67 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.form.name="";
+          this.form.code="";
+          this.form.accountnumber="";
+          this.form.receivables="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.receivables="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;
           this.show4 = false;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.loan="";
+          this.form.fullname="";
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = false;
           this.show4 = true;
           this.show5 = false;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.receivables="";
+          this.form.fullname="";
         } else {
           this.show1 = false;
           this.show2 = false;
           this.show3 = false;
           this.show4 = false;
           this.show5 = true;
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
+          this.form.name="";
+          this.form.code="";
+          this.form.receivables="";
+          this.form.loan="";
         }
       },
       getBudge(val) {
@@ -1097,53 +1318,69 @@
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-          this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+         // this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003002') {
+          debugger;
           this.disablecurr = false;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-          this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+          //this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003003') {
-          this.form.currencyrate = '';
           this.disablecurr = true;
-          this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
+         this.form.currencyrate='';
+         // this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
+          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         }
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+      },
+      getCurrencyrate(val){
+        this.form.currencyrate=val;
+        //this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].trafficdate ='';
-        rows[index].region ='';
-        rows[index].vehicle ='';
-        rows[index].startingpoint ='';
-        rows[index].rmb ='';
-        rows[index].foreigncurrency ='';
-        rows[index].annexno ='';
+        if (rows.length === 1) {
+          rows[index].trafficdate ='';
+          rows[index].region ='';
+          rows[index].vehicle ='';
+          rows[index].startingpoint ='';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
+        }
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].purchasedetailsdate ='';
-        rows[index].procurementdetails =' ';
-        rows[index].procurementproject =' ';
-        rows[index].rmb ='';
-        rows[index].foreigncurrency ='';
-        rows[index].annexno ='';
+        if (rows.length === 1) {
+          rows[index].purchasedetailsdate ='';
+          rows[index].procurementdetails =' ';
+          rows[index].procurementproject =' ';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
+        }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        rows[index].otherdetailsdate ='';
-        rows[index].costitem ='';
-        rows[index].remarks ='';
-        rows[index].rmb ='';
-        rows[index].foreigncurrency ='';
-        rows[index].annexno ='';
+        if (rows.length === 1) {
+          rows[index].otherdetailsdate ='';
+          rows[index].costitem ='';
+          rows[index].remarks ='';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
+        }
       },
       addRow() {
         this.tableT.push({
@@ -1316,10 +1553,10 @@
               }
             }, 0);
             if(index==4){
-              sums[index]=sums[index].toFixed(2);
+              sums[index]=Math.round((sums[index]) * 10) / 10;
             }
             if(index==5){
-              sums[index]=sums[index].toFixed(2);
+              sums[index]=Math.round((sums[index]) * 10) / 10;
             }
           } else {
             sums[index] = '--'
@@ -1396,7 +1633,8 @@
               }
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              this.form.moneys=(this.form.rmbexpenditure+this.form.tormb).toFixed(2);
+              //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+              this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 10) / 10;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.trafficdetails = [];
@@ -1404,7 +1642,7 @@
               this.baseInfo.otherdetails = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
-                  || this.tableT[i].rmb !== "" || this.tableT[i].foreigncurrency !== "" || this.tableT[i].annexno !== "") {
+                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== "") {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -1422,7 +1660,7 @@
               }
               for (let i = 0; i < this.tableP.length; i++) {
                 if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].procurementproject !== ""
-                  || this.tableP[i].rmb !== "" || this.tableP[i].foreigncurrency !== "" || this.tableP[i].annexno !== "") {
+                  || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency >0 || this.tableP[i].annexno !== "") {
                   if (this.tableP[i].procurementdetails === ' ') {
                     this.tableP[i].procurementdetails = '';
                   }
@@ -1442,7 +1680,7 @@
               }
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== "" || this.tableR[i].costitem !== "" || this.tableR[i].remarks !== ""
-                  || this.tableR[i].rmb !== "" || this.tableR[i].foreigncurrency !== "" || this.tableR[i].annexno !== "") {
+                  || this.tableR[i].rmb >0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== "") {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -1515,5 +1753,20 @@
   }
 </script>
 <style rel="stylesheet/scss" lang="scss">
+
+  .el-table {
+    overflow-x: auto;
+  }
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+    overflow: visible;
+  }
+  .el-table::after {
+    position: relative;
+  }
+  .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: visible;
+  }
 
 </style>

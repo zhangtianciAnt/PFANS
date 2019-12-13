@@ -17,7 +17,7 @@
           </el-row>
           <el-row type="hidden">
             <el-form-item :label="$t('label.judgement')" v-show="show ">
-              <el-select @change="change" @remove-tag="getAward" multiple placeholder="请选择" v-model="form.judgement">
+              <el-select @change="change" @remove-tag="getAward" multiple placeholder="$t('normal.error_09')" v-model="form.judgement">
                 <el-option
                   :key="item.value"
                   :label="item.label"
@@ -48,6 +48,7 @@
     },
     data() {
       return {
+        vote:[],
         award: [],
         options: [],
         selectType: "Single",
@@ -108,8 +109,21 @@
     },
 
     methods: {
-      change() {
+      change(val) {
+        let option="";
+        let _option = [];
         this.buttonList[0].disabled = false;
+        val.forEach(a => {
+          option = this.options.filter((option1) => {
+             return  a === option1.value
+          });
+          if(option){
+            _option.push(option);
+          }else{
+            _option = [];
+          }
+        });
+        this.vote = _option;
       },
       getAward() {
         if (this.form.judgement.length === 0) {
@@ -132,7 +146,7 @@
           this.$router.push({
             name: 'PFANS1012FormView',
             params: {
-              _name: this.form.judgement,
+              _name: this.vote,
               _type: this.form.type,
               disabled: true
             }

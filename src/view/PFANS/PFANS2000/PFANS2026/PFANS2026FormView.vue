@@ -39,7 +39,14 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"
                                 prop="educational_background">
-                    <el-input :disabled="true" v-model="form.educational_background" style="width:11rem"></el-input>
+                   <!-- <el-input :disabled="true" v-model="form.educational_background" style="width:11rem"></el-input>-->
+                    <dicselect :code="code2"
+                               :data="form.educational_background"
+                               :disabled="true"
+                               :multiple="multiple"
+                               @change="geteducational_background"
+                               style="width: 11rem">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -52,7 +59,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entry_time">
-                    <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.entry_time">
+                    <el-date-picker :disabled="true" style="width: 11rem" v-model="form.entry_time">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -541,6 +548,7 @@
           stage: '0',
         },
         code1: 'PR012',
+        code2: 'PR022',
         disable: false,
         disable1: false,
         disable2: false,
@@ -721,16 +729,17 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== "") {
-          let lst = getUserInfo(this.$store.getters.userinfo.userid);
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.center_id = rst.centerNmae;
           this.form.group_id = rst.groupNmae;
           this.form.team_id = rst.teamNmae;
-          this.form.sex = lst.userinfo.sex;
-          this.form.sex = lst.userinfo.sex === "0" ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
-          this.form.position = lst.userinfo.post;
-          this.form.entry_time = lst.userinfo.enterday;
-          this.form.educational_background = getDictionaryInfo(lst.userinfo.educational).value1;
+          let lst = getUserInfo(this.$store.getters.userinfo.userid);
+          if (lst) {
+            this.form.sex = lst.userinfo.sex === "0" ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
+            this.form.educational_background = lst.userinfo.educational;
+            this.form.position = lst.userinfo.post;
+            this.form.entry_time = lst.userinfo.enterday;
+          }
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.disable = true;
           this.disable1 = false;
@@ -754,10 +763,12 @@
         this.form.center_id = rst.centerNmae;
         this.form.group_id = rst.groupNmae;
         this.form.team_id = rst.teamNmae;
-        this.form.sex = lst.userinfo.sex === "0" ? "PR019001" : "PR019002";
+        this.form.sex = lst.userinfo.sex === "0" ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
+        this.form.educational_background = lst.userinfo.educational;
         this.form.position = lst.userinfo.post;
         this.form.entry_time = lst.userinfo.enterday;
-        this.form.educational_background = lst.userinfo.educational;
+        //this.form.sex = lst.userinfo.sex === "0" ? "PR019001" : "PR019002";
+        //this.form.educational_background = lst.userinfo.educational;
         if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.user_name');
         } else {
@@ -781,6 +792,9 @@
       },
       getSocial(val) {
         this.form.social_evaluation = val;
+      },
+      geteducational_background(val){
+        this.form.educational_background=val;
       },
       workflowState(val) {
         if (val.state === '1') {
