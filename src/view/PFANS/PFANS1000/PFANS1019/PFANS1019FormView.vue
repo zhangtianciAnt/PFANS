@@ -211,6 +211,7 @@
           dailypayment: moment(new Date()).format("YYYY-MM-DD"),
         },
         tableT: [{
+          trialsoftdetail_id: "",
           machinename: "",
           customer: "",
           startdate: "",
@@ -221,7 +222,7 @@
           employ: "",
           softtype: "",
         }],
-        code: '',
+        code: 'PJ040',
       };
     },
     created() {
@@ -338,7 +339,7 @@
                 if (this.tableT[i].machinename !== '' || this.tableT[i].customer !== '' || this.tableT[i].startdate !== '' ||
                   this.tableT[i].enddate !== '' || this.tableT[i].softwarename !== '' || this.tableT[i].nature !== ''||
                   this.tableT[i].developer !== '' || this.tableT[i].employ !== '' || this.tableT[i].softtype !== '') {
-                  this.baseInfo.routingdetail.push(
+                  this.baseInfo.trialsoftdetail.push(
                     {
                       trialsoftdetail_id: this.tableT[i].trialsoftdetail_id,
                       trialsoft_id: this.tableT[i].trialsoft_id,

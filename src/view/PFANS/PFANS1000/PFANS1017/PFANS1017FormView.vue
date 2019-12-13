@@ -378,12 +378,12 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
-            this.userlist = this.form.user_id;
             this.userlist = response.user_id;
             this.form = response.psdcd;
             if (response.psdcddetail.length > 0) {
               this.tableT = response.psdcddetail;
             }
+            this.userlist = this.form.user_id;
             this.loading = false;
           })
           .catch(error => {
