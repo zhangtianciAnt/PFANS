@@ -103,7 +103,7 @@
                 //期间
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="startdate"
-                               width="370" v-show="show1">
+                               width="370">
                 <template slot-scope="scope">
                   <el-date-picker unlink-panels
                                   class="bigWidth"
@@ -188,10 +188,18 @@
                     this.errorapplication = "";
                     return callback();
                 }
-
+            };
+            var checkapplication = (rule, value, callback) => {
+                if (!value || value === '' || value === "undefined") {
+                    this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+                } else {
+                    this.errorapplication = "";
+                    return callback();
+                }
             };
             return {
-                value1: '',
+                checkboxvalue:'',
                 baseInfo: {},
                 checked: false,
                 userlist: "",
@@ -210,6 +218,7 @@
                     type: this.$t('menu.PFANS1022'),
                     dailypayment: moment(new Date()).format("YYYY-MM-DD"),
                     extension: '',
+                    checkboxvalue:'',
                 },
                 tableD: [
                     {
@@ -221,7 +230,8 @@
                         attendancedate: '',
                         workreasons: '',
                         startdate: [],
-                        dis: false
+                        dis: false,
+                        checkboxvalue:'',
                     },
                     // {
                     //     holidaydetailid: '',
@@ -264,8 +274,6 @@
                         },
                     ],
                 },
-                show: false,
-                show1: true,
                 canStart: false,
             };
         },
@@ -276,10 +284,9 @@
                 this.$store
                     .dispatch('PFANS1022Store/selectById', {"holidayid": this.$route.params._id})
                     .then(response => {
-                        debugger;
                         this.form = response.holiday;
-                        if (response.holidaydetail.length > 0) {
-
+                        //连续未点
+                        if (response.holidaydetail.length > 0 && this.checked === false) {
                             for (let j = 0; j < response.holidaydetail.length; j++) {
                                 if (response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null) {
                                     let startdate = response.holidaydetail[j].startdate;
@@ -289,11 +296,23 @@
                                 }
                             }
                             this.tableD = response.holidaydetail;
+                            //连续已点
+                        }else{
+                            for (let j = 0; j < response.holidaydetail.length; j++) {
+                                if (response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null) {
+                                    let startdate = response.holidaydetail[j].startdate;
+                                    let serdate = startdate.slice(0, 10);
+                                    let serdate1 = startdate.slice(startdate.length - 10);
+                                    response.holidaydetail[j].startdate = [serdate, serdate1];
+                                }
+                            }
                         }
                         if (this.checked === false) {
                             this.disabled2 =  true;
+                            this.row.checkboxvalue = 0;
                         } else{
                             this.disabled2 = false;
+                            this.row.checkboxvalue = 1;
                         }
                         this.userlist = this.form.user_id;
                         if (this.form.status === '2') {
@@ -416,6 +435,7 @@
                                         attendancedate: this.tableD[i].attendancedate,
                                         workreasons: this.tableD[i].workreasons,
                                         startdate: moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD'),
+                                        checkboxvalue:this.tableD[i].checkboxvalue,
                                     },
                                 );
                             }
@@ -448,8 +468,6 @@
                                 })
 
                         } else {
-                            alert(this.baseInfo);
-                            console.log(this.baseInfo);
                             this.$store
                                 .dispatch('PFANS1022Store/insert', this.baseInfo)
                                 .then(response => {
