@@ -123,25 +123,25 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_SURNAME')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.surname" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.surname" maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_MING')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.account" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.account" maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
@@ -363,6 +363,7 @@
           {
             key: 'save',
             name: 'button.save',
+            disabled: false,
             icon: 'el-icon-check',
           },
         ];
