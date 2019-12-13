@@ -785,7 +785,6 @@
   import {Message} from 'element-ui';
   import {getDictionaryInfo, getDictionaryInfode, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
-  import {telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
 
   export default {
@@ -806,8 +805,9 @@
         }
       };
       var checktele = (rule, value, callback) => {
+        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
         if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (telephoneNumber(value)) {
+          if (!this.regExp.test(value)) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
           } else {
             callback();
@@ -1826,7 +1826,7 @@
               this.baseInfo.otherdetails = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
-                  || this.tableT[i].rmb !== "" || this.tableT[i].foreigncurrency !== "" || this.tableT[i].annexno !== "") {
+                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== "") {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -1844,9 +1844,9 @@
               }
               for (let i = 0; i < this.tableA.length; i++) {
                 if (this.tableA[i].accommodationdate !== "" || this.tableA[i].activitycontent !== "" || this.tableA[i].vehicle !== ""
-                  || this.tableA[i].movementtime !== "" || this.tableA[i].city !== "" || this.tableA[i].facilitytype !== "" || this.tableA[i].facilityname !== "" || this.tableA[i].accommodationallowance !== ""
-                  || this.tableA[i].accommodation !== "" || this.tableA[i].travelallowance !== "" || this.tableA[i].travel !== "" || this.tableA[i].relatives !== "" || this.tableA[i].train !== ""
-                  || this.tableA[i].plane !== "" || this.tableA[i].annexno !== "") {
+                  || this.tableA[i].movementtime !== "" || this.tableA[i].city !== "" || this.tableA[i].facilitytype !== "" || this.tableA[i].facilityname !== "" || this.tableA[i].accommodationallowance > 0
+                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0 || this.tableA[i].relatives > 0 || this.tableA[i].train > 0
+                  || this.tableA[i].plane > 0 || this.tableA[i].annexno !== "") {
                   var varvehiclein;
                   var varfacilitytypein;
                   if (this.form.type === "1") {
@@ -1881,7 +1881,7 @@
               }
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== "" || this.tableR[i].costitem !== "" || this.tableR[i].remarks !== ""
-                  || this.tableR[i].rmb !== "" || this.tableR[i].foreigncurrency !== "" || this.tableR[i].annexno !== "") {
+                  || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== "") {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,

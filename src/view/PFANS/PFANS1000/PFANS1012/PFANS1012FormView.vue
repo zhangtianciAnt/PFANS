@@ -650,7 +650,6 @@
   import {Message} from 'element-ui';
   import moment from "moment";
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import {telephoneNumber} from '@/utils/validate';
   import dicselect from "../../../components/dicselect";
   import {getDictionaryInfo} from "../../../../utils/customize";
 
