@@ -1243,14 +1243,14 @@
               <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                  <el-date-picker style="width: 11rem" v-model="form.resignation_date">
+                  <el-date-picker style="width: 11rem" v-model="form.resignation_date" :disabled="true">
                   </el-date-picker>
                 </el-form-item>
               </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('title.PFANS2026VIEW')">
-                    <el-input style="width: 11rem" v-model="form.staffexitprocedure">
-                    </el-input>
+                  <el-form-item :label="$t('title.PFANS2026VIEW')" v-if="this.form.staffexitprocedure !==''&& this.form.staffexitprocedure !==null">
+                   <router-link :to="{ name: 'PFANS2026FormView', 
+                   params: { _id: this.form.staffexitprocedure, disabled: true}}" >{{this.$t('button.view')}}</router-link>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1886,6 +1886,7 @@
     },
     mounted() {
       debugger
+      this.form.staffexitprocedure;
       if (this.$route.params._org) {
         ({
           centername: this.form.centername,
