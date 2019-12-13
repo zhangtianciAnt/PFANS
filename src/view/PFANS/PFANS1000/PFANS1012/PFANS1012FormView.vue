@@ -29,7 +29,7 @@
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 9.2rem" v-model="form.user_id"></user>
+                            @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -91,6 +91,7 @@
                         :min="0"
                         :precision="2"
                         @change="getMoney"
+                        style="width: 11rem"
                         controls-position="right"
                         v-model="form.rmbexpenditure"
                       ></el-input-number>
@@ -156,7 +157,7 @@
                 </el-row>
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
-                    <el-input :disabled="!disable" :rows="4" style="width:53rem" type="textarea"
+                    <el-input :disabled="!disable" :rows="4" style="width: 100%" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>

@@ -28,7 +28,7 @@
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
                     <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 9.2rem" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -39,7 +39,6 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"
                                 prop="educational_background">
-                   <!-- <el-input :disabled="true" v-model="form.educational_background" style="width:11rem"></el-input>-->
                     <dicselect :code="code2"
                                :data="form.educational_background"
                                :disabled="true"
@@ -106,7 +105,7 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason">
-                  <el-input :disabled="!disable" :rows="4" style="width:55.2rem" type="textarea"
+                  <el-input :disabled="!disable" :rows="4" style="width: 100%" type="textarea"
                             v-model="form.reason">
                   </el-input>
                 </el-form-item>
@@ -122,7 +121,7 @@
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')">
                     <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 9.2rem" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -181,7 +180,7 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')">
-                  <el-input :disabled="!disable1" :rows="3" style="width:59rem" type="textarea"
+                  <el-input :disabled="!disable1" :rows="3" style="width:100%" type="textarea"
                             v-model="form.jpwork_delivery">
                   </el-input>
                 </el-form-item>
@@ -242,7 +241,7 @@
                 <el-col :span="8">
                   <el-form-item :error="errorreporter" :label="$t('label.PFANS2026VIEW_REPORTER')" prop="reporterlist">
                     <user :disabled="!disable2" :error="errorreporter" :selectType="selectType"
-                          :userlist="reporterlist" @getUserids="getReporterids" style="width:9.2rem"></user>
+                          :userlist="reporterlist" @getUserids="getReporterids" style="width:10.2rem"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -273,35 +272,35 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')">
-                  <el-input :disabled="!disable2" style="width:55.2rem" type="textarea"
+                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
                             v-model="form.external_evaluation">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')" :rows="6" style="width:55.2rem"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')" :rows="6" style="width: 100%"
                             type="textarea" v-model="form.reason2">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')">
-                  <el-input :disabled="!disable2" style="width:55.2rem" type="textarea"
+                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
                             v-model="form.impact_resignation_external">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')">
-                  <el-input :disabled="!disable2" style="width:55.2rem" type="textarea"
+                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
                             v-model="form.impact_resignation_internal">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_INFLUENCEINFORMATIONSECURITY')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')" :rows="4" style="width:55.2rem"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')" :rows="4" style="width: 100%"
                             type="textarea"
                             v-model="form.influence_information_security">
                   </el-input>
@@ -309,7 +308,7 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_RETIREMENTSTRATEGY')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')" style="width:55.2rem"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')" style="width: 100%"
                             type="textarea"
                             v-model="form.retirement_strategy">
                   </el-input>
