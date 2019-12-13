@@ -49,7 +49,7 @@
                       <el-form-item>
                         <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank"
                                  :underline="false"
-                                 @click="program=true" type="primary"   :disabled="!disable" >
+                                 @click="program=true" type="primary" :disabled="!disable">
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
                         </el-link>
                         <el-dialog :visible.sync="program" width="50%">
@@ -63,8 +63,8 @@
                                 :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
                                 :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
                                 :data="transfer"
-                                :right-default-checked="determine.project_name"
-                                >
+
+                              >
                               </el-transfer>
                               <el-form-item>
                                 <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
@@ -509,17 +509,48 @@
           });
       },
       handleChange(value, direction, movedKeys) {
+        this.optionsdate = [];
         if (direction === 'right') {
-          for (var k = 0; k < movedKeys.length; k++) {
+          for (var k = 0; k < value.length; k++) {
             var vote = {};
-            vote.value = movedKeys[k];
+            vote.value = value[k];
             this.optionsdate.push(vote);
           }
           this.determine.project_id = this.optionsdate;
         }
       },
       submitForm(determine) {
-        if(this.determine.project_id!= ""){
+        if (this.determine.project_id == '') {
+          this.$store
+            .dispatch('PFANS5008Store/deletePersonal', {
+              user_id: this.$store.getters.userinfo.userid,
+            })
+            .then(response => {
+              this.$store
+                .dispatch('PFANS5008Store/getProjectList', {})
+                .then(response => {
+                  this.optionsdata = [];
+                  let user_id = this.$store.getters.userinfo.userid;
+                  for (let i = 0; i < response.length; i++) {
+                    if (user_id === response[i].user_id) {
+                      var vote = {};
+                      vote.value = response[i].project_id,
+                        vote.lable = response[i].project_name,
+                        this.optionsdata.push(vote);
+                    }
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            });
+        } else if (this.determine.project_id != '') {
           determine.user_id = this.$store.getters.userinfo.userid;
           const data = [];
           for (let i = 0; i < this.transfer.length; i++) {
@@ -535,46 +566,61 @@
           }
           this.optiondate = data;
           this.loading = true;
+          this.baseInfo = {};
+          this.baseInfo.personalprojects = [];
           for (let i = 0; i < this.optiondate.length; i++) {
-            this.$store
-              .dispatch('PFANS5008Store/createProject', this.optiondate[i])
-              .then(response => {
-                this.List = response;
-                this.$store
-                  .dispatch('PFANS5008Store/getProjectList', {})
-                  .then(response => {
-                    this.optionsdata = [];
-                    let user_id = this.$store.getters.userinfo.userid;
-                    for (let i = 0; i < response.length; i++) {
-                      if (user_id === response[i].user_id) {
-                        var vote = {};
-                        vote.value = response[i].project_id,
-                          vote.lable = response[i].project_name,
-                          this.optionsdata.push(vote);
-                      }
-                    }
-                    this.loading = false;
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-                this.data = response;
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+            this.baseInfo.personalprojects.push({
+              project_id: this.optiondate[i].project_id,
+              project_name: this.optiondate[i].project_name,
+              user_id: this.optiondate[i].user_id,
+            });
           }
+
+          this.$store
+            .dispatch('PFANS5008Store/deletePersonal', {
+              user_id: this.$store.getters.userinfo.userid,
+            })
+            .then(response => {
+              this.$store
+                .dispatch('PFANS5008Store/createProject', this.baseInfo)
+                .then(response => {
+                  this.List = response;
+                  this.$store
+                    .dispatch('PFANS5008Store/getProjectList', {})
+                    .then(response => {
+                      this.optionsdata = [];
+                      let user_id = this.$store.getters.userinfo.userid;
+                      for (let i = 0; i < response.length; i++) {
+                        if (user_id === response[i].user_id) {
+                          var vote = {};
+                          vote.value = response[i].project_id,
+                            vote.lable = response[i].project_name,
+                            this.optionsdata.push(vote);
+                        }
+                      }
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+                  this.data = response;
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            });
+          this.loading = false;
           this.program = false;
         }
         this.program = false;

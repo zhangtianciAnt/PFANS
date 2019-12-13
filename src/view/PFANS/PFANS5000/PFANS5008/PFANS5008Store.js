@@ -5,7 +5,8 @@ import {
   getProjectList,
   updateNewUser,
   getDataOne,
-  createProject
+  createProject,
+  deletePersonal
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -15,6 +16,19 @@ const PFANS5008Store = {
   },
   actions: {
 
+    deletePersonal({ commit },data) {
+      return new Promise((resolve, reject) => {
+        deletePersonal(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     createNewUser({ commit },data) {
       return new Promise((resolve, reject) => {
         createNewUser(data).then(response => {
