@@ -172,31 +172,27 @@
             };
             var validatePass = (rule, value, callback) => {
                 if (this.show) {
-                    if (this.form.reservesubstitutiondate !== '' && this.form.reservesubstitutiondate !== null && this.form.reserveovertimedate !== '' && this.form.reserveovertimedate !== null) {
-                        if ((moment(this.form.reservesubstitutiondate).startOf('month')).diff(moment(this.form.reserveovertimedate).startOf('month'),"months")>3)
+                    if(value === '' || value === null){
+                        callback(new Error(this.$t("normal.error_08") + this.$t("label.PFANS2011VIEW_RESERVESUBSTITUTION")))
+                    }else
                         {
-                            callback(new Error(this.$t("label.PFANS2011FORMVIEW_ERROR")))
-                        }
-                        else{
-                            callback();
-                        }
-                        if (moment(this.form.reservesubstitutiondate) <= moment(this.form.reserveovertimedate))
-                        {
-                            callback(new Error(this.$t("label.PFANS2011FORMVIEW_ERROR2")))
-                        }
-                        else if(this.form.reservesubstitutiondate == '' && this.form.reservesubstitutiondate == null)
-                        {
-                            callback(new Error(this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_RESERVESUBSTITUTION")));
+                        if(this.form.reserveovertimedate !== '' || this.form.reserveovertimedate !== null){
+                            if ((moment(value).startOf('month')).diff(moment(this.form.reserveovertimedate).startOf('month'),"months")>3)
+                            {
+                                callback(new Error(this.$t("label.PFANS2011FORMVIEW_ERROR")))
+                            }
+                            if (moment(value) <= moment(this.form.reserveovertimedate))
+                            {
+                                callback(new Error(this.$t("label.PFANS2011FORMVIEW_ERROR2")))
+                            }
+                            else{
+                                callback();
+                            }
                         }
                         else{
                             callback();
                         }
                     }
-                    else
-                        {
-                            callback();
-                        }
-
                 } else
                 {
                     callback();
@@ -266,7 +262,9 @@
                     ],
                     reserveovertime: [
                         {
-                            required: true
+                            required: true,
+                            message: this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_RESERVEOVERTIME"),
+                            trigger: "change"
                         },
                     ],
                     actualovertime: [
@@ -277,7 +275,7 @@
                     ],
                     reservesubstitutiondate: [
                         {
-                            required: true,
+                            required: false,
                             validator: validatePass,
                             trigger: "change"
                         },
@@ -299,8 +297,9 @@
                         this.form = response;
                         this.loading = false;
                         this.userlist = this.form.userid;
-                        if (this.form.overtimetype === 'PR001002') {
+                        if (this.form.overtimetype === 'PR001002' && this.form.reserveovertime >= 8) {
                             this.show = true;
+                            this.rules.reservesubstitutiondate[0].required = true;
                         }
                         if ((this.form.status === '4' || this.form.status === '6') && this.disable) {
                             this.disable = false;
@@ -409,6 +408,7 @@
                 this.form.overtimetype = val;
                 if (val === "PR001002" && this.form.reserveovertime >= 8) {
                     this.show = true;
+                    this.rules.reservesubstitutiondate[0].required = true;
                 } else {
                     this.show = false;
                     this.form.reservesubstitutiondate = null;
@@ -419,6 +419,7 @@
                 this.form.reserveovertime = val;
                 if (this.form.overtimetype === "PR001002" && val >= 8) {
                     this.show = true;
+                    this.rules.reservesubstitutiondate[0].required = true;
                 } else {
                     this.show = false;
                     this.form.reservesubstitutiondate = null;
