@@ -245,8 +245,7 @@
                     status: '',
                 },
                 code1: 'PJ044',
-                //(code2无数据，待客户消息)
-                code2: 'PJ045',
+                code2: 'PJ054',
                 code3: 'PJ045',
                 disabled: true,
                 rules: {
