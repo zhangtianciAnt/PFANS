@@ -35,14 +35,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="dailypayment">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.dailypayment"
+                <el-date-picker :disabled="true" type="date" v-model="form.dailypayment"
                                 style="width: 11rem"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="extension">
-                <el-input v-model="form.extension" type="textarea" :disabled="!disabled"
-                          style="width: 57.7rem"></el-input>
+              <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
+                <el-input :disabled="!disabled" style="width: 11rem"
+                          v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -83,11 +83,14 @@
                   </el-input>
                 </template>
               </el-table-column>
+              //连续
               <el-table-column align="center" width="90">
                 <template slot-scope="scope">
                 <el-checkbox
                   v-model="scope.row.dis"
-                  @change="getChecked(scope.row.dis)"
+                  :disabled="!disabled"
+                  :key="index"
+                  @change="getChecked(scope.row.dis,scope.$index)"
                   active-value="1"
                   inactive-value="0"
                 >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
@@ -95,9 +98,9 @@
               </el-table-column>
               //休日出勤日付
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center"
-                               prop="attendancedate" width="190" v-show="show">
+                               prop="attendancedate" width="190">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="scope.row.dis" type="date" :no="scope.row" v-model="scope.row.attendancedate"
+                  <el-date-picker :disabled="!disabled" :key="index" :readonly="scope.row.dis" type="date" :no="scope.row" v-model="scope.row.attendancedate"
                                   style="width: 11rem"></el-date-picker>
                 </template>
                 //期间
@@ -107,7 +110,8 @@
                 <template slot-scope="scope">
                   <el-date-picker unlink-panels
                                   class="bigWidth"
-                                  :disabled="!scope.row.dis"
+                                  :disabled="!disabled"
+                                  :readonly="!scope.row.dis"
                                   v-model.trim="scope.row.startdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
@@ -157,7 +161,6 @@
     import user from "../../../components/user.vue";
     import {Message} from 'element-ui'
     import {getOrgInfoByUserId} from '@/utils/customize';
-    import org from "../../../components/org";
     import moment from "moment";
 
     export default {
@@ -167,7 +170,6 @@
             getOrgInfoByUserId,
             dicselect,
             user,
-            org
         },
         data() {
             var checkuser = (rule, value, callback) => {
@@ -189,19 +191,20 @@
                     return callback();
                 }
             };
-            var checkapplication = (rule, value, callback) => {
-                if (!value || value === '' || value === "undefined") {
-                    this.errorapplication = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+            var validateExtensionnumber = (rule, value, callback) => {
+                this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+                if (this.form.extension !== null && this.form.extension !== '') {
+                    if (!this.regExp.test((value))) {
+                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER')));
+                    } else {
+                        callback();
+                    }
                 } else {
-                    this.errorapplication = "";
-                    return callback();
+                    callback();
                 }
             };
             return {
-                // checkboxvalue:'',
                 baseInfo: {},
-                checked: false,
                 userlist: "",
                 loading: false,
                 erroruser: '',
@@ -218,7 +221,6 @@
                     type: this.$t('menu.PFANS1022'),
                     dailypayment: moment(new Date()).format("YYYY-MM-DD"),
                     extension: '',
-                    // checkboxvalue:'',
                 },
                 tableD: [
                     {
@@ -231,20 +233,7 @@
                         workreasons: '',
                         startdate: [],
                         dis: false,
-                        // checkboxvalue:'',
                     },
-                    // {
-                    //     holidaydetailid: '',
-                    //     holidayid: '',
-                    //     application: '',
-                    //     kind: '',
-                    //     cardnumber: '',
-                    //     attendancedate: moment(new Date()).format("YYYY-MM-DD"),
-                    //     workreasons: '',
-                    //     startdate: [],
-                    //     enddate: moment(new Date()).format("YYYY-MM-DD"),
-                    //     dis: true
-                    // }
                 ],
                 code: 'PJ028',
                 disabled: false,
@@ -273,6 +262,12 @@
                             trigger: 'change'
                         },
                     ],
+                    extension: [{
+                        required: true,
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
+                        trigger: 'blur',
+                    },
+                        {validator: validateExtensionnumber, trigger: 'blur'}],
                 },
                 canStart: false,
             };
@@ -285,34 +280,24 @@
                     .dispatch('PFANS1022Store/selectById', {"holidayid": this.$route.params._id})
                     .then(response => {
                         this.form = response.holiday;
-                        //连续未点
-                        if (response.holidaydetail.length > 0 && this.checked === false) {
+                        if (response.holidaydetail.length > 0) {
                             for (let j = 0; j < response.holidaydetail.length; j++) {
                                 if (response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null) {
                                     let startdate = response.holidaydetail[j].startdate;
                                     let serdate = startdate.slice(0, 10);
                                     let serdate1 = startdate.slice(startdate.length - 10);
                                     response.holidaydetail[j].startdate = [serdate, serdate1];
+
                                 }
                             }
                             this.tableD = response.holidaydetail;
-                            //连续已点
-                        }else{
-                            for (let j = 0; j < response.holidaydetail.length; j++) {
-                                if (response.holidaydetail[j].startdate !== '' && response.holidaydetail[j].startdate !== null) {
-                                    let startdate = response.holidaydetail[j].startdate;
-                                    let serdate = startdate.slice(0, 10);
-                                    let serdate1 = startdate.slice(startdate.length - 10);
-                                    response.holidaydetail[j].startdate = [serdate, serdate1];
+                            for (let i = 0; i < this.tableD.length; i++) {
+                                if (this.tableD[i].attendancedate !== null) {
+                                    this.tableD[i].dis = false;
+                                } else {
+                                    this.tableD[i].dis = true;
                                 }
                             }
-                        }
-                        if (this.checked === false) {
-                            this.disabled2 =  true;
-                            // this.row.checkboxvalue = 0;
-                        } else{
-                            this.disabled2 = false;
-                            // this.row.checkboxvalue = 1;
                         }
                         this.userlist = this.form.user_id;
                         if (this.form.status === '2') {
@@ -375,8 +360,15 @@
                     row.errorapplication = "";
                 }
             },
-            getChecked(val) {
-                val = !val
+            //清空操作--多行
+            getChecked(val,index) {
+                for (let i = 0; i < this.tableD.length; i++) {
+                    if (val === true && index === i) {
+                        this.tableD[index].attendancedate = '';
+                    }else{
+                        this.tableD[index].startdate = [];
+                    }
+                }
             },
             getKind(val, row) {
                 row.kind = val;
@@ -422,9 +414,19 @@
                         this.baseInfo.holiday = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.holidaydetail = [];
                         for (let i = 0; i < this.tableD.length; i++) {
+                            if(this.tableD[i].dis){
+                                this.tableD[i].attendancedate = "";
+                            }
+                            else{
+                                this.tableD[i].startdate = [];
+                            }
                             if (this.tableD[i].application !== '' || this.tableD[i].kind !== '' || this.tableD[i].cardnumber !== '' ||
-                                this.tableD[i].attendancedate !== '' || this.tableD[i].workreasons !== '' || this.tableD[i].startdate !== ''
+                                this.tableD[i].attendancedate !== '' || this.tableD[i].workreasons !== '' || this.tableD[i].startdate.length !== 0
                                ) {
+                                let varstartdate;
+                                if(this.tableD[i].startdate.length > 0){
+                                    varstartdate = moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD');
+                                }
                                 this.baseInfo.holidaydetail.push(
                                     {
                                         holidaydetailid: this.tableD[i].holidaydetailid,
@@ -434,8 +436,7 @@
                                         cardnumber: this.tableD[i].cardnumber,
                                         attendancedate: this.tableD[i].attendancedate,
                                         workreasons: this.tableD[i].workreasons,
-                                        startdate: moment(this.tableD[i].startdate[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableD[i].startdate[1]).format('YYYY-MM-DD'),
-                                        // checkboxvalue:this.tableD[i].checkboxvalue,
+                                        startdate: varstartdate,
                                     },
                                 );
                             }
@@ -466,7 +467,6 @@
                                     });
                                     this.loading = false;
                                 })
-
                         } else {
                             this.$store
                                 .dispatch('PFANS1022Store/insert', this.baseInfo)

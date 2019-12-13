@@ -436,7 +436,9 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
         } else if (val === "PR024003") {
+            //其他奖励金
           this.code1 = 'PR034';
+          //招聘相关内部推荐
           this.gettwoclass("PR034001");
           this.disable = true;
           this.show = false;
@@ -498,6 +500,25 @@
         if (dictionaryInfo) {
           this.twoclass = dictionaryInfo.value2;
           this.form.amoutmoney = dictionaryInfo.value2;
+        }
+        if(val === "PR034002"){
+            //其他奖励金
+            this.code1 = 'PR034';
+            //招聘相关内部推荐
+            this.gettwoclass("PR034001");
+            this.disable = true;
+            this.show = false;
+            this.show1 = false;
+            this.show2 = false;
+            this.show3 = false;
+            this.rules.qualifications[0].required = false;
+            this.rules.weddingday[0].required = false;
+            this.rules.spousename[0].required = false;
+        }else{
+            this.show1 = true;
+            this.rules.qualifications[0].required = false;
+            this.rules.weddingday[0].required = false;
+            this.rules.spousename[0].required = false;
         }
       },
       getenteringform(val) {
