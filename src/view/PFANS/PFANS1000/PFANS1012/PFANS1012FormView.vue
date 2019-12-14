@@ -1476,6 +1476,12 @@
                 return prev;
               }
             }, 0);
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
+            if(index==5){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1503,6 +1509,12 @@
                 return prev;
               }
             }, 0);
+            if(index==3){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1528,6 +1540,12 @@
                 return prev;
               }
             }, 0);
+            if(index==3){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 10) / 10;
+            }
           } else {
             sums[index] = '--'
           }

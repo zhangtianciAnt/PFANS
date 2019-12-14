@@ -330,7 +330,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from "../../../../utils/customize";
+
 
   export default {
     name: 'PFANS2026FormVIEW',
@@ -533,15 +533,15 @@
           email: '',
           jpwork_delivery: '',
           educational_background: '',
-          resignation_date: moment(new Date()).format('YYYY-MM-DD'),
-          reporter: '',
-          report_date: moment(new Date()).format('YYYY-MM-DD'),
+          resignation_date:moment().format('YYYY-MM-DD'),
+          reporter: moment().format('YYYY-MM-DD'),
+          report_date: moment().format('YYYY-MM-DD'),
           external_evaluation: '',
           influence_information_security: '',
           social_evaluation: '',
           reason2: '',
           retirement_strategy: '',
-          delivery_sheet_date: moment(new Date()).format('YYYY-MM-DD'),
+          delivery_sheet_date:moment().format('YYYY-MM-DD'),
           impact_resignation_internal: '',
           impact_resignation_external: '',
           stage: '0',
@@ -667,6 +667,7 @@
               this.disable = false;
               this.disable1 = true;
               this.disable2 = false;
+              this.form.delivery_sheet_date=moment(new Date()).format('YYYY-MM-DD');
             } else if (this.form.stage === '2' && this.form.status === '2') {
               this.right = 'W0046';
               this.canStart = false;
@@ -691,6 +692,8 @@
               this.disable = false;
               this.disable1 = false;
               this.disable2 = true;
+              this.form.report_date=moment(new Date()).format('YYYY-MM-DD');
+              this.form.resignation_date=moment(new Date()).format('YYYY-MM-DD');
             } else if (this.form.stage === '3' && this.form.status === '2') {
               this.right = 'W0047';
               this.canStart = false;
@@ -814,6 +817,11 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }
+        if (rows.length === 1) {
+          rows[index].content ='';
+          rows[index].user_id ='';
+          rows[index].remarks ='';
         }
       },
       addRow() {
