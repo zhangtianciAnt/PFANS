@@ -43,6 +43,9 @@
               </el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
               </el-table-column>
+              <div :v-infinite-scroll="loadMore" :infinite-scroll-disabled="busy" infinite-scroll-distance="2">
+                <div class="loading">加载中...</div>
+              </div>
             </el-table>
           </el-row>
         </el-form>
@@ -59,6 +62,8 @@
   import user from '../../../components/user.vue';
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import vueiInfinite from 'vue-infinite-scroll'
+
 
   export default {
     name: 'ASSETS1002FormView',
@@ -67,6 +72,7 @@
       ASSETS1001View,
       dicselect,
       user,
+      vueiInfinite
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -115,6 +121,8 @@
         },
         disable: '',
         rowid: '',
+        goodList: [],
+        busy: false
       };
     },
     mounted() {
@@ -124,6 +132,7 @@
         this.userlist = this.$store.getters.userinfo.userid;
         this.form.userid = this.$store.getters.userinfo.userid;
         this.getSelectAll();
+        this.loadMore();
       }
     },
     created() {
@@ -157,6 +166,15 @@
       }
     },
     methods: {
+      loadMore () {
+        this.busy = false
+        //把busy置位true，这次请求结束前不再执行
+        setTimeout(() => {
+          this.page++
+          this.getSelectAll(true)
+          //调用获取数据接口，并且传入一个true，让axios方法指导是否需要拼接数组。
+        }, 500)
+      },
       rowClick(row) {
         this.rowid = row.assets_id;
       },
@@ -204,11 +222,11 @@
       selectionChange(val) {
         this.rowid = '';
         this.multipleSelection = val;
-        for (let i = 1; i < this.multipleSelection.length; i++) {
+        for (let i = 0; i < this.multipleSelection.length; i++) {
           this.rowid = this.rowid + ';' + this.multipleSelection[i].assets_id;
         }
       },
-      getSelectAll() {
+      getSelectAll(flag) {
         this.loading = true;
         this.$store
           .dispatch('ASSETS1002Store/selectAll', {})
@@ -229,6 +247,19 @@
                 }
               }
             }
+            // let ret = response;
+            // if (flag) {
+            //   this.goodList = this.goodList.concat(ret.length)
+            //   //如果是flagtrue，则拼接数组。
+            //   if (ret.length === 0) {
+            //     this.busy = true
+            //   } else {
+            //     this.busy = false
+            //   }
+            // } else {
+            //   this.goodList = ret.length
+            //   this.busy = false
+            // }
             this.tableD = response;
             this.loading = false;
           })
