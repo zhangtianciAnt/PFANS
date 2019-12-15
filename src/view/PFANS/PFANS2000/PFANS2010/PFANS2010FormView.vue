@@ -15,6 +15,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui';
+    import moment from "moment";
 
     export default {
         name: 'PFANS2010FormView',
@@ -24,7 +25,7 @@
         data() {
             return {
                 loading: false,
-                title: 'title.PFANS2010VIEW',
+                title: 'title.PFANS2010FOMRVIEW',
                 data: [],
                 rowid: '',
                 row_id: 'attendance_id',
@@ -32,6 +33,7 @@
                     {
                         code: 'dates',
                         label: 'label.PFANS2010VIEW_APPLICATION',
+                        labelClass: 'pfans2010view_column_17',
                         width: 110,
                         fix: false,
                         filter: true,
@@ -39,6 +41,7 @@
                     {
                         code: 'SERVICE',
                         label: 'label.PFANS2010VIEW_SERVICE',
+                        labelClass: 'pfans2010view_column_5',
                         child: [
                             {
                                 code: 'normal',
@@ -55,54 +58,63 @@
                             }, {
                                 code: 'ordinaryindustrynight',
                                 label: 'label.PFANS2010VIEW_NIGHTOVERTIME',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'weekendindustry',
                                 label: 'label.PFANS2010VIEW_RETIREMENT',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'weekendindustrynight',
                                 label: 'label.PFANS2010VIEW_NIGHTRETIREMENT',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 90,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'statutoryresidue',
                                 label: 'label.PFANS2010VIEW_HOLIDAYS',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'statutoryresiduenight',
                                 label: 'label.PFANS2010VIEW_NIGHTHOLIDAYS',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 110,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'annualrestday',
                                 label: 'label.PFANS2010VIEW_EVERYYEAR',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'specialday',
                                 label: 'label.PFANS2010VIEW_OCCASIONS',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'youthday',
                                 label: 'label.PFANS2010VIEW_YOUTHDAY',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'womensday',
                                 label: 'label.PFANS2010VIEW_WOMENSDAY',
+                                labelClass: 'pfans2010view_column_8',
                                 width: 150,
                                 fix: false,
                                 filter: true,
@@ -237,6 +249,7 @@
                     .dispatch('PFANS2010Store/getAttendancelist', parameter)
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
+                            response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
                             if(response[j].recognitionstate === "0"){
                                 if (this.$i18n) {
                                     response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
@@ -278,7 +291,6 @@
     background: #AEDFD1;
     color: #ffffff;
   }
-
   .pfans2010view_column_11 {
     background: #F2BC6A;
     color: #ffffff;

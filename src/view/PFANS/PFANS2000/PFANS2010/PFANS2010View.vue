@@ -9,10 +9,16 @@
       @rowClick="rowClick"
       @buttonClick="buttonClick"
       v-loading="loading">
-      <el-select @change="changed" slot="customize" v-model="region">
-        <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
-        <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
-      </el-select>
+<!--      <el-select @change="changed" slot="customize" v-model="region">-->
+<!--        <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>-->
+<!--        <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>-->
+<!--      </el-select>-->
+      <span >年月月</span>
+      <el-date-picker
+        v-model="value2"
+        type="month"
+        placeholder="选择月">
+      </el-date-picker>
     </EasyNormalTable>
   </div>
 </template>
@@ -28,6 +34,7 @@
         },
         data() {
             return {
+                value2:'',
                 region: '1',
                 loading: false,
                 title: 'title.PFANS2010VIEW',
