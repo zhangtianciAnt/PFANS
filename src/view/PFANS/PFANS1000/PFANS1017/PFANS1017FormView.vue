@@ -46,7 +46,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.subtype')">
+              <el-form-item :label="$t('label.subtype')" prop="subtype">
                 <dicselect :code="code1"
                            :data="form.subtype"
                            :disabled="!disable"
@@ -59,7 +59,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.application')">
+              <el-form-item :label="$t('label.application')" prop="application">
                 <el-date-picker :disabled="!disable"
                                 style="width:11rem"
                                 type="date"
@@ -88,7 +88,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1017FORMVIEW_IDTYPE')">
+              <el-form-item :label="$t('label.PFANS1017FORMVIEW_IDTYPE')" prop="idtype">
                 <dicselect :code="code2"
                            :data="form.idtype"
                            :disabled="!disable"
@@ -123,25 +123,29 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" maxlength="20" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" maxlength="20"
+                            style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_SURNAME')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.surname" maxlength="20" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.surname" maxlength="20"
+                            style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_MING')" align="center" width="130">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" maxlength="20" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" maxlength="20"
+                            style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.account" maxlength="20" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.account" maxlength="20"
+                            style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>
@@ -158,14 +162,14 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
                 <template slot-scope="scope">
                   <el-date-picker
                     :no="scope.row"
                     :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="scope.row.waitfortime"
+                    style="width: 100%"
+                    type="date"
+                    v-model="scope.row.waitfortime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
@@ -195,14 +199,14 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
                 <template slot-scope="scope">
                   <el-date-picker
                     :no="scope.row"
                     :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="scope.row.expecttime"
+                    style="width: 100%"
+                    type="date"
+                    v-model="scope.row.expecttime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
@@ -219,14 +223,14 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
                 <template slot-scope="scope">
                   <el-date-picker
                     :no="scope.row"
                     :disabled="!disable"
-                                  style="width: 100%"
-                                  type="date"
-                                  v-model="scope.row.forwardtime"
+                    style="width: 100%"
+                    type="date"
+                    v-model="scope.row.forwardtime"
                   ></el-date-picker>
                 </template>
               </el-table-column>
@@ -280,6 +284,15 @@
       user,
     },
     data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
       var checkemail = (rule, value, callback) => {
         if (this.form.email !== null && this.form.email !== '') {
           if (!validateEmail(value)) {
@@ -348,10 +361,30 @@
         code6: 'PG001',
         disabled: false,
         rules: {
+          user_id: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          }],
+          subtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.subtype'),
+            trigger: 'change',
+          }],
+          application: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.application'),
+            trigger: 'change',
+          }],
           email: [{},
             {validator: checkemail, trigger: 'blur'}],
           extension: [{},
             {validator: validateTel, trigger: 'blur'}],
+          idtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
+            trigger: 'change',
+          }],
         },
         canStart: false,
       };
@@ -459,6 +492,22 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        // if (rows.length === 1) {
+        //   rows[index].number = '';
+        //   rows[index].usertype = '';
+        //   rows[index].username = '';
+        //   rows[index].surname = '';
+        //   rows[index].ming = '';
+        //   rows[index].account = '';
+        //   rows[index].transmission = '';
+        //   rows[index].waitfortime = '';
+        //   rows[index].budgetunit = '';
+        //   rows[index].cybozu = '';
+        //   rows[index].expecttime = '';
+        //   rows[index].domainaccount = '';
+        //   rows[index].forwardtime = '';
+        //   rows[index].preparefor = '';
+        // }
       },
       addRow() {
         this.tableT.push({
@@ -476,6 +525,7 @@
           domainaccount: '',
           forwardtime: '',
           preparefor: '',
+          rowindex: '',
         });
       },
       buttonClick(val) {
@@ -488,9 +538,9 @@
             this.baseInfo.psdcddetail = [];
             for (let i = 0; i < this.tableT.length; i++) {
               if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
-                this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== ''||
-                this.tableT[i].transmission !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== ''||
-                this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== ''||
+                this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
+                this.tableT[i].transmission !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
+                this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
                 this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
                 this.baseInfo.psdcddetail.push(
                   {
@@ -511,7 +561,7 @@
                     forwardtime: this.tableT[i].forwardtime,
                     preparefor: this.tableT[i].preparefor,
                   },
-                )
+                );
               }
             }
             if (this.$route.params._id) {
