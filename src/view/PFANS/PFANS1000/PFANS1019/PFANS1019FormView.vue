@@ -31,7 +31,7 @@
                       :selectType="selectType"
                       :userlist="userlist"
                       @getUserids="getUserids"
-                      style="width: 9.2rem"
+                      style="width:10.14rem"
                 ></user>
               </el-form-item>
             </el-col>
@@ -45,7 +45,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1019FORMVIEW_DAILYPAYMENT')">
+              <el-form-item :label="$t('label.PFANS1019FORMVIEW_DAILYPAYMENT')" prop="dailypayment">
                 <el-date-picker :disabled="!disable"
                                 style="width:11rem"
                                 type="date"
@@ -81,6 +81,7 @@
                     :no="scope.row"
                     :disabled="!disable"
                     type="date"
+                    style="width: 100%"
                     v-model="scope.row.startdate"
                   ></el-date-picker>
                 </template>
@@ -91,6 +92,7 @@
                     :no="scope.row"
                     :disabled="!disable"
                     type="date"
+                    style="width: 100%"
                     v-model="scope.row.enddate"
                   ></el-date-picker>
                 </template>
@@ -184,6 +186,15 @@
       user,
     },
     data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
       return {
         baseInfo: {},
         loading: false,
@@ -194,7 +205,18 @@
         title: 'title.PFANS1019VIEW',
         disabled: false,
         buttonList: [],
-        rules: {},
+        rules: {
+          user_id: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          }],
+          dailypayment: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1019FORMVIEW_DAILYPAYMENT'),
+            trigger: 'change',
+          }],
+        },
         canStart: false,
         form: {
           center_id: '',
@@ -241,9 +263,6 @@
             this.userlist = response.user_id;
             this.form = response.trialsoft;
             this.userlist = this.form.user_id;
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
             if (response.trialsoftdetail.length > 0) {
               this.tableT = response.trialsoftdetail;
             }
@@ -297,11 +316,11 @@
         this.form.status = '0';
         this.buttonClick('update');
       },
-      changenature(val) {
-        this.form.nature = val;
+      changenature(val, row) {
+        row.nature = val;
       },
-      changesofttype(val) {
-        this.form.softtype = val;
+      changesofttype(val, row) {
+        row.softtype = val;
       },
       addRow() {
         this.tableT.push({
