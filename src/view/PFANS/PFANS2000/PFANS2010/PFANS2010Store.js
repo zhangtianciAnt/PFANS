@@ -1,4 +1,5 @@
 import {
+  getlist,
   getAttendancelist
 } from './PFANS2010Api'
 
@@ -10,6 +11,20 @@ const PFANS2010Store = {
   },
   actions: {
     //获取列表
+    getlist({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getlist(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //获取详细
     getAttendancelist({ commit }, data) {
       return new Promise((resolve, reject) => {
         getAttendancelist(data).then(response => {

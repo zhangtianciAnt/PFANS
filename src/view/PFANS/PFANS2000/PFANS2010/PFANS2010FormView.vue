@@ -4,6 +4,9 @@
                      :columns="columns"
                      :data="data"
                      :title="title"
+                     :rowid="row_id"
+                     @rowClick="rowClick"
+                     @buttonClick="buttonClick"
                      v-loading="loading">
     </EasyNormalTable>
   </div>
@@ -11,11 +14,10 @@
 
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
-    import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
     import {Message} from 'element-ui';
 
     export default {
-        name: 'PFANS2010View',
+        name: 'PFANS2010FormView',
         components: {
             EasyNormalTable,
         },
@@ -24,234 +26,226 @@
                 loading: false,
                 title: 'title.PFANS2010VIEW',
                 data: [],
+                rowid: '',
+                row_id: 'attendance_id',
                 columns: [
                     {
                         code: 'dates',
-                        label: 'label.PFANS2010VIEW_application',
-                        labelClass: 'pfans2010view_column_17',
-                        width: 30,
+                        label: 'label.PFANS2010VIEW_APPLICATION',
+                        width: 110,
                         fix: false,
                         filter: true,
                     },
                     {
-                        code: '',
+                        code: 'SERVICE',
                         label: 'label.PFANS2010VIEW_SERVICE',
-                        labelClass: 'pfans2010view_column_5',
                         child: [
-                            {//正常
+                            {
                                 code: 'normal',
                                 label: 'label.PFANS2010VIEW_NORMAL',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//平日残業
+                            }, {
                                 code: 'ordinaryindustry',
                                 label: 'label.PFANS2010VIEW_OVERTIME',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//平日深夜残業
+                            }, {
                                 code: 'ordinaryindustrynight',
                                 label: 'label.PFANS2010VIEW_NIGHTOVERTIME',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//周末残業
+                            }, {
                                 code: 'weekendindustry',
                                 label: 'label.PFANS2010VIEW_RETIREMENT',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//周末深夜残業
+                            }, {
                                 code: 'weekendindustrynight',
                                 label: 'label.PFANS2010VIEW_NIGHTRETIREMENT',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 90,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//法定节假日残業
+                            }, {
                                 code: 'statutoryresidue',
                                 label: 'label.PFANS2010VIEW_HOLIDAYS',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//法定节假日深夜残業
+                            }, {
                                 code: 'statutoryresiduenight',
                                 label: 'label.PFANS2010VIEW_NIGHTHOLIDAYS',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 110,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//一齐年休日出勤
+                            }, {
                                 code: 'annualrestday',
                                 label: 'label.PFANS2010VIEW_EVERYYEAR',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//会社特别休日出勤
+                            }, {
                                 code: 'specialday',
                                 label: 'label.PFANS2010VIEW_OCCASIONS',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//青年节出勤
+                            }, {
                                 code: 'youthday',
                                 label: 'label.PFANS2010VIEW_YOUTHDAY',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
-                            },
-                            {//妇女节出勤
+                            }, {
                                 code: 'womensday',
                                 label: 'label.PFANS2010VIEW_WOMENSDAY',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 150,
-                        fix: false,
-                        filter: true,
+                        width: 1650,
                     },
                     {
-                        code: '',
+                        code: 'SICKLEAVE',
                         label: 'label.PFANS2010VIEW_SICKLEAVE',
                         child: [
-                            {//短病假
-                                code: 'PFANS2010VIEW_NORMAL',
+                            {
+                                code: 'shortsickleave',
                                 label: 'label.PFANS2010VIEW_SHORT',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
-                            {//长病假
-                                code: 'ordinaryindustry',
+                            {
+                                code: 'longsickleave',
                                 label: 'label.PFANS2010VIEW_LONG',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 25,
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 150,
-                        fix: false,
-                        filter: true,
+                        width: 2100,
                     },
-                    {//事假
+                    {
                         code: 'compassionateleave',
                         label: 'label.PFANS2010VIEW_LEAVE',
-                        width: 40,
-                        fix: false,
-                        filter: true,
-                        labelClass: 'pfans2010view_column_11',
+                        width: 80,
                     },
-                    {//年休
+                    {
                         code: 'annualrest',
                         label: 'label.PFANS2010VIEW_INHUGH',
-                        width: 40,
-                        fix: false,
-                        filter: true,
-                        labelClass: 'pfans2010view_column_11',
+                        width: 80,
                     },
-                    {//代休
+                    {
                         code: 'daixiu',
                         label: 'label.PFANS2010VIEW_DAYOFF',
-                        width: 40,
-                        fix: false,
-                        filter: true,
-                        labelClass: 'pfans2010view_column_11',
+                        width: 80,
                     },
-                    {//产休护理假
+                    {
                         code: 'nursingleave',
                         label: 'label.PFANS2010VIEW_MATERNITY',
-                        width: 40,
-                        fix: false,
-                        filter: true,
-                        labelClass: 'pfans2010view_column_11',
+                        width: 80,
                     },
-                    {//福利假期
+                    {
                         code: 'welfare',
                         label: 'label.PFANS2010VIEW_WELFARE',
-                        width: 40,
-                        fix: false,
-                        filter: true,
-                        labelClass: 'pfans2010view_column_11',
+                        width: 80,
                     },
                     {
                         code: '',
                         label: 'label.PFANS2010VIEW_ABSENCE',
-                        labelClass: 'pfans2010view_column_14',
                         child: [
-                            {//迟到
+                            {
                                 code: 'late',
-                                label: 'label.PFANS2013VIEW_BEGINNING',
-                                labelClass: 'pfans2010view_column_15',
-                                width: 25,
+                                label: 'label.PFANS2010VIEW_LATE',
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
-                            {//早退
+                            {
                                 code: 'leaveearly',
-                                label: 'label.PFANS2013VIEW_DEDUCT',
-                                labelClass: 'pfans2010view_column_15',
-                                width: 25,
+                                label: 'label.PFANS2010VIEW_LEAVEEARLY',
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
-                            {//无故旷工
+                            {
                                 code: 'absenteeism',
-                                label: 'label.PFANS2013VIEW_REMAINING',
-                                labelClass: 'pfans2010view_column_15',
-                                width: 25,
+                                label: 'label.PFANS2010VIEW_ABSENTEEISM',
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 50,
-                        fix: false,
-                        filter: true,
+                        width: 450,
                     },
-                    {//承认状态
+                    {
                         code: 'recognitionstate',
                         label: 'label.PFANS2010VIEW_RECOGNITION',
-                        labelClass: 'pfans2010view_column_16',
-                        width: 25,
+                        width: 150,
                         fix: false,
                         filter: true,
                     },
                 ],
-                buttonList: [],
+                buttonList: [
+                    {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
+                    {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
+                ],
             };
         },
         methods: {
+            rowClick(row) {
+                this.rowid = row.attendance_id;
+            },
+            buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path)
+                if (val === 'back') {
+                    this.$router.push({
+                        name: 'PFANS2010View',
+                    });
+                }
+                else if (val === 'recognition') {
+                    // this.loading = true;
+                    // this.$store
+                    //     .dispatch('PFANS2010Store/download', {})
+                    //     .then(response => {
+                    //         this.loading = false;
+                    //     })
+                    //     .catch(error => {
+                    //         Message({
+                    //             message: error,
+                    //             type: 'error',
+                    //             duration: 5 * 1000
+                    //         });
+                    //         this.loading = false;
+                    //     })
+                }
+            },
             getAttendancelist() {
+                let parameter = {
+                    user_id:this.$route.params.userid,
+                    years:this.$route.params.years,
+                    months:this.$route.params.months,
+                }
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2010Store/getAttendancelist', {})
+                    .dispatch('PFANS2010Store/getAttendancelist', parameter)
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            let user = getUserInfo(response[j].user_id);
-                            if (user) {
-                                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                            if(response[j].recognitionstate === "0"){
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
+                                }
+                            }
+                            else{
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
+                                }
                             }
                         }
                         this.data = response;
