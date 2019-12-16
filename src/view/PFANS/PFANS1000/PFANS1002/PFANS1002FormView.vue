@@ -1343,19 +1343,19 @@
           !this.form.permit ||
           !this.form.scheduled
         ) {
-          this.activeName = 'fouth';
+          this.activeName = 'fourth';
         } else if (
           !this.form.technology ||
           !this.form.judgment ||
           !this.form.judgmentno ||
           !this.form.fixedassetsno
         ) {
-          this.activeName = 'five';
+          this.activeName = 'fifth';
         } else if (
           !this.form.regulations ||
           !this.form.reason
         ) {
-          this.activeName = 'six';
+          this.activeName = 'sixth';
         }
       },
       getUserids(val) {
@@ -1405,6 +1405,7 @@
           this.form.objectivetypeother = this.$t('label.PFANS1002VIEW_OTHER');
         } else {
           this.show = false;
+          this.rules.objectivetypeother[0].required = false;
           this.form.objectivetypeother = null;
         }
       },

@@ -54,210 +54,210 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -275,210 +275,210 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -522,390 +522,390 @@
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
@@ -949,390 +949,390 @@
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.給与')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.残業費')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="!disable" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" maxlength="20" size="mini"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
                                       v-model.trim="scope.row.place"></el-input>
@@ -1392,7 +1392,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1406,7 +1406,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1420,7 +1420,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1434,7 +1434,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1448,7 +1448,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1462,7 +1462,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1476,7 +1476,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1490,7 +1490,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1504,7 +1504,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1518,7 +1518,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1532,7 +1532,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1546,7 +1546,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1560,7 +1560,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1574,7 +1574,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1588,7 +1588,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1630,7 +1630,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1644,7 +1644,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1658,7 +1658,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1672,7 +1672,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1686,7 +1686,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1700,7 +1700,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1714,7 +1714,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1728,7 +1728,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1742,7 +1742,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1756,7 +1756,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1770,7 +1770,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1784,7 +1784,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1798,7 +1798,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1812,7 +1812,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1826,7 +1826,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -1881,7 +1881,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1895,7 +1895,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1909,7 +1909,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1923,7 +1923,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1937,7 +1937,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1951,7 +1951,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1965,7 +1965,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1979,7 +1979,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -1993,7 +1993,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2007,7 +2007,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2021,7 +2021,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2035,7 +2035,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2049,7 +2049,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2063,7 +2063,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2077,7 +2077,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2113,7 +2113,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2127,7 +2127,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2141,7 +2141,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2155,7 +2155,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2169,7 +2169,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2183,7 +2183,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2197,7 +2197,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2211,7 +2211,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2225,7 +2225,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2239,7 +2239,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2253,7 +2253,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2267,7 +2267,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2281,7 +2281,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2295,7 +2295,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2309,7 +2309,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2345,7 +2345,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2359,7 +2359,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2373,7 +2373,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2387,7 +2387,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2401,7 +2401,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2415,7 +2415,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2429,7 +2429,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2443,7 +2443,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2457,7 +2457,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2471,7 +2471,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2485,7 +2485,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2499,7 +2499,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2513,7 +2513,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2527,7 +2527,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2541,7 +2541,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2608,7 +2608,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2622,7 +2622,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2636,7 +2636,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2650,7 +2650,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2664,7 +2664,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2678,7 +2678,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2692,7 +2692,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2706,7 +2706,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2720,7 +2720,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2734,7 +2734,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2748,7 +2748,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2762,7 +2762,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2776,7 +2776,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2790,7 +2790,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2804,7 +2804,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -2846,7 +2846,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2860,7 +2860,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2874,7 +2874,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2888,7 +2888,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2902,7 +2902,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2916,7 +2916,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2930,7 +2930,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2944,7 +2944,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2958,7 +2958,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2972,7 +2972,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -2986,7 +2986,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -3000,7 +3000,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -3014,7 +3014,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -3028,7 +3028,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -3042,7 +3042,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -3097,7 +3097,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3111,7 +3111,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3125,7 +3125,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3139,7 +3139,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3153,7 +3153,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3167,7 +3167,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3181,7 +3181,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3195,7 +3195,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3209,7 +3209,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3223,7 +3223,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3237,7 +3237,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3251,7 +3251,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3265,7 +3265,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3279,7 +3279,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3293,7 +3293,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3329,7 +3329,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3343,7 +3343,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3357,7 +3357,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3371,7 +3371,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3385,7 +3385,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3399,7 +3399,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3413,7 +3413,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3427,7 +3427,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3441,7 +3441,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3455,7 +3455,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3469,7 +3469,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3483,7 +3483,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3497,7 +3497,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3511,7 +3511,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3525,7 +3525,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3561,7 +3561,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3575,7 +3575,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3589,7 +3589,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3603,7 +3603,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3617,7 +3617,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3631,7 +3631,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3645,7 +3645,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3659,7 +3659,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3673,7 +3673,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3687,7 +3687,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3701,7 +3701,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3715,7 +3715,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3729,7 +3729,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3743,7 +3743,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3757,7 +3757,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.個数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3832,7 +3832,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.4月')" align="center" width="100">
+                    <el-table-column :label="$t('label.April')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3846,7 +3846,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.5月')" align="center" width="100">
+                    <el-table-column :label="$t('label.May')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3860,7 +3860,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.6月')" align="center" width="100">
+                    <el-table-column :label="$t('label.June')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3874,7 +3874,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.7月')" align="center" width="100">
+                    <el-table-column :label="$t('label.July')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3888,7 +3888,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.8月')" align="center" width="100">
+                    <el-table-column :label="$t('label.August')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3902,7 +3902,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.9月')" align="center" width="100">
+                    <el-table-column :label="$t('label.September')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3916,7 +3916,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.上期')" align="center" width="100">
+                    <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3930,7 +3930,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.10月')" align="center" width="100">
+                    <el-table-column :label="$t('label.October')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3944,7 +3944,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.11月')" align="center" width="100">
+                    <el-table-column :label="$t('label.November')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3958,7 +3958,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.12月')" align="center" width="100">
+                    <el-table-column :label="$t('label.December')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3972,7 +3972,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.1月')" align="center" width="100">
+                    <el-table-column :label="$t('label.January')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -3986,7 +3986,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.2月')" align="center" width="100">
+                    <el-table-column :label="$t('label.February')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4000,7 +4000,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.3月')" align="center" width="100">
+                    <el-table-column :label="$t('label.March')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4014,7 +4014,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.下期')" align="center" width="100">
+                    <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4028,7 +4028,7 @@
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                    <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                       <el-table-column :label="$t('label.回数')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4113,7 +4113,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4155,7 +4155,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4169,7 +4169,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -4213,7 +4213,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4227,7 +4227,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4241,7 +4241,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4255,7 +4255,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4269,7 +4269,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4283,7 +4283,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4297,7 +4297,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4311,7 +4311,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4325,7 +4325,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4339,7 +4339,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4353,7 +4353,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4367,7 +4367,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4381,7 +4381,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4395,7 +4395,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4409,7 +4409,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4464,7 +4464,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4478,7 +4478,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4492,7 +4492,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4506,7 +4506,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4520,7 +4520,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4534,7 +4534,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4548,7 +4548,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4562,7 +4562,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4576,7 +4576,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4590,7 +4590,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4604,7 +4604,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4618,7 +4618,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4632,7 +4632,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4646,7 +4646,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4660,7 +4660,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4715,7 +4715,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4729,7 +4729,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4743,7 +4743,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4757,7 +4757,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4771,7 +4771,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4785,7 +4785,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4799,7 +4799,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4813,7 +4813,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4827,7 +4827,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4841,7 +4841,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4855,7 +4855,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4869,7 +4869,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4883,7 +4883,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4897,7 +4897,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.下期')" align="center" width="100">
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -4911,7 +4911,7 @@
                           </template>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.年間合计')" align="center" width="100">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="100">
                         <el-table-column :label="$t('label.工数')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -5029,171 +5029,171 @@
                         </el-table-column>
                       </el-table-column>
                     </el-table-column>
-                    <el-table-column :label="$t('label.上期')" align="center" width="100">
-                      <el-table-column :label="$t('label.4月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                    <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                      <el-table-column :label="$t('label.April')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table-column>
-                      <el-table-column :label="$t('label.5月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                      <el-table-column :label="$t('label.6月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.May')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table-column>
-                      <el-table-column :label="$t('label.7月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                      <el-table-column :label="$t('label.8月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.June')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table-column>
-                      <el-table-column :label="$t('label.9月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.上期')" align="center" width="100">
-                      <el-table-column :label="$t('label.10月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.July')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table-column>
-                      <el-table-column :label="$t('label.11月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                      <el-table-column :label="$t('label.12月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.August')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table-column>
-                      <el-table-column :label="$t('label.1月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.place"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                      <el-table-column :label="$t('label.2月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                      <el-table-column :label="$t('label.September')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
                     </el-table-column>
-                      <el-table-column :label="$t('label.3月')" align="center" width="100">
-                      <el-table-column :label="$t('label.人数')" align="center" width="100">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                      <el-table-column :label="$t('label.October')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                    v-model.trim="scope.row.place"></el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
@@ -5203,13 +5203,13 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.年間')" align="center" width="100">
                       <el-table-column :label="$t('label.合计')" align="center" width="100">
-                        <el-table-column :label="$t('label.人数')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.残業工数')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.place"></el-input>
@@ -5291,8 +5291,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.April')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5306,7 +5306,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                        <el-table-column :label="$t('label.May')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5320,7 +5320,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                        <el-table-column :label="$t('label.June')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5334,7 +5334,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                        <el-table-column :label="$t('label.July')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5348,7 +5348,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                        <el-table-column :label="$t('label.August')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5362,7 +5362,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                        <el-table-column :label="$t('label.September')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5377,8 +5377,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.October')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5392,7 +5392,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                        <el-table-column :label="$t('label.November')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5406,7 +5406,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                        <el-table-column :label="$t('label.December')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5420,7 +5420,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                        <el-table-column :label="$t('label.January')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5434,7 +5434,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                        <el-table-column :label="$t('label.February')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5448,7 +5448,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                        <el-table-column :label="$t('label.March')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5533,8 +5533,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.April')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5548,7 +5548,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                        <el-table-column :label="$t('label.May')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5562,7 +5562,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                        <el-table-column :label="$t('label.June')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5576,7 +5576,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                        <el-table-column :label="$t('label.July')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5590,7 +5590,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                        <el-table-column :label="$t('label.August')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5604,7 +5604,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                        <el-table-column :label="$t('label.September')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5619,8 +5619,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.October')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5634,7 +5634,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                        <el-table-column :label="$t('label.November')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5648,7 +5648,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                        <el-table-column :label="$t('label.December')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5662,7 +5662,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                        <el-table-column :label="$t('label.January')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5676,7 +5676,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                        <el-table-column :label="$t('label.February')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5690,7 +5690,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                        <el-table-column :label="$t('label.March')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5763,8 +5763,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.4月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.April')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5778,7 +5778,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.5月')" align="center" width="100">
+                        <el-table-column :label="$t('label.May')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5792,7 +5792,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.6月')" align="center" width="100">
+                        <el-table-column :label="$t('label.June')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5806,7 +5806,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.7月')" align="center" width="100">
+                        <el-table-column :label="$t('label.July')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5820,7 +5820,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.8月')" align="center" width="100">
+                        <el-table-column :label="$t('label.August')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5834,7 +5834,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.9月')" align="center" width="100">
+                        <el-table-column :label="$t('label.September')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5849,8 +5849,8 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.上期')" align="center" width="100">
-                        <el-table-column :label="$t('label.10月')" align="center" width="100">
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="100">
+                        <el-table-column :label="$t('label.October')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5864,7 +5864,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.11月')" align="center" width="100">
+                        <el-table-column :label="$t('label.November')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5878,7 +5878,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.12月')" align="center" width="100">
+                        <el-table-column :label="$t('label.December')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5892,7 +5892,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.1月')" align="center" width="100">
+                        <el-table-column :label="$t('label.January')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5906,7 +5906,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.2月')" align="center" width="100">
+                        <el-table-column :label="$t('label.February')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -5920,7 +5920,7 @@
                             </template>
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.3月')" align="center" width="100">
+                        <el-table-column :label="$t('label.March')" align="center" width="100">
                           <el-table-column :label="$t('label.計画')" align="center" width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
@@ -6052,18 +6052,18 @@
                 ],
                 tableA: [
                     {
-                        aaa:"人員計画合計",
+                        aaa:this.$t('label.PFANS1036FORMVIEW_TOTALPERSONNELPLAN'),
                     },
                 ],
                 tableB: [
                     {
-                        aaa:"人員計画合計",
+                        aaa:this.$t('label.PFANS1036FORMVIEW_TOTALPERSONNELPLAN'),
                     },
                     {
-                        aaa: "小計(元)",
+                        aaa:this.$t('label.PFANS1036FORMVIEW_SUBTOTAL'),
                     },
                     {
-                        aaa: "小計(千元)",
+                        aaa:this.$t('label.PFANS1036FORMVIEW_SUBTOTALTHOUSAND'),
                     },
                 ],
                 tableC: [
