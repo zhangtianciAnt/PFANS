@@ -831,12 +831,6 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        } else {
-          this.tableD=[{
-            content:'',
-            user_id:' ',
-            remarks:'',
-          }]
         }
       },
       addRow() {

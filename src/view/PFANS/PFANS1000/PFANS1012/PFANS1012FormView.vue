@@ -475,7 +475,6 @@
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" style="width: 100%"
                               maxlength="20"
-                              :no="scope.row"
                               v-model="scope.row.procurementdetails"
                               v-show="scope.row.showrow">
                     </el-input>
@@ -1058,8 +1057,10 @@
                   this.tableP[i].showrow1 = false;
                   this.tableP[i].showrow2 = false;
                   this.tableP[i].showrow3 = true;
+                }else if (this.tableP[i].procurementproject === ' '){
+                  this.tableP[i].showrow = true;
                 }
-              }
+                  }
             }
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails;
@@ -1358,11 +1359,12 @@
         } else {
           this.tableP=[{
             purchasedetailsdate:'',
-            procurementdetails:' ',
+            procurementdetails:'',
             procurementproject:' ',
             rmb:'',
             foreigncurrency:'',
             annexno:'',
+            showrow:true,
           }]
         }
       },
