@@ -203,6 +203,7 @@
             });
             return;
           }
+          debugger
           let name = this.row.url.replace("/", "");
           this._id = this.row.noticeid;
           this.workflowurl = this.row.workflowurl.replace("/", "");
