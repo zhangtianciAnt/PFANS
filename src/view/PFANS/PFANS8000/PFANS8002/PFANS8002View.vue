@@ -106,7 +106,6 @@
     },
     methods: {
       getStatus(val) {
-        debugger
         this.loading = true;
         this.$store
           .dispatch('indexStore/getStatus', {status: val})
