@@ -492,26 +492,30 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        // if (rows.length === 1) {
-        //   rows[index].number = '';
-        //   rows[index].usertype = '';
-        //   rows[index].username = '';
-        //   rows[index].surname = '';
-        //   rows[index].ming = '';
-        //   rows[index].account = '';
-        //   rows[index].transmission = '';
-        //   rows[index].waitfortime = '';
-        //   rows[index].budgetunit = '';
-        //   rows[index].cybozu = '';
-        //   rows[index].expecttime = '';
-        //   rows[index].domainaccount = '';
-        //   rows[index].forwardtime = '';
-        //   rows[index].preparefor = '';
-        // }
+        else{
+          this.tableT=[{
+            psdcddetail_id: '',
+            psdcd_id: '',
+            usertype: ' ',
+            username: '',
+            surname: '',
+            ming: '',
+            account: '',
+            transmission: ' ',
+            waitfortime: '',
+            budgetunit: ' ',
+            cybozu: ' ',
+            expecttime: '',
+            domainaccount: ' ',
+            forwardtime: '',
+            preparefor: '',
+          }]
+        }
       },
       addRow() {
         this.tableT.push({
-          number: '',
+          psdcddetail_id: '',
+          psdcd_id: '',
           usertype: '',
           username: '',
           surname: '',

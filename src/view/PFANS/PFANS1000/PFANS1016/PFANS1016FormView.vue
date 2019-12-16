@@ -527,9 +527,25 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        else{
+          this.tableT=[{
+            routing_id: '',
+            routingdetail_id: '',
+            sourceipgroup:' ',
+            sourceipaddresstest: '',
+            sourceipaddress: '',
+            communication: ' ',
+            destinationipgroup: ' ',
+            destinationipaddress: '',
+            destinationipaddresstest: '',
+            protocol: '',
+            Protocoltest: '',
+          }]
+        }
       },
       addRow() {
         this.tableT.push({
+          routing_id: '',
           routingdetail_id: '',
           sourceipgroup: '',
           sourceipaddresstest: '',
