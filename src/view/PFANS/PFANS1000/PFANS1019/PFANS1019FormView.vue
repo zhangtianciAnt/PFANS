@@ -324,6 +324,8 @@
       },
       addRow() {
         this.tableT.push({
+          trialsoftdetail_id: '',
+          trialsoft_id: '',
           machinename: '',
           customer: '',
           startdate: '',
@@ -338,6 +340,21 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }
+        else{
+          this.tableT=[{
+            trialsoftdetail_id: '',
+            trialsoft_id: '',
+            machinename: '',
+            customer: '',
+            startdate: '',
+            enddate: '',
+            softwarename: '',
+            nature: ' ',
+            developer: '',
+            employ: '',
+            softtype: ' ',
+          }]
         }
       },
       buttonClick(val) {

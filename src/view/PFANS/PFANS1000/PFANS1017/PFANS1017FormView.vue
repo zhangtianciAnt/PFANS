@@ -514,6 +514,8 @@
       },
       addRow() {
         this.tableT.push({
+          psdcddetail_id: '',
+          psdcd_id: '',
           usertype: '',
           username: '',
           surname: '',
