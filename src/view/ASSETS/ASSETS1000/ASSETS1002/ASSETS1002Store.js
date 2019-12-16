@@ -5,6 +5,7 @@ import {
   selectAll,
   selectById,
   update,
+  selectByResult,
 } from './ASSETS1002Api';
 
 const ASSETS1002Store = {
@@ -86,6 +87,20 @@ const ASSETS1002Store = {
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    selectByResult({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByResult(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

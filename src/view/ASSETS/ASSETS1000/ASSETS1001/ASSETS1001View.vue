@@ -3,7 +3,7 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
                      v-loading="loading">
-      <div id="qrcode"></div>
+<!--      <div id="qrcode"></div>-->
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -308,19 +308,19 @@
         if (val === 'import') {
           this.daoru = true;
         }
-        if (val === 'prtQrcode') {
-          document.getElementById('qrcode').innerHTML = '';
-          this.selectedlist = this.$refs.roletable.selectedList;
-          for(let i = 0; i <this.selectedlist.length; i++ ){
-            let qrcode = new QRCode('qrcode', {
-              width: 132,
-              height: 132,
-              text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'),
-              colorDark : "#000",
-              colorLight : "#fff",
-            })
-          }
-        }
+        // if (val === 'prtQrcode') {
+        //   document.getElementById('qrcode').innerHTML = '';
+        //   this.selectedlist = this.$refs.roletable.selectedList;
+        //   for(let i = 0; i <this.selectedlist.length; i++ ){
+        //     let qrcode = new QRCode('qrcode', {
+        //       width: 132,
+        //       height: 132,
+        //       text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'),
+        //       colorDark : "#000",
+        //       colorLight : "#fff",
+        //     })
+        //   }
+        // }
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {

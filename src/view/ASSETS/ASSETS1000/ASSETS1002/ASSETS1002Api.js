@@ -47,3 +47,11 @@ export function selectById(data) {
     params: data,
   });
 }
+
+export function selectByResult(data) {
+  return request({
+    url: 'inventoryplan/selectByResult',
+    method: 'get',
+    params: data,
+  });
+}
