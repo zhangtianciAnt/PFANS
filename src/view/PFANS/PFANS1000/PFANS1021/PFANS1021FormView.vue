@@ -470,8 +470,7 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
+            }else{
                 rows[index].title = '';
                 rows[index].detailcenter_id = '';
                 rows[index].detailgroup_id = '';

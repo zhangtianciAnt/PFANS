@@ -297,8 +297,7 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
+            }else{
                 rows[index].username = '';
                 rows[index].rank = '';
                 rows[index].mailaddress = '';
