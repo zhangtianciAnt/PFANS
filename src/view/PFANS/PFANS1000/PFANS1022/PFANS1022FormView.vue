@@ -83,7 +83,6 @@
                   </el-input>
                 </template>
               </el-table-column>
-              //连续
               <el-table-column align="center" width="90">
                 <template slot-scope="scope">
                 <el-checkbox
@@ -96,14 +95,12 @@
                 >{{$t('label.PFANS1022FORMVIEW_CONTINUOUS')}}</el-checkbox>
                 </template>
               </el-table-column>
-              //休日出勤日付
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_ATTENDANCEDATE')" align="center"
                                prop="attendancedate" width="190">
                 <template slot-scope="scope">
                   <el-date-picker :disabled="!disabled" :key="index" :readonly="scope.row.dis" type="date" :no="scope.row" v-model="scope.row.attendancedate"
                                   style="width: 11rem"></el-date-picker>
                 </template>
-                //期间
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_PERIOD')" align="center" prop="startdate"
                                width="370">
@@ -361,7 +358,6 @@
                     row.errorapplication = "";
                 }
             },
-            //清空操作--多行
             getChecked(val,index) {
                 for (let i = 0; i < this.tableD.length; i++) {
                     if (val === true && index === i) {
