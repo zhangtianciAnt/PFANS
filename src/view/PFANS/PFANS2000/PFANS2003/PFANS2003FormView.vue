@@ -329,6 +329,20 @@
           this.erroracceptdate = '';
         }
       };
+      var validateinterview_date = (rule, value, callback) => {
+        if (this.form.interview_date !== null && this.form.interview_date !== '') {
+          if (moment(value).format('YYYY-MM-DD') < moment(this.form.accept_date).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE')));
+            this.errorinterviewdate = this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE');
+          } else {
+            callback();
+            this.errorinterviewdate = '';
+          }
+        } else {
+          callback();
+          this.errorinterviewdate = '';
+        }
+      };
       return {
         modelwhetherentry: '1',
         modelresult: '1',
@@ -407,7 +421,8 @@
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
             trigger: 'change',
-          }],
+          },
+            {validator: validateinterview_date, trigger: 'change'}],
           source: [{
             required: true,
             validator: validatesourceid,
