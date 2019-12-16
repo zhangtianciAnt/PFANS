@@ -15,8 +15,9 @@
 <!--      </el-select>-->
       <span >年月月</span>
       <el-date-picker
-        v-model="value2"
+        v-model="montvalue"
         type="month"
+        @change="changed"
         placeholder="选择月">
       </el-date-picker>
     </EasyNormalTable>
@@ -27,6 +28,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui'
     import {getUserInfo} from "@/utils/customize";
+    import moment from "moment";
     export default {
         name: 'PFANS2010View',
         components: {
@@ -34,7 +36,7 @@
         },
         data() {
             return {
-                value2:'',
+                montvalue:moment(new Date()).format("YYYY-M"),
                 region: '1',
                 loading: false,
                 title: 'title.PFANS2010VIEW',
@@ -108,39 +110,50 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS2010Store/getlist', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        let user = getUserInfo(response[j].user_id);
-                        if (user) {
-                            response[j].user_name = getUserInfo(response[j].user_id).userinfo.customername;
-                        }
-                        if(response[j].recognitionstate === "0"){
-                            if (this.$i18n) {
-                                response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
-                            }
-                        }
-                        else{
-                            if (this.$i18n) {
-                                response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
-                            }
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                })
+            this.getlist();
         },
         methods: {
+            getlist(){
+                this.loading = true;
+                var parameter = {};
+                var varmontvalue = this.montvalue.split("-");
+                if(varmontvalue.length > 0){
+                    parameter = {
+                        years:varmontvalue[0],
+                        months:varmontvalue[1],
+                    }
+                }
+                this.$store
+                    .dispatch('PFANS2010Store/getlist', parameter)
+                    .then(response => {
+                        for (let j = 0; j < response.length; j++) {
+                            let user = getUserInfo(response[j].user_id);
+                            if (user) {
+                                response[j].user_name = getUserInfo(response[j].user_id).userinfo.customername;
+                            }
+                            if(response[j].recognitionstate === "0"){
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
+                                }
+                            }
+                            else{
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
+                                }
+                            }
+                        }
+                        this.data = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            },
             rowClick(row) {
                 this.userid = row.user_id;
                 this.years = row.years;
@@ -168,8 +181,9 @@
                     })
                 }
             },
-            changed(){
-
+            changed(val){
+                this.montvalue = moment(val).format("YYYY-M");
+                this.getlist();
             },
         },
     };
