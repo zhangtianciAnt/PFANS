@@ -1222,8 +1222,7 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
+        }else{
           rows[index].trafficdate = '';
           rows[index].region = '';
           rows[index].vehicle = '';
@@ -1237,7 +1236,7 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        if (rows.length === 1) {
+        else {
           rows[index].accommodationdate = '';
           rows[index].activitycontent = ' ';
           rows[index].vehicleon = ' ';
@@ -1260,8 +1259,7 @@
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
+        }else{
           rows[index].otherdetailsdate = '';
           rows[index].costitem = '';
           rows[index].remarks = '';

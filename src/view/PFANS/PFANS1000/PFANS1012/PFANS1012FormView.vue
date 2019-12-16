@@ -653,6 +653,7 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
   import {getDictionaryInfo} from "../../../../utils/customize";
+  import {json2csv} from 'json2csv'
 
   export default {
     name: 'PFANS1012FormView',
@@ -803,6 +804,16 @@
             disabled: false,
             icon: 'el-icon-check',
           },
+          {
+            key: "import",
+            name: "button.import",
+            icon: "el-icon-download"
+          },
+          {
+            key: "export",
+            name: "button.export",
+            icon: "el-icon-upload2"
+          }
         ],
         tableData: [{
           abstract: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
@@ -1194,7 +1205,6 @@
     },
     watch: {
       foreigncurrency(val) {
-        //this.form.tormb = (val * this.form.currencyrate).toFixed(2);
         this.form.tormb = Math.round((val * this.form.currencyrate) * 10) / 10;
       }
     },
@@ -1319,8 +1329,6 @@
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-         // this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003002') {
           debugger;
           this.disablecurr = false;
@@ -1328,27 +1336,21 @@
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-          //this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003003') {
           this.disablecurr = true;
          this.form.currencyrate='';
-         // this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         }
         this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
       },
       getCurrencyrate(val){
         this.form.currencyrate=val;
-        //this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
         this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].trafficdate ='';
+        } else {
+          rows[index].trafficdate =null;
           rows[index].region ='';
           rows[index].vehicle ='';
           rows[index].startingpoint ='';
@@ -1360,9 +1362,8 @@
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].purchasedetailsdate ='';
+        } else {
+          rows[index].purchasedetailsdate =null;
           rows[index].procurementdetails =' ';
           rows[index].procurementproject =' ';
           rows[index].rmb ='';
@@ -1373,9 +1374,8 @@
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].otherdetailsdate ='';
+        } else {
+          rows[index].otherdetailsdate =null;
           rows[index].costitem ='';
           rows[index].remarks ='';
           rows[index].rmb ='';
@@ -1652,7 +1652,6 @@
               }
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
               this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 10) / 10;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));

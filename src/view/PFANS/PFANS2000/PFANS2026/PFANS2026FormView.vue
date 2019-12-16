@@ -33,7 +33,13 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')">
-                    <el-input :disabled="true" v-model="form.sex" style="width:11rem"></el-input>
+                    <dicselect :code="code3"
+                               :data="form.sex"
+                               :disabled="true"
+                               :multiple="multiple"
+                               @change="getsex"
+                               style="width: 11rem">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -126,7 +132,13 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')">
-                    <el-input :disabled="true" v-model="form.sex" style="width:11rem"></el-input>
+                    <dicselect :code="code3"
+                               :data="form.sex"
+                               :disabled="true"
+                               :multiple="multiple"
+                               @change="getsex"
+                               style="width: 11rem">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -548,6 +560,7 @@
         },
         code1: 'PR012',
         code2: 'PR022',
+        code3:'PR019',
         disable: false,
         disable1: false,
         disable2: false,
@@ -737,7 +750,7 @@
           this.form.team_id = rst.teamNmae;
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
           if (lst) {
-            this.form.sex = lst.userinfo.sex === "0" ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
+            this.form.sex = lst.userinfo.sex ;
             this.form.educational_background = lst.userinfo.educational;
             this.form.position = lst.userinfo.post;
             this.form.entry_time = lst.userinfo.enterday;
@@ -765,12 +778,10 @@
         this.form.center_id = rst.centerNmae;
         this.form.group_id = rst.groupNmae;
         this.form.team_id = rst.teamNmae;
-        this.form.sex = lst.userinfo.sex === "0" ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
+        this.form.sex = lst.userinfo.sex ;
         this.form.educational_background = lst.userinfo.educational;
         this.form.position = lst.userinfo.post;
         this.form.entry_time = lst.userinfo.enterday;
-        //this.form.sex = lst.userinfo.sex === "0" ? "PR019001" : "PR019002";
-        //this.form.educational_background = lst.userinfo.educational;
         if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.user_name');
         } else {
@@ -798,6 +809,9 @@
       geteducational_background(val){
         this.form.educational_background=val;
       },
+      getsex(val){
+        this.form.sex=val;
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -817,11 +831,12 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].content ='';
-          rows[index].user_id ='';
-          rows[index].remarks ='';
+        } else {
+          this.tableD=[{
+            content:'',
+            user_id:' ',
+            remarks:'',
+          }]
         }
       },
       addRow() {
