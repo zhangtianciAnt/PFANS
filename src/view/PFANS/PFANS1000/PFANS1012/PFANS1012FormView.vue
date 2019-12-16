@@ -145,7 +145,7 @@
                         :disabled="!disablecurr"
                         :max="999999"
                         :min="0"
-                        :precision="2"
+                        :precision="3"
                         :step="0.01"
                         controls-position="right"
                         style="width: 11rem"
@@ -473,7 +473,10 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_PROCUREMENTDETAILS')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" maxlength="20" v-model="scope.row.procurementdetails"
+                    <el-input :disabled="!disable" style="width: 100%"
+                              maxlength="20"
+                              :no="scope.row"
+                              v-model="scope.row.procurementdetails"
                               v-show="scope.row.showrow">
                     </el-input>
                     <dicselect :code="code6"
@@ -653,7 +656,6 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
   import {getDictionaryInfo} from "../../../../utils/customize";
-  import {json2csv} from 'json2csv'
 
   export default {
     name: 'PFANS1012FormView',
@@ -803,16 +805,6 @@
             name: 'button.save',
             disabled: false,
             icon: 'el-icon-check',
-          },
-          {
-            key: "import",
-            name: "button.import",
-            icon: "el-icon-download"
-          },
-          {
-            key: "export",
-            name: "button.export",
-            icon: "el-icon-upload2"
           }
         ],
         tableData: [{
@@ -1205,7 +1197,7 @@
     },
     watch: {
       foreigncurrency(val) {
-        this.form.tormb = Math.round((val * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((val * this.form.currencyrate) * 100) / 100;
       }
     },
     methods: {
@@ -1330,7 +1322,6 @@
             this.form.currencyrate = dictionaryInfo.value2;
           }
         } else if (val === 'PJ003002') {
-          debugger;
           this.disablecurr = false;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
@@ -1340,11 +1331,11 @@
           this.disablecurr = true;
          this.form.currencyrate='';
         }
-        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
       },
       getCurrencyrate(val){
         this.form.currencyrate=val;
-        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -1363,7 +1354,7 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          rows[index].purchasedetailsdate =null;
+          rows[index].purchasedetailsdate ='';
           rows[index].procurementdetails =' ';
           rows[index].procurementproject =' ';
           rows[index].rmb ='';
@@ -1477,10 +1468,10 @@
               }
             }, 0);
             if(index==4){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
             if(index==5){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1510,10 +1501,10 @@
               }
             }, 0);
             if(index==3){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
             if(index==4){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1541,10 +1532,10 @@
               }
             }, 0);
             if(index==3){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
             if(index==4){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1572,10 +1563,10 @@
               }
             }, 0);
             if(index==4){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
             if(index==5){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1652,7 +1643,7 @@
               }
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 10) / 10;
+              this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 100) / 100;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.trafficdetails = [];
