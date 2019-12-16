@@ -1844,7 +1844,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableF)"
+                            @click.native.prevent="deleteRowF(scope.$index, tableF)"
                             plain
                             size="small"
                             type="danger"
@@ -2589,7 +2589,7 @@
                 </el-row>
                 <el-tabs v-model="activeName4">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
-                    <el-table :data="tableE" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableE2" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -2821,7 +2821,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_NEWBUSINESSYEAR')" name="second">
-                    <el-table :data="tableF" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableF2" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column :label="$t('label.資産名称')" align="center" width="100">
                           <template slot-scope="scope">
@@ -3060,7 +3060,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableF)"
+                            @click.native.prevent="deleteRowF2(scope.$index, tableF2)"
                             plain
                             size="small"
                             type="danger"
@@ -3078,7 +3078,7 @@
                       </el-table-column>
 
                     </el-table>
-                    <el-table :data="tableG" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableG2" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -3310,7 +3310,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_LASTBUSINESSYEAR')" name="third">
-                    <el-table :data="tableH" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableH2" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -3542,7 +3542,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_OTHER')" name="forth">
-                    <el-table :data="tableI" header-cell-class-name="sub_bg_color_grey height">
+                    <el-table :data="tableI2" header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -6100,17 +6100,29 @@
                     {},
                 ],
                 tableE: [
-                    {
-                        aaa: "償却合計",
-                        bbb: "計画",
-                    },
-                    {
-                        bbb: "実績",
-                    },
-                ],
+                {
+                  aaa: "償却合計",
+                  bbb: "計画",
+                },
+                {
+                  bbb: "実績",
+                },
+              ],
+              tableE2: [
+                {
+                  aaa: "償却合計",
+                  bbb: "計画",
+                },
+                {
+                  bbb: "実績",
+                },
+              ],
                 tableF: [
-                    {},
-                ],
+                {},
+              ],
+              tableF2: [
+                {},
+              ],
                 tableG: [
                     {
                         aaa: "償却小計",
@@ -6120,6 +6132,15 @@
                         bbb: "実績",
                     },
                 ],
+              tableG2: [
+                {
+                  aaa: "償却小計",
+                  bbb: "計画",
+                },
+                {
+                  bbb: "実績",
+                },
+              ],
                 tableH: [
                     {
                         aaa: "償却小計",
@@ -6129,6 +6150,15 @@
                         bbb: "実績",
                     },
                 ],
+              tableH2: [
+                {
+                  aaa: "償却小計",
+                  bbb: "計画",
+                },
+                {
+                  bbb: "実績",
+                },
+              ],
                 tableI: [
                     {
                         aaa: "償却小計",
@@ -6138,6 +6168,15 @@
                         bbb: "実績",
                     },
                 ],
+              tableI2: [
+                {
+                  aaa: "償却小計",
+                  bbb: "計画",
+                },
+                {
+                  bbb: "実績",
+                },
+              ],
                 tableJ: [
                     {
                         jjj: "境内出張",
@@ -6805,7 +6844,7 @@
                     this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
                 }
             },
-            deleteRow(index, rows) {
+            deleteRowF(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 }
@@ -6813,6 +6852,14 @@
             addRow() {
                 this.tableF.push({});
             },
+          deleteRowF2(index, rows) {
+            if (rows.length > 1) {
+              rows.splice(index, 1);
+            }
+          },
+          addRow() {
+            this.tableF2.push({});
+          },
             deleteRowL(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
