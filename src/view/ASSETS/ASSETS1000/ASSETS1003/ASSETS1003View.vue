@@ -26,6 +26,7 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import QRCode from 'qrcodejs2';
+  import {getToken} from '@/utils/auth'
 
   export default {
     name: 'ASSETS1003View',
@@ -49,11 +50,13 @@
     },
     methods: {
       getAddre() {
+        debugger;
+        console.log({'x-auth-token': getToken()});
         document.getElementById('qrcode').innerHTML = '';
         this.qrcodeC = new QRCode('qrcode', {
           width: 132,
           height: 132,
-          text: this.form.fileaddress, // 二维码地址
+          text: this.form.fileaddress +";"+ getToken() ,
           colorDark: '#000',
           colorLight: '#fff',
         });
@@ -65,12 +68,11 @@
 <style lang="scss" rel="stylesheet/scss">
   #qrcode {
     display: inline-block;
-
     img {
       width: 132px;
       height: 132px;
-      background-color: #fff; //设置白色背景色
-      padding: 6px; // 利用padding的特性，挤出白边
+      background-color: #fff;
+      padding: 6px;
     }
   }
 </style>

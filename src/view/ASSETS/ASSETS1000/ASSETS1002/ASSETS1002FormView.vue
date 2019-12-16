@@ -88,6 +88,7 @@
         form: {
           inventorycycle: [],
           userid: '',
+          status: ''
         },
         tableD: [
           {
@@ -163,7 +164,7 @@
       getSelectById() {
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1002Store/selectById', {'inventoryplanid': this.$route.params._id})
+          .dispatch('ASSETS1002Store/selectById', {'inventoryRangeid': this.$route.params._id})
           .then(response => {
             this.form = response.inventoryplan;
             let inventorycycle = response.inventoryplan.inventorycycle;
@@ -171,21 +172,21 @@
             let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
             this.form.inventorycycle = [inventory, inventory1];
             this.userlist = response.inventoryplan.userid;
-            if (response.assets.length > 0) {
-              this.tableD = response.assets;
-              for (let j = 0; j < response.assets.length; j++) {
-                let user = getUserInfo(response.assets[j].principal);
+            if (response.inventoryRange.length > 0) {
+              this.tableD = response.inventoryRange;
+              for (let j = 0; j < response.inventoryRange.length; j++) {
+                let user = getUserInfo(response.inventoryRange[j].principal);
                 if (user) {
-                  response.assets[j].principal = user.userinfo.customername;
-                  response.assets[j].usedepartment = user.userinfo.centername;
+                  response.inventoryRange[j].principal = user.userinfo.customername;
+                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
                 }
-                if (response.assets[j].purchasetime !== null && response.assets[j].purchasetime !== '') {
-                  response.assets[j].purchasetime = moment(response.assets[j].purchasetime).format('YYYY-MM-DD');
+                if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
+                  response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
                 }
-                if (response.assets[j].typeassets !== null && response.assets[j].typeassets !== '') {
-                  let letErrortype = getDictionaryInfo(response.assets[j].typeassets);
+                if (response.inventoryRange[j].typeassets !== null && response.inventoryRange[j].typeassets !== '') {
+                  let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
                   if (letErrortype != null) {
-                    response.assets[j].typeassets = letErrortype.value1;
+                    response.inventoryRange[j].typeassets = letErrortype.value1;
                   }
                 }
               }
@@ -281,9 +282,10 @@
             this.form.inventorycycle = moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD');
             this.form.userid = this.userlist;
             this.baseInfo = {};
-            this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
             if (val === 'save') {
-              this.baseInfo.assets = this.multipleSelection;
+              this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.inventoryRange = this.multipleSelection;
+              this.baseInfo.inventoryResults = this.multipleSelection;
               this.loading = true;
               this.$store
                 .dispatch('ASSETS1002Store/insert', this.baseInfo)
@@ -318,33 +320,15 @@
             });
           }
           if (val === 'trash' || val === 'end') {
-            if (this.multipleSelection.length == '0') {
-              Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000,
-              });
-              return;
+            let resultFlg = '';
+            if (val === 'end') {
+              resultFlg = '2';
+            } else {
+              resultFlg = '3';
             }
-            for (let i = 0; i < this.multipleSelection.length; i++) {
-              let resultFlg = '';
-              if (val === 'end') {
-                resultFlg = '1';
-              } else {
-                resultFlg = '2';
-              }
-              var varrowid = this.rowid.split(';');
-              if (varrowid.length > 0) {
-                for (let j = 0; j < varrowid.length; j++) {
-                  if (varrowid[j] != '') {
-                    if (this.multipleSelection[i].assets_id === varrowid[j]) {
-                      this.multipleSelection[i].result = resultFlg;
-                    }
-                  }
-                }
-              }
-            }
-            this.baseInfo.assets = this.multipleSelection;
+            this.form.status = resultFlg;
+            this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.inventoryRange = this.multipleSelection;
             this.getUpdate();
           }
         });

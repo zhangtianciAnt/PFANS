@@ -345,7 +345,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 正社員登用日
                     reginstrationday: [
                         {
                             required: true,
@@ -479,8 +478,13 @@
                 }
                 let lst = getUserInfo(val);
                 this.form.aexperience = lst.userinfo.experience;
-                this.getqualifications(val);
-                this.gettwoclass(val);
+                if(this.form.aexperience === '0'){
+                    this.form.amoutmoney = 4000;
+                }else if(this.form.aexperience === '1'){
+                    this.form.amoutmoney = 500;
+                }else if(this.form.aexperience == null && this.form.aexperience == ''){
+                    this.form.amoutmoney = 0;
+                }
             },
             getfirstclass(val) {
                 this.form.firstclass = val;
@@ -515,7 +519,7 @@
                     this.rules.enteringform[0].required = false;
                     this.rules.recommendationday[0].required = false;
                     this.rules.reginstrationday[0].required = false;
-                    this.rules.qualifications[0].required = false;//
+                    this.rules.qualifications[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024003") {
@@ -650,9 +654,9 @@
             getenteringform(val) {
                 this.form.enteringform = val;
             },
-            getqualifications(val) {
-                this.form.qualifications = val;
-                let dictionaryInfo = getDictionaryInfo(val);
+            getqualifications(vals) {
+                this.form.qualifications = vals;
+                let dictionaryInfo = getDictionaryInfo(vals);
                 if (dictionaryInfo) {
                     this.qualifications = dictionaryInfo.value2;
                 }
@@ -742,6 +746,7 @@
                             this.form.reginstrationday = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if(this.form.firstclass === 'PR024002'){
                             this.form.nominees = ' ';
@@ -757,6 +762,7 @@
                             this.form.remarks = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if(this.form.firstclass === 'PR024004'){
                             this.form.nominees = ' ';
@@ -765,6 +771,7 @@
                             this.form.enteringform = ' ';
                             this.form.recommendationday = ' ';
                             this.form.reginstrationday = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if(this.form.firstclass === 'PR024005'){
                             this.form.nominees = ' ';
@@ -775,6 +782,7 @@
                             this.form.reginstrationday = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if(this.form.firstclass === 'PR024006'){
                             this.form.nominees = ' ';
@@ -785,6 +793,7 @@
                             this.form.reginstrationday = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if(this.form.firstclass === 'PR024007'){
                             this.form.nominees = ' ';
@@ -795,6 +804,7 @@
                             this.form.reginstrationday = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
                         }
                         if (this.$route.params._id) {
                             this.form.casgiftapplyid = this.$route.params._id;

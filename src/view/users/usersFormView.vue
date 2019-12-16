@@ -2020,7 +2020,7 @@
               if (this.form.type === '0') {
                 this.code = 'PR021'
               } else if (this.form.type === '1') {
-                this.code = 'PJ046'
+                this.code = 'PJ053'
               }
               this.form.rank = "";
               this.display = true;
@@ -2030,7 +2030,7 @@
           if (this.form.type === '0') {
             this.code = 'PR021'
           } else if (this.form.type === '1') {
-            this.code = 'PJ046'
+            this.code = 'PJ053'
           }
 
         }

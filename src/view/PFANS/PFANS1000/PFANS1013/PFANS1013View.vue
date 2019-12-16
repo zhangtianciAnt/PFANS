@@ -187,7 +187,8 @@
                         name: 'PFANS1013FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disabled: true,
+                            method:"update"
                         }
                     })
                 } else  if (val === 'insert') {
@@ -211,7 +212,8 @@
                         name: 'PFANS1013FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disabled: false,
+                          method:"view"
                         }
                     })
                 }

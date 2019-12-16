@@ -475,7 +475,6 @@
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" style="width: 100%"
                               maxlength="20"
-                              :no="scope.row"
                               v-model="scope.row.procurementdetails"
                               v-show="scope.row.showrow">
                     </el-input>
@@ -1058,8 +1057,10 @@
                   this.tableP[i].showrow1 = false;
                   this.tableP[i].showrow2 = false;
                   this.tableP[i].showrow3 = true;
+                }else if (this.tableP[i].procurementproject === ' '){
+                  this.tableP[i].showrow = true;
                 }
-              }
+                  }
             }
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails;
@@ -1341,37 +1342,44 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          rows[index].trafficdate =null;
-          rows[index].region ='';
-          rows[index].vehicle ='';
-          rows[index].startingpoint ='';
-          rows[index].rmb ='';
-          rows[index].foreigncurrency ='';
-          rows[index].annexno ='';
+          this.tableT=[{
+            trafficdate:'',
+            region:'',
+            vehicle:'',
+            startingpoint:'',
+            rmb:'',
+            foreigncurrency:'',
+            annexno:'',
+          }]
         }
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          rows[index].purchasedetailsdate ='';
-          rows[index].procurementdetails =' ';
-          rows[index].procurementproject =' ';
-          rows[index].rmb ='';
-          rows[index].foreigncurrency ='';
-          rows[index].annexno ='';
+          this.tableP=[{
+            purchasedetailsdate:'',
+            procurementdetails:'',
+            procurementproject:' ',
+            rmb:'',
+            foreigncurrency:'',
+            annexno:'',
+            showrow:true,
+          }]
         }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          rows[index].otherdetailsdate =null;
-          rows[index].costitem ='';
-          rows[index].remarks ='';
-          rows[index].rmb ='';
-          rows[index].foreigncurrency ='';
-          rows[index].annexno ='';
+          this.tableR=[{
+            otherdetailsdate:'',
+            costitem:'',
+            remarks:'',
+            rmb:'',
+            foreigncurrency:'',
+            annexno:'',
+          }]
         }
       },
       addRow() {
