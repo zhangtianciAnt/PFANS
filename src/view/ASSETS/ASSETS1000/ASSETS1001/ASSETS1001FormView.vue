@@ -139,7 +139,7 @@
                 this.qrcode1 = new QRCode('qrcode', {
                   width: 132,
                   height: 132,
-                  text: this.form.barcode, // 二维码地址
+                  text: this.form.barcode,
                   colorDark : "#000",
                   colorLight : "#fff",
                 })
@@ -213,13 +213,15 @@
         this.qrcode1 = new QRCode('qrcode', {
           width: 132,
           height: 132,
-          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'), // 二维码地址
+          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'),
           colorDark : "#000",
           colorLight : "#fff",
         })
       },
       getSave(){
-        this.form.barcode = this.qrcode1._htOption.text;  //当前的二维码
+        if(this.qrcode1){
+          this.form.barcode = this.qrcode1._htOption.text;
+        }
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -296,8 +298,8 @@
     img {
       width: 132px;
       height: 132px;
-      background-color: #fff; //设置白色背景色
-      padding: 6px; // 利用padding的特性，挤出白边
+      background-color: #fff;
+      padding: 6px;
     }
   }
 </style>
