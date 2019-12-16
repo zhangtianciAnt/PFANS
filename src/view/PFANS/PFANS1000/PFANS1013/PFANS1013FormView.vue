@@ -1223,13 +1223,15 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }else{
-          rows[index].trafficdate = '';
-          rows[index].region = '';
-          rows[index].vehicle = '';
-          rows[index].startingpoint = '';
-          rows[index].rmb = '';
-          rows[index].foreigncurrency = '';
-          rows[index].annexno = '';
+          this.tableT=[{
+            trafficdate:'',
+            region:'',
+            vehicle:'',
+            startingpoint:'',
+            rmb:'',
+            foreigncurrency:'',
+            annexno:'',
+          }]
         }
       },
       deleteRow3(index, rows) {
@@ -1237,35 +1239,39 @@
           rows.splice(index, 1);
         }
         else {
-          rows[index].accommodationdate = '';
-          rows[index].activitycontent = ' ';
-          rows[index].vehicleon = ' ';
-          rows[index].vehiclein = ' ';
-          rows[index].movementtime = ' ';
-          rows[index].city = '';
-          rows[index].exitarea = ' ';
-          rows[index].facilitytypeon = ' ';
-          rows[index].facilitytypein = ' ';
-          rows[index].facilityname = '';
-          rows[index].accommodationallowance = '';
-          rows[index].accommodation = '';
-          rows[index].travelallowance = '';
-          rows[index].travel = '';
-          rows[index].train = '';
-          rows[index].plane = '';
-          rows[index].annexno = '';
+          this.tableA=[{
+            accommodationdate:'',
+            activitycontent:' ',
+            vehicleon:' ',
+            vehiclein:' ',
+            movementtime:' ',
+            city:'',
+            exitarea:' ',
+            facilitytypeon:' ',
+            facilitytypein:' ',
+            facilityname:'',
+            accommodationallowance:'',
+            accommodation:'',
+            travelallowance:'',
+            travel:'',
+            train:'',
+            plane:'',
+            annexno:''
+          }]
         }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }else{
-          rows[index].otherdetailsdate = '';
-          rows[index].costitem = '';
-          rows[index].remarks = '';
-          rows[index].rmb = '';
-          rows[index].foreigncurrency = '';
-          rows[index].annexno = '';
+          this.tableR=[{
+            otherdetailsdate:'',
+            costitem:'',
+            remarks:'',
+            rmb:'',
+            foreigncurrency:'',
+            annexno:'',
+          }]
         }
       },
       addRow() {
@@ -1341,6 +1347,12 @@
                 return prev;
               }
             }, 0);
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==5){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1387,6 +1399,15 @@
                 return prev;
               }
             }, 0);
+            if(index==7){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==8){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==10){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1412,6 +1433,7 @@
                 return prev;
               }
             }, 0);
+
           } else {
             sums[index] = '--'
           }
@@ -1438,7 +1460,7 @@
               }
             }, 0);
             if(index==1){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1466,7 +1488,7 @@
               }
             }, 0);
             if (index === 5) {
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1483,9 +1505,12 @@
         if (val === 'PJ025004') {
           row.disaccommod = true;
           row.showtick = false;
+          row.accommodationallowance='';
         } else {
           row.disaccommod = false;
           row.showtick = true;
+          row.traintick='';
+          row.train='';
         }
       },
       getvehiclein(val, row) {
@@ -1655,6 +1680,8 @@
           row.travelallowance = '';
           row.disaccommod = true;
           row.plane = varbusiness;
+        }else {
+          row.plane='';
         }
       },
       getforeign(sums) {
@@ -1668,11 +1695,11 @@
       },
       gettotal(val) {
         if (this.form.type === '1') {
-          this.form.totalpay = Math.round((this.tableDValue[1]) * 10) / 10;
-          this.form.balance = -(this.form.totalpay - this.form.loanamount).toFixed(2);
+          this.form.totalpay = Math.round((this.tableDValue[1]) * 100) / 100;
+          this.form.balance = Math.round(-(this.form.totalpay - this.form.loanamount)*100)/100;
         } else if (this.form.type === '2') {
-          this.form.totalpay = Math.round((this.tableValue[5]) * 10) / 10;
-          this.form.balance = -(this.form.totalpay - this.form.loanamount).toFixed(2);
+          this.form.totalpay = Math.round((this.tableValue[5]) * 100) / 100;
+          this.form.balance = Math.round(-(this.form.totalpay - this.form.loanamount)*100)/100;
         }
       },
       getValue(sums) {
