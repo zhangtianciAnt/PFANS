@@ -31,22 +31,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_CASEDATE')">
+              <el-form-item :label="$t('label.application_date')" prop="casedate">
                 <el-date-picker
                   :disabled="!disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.casedate">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_JUDGEMENTDAY')">
-                <el-date-picker
-                  :disabled="!disable"
-                  style="width:11rem"
-                  type="date"
-                  v-model="form.judgementday">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -86,13 +76,25 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('title.PFANS1009FORMVIEW')}}</div>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">
+                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetnumber" maxlength=""></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">
+                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetname" maxlength=""></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
+                <el-input :disabled="!disable" style="width:11rem" v-model="form.ancillaryequipment" maxlength=""></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate">
                 <el-date-picker
                   :disabled="!disable"
                   style="width:11rem"
@@ -131,8 +133,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_REPAIR')">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:55rem"
-                          v-model="form.repair"></el-input>
+                <el-date-picker
+                  v-model.trim="form.repair"
+                  class="bigWidth"
+                  :disabled="!disable"
+                  type="daterange"
+                  unlink-panels
+                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                  :start-placeholder="$t('label.startdate')"
+                  :end-placeholder="$t('label.enddate')"
+                  :picker-options="pickerOptions">
+                </el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -145,7 +156,8 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   style="width: 11rem"
-                  @change="changerepairkits">
+                  @change="changerepairkits"
+                  :picker-options="pickerOptions">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -181,6 +193,34 @@
         }
       };
       return {
+        pickerOptions: {
+          shortcuts: [{
+            text: this.$t('label.PFANS1016FORMVIEW_WEEKEND'),
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text:this.$t('label.PFANS1016FORMVIEW_MONTH'),
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text:this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        repair: '',
         installsoftware: '1',
         installsoftwareflg: '',
         suitablebringout: '1',
@@ -191,8 +231,6 @@
         userlist: '',
         title: 'title.PFANS1009VIEW',
         buttonList: [],
-        editableTabsValue: '0',
-        editableTabs: [],
         tabIndex: 0,
         multiple: false,
         form: {
@@ -201,15 +239,17 @@
           group_id: '',
           team_id: '',
           casedate: moment(new Date()).format('YYYY-MM-DD'),
-          judgementday: '',
           assettype: '',
           installsoftware: '',
           suitablebringout: '',
+          assetnumber: '',
+          assetname: '',
+          ancillaryequipment: '',
           inputdate: moment(new Date()).format('YYYY-MM-DD'),
           releasedate: '',
           objective: '',
           borrowing: '',
-          repair: '',
+          repair:[],
           repairkits: '',
           nodeList: [],
         },
@@ -222,6 +262,26 @@
           user_id: [{
             required: true,
             validator: validateUserid,
+            trigger: 'change',
+          }],
+          casedate: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.application_date'),
+            trigger: 'change',
+          }],
+          inputdate: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
+            trigger: 'change',
+          }],
+          assetnumber: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNUMBER'),
+            trigger: 'change',
+          }],
+          assetname: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNAME'),
             trigger: 'change',
           }],
         },
@@ -253,13 +313,14 @@
             this.installsoftwareflg = this.form.installsoftware;
             this.suitablebringout = this.form.suitablebringout;
             this.suitablebringoutflg = this.form.suitablebringout;
+            let repair = response.repair;
+            let serdate = repair.slice(0, 10);
+            let serdate1 = repair.slice(repair.length - 10);
+            this.form.repair = [serdate, serdate1];
             if (this.form.assettype === 'PJ009002') {
               this.show = true;
             } else {
               this.show = false;
-            }
-            if (this.form.status === '2') {
-              this.disable = false;
             }
             this.loading = false;
           })
@@ -337,6 +398,7 @@
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
+              this.form.repair = moment(this.form.repair[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.repair[1]).format('YYYY-MM-DD');
               this.form.installsoftware = this.installsoftware;
               this.form.suitablebringout = this.suitablebringout;
               if (this.form.assettype !== 'PJ009002') {
