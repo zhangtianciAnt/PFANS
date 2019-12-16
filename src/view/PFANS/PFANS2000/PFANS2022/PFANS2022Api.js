@@ -20,9 +20,9 @@ export function updateCasgiftApply(data) {
     data: data
   })
 }
-export function createCasgiftApply(data) {
+export function insert(data) {
   return request({
-    url: 'casgiftapply/create',
+    url: 'casgiftapply/insert',
     method: 'post',
     data: data
   })

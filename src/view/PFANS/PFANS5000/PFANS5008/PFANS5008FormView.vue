@@ -138,7 +138,7 @@
                 >
                   <el-table-column
                     prop="start_time"
-                    :label="$t('label.start')"
+                    :label="$t('label.PFANS5008FORMVIEW_SC')"
                     width="120%">
                   </el-table-column>
                   <el-table-column

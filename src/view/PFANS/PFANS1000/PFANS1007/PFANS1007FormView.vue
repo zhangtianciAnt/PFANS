@@ -623,31 +623,43 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }else{
-          rows[index].fixedassetnam = '';
-          rows[index].megasnumber = '';
-          rows[index].settagnumber = '';
-          rows[index].purchasedate = '';
-          rows[index].originalvalue = '';
-          rows[index].yearsofuse = '';
-          rows[index].networth = '';
-          rows[index].scrapping = '';
-          rows[index].remarks = '';
+            this.table1 = [
+                {
+                    scrapdetailsid: '',
+                    assetinformationid: '',
+                    fixedassetnam: '',
+                    megasnumber: '',
+                    settagnumber: '',
+                    purchasedate: '',
+                    originalvalue: '',
+                    yearsofuse: '',
+                    networth: '',
+                    scrapping: '',
+                    remarks: '',
+                },
+            ]
         }
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }else{
-          rows[index].fixedassetnam = '';
-          rows[index].megasnumber = '';
-          rows[index].settagnumber = '';
-          rows[index].purchasedate = '';
-          rows[index].originalvalue = '';
-          rows[index].networth = '';
-          rows[index].sellingprice = '';
-          rows[index].loss = '';
-          rows[index].scrapping = '';
-          rows[index].remarks = '';
+            this.table2 = [
+                {
+                    salesdetailsid: '',
+                    assetinformationid: '',
+                    fixedassetnam: '',
+                    megasnumber: '',
+                    settagnumber: '',
+                    purchasedate: '',
+                    originalvalue: '',
+                    networth: '',
+                    scrapping: '',
+                    remarks: '',
+                    sellingprice: '',
+                    loss: '',
+                },
+            ]
         }
       },
       addRow() {
