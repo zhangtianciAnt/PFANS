@@ -68,8 +68,8 @@
                 </el-row>
                 <el-row :gutter="32">
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="relation">
-                      <el-select :disabled="!disable" @change="change" style="width: 11rem" v-model="form.relation">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
+                      <el-select :disabled="!disable" @change="change" style="width: 11rem" v-model="form.business_id">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -619,10 +619,10 @@
                                  width="160">
                   <template slot-scope="scope">
                     <el-input-number
-                      :no="scope.row"
                       :disabled="true"
                       :max="1000000000"
                       :min="0"
+                      :no="scope.row"
                       :precision="2"
                       controls-position="right"
                       style="width: 100%"
@@ -638,7 +638,7 @@
                       :max="1000000000"
                       :min="0"
                       :precision="2"
-                      @change="gettrain"
+                      @change="gettrain(scope.row)"
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.train"
@@ -650,10 +650,10 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :no="scope.row"
                       :disabled="scope.row.showtick"
                       :max="1000000000"
                       :min="0"
+                      :no="scope.row"
                       :precision="2"
                       @change="gettrain(scope.row)"
                       controls-position="right"
@@ -805,7 +805,7 @@
         }
       };
       var checktele = (rule, value, callback) => {
-        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
         if (this.form.telephone !== null && this.form.telephone !== '') {
           if (!this.regExp.test(value)) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
@@ -973,7 +973,7 @@
             validator: checktele,
             trigger: 'change'
           }],
-          relation: [{
+          business_id: [{
             required: true,
             message: this.$t("normal.error_09") + this.$t("label.PFANS1013VIEW_RELATION"),
             trigger: "change"
@@ -1030,25 +1030,60 @@
             if (response.accommodationdetails.length > 0) {
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
-                if (this.form.type === '1') {
-                  this.tableA[i].showAinner = true;
-                  this.tableA[i].showAout = false;
-                  this.showrow3 = true;
-                  this.showrow4 = false;
-                  this.tableA[i].vehicleon = this.tableA[i].vehicle;
-                  this.showrow = true;
-                  this.showrow2 = false;
-                  this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-
-                } else if (this.form.type === '2') {
-                  this.tableA[i].showAinner = false;
-                  this.tableA[i].showAout = true;
-                  this.showrow3 = false;
-                  this.showrow4 = true;
-                  this.tableA[i].vehiclein = this.tableA[i].vehicle;
-                  this.showrow = false;
-                  this.showrow2 = true;
-                  this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                if (this.$route.params.method === "view") {
+                  if (this.form.type === '1') {
+                    this.tableA[i].showAinner = true;
+                    this.tableA[i].showAout = true;
+                    this.showrow3 = true;
+                    this.showrow4 = true;
+                    this.tableA[i].vehicleon = this.tableA[i].vehicle;
+                    this.showrow = true;
+                    this.showrow2 = true;
+                    this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
+                    if (this.tableA[i].vehicleon === 'PJ025004') {
+                      this.tableA[i].showtick = true;
+                      this.tableA[i].disaccommod = true;
+                    } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
+                      this.tableA[i].showtick = true;
+                      this.tableA[i].disaccommod = true;
+                    }
+                  } else if (this.form.type === '2') {
+                    this.tableA[i].showAinner = true;
+                    this.tableA[i].showAout = true;
+                    this.showrow3 = true;
+                    this.showrow4 = true;
+                    this.tableA[i].vehiclein = this.tableA[i].vehicle;
+                    this.showrow = true;
+                    this.showrow2 = true;
+                    this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                  }
+                } else {
+                  if (this.form.type === '1') {
+                    this.tableA[i].showAinner = true;
+                    this.tableA[i].showAout = false;
+                    this.showrow3 = true;
+                    this.showrow4 = false;
+                    this.tableA[i].vehicleon = this.tableA[i].vehicle;
+                    this.showrow = true;
+                    this.showrow2 = false;
+                    this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
+                    if (this.tableA[i].vehicleon === 'PJ025004') {
+                      this.tableA[i].showtick = false;
+                      this.tableA[i].disaccommod = true;
+                    } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
+                      this.tableA[i].showtick = true;
+                      this.tableA[i].disaccommod = false;
+                    }
+                  } else if (this.form.type === '2') {
+                    this.tableA[i].showAinner = false;
+                    this.tableA[i].showAout = true;
+                    this.showrow3 = false;
+                    this.showrow4 = true;
+                    this.tableA[i].vehiclein = this.tableA[i].vehicle;
+                    this.showrow = false;
+                    this.showrow2 = true;
+                    this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                  }
                 }
               }
             }
@@ -1133,13 +1168,11 @@
           this.showdata2 = false;
           this.showAinner = true;
           this.showAout = false;
-
         } else {
           this.showdata = false;
           this.showdata2 = true;
           this.showAinner = false;
           this.showAout = true;
-
         }
       }
       this.$store
@@ -1222,50 +1255,55 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }else{
-          rows[index].trafficdate = '';
-          rows[index].region = '';
-          rows[index].vehicle = '';
-          rows[index].startingpoint = '';
-          rows[index].rmb = '';
-          rows[index].foreigncurrency = '';
-          rows[index].annexno = '';
+        } else {
+          this.tableT = [{
+            trafficdate: '',
+            region: '',
+            vehicle: '',
+            startingpoint: '',
+            rmb: '',
+            foreigncurrency: '',
+            annexno: '',
+          }]
         }
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        else {
-          rows[index].accommodationdate = '';
-          rows[index].activitycontent = ' ';
-          rows[index].vehicleon = ' ';
-          rows[index].vehiclein = ' ';
-          rows[index].movementtime = ' ';
-          rows[index].city = '';
-          rows[index].exitarea = ' ';
-          rows[index].facilitytypeon = ' ';
-          rows[index].facilitytypein = ' ';
-          rows[index].facilityname = '';
-          rows[index].accommodationallowance = '';
-          rows[index].accommodation = '';
-          rows[index].travelallowance = '';
-          rows[index].travel = '';
-          rows[index].train = '';
-          rows[index].plane = '';
-          rows[index].annexno = '';
+        } else {
+          this.tableA = [{
+            accommodationdate: '',
+            activitycontent: ' ',
+            vehicleon: ' ',
+            vehiclein: ' ',
+            movementtime: ' ',
+            city: '',
+            exitarea: ' ',
+            facilitytypeon: ' ',
+            facilitytypein: ' ',
+            facilityname: '',
+            accommodationallowance: '',
+            accommodation: '',
+            travelallowance: '',
+            travel: '',
+            train: '',
+            plane: '',
+            annexno: ''
+          }]
         }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }else{
-          rows[index].otherdetailsdate = '';
-          rows[index].costitem = '';
-          rows[index].remarks = '';
-          rows[index].rmb = '';
-          rows[index].foreigncurrency = '';
-          rows[index].annexno = '';
+        } else {
+          this.tableR = [{
+            otherdetailsdate: '',
+            costitem: '',
+            remarks: '',
+            rmb: '',
+            foreigncurrency: '',
+            annexno: '',
+          }]
         }
       },
       addRow() {
@@ -1341,6 +1379,12 @@
                 return prev;
               }
             }, 0);
+            if (index == 4) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 5) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1348,8 +1392,6 @@
         this.getforeign(sums);
         this.getValue(sums);
         this.getValue2(sums);
-        this.gettotal(sums);
-        this.tableTValue = sums;
         return sums;
       },
       change(val) {
@@ -1387,6 +1429,15 @@
                 return prev;
               }
             }, 0);
+            if (index == 7) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1412,6 +1463,12 @@
                 return prev;
               }
             }, 0);
+            if (index == 3) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 4) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1437,8 +1494,8 @@
                 return prev;
               }
             }, 0);
-            if(index==1){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+            if (index == 1) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1466,13 +1523,13 @@
               }
             }, 0);
             if (index === 5) {
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
           }
         });
-        this.tableValue = sums;
+        this.gettotal(sums);
         return sums;
       },
       getactivitycontent(val, row) {
@@ -1483,9 +1540,12 @@
         if (val === 'PJ025004') {
           row.disaccommod = true;
           row.showtick = false;
+          row.accommodationallowance = '';
         } else {
           row.disaccommod = false;
           row.showtick = true;
+          row.traintick = '';
+          row.train = '';
         }
       },
       getvehiclein(val, row) {
@@ -1652,9 +1712,13 @@
         }
         if (row.vehiclein === 'PJ026004') {
           row.accommodationallowance = '';
+          row.accommodation = '';
           row.travelallowance = '';
           row.disaccommod = true;
           row.plane = varbusiness;
+        } else {
+          row.plane = '';
+          row.disaccommod = false;
         }
       },
       getforeign(sums) {
@@ -1668,11 +1732,11 @@
       },
       gettotal(val) {
         if (this.form.type === '1') {
-          this.form.totalpay = Math.round((this.tableDValue[1]) * 10) / 10;
-          this.form.balance = -(this.form.totalpay - this.form.loanamount).toFixed(2);
+          this.form.totalpay = Math.round((this.tableDValue[1]) * 100) / 100;
+          this.form.balance = Math.round(-(this.form.totalpay - this.form.loanamount) * 100) / 100;
         } else if (this.form.type === '2') {
-          this.form.totalpay = Math.round((this.tableValue[5]) * 10) / 10;
-          this.form.balance = -(this.form.totalpay - this.form.loanamount).toFixed(2);
+          this.form.totalpay = Math.round((val) * 100) / 100;
+          this.form.balance = Math.round((this.form.loanamount - this.form.totalpay) * 100) / 100;
         }
       },
       getValue(sums) {
@@ -1717,16 +1781,6 @@
             this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
             this.tableData2[i].usdcurrency = '';
             this.tableData2[i].jpycurrency = '';
-          }
-        }
-      },
-      getsave(){
-        debugger;
-        if(this.tableTValue.length==='1'){
-          if(!this.tableTValue[0].trafficdate &&!this.tableTValue[0].region&&!this.tableTValue[0].startingpoint&&!this.tableTValue[0].rmb&&
-            !this.tableTValue[0].foreigncurrency&&!this.tableTValue[0].annexno){
-            this.tableTValue[0].rmb="";
-            this.tableTValue[0].foreigncurrency="";
           }
         }
       },
@@ -1815,7 +1869,6 @@
         if (val === "save") {
           this.$refs["refform"].validate(valid => {
             if (valid) {
-              this.getsave();
               this.baseInfo = {};
               this.form.user_id = this.userlist;
               this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));

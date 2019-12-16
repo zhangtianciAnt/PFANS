@@ -2,7 +2,7 @@ import {
   getCasgiftApply,
   getCasgiftApplyOne,
   updateCasgiftApply,
-  createCasgiftApply,
+  insert,
   getCasgiftApplyList
   } from './PFANS2022Api'
 
@@ -50,9 +50,9 @@ import {
           })
         })
       },
-      createCasgiftApply({ commit },data) {
+      insert({ commit },data) {
         return new Promise((resolve, reject) => {
-          createCasgiftApply(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

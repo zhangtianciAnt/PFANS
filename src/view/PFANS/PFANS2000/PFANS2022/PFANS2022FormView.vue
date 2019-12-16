@@ -48,7 +48,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-<!--            二级分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_SECONDARY')" prop="twoclass">
                 <dicselect
@@ -63,31 +62,26 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            被推薦者-->
             <el-col :span="8">
               <el-form-item :error="error_nominees" :label="$t('label.PFANS2022VIEW_NOMINEES')" v-show="show1" prop="nominees">
                 <user :disabled="!disabled" :error="error_nominees" :selectType="selectType"  @getUserids ="getNomineeids"
                       style="width: 10.15rem"></user>
               </el-form-item>
             </el-col>
-            <!--            被推薦者との関係-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" v-show="show1"
-                            prop="nomineerelationship">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+              <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" label-width="5rem" v-show="show1" prop="nomineerelationship">
+                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem;padding-left:3rem"
                           v-model="form.nomineerelationship"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <!--            入社日-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_JOININGDAY')" v-show="show1" prop="joiningday">
                 <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
                                 v-model="form.joiningday"></el-date-picker>
               </el-form-item>
             </el-col>
-            <!--            入社形式-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_ENTERINGFORM')" v-show="show1" prop="enteringform">
                 <dicselect
@@ -102,7 +96,6 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            推薦日-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_RECOMMENDATIONDAY')" prop="recommendationday"
                             v-show="show1">
@@ -110,7 +103,6 @@
                                 v-model="form.recommendationday"></el-date-picker>
               </el-form-item>
             </el-col>
-            <!--            正社員登用日-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_REGINSTRATIONDAY')" v-show="show1" prop="reginstrationday">
                 <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
@@ -119,7 +111,6 @@
             </el-col>
           </el-row>
           <el-row>
-<!--            受检前资格-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_QUALIFICATION')" prop="qualifications" v-show="show">
                 <div class="block">
@@ -212,10 +203,16 @@
                 }
             };
             var checknominees = (rule, value, callback) => {
-                if (!value || value === '' || value === "undefined") {
-                    this.error_nominees = this.$t('normal.error_09') + this.$t('label.PFANS2022VIEW_NOMINEES');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2022VIEW_NOMINEES')));
-                } else {
+                if(this.show1){
+                    if (!value || value === '' || value === "undefined") {
+                        this.error_nominees = this.$t('normal.error_09') + this.$t('label.PFANS2022VIEW_NOMINEES');
+                        return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2022VIEW_NOMINEES')));
+                    } else {
+                        this.error_nominees = "";
+                        return callback();
+                    }
+                }
+                else{
                     this.error_nominees = "";
                     return callback();
                 }
@@ -241,19 +238,18 @@
                     group_id: '',
                     user_id: '',
                     nomineerelationship: '',
-                    joiningday: moment(new Date()).format("YYYY-MM-DD"),
+                    joiningday: '',
                     enteringform: '',
-                    recommendationday: moment(new Date()).format("YYYY-MM-DD"),
-                    reginstrationday: moment(new Date()).format("YYYY-MM-DD"),
+                    recommendationday: '',
+                    reginstrationday: '',
                     qualifications: '',
-                    weddingday: moment(new Date()).format("YYYY-MM-DD"),
+                    weddingday: '',
                     spousename: '',
                     application_date: moment(new Date()).format("YYYY-MM-DD"),
                     amoutmoney: '',
                     remarks: '',
                     nominees: '',
                     uploadfile: '',
-                    enteringform: '',
                     payment: '0',
                     aexperience:'',
                 },
@@ -314,7 +310,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 被推薦者
                     nominees: [
                         {
                             required: true,
@@ -322,15 +317,13 @@
                             trigger: 'change'
                         },
                     ],
-                    // 被推薦者との関係
                     nomineerelationship: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP'),
-                            trigger: 'change'
+                            trigger: 'change',
                         },
                     ],
-                    // 入社日
                     joiningday: [
                         {
                             required: true,
@@ -338,7 +331,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 入社形式
                     enteringform: [
                         {
                             required: true,
@@ -346,7 +338,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 推薦日
                     recommendationday: [
                         {
                             required: true,
@@ -354,7 +345,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 正社員登用日
                     reginstrationday: [
                         {
                             required: true,
@@ -382,6 +372,7 @@
                     .then(response => {
                         this.form = response;
                         this.getfirstclass(this.form.firstclass);
+                        this.gettwoclass(this.form.twoclass);
                         this.userlist = this.form.user_id;
 
                         if (this.form.firstclass === 'PR024002') {
@@ -479,15 +470,21 @@
                 }
             },
             getNomineeids(val) {
-                this.form.user_id = val;
-                if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
+                this.form.nominees = val;
+                if (!this.form.nominees || this.form.nominees === '' || val === "undefined") {
                     this.error_nominees = this.$t('normal.error_09') + this.$t('label.PFANS2022VIEW_NOMINEES');
                 } else {
                     this.error_nominees = "";
                 }
                 let lst = getUserInfo(val);
                 this.form.aexperience = lst.userinfo.experience;
-                this.getqualifications(val);
+                if(this.form.aexperience === '0'){
+                    this.form.amoutmoney = 4000;
+                }else if(this.form.aexperience === '1'){
+                    this.form.amoutmoney = 500;
+                }else if(this.form.aexperience == null && this.form.aexperience == ''){
+                    this.form.amoutmoney = 0;
+                }
             },
             getfirstclass(val) {
                 this.form.firstclass = val;
@@ -522,13 +519,11 @@
                     this.rules.enteringform[0].required = false;
                     this.rules.recommendationday[0].required = false;
                     this.rules.reginstrationday[0].required = false;
-                    this.rules.qualifications[0].required = true;
+                    this.rules.qualifications[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024003") {
-                    //其他奖励金
                     this.code1 = 'PR034';
-                    //招聘相关内部推荐
                     this.gettwoclass("PR034001");
                     this.disable = true;
                     this.show = false;
@@ -559,7 +554,7 @@
                     this.rules.recommendationday[0].required = false;
                     this.rules.reginstrationday[0].required = false;
                     this.rules.qualifications[0].required = false;
-                    this.rules.weddingday[0].required = true;
+                    this.rules.weddingday[0].required = true;//
                     this.rules.spousename[0].required = true;
                 } else if (val === "PR024005") {
                     this.code1 = 'PR036';
@@ -639,7 +634,6 @@
                     this.rules.spousename[0].required = false;
                 }
                 if(val === "PR034001"){
-                    //其他奖励金
                     this.code1 = 'PR034';
                     this.disable = true;
                     this.show = false;
@@ -660,13 +654,12 @@
             getenteringform(val) {
                 this.form.enteringform = val;
             },
-            getqualifications(val) {
-                this.form.qualifications = val;
-                let dictionaryInfo = getDictionaryInfo(val);
+            getqualifications(vals) {
+                this.form.qualifications = vals;
+                let dictionaryInfo = getDictionaryInfo(vals);
                 if (dictionaryInfo) {
                     this.qualifications = dictionaryInfo.value2;
                 }
-                //日语等级金额判断
                 if (this.qualifications >= 0 ) {
                     if ((parseInt(this.twoclass) - parseInt(this.qualifications)) > 0) {
                         this.form.amoutmoney = (parseInt(this.twoclass) - parseInt(this.qualifications));
@@ -674,7 +667,6 @@
                         this.form.amoutmoney = 0;
                     }
                 }
-                //推荐新员工奖金 1为无经验者 0为有经验者
                 if(this.form.aexperience === '0'){
                     this.form.amoutmoney = 4000;
                 }else if(this.form.aexperience === '1'){
@@ -742,6 +734,78 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
+                        if(this.form.firstclass === 'PR024003'){
+                            this.form.remarks = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024001'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024002'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024003'){
+                            this.form.remarks = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024004'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.qualifications = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024005'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024006'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
+                        }
+                        if(this.form.firstclass === 'PR024007'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.qualifications = ' ';
+                        }
                         if (this.$route.params._id) {
                             this.form.casgiftapplyid = this.$route.params._id;
                             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
@@ -774,7 +838,7 @@
                             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS2022Store/createCasgiftApply', this.form)
+                                .dispatch('PFANS2022Store/insert', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
