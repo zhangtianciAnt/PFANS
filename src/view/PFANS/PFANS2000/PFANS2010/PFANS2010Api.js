@@ -17,3 +17,12 @@ export function getAttendancelist(data) {
     data: data
   })
 }
+
+//更新数据
+export function update(data) {
+  return request({
+    url: 'attendance/update',
+    method: 'post',
+    data: data
+  })
+}

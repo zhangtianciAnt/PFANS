@@ -26,18 +26,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')" prop="sex">
-                    <el-select
-                      v-model="form.sex"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                    >
-                      <el-option
-                        v-for="item in sex_options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-select>
+                    <dicselect
+                      code="PR019"
+                      @change="changesex"
+                      :data="form.sex"
+                      style="width: 11rem"
+                    ></dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -864,7 +858,7 @@
                     <el-input-number
                       v-model="form.oldageinsurance"
                       :min="0"
-                      :max="100"
+                      :max="100000"
                       :precision="2"
                       :step="100"
                       class="width"
@@ -927,7 +921,7 @@
                     <el-input-number
                       v-model="form.houseinsurance"
                       :min="0"
-                      :max="100"
+                      :max="100000"
                       :precision="2"
                       :step="0.1"
                       class="width"
@@ -993,7 +987,7 @@
                     <el-input-number
                       v-model="form.medicalinsurance"
                       :min="0"
-                      :max="100"
+                      :max="100000"
                       :precision="2"
                       :step="0.1"
                       class="width"
@@ -1241,15 +1235,15 @@
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight">
 
               <el-row>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                  <el-date-picker style="width: 11rem" v-model="form.resignation_date" :disabled="true">
-                  </el-date-picker>
-                </el-form-item>
-              </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
+                    <el-date-picker style="width: 11rem" v-model="form.resignation_date" :disabled="true">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('title.PFANS2026VIEW')" v-if="this.form.staffexitprocedure !==''&& this.form.staffexitprocedure !==null">
-                   <router-link :to="{ name: 'PFANS2026FormView', 
+                    <router-link :to="{ name: 'PFANS2026FormView',
                    params: { _id: this.form.staffexitprocedure, disabled: true}}" >{{this.$t('button.view')}}</router-link>
                   </el-form-item>
                 </el-col>
@@ -1396,13 +1390,6 @@
             label: this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF")
           }
         ],
-        sex_options: [
-          {value: "0", label: this.$t("label.PFANS2002FORMVIEW_BOY")},
-          {
-            value: "1",
-            label: this.$t("label.PFANS2002FORMVIEW_GRIL")
-          }
-        ],
         rank_options: [
           {value: "0", label: this.$t("label.PFANSUSERVIEW_MEMBERS")},
           {
@@ -1508,7 +1495,6 @@
         },
         title: "label.PFANSUSERVIEW_USER",
         isEdit: false,
-        sex: 0,
         status: "0",
         buttonList: [
           {key: "userSave", name: this.$t("button.save")},
@@ -1961,6 +1947,14 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }else{
+          Object.keys(rows[0]).forEach( key =>{
+            debugger
+            rows[0][key] = "";
+            if(key === "time"){
+              rows[0][key] = [];
+            }
+          })
         }
       },
       addRow(val) {
@@ -2011,6 +2005,9 @@
       },
       changeEducational(val) {
         this.form.educational = val;
+      },
+     changesex(val){
+        this.form.sex=val;
       },
       changeDegree(val) {
         this.form.degree = val;

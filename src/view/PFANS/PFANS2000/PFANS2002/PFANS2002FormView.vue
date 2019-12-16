@@ -215,7 +215,7 @@
                 <span style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
               </el-col>
             </el-row>
-            <div style="margin-left:5%;margin-top:0%">
+            <div style="margin-left:5%;margin-top:1%">
               <el-row :gutter="20">
                 <el-upload
                   :action="upload"
@@ -306,38 +306,38 @@
           >
             <el-row :gutter="20">
               <el-col :span="8">
-                <el-form-item :label="$t('label.center')" label-width="8.8rem">
+                <el-form-item :label="$t('label.center')" label-width="8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.center_id"
                     @getOrgids="getCenterId"
                     orgtype="1"
                     selectType="Single"
-                    style="width:8rem"
+                    style="width:9.2rem"
                   ></org>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.group')" label-width="8.8rem">
+                <el-form-item :label="$t('label.group')" label-width="8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.group_id"
                     @getOrgids="getGroupId"
                     orgtype="2"
                     selectType="Single"
-                    style="width:8rem"
+                    style="width:9.2rem"
                   ></org>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.team')" label-width="8.8rem">
+                <el-form-item :label="$t('label.team')" label-width="8rem">
                   <org
                     :disabled="disabled"
                     :orglist="form.team_id"
                     @getOrgids="getTeamId"
                     orgtype="3"
                     selectType="Single"
-                    style="width:8rem"
+                    style="width:9.2rem"
                   ></org>
                 </el-form-item>
               </el-col>
@@ -405,7 +405,7 @@
   import dicselect from "../../../components/dicselect";
   import user from "../../../components/user";
   import org from "../../../components/org";
-  import {uploadUrl} from '@/utils/customize';
+  import {uploadUrl} from '../../../../utils/customize';
   import {Message} from 'element-ui';
 
   export default {
@@ -433,6 +433,7 @@
         ],
         titles: "label.PFANS2002FORMVIEW",
         form: {
+          entry_enclosure:"",
           name: "",
           sex: "",
           birthday: "",
@@ -459,8 +460,7 @@
           giving: "0",
           adoption: "",
           others: "",
-          status: "0",
-            uploadfile: '',
+          status: "0"
         },
           disable: false,
           buttonList: [],
@@ -493,17 +493,6 @@
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
       }
-        if (this.form.uploadfile != "") {
-            let uploadfile = this.form.uploadfile.split(";");
-            for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(",")[0] != "") {
-                    let o = {};
-                    o.name = uploadfile[i].split(",")[0];
-                    o.url = uploadfile[i].split(",")[1];
-                    this.fileList.push(o)
-                }
-            }
-        }
     },
 
     methods: {
@@ -548,6 +537,17 @@
               this.changeOption(this.form, "view");
               this.tableData = this.form.interview;
               this.changeUsing(this.form.adoption);
+              if (this.form.entry_enclosure != "") {
+                let uploadfile = this.form.entry_enclosure.split(";");
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(",")[0] != "") {
+                    let o = {};
+                    o.name = uploadfile[i].split(",")[0];
+                    o.url = uploadfile[i].split(",")[1];
+                    this.fileList.push(o)
+                  }
+                }
+              }
               this.loading = false;
             }
           })
@@ -658,13 +658,13 @@
         },
         fileRemove(file, fileList){
             this.fileList = [];
-            this.form.uploadfile = "";
+            this.form.entry_enclosure = "";
             for (var item of fileList) {
                 let o = {};
                 o.name = item.name;
                 o.url = item.url;
                 this.fileList.push(o);
-                this.form.uploadfile += item.name + "," + item.url + ";"
+                this.form.entry_enclosure += item.name + "," + item.url + ";"
             }
         },
         fileDownload(file) {
@@ -676,7 +676,7 @@
         },
         fileSuccess(response, file, fileList) {
             this.fileList = [];
-            this.form.uploadfile = "";
+            this.form.entry_enclosure = "";
             for (var item of fileList) {
                 let o = {};
                 o.name = item.name;
@@ -686,7 +686,7 @@
                     o.url = item.url;
                 }
                 this.fileList.push(o);
-                this.form.uploadfile += o.name + "," + o.url + ";"
+                this.form.entry_enclosure += o.name + "," + o.url + ";"
             }
         },
 

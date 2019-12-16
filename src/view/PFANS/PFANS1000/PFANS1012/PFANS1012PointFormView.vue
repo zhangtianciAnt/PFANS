@@ -17,7 +17,7 @@
           </el-row>
           <el-row type="hidden">
             <el-form-item :label="$t('label.judgement')" v-show="show ">
-              <el-select @change="change" @remove-tag="getAward" multiple placeholder="$t('normal.error_09')" v-model="form.judgement">
+              <el-select @change="change" @remove-tag="getAward" multiple  v-model="form.judgement" style="width: 11rem">
                 <el-option
                   :key="item.value"
                   :label="item.label"

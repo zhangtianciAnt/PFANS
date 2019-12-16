@@ -9,12 +9,8 @@
       @rowClick="rowClick"
       @buttonClick="buttonClick"
       v-loading="loading">
-<!--      <el-select @change="changed" slot="customize" v-model="region">-->
-<!--        <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>-->
-<!--        <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>-->
-<!--      </el-select>-->
-      <span >年月月</span>
       <el-date-picker
+        slot="customize"
         v-model="montvalue"
         type="month"
         @change="changed"
@@ -59,6 +55,7 @@
                     },
                     {
                         code: 'user_id',
+                        show1:false
                     },
                     {
                         code: 'center_id',
@@ -114,13 +111,16 @@
         },
         methods: {
             getlist(){
+                debugger;
                 this.loading = true;
                 var parameter = {};
-                var varmontvalue = this.montvalue.split("-");
-                if(varmontvalue.length > 0){
-                    parameter = {
-                        years:varmontvalue[0],
-                        months:varmontvalue[1],
+                if(this.montvalue != "Invalid date"){
+                    var varmontvalue = this.montvalue.split("-");
+                    if(varmontvalue.length > 0){
+                        parameter = {
+                            years:varmontvalue[0],
+                            months:varmontvalue[1],
+                        }
                     }
                 }
                 this.$store
