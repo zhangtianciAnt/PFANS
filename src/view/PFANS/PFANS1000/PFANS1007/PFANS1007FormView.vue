@@ -410,7 +410,7 @@
             fixedassetnam: '',
             megasnumber: '',
             settagnumber: '',
-            purchasedate: moment(new Date()).format('YYYY-MM-DD'),
+            purchasedate: '',
             originalvalue: '',
             yearsofuse: '',
             networth: '',
@@ -425,7 +425,7 @@
             fixedassetnam: '',
             megasnumber: '',
             settagnumber: '',
-            purchasedate: moment(new Date()).format('YYYY-MM-DD'),
+            purchasedate: '',
             originalvalue: '',
             networth: '',
             scrapping: '',
@@ -622,8 +622,7 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (row.length = 1) {
+        }else{
           rows[index].fixedassetnam = '';
           rows[index].megasnumber = '';
           rows[index].settagnumber = '';
@@ -638,8 +637,7 @@
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (row.length = 1) {
+        }else{
           rows[index].fixedassetnam = '';
           rows[index].megasnumber = '';
           rows[index].settagnumber = '';
