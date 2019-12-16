@@ -32,7 +32,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
-                <el-input :disabled="!disable" style="width: 11rem" v-model="form.telephone" maxlength="11"></el-input>
+                <el-input :disabled="!disable" style="width: 11rem" v-model="form.telephone" maxlength="20"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -223,7 +223,7 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
-  import {telephoneNumber,validateNumber} from '@/utils/validate';
+  import {validateNumber} from '@/utils/validate';
 
   export default {
     name: 'PFANS1006FormView',
@@ -278,8 +278,9 @@
         }
       };
       var validateTel = (rule, value, callback) => {
+        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
         if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (telephoneNumber(value)) {
+          if (!this.regExp.test((value))) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
           } else {
             callback();

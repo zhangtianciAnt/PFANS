@@ -29,7 +29,7 @@
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 9.2rem" v-model="form.user_id"></user>
+                            @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -91,6 +91,7 @@
                         :min="0"
                         :precision="2"
                         @change="getMoney"
+                        style="width: 11rem"
                         controls-position="right"
                         v-model="form.rmbexpenditure"
                       ></el-input-number>
@@ -144,7 +145,7 @@
                         :disabled="!disablecurr"
                         :max="999999"
                         :min="0"
-                        :precision="2"
+                        :precision="3"
                         :step="0.01"
                         controls-position="right"
                         style="width: 11rem"
@@ -156,7 +157,7 @@
                 </el-row>
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
-                    <el-input :disabled="!disable" :rows="4" style="width:53rem" type="textarea"
+                    <el-input :disabled="!disable" :rows="4" style="width: 100%" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
@@ -472,7 +473,10 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_PROCUREMENTDETAILS')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" style="width: 100%" maxlength="20" v-model="scope.row.procurementdetails"
+                    <el-input :disabled="!disable" style="width: 100%"
+                              maxlength="20"
+                              :no="scope.row"
+                              v-model="scope.row.procurementdetails"
                               v-show="scope.row.showrow">
                     </el-input>
                     <dicselect :code="code6"
@@ -801,7 +805,7 @@
             name: 'button.save',
             disabled: false,
             icon: 'el-icon-check',
-          },
+          }
         ],
         tableData: [{
           abstract: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
@@ -1193,8 +1197,7 @@
     },
     watch: {
       foreigncurrency(val) {
-        //this.form.tormb = (val * this.form.currencyrate).toFixed(2);
-        this.form.tormb = Math.round((val * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((val * this.form.currencyrate) * 100) / 100;
       }
     },
     methods: {
@@ -1318,36 +1321,27 @@
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-         // this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003002') {
-          debugger;
           this.disablecurr = false;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
             this.form.currencyrate = dictionaryInfo.value2;
           }
-          //this.form.tormb = (this.form.foreigncurrency  * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         } else if (val === 'PJ003003') {
           this.disablecurr = true;
          this.form.currencyrate='';
-         // this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-          //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
         }
-        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
       },
       getCurrencyrate(val){
         this.form.currencyrate=val;
-        //this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
+        this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].trafficdate ='';
+        } else {
+          rows[index].trafficdate =null;
           rows[index].region ='';
           rows[index].vehicle ='';
           rows[index].startingpoint ='';
@@ -1359,8 +1353,7 @@
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
+        } else {
           rows[index].purchasedetailsdate ='';
           rows[index].procurementdetails =' ';
           rows[index].procurementproject =' ';
@@ -1372,9 +1365,8 @@
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (rows.length === 1) {
-          rows[index].otherdetailsdate ='';
+        } else {
+          rows[index].otherdetailsdate =null;
           rows[index].costitem ='';
           rows[index].remarks ='';
           rows[index].rmb ='';
@@ -1475,6 +1467,12 @@
                 return prev;
               }
             }, 0);
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==5){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1502,6 +1500,12 @@
                 return prev;
               }
             }, 0);
+            if(index==3){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1527,6 +1531,12 @@
                 return prev;
               }
             }, 0);
+            if(index==3){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
+            if(index==4){
+              sums[index]=Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--'
           }
@@ -1553,10 +1563,10 @@
               }
             }, 0);
             if(index==4){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
             if(index==5){
-              sums[index]=Math.round((sums[index]) * 10) / 10;
+              sums[index]=Math.round((sums[index]) * 100) / 100;
             }
           } else {
             sums[index] = '--'
@@ -1633,8 +1643,7 @@
               }
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              //this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 10) / 10;
-              this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 10) / 10;
+              this.form.moneys=Math.round((this.form.rmbexpenditure+this.form.tormb) * 100) / 100;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.trafficdetails = [];

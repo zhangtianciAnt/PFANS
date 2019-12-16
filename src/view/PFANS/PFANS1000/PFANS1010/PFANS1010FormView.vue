@@ -77,14 +77,6 @@
                 </template>
               </el-table-column>
             </el-table>
-            <!--            <div class="pagination-container" style="padding-top: 20px">-->
-            <!--              <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"-->
-            <!--                             :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"-->
-            <!--                             @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">-->
-            <!--                <slot><span class="front Content_front"-->
-            <!--                            style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
-            <!--              </el-pagination>-->
-            <!--            </div>-->
           </el-row>
           <el-row style="padding-top:1.5rem">
             <el-col :span="8">
@@ -146,14 +138,6 @@
                 </template>
               </el-table-column>
             </el-table>
-            <!--            <div class="pagination-container" style="padding-top: 20px">-->
-            <!--              <el-pagination :current-page.sync="listQuerytwo.page" :page-size="listQuerytwo.limit"-->
-            <!--                             :page-sizes="[5,10,20,30,50]" :total="total2" @current-change="handleCurrentChangetwo"-->
-            <!--                             @size-change="handleSizeChangetwo" layout="slot,sizes, ->,prev, pager, next, jumper">-->
-            <!--                <slot><span class="front Content_front"-->
-            <!--                            style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
-            <!--              </el-pagination>-->
-            <!--            </div>-->
           </el-row>
           <el-row style="padding-top:1.5rem">
             <el-col :span="30">
@@ -244,16 +228,6 @@
         }
       };
       return {
-        // totaldata: [],
-        // totaldatatwo: [],
-        // listQuery: {
-        //     page: 1,
-        //     limit: 5
-        // },
-        // listQuerytwo: {
-        //     page: 1,
-        //     limit: 5
-        // },
         total: 0,
         total2: 0,
         tableT: [{
@@ -348,9 +322,7 @@
           .dispatch('PFANS1010Store/getCommunicationOne', {'communication_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            debugger
             this.userlist = this.form.user_id;
-            this.userlist = response.user;
             let lettableT = [];
             let letreason = response.reason.split(';');
             if (letreason.length > 0) {
@@ -372,11 +344,7 @@
               }
             }
             this.tableT = lettableT;
-            // this.totaldata = lettableT;
-            // this.getList();
             this.tableP = lettableP;
-            // this.totaldatatwo = lettableP;
-            // this.getTwo();
             this.form = response;
             this.loading = false;
           })
@@ -390,7 +358,6 @@
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
-        this.form.user_id = this.userlist;
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -401,68 +368,31 @@
       }
     },
     methods: {
-      // handleSizeChange(val) {
-      //     this.listQuery.limit = val
-      //     this.getList()
-      // },
-      // handleCurrentChange(val) {
-      //     this.listQuery.page = val
-      //     this.getList()
-      // },
-      // getList() {
-      //     this.loading = true
-      //     let start = (this.listQuery.page - 1) * this.listQuery.limit
-      //     let end = this.listQuery.page * this.listQuery.limit
-      //     if (this.totaldata) {
-      //         debugger;
-      //         let pList = this.totaldata.slice(start, end)
-      //         this.tableT = pList
-      //         this.total = this.totaldata.length
-      //     }
-      //     this.loading = false
-      // },
-      // handleSizeChangetwo(val) {
-      //     this.listQuery.limit = val
-      //     this.getTwo()
-      // },
-      // handleCurrentChangetwo(val) {
-      //     this.listQuery.page = val
-      //     this.getTwo()
-      // },
-      // getTwo() {
-      //     this.loading = true
-      //     let start = (this.listQuery.page - 1) * this.listQuery.limit
-      //     let end = this.listQuery.page * this.listQuery.limit
-      //     if (this.totaldatatwo) {
-      //         let pList = this.totaldatatwo.slice(start, end)
-      //         this.tableP = pList
-      //         this.total2 = this.totaldatatwo.length
-      //     }
-      //     this.loading = false
-      // },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        } else{
+          this.tableT=[{
+            user: '',
+            reason: '',
+          }]
         }
       },
       deleteRow2(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
+        else{
+          this.tableP=[{
+            participants: '',
+          }]
+        }
       },
       addRow1() {
-
         this.tableT.push({
           user: '',
           reason: '',
         });
-
-        // for (let a = 0; a < this.tableT.length; a++) {
-        //     if (a === this.listQuery.limit) {
-        //         this.totaldata = this.tableT
-        //         this.getList();
-        //     }
-        // }
       },
       addRow2() {
         this.tableP.push({
@@ -518,7 +448,6 @@
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-              this.form.user_id = this.userlist;
               this.loading = true;
               let letreason = '';
               for (let i = 0; i <= this.tableT.length - 1; i++) {
@@ -568,7 +497,6 @@
                     this.loading = false;
                   });
               } else {
-                this.form.user_id = this.userlist;
                 this.loading = true;
                 this.$store
                   .dispatch('PFANS1010Store/createCommunication', this.form)
