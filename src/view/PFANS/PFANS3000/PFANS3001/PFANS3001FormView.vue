@@ -337,6 +337,7 @@
         selectType: 'Single',
         userlist: '',
         buttonList: [],
+        regExp: [],
         code: 'PG001',
         multiple: false,
         form: {

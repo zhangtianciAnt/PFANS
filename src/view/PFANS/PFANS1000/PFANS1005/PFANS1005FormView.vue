@@ -251,12 +251,16 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        } else if (rows.length === 1) {
-          rows[index].projects = '';
-          rows[index].unitprice = '';
-          rows[index].numbers = '';
-          rows[index].amount = '';
-          rows[index].remarks = '';
+        } else {
+          this.tableD = [{
+              shoppingdetailed_id: '',
+              purchaseapply_id: '',
+              projects: '',
+              unitprice: '',
+              numbers: '',
+              amount: '',
+              remarks: '',
+            }]
         }
       },
       addRow() {

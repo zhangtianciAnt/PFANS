@@ -575,8 +575,7 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
+            }else{
                 rows[index].management = '';
                 rows[index].assetname = '';
                 rows[index].person = '';
