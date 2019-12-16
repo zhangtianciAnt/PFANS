@@ -1341,43 +1341,37 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          this.tableT=[{
-            trafficdate:'',
-            region:'',
-            vehicle:'',
-            startingpoint:'',
-            rmb:'',
-            foreigncurrency:'',
-            annexno:'',
-          }]
+          rows[index].trafficdate =null;
+          rows[index].region ='';
+          rows[index].vehicle ='';
+          rows[index].startingpoint ='';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
         }
       },
       deleteRow3(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          this.tableP=[{
-            purchasedetailsdate:'',
-            procurementdetails:' ',
-            procurementproject:' ',
-            rmb:'',
-            foreigncurrency:'',
-            annexno:'',
-          }]
+          rows[index].purchasedetailsdate ='';
+          rows[index].procurementdetails =' ';
+          rows[index].procurementproject =' ';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
         }
       },
       deleteRow4(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          this.tableR=[{
-            otherdetailsdate:'',
-            costitem:'',
-            remarks:'',
-            rmb:'',
-            foreigncurrency:'',
-            annexno:'',
-          }]
+          rows[index].otherdetailsdate =null;
+          rows[index].costitem ='';
+          rows[index].remarks ='';
+          rows[index].rmb ='';
+          rows[index].foreigncurrency ='';
+          rows[index].annexno ='';
         }
       },
       addRow() {

@@ -143,9 +143,9 @@
           });
       },
       handleClick() {
-        if (this.activeName === '2') {
+        if (this.activeName === 'second') {
           this.showTable1 = false;
-        } else if (this.activeName === '1') {
+        } else if (this.activeName === 'first') {
           this.showTable1 = true;
         }
       },

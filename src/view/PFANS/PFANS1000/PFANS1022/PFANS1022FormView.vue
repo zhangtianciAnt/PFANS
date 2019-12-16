@@ -132,6 +132,7 @@
                   <el-button
                     :disabled="!disabled"
                     @click.native.prevent="deleteRow(scope.$index, tableD)"
+                    @change="getContinuity"
                     plain
                     size="small"
                     type="danger"
@@ -373,6 +374,13 @@
             getKind(val, row) {
                 row.kind = val;
             },
+            getContinuity(){
+                if(this.rows.tableD.attendancedate == ''){
+                    this.rows.tableD.dis = true;
+                }else{
+                    this.rows.tableD.dis = false;
+                }
+            },
             workflowState(val) {
                 if (val.state === '1') {
                     this.form.status = '3';
@@ -392,6 +400,16 @@
             deleteRow(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
+                }else{
+                    this.tableD = [{
+                        application: '',
+                        kind: '',
+                        cardnumber: '',
+                        attendancedate: '',
+                        workreasons: '',
+                        startdate: [],
+                        dis:''
+                    }]
                 }
             },
             addRow() {
