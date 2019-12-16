@@ -121,14 +121,14 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" width="200" :error="errorperson">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" width="200">
                 <template slot-scope="scope">
-                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.person" @getUserids="getUseridsperson" :error="errorperson"></user>
+                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.person" @getUserids="getUseridsperson"></user>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEAFTER')" align="center" width="200" :error="erroreafter">
+              <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEAFTER')" align="center" width="200">
                 <template slot-scope="scope">
-                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.eafter" @getUserids="getUseridseafter" :error="erroreafter"></user>
+                  <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.eafter" @getUserids="getUseridseafter"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT')" align="center" width="200">
@@ -314,9 +314,7 @@
                   management:'',
                   assetname:'',
                   person:'',
-                  errorperson:'',
                   eafter:'',
-                  erroreafter:'',
                   reason:'',
               },
           ],
@@ -493,19 +491,9 @@
       },
         getUseridsperson(val,row) {
             row.person = val;
-            if (!row.person || row.person === '' || val === "undefined") {
-                row.errorperson = this.$t('normal.error_09') + this.$t('label.applicant');
-            } else {
-                row.errorperson = "";
-            }
         },
         getUseridseafter(val,row) {
             row.eafter = val;
-            if (!row.eafter || row.eafter === '' || val === "undefined") {
-                row.erroreafter = this.$t('normal.error_09') + this.$t('label.applicant');
-            } else {
-                row.erroreafter = "";
-            }
         },
       getCenterId1(val) {
         this.form.ferrycenter_id = val;
@@ -575,15 +563,18 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
-                rows[index].management = '';
-                rows[index].assetname = '';
-                rows[index].person = '';
-                rows[index].errorperson = '';
-                rows[index].eafter = '';
-                rows[index].erroreafter = '';
-                rows[index].reason = '';
+            }else{
+                this.tableD = [
+                    {
+                        notificationid: '',
+                        softwaretransferid: '',
+                        management:'',
+                        assetname:'',
+                        person:null,
+                        eafter:null,
+                        reason:'',
+                    },
+                ]
             }
         },
         addRow() {
@@ -593,9 +584,7 @@
                 management:'',
                 assetname:'',
                 person:'',
-                errorperson:'',
                 eafter:'',
-                erroreafter:'',
                 reason:'',
             });
         },

@@ -410,7 +410,7 @@
             fixedassetnam: '',
             megasnumber: '',
             settagnumber: '',
-            purchasedate: moment(new Date()).format('YYYY-MM-DD'),
+            purchasedate: '',
             originalvalue: '',
             yearsofuse: '',
             networth: '',
@@ -425,7 +425,7 @@
             fixedassetnam: '',
             megasnumber: '',
             settagnumber: '',
-            purchasedate: moment(new Date()).format('YYYY-MM-DD'),
+            purchasedate: '',
             originalvalue: '',
             networth: '',
             scrapping: '',
@@ -622,34 +622,44 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (row.length = 1) {
-          rows[index].fixedassetnam = '';
-          rows[index].megasnumber = '';
-          rows[index].settagnumber = '';
-          rows[index].purchasedate = '';
-          rows[index].originalvalue = '';
-          rows[index].yearsofuse = '';
-          rows[index].networth = '';
-          rows[index].scrapping = '';
-          rows[index].remarks = '';
+        }else{
+            this.table1 = [
+                {
+                    scrapdetailsid: '',
+                    assetinformationid: '',
+                    fixedassetnam: '',
+                    megasnumber: '',
+                    settagnumber: '',
+                    purchasedate: '',
+                    originalvalue: '',
+                    yearsofuse: '',
+                    networth: '',
+                    scrapping: '',
+                    remarks: '',
+                },
+            ]
         }
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        if (row.length = 1) {
-          rows[index].fixedassetnam = '';
-          rows[index].megasnumber = '';
-          rows[index].settagnumber = '';
-          rows[index].purchasedate = '';
-          rows[index].originalvalue = '';
-          rows[index].networth = '';
-          rows[index].sellingprice = '';
-          rows[index].loss = '';
-          rows[index].scrapping = '';
-          rows[index].remarks = '';
+        }else{
+            this.table2 = [
+                {
+                    salesdetailsid: '',
+                    assetinformationid: '',
+                    fixedassetnam: '',
+                    megasnumber: '',
+                    settagnumber: '',
+                    purchasedate: '',
+                    originalvalue: '',
+                    networth: '',
+                    scrapping: '',
+                    remarks: '',
+                    sellingprice: '',
+                    loss: '',
+                },
+            ]
         }
       },
       addRow() {

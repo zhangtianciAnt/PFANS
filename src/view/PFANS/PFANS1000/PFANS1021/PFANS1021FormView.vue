@@ -470,17 +470,23 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
-                rows[index].title = '';
-                rows[index].detailcenter_id = '';
-                rows[index].detailgroup_id = '';
-                rows[index].detailteam_id = '';
-                rows[index].emaildetail = '';
-                rows[index].startdate = '';
-                rows[index].fabuilding = '';
-                rows[index].fbbuilding = '';
-                rows[index].entrymanager = '';
+            }else{
+                this.tableD = [
+                    {
+                        securitydetailid: '',
+                        securityid: '',
+                        title: '',
+                        detailcenter_id: '',
+                        detailgroup_id: '',
+                        detailteam_id: '',
+                        phonenumber: '',
+                        emaildetail: '',
+                        startdate: '',
+                        fabuilding: '',
+                        fbbuilding: '',
+                        entrymanager: '',
+                    },
+                ]
             }
         },
         addRow() {
@@ -508,7 +514,7 @@
               this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.securitydetail = [];
               for (let i = 0; i < this.tableD.length; i++) {
-                    if (this.tableD[i].title !== '' || this.tableD[i].detailcenter_id !== '' || this.tableD[i].detailgroup_id !== '' ||
+                    if (this.tableD[i].title.trim() === '' || this.tableD[i].detailcenter_id !== '' || this.tableD[i].detailgroup_id !== '' ||
                         this.tableD[i].detailteam_id !== '' || this.tableD[i].phonenumber !== '' || this.tableD[i].emaildetail !== ''
                         || this.tableD[i].startdate !== '' || this.tableD[i].fabuilding !== '' || this.tableD[i].fbbuilding !== '' || this.tableD[i].entrymanager !== '') {
                         this.baseInfo.securitydetail.push(

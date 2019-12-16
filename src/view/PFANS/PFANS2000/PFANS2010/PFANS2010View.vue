@@ -1,313 +1,194 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList"
-                     :columns="columns"
-                     :data="data"
-                     :title="title"
-                     v-loading="loading">
+    <EasyNormalTable
+      :buttonList="buttonList"
+      :columns="columns"
+      :data="data"
+      :title="title"
+      :rowid="row_id"
+      @rowClick="rowClick"
+      @buttonClick="buttonClick"
+      v-loading="loading">
+<!--      <el-select @change="changed" slot="customize" v-model="region">-->
+<!--        <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>-->
+<!--        <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>-->
+<!--      </el-select>-->
+      <span >年月月</span>
+      <el-date-picker
+        v-model="montvalue"
+        type="month"
+        @change="changed"
+        placeholder="选择月">
+      </el-date-picker>
     </EasyNormalTable>
   </div>
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
-  import {Message} from 'element-ui';
-
-  export default {
-    name: 'PFANS2010View',
-    components: {
-      EasyNormalTable,
-    },
-    data() {
-      return {
-        loading: false,
-        title: 'title.PFANS2010VIEW',
-        data: [],
-        columns: [
-          {
-            code: 'dates',
-            label: 'label.PFANS2010VIEW_application',
-            labelClass: 'pfans2010view_column_17',
-            width: 30,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: '',
-            label: 'label.PFANS2010VIEW_SERVICE',
-            labelClass: 'pfans2010view_column_5',
-              child: [
-                  {//正常
-                      code: 'normal',
-                      label: 'label.PFANS2010VIEW_NORMAL',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//平日残業
-                      code: 'ordinaryindustry',
-                      label: 'label.PFANS2010VIEW_OVERTIME',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//平日深夜残業
-                      code: 'ordinaryindustrynight',
-                      label: 'label.PFANS2010VIEW_NIGHTOVERTIME',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//周末残業
-                      code: 'weekendindustry',
-                      label: 'label.PFANS2010VIEW_RETIREMENT',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//周末深夜残業
-                      code: 'weekendindustrynight',
-                      label: 'label.PFANS2010VIEW_NIGHTRETIREMENT',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//法定节假日残業
-                      code: 'statutoryresidue',
-                      label: 'label.PFANS2010VIEW_HOLIDAYS',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//法定节假日深夜残業
-                      code: 'statutoryresiduenight',
-                      label: 'label.PFANS2010VIEW_NIGHTHOLIDAYS',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//一齐年休日出勤
-                      code: 'annualrestday',
-                      label: 'label.PFANS2010VIEW_EVERYYEAR',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//会社特别休日出勤
-                      code: 'specialday',
-                      label: 'label.PFANS2010VIEW_OCCASIONS',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//青年节出勤
-                      code: 'youthday',
-                      label: 'label.PFANS2010VIEW_YOUTHDAY',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//妇女节出勤
-                      code: 'womensday',
-                      label: 'label.PFANS2010VIEW_WOMENSDAY',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-              ],
-              width: 150,
-              fix: false,
-              filter: true,
-          },
-          {
-            code: '',
-            label: 'label.PFANS2010VIEW_SICKLEAVE',
-              child: [
-                  {//短病假
-                      code: 'PFANS2010VIEW_NORMAL',
-                      label: 'label.PFANS2010VIEW_SHORT',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-                  {//长病假
-                      code: 'ordinaryindustry',
-                      label: 'label.PFANS2010VIEW_LONG',
-                      labelClass: 'pfans2010view_column_8',
-                      width: 25,
-                      fix: false,
-                      filter: true,
-                  },
-              ],
-              width: 150,
-              fix: false,
-              filter: true,
-          },
-          {//事假
-            code: 'compassionateleave',
-            label: 'label.PFANS2010VIEW_LEAVE',
-            width: 40,
-            fix: false,
-            filter: true,
-            labelClass: 'pfans2010view_column_11',
-          },
-            {//年休
-                code: 'annualrest',
-                label: 'label.PFANS2010VIEW_INHUGH',
-                width: 40,
-                fix: false,
-                filter: true,
-                labelClass: 'pfans2010view_column_11',
-            },
-            {//代休
-                code: 'daixiu',
-                label: 'label.PFANS2010VIEW_DAYOFF',
-                width: 40,
-                fix: false,
-                filter: true,
-                labelClass: 'pfans2010view_column_11',
-            },
-            {//产休护理假
-                code: 'nursingleave',
-                label: 'label.PFANS2010VIEW_MATERNITY',
-                width: 40,
-                fix: false,
-                filter: true,
-                labelClass: 'pfans2010view_column_11',
-            },
-            {//福利假期
-                code: 'welfare',
-                label: 'label.PFANS2010VIEW_WELFARE',
-                width: 40,
-                fix: false,
-                filter: true,
-                labelClass: 'pfans2010view_column_11',
-            },
-              {
-                code: '',
-                label: 'label.PFANS2010VIEW_ABSENCE',
-                labelClass: 'pfans2010view_column_14',
-                child: [
-                  {//迟到
-                    code: 'late',
-                    label: 'label.PFANS2013VIEW_BEGINNING',
-                    labelClass: 'pfans2010view_column_15',
-                    width: 25,
-                    fix: false,
-                    filter: true,
-                  },
-                  {//早退
-                    code: 'leaveearly',
-                    label: 'label.PFANS2013VIEW_DEDUCT',
-                    labelClass: 'pfans2010view_column_15',
-                    width: 25,
-                    fix: false,
-                    filter: true,
-                  },
-                  {//无故旷工
-                    code: 'absenteeism',
-                    label: 'label.PFANS2013VIEW_REMAINING',
-                    labelClass: 'pfans2010view_column_15',
-                    width: 25,
-                    fix: false,
-                    filter: true,
-                  },
+    import EasyNormalTable from '@/components/EasyNormalTable';
+    import {Message} from 'element-ui'
+    import {getUserInfo} from "@/utils/customize";
+    import moment from "moment";
+    export default {
+        name: 'PFANS2010View',
+        components: {
+            EasyNormalTable,
+        },
+        data() {
+            return {
+                montvalue:moment(new Date()).format("YYYY-M"),
+                region: '1',
+                loading: false,
+                title: 'title.PFANS2010VIEW',
+                data: [],
+                buttonList: [
+                    {
+                        key: 'view',
+                        name: 'button.view',
+                        disabled: false,
+                        icon: 'el-icon-view'
+                    },
                 ],
-                width: 50,
-                fix: false,
-                filter: true,
-              },
-            {//承认状态
-                code: 'recognitionstate',
-                label: 'label.PFANS2010VIEW_RECOGNITION',
-                labelClass: 'pfans2010view_column_16',
-                width: 25,
-                fix: false,
-                filter: true,
-            },
-        ],
-        buttonList: [],
-      };
-    },
-    methods: {
-        getAttendancelist() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2010Store/getAttendancelist', {})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-                let user = getUserInfo(response[j].user_id);
-                if (user) {
-                    response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                columns: [
+                    {
+                        code: 'user_name',
+                        label: 'label.user_name',
+                        width: 80,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'user_id',
+                    },
+                    {
+                        code: 'center_id',
+                        label: 'label.center',
+                        width: 100,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'group_id',
+                        label: 'label.group',
+                        width: 100,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'team_id',
+                        label: 'label.team',
+                        width: 80,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'years',
+                        label: 'label.year',
+                        width: 40,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'months',
+                        label: 'label.month',
+                        width: 40,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'recognitionstate',
+                        label: 'label.PFANS2010VIEW_RECOGNITION',
+                        width: 60,
+                        fix: false,
+                        filter: true
+                    },
+                ],
+                row_id: 'attendance_id',
+                user_id: '',
+                years: '',
+                months: '',
+            };
+        },
+        mounted() {
+            this.getlist();
+        },
+        methods: {
+            getlist(){
+                this.loading = true;
+                var parameter = {};
+                var varmontvalue = this.montvalue.split("-");
+                if(varmontvalue.length > 0){
+                    parameter = {
+                        years:varmontvalue[0],
+                        months:varmontvalue[1],
+                    }
                 }
-            }
-            this.data = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-    },
-    mounted() {
-      this.getDataList();
-      this.$store.commit('global/SET_OPERATEID', '');
-    },
-  };
+                this.$store
+                    .dispatch('PFANS2010Store/getlist', parameter)
+                    .then(response => {
+                        for (let j = 0; j < response.length; j++) {
+                            let user = getUserInfo(response[j].user_id);
+                            if (user) {
+                                response[j].user_name = getUserInfo(response[j].user_id).userinfo.customername;
+                            }
+                            if(response[j].recognitionstate === "0"){
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
+                                }
+                            }
+                            else{
+                                if (this.$i18n) {
+                                    response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
+                                }
+                            }
+                        }
+                        this.data = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            },
+            rowClick(row) {
+                this.userid = row.user_id;
+                this.years = row.years;
+                this.months = row.months;
+            },
+            buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+                if (val === 'view') {
+                    if (this.rowid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$router.push({
+                        name: 'PFANS2010FormView',
+                        params: {
+                            userid: this.userid,
+                            years: this.years,
+                            months: this.months,
+                            disabled: false
+                        }
+                    })
+                }
+            },
+            changed(val){
+                this.montvalue = moment(val).format("YYYY-M");
+                this.getlist();
+            },
+        },
+    };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  .pfans2010view_column_5 {
-    background: #5CBFA3;
-    color: #ffffff;
-  }
+<style scoped>
 
-  .pfans2010view_column_8 {
-    background: #AEDFD1;
-    color: #ffffff;
-  }
-
-  .pfans2010view_column_11 {
-    background: #F2BC6A;
-    color: #ffffff;
-  }
-
-  .pfans2010view_column_14 {
-    background: #E5575E;
-    color: #ffffff;
-  }
-
-  .pfans2010view_column_15 {
-    background: #F2ABAF;
-    color: #ffffff;
-  }
-
-  .pfans2010view_column_16 {
-    background: #CCCCCC;
-    color: #ffffff;
-  }
-
-  .pfans2010view_column_17 {
-    background: #425E72;
-    color: #ffffff;
-  }
 </style>
-

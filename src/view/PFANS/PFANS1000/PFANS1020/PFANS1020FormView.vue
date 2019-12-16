@@ -297,12 +297,17 @@
         deleteRow(index, rows) {
             if (rows.length > 1) {
                 rows.splice(index, 1);
-            }
-            if(row.length = 1){
-                rows[index].username = '';
-                rows[index].rank = '';
-                rows[index].mailaddress = '';
-                rows[index].reason = '';
+            }else{
+                this.tableD = [
+                    {
+                        outsidedetailid: '',
+                        outsideid: '',
+                        username:'',
+                        rank:'',
+                        mailaddress:'',
+                        reason:'',
+                    },
+                ]
             }
         },
         addRow() {
@@ -323,7 +328,7 @@
               this.baseInfo.outside = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.outsidedetail = [];
                 for (let i = 0; i < this.tableD.length; i++) {
-                    if (this.tableD[i].username !== '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
+                    if (this.tableD[i].username.trim() === '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
                         this.tableD[i].reason !== '') {
                         this.baseInfo.outsidedetail.push(
                             {
