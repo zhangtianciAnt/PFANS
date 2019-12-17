@@ -69,6 +69,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" v-show="show4">
+                <el-input :disabled="!disabled1" maxlength='20' style="width: 11rem"
+                          v-model="form.experience"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" label-width="5rem" v-show="show1" prop="nomineerelationship">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem;padding-left:3rem"
                           v-model="form.nomineerelationship"></el-input>
@@ -117,7 +123,7 @@
                   <dicselect
                     :code="code2"
                     :data="form.qualifications"
-                    :disabled="!disabled"
+                    :disabled="!disabled2"
                     :multiple="multiple"
                     @change="getqualifications"
                     style="width: 11rem">
@@ -253,6 +259,7 @@
                     uploadfile: '',
                     payment: '0',
                     aexperience:'',
+                    experience:'',
                 },
                 code: 'PR024',
                 code1: ' ',
@@ -260,6 +267,8 @@
                 code3: 'PR039',
                 disable: false,
                 disabled: true,
+                disabled1: false,
+                disabled2: false,
                 menuList: [],
                 rules: {
                     user_id: [
@@ -358,6 +367,7 @@
                 show1: false,
                 show2: false,
                 show3: false,
+                show4: false,
                 canStart: false,
                 twoclass: '',
                 qualifications: '',
@@ -409,14 +419,21 @@
                         }
                         if (this.form.twoclass === 'PR034002') {
                             this.show1 = false;
+                            this.show4 = false;
                         }
                         if (this.form.status === '2' || !this.disabled) {
                             this.disable = false;
+                            this.disabled2 = false;
+                            this.disabled1 = false;
                         } else {
                             this.disable = true;
+                            this.disabled2 = true;
+                            this.disabled1 = true;
                         }
                         if (this.form.status === '3' || this.disabled) {
                             this.disable = true;
+                            this.disabled2 = true;
+                            this.disabled1 = true;
                         }
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
@@ -486,12 +503,16 @@
                 }
                 let lst = getUserInfo(val);
                 this.form.aexperience = lst.userinfo.experience;
+                alert(this.form.aexperience);
                 if(this.form.aexperience === '0'){
                     this.form.amoutmoney = 4000;
+                    this.form.experience = this.$t('label.yes');
                 }else if(this.form.aexperience === '1'){
                     this.form.amoutmoney = 500;
-                }else if(this.form.aexperience == null && this.form.aexperience == ''){
+                    this.form.experience = this.$t('label.no');
+                }else{
                     this.form.amoutmoney = 0;
+                    this.form.experience = this.$t('label.PFANS2022VIEW_UNFILLED');
                 }
             },
             getfirstclass(val) {
@@ -504,6 +525,7 @@
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -515,12 +537,12 @@
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024002") {
                     this.code1 = 'PR040';
-                    this.gettwoclass("PR040001");
                     this.disable = true;
                     this.show = true;
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -534,15 +556,16 @@
                     this.code1 = 'PR034';
                     this.disable = true;
                     this.show = false;
-                    this.show1 = true;
+                    this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
-                    this.rules.nominees[0].required = true;
-                    this.rules.nomineerelationship[0].required = true;
-                    this.rules.joiningday[0].required = true;
-                    this.rules.enteringform[0].required = true;
-                    this.rules.recommendationday[0].required = true;
-                    this.rules.reginstrationday[0].required = true;
+                    this.show4 = false;
+                    this.rules.nominees[0].required = false;
+                    this.rules.nomineerelationship[0].required = false;
+                    this.rules.joiningday[0].required = false;
+                    this.rules.enteringform[0].required = false;
+                    this.rules.recommendationday[0].required = false;
+                    this.rules.reginstrationday[0].required = false;
                     this.rules.qualifications[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
@@ -554,6 +577,7 @@
                     this.show1 = false;
                     this.show2 = true;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -571,6 +595,7 @@
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -588,6 +613,7 @@
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -605,6 +631,7 @@
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -623,7 +650,21 @@
                     this.twoclass = dictionaryInfo.value2;
                     this.form.amoutmoney = dictionaryInfo.value2;
                 }
-                debugger;
+                if (val === "PR040001"){
+                    this.disabled2 = true;
+                }
+                if (val === "PR040002"){
+                    this.disabled2 = true;
+                }
+                if (val === "PR040003"){
+                    this.disabled2 = true;
+                }
+                if (val === "PR040004"){
+                    this.disabled2 = true;
+                }
+                if (val === "PR040005"){
+                    this.disabled2 = true;
+                }
                 if (val === "PR034002") {
                     this.code1 = 'PR034';
                     this.disable = true;
@@ -631,6 +672,7 @@
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
+                    this.show4 = false;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -648,6 +690,7 @@
                     this.show1 = true;
                     this.show2 = false;
                     this.show3 = false;
+                    this.show4 = true;
                     this.rules.nominees[0].required = true;
                     this.rules.nomineerelationship[0].required = true;
                     this.rules.joiningday[0].required = true;
@@ -662,9 +705,9 @@
             getenteringform(val) {
                 this.form.enteringform = val;
             },
-            getqualifications(vals) {
-                this.form.qualifications = vals;
-                let dictionaryInfo = getDictionaryInfo(vals);
+            getqualifications(val) {
+                this.form.qualifications = val;
+                let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
                     this.qualifications = dictionaryInfo.value2;
                 }
