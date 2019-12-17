@@ -16,7 +16,6 @@
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
       </el-select>
     </EasyNormalTable>
-
     <EasyNormalTable
       :buttonList="buttonList"
       :columns="columns"
@@ -106,7 +105,6 @@
                   response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                 }
                 this.table = response;
-
               }
               if (response[j].status === '1') {
                 if (response[j].createon !== null && response[j].createon !== '') {
