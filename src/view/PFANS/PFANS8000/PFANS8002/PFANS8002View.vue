@@ -16,7 +16,6 @@
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
       </el-select>
     </EasyNormalTable>
-
     <EasyNormalTable
       :buttonList="buttonList"
       :columns="columns"
@@ -53,16 +52,6 @@
         ],
         table2: [
         ],
-        totaldata: [],
-        totaldata2: [],
-        listQuery: {
-          page: 1,
-          limit: 5
-        },
-        listQuery2: {
-          page: 1,
-          limit: 5
-        },
         status: '',
         workflowurl: '',
         total: 0,
@@ -116,19 +105,12 @@
                   response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                 }
                 this.table = response;
-                this.totaldata = response;
-                this.dataList = 1;
-                this.getList();
-
               }
               if (response[j].status === '1') {
                 if (response[j].createon !== null && response[j].createon !== '') {
                   response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                 }
                 this.table2 = response;
-                this.totaldata2 = response;
-                this.dataList2 = 2;
-                this.getList();
               }
             }
             this.loading = false;
@@ -148,47 +130,6 @@
         } else if (this.activeName === 'first') {
           this.showTable1 = true;
         }
-      },
-      handleSizeChange(val) {
-        this.listQuery.limit = val;
-        this.getList()
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val;
-        this.getList()
-      },
-      handleSizeChange2(val) {
-        this.listQuery2.limit = val;
-        this.getList()
-      },
-      handleCurrentChange2(val) {
-        this.listQuery2.page = val;
-        this.getList()
-      },
-      getList() {
-        if (this.dataList === 1 || this.status === '1') {
-          this.loading = true;
-          let start = (this.listQuery.page - 1) * this.listQuery.limit;
-          let end = this.listQuery.page * this.listQuery.limit;
-          if (this.totaldata) {
-            let pList = this.totaldata.slice(start, end);
-            this.table = pList;
-            this.total = this.totaldata.length
-          }
-          this.loading = false
-        }
-        if (this.dataList2 === 2 || this.status === '0') {
-          this.loading = true;
-          let start = (this.listQuery2.page - 1) * this.listQuery2.limit;
-          let end = this.listQuery2.page * this.listQuery2.limit;
-          if (this.totaldata2) {
-            let pList = this.totaldata2.slice(start, end);
-            this.table2 = pList;
-            this.total2 = this.totaldata2.length
-          }
-          this.loading = false
-        }
-
       },
       rowclick(row) {
         this.row = row;

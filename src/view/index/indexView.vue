@@ -231,10 +231,17 @@
           });
         }
       },
+
       clickDSP() {
-        this.$router.push({
-          name: 'PFANS8002View',
-        });
+        if(this.DSPSX==='0'){
+          this.$router.push({
+            name: 'index',
+          });
+        }else if(this.DSPSX!='0'){
+          this.$router.push({
+            name: 'PFANS8002View',
+          });
+          }
       },
       Clickckgd() {
         this.$router.push({

@@ -161,6 +161,7 @@
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.usedepartment = lst.centerNmae;
         }
+        this.getQr();
       }
     },
     created() {
@@ -209,7 +210,6 @@
         this.form.typeassets = val;
       },
       getQr(){
-        document.getElementById('qrcode').innerHTML = '';
         this.qrcode1 = new QRCode('qrcode', {
           width: 132,
           height: 132,
@@ -279,11 +279,9 @@
               this.getSave();
             }
             if(val === 'savePrt'){
-              this.getQr();
               this.getSave();
             }
             if(val === 'printing'){
-              this.getQr();
             }
           }
         });
