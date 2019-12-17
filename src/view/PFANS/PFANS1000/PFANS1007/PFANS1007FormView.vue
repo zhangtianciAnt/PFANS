@@ -66,7 +66,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1007FORMVIEW_SALECONTRACT')" prop="salecontract">
+                  <el-form-item :label="$t('label.PFANS1007FORMVIEW_SALECONTRACT')" prop="salecontract" v-show="show1">
                     <dicselect
                       :code="code2"
                       :data="form.salecontract"
@@ -78,14 +78,14 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1007FORMVIEW_CONTRACTNO')" prop="contractno">
+                  <el-form-item :label="$t('label.PFANS1007FORMVIEW_CONTRACTNO')" prop="contractno" v-show="show1">
                     <el-input :disabled="!disabled" style="width: 11rem" v-model="form.contractno"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.numbers')" prop="numbers">
                     <el-input-number v-model="form.numbers" controls-position="right" style="width: 11rem"
-                                     :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                     :disabled="!disabled" :min="0" :max="1000000000"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -498,10 +498,11 @@
             },
           ],
         },
-        show: false,
-        canStart: false,
-        fileList: [],
-        upload: uploadUrl(),
+          show: false,
+          show1: false,
+          canStart: false,
+          fileList: [],
+          upload: uploadUrl(),
       };
     },
     mounted() {
@@ -589,6 +590,15 @@
       },
       getProcessingmethod(val) {
         this.form.processingmethod = val;
+        if(val === 'PJ012001'){
+            this.show1 = false;
+            this.rules.salecontract[0].required = false;
+            this.rules.contractno[0].required = false;
+        }else if(val === 'PJ012002'){
+            this.show1 = true;
+            this.rules.salecontract[0].required = true;
+            this.rules.contractno[0].required = true;
+        }
       },
       getSalecontract(val) {
         this.form.salecontract = val;
