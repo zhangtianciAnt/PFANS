@@ -65,7 +65,7 @@
             <el-col :span="8">
               <el-form-item :error="error_nominees" :label="$t('label.PFANS2022VIEW_NOMINEES')" v-show="show1" prop="nominees">
                 <user :disabled="!disabled" :error="error_nominees" :selectType="selectType"  @getUserids ="getNomineeids"
-                      style="width: 10.15rem"></user>
+                      style="width: 10.15rem" :userlist="nomineeslist"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -223,6 +223,7 @@
                 error_nominees:'',
                 selectType: "Single",
                 userlist: "",
+                nomineeslist: "",
                 title: "title.PFANS2022VIEW",
                 editableTabsValue: '0',
                 editableTabs: [],
@@ -374,6 +375,7 @@
                         this.getfirstclass(this.form.firstclass);
                         this.gettwoclass(this.form.twoclass);
                         this.userlist = this.form.user_id;
+                        this.nomineeslist = this.form.nominees;
 
                         if (this.form.firstclass === 'PR024002') {
                             this.show = true;
@@ -401,6 +403,12 @@
                         }
                         if (this.form.firstclass === 'PR024007') {
                             this.show3 = true;
+                        }
+                        if (this.form.twoclass === 'PR034001') {
+                            this.show1 = true;
+                        }
+                        if (this.form.twoclass === 'PR034002') {
+                            this.show1 = false;
                         }
                         if (this.form.status === '2' || !this.disabled) {
                             this.disable = false;
@@ -524,7 +532,6 @@
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024003") {
                     this.code1 = 'PR034';
-                    this.gettwoclass("PR034001");
                     this.disable = true;
                     this.show = false;
                     this.show1 = true;
@@ -616,6 +623,7 @@
                     this.twoclass = dictionaryInfo.value2;
                     this.form.amoutmoney = dictionaryInfo.value2;
                 }
+                debugger;
                 if (val === "PR034002") {
                     this.code1 = 'PR034';
                     this.disable = true;
@@ -666,13 +674,6 @@
                     } else {
                         this.form.amoutmoney = 0;
                     }
-                }
-                if(this.form.aexperience === '0'){
-                    this.form.amoutmoney = 4000;
-                }else if(this.form.aexperience === '1'){
-                    this.form.amoutmoney = 500;
-                }else if(this.form.aexperience == null && this.form.aexperience == ''){
-                    this.form.amoutmoney = 0;
                 }
             },
             workflowState(val) {
