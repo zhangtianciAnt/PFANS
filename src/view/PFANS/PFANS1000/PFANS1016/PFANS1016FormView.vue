@@ -46,7 +46,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1016FORMVIEW_TYPESOF')" >
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_TYPESOF')" prop="typesof">
                 <dicselect :code="code1"
                            :data="form.typesof"
                            :disabled="!disable"
@@ -59,7 +59,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1016FORMVIEW_OPERATIONTYPE')">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_OPERATIONTYPE')" prop="operationtype">
                 <dicselect :code="code2"
                            :data="form.operationtype"
                            :disabled="!disable"
@@ -70,7 +70,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.application')">
+              <el-form-item :label="$t('label.application')" prop="payment">
                 <el-date-picker :disabled="!disable"
                                 style="width:11rem"
                                 type="date"
@@ -170,7 +170,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="100">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="130">
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
@@ -286,6 +286,15 @@
       user
     },
     data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
       var checkemail = (rule, value, callback) => {
         if (this.form.email !== null && this.form.email !== '') {
           if (!validateEmail(value)) {
@@ -379,6 +388,26 @@
         code4: 'PJ047',
         disabled: false,
         rules: {
+          user_id: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          }],
+          typesof: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1016FORMVIEW_TYPESOF'),
+            trigger: "blur"
+          }],
+          operationtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1016FORMVIEW_OPERATIONTYPE'),
+            trigger: "blur"
+          }],
+          payment: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.application'),
+            trigger: "blur"
+          }],
           email: [
             {validator: checkemail, trigger: 'blur'}],
           extension: [
@@ -390,7 +419,7 @@
           }],
           duringdate: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
+            message: this.$t('normal.error_09') + this.$t('label.PFANSUSERFORMVIEW_PERIOD'),
             trigger: "blur"
           }],
         },
