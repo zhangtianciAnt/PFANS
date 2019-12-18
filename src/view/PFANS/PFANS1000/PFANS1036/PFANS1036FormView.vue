@@ -268,7 +268,7 @@
                         <el-table-column align="center" width="120">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -491,14 +491,14 @@
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.ccc}}
+                          {{scope.row.ccc}}
 
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_RANK')" align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.ccc2}}
+                          {{scope.row.ccc2}}
 
                         </template>
                       </el-table-column>
@@ -919,14 +919,14 @@
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.ccc}}
+                          {{scope.row.ccc}}
 
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_RANK')" align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.ccc2}}
+                          {{scope.row.ccc2}}
 
                         </template>
                       </el-table-column>
@@ -1378,7 +1378,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -1387,7 +1387,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -1868,7 +1868,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -1877,7 +1877,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -2107,7 +2107,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -2337,7 +2337,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -2591,7 +2591,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -2600,7 +2600,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -3081,7 +3081,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -3090,7 +3090,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -3313,7 +3313,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -3322,7 +3322,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -3545,7 +3545,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.aaa}}
+                            {{scope.row.aaa}}
 
                           </template>
                         </el-table-column>
@@ -3554,7 +3554,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.bbb}}
+                            {{scope.row.bbb}}
 
                           </template>
                         </el-table-column>
@@ -3807,7 +3807,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.jjj}}
+                          {{scope.row.jjj}}
 
                         </template>
                       </el-table-column>
@@ -3817,7 +3817,7 @@
                                        width="120">
                         <template slot-scope="scope">
 
-                            {{scope.row.jjj2}}
+                          {{scope.row.jjj2}}
 
                         </template>
                       </el-table-column>
@@ -3826,7 +3826,7 @@
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
 
-                            {{scope.row.jjj3}}
+                          {{scope.row.jjj3}}
 
                         </template>
                       </el-table-column>
@@ -4079,7 +4079,7 @@
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
 
-                              {{scope.row.kkk}}
+                            {{scope.row.kkk}}
 
                           </template>
                         </el-table-column>
@@ -6021,11 +6021,9 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
   import {telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS1012FormView',
@@ -6843,7 +6841,7 @@
               if (this.$route.params._id) {
                 this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1036Store/update', this.baseInfo)
+                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -6868,7 +6866,7 @@
                   });
               } else {
                 this.$store
-                  .dispatch('PFANS1036Store/insert', this.baseInfo)
+                  .dispatch('PFANS1036Store/createBusinessplan', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
