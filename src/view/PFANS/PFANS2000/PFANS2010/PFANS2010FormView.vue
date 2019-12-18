@@ -38,7 +38,7 @@
                         code: 'dates',
                         label: 'label.PFANS2010VIEW_APPLICATION',
                         labelClass: 'pfans2010view_column_1',
-                        width: 110,
+                        width: 100,
                         fix: false,
                         filter: true,
                     },
@@ -51,14 +51,14 @@
                                 code: 'normal',
                                 label: 'label.PFANS2010VIEW_NORMAL',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 110,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'ordinaryindustry',
                                 label: 'label.PFANS2010VIEW_OVERTIME',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 120,
                                 fix: false,
                                 filter: true,
                             }, {
@@ -72,61 +72,60 @@
                                 code: 'weekendindustry',
                                 label: 'label.PFANS2010VIEW_RETIREMENT',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 120,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'weekendindustrynight',
                                 label: 'label.PFANS2010VIEW_NIGHTRETIREMENT',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 90,
+                                width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'statutoryresidue',
                                 label: 'label.PFANS2010VIEW_HOLIDAYS',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 170,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'statutoryresiduenight',
                                 label: 'label.PFANS2010VIEW_NIGHTHOLIDAYS',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 110,
+                                width: 190,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'annualrestday',
                                 label: 'label.PFANS2010VIEW_EVERYYEAR',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 170,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'specialday',
                                 label: 'label.PFANS2010VIEW_OCCASIONS',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 180,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'youthday',
                                 label: 'label.PFANS2010VIEW_YOUTHDAY',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 130,
                                 fix: false,
                                 filter: true,
                             }, {
                                 code: 'womensday',
                                 label: 'label.PFANS2010VIEW_WOMENSDAY',
                                 labelClass: 'pfans2010view_column_3',
-                                width: 150,
+                                width: 130,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 1650,
                     },
                     {
                         code: 'SICKLEAVE',
@@ -137,7 +136,7 @@
                                 code: 'shortsickleave',
                                 label: 'label.PFANS2010VIEW_SHORT',
                                 labelClass: 'pfans2010view_column_5',
-                                width: 150,
+                                width: 120,
                                 fix: false,
                                 filter: true,
                             },
@@ -145,42 +144,51 @@
                                 code: 'longsickleave',
                                 label: 'label.PFANS2010VIEW_LONG',
                                 labelClass: 'pfans2010view_column_5',
-                                width: 150,
+                                width: 120,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 2100,
                     },
                     {
                         code: 'compassionateleave',
                         label: 'label.PFANS2010VIEW_LEAVE',
                         labelClass: 'pfans2010view_column_6',
-                        width: 80,
+                        width: 100,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: 'annualrest',
                         label: 'label.PFANS2010VIEW_INHUGH',
                         labelClass: 'pfans2010view_column_6',
-                        width: 80,
+                        width: 100,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: 'daixiu',
                         label: 'label.PFANS2010VIEW_DAYOFF',
                         labelClass: 'pfans2010view_column_6',
-                        width: 80,
+                        width: 100,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: 'nursingleave',
                         label: 'label.PFANS2010VIEW_MATERNITY',
                         labelClass: 'pfans2010view_column_6',
-                        width: 80,
+                        width: 140,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: 'welfare',
                         label: 'label.PFANS2010VIEW_WELFARE',
                         labelClass: 'pfans2010view_column_6',
-                        width: 80,
+                        width: 120,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: '',
@@ -191,7 +199,7 @@
                                 code: 'late',
                                 label: 'label.PFANS2010VIEW_LATE',
                                 labelClass: 'pfans2010view_column_8',
-                                width: 150,
+                                width: 100,
                                 fix: false,
                                 filter: true,
                             },
@@ -199,7 +207,7 @@
                                 code: 'leaveearly',
                                 label: 'label.PFANS2010VIEW_LEAVEEARLY',
                                 labelClass: 'pfans2010view_column_8',
-                                width: 150,
+                                width: 100,
                                 fix: false,
                                 filter: true,
                             },
@@ -207,18 +215,17 @@
                                 code: 'absenteeism',
                                 label: 'label.PFANS2010VIEW_ABSENTEEISM',
                                 labelClass: 'pfans2010view_column_8',
-                                width: 150,
+                                width: 120,
                                 fix: false,
                                 filter: true,
                             },
                         ],
-                        width: 450,
                     },
                     {
                         code: 'recognitionstate',
                         label: 'label.PFANS2010VIEW_RECOGNITION',
                         labelClass: 'pfans2010view_column_9',
-                        width: 150,
+                        width: 130,
                         fix: false,
                         filter: true,
                     },
@@ -317,44 +324,53 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  /*.pfans2010view_column_1 {*/
-  /*  background: #425E72;*/
-  /*  color: #ffffff;*/
-  /*}*/
+  .pfans2010view_column_1 {
+    height: 81px;
+    background: #425E72;
+    color: #ffffff;
+  }
   .pfans2010view_column_2 {
-    /*background: #5CBFA3;*/
-    /*color: #ffffff;*/
+    height: 40px;
+    background: #5CBFA3;
+    color: #ffffff;
     text-align: center;
   }
-  /*.pfans2010view_column_3 {*/
-  /*  background: #AEDFD1;*/
-  /*  color: #ffffff;*/
-  /*}*/
+  .pfans2010view_column_3 {
+    height: 40px;
+    background: #AEDFD1;
+    color: #ffffff;
+  }
   .pfans2010view_column_4 {
-    /*background: #2696C3;*/
-    /*color: #ffffff;*/
+    height: 40px;
+    background: #2696C3;
+    color: #ffffff;
     text-align: center;
   }
-  /*.pfans2010view_column_5 {*/
-  /*  background: #93CBE1;*/
-  /*  color: #ffffff;*/
-  /*}*/
-  /*.pfans2010view_column_6 {*/
-  /*  background: #F2BC6A;*/
-  /*  color: #ffffff;*/
-  /*}*/
+  .pfans2010view_column_5 {
+    height: 40px;
+    background: #93CBE1;
+    color: #ffffff;
+  }
+  .pfans2010view_column_6 {
+    height: 81px;
+    background: #F2BC6A;
+    color: #ffffff;
+  }
   .pfans2010view_column_7 {
-    /*background: #E5575E;*/
-    /*color: #ffffff;*/
+    height: 40px;
+    background: #E5575E;
+    color: #ffffff;
     text-align: center;
   }
-  /*.pfans2010view_column_8 {*/
-  /*  background: #F2ABAF;*/
-  /*  color: #ffffff;*/
-  /*}*/
-  /*.pfans2010view_column_9 {*/
-  /*  background: #CCCCCC;*/
-  /*  color: #ffffff;*/
-  /*}*/
+  .pfans2010view_column_8 {
+    height: 40px;
+    background: #F2ABAF;
+    color: #ffffff;
+  }
+  .pfans2010view_column_9 {
+    height: 81px;
+    background: #CCCCCC;
+    color: #ffffff;
+  }
 </style>
 

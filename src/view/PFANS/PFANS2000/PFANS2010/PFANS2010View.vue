@@ -10,10 +10,10 @@
       @buttonClick="buttonClick"
       v-loading="loading">
       <el-date-picker
-        slot="customize"
         v-model="montvalue"
         type="month"
         @change="changed"
+        slot="customize"
         placeholder="选择月">
       </el-date-picker>
     </EasyNormalTable>
@@ -37,6 +37,9 @@
                 loading: false,
                 title: 'title.PFANS2010VIEW',
                 data: [],
+                user_id: '',
+                years: '',
+                months: '',
                 buttonList: [
                     {
                         key: 'view',
@@ -55,7 +58,6 @@
                     },
                     {
                         code: 'user_id',
-                        show1:false
                     },
                     {
                         code: 'center_id',
@@ -101,9 +103,6 @@
                     },
                 ],
                 row_id: 'attendance_id',
-                user_id: '',
-                years: '',
-                months: '',
             };
         },
         mounted() {
@@ -111,16 +110,13 @@
         },
         methods: {
             getlist(){
-                debugger;
                 this.loading = true;
                 var parameter = {};
-                if(this.montvalue != "Invalid date"){
-                    var varmontvalue = this.montvalue.split("-");
-                    if(varmontvalue.length > 0){
-                        parameter = {
-                            years:varmontvalue[0],
-                            months:varmontvalue[1],
-                        }
+                var varmontvalue = this.montvalue.split("-");
+                if(varmontvalue.length > 0){
+                    parameter = {
+                        years:varmontvalue[0],
+                        months:varmontvalue[1],
                     }
                 }
                 this.$store
@@ -162,7 +158,7 @@
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
-                    if (this.rowid === '') {
+                    if (this.user_id === '') {
                         Message({
                             message: this.$t('normal.info_01'),
                             type: 'error',
