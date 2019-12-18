@@ -58,13 +58,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number4"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours4"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -72,13 +72,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number5"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours5"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -86,13 +86,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number6"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours6"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -100,13 +100,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number7"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours7"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -114,13 +114,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number8"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours8"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -128,13 +128,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number9"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours9"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -142,13 +142,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.numberfirsthalf"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghoursfirsthalf"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -156,13 +156,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number10"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours10"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -170,13 +170,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number11"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours11"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -184,13 +184,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number12"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours12"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -198,13 +198,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number1"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours1"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -212,13 +212,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number2"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours2"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -226,13 +226,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.number3"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghours3"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -240,13 +240,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.numbersecondhalf"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghourssecondhalf"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -254,13 +254,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.numberannual"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.workinghoursannual"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -279,13 +279,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay4"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay4"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -293,13 +293,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay5"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay5"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -307,13 +307,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay6"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay6"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -321,13 +321,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay7"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay7"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -335,13 +335,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay8"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay8"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -349,13 +349,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay9"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay9"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -363,13 +363,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.payupper"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepayupper"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -377,13 +377,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay10"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay10"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -391,13 +391,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay11"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay11"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -405,13 +405,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay12"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay12"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -419,13 +419,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay1"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay1"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -433,13 +433,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay2"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay2"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -447,13 +447,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.pay3"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepay3"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -461,13 +461,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.paylower"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepaylower"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -475,13 +475,13 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.payyear"></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.overtimepayyear"></el-input>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -1625,7 +1625,8 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
+                                         width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -2841,7 +2842,8 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
+                                         width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -3817,7 +3819,8 @@
                       </el-table-column>
                     </el-table-column>
                     <el-table-column>
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="120">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
+                                       width="120">
                         <template slot-scope="scope">
                           <pane name="1">
                             {{scope.row.jjj2}}
@@ -4199,7 +4202,8 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
+                                         width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -4450,7 +4454,8 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
+                                         width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -4701,7 +4706,8 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center" width="100">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
+                                         width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
                                       v-model.trim="scope.row.place"></el-input>
@@ -5293,7 +5299,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5307,7 +5314,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5321,7 +5329,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5335,7 +5344,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5349,7 +5359,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5363,7 +5374,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5379,7 +5391,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5393,7 +5406,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5407,7 +5421,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5421,7 +5436,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5435,7 +5451,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5449,7 +5466,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5465,7 +5483,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5536,7 +5555,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5550,7 +5570,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5564,7 +5585,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5578,7 +5600,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5592,7 +5615,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5606,7 +5630,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5622,7 +5647,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5636,7 +5662,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5650,7 +5677,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5664,7 +5692,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5678,7 +5707,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5692,7 +5722,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5708,7 +5739,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5766,7 +5798,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5780,7 +5813,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5794,7 +5828,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5808,7 +5843,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5822,7 +5858,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5836,7 +5873,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5852,7 +5890,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5866,7 +5905,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5880,7 +5920,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5894,7 +5935,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5908,7 +5950,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5922,7 +5965,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -5938,7 +5982,8 @@
                                         v-model.trim="scope.row.place"></el-input>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="100">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
+                                           width="100">
                             <template slot-scope="scope">
                               <el-input :disabled="true" maxlength="20" style="width: 100%;"
                                         v-model.trim="scope.row.place"></el-input>
@@ -6048,11 +6093,76 @@
         tableA: [
           {
             aaa: this.$t('label.PFANS1036FORMVIEW_TOTALPLAN'),
+            totalplan_id: '',
+            businessplanid: '',
+            number4: '',
+            workinghours4: '',
+            number5: '',
+            workinghours5: '',
+            number6: '',
+            workinghours6: '',
+            number7: '',
+            workinghours7: '',
+            number8: '',
+            workinghours8: '',
+            number9: '',
+            workinghours9: '',
+            number10: '',
+            workinghours10: '',
+            number11: '',
+            workinghours11: '',
+            number12: '',
+            workinghours12: '',
+            number1: '',
+            workinghours1: '',
+            number2: '',
+            workinghours2: '',
+            number3: '',
+            workinghours3: '',
+            numberfirsthalf: '',
+            workinghoursfirsthalf: '',
+            numbersecondhalf: '',
+            workinghourssecondhalf: '',
+            numberannual: '',
+            workinghoursannual: '',
+            rowindex: '',
+
           },
         ],
         tableB: [
           {
             aaa: this.$t('label.PFANS1036FORMVIEW_TOTALPLAN'),
+            pay4: '',
+            overtimepay4: '',
+            pay5: '',
+            overtimepay5: '',
+            pay6: '',
+            overtimepay6: '',
+            pay7: '',
+            overtimepay7: '',
+            pay8: '',
+            overtimepay8: '',
+            pay9: '',
+            overtimepay9: '',
+            pay10: '',
+            overtimepay10: '',
+            pay11: '',
+            overtimepay11: '',
+            pay12: '',
+            overtimepay12: '',
+            pay1: '',
+            overtimepay1: '',
+            pay2: '',
+            overtimepay2: '',
+            pay3: '',
+            overtimepay3: '',
+            payupper: '',
+            overtimepayupper: '',
+            paylower: '',
+            overtimelower: '',
+            payyear: '',
+            overtimepayyear: '',
+            rowindex: '',
           },
           {
             aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTAL'),
@@ -6326,39 +6436,6 @@
           groupid: '',
           teamid: '',
           user_id: '',
-          telephone: '',
-          budgetunit: '',
-          moduleid: '',
-          accountnumber: '',
-          reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
-          moneys: '',
-          currency: '',
-          foreigncurrency: '',
-          rmbexpenditure: '',
-          currencyrate: '',
-          tormb: '',
-          remark: '',
-          paymentmethod: '',
-          payeename: '',
-          payeecode: '',
-          payeebankaccountnumber: '',
-          payeebankaccount: '',
-          name: '',
-          code: '',
-          type: '',
-          judgement: '',
-          receivables: '',
-          loan: '',
-          fullname: '',
-          subjectnumber: '',
-          subjectname: '',
-          remarks: '',
-          purchasesubjectnumber: '',
-          purchasesubjectname: '',
-          purchaseremarks: '',
-          othersubjectnumber: '',
-          othersubjectname: '',
-          otherremarks: '',
         },
         rules: {
           user_id: [{
@@ -6366,48 +6443,16 @@
             validator: checkuser,
             trigger: 'change',
           }],
-          telephone: [{
-            validator: checktele,
-            trigger: 'change',
-          }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
-          paymentmethod: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1036VIEW_PAYMENTMETHOD'),
-            trigger: 'change',
-          }],
-          accountnumber: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1036VIEW_ACCOUNT_NUMBER'),
-            trigger: 'blur',
-          }],
         },
-        code1: 'PG002',
-        code2: 'PJ002',
-        code3: 'PJ004',
-        code4: 'PJ003',
-        code5: 'PJ005',
-        code6: 'PJ006',
-        code7: 'PJ007',
-        code8: 'PJ008',
+        code1: '',
+        code2: '',
+        code3: '',
+        code4: '',
+        code5: '',
+        code6: '',
+        code7: '',
+        code8: '',
         multiple: false,
-        show1: false,
-        show2: false,
-        show3: false,
-        show4: false,
-        show5: false,
-        show6: false,
-        show: false,
-        showrow: true,
-        showrow1: false,
-        showrow2: false,
-        showrow3: false,
-        showdata: false,
-        showdata2: false,
         canStart: false,
       };
     },
@@ -6415,84 +6460,19 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1036Store/selectById', {'publicexpenseid': this.$route.params._id})
+          .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
-            this.form = response.publicexpense;
-            if (response.trafficdetails.length > 0) {
-              this.tableT = response.trafficdetails;
+            this.form = response.businessplan;
+            if (response.totalplan.length > 0) {
+              this.tableA = response.totalplan;
             }
-            if (response.purchasedetails.length > 0) {
-              this.tableP = response.purchasedetails;
-              for (var i = 0; i < this.tableP.length; i++) {
-                if (this.tableP[i].procurementproject === 'PJ005001' || this.tableP[i].procurementproject === 'PJ005002' || this.tableP[i].procurementproject === 'PJ005006') {
-                  this.tableP[i].showrow = true;
-                  this.tableP[i].showrow1 = false;
-                  this.tableP[i].showrow2 = false;
-                  this.tableP[i].showrow3 = false;
-                } else if (this.tableP[i].procurementproject === 'PJ005003') {
-                  this.tableP[i].showrow = false;
-                  this.tableP[i].showrow1 = true;
-                  this.tableP[i].showrow2 = false;
-                  this.tableP[i].showrow3 = false;
-                } else if (this.tableP[i].procurementproject === 'PJ005004') {
-                  this.tableP[i].showrow = false;
-                  this.tableP[i].showrow1 = false;
-                  this.tableP[i].showrow2 = true;
-                  this.tableP[i].showrow3 = false;
-                } else if (this.tableP[i].procurementproject === 'PJ005005') {
-                  this.tableP[i].showrow = false;
-                  this.tableP[i].showrow1 = false;
-                  this.tableP[i].showrow2 = false;
-                  this.tableP[i].showrow3 = true;
-                }
-              }
-            }
-            if (response.otherdetails.length > 0) {
-              this.tableR = response.otherdetails;
+            if (response.pieceworktotal.length > 0) {
+              this.tableB = response.pieceworktotal;
             }
             this.userlist = this.form.user_id;
-            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
-            this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
-            this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
-            this.getPayment(this.form.paymentmethod);
-            if (this.form.paymentmethod === 'PJ004001') {
-              this.show1 = true;
-            } else if (this.form.paymentmethod === 'PJ004002') {
-              this.show2 = true;
-            } else if (this.form.paymentmethod === 'PJ004003') {
-              this.show3 = true;
-            } else if (this.form.paymentmethod === 'PJ004004') {
-              this.show4 = true;
-            } else if (this.form.paymentmethod === 'PJ004005') {
-              this.show5 = true;
-            }
-            if (this.form.type === 'PJ001001') {
-              this.show6 = false;
-              this.showdata2 = true;
-              this.showdata = false;
-              this.tableZata2[0].subjectname = this.form.subjectname;
-              this.tableZata2[0].subjectnumber = this.form.subjectnumber;
-              this.tableZata2[0].remarks = this.form.remarks;
-            } else {
-              this.show6 = true;
-              this.showdata = true;
-              this.showdata2 = false;
-              this.tableZata[0].subjectname = this.form.subjectname;
-              this.tableZata[0].subjectnumber = this.form.subjectnumber;
-              this.tableZata[0].remarks = this.form.remarks;
-              this.tableZata[1].subjectname = this.form.purchasesubjectname;
-              this.tableZata[1].subjectnumber = this.form.purchasesubjectnumber;
-              this.tableZata[1].remarks = this.form.purchaseremarks;
-              this.tableZata[2].subjectname = this.form.othersubjectname;
-              this.tableZata[2].subjectnumber = this.form.othersubjectnumber;
-              this.tableZata[2].remarks = this.form.otherremarks;
-            }
-            this.form.currencyrate = getDictionaryInfo(this.form.currency).value2;
-            this.tableZata2[0].budgetunit = getDictionaryInfo(this.form.budgetunit).value1;
-            for (let i = 0; i < this.tableZata.length; i++) {
-              this.tableZata[i].budgetunit = getDictionaryInfo(this.form.budgetunit).value1;
-            }
+            this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.totalplan = JSON.parse(JSON.stringify(this.tableA));
+            this.baseInfo.pieceworktotal = JSON.parse(JSON.stringify(this.tableB));
             this.loading = false;
           })
           .catch(error => {
@@ -6512,52 +6492,13 @@
           this.form.teamid = rst.teamNmae;
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
-        this.form.judgement = this.$route.params._name.join(',');
-        this.form.type = this.$route.params._type;
-        if (this.form.type === 'PJ001001') {
-          this.show6 = false;
-          this.showdata2 = true;
-          this.showdata = false;
-          this.form.subjectname = this.tableZata2[0].subjectname;
-          this.form.subjectnumber = this.tableZata2[0].subjectnumber;
-          this.form.remarks = this.tableZata2[0].remarks;
-        } else {
-          this.show6 = true;
-          this.showdata2 = false;
-          this.showdata = true;
-        }
       }
-      this.$store
-        .dispatch('PFANS1036Store/getLoanApplication', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            vote.value = response[i].loanapplication_id;
-            vote.label = moment(response[i].application_date).format('YYYY-MM-DD');
-            this.options.push(vote);
-          }
-        });
     },
     created() {
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
-    },
-    computed: {
-      foreigncurrency: {
-        get() {
-          return this.form.foreigncurrency;
-        },
-        set(val) {
-          this.form.foreigncurrency = val;
-        },
-      },
-    },
-    watch: {
-      foreigncurrency(val) {
-        this.form.tormb = (val * this.form.currencyrate).toFixed(2);
-      },
     },
     methods: {
       getCSummaries(param) {
@@ -6771,74 +6712,6 @@
         this.form.status = '0';
         this.buttonClick('save');
       },
-      getPayment(val) {
-        this.form.paymentmethod = val;
-        if (val === 'PJ004001') {
-          this.show1 = true;
-          this.show2 = false;
-          this.show3 = false;
-          this.show4 = false;
-          this.show5 = false;
-        } else if (val === 'PJ004002') {
-          this.show1 = false;
-          this.show2 = true;
-          this.show3 = false;
-          this.show4 = false;
-          this.show5 = false;
-        } else if (val === 'PJ004003') {
-          this.show1 = false;
-          this.show2 = false;
-          this.show3 = true;
-          this.show4 = false;
-          this.show5 = false;
-        } else if (val === 'PJ004004') {
-          this.show1 = false;
-          this.show2 = false;
-          this.show3 = false;
-          this.show4 = true;
-          this.show5 = false;
-        } else {
-          this.show1 = false;
-          this.show2 = false;
-          this.show3 = false;
-          this.show4 = false;
-          this.show5 = true;
-        }
-      },
-      getBudge(val) {
-        this.form.budgetunit = val;
-        for (let i = 0; i < this.tableZata.length; i++) {
-          this.tableZata[i].budgetunit = getDictionaryInfo(val).value1;
-        }
-        for (let i = 0; i < this.tableZata2.length; i++) {
-          this.tableZata2[i].budgetunit = getDictionaryInfo(val).value1;
-        }
-      },
-      getmodule(val) {
-        this.form.moduleid = val;
-      },
-      getCurrency(val) {
-        this.form.currency = val;
-        if (val === 'PJ003001') {
-          this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            this.form.currencyrate = dictionaryInfo.value2;
-          }
-          this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-        } else if (val === 'PJ001002') {
-          this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            this.form.currencyrate = dictionaryInfo.value2;
-          }
-          this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-        } else if (val === 'PJ003003') {
-          this.form.currencyrate = '';
-          this.disablecurr = true;
-          this.form.tormb = (this.form.foreigncurrency * this.form.currencyrate).toFixed(2);
-        }
-      },
       deleteRowF(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
@@ -6903,75 +6776,6 @@
       addRowQ() {
         this.tableQ.push({});
       },
-      getprocurementproject(val, row) {
-        row.procurementproject = val;
-        row.procurementdetails = ' ';
-        if (val === 'PJ005001' || val === 'PJ005002' || val === 'PJ005006') {
-          row.showrow = true;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PJ005003') {
-          row.showrow = false;
-          row.showrow1 = true;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PJ005004') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = true;
-          row.showrow3 = false;
-        } else if (val === 'PJ005005') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = true;
-        }
-      },
-      setprocurementdetails(val, row) {
-        row.procurementdetails = val;
-      },
-      getMoney(sums) {
-        if (this.form.type === 'PJ001001') {
-          this.form.rmbexpenditure = sums[4];
-        } else {
-          this.form.rmbexpenditure = sums[4] + this.tablePValue[3] + this.tableRValue[3];
-        }
-      },
-      getforeigncurrency(sums) {
-        if (this.form.type === 'PJ001001') {
-          this.form.foreigncurrency = sums[5];
-        } else {
-          this.form.foreigncurrency = sums[5] + this.tablePValue[4] + this.tableRValue[4];
-        }
-      },
-      getValue(sums) {
-        if (this.form.type === 'PJ001001') {
-          this.tableZata2[0].creditamount = (sums[4] + sums[5] * this.form.currencyrate);
-        } else {
-          this.tableZata[0].creditamount = (sums[4] + sums[5] * this.form.currencyrate);
-          this.tableZata[1].creditamount = (this.tablePValue[3] + this.tablePValue[4] * this.form.currencyrate);
-          this.tableZata[2].creditamount = (this.tableRValue[3] + this.tableRValue[4] * this.form.currencyrate);
-        }
-      },
-      changeRMB(newValue) {
-        if (newValue.rmb > 0) {
-          newValue.foreigncurrency = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
-        }
-      },
-      changeForeigncurrency(newValue) {
-        if (newValue.foreigncurrency > 0) {
-          newValue.rmb = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
-        }
-      },
       buttonClick(val) {
         if (val === 'back') {
           this.$router.push({
@@ -6982,86 +6786,68 @@
         if (val === 'save') {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-              if (this.form.type === 'PJ001001') {
-                this.form.subjectnumber = this.tableZata2[0].subjectnumber;
-                this.form.subjectname = this.tableZata2[0].subjectname;
-                this.form.remarks = this.tableZata2[0].remarks;
-              } else {
-                this.form.subjectnumber = this.tableZata[0].subjectnumber;
-                this.form.subjectname = this.tableZata[0].subjectname;
-                this.form.remarks = this.tableZata[0].remarks;
-                this.form.purchasesubjectnumber = this.tableZata[1].subjectnumber;
-                this.form.purchasesubjectname = this.tableZata[1].subjectname;
-                this.form.purchaseremarks = this.tableZata[1].remarks;
-                this.form.othersubjectnumber = this.tableZata[2].subjectnumber;
-                this.form.othersubjectname = this.tableZata[2].subjectname;
-                this.form.otherremarks = this.tableZata[2].remarks;
-              }
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              this.form.moneys = (this.form.rmbexpenditure + this.form.tormb).toFixed(2);
-              this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
-              this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.trafficdetails = [];
-              this.baseInfo.purchasedetails = [];
-              this.baseInfo.otherdetails = [];
-              for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                  || this.tableT[i].rmb !== '' || this.tableT[i].foreigncurrency !== '' || this.tableT[i].annexno !== '') {
-                  this.baseInfo.trafficdetails.push(
-                    {
-                      trafficdetails_id: this.tableT[i].trafficdetails_id,
-                      publicexpenseid: this.tableT[i].publicexpenseid,
-                      trafficdate: this.tableT[i].trafficdate,
-                      region: this.tableT[i].region,
-                      vehicle: this.tableT[i].vehicle,
-                      startingpoint: this.tableT[i].startingpoint,
-                      rmb: this.tableT[i].rmb,
-                      foreigncurrency: this.tableT[i].foreigncurrency,
-                      annexno: this.tableT[i].annexno,
-                    },
-                  );
-                }
-              }
-              for (let i = 0; i < this.tableP.length; i++) {
-                if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].procurementproject !== ''
-                  || this.tableP[i].rmb !== '' || this.tableP[i].foreigncurrency !== '' || this.tableP[i].annexno !== '') {
-                  if (this.tableP[i].procurementdetails === ' ') {
-                    this.tableP[i].procurementdetails = '';
-                  }
-                  this.baseInfo.purchasedetails.push(
-                    {
-                      purchasedetails_id: this.tableP[i].purchasedetails_id,
-                      publicexpenseid: this.tableP[i].publicexpenseid,
-                      purchasedetailsdate: this.tableP[i].purchasedetailsdate,
-                      procurementdetails: this.tableP[i].procurementdetails,
-                      procurementproject: this.tableP[i].procurementproject,
-                      rmb: this.tableP[i].rmb,
-                      foreigncurrency: this.tableP[i].foreigncurrency,
-                      annexno: this.tableP[i].annexno,
-                    },
-                  );
-                }
-              }
-              for (let i = 0; i < this.tableR.length; i++) {
-                if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-                  || this.tableR[i].rmb !== '' || this.tableR[i].foreigncurrency !== '' || this.tableR[i].annexno !== '') {
-                  this.baseInfo.otherdetails.push(
-                    {
-                      otherdetails_id: this.tableR[i].otherdetails_id,
-                      publicexpenseid: this.tableR[i].publicexpenseid,
-                      otherdetailsdate: this.tableR[i].otherdetailsdate,
-                      costitem: this.tableR[i].costitem,
-                      remarks: this.tableR[i].remarks,
-                      rmb: this.tableR[i].rmb,
-                      foreigncurrency: this.tableR[i].foreigncurrency,
-                      annexno: this.tableR[i].annexno,
-                    },
-                  );
-                }
-              }
+              this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.totalplan = [];
+              this.baseInfo.pieceworktotal = [];
+              // for (let i = 0; i < this.tableT.length; i++) {
+              //   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+              //     || this.tableT[i].rmb !== '' || this.tableT[i].foreigncurrency !== '' || this.tableT[i].annexno !== '') {
+              //     this.baseInfo.trafficdetails.push(
+              //       {
+              //         trafficdetails_id: this.tableT[i].trafficdetails_id,
+              //         publicexpenseid: this.tableT[i].publicexpenseid,
+              //         trafficdate: this.tableT[i].trafficdate,
+              //         region: this.tableT[i].region,
+              //         vehicle: this.tableT[i].vehicle,
+              //         startingpoint: this.tableT[i].startingpoint,
+              //         rmb: this.tableT[i].rmb,
+              //         foreigncurrency: this.tableT[i].foreigncurrency,
+              //         annexno: this.tableT[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
+              // for (let i = 0; i < this.tableP.length; i++) {
+              //   if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].procurementproject !== ''
+              //     || this.tableP[i].rmb !== '' || this.tableP[i].foreigncurrency !== '' || this.tableP[i].annexno !== '') {
+              //     if (this.tableP[i].procurementdetails === ' ') {
+              //       this.tableP[i].procurementdetails = '';
+              //     }
+              //     this.baseInfo.purchasedetails.push(
+              //       {
+              //         purchasedetails_id: this.tableP[i].purchasedetails_id,
+              //         publicexpenseid: this.tableP[i].publicexpenseid,
+              //         purchasedetailsdate: this.tableP[i].purchasedetailsdate,
+              //         procurementdetails: this.tableP[i].procurementdetails,
+              //         procurementproject: this.tableP[i].procurementproject,
+              //         rmb: this.tableP[i].rmb,
+              //         foreigncurrency: this.tableP[i].foreigncurrency,
+              //         annexno: this.tableP[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
+              // for (let i = 0; i < this.tableR.length; i++) {
+              //   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+              //     || this.tableR[i].rmb !== '' || this.tableR[i].foreigncurrency !== '' || this.tableR[i].annexno !== '') {
+              //     this.baseInfo.otherdetails.push(
+              //       {
+              //         otherdetails_id: this.tableR[i].otherdetails_id,
+              //         publicexpenseid: this.tableR[i].publicexpenseid,
+              //         otherdetailsdate: this.tableR[i].otherdetailsdate,
+              //         costitem: this.tableR[i].costitem,
+              //         remarks: this.tableR[i].remarks,
+              //         rmb: this.tableR[i].rmb,
+              //         foreigncurrency: this.tableR[i].foreigncurrency,
+              //         annexno: this.tableR[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
               if (this.$route.params._id) {
-                this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+                this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1036Store/update', this.baseInfo)
                   .then(response => {

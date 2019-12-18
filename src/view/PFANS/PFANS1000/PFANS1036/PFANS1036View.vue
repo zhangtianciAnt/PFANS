@@ -52,13 +52,6 @@
             filter: true
           },
           {
-            code: 'budgetunit',
-            label: 'label.budgetunit',
-            width: 170,
-            fix: false,
-            filter: true
-          },
-          {
             code: 'status',
             label: 'label.approval_status',
             width: 120,
@@ -72,13 +65,13 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'publicexpenseid'
+        row_id: 'businessplanid'
       };
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1036Store/get', {})
+        .dispatch('PFANS1036Store/get')
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
@@ -89,16 +82,8 @@
               response[j].center_name = response[j].centerid;
               response[j].group_name = response[j].centerid;
               response[j].team_name = response[j].centerid;
-
-
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
-              }
-              if (response[j].budgetunit!== null && response[j].budgetunit !== "") {
-                let letbudge = getDictionaryInfo(response[j].budgetunit);
-                if (letbudge) {
-                  response[j].budgetunit = letbudge.value1;
-                }
               }
             }
           }
@@ -116,10 +101,10 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.publicexpenseid;
+        this.rowid = row.businessplanid;
       },
       buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_HISTORYURL', this.$route.path)
         if (val === "view") {
           if (this.rowid === '') {
             Message({

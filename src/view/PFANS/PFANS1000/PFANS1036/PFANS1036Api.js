@@ -1,50 +1,38 @@
 import request from '../../../../utils/request'
 
-//获取流程列表
 export function get() {
   return request({
-    url: 'publicexpense/get',
+    url: 'businessplan/get',
     method: 'get'
   })
 }
-//更新
-export function update(data) {
+
+export function selectById(data) {
   return request({
-    url: 'publicexpense/update',
+    url: 'businessplan/selectById',
+    method: 'get',
+    params: data
+  })
+}
+
+export function updateBusinessplan(data) {
+  return request({
+    url: 'businessplan/update',
     method: 'post',
     data: data
   })
 }
 
-//新建
-export function insert(data) {
+export function createBusinessplan(data) {
   return request({
-    url: 'publicexpense/insert',
+    url: 'businessplan/create',
     method: 'post',
     data: data
   })
 }
-//查看详细
-export function selectById(data) {
-  return request({
-    url: 'publicexpense/selectById',
-    method: 'get',
-    params: data
-  })
-}
-//裁决号
-export function getJudgement(data) {
-  return request({
-    url: 'publicexpense/getJudgement',
-    method: 'post',
-    data: data
-  })
-}
-//暂借款申请编号
-export function getLoanApplication(data) {
-  return request({
-    url: 'publicexpense/getLoanApplication',
-    method: 'post',
-    data: data
-  })
-}
+
+
+
+
+
+

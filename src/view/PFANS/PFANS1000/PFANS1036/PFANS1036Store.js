@@ -1,39 +1,10 @@
-import {insert, get, selectById, update,getJudgement,getLoanApplication} from './PFANS1036Api'
+import {createBusinessplan, get, selectById, updateBusinessplan} from './PFANS1036Api'
 
 const PFANS1036Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    //更新
-    update({commit}, data) {
-      return new Promise((resolve, reject) => {
-        update(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    //根据id获取
-    selectById({commit}, data) {
-      return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    //查看列表
     get() {
       return new Promise((resolve, reject) => {
         get().then(response => {
@@ -47,10 +18,9 @@ const PFANS1036Store = {
         })
       })
     },
-    //新建
-    insert({commit}, data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
-        insert(data).then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -61,10 +31,9 @@ const PFANS1036Store = {
         })
       })
     },
-//裁决号
-    getJudgement({commit}, data) {
+    updateBusinessplan({commit}, data) {
       return new Promise((resolve, reject) => {
-        getJudgement(data).then(response => {
+        updateBusinessplan(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -75,10 +44,9 @@ const PFANS1036Store = {
         })
       })
     },
-
-    getLoanApplication({commit}, data) {
+    createBusinessplan({commit}, data) {
       return new Promise((resolve, reject) => {
-        getLoanApplication(data).then(response => {
+        createBusinessplan(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -89,17 +57,7 @@ const PFANS1036Store = {
         })
       })
     }
-
-
   }
-};
+}
+
 export default PFANS1036Store;
-
-
-
-
-
-
-
-
-
