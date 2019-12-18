@@ -57,7 +57,8 @@
                                ref="fullCalendar6"/>
               </el-col>
               <el-col :span="6">
-                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate10" :first-day="firstDay" :header='header'
+                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate10" :first-day="firstDay"
+                               :header='header'
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -65,7 +66,8 @@
                                ref="fullCalendar7"/>
               </el-col>
               <el-col :span="6">
-                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate11" :first-day="firstDay" :header='header'
+                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate11" :first-day="firstDay"
+                               :header='header'
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -75,7 +77,8 @@
             </el-row>
             <el-row>
               <el-col :span="6">
-                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate12" :first-day="firstDay" :header='header'
+                <full-calendar :dayRender="dayRender" :defaultDate="defaultDate12" :first-day="firstDay"
+                               :header='header'
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -162,7 +165,7 @@
           </el-main>
         </el-container>
         <el-dialog :visible.sync="tanchang" width="40rem">
-          <table border="0" cellpadding="0" cellspacing="0"  style="margin-left: 14.5rem">
+          <table border="0" cellpadding="0" cellspacing="0" style="margin-left: 14.5rem">
             <tr>
               <el-radio @change="setClick('1')" border label="1"
                         style="width: 8rem;background-color:#df4848;color: white "
@@ -230,9 +233,9 @@
             return {
                 noback: true,
                 showNonCurrentDates: false,
-                defaultDate1: moment().years()+1 + '-01-01',
-                defaultDate2: moment().years()+1 + '-02-01',
-                defaultDate3: moment().years()+1 + '-03-01',
+                defaultDate1: moment().years() + 1 + '-01-01',
+                defaultDate2: moment().years() + 1 + '-02-01',
+                defaultDate3: moment().years() + 1 + '-03-01',
                 defaultDate4: moment().years() + '-04-01',
                 defaultDate5: moment().years() + '-05-01',
                 defaultDate6: moment().years() + '-06-01',
@@ -293,41 +296,44 @@
                     })
             },
             dayRender: function (info) {
-                this.loading = true;
-                let response = this.$store.getters.days
-                for (let c = 0; c < response.length; c++) {
-                    if (response[c].type == 1) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = '#df4848'
+                if (this.$store.getters.days != null) {
+                    this.loading = true;
+                    let response = this.$store.getters.days
+                    for (let c = 0; c < response.length; c++) {
+                        if (response[c].type == 1) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = '#df4848'
+                            }
+                        }
+                        if (response[c].type == 2) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = '#999'
+                            }
+                        }
+                        if (response[c].type == 3) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = '#005baa'
+                            }
+                        }
+                        if (response[c].type == 4) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = '#f9e30e'
+                            }
+                        }
+                        if (response[c].type == 5) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = 'magenta'
+                            }
+                        }
+                        if (response[c].type == 6) {
+                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                                info.el.bgColor = 'green'
+                            }
                         }
                     }
-                    if (response[c].type == 2) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = '#999'
-                        }
-                    }
-                    if (response[c].type == 3) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = '#005baa'
-                        }
-                    }
-                    if (response[c].type == 4) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = '#f9e30e'
-                        }
-                    }
-                    if (response[c].type == 5) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = 'magenta'
-                        }
-                    }
-                    if (response[c].type == 6) {
-                        if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                            info.el.bgColor = 'green'
-                        }
-                    }
+                    this.loading = false;
                 }
-                this.loading = false;
+
             },
             submitForm(ruleFormNew) {
                 if (this.params.type == "") {
@@ -505,9 +511,9 @@
             ,
             dateChange() {
                 this.year = this.yearsModel
-                this.defaultDate1 = this.year+1 + '-01-01'
-                this.defaultDate2 = this.year+1 + '-02-01'
-                this.defaultDate3 = this.year+1 + '-03-01'
+                this.defaultDate1 = this.year + 1 + '-01-01'
+                this.defaultDate2 = this.year + 1 + '-02-01'
+                this.defaultDate3 = this.year + 1 + '-03-01'
                 this.defaultDate4 = this.year + '-04-01'
                 this.defaultDate5 = this.year + '-05-01'
                 this.defaultDate6 = this.year + '-06-01'
