@@ -48,9 +48,7 @@
                       <el-table-column>
                         <el-table-column align="center" width="120">
                           <template slot-scope="scope">
-                            <pane name="1">
-                              {{scope.row.aaa}}
-                            </pane>
+                            {{scope.row.aaa}}
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -269,9 +267,9 @@
                       <el-table-column>
                         <el-table-column align="center" width="120">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -492,16 +490,16 @@
                               header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.ccc}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_RANK')" align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.ccc2}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_MONEY46')" align="center" width="120">
@@ -920,16 +918,16 @@
                               header-cell-class-name="sub_bg_color_grey height">
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.ccc}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_RANK')" align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.ccc2}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_MONEY46')" align="center" width="120">
@@ -1379,18 +1377,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -1869,18 +1867,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -2101,18 +2099,16 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
-                              {{scope.row.aaa}}
-                            </pane>
+                            {{scope.row.aaa}}
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -2333,18 +2329,16 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
-                              {{scope.row.aaa}}
-                            </pane>
+                            {{scope.row.aaa}}
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -2596,18 +2590,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -3086,18 +3080,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -3318,18 +3312,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -3550,18 +3544,18 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.aaa}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.bbb}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -3812,9 +3806,9 @@
                     <el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.jjj}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                     </el-table-column>
@@ -3822,18 +3816,18 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
                                        width="120">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.jjj2}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                     </el-table-column>
                     <el-table-column>
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
-                          <pane name="1">
+
                             {{scope.row.jjj3}}
-                          </pane>
+
                         </template>
                       </el-table-column>
                     </el-table-column>
@@ -4084,9 +4078,9 @@
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
-                            <pane name="1">
+
                               {{scope.row.kkk}}
-                            </pane>
+
                           </template>
                         </el-table-column>
                       </el-table-column>
