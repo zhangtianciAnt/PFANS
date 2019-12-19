@@ -1,144 +1,150 @@
 <template>
-  <EasyNormalTable
-    :title="title"
-    :columns="columns"
-    :data="data"
-    :buttonList="buttonList"
-    :rowid="row"
-    @buttonClick="buttonClick"
-    @rowClick="rowClick"
-    v-loading="loading"
-  ></EasyNormalTable>
+  <div style="min-height: 100%">
+    <el-card class="box-card" style="min-height: 600px">
+      <div>
+        <div @click="submitForm('JY')" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1002')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png1" class="m-img">
+          </el-col>
+        </div>
+      </div>
+      <div>
+        <div @click="submitForm(2)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1035')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png1" class="m-img">
+          </el-col>
+        </div>
+      </div>
+      <div>
+        <div @click="submitForm(3)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1003')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png2" class="m-img">
+          </el-col>
+        </div>
+      </div>
+      <div>
+        <div @click="submitForm(4)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1004')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png3" class="m-img">
+          </el-col>
+        </div>
+      </div>
+      <div>
+        <div @click="submitForm(5)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1005')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png4" class="m-img">
+          </el-col>
+        </div>
+      </div>
+      <div>
+        <div @click="submitForm(6)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1006')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png5" class="m-img">
+          </el-col>
+        </div>
+      </div>
+    </el-card>
+  </div>
 </template>
-
 <script>
-    import EasyNormalTable from "@/components/EasyNormalTable";
-    import { Message } from 'element-ui'
-    export default {
-        name: "BASF10110View",
-        components: {
-            EasyNormalTable
-        },
-        data(){
-            return{
-                loading: false,
-                data: [],
-                title:"menu.BASF10110",
-                buttonList: [
-                    {
-                        key: 'view',
-                        name: 'button.view',
-                        disabled: false,
-                        icon: 'el-icon-view'
-                    },
-                    {
-                        key: 'insert',
-                        name: 'button.insert',
-                        disabled: false,
-                        icon: 'el-icon-plus'
-                    },
-                    {
-                        key: 'update',
-                        name: 'button.update',
-                        disabled: false,
-                        icon: 'el-icon-edit'
-                    }
-                ],
-                columns: [
-                    {
-                        //CODE
-                        code: "code",
-                        label: "CODE",
-                        width: 200,
-                        fix: false,
-                        filter: false
-                    },
-                    {
-                        //描述
-                        code: "value1",
-                        label: "label.BASF10110VIEW_VALUE1",
-                        width: 200,
-                        fix: false,
-                        filter: false
-                    }
-                ],
-                row:'code',
-                rowid:''
-            };
-        },
-        mounted() {
-            this.loading = true;
-            this.$store.commit("global/SET_OPERATEID", "");
-            this.$store.dispatch("PFANS8009Store/bigList",{}).then(response => {
-                response.map(item=>{})
-                this.data = response;
-                this.loading = false;
-            })
-        },
-        methods: {
-            rowClick(row) {
-                this.rowid = row.code;
-            },
-            buttonClick(val) {
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-                if ("update" === val) {
-                    if (!this.rowid) {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: "BASF10110FormView",
-                        params: {
-                            _id: this.rowid,
-                            readOnly: false,
-                            type:'update'
-                        }
-                    });
-                }
-                else if ("view" === val) {
-                    if (!this.rowid) {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: "BASF10110FormView",
-                        params: {
-                            _id: this.rowid,
-                            readOnly: true,
-                            type:'view'
-                        }
-                    });
-                }
-                else if ("insert" === val) {
-                    if (!this.rowid) {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: "BASF10110FormView",
-                        params: {
-                            _id: this.rowid,
-                            readOnly: false,
-                            type:'insert'
-                        }
-                    });
-                }
+  import EasyNormalTable from '@/components/EasyNormalTable';
+  import png1 from "@/assets/png/1.png";
+  import png2 from "@/assets/png/2.png";
+  import png3 from "@/assets/png/3.png";
+  import png4 from "@/assets/png/4.png";
+  import png5 from "@/assets/png/5.png";
+  import png6 from "@/assets/png/6.png";
+  import png7 from "@/assets/png/7.png";
+  import png8 from "@/assets/png/8.png";
+  import png9 from "@/assets/png/9.png";
+  import png10 from "@/assets/png/10.png";
 
-            }
-        }
+  export default {
+    name: 'PFANS8009PointView',
+    components: {
+      EasyNormalTable,
 
-    }
+    },
+    data() {
+      return {
+        logo: {
+          type: String,
+        },
+        png1: png1,
+        png2: png2,
+        png3: png3,
+        png4: png4,
+        png5: png5,
+        png6: png6,
+        png7: png7,
+        png8: png8,
+        png9: png9,
+        png10: png10
+      };
+    },
+    mounted() {
+
+    },
+    methods: {
+      submitForm(codetype) {
+        this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8009View");
+        this.$router.push({
+          name: 'PFANS8009View',
+          params: {
+            codetype: codetype,
+          },
+        });
+      },
+    },
+  };
 </script>
-
-<style scoped>
-
+<style lang="scss">
+  .m-content {
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    float: left;
+    width: 240px;
+    height: 90px;
+    margin: 20px 2%;
+    position: relative;
+  }
+  .m-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+  }
+  .m-img{
+    width: 80%;
+  }
 </style>

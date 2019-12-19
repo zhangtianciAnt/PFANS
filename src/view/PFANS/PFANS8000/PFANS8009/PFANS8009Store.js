@@ -1,12 +1,12 @@
-import {  bigList,smallAtbig,insertCodes,updataCodes,deleteCodes } from './PFANS8009Api'
+import {  upDictionary,getDictionary } from './PFANS8009Api'
 
 const PFANS8009Store = {
   namespaced: true,
   actions: {
 
-    bigList({ commit },data) {
+    getDictionary({ commit },data) {
       return new Promise((resolve, reject) => {
-        bigList(data).then(response => {
+        getDictionary(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -17,10 +17,9 @@ const PFANS8009Store = {
         })
       })
     },
-
-    smallAtbig({commit}, data) {
+    upDictionary({ commit },data) {
       return new Promise((resolve, reject) => {
-        smallAtbig(data).then(response => {
+        upDictionary(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -31,45 +30,6 @@ const PFANS8009Store = {
         })
       })
     },
-    insertCodes({ commit },data) {
-      return new Promise((resolve, reject) => {
-        insertCodes(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    updataCodes({ commit },data) {
-      return new Promise((resolve, reject) => {
-        updataCodes(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    deleteCodes({ commit },data) {
-      return new Promise((resolve, reject) => {
-        deleteCodes(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    }
   }
 }
 

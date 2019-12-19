@@ -719,7 +719,7 @@ const routes = [
       },
       {
         path: '/PFANS8009View',
-        name: 'PFANS8009',
+        name: 'PFANS8009View',
         component: PFANS8009View,
       },
       {
