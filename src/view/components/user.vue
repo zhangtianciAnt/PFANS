@@ -21,7 +21,7 @@
           <el-main>
             <el-table :formatter="formatter" height="500" max-height="500"
                       @row-click="handleClickChange" @row-dblclick="handleClickChange" @selection-change="handleSelectionChange"
-              :data="tableList"
+              :data="tableList" row-key="_id"
               style="width: 100%">
               <el-table-column reserve-selection type="selection" width="55">
               </el-table-column>

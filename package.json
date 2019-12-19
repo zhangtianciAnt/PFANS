@@ -27,7 +27,7 @@
     "baidu-aip-sdk": "^2.3.9",
     "cn-region-picker": "^1.1.9",
     "echarts": "^4.2.1",
-    "element-ui": "^2.11.1",
+    "element-ui": "^2.13.0",
     "file-saver": "^2.0.2",
     "jexcel": "^3.4.4",
     "jquery": "^3.4.1",
