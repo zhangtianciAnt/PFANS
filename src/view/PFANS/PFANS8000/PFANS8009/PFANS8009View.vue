@@ -105,29 +105,7 @@
       },
       buttonClick(val) {
         let letname;
-        if (this.$route.params.title === 1) {
-          letname = 'PFANS1002FormView';
-        } else if (this.$route.params.title === 2) {
-          letname = 'PFANS1035FormView';
-        } else if (this.$route.params.title === 3) {
-          letname = 'PFANS1003FormView';
-        } else if (this.$route.params.title === 4) {
-          letname = 'PFANS1004FormView';
-        } else if (this.$route.params.title === 5) {
-          letname = 'PFANS1005FormView';
-        } else if (this.$route.params.title === 6) {
-          letname = 'PFANS1006FormView';
-        } else if (this.$route.params.title === 7) {
-          letname = 'PFANS1007FormView';
-        } else if (this.$route.params.title === 8) {
-          letname = 'PFANS1008FormView';
-        } else if (this.$route.params.title === 9) {
-          letname = 'PFANS1009FormView';
-        } else if (this.$route.params.title === 10) {
-          letname = 'PFANS1010FormView';
-        } else if (this.$route.params.title === 11) {
-          letname = 'PFANS1004FormView';
-        }
+        letname = 'PFANS8009FormView';
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {
           if (this.rowid === '') {

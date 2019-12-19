@@ -14,27 +14,27 @@
             <el-col :span="20">
               <el-row :gutter="18">
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.BASF10110FORMVIEW_CODE')" prop="icode">
+                  <el-form-item :label="$t('label.CODE')" prop="icode">
                     <el-input ref="icode" v-model="addForm.icode" maxlength="3">
                       <template slot="prepend">{{bigCode}}</template>
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.BASF10110VIEW_VALUE1')">
+                  <el-form-item :label="$t('label.VALUE1')">
                     <el-input ref="ivalue1" v-model="addForm.ivalue1" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item :label="$t('label.BASF10110FORMVIEW_SMALLCODE')" prop="ivalue2">
+                  <el-form-item :label="$t('label.PFANS8009FormView_SMALLCODE')" prop="ivalue2">
                     <el-input ref="ivaluel2" v-model="addForm.ivalue2" maxlength="8">
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item :label="$t('label.BASF10110FORMVIEW_FUNCTION')">
-                    <el-button @click="addCode(addForm.icode,addForm.ivalue1,addForm.ivalue2)" type="primary">{{$t('label.BASF10110FORMVIEW_ADD')}}
+                  <el-form-item :label="$t('label.PFANS8009FormView_FUNCTION')">
+                    <el-button @click="addCode(addForm.icode,addForm.ivalue1,addForm.ivalue2)" type="primary">{{$t('label.PFANS8009FormView_ADD')}}
                     </el-button>
                   </el-form-item>
                 </el-col>
@@ -47,7 +47,7 @@
             <el-col :span="20">
               <el-row :gutter="18" :key="index" v-for="(f,index) in formData.data">
                 <el-col :span="8">
-                  <el-form-item :label="index==0?$t('label.BASF10110FORMVIEW_CODE'):''">
+                  <el-form-item :label="index==0?$t('label.PFANS8009FormView_CODE'):''">
                     <el-input :disabled="true" v-model="f.code">
                       <template slot="prepend">{{bigCode}}</template>
                     </el-input>
@@ -60,13 +60,13 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                  <el-form-item :label="index==0?$t('label.BASF10110FORMVIEW_SMALLCODE'):''" :prop="`data.${index}.value2`" :rules="rules2.datavalue2">
+                  <el-form-item :label="index==0?$t('label.PFANS8009FormView_SMALLCODE'):''" :prop="`data.${index}.value2`" :rules="rules2.datavalue2">
                     <el-input :disabled="readOnly||pigeType=='insert'" v-model="f.value2" maxlength="5">
                     </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="4" v-show="pigeType!='view'?true:false">
-                  <el-form-item :label="index==0?$t('label.BASF10110FORMVIEW_FUNCTION'):''">
+                  <el-form-item :label="index==0?$t('label.PFANS8009FormView_FUNCTION'):''">
                     <el-button :disabled="readOnly" @click="deleteCode(index,f)" type="primary">{{$t('button.delete')}}</el-button>
                   </el-form-item>
                 </el-col>
@@ -85,14 +85,14 @@
     import {Message} from "element-ui";
 
     export default {
-        name: "BASF10110FormView",
+        name: "PFANS8009FormView",
         components: {
             EasyNormalContainer,
         },
         data() {
             var digitalAuthentication = (rule, value, callback) => {
                 if (/\D/.test(value)) {
-                    callback(new Error(this.$t('label.BASF10110FORMVIEW_NUMBER')));
+                    callback(new Error(this.$t('label.PFANS8009FormView_NUMBER')));
                 } else {
                     callback();
                 }
@@ -100,13 +100,13 @@
             var checkData = (rule, value, callback) => {
                 for(var i=0;i<this.dataCheck.length;i++){
                     if (value==this.dataCheck[i].code){
-                        callback(new Error(this.$t('label.BASF10110FORMVIEW_SAMECODE')));
+                        callback(new Error(this.$t('label.PFANS8009FormView_SAMECODE')));
                         break;
                     }
                 }
                 for(var i=0;i<this.formData.data.length;i++){
                     if (value==this.formData.data[i].code){
-                        callback(new Error(this.$t('label.BASF10110FORMVIEW_SAMECODE2')));
+                        callback(new Error(this.$t('label.PFANS8009FormView_SAMECODE2')));
                         break;
                     }
                 }
@@ -118,7 +118,7 @@
                 if (/[B][C][0-9]{3}/.test(value)||value==''||value==null) {
                     callback();
                 } else {
-                    callback(new Error(this.$t('label.BASF10110FORMVIEW_BCNUMBER')));
+                    callback(new Error(this.$t('label.PFANS8009FormView_BCNUMBER')));
                 }
             };
             return {
@@ -158,11 +158,11 @@
                         {required: true, message: this.$t('normal.error_08')+'CODE', trigger: 'blur'},
                         {validator: digitalAuthentication, trigger: 'blur'},
                         {validator: checkData, trigger: 'blur'},
-                        {min: 3, max: 3, message: this.$t('label.BASF10110FORMVIEW_LENGTHTHREE'), trigger: 'blur'}
+                        {min: 3, max: 3, message: this.$t('label.PFANS8009FormView_LENGTHTHREE'), trigger: 'blur'}
                     ],
                     ivalue2:[
                         {required: false, message: this.$t('normal.error_08')+'CODE', trigger: 'blur'},
-                        {min: 5, max: 5, message: this.$t('label.BASF10110FORMVIEW_LENGTHFIVE'), trigger: 'blur'},
+                        {min: 5, max: 5, message: this.$t('label.PFANS8009FormView_LENGTHFIVE'), trigger: 'blur'},
                         {validator: valu2Check, trigger: 'blur'}
 
                     ]
@@ -170,7 +170,7 @@
                 rules2:{
                     datavalue2:[
                         {required: false, message: this.$t('normal.error_08')+"CODE", trigger: 'blur'},
-                        {min: 5, max: 5, message: this.$t('label.BASF10110FORMVIEW_LENGTHFIVE'), trigger: 'blur'},
+                        {min: 5, max: 5, message: this.$t('label.PFANS8009FormView_LENGTHFIVE'), trigger: 'blur'},
                         {validator: valu2Check, trigger: 'blur'}
                     ]
                 }
