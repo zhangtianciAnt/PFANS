@@ -123,7 +123,7 @@
                   <dicselect
                     :code="code2"
                     :data="form.qualifications"
-                    :disabled="!disabled2"
+                    :disabled="!disabled"
                     :multiple="multiple"
                     @change="getqualifications"
                     style="width: 11rem">
@@ -382,58 +382,75 @@
                     .dispatch('PFANS2022Store/getCasgiftApplyOne', {"casgiftapplyid": this.$route.params._id})
                     .then(response => {
                         this.form = response;
-                        this.getfirstclass(this.form.firstclass);
-                        this.gettwoclass(this.form.twoclass);
                         this.userlist = this.form.user_id;
                         this.nomineeslist = this.form.nominees;
 
                         if (this.form.firstclass === 'PR024002') {
                             this.show = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024004') {
                             this.show2 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024003') {
                             this.show1 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024001') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024002') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024004') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = true;
                         }
                         if (this.form.firstclass === 'PR024005') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024006') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024007') {
                             this.show3 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.twoclass === 'PR034001') {
                             this.show1 = true;
+                            this.show4 = true;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.twoclass === 'PR034002') {
                             this.show1 = false;
                             this.show4 = false;
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.form.status === '2' || !this.disabled) {
                             this.disable = false;
-                            this.disabled2 = false;
                             this.disabled1 = false;
                         } else {
                             this.disable = true;
-                            this.disabled2 = true;
-                            this.disabled1 = true;
+                            this.disabled1 = false;
                         }
                         if (this.form.status === '3' || this.disabled) {
                             this.disable = true;
-                            this.disabled2 = true;
-                            this.disabled1 = true;
+                            this.disabled1 = false;
+                        }
+                        if(this.form.aexperience === '0'){
+                            this.form.amoutmoney = 4000;
+                            this.form.experience = this.$t('label.yes');
+                        }else if(this.form.aexperience === '1'){
+                            this.form.amoutmoney = 500;
+                            this.form.experience = this.$t('label.no');
+                        }else{
+                            this.form.amoutmoney = 0;
+                            this.form.experience = this.$t('label.PFANS2022VIEW_UNFILLED');
                         }
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
@@ -503,7 +520,6 @@
                 }
                 let lst = getUserInfo(val);
                 this.form.aexperience = lst.userinfo.experience;
-                alert(this.form.aexperience);
                 if(this.form.aexperience === '0'){
                     this.form.amoutmoney = 4000;
                     this.form.experience = this.$t('label.yes');
@@ -537,6 +553,7 @@
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024002") {
                     this.code1 = 'PR040';
+                    this.gettwoclass("PR040001");
                     this.disable = true;
                     this.show = true;
                     this.show1 = false;
@@ -554,18 +571,19 @@
                     this.rules.spousename[0].required = false;
                 } else if (val === "PR024003") {
                     this.code1 = 'PR034';
+                    this.gettwoclass("PR034001");
                     this.disable = true;
                     this.show = false;
-                    this.show1 = false;
+                    this.show1 = true;
                     this.show2 = false;
                     this.show3 = false;
-                    this.show4 = false;
-                    this.rules.nominees[0].required = false;
-                    this.rules.nomineerelationship[0].required = false;
-                    this.rules.joiningday[0].required = false;
-                    this.rules.enteringform[0].required = false;
-                    this.rules.recommendationday[0].required = false;
-                    this.rules.reginstrationday[0].required = false;
+                    this.show4 = true;
+                    this.rules.nominees[0].required = true;
+                    this.rules.nomineerelationship[0].required = true;
+                    this.rules.joiningday[0].required = true;
+                    this.rules.enteringform[0].required = true;
+                    this.rules.recommendationday[0].required = true;
+                    this.rules.reginstrationday[0].required = true;
                     this.rules.qualifications[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
@@ -585,7 +603,7 @@
                     this.rules.recommendationday[0].required = false;
                     this.rules.reginstrationday[0].required = false;
                     this.rules.qualifications[0].required = false;
-                    this.rules.weddingday[0].required = true;//
+                    this.rules.weddingday[0].required = true;
                     this.rules.spousename[0].required = true;
                 } else if (val === "PR024005") {
                     this.code1 = 'PR036';
@@ -649,21 +667,6 @@
                 if (dictionaryInfo) {
                     this.twoclass = dictionaryInfo.value2;
                     this.form.amoutmoney = dictionaryInfo.value2;
-                }
-                if (val === "PR040001"){
-                    this.disabled2 = true;
-                }
-                if (val === "PR040002"){
-                    this.disabled2 = true;
-                }
-                if (val === "PR040003"){
-                    this.disabled2 = true;
-                }
-                if (val === "PR040004"){
-                    this.disabled2 = true;
-                }
-                if (val === "PR040005"){
-                    this.disabled2 = true;
                 }
                 if (val === "PR034002") {
                     this.code1 = 'PR034';
@@ -791,6 +794,7 @@
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024002'){
                             this.form.nominees = ' ';
@@ -801,12 +805,14 @@
                             this.form.reginstrationday = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024003'){
                             this.form.remarks = ' ';
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024004'){
                             this.form.nominees = ' ';
@@ -816,6 +822,7 @@
                             this.form.recommendationday = ' ';
                             this.form.reginstrationday = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024005'){
                             this.form.nominees = ' ';
@@ -827,6 +834,7 @@
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024006'){
                             this.form.nominees = ' ';
@@ -838,6 +846,7 @@
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if(this.form.firstclass === 'PR024007'){
                             this.form.nominees = ' ';
@@ -849,6 +858,7 @@
                             this.form.weddingday = ' ';
                             this.form.spousename = ' ';
                             this.form.qualifications = ' ';
+                            this.rules.weddingday[0].required = false;
                         }
                         if (this.$route.params._id) {
                             this.form.casgiftapplyid = this.$route.params._id;

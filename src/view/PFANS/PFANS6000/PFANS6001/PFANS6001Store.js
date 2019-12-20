@@ -1,13 +1,18 @@
-import {createBusinessplan, get, selectById, updateBusinessplan} from './PFANS1036Api'
+import {
+  getcooperinterview,
+  cooperinterviewApplyOne,
+  updatecooperinterviewApply,
+  createcooperinterviewApply,
+} from './PFANS6001Api'
 
-const PFANS1036Store = {
+const PFANS6001Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    get() {
+    getcooperinterview() {
       return new Promise((resolve, reject) => {
-        get().then(response => {
+        getcooperinterview().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -18,9 +23,9 @@ const PFANS1036Store = {
         })
       })
     },
-    selectById({commit}, data) {
+    cooperinterviewApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
+        cooperinterviewApplyOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -31,9 +36,9 @@ const PFANS1036Store = {
         })
       })
     },
-    updateBusinessplan({commit}, data) {
+    updatecooperinterviewApply({commit}, data) {
       return new Promise((resolve, reject) => {
-        updateBusinessplan(data).then(response => {
+        updatecooperinterviewApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -44,9 +49,9 @@ const PFANS1036Store = {
         })
       })
     },
-    createBusinessplan({commit}, data) {
+    createcooperinterviewApply({commit}, data) {
       return new Promise((resolve, reject) => {
-        createBusinessplan(data).then(response => {
+        createcooperinterviewApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -56,8 +61,8 @@ const PFANS1036Store = {
           reject(error);
         })
       })
-    }
+    },
   }
-}
+};
 
-export default PFANS1036Store;
+export default PFANS6001Store;

@@ -120,6 +120,9 @@ import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
 import PFANS8003FormView from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003FormView.vue'
 import PFANS8007View from '@/view/PFANS/PFANS8000/PFANS8007/PFANS8007View.vue'
+import PFANS8009View from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009View.vue'
+import PFANS8009PointView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009PointView.vue'
+import PFANS8009FormView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009FormView.vue'
 import ASSETS1001View from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001View.vue'
 import ASSETS1001FormView from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001FormView.vue'
 import ASSETS1002View from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002View.vue'
@@ -713,6 +716,21 @@ const routes = [
         path: '/PFANS8008FormView',
         name: 'PFANS8008FormView',
         component: PFANS8008FormView,
+      },
+      {
+        path: '/PFANS8009View',
+        name: 'PFANS8009View',
+        component: PFANS8009View,
+      },
+      {
+        path: '/PFANS8009PointView',
+        name: 'PFANS8009PointView',
+        component: PFANS8009PointView,
+      },
+      {
+        path: '/PFANS8009FormView',
+        name: 'PFANS8009FormView',
+        component: PFANS8009FormView,
       },
       {
         path: '/ASSETS1001View',
