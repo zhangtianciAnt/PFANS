@@ -147,7 +147,7 @@
                         name: 'PFANS6001FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disabled: false
                         }
                     })
                 }
@@ -164,7 +164,7 @@
                         name: 'PFANS6001FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disabled: true
                         }
                     })
                 }
@@ -173,7 +173,7 @@
                         name: 'PFANS6001FormView',
                         params: {
                             _id: '',
-                            disabled: true
+                            disabled: false
                         }
                     })
                 }

@@ -15,8 +15,8 @@
           <el-row>
             <!--            姓名-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.user_name')" prop="user_name">
-                <el-input :disabled="disable" maxlength='36' style="width: 11rem" v-model="form.coopername"></el-input>
+              <el-form-item :label="$t('label.user_name')" prop="coopername">
+                <el-input :disabled="disabled" maxlength='36' style="width: 11rem" v-model="form.coopername"></el-input>
               </el-form-item>
             </el-col>
             <!--            性别-->
@@ -25,7 +25,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.sex"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changesex"
                   style="width: 11rem"
@@ -36,7 +36,7 @@
             <!--            联系方式-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="disable" maxlength='36' style="width: 11rem"
+                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -47,8 +47,8 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
-                  :disabled="disable"
-                  @click="getAge"
+                  :disabled="disabled"
+                  @change="getAge"
                   style="width: 11rem"
                   type="date"
                   v-model="form.birth">
@@ -65,11 +65,13 @@
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <org :disabled="disable"
-                     :orglist="form.suppliername"
-                     :error="errorsuppliername"
-                     @getOrgids="getSuppliername"
-                     orgtype="2" style="width: 8.9rem">
+                <org
+                  :disabled="disabled"
+                  :orglist="form.suppliername"
+                  :error="errorsuppliername"
+                  @getOrgids="getSuppliername"
+                  orgtype="2"
+                  style="width: 8.9rem">
                 </org>
               </el-form-item>
             </el-col>
@@ -79,7 +81,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="disable" style="width: 11rem" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -88,7 +90,7 @@
                 <dicselect
                   :code="code2"
                   :data="form.education"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changeeducation"
                   style="width: 11rem"
@@ -102,7 +104,7 @@
             <!--        经验特长-->
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="disable" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="disabled" :rows="2" style="width: 93%" type="textarea"
                           v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
@@ -113,7 +115,8 @@
             <el-col :span="8">
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
-                <org :disabled="disable"
+                <org
+                  :disabled="disabled"
                      :orglist="form.interviewdep"
                      :error="errorinterviewdep"
                      @getOrgids="getInterviewDep"
@@ -126,7 +129,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')" prop="interview_date">
                 <el-date-picker
-                  :disabled="disable"
+                  :disabled="disabled"
                   style="width:11rem"
                   type="date"
                   v-model="form.interview_date">
@@ -139,7 +142,7 @@
                 <dicselect
                   :code="code3"
                   :data="form.result"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changeresult"
                   style="width: 11rem"
@@ -156,7 +159,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.technology"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changetechnology"
                   style="width: 11rem">
@@ -169,10 +172,11 @@
                 <dicselect
                   :code="code4"
                   :data="form.rn"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changern"
-                  style="width: 11rem">
+                  style="
+                  width: 11rem">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -182,7 +186,7 @@
                 <dicselect
                   :code="code6"
                   :data="form.whetherentry"
-                  :disabled="disable"
+                  :disabled="disabled"
                   :multiple="multiple"
                   @change="changewhetherentry"
                   style="width: 11rem">
@@ -195,7 +199,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="disable" :rows="2" style="width: 93% ; height: 10px" type="textarea"
+                <el-input :disabled="disabled" :rows="2" style="width: 93% ; height: 10px" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -239,7 +243,6 @@
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS6001VIEW",
-                disabled: false,
                 errorinterviewdep: '',
                 errorsuppliername: '',
                 buttonList: [],
@@ -276,16 +279,14 @@
                 code5: 'BP005',
                 //入职与否
                 code6: 'BP006',
-                disabled: false,
                 rules: {
                     // 姓名
-                    user_name: [
+                    coopername: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.user_name'),
                             trigger: 'blur'
-                        },
-                    ],
+                        }],
                     // 性别
                     sex: [
                         {
@@ -324,8 +325,7 @@
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
                             trigger: 'blur'
-                        },
-                    ],
+                        }],
                     // 学历
                     education: [
                         {
@@ -410,6 +410,14 @@
                     this.errorinterviewdep = '';
                 }
             },
+            getSuppliername(val) {
+                this.form.suppliername = val;
+                if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
+                    this.suppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+                } else {
+                    this.errorsuppliername = '';
+                }
+            },
             changesex(val) {
                 this.form.sex = val;
             },
@@ -429,17 +437,12 @@
                 this.form.whetherentry = val;
             },
             getAge() {
-                let birthdays = new Date(this.birth.replace(/-/g, "/"));
+                let birthdays = new Date(this.form.birth);
                 let d = new Date();
-                let age =
+                let ageD =
                     d.getFullYear() -
-                    birthdays.getFullYear() -
-                    (d.getMonth() < birthdays.getMonth() ||
-                    (d.getMonth() == birthdays.getMonth() &&
-                        d.getDate() < birthdays.getDate())
-                        ? 1
-                        : 0);
-                this.age = age;
+                    birthdays.getFullYear()
+                this.form.age = ageD;
             },
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
