@@ -33,21 +33,6 @@
               <el-input style="width: 80%" type="textarea" v-model="form.workflowtext"></el-input>
             </el-form-item>
           </el-row>
-          <el-row>
-            <el-upload
-              :action="upload"
-              :auto-upload="false"
-              :file-list="fileList"
-              :on-preview="download"
-              :on-success="success"
-              class="upload-demo"
-              drag
-              ref="upload">
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            </el-upload>
-            <el-button @click="submitUpload" size="small" style="margin-left: 10px;" type="success">上传到服务器</el-button>
-          </el-row>
         </el-form>
         <el-steps :active="editableTabs.length" align-center style="padding: 4rem">
           <el-step :key="item.name" :title="$t(item.title)" v-for="(item, index) in editableTabs"></el-step>
@@ -174,27 +159,6 @@
       }
     },
     methods: {
-      download(file) {
-        if(file.url){
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-
-      },
-      submitUpload() {
-        this.$refs.upload.submit();
-      },
-      success(response, file, fileList) {
-        this.fileList = [];
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          }
-          this.fileList.push(o)
-        }
-      },
       // 保存,创建
       buttonClick(val) {
         if (val === 'save') {
