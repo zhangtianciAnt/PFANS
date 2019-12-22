@@ -117,11 +117,11 @@
                             prop="interviewdep">
                 <org
                   :disabled="disabled"
-                     :orglist="form.interviewdep"
-                     :error="errorinterviewdep"
-                     @getOrgids="getInterviewDep"
-                     orgtype="2"
-                     style="width: 8.9rem">
+                  :orglist="form.interviewdep"
+                  :error="errorinterviewdep"
+                  @getOrgids="getInterviewDep"
+                  orgtype="2"
+                  style="width: 8.9rem">
                 </org>
               </el-form-item>
             </el-col>
@@ -453,7 +453,7 @@
                         this.loading = true;
                         if (this.$route.params._id) {
                             this.$store
-                                .dispatch('PFANS6001Store/updatecooperinterviewApply', this.form)
+                                .dispatch('PFANS6002Store/updatecooperinterviewApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
@@ -481,7 +481,7 @@
                             this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS6001Store/createcooperinterviewApply', this.form)
+                                .dispatch('PFANS6002Store/createcooperinterviewApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
