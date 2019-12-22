@@ -9,20 +9,20 @@
     import {Message} from 'element-ui'
 
     export default {
-        name: 'PFANS6002View',
+        name: 'PFANS6003View',
         components: {
             EasyNormalTable
         },
         data() {
             return {
                 loading: false,
-                title: "title.PFANS6002VIEW",
+                title: "title.PFANS6003VIEW",
                 data: [],
                 columns: [
                     {
-                        //客户名称
-                        code: 'custchinese',
-                        label: 'label.PFANS5001FORMVIEW_CUSTOMERNAME',
+                        //供应商名称
+                        code: 'supchinese',
+                        label: 'label.PFANS6001VIEW_SUPPLIERNAME',
                         width: 90,
                         fix: false,
                         filter: true,
@@ -90,23 +90,23 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
-                row: 'customerinfor_id'
+                row: 'supplierinfor_id'
             };
         },
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS6002Store/getcustomerinfor')
+                .dispatch('PFANS6003Store/getsupplierinfor')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        let lst = getUserInfo(response[j].custchinese);
-                        response[j].custchinese = lst.custchinese;
+                        let lst = getUserInfo(response[j].supchinese);
+                        response[j].supchinese = lst.supchinese;
                         response[j].liableperson = lst.liableperson;
                         response[j].projectperson = lst.prochinese;
                         response[j].protelephone = lst.protelephone;
                         response[j].commontperson = lst.comchinese;
                         response[j].comtelephone = lst.comtelephone;
-                        response[j].address = lst.addchinese;
+                        response[j].address = lst.address;
                         response[j].perscale = lst.perscale;
                     }
                     this.data = response;
@@ -123,10 +123,10 @@
         },
         methods: {
             rowClick(row) {
-                this.rowid = row.customerinfor_id;
+                this.rowid = row.supplierinfor_id;
             },
             buttonClick(val) {
-                this.$store.commit('customerinfor/SET_HISTORYURL', this.$route.path);
+                this.$store.commit('supplierinfor/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
                     if (this.rowid === '') {
                         Message({
@@ -137,7 +137,7 @@
                         return;
                     }
                     this.$router.push({
-                        name: 'PFANS6002FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: this.rowid,
                             disabled: false
@@ -154,7 +154,7 @@
                         return;
                     }
                     this.$router.push({
-                        name: 'PFANS6002FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: this.rowid,
                             disabled: true
@@ -163,7 +163,7 @@
                 }
                 if (val === 'insert') {
                     this.$router.push({
-                        name: 'PFANS6002FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: '',
                             disabled: false

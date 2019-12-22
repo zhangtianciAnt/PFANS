@@ -7,32 +7,32 @@
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
                  style="padding: 2rem">
           <el-row>
-            <!--            客户名称-->
+            <!--            供应商名称-->
             <el-col :span="8">
-              <div class="sub_color_black">{{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}</div>
+              <div class="sub_color_black">{{$t('label.PFANS6001VIEW_SUPPLIERNAME')}}</div>
             </el-col>
           </el-row>
           <!--            第一行-->
           <el-row>
             <!--            中文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="custchinese">
+              <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="supchinese">
                 <el-input :disabled="disabled" style="width: 11rem"
-                          v-model="form.custchinese"></el-input>
+                          v-model="form.supchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="custjapanese">
+              <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="supjapanese">
                 <el-input :disabled="disabled" style="width: 11rem"
-                          v-model="form.custjapanese"></el-input>
+                          v-model="form.supjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="custenglish">
+              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="supenglish">
                 <el-input :disabled="disabled" style="width: 11rem"
-                          v-model="form.custenglish"></el-input>
+                          v-model="form.supenglish"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -202,10 +202,10 @@
                 <el-upload
                   :action="upload"
                   :file-list="fileList"
-                  :on-error="fileError"
-                  :on-preview="fileDownload"
                   :on-remove="fileRemove"
+                  :on-preview="fileDownload"
                   :on-success="fileSuccess"
+                  :on-error="fileError"
                   class="upload-demo"
                   drag
                   ref="upload">
@@ -223,17 +223,17 @@
 
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import PFANS6002View from "../PFANS6002/PFANS6002View.vue";
+    import PFANS6003View from "../PFANS6003/PFANS6003View.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
     import {telephoneNumber} from '@/utils/validate';
     import {validateEmail} from "../../../../utils/validate";
 
     export default {
-        name: 'PFANS6002FormView',
+        name: 'PFANS6003FormView',
         components: {
             EasyNormalContainer,
-            PFANS6002View,
+            PFANS6003View,
             dicselect,
         },
         data() {
@@ -262,15 +262,15 @@
             return {
                 loading: false,
                 selectType: "Single",
-                title: "title.PFANS6002FORMVIEW",
+                title: "title.PFANS6003FORMVIEW",
                 buttonList: [],
                 multiple: false,
                 form: {
-                    customerinfor_id: '',
+                    supplierinfor_id: '',
                     type: this.$t('menu.PFANS6002'),
-                    custchinese: '',
-                    custjapanese: '',
-                    custenglish: '',
+                    supchinese: '',
+                    supjapanese: '',
+                    supenglish: '',
                     abbreviation: '',
                     liableperson: '',
                     prochinese: '',
@@ -292,23 +292,23 @@
                 //人员规模
                 code1: 'BP007',
                 rules: {
-                    // 中文（客户名称）
-                    custchinese: [
+                    // 中文（供应商名称）
+                    supchinese: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
                             trigger: 'change'
                         }],
-                    // 日文（客户名称）
-                    custjapanese: [
+                    // 日文（供应商名称）
+                    supjapanese: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
                             trigger: 'change'
                         },
                     ],
-                    // 英文（客户名称）
-                    custenglish: [
+                    // 英文（供应商名称）
+                    supenglish: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
@@ -457,11 +457,11 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
-                        this.form.customerinfor_id = this.$route.params._id;
+                        this.form.supplierinfor_id = this.$route.params._id;
                         this.loading = true;
                         if (this.$route.params._id) {
                             this.$store
-                                .dispatch('PFANS6002Store/updatecooperinterviewApply', this.form)
+                                .dispatch('PFANS6003Store/updatesupplierinforApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
@@ -487,7 +487,7 @@
                         } else {
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS6002Store/createcooperinterviewApply', this.form)
+                                .dispatch('PFANS6003Store/createsupplierinforApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
