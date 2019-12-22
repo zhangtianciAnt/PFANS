@@ -120,7 +120,18 @@
             EasyNormalTable,
         },
         data() {
-            return {};
+            return {
+                png1: png1,
+                png2: png2,
+                png3: png3,
+                png4: png4,
+                png5: png5,
+                png6: png6,
+                png7: png7,
+                png8: png8,
+                png9: png9,
+                png10: png10
+            };
         },
         mounted() {
         },
