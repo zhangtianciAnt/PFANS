@@ -108,10 +108,6 @@
                         response[j].whetherentry = lst.whetherentry;
                         response[j].technology = lst.technology;
                         response[j].interview_date = lst.interview_date;
-                        // let user = getUserInfo(response[j].user_id);
-                        // if (user) {
-                        //     response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-                        // }
                         if (response[j].interview_date !== null && response[j].interview_date !== "") {
                             response[j].interview_date = moment(response[j].interview_date).format("YYYY-MM-DD");
                         }
