@@ -7,79 +7,78 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import moment from "moment";
 
     export default {
-        name: 'PFANS6001View',
+        name: 'PFANS6003View',
         components: {
             EasyNormalTable
         },
         data() {
             return {
                 loading: false,
-                title: "title.PFANS6001VIEW",
+                title: "title.PFANS6003VIEW",
                 data: [],
                 columns: [
                     {
-                        //姓名
-                        code: 'coopername',
-                        label: 'label.user_name',
+                        //供应商名称
+                        code: 'supchinese',
+                        label: 'label.PFANS6001VIEW_SUPPLIERNAME',
                         width: 90,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //毕业院校
-                        code: 'graduateschool',
-                        label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
+                        //负责人
+                        code: 'liableperson',
+                        label: 'label.ASSETS1002VIEW_USERID',
                         width: 120,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //供应商名称
-                        code: 'suppliername',
-                        label: 'label.PFANS6001VIEW_SUPPLIERNAME',
+                        //项目联络人
+                        code: 'projectperson',
+                        label: 'label.PFANS6002VIEW_LIABLEPERSON',
                         width: 120,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //面试部门
-                        code: 'interviewdep',
-                        label: 'label.PFANS2003FORMVIEW_INTERVIEWDEP',
+                        //联系电话
+                        code: 'protelephone',
+                        label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
                         width: 100,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //面试结果
-                        code: 'result',
-                        label: 'label.PFANS6001VIEW_RESULT',
+                        //共同事务联络人
+                        code: 'commontperson',
+                        label: 'label.PFANS6002VIEW_COMMONTPERSON',
                         width: 100,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //入职与否
-                        code: 'whetherentry',
-                        label: 'label.PFANS2003FORMVIEW_WHETHERENTRY',
+                        //联系电话
+                        code: 'comtelephone',
+                        label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
                         width: 100,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //技术分类
-                        code: 'technology',
-                        label: 'label.PFANS2003VIEW_TECHNOLOGY',
+                        //地址
+                        code: 'address',
+                        label: 'label.PFANS6002VIEW_ADDRESS',
                         width: 100,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //面试时间
-                        code: 'interview_date',
-                        label: 'label.PFANS2003FORMVIEW_INTERVIEWDATE',
+                        //人员规模
+                        code: 'perscale',
+                        label: 'label.PFANS6002VIEW_PERSCALE',
                         width: 100,
                         fix: false,
                         filter: true,
@@ -91,26 +90,24 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
-                row: 'cooperinterview_id'
+                row: 'supplierinfor_id'
             };
         },
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS6002Store/getcooperinterview')
+                .dispatch('PFANS6003Store/getsupplierinfor')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        let lst = getUserInfo(response[j].coopername);
-                        response[j].graduateschool = lst.graduateschool;
-                        response[j].suppliername = lst.suppliername;
-                        response[j].interviewdep = lst.interviewdep;
-                        response[j].result = lst.result;
-                        response[j].whetherentry = lst.whetherentry;
-                        response[j].technology = lst.technology;
-                        response[j].interview_date = lst.interview_date;
-                        if (response[j].interview_date !== null && response[j].interview_date !== "") {
-                            response[j].interview_date = moment(response[j].interview_date).format("YYYY-MM-DD");
-                        }
+                        let lst = getUserInfo(response[j].supchinese);
+                        response[j].supchinese = lst.supchinese;
+                        response[j].liableperson = lst.liableperson;
+                        response[j].projectperson = lst.prochinese;
+                        response[j].protelephone = lst.protelephone;
+                        response[j].commontperson = lst.comchinese;
+                        response[j].comtelephone = lst.comtelephone;
+                        response[j].address = lst.address;
+                        response[j].perscale = lst.perscale;
                     }
                     this.data = response;
                     this.loading = false;
@@ -126,10 +123,10 @@
         },
         methods: {
             rowClick(row) {
-                this.rowid = row.cooperinterview_id;
+                this.rowid = row.supplierinfor_id;
             },
             buttonClick(val) {
-                this.$store.commit('cooperinterview/SET_HISTORYURL', this.$route.path);
+                this.$store.commit('supplierinfor/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
                     if (this.rowid === '') {
                         Message({
@@ -140,7 +137,7 @@
                         return;
                     }
                     this.$router.push({
-                        name: 'PFANS6001FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: this.rowid,
                             disabled: false
@@ -157,7 +154,7 @@
                         return;
                     }
                     this.$router.push({
-                        name: 'PFANS6001FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: this.rowid,
                             disabled: true
@@ -166,7 +163,7 @@
                 }
                 if (val === 'insert') {
                     this.$router.push({
-                        name: 'PFANS6001FormView',
+                        name: 'PFANS6003FormView',
                         params: {
                             _id: '',
                             disabled: false

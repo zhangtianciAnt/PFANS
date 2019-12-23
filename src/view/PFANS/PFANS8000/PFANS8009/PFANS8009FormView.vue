@@ -7,7 +7,7 @@
       ref="container"
       v-loading="loading"
     >
-      <div slot="customize" style="margin-top: 2rem;">
+      <div slot="customize">
         <el-form :rules="rules" label-position="top" ref="reff">
           <el-row>
             <el-form-item :label="$t(this.$route.params.codename)">
@@ -74,7 +74,12 @@
                 title: '',
                 letcode: '',
                 disable: false,
-                buttonList: [],
+                buttonList: [{
+                    key: "save",
+                    name: "button.save",
+                    disabled: false,
+                    icon: "el-icon-check"
+                }],
                 tableD: [
                     {
                         code: "",
