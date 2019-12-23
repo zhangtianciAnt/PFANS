@@ -54,6 +54,10 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+
+
+
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
                 <el-switch :disabled="!disable"
@@ -75,6 +79,10 @@
               </el-form-item>
             </el-col>
           </el-row>
+
+
+
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">
@@ -92,9 +100,35 @@
               </el-form-item>
             </el-col>
           </el-row>
+
+
+
+
+
+
+
+
+
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_DUTYFREEINPUT')" prop="dutyfreeinput">
+                <el-switch
+                  :disabled="!disable"
+                  v-model="form.dutyfreeinput"
+                  active-value="1"
+                  inactive-value="0"
+                  @change="radiochange">
+                </el-switch>
+              </el-form-item>
+            </el-col>
+
+
+
+
+
+
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate" v-show="show1">
                 <el-date-picker
                   :disabled="!disable"
                   style="width:11rem"
@@ -104,7 +138,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_RELEASEDATE')">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_RELEASEDATE')" v-show="show2">
                 <el-date-picker
                   :disabled="!disable"
                   style="width:11rem"
@@ -220,7 +254,12 @@
             }
           }]
         },
+        show1: true,
+        show2: true,
         repair: '',
+
+
+        // dutyfreeinput: '1',
         installsoftware: '1',
         installsoftwareflg: '',
         suitablebringout: '1',
@@ -234,6 +273,7 @@
         tabIndex: 0,
         multiple: false,
         form: {
+          dutyfreeinput: '0',
           user_id: '',
           center_id: '',
           group_id: '',
@@ -300,6 +340,24 @@
           },
         ];
       }
+      console.log(this.form.dutyfreeinput);
+      if (this.form.dutyfreeinput === '1') {
+        this.show1 = true;
+        this.show2 = true;
+        // this.rules.inputdate[0].required = true;
+        // this.rules.releasedate[0].required = true;
+      } else {
+        this.show2 = false;
+        this.show1 = false;
+        // this.rules.inputdate[0].required = false;
+        // this.rules.releasedate[0].required = false;
+      }
+
+
+
+
+
+
     },
     mounted() {
       if (this.$route.params._id) {
@@ -313,6 +371,17 @@
             this.installsoftwareflg = this.form.installsoftware;
             this.suitablebringout = this.form.suitablebringout;
             this.suitablebringoutflg = this.form.suitablebringout;
+            if (this.form.dutyfreeinput === '1') {
+              this.show1 = true;
+              this.show2 = true;
+              // this.rules.inputdate[0].required = true;
+              // this.rules.releasedate[0].required = true;
+            } else {
+              this.show2 = false;
+              this.show1 = false;
+              // this.rules.inputdate[0].required = false;
+              // this.rules.releasedate[0].required = false;
+            }
             let repair = response.repair;
             let serdate = repair.slice(0, 10);
             let serdate1 = repair.slice(repair.length - 10);
@@ -367,6 +436,20 @@
       changerepairkits(val) {
         this.form.repairkits = val;
       },
+      radiochange(val) {
+        this.form.dutyfreeinput = val;
+        if (val === '1') {
+          this.show1 = true;
+          this.show2 = true;
+          // this.rules.inputdate[0].required = true;
+          // this.rules.releasedate[0].required = true;
+        } else {
+          this.show1 = false;
+          this.show2 = false;
+          // this.rules.inputdate[0].required = false;
+          // this.rules.releasedate[0].required = false;
+        }
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -404,6 +487,10 @@
               if (this.form.assettype !== 'PJ009002') {
                 this.form.installsoftware = '1';
                 this.form.suitablebringout = '1';
+              }
+              if (this.form.dutyfreeinput === '0') {
+                this.form.inputdate = '';
+                this.form.releasedate = '';
               }
               if (this.$route.params._id) {
                 this.form.fixedassets_id = this.$route.params._id;

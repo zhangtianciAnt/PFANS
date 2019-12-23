@@ -494,6 +494,34 @@ export function menu() {
           ]
         },
         {
+          '_id': 'ASSETS', 'name': 'menu.ASSETS', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
+            {
+              '_id': 'ASSETS1001,', 'name': 'menu.ASSETS1001', 'menuvisible': true, 'menuurl': '/ASSETS1001View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+            {
+              '_id': 'ASSETS1002,', 'name': 'menu.ASSETS1002', 'menuvisible': true, 'menuurl': '/ASSETS1002View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+            {
+              '_id': 'ASSETS1003,', 'name': 'menu.ASSETS1003', 'menuvisible': true, 'menuurl': '/ASSETS1003View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1003_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1003_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1003_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1003_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+          ]
+        },
+        {
           '_id': 'PFANSSYSTEM', 'name': 'menu.PFANSSYSTEM', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
             {
               '_id': 'org', 'name': 'menu.org', 'menuvisible': true, 'menuurl': '/org', 'menuicon': '', 'children': [], 'actions': [
@@ -574,35 +602,6 @@ export function menu() {
             },
           ]
         },
-        {
-          '_id': 'ASSETS', 'name': 'menu.ASSETS', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
-            {
-              '_id': 'ASSETS1001,', 'name': 'menu.ASSETS1001', 'menuvisible': true, 'menuurl': '/ASSETS1001View', 'menuicon': '', 'children': [], 'actions': [
-                { "_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
-                { "_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
-                { "_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
-                { "_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
-              ]
-            },
-            {
-              '_id': 'ASSETS1002,', 'name': 'menu.ASSETS1002', 'menuvisible': true, 'menuurl': '/ASSETS1002View', 'menuicon': '', 'children': [], 'actions': [
-                { "_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
-                { "_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
-                { "_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
-                { "_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
-              ]
-            },
-            {
-              '_id': 'ASSETS1003,', 'name': 'menu.ASSETS1003', 'menuvisible': true, 'menuurl': '/ASSETS1003View', 'menuicon': '', 'children': [], 'actions': [
-                { "_id": "ASSETS1003_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
-                { "_id": "ASSETS1003_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
-                { "_id": "ASSETS1003_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
-                { "_id": "ASSETS1003_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
-              ]
-            },
-          ]
-        },
-
       ],
       'child': []
     }
