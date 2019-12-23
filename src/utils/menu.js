@@ -637,15 +637,10 @@ export function menu() {
             },
             {
               '_id': 'PFANSDICTIONARY', 'name': 'menu.PFANSDICTIONARY', 'menuvisible': true, 'menuurl': '/PFANS8009PointView', 'menuicon': '', 'children': [], 'actions': [
-                {
-                  '_id': 'PFANS8009', 'name': 'menu.PFANS8009', 'menuvisible': true, 'menuurl': '/PFANS8009PointView', 'menuicon': '', 'children': [], 'actions': [
-                    {"_id": "PFANS8009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS8009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS8009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS8009_del", "actiontype": "del", "name": 'button.delete', "auth": 4
-                    }
-                  ]
-                },
+                { "_id": "PFANS8009_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "PFANS8009_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "PFANS8009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "PFANS8009_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
               ]
             },
           ]
