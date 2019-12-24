@@ -33,6 +33,7 @@ import PFANS1007FormView from '@/view/PFANS/PFANS1000/PFANS1007/PFANS1007FormVie
 import PFANS1008FormView from '@/view/PFANS/PFANS1000/PFANS1008/PFANS1008FormView.vue'
 import PFANS1009FormView from '@/view/PFANS/PFANS1000/PFANS1009/PFANS1009FormView.vue'
 import PFANS1010FormView from '@/view/PFANS/PFANS1000/PFANS1010/PFANS1010FormView.vue'
+import PFANS1011FormView from '@/view/PFANS/PFANS1000/PFANS1011/PFANS1011FormView.vue'
 import PFANS1012View from '@/view/PFANS/PFANS1000/PFANS1012/PFANS1012View.vue'
 import PFANS1012PointFormView from '@/view/PFANS/PFANS1000/PFANS1012/PFANS1012PointFormView.vue'
 import PFANS1012FormView from '@/view/PFANS/PFANS1000/PFANS1012/PFANS1012FormView.vue'
@@ -277,6 +278,11 @@ const routes = [
         path: '/PFANS1010FormView',
         name: 'PFANS1010FormView',
         component: PFANS1010FormView,
+      },
+      {
+        path: '/PFANS1011FormView',
+        name: 'PFANS1011FormView',
+        component: PFANS1011FormView,
       },
       {
         path: '/PFANS1012View',
