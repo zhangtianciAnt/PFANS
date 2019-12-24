@@ -1,6 +1,6 @@
 <template>
   <!--<el-tooltip :content="$t('help.name')" placement="bottom" effect="light">-->
-    <el-dropdown placement="bottom">
+    <el-dropdown placement="bottom" size="medium">
       <span class="el-dropdown-link">
         <el-avatar icon="el-icon-user-solid" size="medium" style="background-color: transparent"> </el-avatar>
       </span>
