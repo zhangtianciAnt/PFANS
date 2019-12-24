@@ -386,7 +386,23 @@
             };
         },
         mounted() {
-
+            if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6001Store/cooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
+                    .then(response => {
+                        this.form = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            }
         },
         created() {
             this.disabled = this.$route.params.disabled;
