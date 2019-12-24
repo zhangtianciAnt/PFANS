@@ -31,14 +31,14 @@
                         //负责人
                         code: 'liableperson',
                         label: 'label.ASSETS1002VIEW_USERID',
-                        width: 120,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
                     {
                         //项目联络人
                         code: 'projectperson',
-                        label: 'label.PFANS6002VIEW_LIABLEPERSON',
+                        label: 'label.PFANS6002VIEW_PROJECTPERSON',
                         width: 120,
                         fix: false,
                         filter: true,
