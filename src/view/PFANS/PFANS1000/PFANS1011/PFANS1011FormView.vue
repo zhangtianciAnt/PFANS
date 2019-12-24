@@ -233,17 +233,15 @@
 </template>
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import PFANS2014View from '../PFANS2014/PFANS2014View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
   import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
-    name: 'PFANS2014FormView',
+    name: 'PFANS1011FormView',
     components: {
       EasyNormalContainer,
-      PFANS2014View,
       user,
     },
     data() {
@@ -256,62 +254,6 @@
           this.error = '';
         }
       };
-      var validateimplement_date = (rule, value, callback) => {
-        if (value) {
-          if (moment(this.form.implement_date).format('YYYY-MM') <= moment(new Date()).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS2014FORMVIEW_IMPLEMENTDATECHECK')));
-          } else {
-            if (moment(this.form.implement_date).format('DD') !== '01') {
-              callback(new Error(this.$t('label.PFANS2014FORMVIEW_ZHI')));
-            } else {
-              if (this.form.implement_date !== null && this.form.implement_date !== '') {
-                if (moment(value).format('YYYY-MM-DD') <= moment(this.form.application_date).format('YYYY-MM-DD')) {
-                  callback(new Error(this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date')));
-                  this.errorrapplicationdate = this.$t('label.PFANS2014FORMVIEW_STARTDATE') + this.$t('normal.error_checkTime1') + this.$t('label.application_date');
-                } else {
-                  callback();
-                }
-              }
-            }
-          }
-        } else {
-          callback();
-        }
-      };
-      var validateapplication_date = (rule, value, callback) => {
-        if (this.form.application_date !== null && this.form.application_date !== '') {
-          if (moment(value).format('YYYY-MM-DD') >= moment(this.form.implement_date).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.application_date') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2014FORMVIEW_STARTDATE')));
-            this.errorrapplicationdate = this.$t('label.application_date') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2014FORMVIEW_STARTDATE');
-          } else {
-            callback();
-            this.errorrapplicationdate = '';
-          }
-        } else {
-          callback();
-          this.errorrapplicationdate = '';
-        }
-      };
-      var validateworktime = (rule, value, callback) => {
-        if (this.form.worktime !== null && this.form.worktime !== '') {
-          if (this.workshift_start != '' && this.workshift_start != 'undefined'
-            && this.workshift_end != '' && this.workshift_end != 'undefined') {
-            if (Number(value.replace(':', '')) >= this.workshift_start && Number(value.replace(':', '')) <= this.workshift_end) {
-              callback();
-              this.errorrworktime = '';
-            } else {
-              callback(new Error(this.$t('label.PFANS2014FORMVIEW_WORKTIME')));
-              this.errorrworktime = this.$t('label.PFANS2014FORMVIEW_WORKTIME');
-            }
-          } else {
-            callback();
-            this.errorrworktime = '';
-          }
-        } else {
-          callback();
-          this.errorrworktime = '';
-        }
-      };
       return {
         workshift_start: '',
         workshift_end: '',
@@ -322,7 +264,7 @@
         error: '',
         selectType: 'Single',
         userlist: '',
-        title: 'title.PFANS2014VIEW',
+        title: 'title.PFANS1011VIEW',
         buttonList: [],
         form: {
           user_id: '',
@@ -336,29 +278,6 @@
         },
         disabled: false,
         rules: {
-          user_id: [{
-            required: true,
-            validator: validateUserid,
-            trigger: 'change',
-          }],
-          worktime: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2014VIEW_HOURS'),
-            trigger: 'change',
-          },
-            {validator: validateworktime, trigger: 'change'}],
-          application_date: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.application_date'),
-            trigger: 'change',
-          },
-            {validator: validateapplication_date, trigger: 'change'}],
-          implement_date: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2014FORMVIEW_STARTDATE'),
-            trigger: 'change',
-          },
-            {validator: validateimplement_date, trigger: 'change'}],
         },
         canStart: false,
       };
@@ -380,10 +299,12 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2014Store/getFlexibleworkOne', {'flexibleworkid': this.$route.params._id})
+          .dispatch('PFANS1011Store/getOffshoreOne', {'Offshore_id': this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
+
+
             this.loading = false;
           })
           .catch(error => {
@@ -397,11 +318,11 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
+          this.form.user_id = this.$store.getters.userinfo.userid;
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.center_id = lst.centerNmae;
           this.form.group_id = lst.groupNmae;
           this.form.team_id = lst.teamNmae;
-          this.form.user_id = this.$store.getters.userinfo.userid;
         }
       }
     },
@@ -418,6 +339,15 @@
           this.error = '';
         }
       },
+      getbudgetunit(val) {
+        this.form.budgetunit = val;
+      },
+      getmodule(val) {
+        this.form.moduleid = val;
+      },
+      changecurrencychoice(val) {
+        this.form.currencychoice = val;
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -426,104 +356,81 @@
         }
         this.buttonClick('update');
       },
-      start(val) {
+      start() {
         this.form.status = '2';
         this.buttonClick('update');
       },
-      end(val) {
+      end() {
         this.form.status = '0';
         this.buttonClick('update');
       },
-      buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS2018Store/getFpans2018List', {})
-              .then(response => {
-                if (response.length > 0) {
-                  for (let i = 0; i < response.length; i++) {
-                    if (response[i].workshift_start !== null && response[i].workshift_start !== '' &&
-                      response[i].workshift_end !== null && response[i].workshift_end !== '') {
-                      this.workshift_start = Number(response[i].workshift_start.replace(':', ''));
-                      this.workshift_end = Number(response[i].workshift_end.replace(':', ''));
-                      val = Number(this.form.worktime.replace(':', ''));
-                      if (val >= this.workshift_start && val <= this.workshift_end) {
-                        if (this.$route.params._id) {
-                          this.form.flexibleworkid = this.$route.params._id;
-                          this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                          this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
-                          this.$store
-                            .dispatch('PFANS2014Store/updateFlexiblework', this.form)
-                            .then(response => {
-                              this.data = response;
-                              this.loading = false;
-                              if (val !== 'update') {
-                                Message({
-                                  message: this.$t('normal.success_02'),
-                                  type: 'success',
-                                  duration: 5 * 1000,
-                                });
-                                if (this.$store.getters.historyUrl) {
-                                  this.$router.push(this.$store.getters.historyUrl);
-                                }
-                              }
-                            })
-                            .catch(error => {
-                              Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                            });
-                        } else {
-                          this.loading = true;
-                          this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                          this.form.implement_date = moment(this.form.implement_date).format('YYYY-MM-DD');
-                          this.$store
-                            .dispatch('PFANS2014Store/createFlexiblework', this.form)
-                            .then(response => {
-                              this.data = response;
-                              this.loading = false;
-                              Message({
-                                message: this.$t('normal.success_01'),
-                                type: 'success',
-                                duration: 5 * 1000,
-                              });
-                              if (this.$store.getters.historyUrl) {
-                                this.$router.push(this.$store.getters.historyUrl);
-                              }
-                            })
-                            .catch(error => {
-                              Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                            });
-                        }
-                      } else {
-                        this.errorrworktime = this.$t('label.PFANS2014FORMVIEW_WORKTIME');
-                        this.loading = false;
-                        return;
-                      }
-                    }
-                  }
-                }
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-          }
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1001FormView',
+          params: {
+            title: 6,
+          },
         });
+      },
+      buttonClick(val) {
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          this.$refs['refform'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              this.form.reimbursement = moment(this.form.reimbursement).format('YYYY-MM-DD');
+              this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
+              if (this.$route.params._id) {
+                this.form.loanapplication_id = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1011Store/updateOffshore', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.paramsTitle();
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              } else {
+                this.loading = true;
+                this.$store
+                  .dispatch('PFANS1011Store/createOffshore', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.paramsTitle();
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            }
+          });
+        }
       },
     },
   };
