@@ -39,7 +39,7 @@
         </el-col>
         <el-col :span="21">
           <el-main class="sub_bg_color_grey" style="padding: 1rem">
-            <transition name="slide-left" >
+            <transition name="slide-left">
             <router-view class="appView"/>
             </transition>
           </el-main>
@@ -484,7 +484,7 @@
     transition: transform 0.7s ease-out;
   }
   .slide-left-enter-active{
-       transform: translate(100%, 0%);
+       transform: translate(102%, 0%);
      }
   .slide-left-leave-active{
     transform: translate(-100%, 0%);
