@@ -578,6 +578,18 @@ export function menu() {
           ]
         },
         {
+          '_id': 'ASSETMANAG', 'name': 'menu.ASSETMANAG', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
+            {
+              '_id': 'ASSETS1034,', 'name': 'menu.PFANS1034', 'menuvisible': true, 'menuurl': '/PFANS1034View', 'menuicon': '', 'children': [], 'actions': [
+                { "_id": "ASSETS1034_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                { "_id": "ASSETS1034_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                { "_id": "ASSETS1034_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                { "_id": "ASSETS1034_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+              ]
+            },
+          ]
+        },
+        {
           '_id': 'PFANSSYSTEM', 'name': 'menu.PFANSSYSTEM', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
             {
               '_id': 'org', 'name': 'menu.org', 'menuvisible': true, 'menuurl': '/org', 'menuicon': '', 'children': [], 'actions': [

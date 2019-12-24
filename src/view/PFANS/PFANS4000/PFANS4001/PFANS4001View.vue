@@ -49,7 +49,7 @@
                 },
                 {
                     code: 'filename',
-                    label: 'label.PFANS1014VIEW_FILENAME',
+                    label: 'label.PFANS1034VIEW_FILENAME',
                     width: 130,
                     fix: false,
                     filter: true

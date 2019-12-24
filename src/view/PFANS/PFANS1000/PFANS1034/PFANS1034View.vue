@@ -5,14 +5,17 @@
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
       </div>
       <div align="right" class="filter-container" style="padding-bottom: 10px">
-        <span class="Title_front main_color" style="float:left">{{$t('title.PFANS1014VIEW')}}{{$t('table.detail')}}</span>
+        <span class="Title_front main_color"
+              style="float:left">{{$t('title.PFANS1034VIEW')}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
         </el-input>
       </div>
-      <el-table :data="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
-                @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
+      <el-table :data="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')"
+                :row-key="rowid"
+                @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick"
+                @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_grey height" header-row-class-name="height" height="400"
                 highlight-current-row max-height="400" ref="eltable"
                 style="width: 100%" v-loading='loading' border default-expand-all
@@ -23,20 +26,25 @@
                          v-for="item in this.columns" v-if="item.child && item.child.length > 0">
           <el-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
                            v-for="o in item.child" v-if="o.child && o.child.length > 0">
-            <el-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix" :formatter="formatter"
+            <el-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix"
+                             :formatter="formatter"
                              :key="oo.code"
-                             :label="$t(oo.label)" :label-class-name="oo.labelClass" :min-width="oo.width" :prop="oo.code"
+                             :label="$t(oo.label)" :label-class-name="oo.labelClass" :min-width="oo.width"
+                             :prop="oo.code"
                              align="left" show-overflow-tooltip sortable="custom"
                              v-for="oo in o.child"/>
           </el-table-column>
-          <el-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix" :formatter="formatter" :key="o.code"
+          <el-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix"
+                           :formatter="formatter" :key="o.code"
                            :label="$t(o.label)" :label-class-name="o.labelClass" :min-width="o.width" :prop="o.code"
                            align="left" show-overflow-tooltip sortable="custom"
                            v-else/>
         </el-table-column>
-        <el-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null" :fixed="item.fix" :formatter="formatter"
+        <el-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null"
+                         :fixed="item.fix" :formatter="formatter"
                          :key="item.code"
-                         :label="$t(item.label)" :label-class-name="item.labelClass" :min-width="item.width" :prop="item.code"
+                         :label="$t(item.label)" :label-class-name="item.labelClass" :min-width="item.width"
+                         :prop="item.code"
                          align="left" show-overflow-tooltip sortable="custom"
                          v-else/>
       </el-table>
@@ -55,13 +63,14 @@
 <script>
     import EasyButtonBar from '@/components/EasyButtonBar'
     import {orderBy} from '@/utils/customize'
+    import moment from 'moment';
 
     export default {
-        name: 'PFANS1014View',
+        name: 'PFANS1034View',
         components: {
             EasyButtonBar
         },
-        data () {
+        data() {
             return {
                 total: 0,
                 listQuery: {
@@ -77,33 +86,33 @@
                 systembutton: [false, false, false],
                 selectedList: [],
                 // 行id
-                rowid:'folderid',
+                rowid: 'folderid',
                 // 列属性
                 columns: [
                     {
                         code: 'filename',
-                        label: 'label.PFANS1014VIEW_FILENAME',
+                        label: 'label.PFANS1034VIEW_FILENAME',
                         width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'filesize',
-                        label: 'label.PFANS1014VIEW_FILESIZE',
+                        label: 'label.PFANS1034VIEW_FILESIZE',
                         width: 150,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'updatedate',
-                        label: 'label.PFANS1014VIEW_UPDATEDATE',
+                        label: 'label.PFANS1034VIEW_UPDATEDATE',
                         width: 150,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'updateperson',
-                        label: 'label.PFANS1014VIEW_UPDATEPERSON',
+                        label: 'label.PFANS1034VIEW_UPDATEPERSON',
                         width: 150,
                         fix: false,
                         filter: true
@@ -129,61 +138,19 @@
                     updateperson: '大三',
                     children: [{
                         folderid: 31,
-                        filename: '文件夹3',
+                        filename: '文件夹31',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
                     }, {
                         folderid: 32,
-                        filename: '文件夹3',
+                        filename: '文件夹32',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
                     }]
                 }, {
                     folderid: 4,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 5,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 6,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 7,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 8,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 9,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 10,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四'
-                }, {
-                    folderid: 11,
                     filename: '文件夹3',
                     filesize: '109M',
                     updatedate: '2019-10-27',
@@ -215,7 +182,7 @@
             // 是否显示checkbox
             showSelection: {
                 type: Boolean,
-                default: true
+                default: false
             },
             hasEditBtn: {
                 type: Boolean,
@@ -228,9 +195,9 @@
                 type: Array,
                 default: function () {
                     return [
-                        {'key': 'folder', 'name': 'button.folder', 'disabled': false,'icon': 'el-icon-folder-add'},
-                        {'key': 'upload', 'name': 'button.upload', 'disabled': false,'icon': 'el-icon-upload2'},
-                        {'key': 'download', 'name': 'button.download', 'disabled': false,'icon': 'el-icon-download'},
+                        {'key': 'folder', 'name': 'button.folder', 'disabled': false, 'icon': 'el-icon-folder-add'},
+                        {'key': 'upload', 'name': 'button.upload', 'disabled': false, 'icon': 'el-icon-upload2'},
+                        {'key': 'download', 'name': 'button.download', 'disabled': false, 'icon': 'el-icon-download'},
                         {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
                     ]
                 }
@@ -243,18 +210,30 @@
             }
         },
         methods: {
-            buttonClick (val) {
-                this.$emit('buttonClick', val)
+            buttonClick(val) {
+                this.tableData.push({
+                    folderid: this.tableData.length + 1,
+                    filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
+                    filesize: '',
+                    updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                    updateperson: '大三',
+                    children: []
+                });
+
+                this.totaldata = this.tableData
+                this.getList()
+
+                //this.$emit('buttonClick', val)
             },
             // 表格排序
-            sortChange (column, prop, order) {
+            sortChange(column, prop, order) {
                 this.totaldata = orderBy(this.totaldata, column.prop, column.order)
 
                 // 调用分页
                 this.getList()
             },
             // 表格筛选
-            tableFilter (filters) {
+            tableFilter(filters) {
                 this.loading = true
                 this.listQuery.page = 1
                 Object.assign(this.filterlist, filters)
@@ -283,7 +262,7 @@
                 this.getList()
             },
             // 取分页数据
-            getList () {
+            getList() {
                 this.loading = true
                 let start = (this.listQuery.page - 1) * this.listQuery.limit
                 let end = this.listQuery.page * this.listQuery.limit
@@ -296,17 +275,17 @@
                 this.loading = false
             },
             // 每页最大数据变更
-            handleSizeChange (val) {
+            handleSizeChange(val) {
                 this.listQuery.limit = val
                 this.getList()
             },
             // 当前页变更
-            handleCurrentChange (val) {
+            handleCurrentChange(val) {
                 this.listQuery.page = val
                 this.getList()
             },
             // 输入框筛选
-            inputChange () {
+            inputChange() {
                 this.loading = true
                 this.listQuery.page = 1
                 let td = []
@@ -341,7 +320,7 @@
                 this.getList()
             },
             // 初始化筛选条件
-            filtersdata (column) {
+            filtersdata(column) {
                 let len = this.tableData.length
                 let filters = new Set()
                 for (let i = 0; i < len; i++) {
@@ -363,7 +342,7 @@
                 return filtersrst
             },
             // 行点击
-            rowClick (row) {
+            rowClick(row) {
                 //alert(row[this.rowid])
                 this.$store.commit('global/SET_OPERATEID', row[this.rowid])
 
@@ -378,15 +357,15 @@
                 this.$emit('rowClick', row)
             },
             // checkbox选中状态变更
-            handleSelectionChange (val) {
+            handleSelectionChange(val) {
                 //alert(val[0].folderid)
                 this.selectedList = val
                 this.$emit('handleSelectionChange', this.selectedList)
             },
-            setCurrentRow (row) {
+            setCurrentRow(row) {
                 this.$refs.eltable.setCurrentRow(row)
             },
-            getNewActionAuth () {
+            getNewActionAuth() {
                 this.$store
                     .dispatch('tableStore/getNewActionAuth')
                     .then(response => {
@@ -397,7 +376,7 @@
                     })
             }
         },
-        mounted () {
+        mounted() {
             this.totaldata = this.tableData
             this.getList()
             this.getNewActionAuth()
@@ -413,16 +392,16 @@
             }
         },
         watch: {
-            data (value) {
+            data(value) {
                 this.totaldata = this.tableData
                 this.getList()
                 this.tableFilter([])
                 this.inputChange()
             },
-            hasEditBtn (val) {
+            hasEditBtn(val) {
                 this.hasEditButtonIn = val
             },
-            selectList (val) {
+            selectList(val) {
                 if (this.showSelection) {
                     for (let value of val) {
                         this.$refs['eltable'].toggleRowSelection(value, true)
