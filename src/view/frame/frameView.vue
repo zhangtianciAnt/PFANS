@@ -479,14 +479,14 @@
 
 <style>
   .appView {
-    position: absolute;
-    width:85%;
-    transition: transform 0.3s ease-out;
+    position: relative;
+    width:100%;
+    transition: transform 0.7s ease-out;
   }
-  .slide-left-enter{
-    transform: translate(100%, 0);
-  }
+  .slide-left-enter-active{
+       transform: translate(100%, 0%);
+     }
   .slide-left-leave-active{
-    transform: translate(15%, 0);
+    transform: translate(-100%, 0%);
   }
 </style>
