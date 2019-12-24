@@ -10,7 +10,7 @@ module.exports = {
     error_005: '该账号不存在',
   },
   help: {
-    name: '帮助中心',
+    name: '个人中心',
   },
   notice: {
     name: '消息中心',

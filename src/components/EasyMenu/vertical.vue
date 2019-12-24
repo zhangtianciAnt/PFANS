@@ -1,27 +1,27 @@
 <template>
   <div>
     <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router :active-text-color="activeTextColor" :collapse="isCollapse">
-      <el-submenu v-for="ob in data" v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0" :index="ob._id" :key="ob._id" >
+      <el-submenu v-for="ob in data" v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0" :index="ob._id" :key="ob._id" v-show="ob.menuvisible">
         <template slot="title">
           <i :class="ob.menuicon" v-if="ob.menuicon"></i>
           <span>{{$t(ob.name)}}</span>
         </template>
-        <el-submenu v-for="obi in ob.children" v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0" :index="obi._id" :key="obi._id" >
+        <el-submenu v-for="obi in ob.children" v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0" :index="obi._id" :key="obi._id" v-show="obi.menuvisible">
           <template slot="title">
             <i :class="obi.menuicon" v-if="obi.menuicon"></i>
             <span>{{$t(obi.name)}}</span>
           </template>
-          <el-menu-item v-for="cobi in obi.children" v-if="cobi.menuvisible" :key="cobi._id" :index="cobi.menuurl">
+          <el-menu-item v-for="cobi in obi.children" v-if="cobi.menuvisible" :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible">
             <i :class="cobi.menuicon" v-if="cobi.menuicon"></i>
             <span>{{$t(cobi.name)}}</span>
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else :key="obi._id" :index="obi.menuurl">
+        <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible">
           <i :class="obi.menuicon" v-if="obi.menuicon"></i>
           <span>{{$t(obi.name)}}</span>
         </el-menu-item>
       </el-submenu>
-      <el-menu-item v-else :index="ob.menuurl">
+      <el-menu-item v-else :index="ob.menuurl" v-show="ob.menuvisible">
         <i :class="ob.menuicon" v-if="ob.menuicon"></i>
         <span>{{$t(ob.name)}}</span>
       </el-menu-item>
