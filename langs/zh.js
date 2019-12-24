@@ -106,6 +106,7 @@ module.exports = {
     error_date1: '离职日期须大于申请日期30天',
     error_checkdatetype: '当天存在日期样式，请重新选择！',
     error_checkerror: '当天无可删除数据，请重新选择！',
+    error_attendancesetting: '请先设定公司考勤数据！',
   },
   menu: {
     homePageManagement: '首页',
@@ -878,7 +879,10 @@ module.exports = {
     PFANS1025VIEW_PJNAMEJAPANESE:'PJ名(和文)',
     PFANS1025VIEW_PJNAMECHINESE:'PJ名(中文)',
     PFANS1025VIEW_CURRENCYFORMAT:'通貨形式',
-
+    PFANS1033VIEW_VERIFICATION: '検証契約',
+    PFANS1033VIEW_KEEPITSECRET: '秘密保持契約',
+    PFANS1033VIEW_INDENTURE: 'リース契約',
+    PFANS1033VIEW_SETUPINDENTURE: '定形外契約（売買、サービス、賃貸、工事など）',
     PFANS1036FORMVIEW_PERSONNELPLAN: '人員計画',
     PFANS1036FORMVIEW_CENTER: 'センター',
     PFANS1036FORMVIEW_GROUP: '計画収支単位名',

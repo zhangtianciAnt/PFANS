@@ -6,71 +6,226 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
                  style="padding:2rem">
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:10.14rem" @getUserids="getUserids"></user>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="errorrapplicationdate" :label="$t('label.application_date')"
-                            prop="application_date">
-                <el-date-picker
-                  :disabled="!disable"
-                  style="width:11rem"
-                  type="date"
-                  v-model="form.application_date">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :error="errorrworktime" :label="$t('label.PFANS2014VIEW_HOURS')" prop="worktime">
-                <el-time-select
-                  :error="errorrworktime"
-                  :disabled="!disable"
-                  :picker-options="{
-                    start: '00:00',
-                    step: '00:15',
-                    end: '23:45'
-                  }"
-                  style="width:11rem"
-                  v-model="form.worktime">
-                </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="errorrimplementdate" :label="$t('label.PFANS2014FORMVIEW_STARTDATE')"
-                            prop="implement_date">
-                <el-date-picker
-                  startDate
-                  :disabled="!disable"
-                  style="width:11rem"
-                  type="date"
-                  v-model="form.implement_date">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
+          <el-tabs v-model="activeName">
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESS')" name="first">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESS')}}</span>
+                </el-col>
+              </el-row>
+<!--              <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">-->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.center')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.group')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="error" :label="$t('label.PFANS2007VIEW_NAME')" prop="user_id">
+                    <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                          style="width:10.14rem" @getUserids="getUserids"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_SERVICEPOSITION')">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.serviceposition" maxlength=""></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+<!--              </el-table>-->
+            </el-tab-pane>
+
+
+
+
+
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_FACETOFACE')" name="second">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_FACETOFACE')}}</span>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.center')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.centere_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.group')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.groupe_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <el-input :disabled="true" style="width:11rem" v-model="form.teame_id"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="error" :label="$t('label.PFANS2007VIEW_NAME')" prop="user">
+                    <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                          style="width:10.14rem" @getUserids="getUserids"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_INTERVIEWDAY')">
+                    <el-date-picker
+                      :disabled="!disable"
+                      style="width:11rem"
+                      type="date"
+                      v-model="form.interviewday">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')" >
+                  <el-switch :disabled="!disable"
+                             style="width:11rem"
+                             v-model="informationpc"
+                             active-value="0"
+                             inactive-value="1"
+                  ></el-switch>
+                </el-form-item>
+              </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')">
+                    <el-switch :disabled="!disable"
+                               style="width:11rem"
+                               v-model="informationno"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')">
+                    <el-switch :disabled="!disable"
+                               style="width:11rem"
+                               v-model="management"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')">
+                    <el-switch :disabled="!disable"
+                               style="width:11rem"
+                               v-model="healthofmembers"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')">
+                    <el-switch :disabled="!disable"
+                               style="width:11rem"
+                               v-model="customers"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')">
+                    <el-switch :disabled="!disable"
+                               style="width:11rem"
+                               v-model="objectchina"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')" name="third">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}
+                  </span>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.objective"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_LOOKFORWARD')">
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.lookforward"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_HEALTHCONDITION')" name="fourth">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_HEALTHCONDITION')}}
+                  </span>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.kolei"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_RECENTLY')">
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.recently"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_NOW')">
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.now"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_EMERGENCYCONTACT')" name="fifth">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_EMERGENCYCONTACT')}}
+                  </span>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')" name="Sixthly">
+              <el-row>
+                <el-col>
+                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')}}
+                  </span>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+
+          </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -356,13 +511,6 @@
                       }
                     }
                   }
-                }
-                else{
-                    Message({
-                        message: this.$t('normal.error_attendancesetting'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
                 }
                 this.loading = false;
               })
