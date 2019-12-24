@@ -8,18 +8,14 @@
         <el-col :span="18">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
-              <el-col :span="8" style="text-align: right">
-                <EasyNotice url="/PFANS8002View"></EasyNotice>
-              </el-col>
-              <el-col :span="8" style="text-align: center">
+              <el-col :span="24" style="text-align: right;padding-right: 20px">
                 <EasyAvatar>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item><router-link to="/PFANS8001View">修改密码</router-link></el-dropdown-item>
+                    <el-dropdown-item><router-link to="/PFANS8001View">{{$t('title.PFANS8001VIEW')}}</router-link></el-dropdown-item>
+                    <el-dropdown-item><router-link to="/PFANS8002View">{{$t('notice.name')}}</router-link></el-dropdown-item>
+                    <el-dropdown-item><router-link to="/">{{$t('logout.name')}}</router-link></el-dropdown-item>
                   </el-dropdown-menu>
                 </EasyAvatar>
-              </el-col>
-              <el-col :span="8" style="text-align: left">
-                <easy-logout></easy-logout>
               </el-col>
             </div>
           </EasyHeader>
