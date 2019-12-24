@@ -39,7 +39,7 @@
         </el-col>
         <el-col :span="21">
           <el-main class="sub_bg_color_grey" style="padding: 1rem">
-            <transition :name="direction" >
+            <transition name="slide-left" >
             <router-view class="appView"/>
             </transition>
           </el-main>
@@ -87,8 +87,6 @@
     },
     data() {
       return {
-
-        direction: "slide-right",
         menuLoading: false,
         userPage: "/personalCenter",
         defaultcount: 0, //消息条数
@@ -474,17 +472,6 @@
         } else {
           this.menudata = [];
         }
-      },
-      $route(to, from) {
-        const toDepth = to.path.split("/").length;
-        const fromDepth = from.path.split("/").length;
-        if (to.path == "/") {
-          this.direction = "slide-right";
-        } else if (from.path == "/") {
-          this.direction = "slide-left";
-        }else{
-          this.direction = toDepth < fromDepth ? "slide-right" : "slide-left";
-        }
       }
     }
   };
@@ -501,11 +488,5 @@
   }
   .slide-left-leave-active{
     transform: translate(15%, 0);
-  }
-  .slide-right-enter {
-    transform: translate(15%, 0);
-  }
-  .slide-right-leave-active{
-    transform: translate(100%, 0);
   }
 </style>
