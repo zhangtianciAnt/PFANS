@@ -8,7 +8,13 @@
         <el-col :span="18">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
-              <el-col :span="24" style="text-align: right;padding-right: 20px">
+              <el-col :span="8"  style="text-align: right">
+                <EasyNotice url="/PFANS8002View"></EasyNotice>
+              </el-col>
+              <el-col :span="8"  style="text-align: center">
+                <el-avatar icon="el-icon-user-solid" size="medium" style="background-color: transparent"></el-avatar>
+              </el-col>
+              <el-col :span="8" style="text-align: left">
                 <easy-logout></easy-logout>
               </el-col>
             </div>
