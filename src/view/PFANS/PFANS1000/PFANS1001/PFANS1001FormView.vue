@@ -119,8 +119,9 @@
           this.title = 'title.PFANS1010VIEW';
           this.dispatch('PFANS1001Store/getCommunication');
         } else if (val === 11) {
-          this.row = 'judgementid';
+          this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';
+          this.dispatch('PFANS1001Store/getOffshore');
         }
       },
       dispatch(val) {
@@ -178,7 +179,7 @@
         } else if (this.$route.params.title === 10) {
           this.rowid = row.communication_id;
         } else if (this.$route.params.title === 11) {
-          this.rowid = row.judgementid;
+          this.rowid = row.offshore_id;
         }
       },
       buttonClick(val) {
@@ -204,7 +205,7 @@
         } else if (this.$route.params.title === 10) {
           letname = 'PFANS1010FormView';
         } else if (this.$route.params.title === 11) {
-          letname = 'PFANS1004FormView';
+          letname = 'PFANS1011FormView';
         }
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {

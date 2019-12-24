@@ -97,7 +97,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1014VIEW_FILENAME')" prop="filename">
+              <el-form-item :label="$t('label.PFANS1034VIEW_FILENAME')" prop="filename">
                 <el-input v-model="form.filename" :disabled="!disable" style="width: 11rem" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
@@ -194,7 +194,7 @@
                     filename: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1014VIEW_FILENAME'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1034VIEW_FILENAME'),
                             trigger: 'blur',
                         },
                     ],

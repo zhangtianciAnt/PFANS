@@ -1,14 +1,15 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         @start="start"
-                         @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
                  style="padding: 2rem">
           <el-row>
-            <el-col :span="10">
-              <div class="sub_color_black">{{$t('label.PFANS6001VIEW_INTERVIEWRECORD')}}</div>
+            <el-col :span="22">
+              <div class="sub_color_black" style="font-size: 30px ; text-align: center">
+                {{$t('label.PFANS6001VIEW_INTERVIEWRECORD')}}
+              </div>
             </el-col>
           </el-row>
           <!--            第一行-->
@@ -386,7 +387,23 @@
             };
         },
         mounted() {
-
+            if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6001Store/cooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
+                    .then(response => {
+                        this.form = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            }
         },
         created() {
             this.disabled = this.$route.params.disabled;
@@ -453,7 +470,7 @@
                         this.loading = true;
                         if (this.$route.params._id) {
                             this.$store
-                                .dispatch('PFANS6002Store/updatecooperinterviewApply', this.form)
+                                .dispatch('PFANS6001Store/updatecooperinterviewApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
@@ -481,7 +498,7 @@
                             this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS6002Store/createcooperinterviewApply', this.form)
+                                .dispatch('PFANS6001Store/createcooperinterviewApply', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;

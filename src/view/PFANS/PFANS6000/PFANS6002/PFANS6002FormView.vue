@@ -9,7 +9,9 @@
           <el-row>
             <!--            客户名称-->
             <el-col :span="8">
-              <div class="sub_color_black">{{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}</div>
+              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
+                {{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}
+              </div>
             </el-col>
           </el-row>
           <!--            第一行-->
@@ -57,7 +59,9 @@
           <el-row>
             <!--            项目联络人-->
             <el-col :span="8">
-              <div class="sub_color_black">{{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}</div>
+              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
+                {{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}
+              </div>
             </el-col>
           </el-row>
           <!--            第四行-->
@@ -105,7 +109,9 @@
           <el-row>
             <!--            共通事务联络人-->
             <el-col :span="8">
-              <div class="sub_color_black">{{$t('label.PFANS6002VIEW_COMMONTPERSON')}}</div>
+              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
+                {{$t('label.PFANS6002VIEW_COMMONTPERSON')}}
+              </div>
             </el-col>
           </el-row>
           <el-row>
@@ -135,7 +141,8 @@
           <el-row>
             <!--            地址-->
             <el-col :span="8">
-              <div class="sub_color_black">{{$t('label.PFANS6002VIEW_ADDRESS')}}</div>
+              <div class="sub_color_blue" style="height:40px ; font-size: 20px">{{$t('label.PFANS6002VIEW_ADDRESS')}}
+              </div>
             </el-col>
           </el-row>
           <!--          第八行-->
@@ -149,14 +156,14 @@
             </el-col>
             <!--            日文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="comjapanese">
+              <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="addjapanese">
                 <el-input :disabled="disabled" style="width: 11rem"
                           v-model="form.addjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="comenglish">
+              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="addenglish">
                 <el-input :disabled="disabled" style="width: 11rem"
                           v-model="form.addenglish"></el-input>
               </el-form-item>
@@ -226,6 +233,7 @@
     import PFANS6002View from "../PFANS6002/PFANS6002View.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
+    import {downLoadUrl, uploadUrl} from '@/utils/customize';
     import {telephoneNumber} from '@/utils/validate';
     import {validateEmail} from "../../../../utils/validate";
 
@@ -288,6 +296,7 @@
                     perscale: '',
                     website: '',
                     remarks: '',
+                    uploadfile: '',
                 },
                 //人员规模
                 code1: 'BP007',
@@ -432,10 +441,39 @@
                         },
                     ],
                 },
+                fileList: [],
+                upload: uploadUrl(),
             };
         },
         mounted() {
-
+            if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6002Store/getcustomerinforApplyOne', {"customerinfor_id": this.$route.params._id})
+                    .then(response => {
+                        this.form = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        if (this.form.uploadfile != "") {
+                            let uploadfile = this.form.uploadfile.split(";");
+                            for (var i = 0; i < uploadfile.length; i++) {
+                                if (uploadfile[i].split(",")[0] != "") {
+                                    let o = {};
+                                    o.name = uploadfile[i].split(",")[0];
+                                    o.url = uploadfile[i].split(",")[1];
+                                    this.fileList.push(o)
+                                }
+                            }
+                        }
+                        this.loading = false;
+                    })
+            }
         },
         created() {
             this.disabled = this.$route.params.disabled;
@@ -453,6 +491,62 @@
         methods: {
             changeperscale(val) {
                 this.form.perscale = val;
+            },
+            workflowState(val) {
+                if (val.state === '1') {
+                    this.form.status = '3';
+                } else if (val.state === '2') {
+                    this.form.status = '4';
+                }
+                this.buttonClick("update");
+            },
+            start() {
+                this.form.status = '2';
+                this.buttonClick("update");
+            },
+            end() {
+                this.form.status = '0';
+                this.buttonClick("update");
+            },
+            fileError(err, file, fileList) {
+                Message({
+                    message: this.$t("normal.error_04"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
+            },
+            fileRemove(file, fileList) {
+                this.fileList = [];
+                this.form.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    o.url = item.url;
+                    this.fileList.push(o);
+                    this.form.uploadfile += item.name + "," + item.url + ";"
+                }
+            },
+            fileDownload(file) {
+                if (file.url) {
+                    var url = downLoadUrl(file.url);
+                    window.open(url);
+                }
+
+            },
+            fileSuccess(response, file, fileList) {
+                this.fileList = [];
+                this.form.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    if (!item.url) {
+                        o.url = item.response.info;
+                    } else {
+                        o.url = item.url;
+                    }
+                    this.fileList.push(o);
+                    this.form.uploadfile += o.name + "," + o.url + ";"
+                }
             },
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {

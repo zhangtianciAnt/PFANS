@@ -357,6 +357,13 @@
                     }
                   }
                 }
+                else{
+                    Message({
+                        message: this.$t('normal.error_attendancesetting'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                }
                 this.loading = false;
               })
               .catch(error => {

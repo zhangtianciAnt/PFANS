@@ -97,7 +97,7 @@
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS6002Store/getcooperinterview')
+                .dispatch('PFANS6001Store/getcooperinterview')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
                         let lst = getUserInfo(response[j].coopername);
