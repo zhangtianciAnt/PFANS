@@ -1,31 +1,19 @@
 import {
   get,
   selectById,
-  update,
+  update
+} from './PFANS1032Api'
 
-} from './PFANS1025Api'
-
-const PFANS1025Store = {
+const PFANS1032Store = {
   namespaced: true,
-  state: {},
-  mutations: {},
+  state: {
+  },
+  mutations: {
+  },
   actions: {
     get() {
       return new Promise((resolve, reject) => {
         get().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    selectById({commit}, data) {
-      return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -49,8 +37,28 @@ const PFANS1025Store = {
         })
       })
     },
-
+    selectById({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
-};
+}
+export default PFANS1032Store;
 
-export default PFANS1025Store;
+
+
+
+
+
+
+
+

@@ -76,25 +76,26 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')">
-                      <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.openingdate">
+
+                    <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
+                      <el-date-picker
+                        v-model="form.developdate"
+                        type="daterange"
+                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                        :start-placeholder="$t('label.startdate')"
+                        :end-placeholder="$t('label.enddate')"
+                        style="width: 20rem">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')">
-                      <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.enddate">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
                       <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.deliverydate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                       <dicselect :code="code2"
@@ -112,6 +113,11 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+              </div>
+              <div>
+
+
+
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
@@ -219,13 +225,128 @@
 
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_REMARKS')">
+                    <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
                       <el-input  :disabled="!disable" style="width:11rem" v-model="form.remarks"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
-
               </div>
+              <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_grey height"
+                        show-summary>
+                <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" >
+                  <template slot-scope="scope">
+                    <org  :orglist="scope.row.grouporglist" orgtype="1" :disabled="!disabled" :error="errorgroup" style="width: 9rem" @getOrgids="getGroupId"></org>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.member"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.community"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"  width="150"  prop="outsource">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.outsource"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center"  width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.outcommunity"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.worknumber"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.awardmoney"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="!disable"
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="!disable"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -238,16 +359,18 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from "../../../components/user.vue";
   import dicselect from '../../../components/dicselect';
+  import org from "../../../components/org";
 
 
     export default {
-        name: "PFANS1025FormView",
+      name: "PFANS1025FormView",
       components: {
         EasyNormalContainer,
         user,
+        org,
         dicselect
       },
-      data(){
+      data() {
         var checkuser = (rule, value, callback) => {
           if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === "undefined") {
             this.error = this.$t('normal.error_09') + this.$t('label.user_name');
@@ -269,54 +392,117 @@
             callback();
           }
         };
-          return{
-            activeName: 'first',
-            diable:false,
-            error: '',
-            userlist: '',
-            code1:'PJ010',
-            code2:'HT005',
-
-            form:{
-              contractnumber:'',
-              contracttype:'',
-              entrustjapanese:'',
-              entrustchinese:'',
-              enplacejapanese:'',
-              enplacechinese:'',
-              deployment:'',
-              pjnamejapanese:'',
-              pjnamechinese:'',
-              enddate:'',
-              firstdetails:'',
-              deliverydate:'',
-              currencyformat:'',
-              claimamount:'',
-              user_id:'',
-              extrinsic:'',
-              equipment:'',
-              telephone:'',
-              commdepartment:'',
-              commission:'',
-              plan:'',
-              valuation:'',
-              individual:'',
-              plannumber:'',
-              valuationnumber:'',
-              remarks:'',
-            },
-            rules: {
-              user_id: [{
-                required: true,
-                validator: checkuser,
-                trigger: 'change'
-              }],
-              telephone: [{
-                validator: checktele,
-                trigger: 'change'
-              }],
+        return {
+          activeName: 'first',
+          disabled: true,
+          error: '',
+          userlist: '',
+          code1: 'PJ010',
+          code2: 'HT005',
+          baseInfo: {},
+          form: {
+            contractnumber: '',
+            contracttype: '',
+            entrustjapanese: '',
+            entrustchinese: '',
+            enplacejapanese: '',
+            enplacechinese: '',
+            deployment: '',
+            pjnamejapanese: '',
+            pjnamechinese: '',
+            developdate:'',
+            enddate: '',
+            firstdetails: '',
+            deliverydate: '',
+            currencyformat: '',
+            claimamount: '',
+            user_id: '',
+            extrinsic: '',
+            equipment: '',
+            telephone: '',
+            commdepartment: '',
+            commission: '',
+            plan: '',
+            valuation: '',
+            individual: '',
+            plannumber: '',
+            valuationnumber: '',
+            remarks: '',
+          },
+          tableT: [{
+            awarddetail_id: '',
+            award_id: '',
+            budgetcode: '',
+            depart: '',
+            member: '',
+            community: '',
+            outsource: '',
+            outcommunity: '',
+            worknumber: '',
+            awardmoney: '',
+            rowindex: '',
+          }],
+          rules: {
+            user_id: [{
+              required: true,
+              validator: checkuser,
+              trigger: 'change'
+            }],
+            telephone: [{
+              validator: checktele,
+              trigger: 'change'
+            }],
+          },
+          buttonList: []
+        }
+      },
+      mounted() {
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1025tore/selectById', {'award_id': this.$route.params._id})
+            .then(response => {
+              this.form = response.award;
+              if (response.awarddetail.length > 0) {
+                this.tableT = response.awarddetail
+              }
+              this.userlist = this.form.user_id;
+              this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.awarddetail = JSON.parse(JSON.stringify(this.tableT));
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
+        } else {
+          this.userlist = this.$store.getters.userinfo.userid;
+        }
+      },
+      created(){
+        if(!this.$route.params.disabled){
+          this.buttonList=[
+            {
+              key: 'generate',
+              name: 'button.generate',
+              disabled: false,
             }
-          }
+          ]
+        }else {
+          this.buttonList=[
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ]
+        }
+        this.disable = this.$route.params.disabled;
       },
       methods: {
         getUserids(val) {
@@ -328,18 +514,129 @@
             this.error = '';
           }
         },
-        getcurrencyformat(val){
-          this.form.currencyformat=val;
+        getcurrencyformat(val) {
+          this.form.currencyformat = val;
         },
-        getextrinsic(val){
-          thhis.form.extrinsic=val;
+        getextrinsic(val) {
+          thhis.form.extrinsic = val;
         },
-        getvaluation(val){
-          this.form.valuation=val;
+        getvaluation(val) {
+          this.form.valuation = val;
         },
-        getindividual(val){
-          this.form.individual=val;
+        getindividual(val) {
+          this.form.individual = val;
         },
+        deleteRow(index, rows) {
+          if (rows.length > 1) {
+            rows.splice(index, 1);
+          } else {
+            this.tableT = [{
+              budgetcode: '',
+              depart: '',
+              member: '',
+              community: '',
+              outsource: '',
+              outcommunity: '',
+              worknumber: '',
+              awardmoney: '',
+            }]
+          }
+        },
+        addRow() {
+          this.tableT.push({
+            awarddetail_id: '',
+            award_id: '',
+            budgetcode: '',
+            depart: '',
+            member: '',
+            community: '',
+            outsource: '',
+            outcommunity: '',
+            worknumber: '',
+            awardmoney: '',
+            rowindex: '',
+          })
+        },
+        getsummaries(param) {
+          const {columns, data} = param;
+          const sums = [];
+          columns.forEach((column, index) => {
+            if (index === 0) {
+              sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+              return;
+            }
+            const values = data.map(item => Number(item[column.property]));
+            if (!values.every(value => isNaN(value))) {
+              sums[index] = values.reduce((prev, curr) => {
+                const value = Number(curr);
+                if (!isNaN(value)) {
+                  return prev + curr;
+                } else {
+                  return prev;
+                }
+              }, 0);
+            } else {
+              sums[index] = '--'
+            }
+          });
+          this.gettotal(sums);
+          return sums;
+        },
+        buttonClick(val) {
+          this.$refs["reff"].validate(valid =>{
+            if(valid){
+              this.baseInfo={};
+              this.form.user_id=this.userlist;
+              this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.awarddetail=[];
+              for(let i=0;i<this.tableT.length;i++){
+                if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member!==""||this.tableT[i].community!==""
+                  ||this.tableT[i].outsource!==""||this.tableT[i].outcommunity!==""||this.tableT[i].worknumber!==""||this.tableT[i].awardmoney!==""){
+                  this.baseInfo.awarddetail.push({
+                    awarddetail_id:this.tableT[i].awarddetail_id,
+                    award_id:this.tableT[i].award_id,
+                    budgetcode:this.tableT[i].budgetcode,
+                    depart:this.tableT[i].depart,
+                    member:this.tableT[i].member,
+                    community:this.tableT[i].community,
+                    outsource:this.tableT[i].outsource,
+                    outcommunity:this.tableT[i].outcommunity,
+                    worknumber:this.tableT[i].worknumber,
+                    awardmoney:this.tableT[i].awardmoney,
+                    rowindex:this.tableT[i].rowindex,
+                  })
+                }
+              }
+            }
+          });
+          if(this.$route.params._id){     //编辑
+            this.baseInfo.award.award_id = this.$route.params._id;
+          this.$store
+            .dispatch('PFANS1025Store/update',this.baseInfo)
+            .then(response =>{
+              this.data=response;
+              this.loading=false;
+              if( val !== "update"){
+                Message({
+                  message: this.$t('normal.success_02'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if(this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading=false;
+            })
+          }
+        }
       }
     }
 </script>

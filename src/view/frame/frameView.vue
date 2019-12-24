@@ -11,9 +11,9 @@
               <el-col :span="24" style="text-align: right;padding-right: 20px">
                 <EasyAvatar>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item><router-link to="/PFANS8001View">{{$t('title.PFANS8001VIEW')}}</router-link></el-dropdown-item>
-                    <el-dropdown-item><router-link to="/PFANS8002View">{{$t('notice.name')}}</router-link></el-dropdown-item>
-                    <el-dropdown-item><router-link to="/">{{$t('logout.name')}}</router-link></el-dropdown-item>
+                    <router-link to="/PFANS8001View"><el-dropdown-item icon="el-icon-edit">{{$t('title.PFANS8001VIEW')}}</el-dropdown-item></router-link>
+                    <router-link to="/PFANS8002View"><el-dropdown-item icon="el-icon-bell">{{$t('notice.name')}}</el-dropdown-item></router-link>
+                    <router-link to="/"><el-dropdown-item icon="el-icon-switch-button">{{$t('logout.name')}}</el-dropdown-item></router-link>
                   </el-dropdown-menu>
                 </EasyAvatar>
               </el-col>
@@ -39,7 +39,7 @@
         </el-col>
         <el-col :span="21">
           <el-main class="sub_bg_color_grey" style="padding: 1rem">
-            <transition name="slide-left" >
+            <transition name="slide-left">
             <router-view class="appView"/>
             </transition>
           </el-main>
@@ -484,7 +484,7 @@
     transition: transform 0.7s ease-out;
   }
   .slide-left-enter-active{
-       transform: translate(100%, 0%);
+       transform: translate(102%, 0%);
      }
   .slide-left-leave-active{
     transform: translate(-100%, 0%);

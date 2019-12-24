@@ -12,3 +12,9 @@ export function update() {
     method: 'post',
   })
 }
+export function selectById() {
+  return request({
+    url: 'award/selectById',
+    method: 'get',
+  })
+}
