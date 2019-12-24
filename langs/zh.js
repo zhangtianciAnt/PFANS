@@ -106,6 +106,7 @@ module.exports = {
     error_date1: '离职日期须大于申请日期30天',
     error_checkdatetype: '当天存在日期样式，请重新选择！',
     error_checkerror: '当天无可删除数据，请重新选择！',
+    error_attendancesetting: '请先设定公司考勤数据！',
   },
   menu: {
     homePageManagement: '首页',
