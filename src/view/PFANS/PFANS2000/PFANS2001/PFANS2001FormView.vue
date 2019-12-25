@@ -438,9 +438,6 @@
                       if (this.form.requirements === 'PR032005') {
                         this.show2 = true;
                       }
-                      if (this.form.status === '2') {
-                        this.disable = false;
-                      }
                       this.loading = false;
                     })
                     .catch(error => {
