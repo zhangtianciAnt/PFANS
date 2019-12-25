@@ -1,8 +1,8 @@
 import {
-  createcustomerinforApply,
   getcustomerinfor,
   getcustomerinforApplyOne,
   updatecustomerinforApply,
+  createcustomerinforApply,
 } from './PFANS6002Api'
 
 const PFANS6002Store = {

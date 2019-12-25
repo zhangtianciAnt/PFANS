@@ -1,8 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         @start="start"
-                         @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
                  style="padding: 2rem">
@@ -19,21 +18,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="supchinese">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.supchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="supjapanese">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.supjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="supenglish">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.supenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -42,15 +41,15 @@
           <el-row>
             <!--            简称-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')" prop="contactinformation">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+              <el-form-item :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')" prop="abbreviation">
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.abbreviation"></el-input>
               </el-form-item>
             </el-col>
             <!--            负责人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1002VIEW_USERID')" prop="liableperson">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.liableperson"></el-input>
               </el-form-item>
             </el-col>
@@ -69,21 +68,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.prochinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.projapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="contactinformation">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.proenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -93,14 +92,14 @@
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.protelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        邮箱地址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
@@ -118,21 +117,21 @@
             <!--            共通事务联络人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002VIEW_COMMONTPERSON')" prop="commontperson">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.commontperson"></el-input>
               </el-form-item>
             </el-col>
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.comtelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        电子邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.comnemail"></el-input>
               </el-form-item>
             </el-col>
@@ -150,21 +149,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="addchinese">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.addchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="comjapanese">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.addjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="comenglish">
-                <el-input :disabled="disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.addenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -177,7 +176,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.perscale"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeperscale"
                   style="width: 11rem">
@@ -186,8 +185,8 @@
             </el-col>
             <!--            网址-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')" prop="website">
-                <el-input :disabled="disabled" style="width: 11rem"
+              <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
+                <el-input :disabled="!disabled" style="width: 11rem"
                           v-model="form.website"></el-input>
               </el-form-item>
             </el-col>
@@ -197,7 +196,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="disabled" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -271,6 +270,7 @@
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS6003FORMVIEW",
+                disabled: false,
                 buttonList: [],
                 multiple: false,
                 form: {
@@ -300,6 +300,7 @@
                 },
                 //人员规模
                 code1: 'BP007',
+                disabled: true,
                 rules: {
                     // 中文（供应商名称）
                     supchinese: [
@@ -324,7 +325,7 @@
                             trigger: 'change'
                         }],
                     // 简称（客户名称）
-                    contactinformation: [
+                    abbreviation: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_ABBREVIATION'),
@@ -355,7 +356,7 @@
                         },
                     ],
                     // 英文(项目联络人)
-                    education: [
+                    proenglish: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
@@ -432,14 +433,6 @@
                             trigger: 'change'
                         },
                     ],
-                    // 网址
-                    website: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
-                            trigger: 'change'
-                        },
-                    ],
                 },
                 fileList: [],
                 upload: uploadUrl(),
@@ -491,22 +484,6 @@
         methods: {
             changeperscale(val) {
                 this.form.perscale = val;
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
             },
             fileError(err, file, fileList) {
                 Message({

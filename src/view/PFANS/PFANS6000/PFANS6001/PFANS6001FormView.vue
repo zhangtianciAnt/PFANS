@@ -17,7 +17,8 @@
             <!--            姓名-->
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="coopername">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem" v-model="form.coopername"></el-input>
+                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem"
+                          v-model="form.coopername"></el-input>
               </el-form-item>
             </el-col>
             <!--            性别-->
@@ -26,7 +27,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.sex"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesex"
                   style="width: 11rem"
@@ -37,7 +38,7 @@
             <!--            联系方式-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -48,7 +49,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   @change="getAge"
                   style="width: 11rem"
                   type="date"
@@ -67,7 +68,7 @@
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
                 <org
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :orglist="form.suppliername"
                   :error="errorsuppliername"
                   @getOrgids="getSuppliername"
@@ -82,7 +83,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -91,7 +92,7 @@
                 <dicselect
                   :code="code2"
                   :data="form.education"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeeducation"
                   style="width: 11rem"
@@ -105,7 +106,7 @@
             <!--        经验特长-->
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="disabled" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
                           v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
@@ -117,7 +118,7 @@
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
                 <org
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :orglist="form.interviewdep"
                   :error="errorinterviewdep"
                   @getOrgids="getInterviewDep"
@@ -130,7 +131,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')" prop="interview_date">
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   style="width:11rem"
                   type="date"
                   v-model="form.interview_date">
@@ -143,7 +144,7 @@
                 <dicselect
                   :code="code3"
                   :data="form.result"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeresult"
                   style="width: 11rem"
@@ -160,7 +161,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.technology"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changetechnology"
                   style="width: 11rem">
@@ -173,7 +174,7 @@
                 <dicselect
                   :code="code4"
                   :data="form.rn"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changern"
                   style="
@@ -187,7 +188,7 @@
                 <dicselect
                   :code="code6"
                   :data="form.whetherentry"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changewhetherentry"
                   style="width: 11rem">
@@ -200,7 +201,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="disabled" :rows="2" style="width: 93% ; height: 10px" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 93% ; height: 10px" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -246,11 +247,11 @@
                 title: "title.PFANS6001VIEW",
                 errorinterviewdep: '',
                 errorsuppliername: '',
+                disabled: false,
                 buttonList: [],
                 multiple: false,
                 form: {
                     cooperinterview_id: '',
-                    type: this.$t('menu.PFANS6001'),
                     coopername: '',
                     sex: '',
                     contactinformation: '',
@@ -280,6 +281,7 @@
                 code5: 'BP005',
                 //入职与否
                 code6: 'BP006',
+                disabled: true,
                 rules: {
                     // 姓名
                     coopername: [
