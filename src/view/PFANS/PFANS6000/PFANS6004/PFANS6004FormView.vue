@@ -10,7 +10,7 @@
             <!--            姓名-->
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="expname">
-                <el-input :disabled="disabled" maxlength='36' style="width: 11rem" v-model="form.expname"></el-input>
+                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem" v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
             <!--            性别-->
@@ -19,7 +19,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.sex"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesex"
                   style="width: 11rem"
@@ -32,7 +32,7 @@
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
                 <org
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :orglist="form.suppliername"
                   :error="errorsuppliername"
                   @getOrgids="getSuppliername"
@@ -48,7 +48,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   @change="getAge"
                   style="width: 11rem"
                   type="date"
@@ -68,7 +68,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -77,7 +77,7 @@
                 <dicselect
                   :code="code2"
                   :data="form.education"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeeducation"
                   style="width: 11rem"
@@ -94,7 +94,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.technology"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changetechnology"
                   style="width: 11rem">
@@ -107,7 +107,7 @@
                 <dicselect
                   :code="code4"
                   :data="form.rn"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changern"
                   style="
@@ -121,7 +121,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.operationform"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeoperationform"
                   style="width: 11rem">
@@ -137,7 +137,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.jobclassification"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changejobclassification"
                   style="width: 11rem">
@@ -148,7 +148,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')" prop="admissiontime">
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   style="width:11rem"
                   type="date"
                   v-model="form.admissiontime">
@@ -170,7 +170,7 @@
             <!--            退场与否-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
-                <el-switch :disabled="disabled"
+                <el-switch :disabled="!disabled"
                            @change="changeexits"
                            active-value="0"
                            inactive-value="1"
@@ -186,7 +186,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime" v-show="show">
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   style="width:11rem"
                   type="date"
                   v-model="form.exitime">
@@ -199,7 +199,7 @@
                 <dicselect
                   :code="code6"
                   :data="form.exitreason"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeexitreason"
                   style="width: 11rem">
@@ -212,7 +212,7 @@
                 <dicselect
                   :code="code7"
                   :data="form.alltechnology"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changealltechnology"
                   style="width: 11rem">
@@ -228,7 +228,7 @@
                 <dicselect
                   :code="code8"
                   :data="form.sitevaluation"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesitevaluation"
                   style="width: 11rem">
@@ -241,7 +241,7 @@
                 <dicselect
                   :code="code10"
                   :data="form.businessimpact"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changebusinessimpact"
                   style="width: 11rem">
@@ -254,7 +254,7 @@
                 <dicselect
                   :code="code9"
                   :data="form.countermeasure"
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changecountermeasure"
                   style="width: 11rem">
@@ -299,6 +299,7 @@
                 selectType: "Single",
                 title: "title.PFANS6004FORMVIEW",
                 errorsuppliername: '',
+                disabled: false,
                 buttonList: [],
                 multiple: false,
                 modelexits: '1',
@@ -345,6 +346,7 @@
                 code9: 'BP011',
                 //業務影響
                 code10: 'BP010',
+                disabled: true,
                 rules: {
                     // 姓名
                     expname: [
@@ -602,7 +604,6 @@
                         this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
                         this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
                         this.form.exitime = moment(this.form.exitime).format('YYYY-MM-DD');
-                        this.form.exits = this.modelexits;
                         this.loading = true;
                         this.form.exits = this.modelexits;
                         if (this.form.exits === '1') {

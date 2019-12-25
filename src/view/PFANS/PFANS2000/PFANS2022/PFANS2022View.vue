@@ -59,7 +59,7 @@
           {
             code: 'amoutmoney',
             label: 'label.PFANS2022VIEW_AMOUNT',
-            width: 120,
+            width: 130,
             fix: false,
             filter: true,
           },

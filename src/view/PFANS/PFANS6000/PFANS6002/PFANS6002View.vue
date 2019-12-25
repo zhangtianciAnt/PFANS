@@ -7,6 +7,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
+    import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS6002View',
@@ -37,7 +38,7 @@
                     },
                     {
                         //项目联络人
-                        code: 'projectperson',
+                        code: 'prochinese',
                         label: 'label.PFANS6002FORMVIEW_PROJECTPERSON',
                         width: 120,
                         fix: false,
@@ -69,7 +70,7 @@
                     },
                     {
                         //地址
-                        code: 'address',
+                        code: 'addchinese',
                         label: 'label.PFANS6002VIEW_ADDRESS',
                         width: 100,
                         fix: false,
@@ -99,15 +100,54 @@
                 .dispatch('PFANS6002Store/getcustomerinfor')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        let lst = getUserInfo(response[j].custchinese);
-                        response[j].custchinese = lst.custchinese;
-                        response[j].liableperson = lst.liableperson;
-                        response[j].projectperson = lst.prochinese;
-                        response[j].protelephone = lst.protelephone;
-                        response[j].commontperson = lst.comchinese;
-                        response[j].comtelephone = lst.comtelephone;
-                        response[j].address = lst.addchinese;
-                        response[j].perscale = lst.perscale;
+                        if (response[j].custchinese !== null && response[j].custchinese !== "") {
+                            let custchinese = getUserInfo(response[j].custchinese);
+                            if (custchinese) {
+                                response[j].custchinese = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].liableperson !== null && response[j].liableperson !== "") {
+                            let liableperson = getUserInfo(response[j].liableperson);
+                            if (liableperson) {
+                                response[j].liableperson = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].prochinese !== null && response[j].prochinese !== "") {
+                            let prochinese = getUserInfo(response[j].prochinese);
+                            if (prochinese) {
+                                response[j].prochinese = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].protelephone !== null && response[j].protelephone !== "") {
+                            let protelephone = getUserInfo(response[j].protelephone);
+                            if (protelephone) {
+                                response[j].protelephone = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].commontperson !== null && response[j].commontperson !== "") {
+                            let commontperson = getUserInfo(response[j].commontperson);
+                            if (commontperson) {
+                                response[j].commontperson = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].comtelephone !== null && response[j].comtelephone !== "") {
+                            let comtelephone = getUserInfo(response[j].comtelephone);
+                            if (comtelephone) {
+                                response[j].comtelephone = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].addchinese !== null && response[j].addchinese !== "") {
+                            let addchinese = getUserInfo(response[j].addchinese);
+                            if (addchinese) {
+                                response[j].addchinese = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].perscale !== null && response[j].perscale !== "") {
+                            let perscale = getDictionaryInfo(response[j].perscale);
+                            if (perscale != null) {
+                                response[j].perscale = perscale.value1;
+                            }
+                        }
                     }
                     this.data = response;
                     this.loading = false;
@@ -140,7 +180,7 @@
                         name: 'PFANS6002FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disabled: true
                         }
                     })
                 }
@@ -157,7 +197,7 @@
                         name: 'PFANS6002FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disabled: false
                         }
                     })
                 }
@@ -166,7 +206,7 @@
                         name: 'PFANS6002FormView',
                         params: {
                             _id: '',
-                            disabled: false
+                            disabled: true
                         }
                     })
                 }

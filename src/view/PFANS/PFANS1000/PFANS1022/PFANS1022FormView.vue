@@ -202,6 +202,7 @@
                 }
             };
             return {
+                index: "",
                 baseInfo: {},
                 userlist: "",
                 loading: false,

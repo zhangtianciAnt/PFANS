@@ -7,7 +7,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import moment from "moment";
+    import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS6004View',
@@ -100,14 +100,54 @@
                 .dispatch('PFANS6004Store/getexpatriatesinfor')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        let lst = getUserInfo(response[j].suppliername);
-                        response[j].expname = lst.expname;
-                        response[j].sex = lst.sex;
-                        response[j].age = lst.age;
-                        response[j].education = lst.education;
-                        response[j].graduateschool = lst.graduateschool;
-                        response[j].technology = lst.technology;
-                        response[j].rn = lst.rn;
+                        if (response[j].suppliername !== null && response[j].suppliername !== "") {
+                            let suppliername = getUserInfo(response[j].suppliername);
+                            if (suppliername) {
+                                response[j].suppliername = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].expname !== null && response[j].expname !== "") {
+                            let expname = getUserInfo(response[j].expname);
+                            if (expname) {
+                                response[j].expname = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].sex !== null && response[j].sex !== "") {
+                            let sex = getDictionaryInfo(response[j].sex);
+                            if (sex != null) {
+                                response[j].sex = sex.value1;
+                            }
+                        }
+                        if (response[j].age !== null && response[j].age !== "") {
+                            let age = getUserInfo(response[j].age);
+                            if (age) {
+                                response[j].age = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].education !== null && response[j].education !== "") {
+                            let education = getDictionaryInfo(response[j].education);
+                            if (education != null) {
+                                response[j].education = education.value1;
+                            }
+                        }
+                        if (response[j].graduateschool !== null && response[j].graduateschool !== "") {
+                            let graduateschool = getUserInfo(response[j].graduateschool);
+                            if (graduateschool) {
+                                response[j].graduateschool = user.userinfo.customername;
+                            }
+                        }
+                        if (response[j].technology !== null && response[j].technology !== "") {
+                            let technology = getDictionaryInfo(response[j].technology);
+                            if (technology != null) {
+                                response[j].technology = technology.value1;
+                            }
+                        }
+                        if (response[j].rn !== null && response[j].rn !== "") {
+                            let rn = getDictionaryInfo(response[j].rn);
+                            if (rn != null) {
+                                response[j].rn = rn.value1;
+                            }
+                        }
                     }
                     this.data = response;
                     this.loading = false;
@@ -140,7 +180,7 @@
                         name: 'PFANS6004FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disabled: true
                         }
                     })
                 }
@@ -157,7 +197,7 @@
                         name: 'PFANS6004FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disabled: false
                         }
                     })
                 }
@@ -166,7 +206,7 @@
                         name: 'PFANS6004FormView',
                         params: {
                             _id: '',
-                            disabled: false
+                            disabled: true
                         }
                     })
                 }
