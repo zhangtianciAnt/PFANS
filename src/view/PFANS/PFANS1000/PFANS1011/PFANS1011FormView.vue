@@ -39,8 +39,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_SERVICEPOSITION')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.serviceposition"
-                              maxlength=""></el-input>
+                    <el-input :disabled="true" style="width:11rem" v-model="form.serviceposition"
+                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -72,11 +72,11 @@
                 <el-col :span="8">
                   <el-form-item :error="errorusere" :label="$t('label.PFANS2007VIEW_NAME')" prop="user">
                     <user :disabled="!disable" :error="errorusere" :selectType="selectType" :userlist="userelist"
-                          style="width:10.14rem" v-model="form.user"  @getUserids="getUsere"></user>
+                          style="width:10.14rem" v-model="form.user" @getUserids="getUsere"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_INTERVIEWDAY')">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_INTERVIEWDAY')" prop="interviewday">
                     <el-date-picker
                       :disabled="!disable"
                       style="width:11rem"
@@ -90,7 +90,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')">
                     <el-switch :disabled="!disable"
-                               style="width:11rem"
+                               style="width:3rem"
                                v-model="form.informationpc"
                                active-value="0"
                                inactive-value="1"
@@ -215,43 +215,25 @@
               </el-row>
               <el-row style="padding-top:1.5rem">
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2007VIEW_NAME')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.name"></el-input>
+                  <el-form-item :label="$t('label.PFANS2007VIEW_NAME')" prop="name">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_SHANK')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.shank"></el-input>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_SHANK')" prop="shank">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.shank" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.address"></el-input>
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.address" maxlength="36"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')">
+                  <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenumber">
                     <el-input :disabled="!disable" style="width:11rem" v-model="form.phonenumber"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.businessplace"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_DEPLOY')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.deploy"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')">
-                    <el-input :disabled="!disable" style="width:56.8rem" type="textarea"
-                              v-model="form.domei"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -264,18 +246,34 @@
                 </el-col>
               </el-row>
               <el-row style="padding-top:1.5rem">
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')" prop="businessplace">
+                  <el-input :disabled="!disable" style="width:11rem" v-model="form.businessplace" maxlength="20"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1011VIEW_DEPLOY')" prop="deploy">
+                  <el-input :disabled="!disable" style="width:11rem" v-model="form.deploy" maxlength="20"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
+                  <el-input :disabled="!disable" style="width:11rem" v-model="form.domei" maxlength="20"></el-input>
+                </el-form-item>
+              </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="errorresponsibleperson" :label="$t('label.PFANS1011VIEW_RESPONSIBLEPERSON')"
-                                prop="responsibleperson">
-                    <user :disabled="!disable" :error="errorresponsibleperson" :selectType="selectType" :userlist="responsiblepersonlist"
-                          style="width:10.14rem" v-model="form.responsibleperson" @getUserids="getresponsibleperson"></user>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_RESPONSIBLEPERSON')" prop="responsibleperson">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.specialclass" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.specialclass"></el-input>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')" prop="specialclass">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.specialclass"
+                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -285,22 +283,22 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.email"></el-input>
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.email" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="erroractasaperson" :label="$t('label.PFANS1011VIEW_ACTASAPERSON')" prop="actasaperson">
-                    <user :disabled="!disable" :error="erroractasaperson" :selectType="selectType" :userlist="actasapersonlist"
-                          style="width:10.14rem" v-model="form.actasaperson" @getUserids="getactasaperson"></user>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_ACTASAPERSON')"
+                                prop="actasaperson">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.actasaperson" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.special"></el-input>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')" prop="special">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.special" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -310,7 +308,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="mail">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.mail"></el-input>
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.mail" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -327,7 +325,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
 
@@ -357,8 +355,20 @@
           this.errorusere = '';
         }
       };
+      var validatephonenumber = (rule, value, callback) => {
+        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
+        if (this.form.phonenumber !== null && this.form.phonenumber !== '') {
+          if (!this.regExp.test((value))) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1024VIEW_PHONE')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
       var validatePhone = (rule, value, callback) => {
-        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
         if (this.form.phone !== null && this.form.phone !== '') {
           if (!this.regExp.test((value))) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1024VIEW_PHONE')));
@@ -370,7 +380,7 @@
         }
       };
       var validatePhonenum = (rule, value, callback) => {
-        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
         if (this.form.phonenum !== null && this.form.phonenum !== '') {
           if (!this.regExp.test((value))) {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1024VIEW_PHONE')));
@@ -408,13 +418,9 @@
         loading: false,
         error: '',
         errorusere: '',
-        errorresponsibleperson: '',
-        erroractasaperson: '',
         selectType: 'Single',
         userlist: '',
         userelist: '',
-        responsiblepersonlist: '',
-        actasapersonlist: '',
         title: 'title.PFANS1011VIEW',
         buttonList: [],
         regExp: [],
@@ -428,13 +434,13 @@
           groupe_id: '',
           teame_id: '',
           user: '',
-          interviewday:moment(new Date()).format('YYYY-MM-DD'),
-          informationpc: "1",
-          informationno:  "1",
-          management: "1",
-          healthofmembers:"1",
-          customers: "1",
-          objectchina: "1",
+          interviewday: moment(new Date()).format('YYYY-MM-DD'),
+          informationpc: '1',
+          informationno: '1',
+          management: '1',
+          healthofmembers: '1',
+          customers: '1',
+          objectchina: '1',
           objective: '',
           lookforward: '',
           kolei: '',
@@ -468,13 +474,90 @@
             validator: validateuser,
             trigger: 'change',
           }],
-          phone: [
+          interviewday: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1011VIEW_INTERVIEWDAY'),
+            trigger: 'change',
+          }],
+          name: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS2007VIEW_NAME'),
+            trigger: 'change',
+          }],
+          shank: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SHANK'),
+            trigger: 'change',
+          }],
+          address: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_ADDRESS'),
+            trigger: 'change',
+          }],
+          phonenumber: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
+            trigger: 'blur',
+          },
+            {validator: validatephonenumber, trigger: 'blur'}],
+          businessplace: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_BUSINESSPLACE'),
+            trigger: 'change',
+          }],
+          deploy: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_DEPLOY'),
+            trigger: 'change',
+          }],
+          domei: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_DOMEI'),
+            trigger: 'change',
+          }],
+          responsibleperson: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_RESPONSIBLEPERSON'),
+            trigger: 'change',
+          }],
+          specialclass: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIALCLASS'),
+            trigger: 'change',
+          }],
+          phone: [{
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
+              trigger: 'blur',
+            },
             {validator: validatePhone, trigger: 'blur'}],
-          phonenum: [
-            {validator: validatePhonenum, trigger: 'blur'}],
-          email: [
+          email: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.email'),
+            trigger: 'blur',
+          },
             {validator: checkemail, trigger: 'blur'}],
-          mail: [
+          actasaperson: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_ACTASAPERSON'),
+            trigger: 'change',
+          }],
+          special: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIAL'),
+            trigger: 'change',
+          }],
+          phonenum: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
+            trigger: 'blur',
+          },
+            {validator: validatePhonenum, trigger: 'blur'}],
+          mail: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.email'),
+            trigger: 'blur',
+          },
             {validator: checkmail, trigger: 'blur'}],
         },
         canStart: false,
@@ -502,8 +585,6 @@
             this.form = response;
             this.userlist = this.form.user_id;
             this.userelist = this.form.user;
-            this.responsiblepersonlist = this.form.responsibleperson;
-            this.actasapersonlist = this.form.actasaperson;
             this.loading = false;
           })
           .catch(error => {
@@ -522,6 +603,10 @@
           this.form.center_id = lst.centerNmae;
           this.form.group_id = lst.groupNmae;
           this.form.team_id = lst.teamNmae;
+          let rst = getUserInfo(this.$store.getters.userinfo.userid);
+          if (rst) {
+            this.form.serviceposition = rst.userinfo.post;
+          }
         }
         this.userelist = this.$store.getters.userinfo.userid;
         if (this.userelist !== null && this.userelist !== '') {
@@ -536,10 +621,12 @@
     methods: {
       getUserids(val) {
         this.form.user_id = val;
+        let rst = getUserInfo(val);
         let lst = getOrgInfoByUserId(val);
         this.form.center_id = lst.centerNmae;
         this.form.group_id = lst.groupNmae;
         this.form.team_id = lst.teamNmae;
+        this.form.serviceposition = rst.userinfo.post;
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.PFANS2007VIEW_NAME');
         } else {
@@ -556,24 +643,6 @@
           this.errorusere = this.$t('normal.error_08') + this.$t('label.PFANS2007VIEW_NAME');
         } else {
           this.errorusere = '';
-        }
-      },
-      getresponsibleperson(val) {
-        this.form.responsibleperson = val;
-        this.responsiblepersonlist = val;
-        if (!this.form.responsibleperson || this.form.responsibleperson === '' || val === 'undefined') {
-          this.errorresponsibleperson = this.$t('normal.error_09') + this.$t('label.PFANS1011VIEW_RESPONSIBLEPERSON');
-        } else {
-          this.errorresponsibleperson = '';
-        }
-      },
-      getactasaperson(val) {
-        this.form.actasaperson = val;
-        this.actasapersonlist = val;
-        if (!this.form.actasaperson || this.form.actasaperson === '' || val === 'undefined') {
-          this.erroractasaperson = this.$t('normal.error_09') + this.$t('label.PFANS1011VIEW_ACTASAPERSON');
-        } else {
-          this.erroractasaperson = '';
         }
       },
       workflowState(val) {
