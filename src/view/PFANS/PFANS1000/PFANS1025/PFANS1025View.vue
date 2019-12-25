@@ -74,7 +74,7 @@
              {
                code: 'developdate',
                label: 'label.PFANS1025VIEW_DEVELOPDATE',
-               width: 150,
+               width: 200,
                fix: false,
                filter: true
              },

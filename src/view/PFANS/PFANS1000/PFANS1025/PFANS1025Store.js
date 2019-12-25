@@ -1,9 +1,4 @@
-import {
-  get,
-  selectById,
-  update,
-
-} from './PFANS1025Api'
+import {get, selectById, update} from './PFANS1025Api'
 
 const PFANS1025Store = {
   namespaced: true,

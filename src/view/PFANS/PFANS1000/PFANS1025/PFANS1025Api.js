@@ -6,15 +6,17 @@ export function get() {
     method: 'get',
   })
 }
-export function update() {
+export function update(data) {
   return request({
     url: 'award/update',
     method: 'post',
+    data: data
   })
 }
-export function selectById() {
+export function selectById(data) {
   return request({
     url: 'award/selectById',
     method: 'get',
+    params: data
   })
 }

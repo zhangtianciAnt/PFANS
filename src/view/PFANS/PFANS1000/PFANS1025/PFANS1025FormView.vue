@@ -6,7 +6,8 @@
                          :canStart="canStart"
                          @end="end" @start="start"
                          @workflowState="workflowState"
-                         ref="container" v-loading="loading">
+                         ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
           <el-tabs v-model="activeName">
@@ -27,7 +28,7 @@
                    <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
                      <dicselect :code="code1"
                                 :data="form.contracttype"
-                                :disabled="!disable"
+                                :disabled="true"
                                 :multiple="multiple"
                                 @change="getcontracttype"
                                 style="width: 11rem">
@@ -176,8 +177,7 @@
                         :disabled="!disabled"
                         v-model="form.plan"
                         active-value="1"
-                        inactive-value="0"
-                        @change="radiochange">
+                        inactive-value="0">
                       </el-switch>
                       <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                     </el-form-item>
@@ -239,9 +239,15 @@
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" >
+                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
-                    <org  :orglist="scope.row.grouporglist" orgtype="1" :disabled="!disabled" :error="errorgroup" style="width: 9rem" @getOrgids="getGroupId"></org>
+                    <org  :orglist="scope.row.depart"
+                          orgtype="2"
+                          :disabled="!disabled"
+                          :error="errorgroup"
+                          style="width: 9rem"
+                          :no="scope.row"
+                          @getOrgids="getGroupId"></org>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
@@ -358,7 +364,9 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from "../../../components/user.vue";
+  import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
+  import moment from "moment";
   import org from "../../../components/org";
 
 
@@ -399,6 +407,13 @@
           userlist: '',
           code1: 'PJ010',
           code2: 'HT005',
+          errorgroup:'',
+          selectType: "Single",
+          loading: false,
+          title: "",
+          canStart: false,
+          multiple: false,
+          orglist:'',
           baseInfo: {},
           form: {
             contractnumber: '',
@@ -410,7 +425,7 @@
             deployment: '',
             pjnamejapanese: '',
             pjnamechinese: '',
-            developdate:'',
+            developdate:[],
             enddate: '',
             firstdetails: '',
             deliverydate: '',
@@ -457,30 +472,33 @@
         }
       },
       mounted() {
+        this.loading = true;
         if (this.$route.params._id) {
-          this.loading = true;
           this.$store
-            .dispatch('PFANS1025tore/selectById', {'award_id': this.$route.params._id})
+            .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
             .then(response => {
               this.form = response.award;
-              if (response.awarddetail.length > 0) {
-                this.tableT = response.awarddetail
+              this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
+              this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
+              if (response.awardDetail.length > 0) {
+                this.tableT = response.awardDetail
+                for (var i = 0; i < this.tableT.length; i++) {
+                  this.orglist=this.tableT[i].depart;
+                }
               }
               this.userlist = this.form.user_id;
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.awarddetail = JSON.parse(JSON.stringify(this.tableT));
+              this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
               this.loading = false;
             })
             .catch(error => {
               Message({
                 message: error,
                 type: 'error',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
               this.loading = false;
-            })
-        } else {
-          this.userlist = this.$store.getters.userinfo.userid;
+            });
         }
       },
       created(){
@@ -514,11 +532,14 @@
             this.error = '';
           }
         },
+        getcontracttype(val){
+          this.form.contracttype=val;
+        },
         getcurrencyformat(val) {
           this.form.currencyformat = val;
         },
         getextrinsic(val) {
-          thhis.form.extrinsic = val;
+          this.form.extrinsic = val;
         },
         getvaluation(val) {
           this.form.valuation = val;
@@ -526,21 +547,24 @@
         getindividual(val) {
           this.form.individual = val;
         },
+        getGroupId(orglist,row) {
+          row.depart=orglist;
+        },
         workflowState(val) {
           if (val.state === '1') {
             this.form.status = '3';
           } else if (val.state === '2') {
             this.form.status = '4';
           }
-          this.buttonClick("update");
+          this.buttonClick("save");
         },
         start() {
           this.form.status = '2';
-          this.buttonClick("update");
+          this.buttonClick("save");
         },
         end() {
           this.form.status = '0';
-          this.buttonClick("update");
+          this.buttonClick("save");
         },
         deleteRow(index, rows) {
           if (rows.length > 1) {
@@ -573,7 +597,7 @@
             rowindex: '',
           })
         },
-        getsummaries(param) {
+        getTsummaries(param) {
           const {columns, data} = param;
           const sums = [];
           columns.forEach((column, index) => {
@@ -595,62 +619,67 @@
               sums[index] = '--'
             }
           });
-          this.gettotal(sums);
           return sums;
         },
         buttonClick(val) {
-          this.$refs["reff"].validate(valid =>{
-            if(valid){
-              this.baseInfo={};
-              this.form.user_id=this.userlist;
-              this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.awarddetail=[];
-              for(let i=0;i<this.tableT.length;i++){
-                if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member!==""||this.tableT[i].community!==""
-                  ||this.tableT[i].outsource!==""||this.tableT[i].outcommunity!==""||this.tableT[i].worknumber!==""||this.tableT[i].awardmoney!==""){
-                  this.baseInfo.awarddetail.push({
-                    awarddetail_id:this.tableT[i].awarddetail_id,
-                    award_id:this.tableT[i].award_id,
-                    budgetcode:this.tableT[i].budgetcode,
-                    depart:this.tableT[i].depart,
-                    member:this.tableT[i].member,
-                    community:this.tableT[i].community,
-                    outsource:this.tableT[i].outsource,
-                    outcommunity:this.tableT[i].outcommunity,
-                    worknumber:this.tableT[i].worknumber,
-                    awardmoney:this.tableT[i].awardmoney,
-                    rowindex:this.tableT[i].rowindex,
-                  })
+          if(val==="save"){
+            this.$refs["reff"].validate(valid =>{
+              if(valid){
+                debugger
+                this.loading = true;
+                this.baseInfo={};
+                this.form.user_id=this.userlist;
+                this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
+                this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
+                this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.awardDetail=[];
+                for(let i=0;i<this.tableT.length;i++){
+                  if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
+                    ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
+                    this.baseInfo.awardDetail.push({
+                      awarddetail_id:this.tableT[i].awarddetail_id,
+                      award_id:this.tableT[i].award_id,
+                      budgetcode:this.tableT[i].budgetcode,
+                      depart:this.tableT[i].depart,
+                      member:this.tableT[i].member,
+                      community:this.tableT[i].community,
+                      outsource:this.tableT[i].outsource,
+                      outcommunity:this.tableT[i].outcommunity,
+                      worknumber:this.tableT[i].worknumber,
+                      awardmoney:this.tableT[i].awardmoney,
+                      rowindex:this.tableT[i].rowindex,
+                    })
+                  }
+                }
+                if(this.$route.params._id){     //编辑
+                  this.baseInfo.award.award_id = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1025Store/update',this.baseInfo)
+                    .then(response =>{
+                      this.data=response;
+                      this.loading=false;
+                      if( val !== "update"){
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if(this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      }
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading=false;
+                    })
                 }
               }
-            }
-          });
-          if(this.$route.params._id){     //编辑
-            this.baseInfo.award.award_id = this.$route.params._id;
-          this.$store
-            .dispatch('PFANS1025Store/update',this.baseInfo)
-            .then(response =>{
-              this.data=response;
-              this.loading=false;
-              if( val !== "update"){
-                Message({
-                  message: this.$t('normal.success_02'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-                if(this.$store.getters.historyUrl) {
-                  this.$router.push(this.$store.getters.historyUrl);
-                }
-              }
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading=false;
-            })
+            });
           }
         }
       }
