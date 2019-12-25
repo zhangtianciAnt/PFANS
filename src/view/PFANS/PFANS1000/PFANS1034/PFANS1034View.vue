@@ -89,7 +89,7 @@
 
 <script>
     import EasyButtonBar from '@/components/EasyButtonBar'
-    import {orderBy} from '@/utils/customize'
+    import {orderBy,uploadUrl} from '@/utils/customize'
     import moment from 'moment';
     import {Message} from 'element-ui';
 
@@ -116,6 +116,7 @@
                 folderid:'',
                 uploadfile:'',
                 fileList: [],
+                upload: uploadUrl(),
                 // 行id
                 rowid: 'folderid',
                 // 列属性
@@ -155,6 +156,7 @@
                     filesize: '31M',
                     updatedate: '2019-10-27',
                     updateperson: '大一',
+                    url: '',
                     children: []
                 }, {
                     folderid: 2,
@@ -162,6 +164,7 @@
                     filesize: '99M',
                     updatedate: '2019-10-27',
                     updateperson: '大二',
+                    url: '',
                     children: []
                 }, {
                     folderid: 3,
@@ -169,18 +172,21 @@
                     filesize: '109M',
                     updatedate: '2019-10-27',
                     updateperson: '大三',
+                    url: '',
                     children: [{
                         folderid: 31,
                         filename: '文件夹31',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
+                        url: '',
                     }, {
                         folderid: 32,
                         filename: '文件夹32',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
+                        url: '',
                     }]
                 }, {
                     folderid: 4,
@@ -188,6 +194,7 @@
                     filesize: '109M',
                     updatedate: '2019-10-27',
                     updateperson: '大四',
+                    url: '',
                     children: []
                 }],
             }
@@ -284,6 +291,28 @@
                     }
                     this.fileList.push(o);
                     this.uploadfile += o.name + "," + o.url + ";"
+
+
+                    let letfolderid = 0;
+                    if(this.tableData.length > 0){
+                        letfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
+                    }
+                    let updateperson;
+                    if(this.$store.getters.userinfo){
+                        updateperson = this.$store.getters.userinfo.userinfo.customername;
+                    }
+                    this.tableData.push({
+                        folderid: letfolderid,
+                        filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
+                        filesize: '',
+                        updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                        updateperson: updateperson,
+                        url: '',
+                        children: []
+                    });
+                    this.totaldata = this.tableData
+                    this.getList()
+
                 }
             },
             buttonClick(val) {
@@ -303,6 +332,7 @@
                         filesize: '',
                         updatedate: moment(new Date()).format('YYYY-MM-DD'),
                         updateperson: updateperson,
+                        url: '',
                         children: []
                     });
                     this.totaldata = this.tableData
@@ -323,7 +353,6 @@
                       });
                       return;
                   }
-                  debugger;
                   let deleteflg = 0;
                   for(let i = 0;i <= this.tableData.length;i++){
                       if(this.tableData.length > i){
