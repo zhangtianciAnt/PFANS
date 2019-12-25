@@ -30,7 +30,7 @@
           },
           {
             code: 'contracttype',
-            label: 'label.PFANS1032FORMVIEW_CONTRACTTYPE',
+            label: 'label.PFANS1024FORMVIEW_CONTRACTTYPE',
             width: 120,
             fix: false,
             filter: true
@@ -44,7 +44,7 @@
           },
           {
             code: 'businesscode',
-            label: 'label.PFANS1032FORMVIEW_BUSINESSCODE',
+            label: 'label.PFANS1024FORMVIEW_BUSINESSCODE',
             width: 140,
             fix: false,
             filter: true
@@ -79,7 +79,7 @@
           },
           {
             code: 'deliverydate',
-            label: 'label.PFANS1032FORMVIEW_DELIVERYDATE',
+            label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
             width: 150,
             fix: false,
             filter: true
