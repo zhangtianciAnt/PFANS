@@ -299,6 +299,7 @@
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS6004FORMVIEW",
+                errorsuppliername: '',
                 buttonList: [],
                 multiple: false,
                 modelexits: '1',
@@ -527,6 +528,14 @@
             }
         },
         methods: {
+            getSuppliername(val) {
+                this.form.suppliername = val;
+                if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
+                    this.suppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+                } else {
+                    this.errorsuppliername = '';
+                }
+            },
             changesex(val) {
                 this.form.sex = val;
             },
