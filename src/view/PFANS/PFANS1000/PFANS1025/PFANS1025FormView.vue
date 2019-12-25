@@ -625,7 +625,6 @@
           if(val==="save"){
             this.$refs["reff"].validate(valid =>{
               if(valid){
-                debugger
                 this.loading = true;
                 this.baseInfo={};
                 this.form.user_id=this.userlist;

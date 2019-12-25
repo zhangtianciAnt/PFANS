@@ -1,8 +1,10 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end"
-                         @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList"
+                         :title="title"
+                         @buttonClick="buttonClick"
+                         ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 2rem">
           <el-row>
@@ -133,40 +135,50 @@
     data(){
           return{
             title: "title.PFANS1032VIEW",
-            buttonList: [
-              {
-                key: "save",
-                name: "button.save",
-                disabled: false,
-                icon: "el-icon-check"
-              }
-            ],
+            buttonList: [],
+            disabled: true,
             form: {
-              principalplaceenglish:'',
-              principalplacechinese:'',
+              contractnumber:'',
+              contracttype:'',
+              depositenglish:'',
+              depositchinese:'',
+              dereenglish:'',
+              prplaceenglish:'',
+              prplacechinese:'',
               pjnamejapanese:'',
               pjnamechinese:'',
-              openingdate:'',
-              enddate:'',
+              developdate:'',
               businesscode:'',
               deliverydate:'',
-              claimamount:'',
-              depositaryphone:'',
+              claimoney:'',
+              depositphone:'',
               claimnumber:'',
               claimtype:'',
               currencyformat:'',
             },
-            disable: false,
-            rules: {
-              user_name: [{
-                required: true,
-                validator: checkuser,
-                trigger: 'change'
-              }],
-            },
-            canStart: false
           }
     },
+      mounted() {
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.$store
+            .dispatch('PFANS1032Store/selectById', {'petition_id': this.$route.params._id})
+            .then(response => {
+              this.form=response.petition;
+              this.form.developdate=moment(this.form.deliverydate).format('YYYY-MM-DD');
+              this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
+              this.loading=false;
+            })
+            .catch(error=>{
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading=false;
+            })
+        }
+      },
       created(){
         if(!this.$route.params.disabled){
           this.buttonList=[
@@ -189,15 +201,6 @@
         this.disable = this.$route.params.disabled;
       },
       methods: {
-        getUserids(val) {
-          this.userlist = val;
-          this.form.user_id = val;
-          if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
-            this.error = this.$t('normal.error_08') + this.$t('label.user_name');
-          } else {
-            this.error = '';
-          }
-        },
         workflowState(val) {
           if (val.state === '1') {
             this.form.status = '3';
@@ -214,6 +217,39 @@
           this.form.status = '0';
           this.buttonClick("update");
         },
+        buttonClick(val) {
+          this.$refs["reff"].validate(valid =>{
+            if(valid){
+              this.loading = true;
+              if(this.$route.params._id){     //编辑
+                this.$store
+                  .dispatch('PFANS1032Store/update',this.form)
+                  .then(response =>{
+                    this.data=response;
+                    this.loading=false;
+                    if( val !== "update"){
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if(this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading=false;
+                  })
+              }
+            }
+          })
+        }
       }
     }
 </script>

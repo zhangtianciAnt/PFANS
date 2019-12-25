@@ -14,7 +14,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from "moment";
 
@@ -99,6 +99,13 @@
                width: 120,
                fix: false,
                filter: true
+             },
+             {
+               code: 'status',
+               label: 'label.approval_status',
+               width: 120,
+               fix: false,
+               filter: true
              }
            ],
            buttonList: [
@@ -119,6 +126,9 @@
 
                 if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
                   response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+                }
+                if (response[j].status !== null && response[j].status !== "") {
+                  response[j].status = getStatus(response[j].status);
                 }
               }
             }

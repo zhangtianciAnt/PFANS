@@ -6,10 +6,8 @@ import {
 
 const PFANS1032Store = {
   namespaced: true,
-  state: {
-  },
-  mutations: {
-  },
+  state: {},
+  mutations: {},
   actions: {
     get() {
       return new Promise((resolve, reject) => {

@@ -1,6 +1,13 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable
+    :buttonList="buttonList"
+    :columns="columns"
+    :data="data"
+    :rowid="row_id"
+    :title="title"
+    @buttonClick="buttonClick"
+    @rowClick="rowClick"
+    v-loading="loading">
   </EasyNormalTable>
 </template>
 
@@ -8,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getStatus, getUserInfo} from '@/utils/customize';
+  import {getUserInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -30,7 +37,7 @@
           },
           {
             code: 'contracttype',
-            label: 'label.PFANS1024FORMVIEW_CONTRACTTYPE',
+            label: 'label.PFANS1024VIEW_CONTRACTTYPE',
             width: 120,
             fix: false,
             filter: true
@@ -44,7 +51,7 @@
           },
           {
             code: 'businesscode',
-            label: 'label.PFANS1024FORMVIEW_BUSINESSCODE',
+            label: 'label.PFANS1024VIEW_BUSINESSCODE',
             width: 140,
             fix: false,
             filter: true
@@ -90,7 +97,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'request_id'
+        row_id: 'petition_id'
       }
     },
     mounted() {
@@ -100,10 +107,6 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-              let rst = getUserInfo(response[j].user_id);
-              if (rst) {
-                response[j].user_id = rst.userinfo.customername;
-              }
 
               if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
                 response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
@@ -124,7 +127,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.request_id;
+        this.rowid = row.petition_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);

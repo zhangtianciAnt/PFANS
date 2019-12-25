@@ -11,7 +11,7 @@ export function selectById(data) {
   return request({
     url: 'petition/selectById',
     method: 'post',
-    data: data
+    params: data
   })
 }
 export function update(data) {

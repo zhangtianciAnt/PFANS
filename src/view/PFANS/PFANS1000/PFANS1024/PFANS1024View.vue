@@ -70,8 +70,6 @@
                 </el-col>
               </el-row>
                 <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
-                  <el-table-column type="selection" width="60"></el-table-column>
-                  <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                   <el-table-column :label="$t('label.department')" align="center" width="120">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -294,8 +292,6 @@
               </el-col>
             </el-row>
               <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
-                <el-table-column type="selection" width="60"></el-table-column>
-                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -518,8 +514,6 @@
                 </el-col>
               </el-row>
               <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
-                <el-table-column type="selection" width="60"></el-table-column>
-                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -760,8 +754,6 @@
                 </el-col>
               </el-row>
               <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
-                <el-table-column type="selection" width="60"></el-table-column>
-                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -1033,20 +1025,7 @@
           title: "title.PFANS1024VIEW",
           activeName: 'first',
           disable: true,
-          tableInt:[
-            {
-           no:1,
-          },
-            {
-            no:2,
-          },
-            {
-              no:3,
-            },
-            {
-              no:4,
-            }
-          ],
+          tableInt:[],
           rules: {
             group_id: [
               {
