@@ -40,7 +40,7 @@
                         //性别
                         code: 'sex',
                         label: 'label.sex',
-                        width: 90,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -48,7 +48,7 @@
                         //年龄
                         code: 'age',
                         label: 'label.PFANSUSERFORMVIEW_AGE',
-                        width: 90,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -80,7 +80,7 @@
                         //RN
                         code: 'rn',
                         label: 'label.PFANS2003FORMVIEW_RN',
-                        width: 100,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -126,7 +126,7 @@
                 this.rowid = row.expatriatesinfor_id;
             },
             buttonClick(val) {
-                this.$store.commit('expatriatesinfor/SET_HISTORYURL', this.$route.path);
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
                     if (this.rowid === '') {
                         Message({

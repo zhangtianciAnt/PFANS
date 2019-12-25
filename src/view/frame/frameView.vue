@@ -38,7 +38,7 @@
           </el-aside>
         </el-col>
         <el-col :span="21">
-          <el-main class="sub_bg_color_grey" style="padding: 1rem">
+          <el-main class="sub_bg_color_grey" style="padding: 1rem;overflow-x: hidden">
             <transition name="slide-left">
             <router-view class="appView"/>
             </transition>

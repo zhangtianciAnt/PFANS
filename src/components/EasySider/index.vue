@@ -3,9 +3,9 @@
     <div class="sider-avatar" :style="{height:avatarHeight}">
       <slot name="avatar"></slot>
     </div>
-    <div class="sider-content" :style="{height:`calc(100% - ${avatarHeight})`}">
+    <vue-scroll :ops="ops">
       <slot name="content"></slot>
-    </div>
+    </vue-scroll>
   </div>
 </template>
 
@@ -15,7 +15,26 @@ export default {
   components: {},
   data() {
     return {
-      avatarHeight: "0%"
+      avatarHeight: "0%",
+      ops: {
+        vuescroll: {},
+        scrollPanel: {},
+        rail: {
+          opacity: 0,
+          size: '6px',
+          specifyBorderRadius: false,
+          gutterOfEnds: null,
+          gutterOfSide: '0',
+          keepShow: false,
+          border:'none'
+        },
+        bar: {
+          onlyShowBarOnScroll: true,
+          background: '#cecece',
+          minSize: 0.3,
+          size: '6px',
+        }
+      },
     };
   },
   props: {
@@ -43,9 +62,9 @@ $bg: #fff;
   .sider-avatar {
     overflow: hidden;
   }
-  .sider-content {
-    overflow-y: auto;
-  }
+  /*.sider-content {*/
+    /*overflow-y: auto;*/
+  /*}*/
   .el-menu {
     border-right: 0px !important;
   }

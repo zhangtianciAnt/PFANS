@@ -68,7 +68,7 @@
           drag
           ref="upload">
           <i class="el-icon-upload"></i>
-          <el-button id="aa" size="small" type="primary">点击上传</el-button>
+          <el-button id="upload" size="small" type="primary">点击上传</el-button>
           <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
         </el-upload>
 
@@ -89,7 +89,7 @@
 
 <script>
     import EasyButtonBar from '@/components/EasyButtonBar'
-    import {orderBy} from '@/utils/customize'
+    import {orderBy,uploadUrl,downLoadUrl} from '@/utils/customize'
     import moment from 'moment';
     import {Message} from 'element-ui';
 
@@ -114,8 +114,12 @@
                 systembutton: [false, false, false],
                 selectedList: [],
                 folderid:'',
+                url: '',
                 uploadfile:'',
                 fileList: [],
+                upload: uploadUrl(),
+                username: '',
+                maxfolderid: 0,
                 // 行id
                 rowid: 'folderid',
                 // 列属性
@@ -155,6 +159,7 @@
                     filesize: '31M',
                     updatedate: '2019-10-27',
                     updateperson: '大一',
+                    url: '',
                     children: []
                 }, {
                     folderid: 2,
@@ -162,6 +167,7 @@
                     filesize: '99M',
                     updatedate: '2019-10-27',
                     updateperson: '大二',
+                    url: '',
                     children: []
                 }, {
                     folderid: 3,
@@ -169,18 +175,21 @@
                     filesize: '109M',
                     updatedate: '2019-10-27',
                     updateperson: '大三',
+                    url: '',
                     children: [{
                         folderid: 31,
                         filename: '文件夹31',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
+                        url: '',
                     }, {
                         folderid: 32,
                         filename: '文件夹32',
                         filesize: '109M',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
+                        url: '',
                     }]
                 }, {
                     folderid: 4,
@@ -188,6 +197,7 @@
                     filesize: '109M',
                     updatedate: '2019-10-27',
                     updateperson: '大四',
+                    url: '',
                     children: []
                 }],
             }
@@ -262,57 +272,74 @@
                     this.uploadfile += item.name + "," + item.url + ";"
                 }
             },
-            fileDownload(file) {
+            fileDownload(varurl) {
                 debugger;
-                if (file.url) {
-                    var url = downLoadUrl(file.url);
+                if (varurl) {
+                    var url = downLoadUrl(varurl);
                     window.open(url);
                 }
 
             },
             fileSuccess(response, file, fileList) {
                 debugger;
-                this.fileList = [];
-                this.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.uploadfile += o.name + "," + o.url + ";"
+                let url;
+                if (!file.url) {
+                    url = file.response.info;
+                } else {
+                    url = file.url;
                 }
+                for(let i = 0;i < this.tableData.length;i++){
+                    if(this.tableData[i].folderid === this.folderid){
+                        this.tableData[i].children.push({
+                            folderid: this.maxfolderid,
+                            filename: file.name.split(".")[0],
+                            filesize: file.size,
+                            updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                            updateperson: this.username,
+                            url: url,
+                            children: []
+                        });
+                    }
+                }
+                this.totaldata = this.tableData
+                this.getList()
             },
             buttonClick(val) {
                 this.$emit("buttonClick", val);
                 if(val == 'folder'){
-                    let letfolderid = 0;
-                    if(this.tableData.length > 0){
-                        letfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
-                    }
-                    let updateperson;
-                    if(this.$store.getters.userinfo){
-                        updateperson = this.$store.getters.userinfo.userinfo.customername;
-                    }
                     this.tableData.push({
-                        folderid: letfolderid,
+                        folderid: this.maxfolderid,
                         filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
                         filesize: '',
                         updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                        updateperson: updateperson,
+                        updateperson: this.username,
+                        url: '1',
                         children: []
                     });
                     this.totaldata = this.tableData
                     this.getList()
                 }
-                else if(val == 'upload'){//111
-                  document.getElementById("aa").click();
+                else if(val == 'upload'){
+                    if (this.folderid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    document.getElementById("upload").click();
                 }
                 else if(val == 'download'){
-
+                    if (this.folderid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.fileDownload(this.url);
                 }
                 else if(val == 'delete'){
                   if (this.folderid === '') {
@@ -323,7 +350,6 @@
                       });
                       return;
                   }
-                  debugger;
                   let deleteflg = 0;
                   for(let i = 0;i <= this.tableData.length;i++){
                       if(this.tableData.length > i){
@@ -395,6 +421,9 @@
             },
             // 取分页数据
             getList() {
+                if(this.tableData.length > 0){
+                    this.maxfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
+                }
                 this.loading = true
                 let start = (this.listQuery.page - 1) * this.listQuery.limit
                 let end = this.listQuery.page * this.listQuery.limit
@@ -476,6 +505,7 @@
             // 行点击
             rowClick(row) {
                 this.folderid = row.folderid;
+                this.url = row.url;
                 this.$store.commit('global/SET_OPERATEID', row[this.rowid])
                 this.$store
                     .dispatch('tableStore/getActionsAuth', row.owner)
@@ -508,6 +538,9 @@
             }
         },
         mounted() {
+            if(this.$store.getters.userinfo){
+                this.username = this.$store.getters.userinfo.userinfo.customername;
+            }
             this.totaldata = this.tableData
             this.getList()
             this.getNewActionAuth()

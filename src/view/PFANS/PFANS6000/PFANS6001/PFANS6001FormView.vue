@@ -390,7 +390,7 @@
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6001Store/cooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
+                    .dispatch('PFANS6001Store/getcooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
                     .then(response => {
                         this.form = response;
                         this.loading = false;

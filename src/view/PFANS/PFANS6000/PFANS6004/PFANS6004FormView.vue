@@ -62,7 +62,6 @@
                 <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
-
           </el-row>
           <!--            第三行-->
           <el-row>
