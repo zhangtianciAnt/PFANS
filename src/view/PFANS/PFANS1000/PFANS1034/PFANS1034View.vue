@@ -56,6 +56,33 @@
                       style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
         </el-pagination>
       </div>
+      <div >
+        <el-upload
+          :action="upload"
+          :file-list="fileList"
+          :on-remove="fileRemove"
+          :on-preview="fileDownload"
+          :on-success="fileSuccess"
+          :on-error="fileError"
+          class="upload-demo"
+          drag
+          ref="upload">
+          <i class="el-icon-upload"></i>
+          <el-button id="aa" size="small" type="primary">点击上传</el-button>
+          <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+        </el-upload>
+
+
+<!--        <el-upload-->
+<!--          class="upload-demo"-->
+<!--          action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--          :on-change="handleChange"-->
+<!--          :file-list="fileList">-->
+<!--          <el-button size="small" type="primary">点击上传</el-button>-->
+<!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+<!--        </el-upload>-->
+
+      </div>
     </el-card>
   </div>
 </template>
@@ -64,6 +91,7 @@
     import EasyButtonBar from '@/components/EasyButtonBar'
     import {orderBy} from '@/utils/customize'
     import moment from 'moment';
+    import {Message} from 'element-ui';
 
     export default {
         name: 'PFANS1034View',
@@ -85,6 +113,9 @@
                 filterlist: [],
                 systembutton: [false, false, false],
                 selectedList: [],
+                folderid:'',
+                uploadfile:'',
+                fileList: [],
                 // 行id
                 rowid: 'folderid',
                 // 列属性
@@ -123,13 +154,15 @@
                     filename: '文件夹1',
                     filesize: '31M',
                     updatedate: '2019-10-27',
-                    updateperson: '大一'
+                    updateperson: '大一',
+                    children: []
                 }, {
                     folderid: 2,
                     filename: '文件夹2',
                     filesize: '99M',
                     updatedate: '2019-10-27',
-                    updateperson: '大二'
+                    updateperson: '大二',
+                    children: []
                 }, {
                     folderid: 3,
                     filename: '文件夹3',
@@ -154,7 +187,8 @@
                     filename: '文件夹3',
                     filesize: '109M',
                     updatedate: '2019-10-27',
-                    updateperson: '大四'
+                    updateperson: '大四',
+                    children: []
                 }],
             }
         },
@@ -210,19 +244,117 @@
             }
         },
         methods: {
-            buttonClick(val) {
-                this.tableData.push({
-                    folderid: this.tableData.length + 1,
-                    filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
-                    filesize: '',
-                    updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                    updateperson: '大三',
-                    children: []
+            fileError(err, file, fileList) {
+                Message({
+                    message: this.$t("normal.error_04"),
+                    type: 'error',
+                    duration: 5 * 1000
                 });
+            },
+            fileRemove(file, fileList) {
+                this.fileList = [];
+                this.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    o.url = item.url;
+                    this.fileList.push(o);
+                    this.uploadfile += item.name + "," + item.url + ";"
+                }
+            },
+            fileDownload(file) {
+                debugger;
+                if (file.url) {
+                    var url = downLoadUrl(file.url);
+                    window.open(url);
+                }
 
-                this.totaldata = this.tableData
-                this.getList()
+            },
+            fileSuccess(response, file, fileList) {
+                debugger;
+                this.fileList = [];
+                this.uploadfile = "";
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    if (!item.url) {
+                        o.url = item.response.info;
+                    } else {
+                        o.url = item.url;
+                    }
+                    this.fileList.push(o);
+                    this.uploadfile += o.name + "," + o.url + ";"
+                }
+            },
+            buttonClick(val) {
+                this.$emit("buttonClick", val);
+                if(val == 'folder'){
+                    let letfolderid = 0;
+                    if(this.tableData.length > 0){
+                        letfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
+                    }
+                    let updateperson;
+                    if(this.$store.getters.userinfo){
+                        updateperson = this.$store.getters.userinfo.userinfo.customername;
+                    }
+                    this.tableData.push({
+                        folderid: letfolderid,
+                        filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
+                        filesize: '',
+                        updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                        updateperson: updateperson,
+                        children: []
+                    });
+                    this.totaldata = this.tableData
+                    this.getList()
+                }
+                else if(val == 'upload'){//111
+                  document.getElementById("aa").click();
+                }
+                else if(val == 'download'){
 
+                }
+                else if(val == 'delete'){
+                  if (this.folderid === '') {
+                      Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'error',
+                          duration: 2 * 1000
+                      });
+                      return;
+                  }
+                  debugger;
+                  let deleteflg = 0;
+                  for(let i = 0;i <= this.tableData.length;i++){
+                      if(this.tableData.length > i){
+                          if(this.tableData[i].folderid === this.folderid){
+                              this.tableData.splice(i,1);
+                              deleteflg = 1;
+                          }
+                          if(this.tableData.length > 0){
+                              let letchildren = this.tableData[i].children;
+                              for(let j = 0;j <= letchildren.length;j++){
+                                  if(letchildren.length > j){
+                                      if(letchildren[j].folderid === this.folderid){
+                                          this.tableData[i].children.splice(j,1);
+                                          deleteflg = 1;
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+                  this.totaldata = this.tableData
+                  this.getList()
+                  if(deleteflg === 0){
+                      Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'error',
+                          duration: 2 * 1000
+                      });
+                      return;
+                  }
+                }
                 //this.$emit('buttonClick', val)
             },
             // 表格排序
@@ -343,9 +475,8 @@
             },
             // 行点击
             rowClick(row) {
-                //alert(row[this.rowid])
+                this.folderid = row.folderid;
                 this.$store.commit('global/SET_OPERATEID', row[this.rowid])
-
                 this.$store
                     .dispatch('tableStore/getActionsAuth', row.owner)
                     .then(response => {
