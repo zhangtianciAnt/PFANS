@@ -56,7 +56,7 @@
                       style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
         </el-pagination>
       </div>
-      <div >
+      <div style="display:none;">
         <el-upload
           :action="upload"
           :file-list="fileList"
@@ -71,17 +71,6 @@
           <el-button id="upload" size="small" type="primary">点击上传</el-button>
           <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
         </el-upload>
-
-
-<!--        <el-upload-->
-<!--          class="upload-demo"-->
-<!--          action="https://jsonplaceholder.typicode.com/posts/"-->
-<!--          :on-change="handleChange"-->
-<!--          :file-list="fileList">-->
-<!--          <el-button size="small" type="primary">点击上传</el-button>-->
-<!--          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-<!--        </el-upload>-->
-
       </div>
     </el-card>
   </div>
@@ -153,10 +142,11 @@
                         filter: true
                     },
                 ],
-                tableData: [{
+                tableData: [],
+                tableData1: [{
                     folderid: 1,
                     filename: '文件夹1',
-                    filesize: '31M',
+                    filesize: '31MB',
                     updatedate: '2019-10-27',
                     updateperson: '大一',
                     url: '',
@@ -164,7 +154,7 @@
                 }, {
                     folderid: 2,
                     filename: '文件夹2',
-                    filesize: '99M',
+                    filesize: '99MB',
                     updatedate: '2019-10-27',
                     updateperson: '大二',
                     url: '',
@@ -172,33 +162,25 @@
                 }, {
                     folderid: 3,
                     filename: '文件夹3',
-                    filesize: '109M',
+                    filesize: '109MB',
                     updatedate: '2019-10-27',
                     updateperson: '大三',
                     url: '',
                     children: [{
-                        folderid: 31,
+                        folderid: 4,
                         filename: '文件夹31',
-                        filesize: '109M',
+                        filesize: '109MB',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
-                        url: '',
+                        url: '1',
                     }, {
-                        folderid: 32,
+                        folderid: 5,
                         filename: '文件夹32',
-                        filesize: '109M',
+                        filesize: '109MB',
                         updatedate: '2019-10-27',
                         updateperson: '大三',
-                        url: '',
+                        url: '1',
                     }]
-                }, {
-                    folderid: 4,
-                    filename: '文件夹3',
-                    filesize: '109M',
-                    updatedate: '2019-10-27',
-                    updateperson: '大四',
-                    url: '',
-                    children: []
                 }],
             }
         },
@@ -273,7 +255,6 @@
                 }
             },
             fileDownload(varurl) {
-                debugger;
                 if (varurl) {
                     var url = downLoadUrl(varurl);
                     window.open(url);
@@ -281,7 +262,6 @@
 
             },
             fileSuccess(response, file, fileList) {
-                debugger;
                 let url;
                 if (!file.url) {
                     url = file.response.info;
@@ -290,15 +270,27 @@
                 }
                 for(let i = 0;i < this.tableData.length;i++){
                     if(this.tableData[i].folderid === this.folderid){
+                        let childrenfolderid = Number(this.folderid + "0001");
+                        if(this.tableData[i].children.length > 0){
+                            childrenfolderid = this.tableData[i].children[this.tableData[i].children.length - 1].folderid + 1;
+                        }
                         this.tableData[i].children.push({
-                            folderid: this.maxfolderid,
-                            filename: file.name.split(".")[0],
-                            filesize: file.size,
+                            folderid: childrenfolderid,
+                            filename: file.name,
+                            filesize: Math.round(file.size / 1024) + "KB",
                             updatedate: moment(new Date()).format('YYYY-MM-DD'),
                             updateperson: this.username,
                             url: url,
                             children: []
                         });
+                        // let letfilesizef = Number(this.tableData[i].filesize.replace('MB',''));
+                        // this.tableData[i].filesize = Math.round((letfilesizef + file.size / 1024 /1024) * 100) /100 + 'MB';
+                        let letfilesizef = 0;
+                        for (let j = 0; j< this.tableData[i].children.length;j++){
+                            letfilesizef = letfilesizef + Number(this.tableData[i].children[j].filesize.replace('KB',''));
+
+                        }
+                        this.tableData[i].filesize = Math.round((letfilesizef /1024) * 100) /100 + 'MB';
                     }
                 }
                 this.totaldata = this.tableData
@@ -307,13 +299,17 @@
             buttonClick(val) {
                 this.$emit("buttonClick", val);
                 if(val == 'folder'){
+                    let maxfolderid = 1;
+                    if(this.tableData.length > 0){
+                        maxfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
+                    }
                     this.tableData.push({
-                        folderid: this.maxfolderid,
+                        folderid: maxfolderid,
                         filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
                         filesize: '',
                         updatedate: moment(new Date()).format('YYYY-MM-DD'),
                         updateperson: this.username,
-                        url: '1',
+                        url: '',
                         children: []
                     });
                     this.totaldata = this.tableData
@@ -328,12 +324,20 @@
                         });
                         return;
                     }
+                    if (this.url != '') {
+                        Message({
+                            message: this.$t('normal.info_12'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
                     document.getElementById("upload").click();
                 }
                 else if(val == 'download'){
-                    if (this.folderid === '') {
+                    if (this.url === '') {
                         Message({
-                            message: this.$t('normal.info_01'),
+                            message: this.$t('normal.info_13'),
                             type: 'error',
                             duration: 2 * 1000
                         });
@@ -344,42 +348,51 @@
                 else if(val == 'delete'){
                   if (this.folderid === '') {
                       Message({
-                          message: this.$t('normal.info_01'),
+                          message: this.$t('normal.info_12'),
                           type: 'error',
                           duration: 2 * 1000
                       });
                       return;
                   }
-                  let deleteflg = 0;
-                  for(let i = 0;i <= this.tableData.length;i++){
-                      if(this.tableData.length > i){
-                          if(this.tableData[i].folderid === this.folderid){
-                              this.tableData.splice(i,1);
-                              deleteflg = 1;
-                          }
-                          if(this.tableData.length > 0){
-                              let letchildren = this.tableData[i].children;
-                              for(let j = 0;j <= letchildren.length;j++){
-                                  if(letchildren.length > j){
-                                      if(letchildren[j].folderid === this.folderid){
-                                          this.tableData[i].children.splice(j,1);
-                                          deleteflg = 1;
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  }
-                  this.totaldata = this.tableData
-                  this.getList()
-                  if(deleteflg === 0){
-                      Message({
-                          message: this.$t('normal.info_01'),
-                          type: 'error',
-                          duration: 2 * 1000
-                      });
-                      return;
-                  }
+                    this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                        confirmButtonText: this.$t('button.confirm'),
+                        cancelButtonText: this.$t('button.cancel'),
+                        type: 'warning'
+                    }).then(() => {
+                        debugger;
+                        for(let i = 0;i < this.tableData.length;i++){
+                            if(this.url === ''){
+                                if(this.tableData[i].folderid === this.folderid){
+                                    this.tableData.splice(i,1);
+                                }
+                            }
+                            else{
+                                let letfilesizef = 0;
+                                let letchildren = this.tableData[i].children;
+                                for(let j = 0;j < letchildren.length;j++){
+                                    if(letchildren[j].folderid === this.folderid){
+                                        this.tableData[i].children.splice(j,1);
+                                        j = j - 1
+                                    }
+                                    else{
+                                        letfilesizef = letfilesizef + Number(letchildren[j].filesize.replace('KB',''));
+                                    }
+                                }
+                                this.tableData[i].filesize = Math.round((letfilesizef /1024) * 100) /100 + 'MB';
+                            }
+                        }
+                        this.totaldata = this.tableData
+                        this.getList();
+                        this.$message({
+                            type: 'success',
+                            message: this.$t('normal.info_03')
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: this.$t('normal.info_04')
+                        });
+                    });
                 }
                 //this.$emit('buttonClick', val)
             },
@@ -421,9 +434,6 @@
             },
             // 取分页数据
             getList() {
-                if(this.tableData.length > 0){
-                    this.maxfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
-                }
                 this.loading = true
                 let start = (this.listQuery.page - 1) * this.listQuery.limit
                 let end = this.listQuery.page * this.listQuery.limit
