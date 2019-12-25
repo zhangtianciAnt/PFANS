@@ -8,7 +8,7 @@ export function getcooperinterview(data) {
   })
 }
 
-export function cooperinterviewApplyOne(data) {
+export function getcooperinterviewApplyOne(data) {
   return request({
     url: 'cooperinterview/one',
     method: 'post',

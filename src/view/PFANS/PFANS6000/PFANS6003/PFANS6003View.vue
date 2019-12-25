@@ -38,8 +38,8 @@
                     {
                         //项目联络人
                         code: 'projectperson',
-                        label: 'label.PFANS6002VIEW_PROJECTPERSON',
-                        width: 120,
+                        label: 'label.PFANS6002FORMVIEW_PROJECTPERSON',
+                        width: 100,
                         fix: false,
                         filter: true,
                     },
@@ -55,7 +55,7 @@
                         //共同事务联络人
                         code: 'commontperson',
                         label: 'label.PFANS6002VIEW_COMMONTPERSON',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -126,7 +126,7 @@
                 this.rowid = row.supplierinfor_id;
             },
             buttonClick(val) {
-                this.$store.commit('supplierinfor/SET_HISTORYURL', this.$route.path);
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
                     if (this.rowid === '') {
                         Message({

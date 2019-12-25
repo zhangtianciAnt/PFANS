@@ -129,7 +129,7 @@
                 this.rowid = row.cooperinterview_id;
             },
             buttonClick(val) {
-                this.$store.commit('cooperinterview/SET_HISTORYURL', this.$route.path);
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
                     if (this.rowid === '') {
                         Message({
