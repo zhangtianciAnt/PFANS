@@ -188,11 +188,33 @@
         }
         this.disable = this.$route.params.disabled;
       },
-
-
-
-
-
+      methods: {
+        getUserids(val) {
+          this.userlist = val;
+          this.form.user_id = val;
+          if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
+            this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+          } else {
+            this.error = '';
+          }
+        },
+        workflowState(val) {
+          if (val.state === '1') {
+            this.form.status = '3';
+          } else if (val.state === '2') {
+            this.form.status = '4';
+          }
+          this.buttonClick("update");
+        },
+        start() {
+          this.form.status = '2';
+          this.buttonClick("update");
+        },
+        end() {
+          this.form.status = '0';
+          this.buttonClick("update");
+        },
+      }
     }
 </script>
 

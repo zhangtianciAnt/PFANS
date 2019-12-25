@@ -526,6 +526,22 @@
         getindividual(val) {
           this.form.individual = val;
         },
+        workflowState(val) {
+          if (val.state === '1') {
+            this.form.status = '3';
+          } else if (val.state === '2') {
+            this.form.status = '4';
+          }
+          this.buttonClick("update");
+        },
+        start() {
+          this.form.status = '2';
+          this.buttonClick("update");
+        },
+        end() {
+          this.form.status = '0';
+          this.buttonClick("update");
+        },
         deleteRow(index, rows) {
           if (rows.length > 1) {
             rows.splice(index, 1);

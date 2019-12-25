@@ -44,14 +44,14 @@
                filter: true
              },
              {
-               code: 'entrust',
+               code: 'entrustjapanese',
                label: 'label.PFANS1025VIEW_ENTRUST',
                width: 120,
                fix: false,
                filter: true
              },
              {
-               code: 'enplace',
+               code: 'enplacechinese',
                label: 'label.PFANS1025VIEW_ENTRUSTPLACE',
                width: 150,
                fix: false,
@@ -65,26 +65,20 @@
                filter: true
              },
              {
-               code: 'pjname',
+               code: 'pjnamejapanese',
                label: 'label.PFANS1025VIEW_PJNAME',
                width: 120,
                fix: false,
                filter: true
              },
              {
-               code: 'openingdate',
-               label: 'label.PFANS1025VIEW_OPENINGDATE',
+               code: 'developdate',
+               label: 'label.PFANS1025VIEW_DEVELOPDATE',
                width: 150,
                fix: false,
                filter: true
              },
-             {
-               code: 'enddate',
-               label: 'label.PFANS1025VIEW_ENDDATE',
-               width: 150,
-               fix: false,
-               filter: true
-             },
+
              {
                code: 'deliverydate',
                label: 'label.PFANS1024VIEW_DELIVERYDATE',
@@ -122,17 +116,8 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== "") {
-                let rst = getUserInfo(response[j].user_id);
-                if (rst) {
-                  response[j].user_id = rst.userinfo.customername;
-                }
-                // if (response[j].openingdate !== null && response[j].openingdate !== "") {
-                //   response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
-                // }
-                // if (response[j].enddate !== null && response[j].enddate !== "") {
-                //   response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
-                // }
-                if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
+
+                if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
                   response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
                 }
               }
