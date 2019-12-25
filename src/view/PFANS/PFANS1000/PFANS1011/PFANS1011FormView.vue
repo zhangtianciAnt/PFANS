@@ -91,7 +91,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="informationpc"
+                               v-model="form.informationpc"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -101,7 +101,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="informationno"
+                               v-model="form.informationno"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -111,7 +111,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="management"
+                               v-model="form.management"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -123,7 +123,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="healthofmembers"
+                               v-model="form.healthofmembers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -133,7 +133,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="customers"
+                               v-model="form.customers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -143,7 +143,7 @@
                   <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')">
                     <el-switch :disabled="!disable"
                                style="width:11rem"
-                               v-model="objectchina"
+                               v-model="form.objectchina"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -418,12 +418,6 @@
         title: 'title.PFANS1011VIEW',
         buttonList: [],
         regExp: [],
-        informationpc: '1',
-        informationno: '1',
-        management: '1',
-        healthofmembers: '1',
-        customers: '1',
-        objectchina: '1',
         form: {
           user_id: '',
           center_id: '',
@@ -434,13 +428,13 @@
           groupe_id: '',
           teame_id: '',
           user: '',
-          interviewday: '',
-          informationpc: '',
-          informationno: '',
-          management: '',
-          healthofmembers: '',
-          customers: '',
-          objectchina: '',
+          interviewday:moment(new Date()).format('YYYY-MM-DD'),
+          informationpc: "1",
+          informationno:  "1",
+          management: "1",
+          healthofmembers:"1",
+          customers: "1",
+          objectchina: "1",
           objective: '',
           lookforward: '',
           kolei: '',
@@ -510,12 +504,6 @@
             this.userelist = this.form.user;
             this.responsiblepersonlist = this.form.responsibleperson;
             this.actasapersonlist = this.form.actasaperson;
-            this.informationpc = this.form.informationpc;
-            this.informationno = this.form.informationno;
-            this.management = this.form.management;
-            this.healthofmembers = this.form.healthofmembers;
-            this.customers = this.form.customers;
-            this.objectchina = this.form.objectchina;
             this.loading = false;
           })
           .catch(error => {
@@ -619,7 +607,7 @@
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
-              this.form.interviewday = moment(this.form.interviewday).format('YYYY-MM-DD');
+              this.customers = this.form.customers;
               if (this.$route.params._id) {
                 this.form.offshore_id = this.$route.params._id;
                 this.$store
@@ -646,7 +634,6 @@
                   });
               } else {
                 this.loading = true;
-                this.form.interviewday = moment(this.form.interviewday).format('YYYY-MM-DD');
                 this.$store
                   .dispatch('PFANS1011Store/createOffshore', this.form)
                   .then(response => {
