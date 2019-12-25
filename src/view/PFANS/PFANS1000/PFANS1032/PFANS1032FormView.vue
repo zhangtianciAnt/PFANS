@@ -12,7 +12,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_CONTRACTTYPE')">
+              <el-form-item :label="$t('label.PFANS1024FORMVIEW_CONTRACTTYPE')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.contracttype"></el-input>
               </el-form-item>
             </el-col>
@@ -48,12 +48,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_PJNAMEJAPANESE')">
+              <el-form-item :label="$t('label.PFANS1024FORMVIEW_PJNAMEJAPANESE')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.pjnamejapanese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_PJNAMECHINESE')">
+              <el-form-item :label="$t('label.PFANS1024FORMVIEW_PJNAMECHINESE')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.pjnamechinese"></el-input>
               </el-form-item>
             </el-col>
@@ -61,41 +61,43 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_OPENINGDATE')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.openingdate"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_ENDDATE')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.enddate"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_BUSINESSCODE')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.businesscode"></el-input>
+              <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
+                <el-date-picker
+                  v-model="form.developdate"
+                  type="daterange"
+                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                  :start-placeholder="$t('label.startdate')"
+                  :end-placeholder="$t('label.enddate')"
+                  style="width: 20rem">
+                </el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1032FORMVIEW_BUSINESSCODE')">
+                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.businesscode"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_DELIVERYDATE')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.deliverydate"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMAMOUNT')">
+              <el-form-item :label="$t('label.PFANS1024FORMVIEW_CLAIMAMOUNT')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.claimamount"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYPHONE')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.depositaryphone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYPHONE')">
+                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.depositaryphone"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.claimnumber"></el-input>
@@ -106,6 +108,9 @@
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.claimtype"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+
+          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CURRENCYFORMAT')">
                 <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.currencyformat"></el-input>
@@ -162,7 +167,27 @@
             canStart: false
           }
     },
-
+      created(){
+        if(!this.$route.params.disabled){
+          this.buttonList=[
+            {
+              key: 'generate',
+              name: 'button.generate',
+              disabled: false,
+            }
+          ]
+        }else {
+          this.buttonList=[
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ]
+        }
+        this.disable = this.$route.params.disabled;
+      },
 
 
 

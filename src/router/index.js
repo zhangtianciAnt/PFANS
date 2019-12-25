@@ -17,8 +17,6 @@ import usersToRoleView from '@/view/users/usersToRoleView.vue'
 import { getToken } from '@/utils/auth'
 import workflowView from '@/view/workflow/workflowView.vue'
 import workflowFormView from '@/view/workflow/workflowFormView.vue'
-import PFANS8008View from '@/view/PFANS/PFANS8000/PFANS8008/PFANS8008View.vue'
-import PFANS8008FormView from '@/view/PFANS/PFANS8000/PFANS8008/PFANS8008FormView.vue'
 import { Message } from 'element-ui'
 import i18n from '../assets/js/i18n'
 import PFANS1001View from '@/view/PFANS/PFANS1000/PFANS1001/PFANS1001View.vue'
@@ -59,6 +57,7 @@ import PFANS1023FormView from '@/view/PFANS/PFANS1000/PFANS1023/PFANS1023FormVie
 import PFANS1024View from '@/view/PFANS/PFANS1000/PFANS1024/PFANS1024View.vue'
 import PFANS1025View from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025View.vue'
 import PFANS1026View from '@/view/PFANS/PFANS1000/PFANS1024/PFANS1024View.vue'
+import PFANS1032View from '@/view/PFANS/PFANS1000/PFANS1032/PFANS1032View.vue'
 import PFANS1033View from '@/view/PFANS/PFANS1000/PFANS1033/PFANS1033View.vue'
 import PFANS1034View from '@/view/PFANS/PFANS1000/PFANS1034/PFANS1034View.vue'
 import PFANS1036View from '@/view/PFANS/PFANS1000/PFANS1036/PFANS1036View.vue'
@@ -119,11 +118,17 @@ import PFANS5001View from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001View.vue'
 import PFANS5001FormView from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001FormView.vue'
 import PFANS5008View from '@/view/PFANS/PFANS5000/PFANS5008/PFANS5008View.vue'
 import PFANS5008FormView from '@/view/PFANS/PFANS5000/PFANS5008/PFANS5008FormView.vue'
+import PFANS6001View from '@/view/PFANS/PFANS6000/PFANS6001/PFANS6001View.vue'
+import PFANS6002View from '@/view/PFANS/PFANS6000/PFANS6002/PFANS6002View.vue'
+import PFANS6003View from '@/view/PFANS/PFANS6000/PFANS6003/PFANS6003View.vue'
+import PFANS6004View from '@/view/PFANS/PFANS6000/PFANS6004/PFANS6004View.vue'
 import PFANS8001View from '@/view/PFANS/PFANS8000/PFANS8001/PFANS8001View.vue'
 import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
 import PFANS8003FormView from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003FormView.vue'
 import PFANS8007View from '@/view/PFANS/PFANS8000/PFANS8007/PFANS8007View.vue'
+import PFANS8008View from '@/view/PFANS/PFANS8000/PFANS8008/PFANS8008View.vue'
+import PFANS8008FormView from '@/view/PFANS/PFANS8000/PFANS8008/PFANS8008FormView.vue'
 import PFANS8009View from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009View.vue'
 import PFANS8009PointView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009PointView.vue'
 import PFANS8009FormView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009FormView.vue'
@@ -407,6 +412,11 @@ const routes = [
         path: '/PFANS1026View',
         name: 'PFANS1026View',
         component: PFANS1026View,
+      },
+      {
+        path: '/PFANS1032View',
+        name: 'PFANS1032View',
+        component: PFANS1032View,
       },
       {
         path: '/PFANS1033View',
@@ -706,6 +716,26 @@ const routes = [
         path: '/PFANS5008FormView',
         name: 'PFANS5008FormView',
         component: PFANS5008FormView
+      },
+      {
+        path: '/PFANS6001View',
+        name: 'PFANS6001View',
+        component: PFANS6001View
+      },
+      {
+        path: '/PFANS6002View',
+        name: 'PFANS6002View',
+        component: PFANS6002View
+      },
+      {
+        path: '/PFANS6003View',
+        name: 'PFANS6003View',
+        component: PFANS6003View
+      },
+      {
+        path: '/PFANS6004View',
+        name: 'PFANS6004View',
+        component: PFANS6004View
       },
       {
         path: '/PFANS8001View',

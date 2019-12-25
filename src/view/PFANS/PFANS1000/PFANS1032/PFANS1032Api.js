@@ -1,20 +1,20 @@
 import request from '../../../../utils/request'
 
 
-export function getAllIrregulartiming() {
+export function get() {
   return request({
     url: 'petition/get',
     method: 'get'
   })
 }
-export function getIrregulartimingOne(data) {
+export function selectById(data) {
   return request({
     url: 'petition/selectById',
     method: 'post',
     data: data
   })
 }
-export function updateIrregulartiming(data) {
+export function update(data) {
   return request({
     url: 'petition/update',
     method: 'post',
