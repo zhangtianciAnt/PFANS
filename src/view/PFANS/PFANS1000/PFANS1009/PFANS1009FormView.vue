@@ -54,10 +54,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-
-
-
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
                 <el-switch :disabled="!disable"
@@ -79,10 +75,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
-
-
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">
@@ -96,19 +88,11 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
-                <el-input :disabled="!disable" style="width:11rem" v-model="form.ancillaryequipment" maxlength=""></el-input>
+                <el-input :disabled="!disable" style="width:11rem" v-model="form.ancillaryequipment"
+                          maxlength=""></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-
-
-
-
-
-
-
-
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_DUTYFREEINPUT')" prop="dutyfreeinput">
@@ -121,12 +105,6 @@
                 </el-switch>
               </el-form-item>
             </el-col>
-
-
-
-
-
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate" v-show="show1">
                 <el-date-picker
@@ -235,31 +213,28 @@
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
               picker.$emit('pick', [start, end]);
-            }
+            },
           }, {
-            text:this.$t('label.PFANS1016FORMVIEW_MONTH'),
+            text: this.$t('label.PFANS1016FORMVIEW_MONTH'),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit('pick', [start, end]);
-            }
+            },
           }, {
-            text:this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
+            text: this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
             onClick(picker) {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit('pick', [start, end]);
-            }
-          }]
+            },
+          }],
         },
         show1: true,
         show2: true,
         repair: '',
-
-
-        // dutyfreeinput: '1',
         installsoftware: '1',
         installsoftwareflg: '',
         suitablebringout: '1',
@@ -289,7 +264,7 @@
           releasedate: '',
           objective: '',
           borrowing: '',
-          repair:[],
+          repair: [],
           repairkits: '',
           nodeList: [],
         },
@@ -312,7 +287,7 @@
           inputdate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
-            trigger: 'change',
+            trigger: 'blur',
           }],
           assetnumber: [{
             required: true,
@@ -344,20 +319,10 @@
       if (this.form.dutyfreeinput === '1') {
         this.show1 = true;
         this.show2 = true;
-        // this.rules.inputdate[0].required = true;
-        // this.rules.releasedate[0].required = true;
       } else {
         this.show2 = false;
         this.show1 = false;
-        // this.rules.inputdate[0].required = false;
-        // this.rules.releasedate[0].required = false;
       }
-
-
-
-
-
-
     },
     mounted() {
       if (this.$route.params._id) {
@@ -374,13 +339,11 @@
             if (this.form.dutyfreeinput === '1') {
               this.show1 = true;
               this.show2 = true;
-              // this.rules.inputdate[0].required = true;
-              // this.rules.releasedate[0].required = true;
+              this.rules.inputdate[0].required = true;
             } else {
               this.show2 = false;
               this.show1 = false;
-              // this.rules.inputdate[0].required = false;
-              // this.rules.releasedate[0].required = false;
+              this.rules.inputdate[0].required = false;
             }
             let repair = response.repair;
             let serdate = repair.slice(0, 10);
@@ -441,13 +404,11 @@
         if (val === '1') {
           this.show1 = true;
           this.show2 = true;
-          // this.rules.inputdate[0].required = true;
-          // this.rules.releasedate[0].required = true;
+          this.rules.inputdate[0].required = true;
         } else {
           this.show1 = false;
           this.show2 = false;
-          // this.rules.inputdate[0].required = false;
-          // this.rules.releasedate[0].required = false;
+          this.rules.inputdate[0].required = false;
         }
       },
       workflowState(val) {
