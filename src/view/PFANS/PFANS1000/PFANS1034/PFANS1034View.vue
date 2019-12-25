@@ -89,7 +89,7 @@
 
 <script>
     import EasyButtonBar from '@/components/EasyButtonBar'
-    import {orderBy,uploadUrl} from '@/utils/customize'
+    import {orderBy,uploadUrl,downLoadUrl} from '@/utils/customize'
     import moment from 'moment';
     import {Message} from 'element-ui';
 
@@ -114,6 +114,7 @@
                 systembutton: [false, false, false],
                 selectedList: [],
                 folderid:'',
+                url: '',
                 uploadfile:'',
                 fileList: [],
                 upload: uploadUrl(),
@@ -271,58 +272,35 @@
                     this.uploadfile += item.name + "," + item.url + ";"
                 }
             },
-            fileDownload(file) {
+            fileDownload(varurl) {
                 debugger;
-                if (file.url) {
-                    var url = downLoadUrl(file.url);
+                if (varurl) {
+                    var url = downLoadUrl(varurl);
                     window.open(url);
                 }
 
             },
             fileSuccess(response, file, fileList) {
                 debugger;
-                // this.fileList = [];
-                // this.uploadfile = "";
-                // for (var item of fileList) {
-                //     let o = {};
-                //     o.name = item.name;
-                //     if (!item.url) {
-                //         o.url = item.response.info;
-                //     } else {
-                //         o.url = item.url;
-                //     }
-                //     this.fileList.push(o);
-                //     //this.uploadfile += o.name + "," + o.url + ";"
-                //     alert(name);
-                //     this.tableData.push({
-                //         folderid: this.maxfolderid,
-                //         filename: o.name.split(".")[0],
-                //         filesize: '',
-                //         updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                //         updateperson: this.username,
-                //         url: o.url,
-                //         children: []
-                //     });
-                //     this.totaldata = this.tableData
-                //     this.getList()
-                //
-                // }
                 let url;
-                if (!item.url) {
+                if (!file.url) {
                     url = file.response.info;
                 } else {
                     url = file.url;
                 }
-
-                this.tableData.push({
-                    folderid: this.maxfolderid,
-                    filename: file.name.split(".")[0],
-                    filesize: '',
-                    updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                    updateperson: this.username,
-                    url: o.url,
-                    children: []
-                });
+                for(let i = 0;i < this.tableData.length;i++){
+                    if(this.tableData[i].folderid === this.folderid){
+                        this.tableData[i].children.push({
+                            folderid: this.maxfolderid,
+                            filename: file.name.split(".")[0],
+                            filesize: file.size,
+                            updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                            updateperson: this.username,
+                            url: url,
+                            children: []
+                        });
+                    }
+                }
                 this.totaldata = this.tableData
                 this.getList()
             },
@@ -361,6 +339,7 @@
                         });
                         return;
                     }
+                    this.fileDownload(this.url);
                 }
                 else if(val == 'delete'){
                   if (this.folderid === '') {
@@ -526,6 +505,7 @@
             // 行点击
             rowClick(row) {
                 this.folderid = row.folderid;
+                this.url = row.url;
                 this.$store.commit('global/SET_OPERATEID', row[this.rowid])
                 this.$store
                     .dispatch('tableStore/getActionsAuth', row.owner)
