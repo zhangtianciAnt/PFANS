@@ -68,7 +68,7 @@
           drag
           ref="upload">
           <i class="el-icon-upload"></i>
-          <el-button id="aa" size="small" type="primary">点击上传</el-button>
+          <el-button id="upload" size="small" type="primary">点击上传</el-button>
           <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
         </el-upload>
 
@@ -117,6 +117,8 @@
                 uploadfile:'',
                 fileList: [],
                 upload: uploadUrl(),
+                username: '',
+                maxfolderid: 0,
                 // 行id
                 rowid: 'folderid',
                 // 列属性
@@ -279,70 +281,86 @@
             },
             fileSuccess(response, file, fileList) {
                 debugger;
-                this.fileList = [];
-                this.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.uploadfile += o.name + "," + o.url + ";"
-
-
-                    let letfolderid = 0;
-                    if(this.tableData.length > 0){
-                        letfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
-                    }
-                    let updateperson;
-                    if(this.$store.getters.userinfo){
-                        updateperson = this.$store.getters.userinfo.userinfo.customername;
-                    }
-                    this.tableData.push({
-                        folderid: letfolderid,
-                        filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
-                        filesize: '',
-                        updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                        updateperson: updateperson,
-                        url: '',
-                        children: []
-                    });
-                    this.totaldata = this.tableData
-                    this.getList()
-
+                // this.fileList = [];
+                // this.uploadfile = "";
+                // for (var item of fileList) {
+                //     let o = {};
+                //     o.name = item.name;
+                //     if (!item.url) {
+                //         o.url = item.response.info;
+                //     } else {
+                //         o.url = item.url;
+                //     }
+                //     this.fileList.push(o);
+                //     //this.uploadfile += o.name + "," + o.url + ";"
+                //     alert(name);
+                //     this.tableData.push({
+                //         folderid: this.maxfolderid,
+                //         filename: o.name.split(".")[0],
+                //         filesize: '',
+                //         updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                //         updateperson: this.username,
+                //         url: o.url,
+                //         children: []
+                //     });
+                //     this.totaldata = this.tableData
+                //     this.getList()
+                //
+                // }
+                let url;
+                if (!item.url) {
+                    url = file.response.info;
+                } else {
+                    url = file.url;
                 }
+
+                this.tableData.push({
+                    folderid: this.maxfolderid,
+                    filename: file.name.split(".")[0],
+                    filesize: '',
+                    updatedate: moment(new Date()).format('YYYY-MM-DD'),
+                    updateperson: this.username,
+                    url: o.url,
+                    children: []
+                });
+                this.totaldata = this.tableData
+                this.getList()
             },
             buttonClick(val) {
                 this.$emit("buttonClick", val);
                 if(val == 'folder'){
-                    let letfolderid = 0;
-                    if(this.tableData.length > 0){
-                        letfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
-                    }
-                    let updateperson;
-                    if(this.$store.getters.userinfo){
-                        updateperson = this.$store.getters.userinfo.userinfo.customername;
-                    }
                     this.tableData.push({
-                        folderid: letfolderid,
+                        folderid: this.maxfolderid,
                         filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
                         filesize: '',
                         updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                        updateperson: updateperson,
-                        url: '',
+                        updateperson: this.username,
+                        url: '1',
                         children: []
                     });
                     this.totaldata = this.tableData
                     this.getList()
                 }
-                else if(val == 'upload'){//111
-                  document.getElementById("aa").click();
+                else if(val == 'upload'){
+                    if (this.folderid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    document.getElementById("upload").click();
                 }
                 else if(val == 'download'){
-
+                    if (this.folderid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'error',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
                 }
                 else if(val == 'delete'){
                   if (this.folderid === '') {
@@ -424,6 +442,9 @@
             },
             // 取分页数据
             getList() {
+                if(this.tableData.length > 0){
+                    this.maxfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
+                }
                 this.loading = true
                 let start = (this.listQuery.page - 1) * this.listQuery.limit
                 let end = this.listQuery.page * this.listQuery.limit
@@ -537,6 +558,9 @@
             }
         },
         mounted() {
+            if(this.$store.getters.userinfo){
+                this.username = this.$store.getters.userinfo.userinfo.customername;
+            }
             this.totaldata = this.tableData
             this.getList()
             this.getNewActionAuth()
