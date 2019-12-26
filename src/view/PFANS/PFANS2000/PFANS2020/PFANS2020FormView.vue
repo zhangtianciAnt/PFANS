@@ -26,7 +26,7 @@
           <el-col :span="24">
             <el-row>
               <el-form-item :label="$t('label.cause')">
-                <el-input :disabled="!disable" style="width: 55rem" type="textarea"
+                <el-input :disabled="!disable" style="width: 52rem"  type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-row>
