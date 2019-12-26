@@ -7,14 +7,6 @@ export function get() {
   })
 }
 
-export function selectById(data) {
-  return request({
-    url: 'contractapplication/selectById',
-    method: 'get',
-    params: data
-  })
-}
-
 export function update(data) {
   return request({
     url: 'contractapplication/update',

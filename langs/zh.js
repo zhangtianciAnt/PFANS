@@ -44,6 +44,7 @@ module.exports = {
     folder: '新建文件夹',
     upload: '上传',
     download: '下载',
+    download2:'模板下载',
     downloadjjp: '下载接机牌',
     printing: '打印',
     next: '下一步',

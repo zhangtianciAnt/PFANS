@@ -1,4 +1,4 @@
-import {getFpans2017List} from './PFANS2017Api'
+import {getFpans2017List, download} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -20,6 +20,15 @@ const PFANS2017Store = {
         })
       })
     },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 };
 

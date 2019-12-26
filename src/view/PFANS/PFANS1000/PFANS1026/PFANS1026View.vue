@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
   <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                       :buttonList="buttonList" :data="data">
+                       :buttonList="buttonList" :noback = "true">
     <div slot="customize">
       <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
                ref="refform">
@@ -9,37 +9,37 @@
           <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
             <dicselect
               :code="code"
-              :data="form.model1"
+              :data="form.value1"
               :multiple="multiple"
               @change="getnumber"
               style="width: 11rem">
             </dicselect>
           </el-form-item>
-          <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')":label-width="formLabelWidth">
-            <el-input v-model="form.model4" style="width: 11rem" ></el-input>
+          <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
+            <el-input v-model="form.value4" style="width: 11rem" ></el-input>
             <el-checkbox
-              v-model="form.model"
+              v-model="form.value"
               :key="index"
               @change="getChecked"
               active-value="1"
               inactive-value="0"
             >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
           </el-form-item>
-          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')":label-width="formLabelWidth">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
             <dicselect :code="code2"
-                       :data="form.model2"
+                       :data="form.value2"
                        @change="getcontracttype"
                        style="width: 11rem">
             </dicselect>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
             <dicselect :code="code2"
-                       :data="form.model3"
+                       :data="form.value3"
                        @change="getcareeryear"
                        style="width: 11rem">
             </dicselect>
             <dicselect :code="code3"
-                       :data="form.model3"
+                       :data="form.value3"
                        @change="getcareeryear"
                        style="width: 11rem">
             </dicselect>
@@ -48,12 +48,12 @@
             <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 9rem" @getOrgids="getGroupId"></org>
           </el-form-item>
           <div  class="dialog-footer" align="center">
-            <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1024VIEW_NUMBERSUCCESS')}}
+            <el-button @click="buttonClick1" v-if="show1">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
             </el-button>
-            <el-button  @click="dialogFormVisible = false" v-if="show2">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1024VIEW_NUMBERDELETE')}}
+            <el-button  @click="buttonClick2" v-if="show2">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
             </el-button>
           </div>
@@ -303,7 +303,7 @@
                   </template>
                 </el-table-column>
               </el-table-column>
-              <el-table-column :label="$t('label.取引先担当者（請求書受取人）')" align="center">
+              <el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">
                 <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
@@ -427,7 +427,7 @@
             </el-row>
             <el-table :data="tablesecond" header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -479,13 +479,13 @@
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
-                <el-table-column :label="$t('label.状況')" align="center"  prop="deliverycondition">
+                <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.対象')" align="center"  prop="delivery">
+                <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled"   v-model="scope.row.delivery">
                     </el-input>
@@ -493,13 +493,13 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
-                <el-table-column :label="$t('label.状況')" align="center"  prop="claimcondition">
+                <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.対象')" align="center"  prop="claim">
+                <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled"   v-model="scope.row.claim">
                     </el-input>
@@ -691,7 +691,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.該非判定（契約番号申請後、実施）')" align="center">
+              <el-table-column :label="$t('label.PFANS1026VIEW_DETERMINATION')" align="center">
                 <el-table-column :label="$t('label.PFANS1024VIEW_DECIDE')" align="center" prop="decide"  width="200">
                   <template slot-scope="scope">
                     <dicselect
@@ -763,7 +763,7 @@
             </el-row>
             <el-table :data="tablethird" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -1043,7 +1043,7 @@
             </el-row>
             <el-table :data="tablefourth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -1323,7 +1323,7 @@
             </el-row>
             <el-table :data="tablefifth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -1601,9 +1601,9 @@
                 <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_DOMESTICTRUST')}}</span>
               </el-col>
             </el-row>
-            <el-table :data="tablesixth" header-cell-class-name="sub_bg_color_grey height":header-cell-style="getRowClass6">
+            <el-table :data="tablesixth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -1815,7 +1815,7 @@
                   </template>
                 </el-table-column>
               </el-table-column>
-              <el-table-column :label="$t('label.取引先担当者（請求書受取人）')" align="center">
+              <el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">
                 <el-table-column :label="$t('label.名前（和文）')" align="center" prop="responjapanese" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
@@ -1883,7 +1883,7 @@
             </el-row>
             <el-table :data="tableseventh" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -2095,7 +2095,7 @@
                   </template>
                 </el-table-column>
               </el-table-column>
-              <el-table-column :label="$t('label.取引先担当者（請求書受取人）')" align="center">
+              <el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">
                 <el-table-column :label="$t('label.名前（和文）')" align="center" prop="responjapanese" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
@@ -2163,7 +2163,7 @@
             </el-row>
             <el-table :data="tableeighth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -2443,7 +2443,7 @@
             </el-row>
             <el-table :data="tableninth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
-                               type="index"></el-table-column>
+                               type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
                   <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
@@ -2729,6 +2729,7 @@
   import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from "../../../components/org";
+  import moment from "moment";
 
   export default {
     name: 'PFANS1026View',
@@ -2751,12 +2752,12 @@
       return {
         index: "",
         dialogFormVisible: false,
-        model: "scope.row.contractnumber",
-        model1:"scope.row.claimtype",
-        model2:"scope.row.contracttype",
-        model3:"scope.row.applicationdate",
-        model4:"scope.row.contractnumber",
-        model5:"scope.row.group_id",
+        value: "scope.row.contractnumber",
+        value1: "scope.row.claimtype",
+        value2: "scope.row.contracttype",
+        value3: "scope.row.applicationdate",
+        value4: "scope.row.contractnumber",
+        value5: "scope.row.group_id",
         grouporglist: '',
         errorgroup: '',
         loading: false,
@@ -2772,8 +2773,8 @@
         erroroutmanager: "",
         errormanager: "",
         disabled: true,
-        data: [],
         multiple: false,
+        rowindex: '',
         rules: {
               group_id: [
                   {
@@ -2806,12 +2807,12 @@
             },
         ],
         form:{
-              model: '',
-              model1: '',
-              model2: '',
-              model3: '',
-              model4: '',
-              model5: '',
+            value: '',
+            value1: '',
+            value2: '',
+            value3: '',
+            value4: '',
+            value5: '',
         },
         formLabelWidth: '120px',
           tablefirst: [
@@ -2819,7 +2820,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -2874,7 +2875,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -2929,7 +2930,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -2976,7 +2977,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3023,7 +3024,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3070,7 +3071,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3117,7 +3118,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3164,7 +3165,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3211,7 +3212,7 @@
                   contractapplication_id: '',
                   group_id: '',
                   deployment: '',
-                  applicationdate: '',
+                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                   user_id: '',
                   contracttype: '',
                   contractnumber: '',
@@ -3268,18 +3269,42 @@
     },
     mounted() {
         this.loading = true;
+        if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1026Store/get')
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              response[j].status = getStatus(response[j].status);
-              let user = getUserInfo(response[j].user_id);
-              if (user) {
-                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-              }
-            }
+                if (response.length > 0) {
+                    for(let i = 0;i<response.length;i++){
+                        if(response[i].type === '1'){
+                            this.tablefirst = response[i];
+                        }
+                        else if(response[i].type === '2'){
+                            this.tablesecond = response[i];
+                        }
+                        else if(response[i].type === '3'){
+                            this.tablethird = response[i];
+                        }
+                        else if(response[i].type === '4'){
+                            this.tablefourth = response[i];
+                        }
+                        else if(response[i].type === '5'){
+                            this.tablefifth = response[i];
+                        }
+                        else if(response[i].type === '6'){
+                            this.tablesixth = response[i];
+                        }
+                        else if(response[i].type === '7'){
+                            this.tableseventh = response[i];
+                        }
+                        else if(response[i].type === '8'){
+                            this.tableeighth = response[i];
+                        }
+                        else if(response[i].type === '9'){
+                            this.tableninth = response[i];
+                        }
+                    }
+                }
             this.form = response;
-            this.grouporglist = this.form.model5;
             this.loading = false;
           })
           .catch(error => {
@@ -3290,22 +3315,29 @@
             });
             this.loading = false
           })
+        } else {
+            this.userlist = this.$store.getters.userinfo.userid;
+            if (this.userlist !== null && this.userlist !== '') {
+                this.form.user_id = this.$store.getters.userinfo.userid;
+            }
+            this.loading = false;
+        }
     },
     methods: {
-        getUserids(val,row) {
-            row.user_id = val;
-            if (!row.user_id || row.user_id === '' || val === "undefined") {
-                this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-            } else {
-                this.erroruser = "";
-            }
-        },
         getGroupId(val) {
             this.grouporglist = val;
             if (!this.form.group_id || this.form.group_id === '' || val === "undefined") {
                 this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
             } else {
                 this.errorgroup = "";
+            }
+        },
+        getUserids(val,row) {
+            row.user_id = val;
+            if (!row.user_id || row.user_id === '' || val === "undefined") {
+                this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                this.erroruser = "";
             }
         },
         getJudge(val, row) {
@@ -3325,16 +3357,16 @@
             }
         },
         getnumber(val){
-            this.form.model1 = val;
+            this.form.value1 = val;
         },
         getChecked(val){
-            this.form.model = val;
+            this.form.value = val;
         },
         getcontracttype(val){
-            this.form.model2 = val;
+            this.form.value2 = val;
         },
         getcareeryear(val){
-            this.form.model3 = val;
+            this.form.value3 = val;
         },
         getVarto(val, row){
             row.varto = val;
@@ -3833,8 +3865,8 @@
             if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
                 return {
                     color: 'white',
-                    background: '#CC9999',
-                    'border-right': '1px solid #CC7373',
+                    background: '#99CC99',
+                    'border-right': '1px solid #B973FF',
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
@@ -3842,7 +3874,7 @@
                 return {
                     color: 'white',
                     background: '#CC9999',
-                    'border-right': '1px solid #CC7373',
+                    'border-right': '1px solid #99CCFF',
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
@@ -4286,21 +4318,28 @@
                 contracttape: '',
             });
         },
-        buttonClick(val) {
+        buttonClick1(){
+            this.dialogFormVisible = false;
             if (val === "application") {
                 this.dialogFormVisible = true;
                 this.show1=true;
                 this.show2=false;
             }
+        },
+        buttonClick2(){
+            this.dialogFormVisible = false;
             if (val === "cancellation") {
                 this.dialogFormVisible = true;
                 this.show1=false;
                 this.show2=true;
             }
+        },
+        buttonClick(val) {
             this.$refs["refform"].validate(valid => {
                 if (valid) {
                     this.loading = true;
                     this.contractapplication = {};
+                    row.contracttape = "1";
                     if (this.$route.params._id) {
                         this.$store
                             .dispatch('PFANS1026Store/update', this.contractapplication)

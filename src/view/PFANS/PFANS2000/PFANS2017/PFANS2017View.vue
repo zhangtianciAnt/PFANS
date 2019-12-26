@@ -136,8 +136,9 @@
                     },
                 ],
                 buttonList: [
-                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
+                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'}
                 ],
                 isShow: true,
             };
@@ -268,6 +269,21 @@
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2017'));
+                    })
+                }else if('export2' === val){
+                  this.loading = true;
+                  this.$store
+                    .dispatch('PFANS2017Store/download', {})
+                    .then(response => {
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
                     })
                 }
             }
