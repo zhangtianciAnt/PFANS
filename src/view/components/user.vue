@@ -109,9 +109,12 @@
         this.multipleSelection = [];
         for (let i = 0; i < this.userlist.split(",").length; i++) {
           if (this.userlist.split(",")[i] !== "") {
-            this.multipleSelection.push(
-              getUserInfo(this.userlist.split(",")[i]).userinfo
-            );
+            let user = getUserInfo(this.userlist.split(",")[i]);
+            if(user){
+              this.multipleSelection.push(
+                user.userinfo
+              );
+            }
           }
         }
       }
@@ -122,9 +125,12 @@
           this.multipleSelection = [];
           for (let i = 0; i < val.split(",").length; i++) {
             if (val.split(",")[i] !== "") {
-              this.multipleSelection.push(
-                getUserInfo(val.split(",")[i]).userinfo
-              );
+              let user = getUserInfo(val.split(",")[i]);
+              if(user){
+                this.multipleSelection.push(
+                  user.userinfo
+                );
+              }
             }
           }}
         },
