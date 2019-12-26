@@ -1,18 +1,13 @@
-import {
-  getexpatriatesinfor,
-  getexpatriatesinforApplyOne,
-  updateexpatriatesinforApply,
-  createexpatriatesinforApply,
-} from './PFANS6004Api'
+import {createvariousfundsApply, getvariousfunds, getvariousfundsApplyOne, updatevariousfundsApply,} from './PFANS6007Api'
 
-const PFANS6004Store = {
+const PFANS6007Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getexpatriatesinfor() {
+    getvariousfunds() {
       return new Promise((resolve, reject) => {
-        getexpatriatesinfor().then(response => {
+        getvariousfunds().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -23,23 +18,9 @@ const PFANS6004Store = {
         })
       })
     },
-    getexpatriatesinforApplyOne({commit}, data) {
+    getvariousfundsApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
-        getexpatriatesinforApplyOne(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-          exitreason
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    updateexpatriatesinforApply({commit}, data) {
-      return new Promise((resolve, reject) => {
-        updateexpatriatesinforApply(data).then(response => {
+        getvariousfundsApplyOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -50,9 +31,22 @@ const PFANS6004Store = {
         })
       })
     },
-    createexpatriatesinforApply({commit}, data) {
+    updatevariousfundsApply({commit}, data) {
       return new Promise((resolve, reject) => {
-        createexpatriatesinforApply(data).then(response => {
+        updatevariousfundsApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    createvariousfundsApply({commit}, data) {
+      return new Promise((resolve, reject) => {
+        createvariousfundsApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -66,4 +60,4 @@ const PFANS6004Store = {
   }
 };
 
-export default PFANS6004Store;
+export default PFANS6007Store;
