@@ -26,7 +26,7 @@
                     {
                         code: 'graduationyear',
                         label: 'label.PFANS2023VIEW_YEARS',
-                        width: 80,
+                        width: 90,
                         fix: false,
                         filter: true
                     },
