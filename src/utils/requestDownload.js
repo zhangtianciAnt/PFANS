@@ -38,7 +38,7 @@ service.interceptors.response.use(
         var downloadElement = document.createElement('a');
         var href = window.URL.createObjectURL(blob); //创建下载的链接
         downloadElement.href = href;
-        downloadElement.download = '文件.xls'; //下载后文件名
+        downloadElement.download = decodeURI(response.data.type) + '.xls'; //下载后文件名
         document.body.appendChild(downloadElement);
         downloadElement.click(); //点击下载
         document.body.removeChild(downloadElement); //下载完成移除元素
