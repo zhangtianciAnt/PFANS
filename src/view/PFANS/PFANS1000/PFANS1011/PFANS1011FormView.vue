@@ -491,7 +491,7 @@
           }],
           address: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_ADDRESS'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
             trigger: 'change',
           }],
           phonenumber: [{
@@ -544,7 +544,7 @@
           }],
           special: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIAL'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIALCLASS'),
             trigger: 'change',
           }],
           phonenum: [{
