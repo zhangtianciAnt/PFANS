@@ -541,8 +541,8 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_MEMBERID')" prop="memberid">
-                    <el-input class="width" v-model="form.memberid" maxlength="10"></el-input>
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="jobnumber">
+                    <el-input class="width" v-model="form.jobnumber" maxlength="10"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1454,7 +1454,7 @@
           groupid: "",
           teamid: "",
           userid: "",
-          memberid: "",
+          jobnumber: "",
           budgetunit: "",
           difference: "1",
           post: "",
@@ -1675,12 +1675,12 @@
               trigger: "blur"
             }
           ],
-          memberid: [
+          jobnumber: [
             {
               required: true,
               message:
                 this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_MEMBERID"),
+                this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),
               trigger: "blur"
             }
           ],
@@ -1920,7 +1920,7 @@
         } else if (!this.form.workday) {
           this.activeName = "fouth";
         } else if (
-          !this.form.memberid ||
+          !this.form.jobnumber ||
           !this.form.centerid ||
           !this.form.budgetunit ||
           !this.form.post ||
@@ -2271,7 +2271,7 @@
               this.userInfo.customerInfo.userinfo.companyid = this.$route.params._companyid.split();
             }
             this.$store
-              .dispatch("usersStore/userSave", this.userInfo)
+              .dispatch("usersStoreMB',", this.userInfo)
               .then(response => {
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
