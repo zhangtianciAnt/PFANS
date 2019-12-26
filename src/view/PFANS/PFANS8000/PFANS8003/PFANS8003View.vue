@@ -120,8 +120,12 @@
         this.$store.commit("global/SET_WORKFLOWURL", this.$route.path);
         if ("view" === val) {
           if (!this._id) {
-            this.$message.error(this.$t("normal.info_01"));
-            return;
+              Message({
+                  message: this.$t('normal.info_01'),
+                  type: 'info',
+                  duration: 2 * 1000
+              });
+              return;
           }
           this.$router.push({
             name: "PFANS8003FormView",
