@@ -31,6 +31,7 @@ const PFANS6004Store = {
           } else {
             reject(response.message)
           }
+          exitreason
         }).catch(error => {
           reject(error);
         })
