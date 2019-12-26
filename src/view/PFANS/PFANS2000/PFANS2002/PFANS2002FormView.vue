@@ -512,7 +512,6 @@
         if (method === "save") {
           for (var i in form) {
             if (arr.includes(i)) {
-              debugger
               form[i] = form[i] === true ? "0" : "1";
             }
           }
@@ -717,7 +716,6 @@
                   });
                 });
             } else {
-              debugger
               this.loading = true;
               this.changeOption(this.form, "save");
               this.$store
