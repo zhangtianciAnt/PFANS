@@ -480,7 +480,7 @@
             .then(response => {
               this.form = response.award;
               this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              if(this.form.deliverydate!=="" && this.form.deliverydate!==null){
+              if(this.form.developdate!=="" && this.form.developdate!==null){
                 let sertdate=this.form.developdate.slice(0,10);
                 let enddate =this.form.developdate.slice(this.form.developdate.length-10);
                 this.form.developdate=[sertdate,enddate];

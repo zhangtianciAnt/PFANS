@@ -1,3 +1,4 @@
+
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"
@@ -6,7 +7,7 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')">
@@ -42,7 +43,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
@@ -94,7 +94,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYPHONE')">
@@ -125,6 +124,8 @@
     </EasyNormalContainer>
   </div>
 </template>
+
+
 
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
@@ -170,15 +171,14 @@
       mounted() {
         this.loading = true;
         if (this.$route.params._id) {
-          debugger;
           this.$store
             .dispatch('PFANS1032Store/one', {"petition_id": this.$route.params._id})
             .then(response => {
-              this.form=response.petition;
-              this.form.petition=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              if(this.form.petition!=="" && this.form.petition!==null){
-                let sertdate=this.form.petition.slice(0,10);
-                let enddate =this.form.petition.slice(this.form.petition.length-10);
+              this.form=response;
+              this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
+              if(this.form.developdate!=="" && this.form.developdate!==null){
+                let sertdate=this.form.developdate.slice(0,10);
+                let enddate =this.form.developdate.slice(this.form.developdate.length-10);
                 this.form.developdate=[sertdate,enddate];
               }
               this.loading=false;
@@ -216,7 +216,6 @@
       },
       methods: {
         buttonClick(val) {
-          debugger
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
