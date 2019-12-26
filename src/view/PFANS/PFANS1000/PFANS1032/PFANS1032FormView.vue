@@ -10,7 +10,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.contractnumber"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.contractnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
