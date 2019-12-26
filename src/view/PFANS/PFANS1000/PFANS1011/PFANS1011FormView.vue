@@ -265,7 +265,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_RESPONSIBLEPERSON')" prop="responsibleperson">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.specialclass" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.responsibleperson" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
