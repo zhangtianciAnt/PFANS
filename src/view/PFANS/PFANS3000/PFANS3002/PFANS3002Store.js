@@ -37,7 +37,6 @@ const PFANS3002Store = {
       })
     },
     updateHotelReservation({commit}, data) {
-      debugger;
       return new Promise((resolve, reject) => {
         updateHotelReservation(data).then(response => {
           if (response.code === 0) {
@@ -53,7 +52,6 @@ const PFANS3002Store = {
     createHotelReservation({commit}, data) {
       return new Promise((resolve, reject) => {
         createHotelReservation(data).then(response => {
-          debugger
           if (response.code === 0) {
             resolve(response.data);
           } else {

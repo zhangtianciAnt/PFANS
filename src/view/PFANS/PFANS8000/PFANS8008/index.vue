@@ -60,7 +60,6 @@ export default {
   },
   computed: {
     disabled: function() {
-      debugger;
       return this.readonly === 1 ? true : false;
     }
   },

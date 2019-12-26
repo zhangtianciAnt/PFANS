@@ -159,10 +159,8 @@ export default {
 
   methods: {
     buttonClick(val) {
-      debugger;
     },
     rowClick(row) {
-      debugger;
       console.log(row);
       this.row = row;
     }

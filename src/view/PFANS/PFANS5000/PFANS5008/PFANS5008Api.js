@@ -54,7 +54,6 @@ export function createProject(data) {
 }
 
 export function deletePersonal(data) {
-  debugger
   return request({
     url: 'logmanagement/delete',
     method: 'post',

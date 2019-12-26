@@ -168,7 +168,6 @@
             this.$refs[i + 1][0].$refs['form'].validate((valid) => {
               rst = valid;
             });
-            debugger;
             if (!rst) {
               return;
             } else {

@@ -272,6 +272,7 @@
                 callback()
             };
             return {
+                error: "",
                 loading: false,
                 canStart: false,
                 selectType: "Single",

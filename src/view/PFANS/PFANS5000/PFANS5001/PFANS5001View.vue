@@ -26,14 +26,14 @@
                     {
                         code: 'numbers',
                         label: 'label.PFANS5001FORMVIEW_NUMBERS',
-                        width: 80,
+                        width: 150,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'project_name',
                         label: 'label.PFANS5001FORMVIEW_PROJECT_NAME',
-                        width: 90,
+                        width: 150,
                         fix: false,
                         filter: true
                     },
@@ -68,14 +68,14 @@
                     {
                         code: 'enddate',
                         label: 'label.PFANS5001FORMVIEW_ENDDATE',
-                        width: 100,
+                        width: 150,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'CREATEON ',
                         label: 'label.PFANS2001VIEW_APPLICATIONTIME',
-                        width: 100,
+                        width: 150,
                         fix: false,
                         filter: true
                     },
@@ -163,7 +163,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return;
@@ -189,7 +189,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return;

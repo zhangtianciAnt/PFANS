@@ -56,9 +56,9 @@
                         fix: false,
                         filter: true
                     },
-                    {
-                        code: 'user_id',
-                    },
+                    // {
+                    //     code: 'user_id',
+                    // },
                     {
                         code: 'center_id',
                         label: 'label.center',
@@ -161,7 +161,7 @@
                     if (this.user_id === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return;

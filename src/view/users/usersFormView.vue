@@ -1871,7 +1871,6 @@
       }
     },
     mounted() {
-      debugger
       this.form.staffexitprocedure;
       if (this.$route.params._org) {
         ({
@@ -1890,7 +1889,6 @@
     },
     methods: {
       checkRequire() {
-        debugger;
         if (
           !this.form.customername ||
           !this.form.sex ||
@@ -1949,7 +1947,6 @@
           rows.splice(index, 1);
         }else{
           Object.keys(rows[0]).forEach( key =>{
-            debugger
             rows[0][key] = "";
             if(key === "time"){
               rows[0][key] = [];
@@ -2103,7 +2100,6 @@
         this.$store
           .dispatch("usersStore/getById", params)
           .then(response => {
-            debugger
             this.form = response.customerInfo.userinfo;
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;
@@ -2145,7 +2141,6 @@
         }
       },
       Personal() {
-        debugger;
         if (this.gridData === null) {
           this.gridData = [
             {
@@ -2242,7 +2237,6 @@
         this.checkRequire();
         this.$refs["form"].validate(valid => {
           if (valid) {
-            debugger;
             this.userInfo.userAccount.account = this.form.adfield;
             this.userInfo.userAccount.password = this.form.adfield;
             this.userInfo.userAccount.usertype = "0";

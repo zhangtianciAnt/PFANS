@@ -50,7 +50,6 @@
     },
     methods: {
       getAddre() {
-        debugger;
         console.log({'x-auth-token': getToken()});
         document.getElementById('qrcode').innerHTML = '';
         this.qrcodeC = new QRCode('qrcode', {

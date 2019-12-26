@@ -11,7 +11,6 @@ const PFANS2013Store = {
   actions: {
     //获取列表
     getDataList({ commit }, data) {
-      debugger
       return new Promise((resolve, reject) => {
         getDataList(data).then(response => {
           if (response.code === 0) {
