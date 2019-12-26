@@ -262,7 +262,7 @@
           investigator: '',
           filename: '',
           scheduleddate: moment(new Date()).format("YYYY-MM-DD"),
-            careerplan: true,
+          careerplan: true,
           freedevice: '',
           businessplantype: '',
           classificationtype: '',
@@ -363,14 +363,14 @@
           ],
           businessplantype: [
             {
-              required:  true,
+              required:  false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_BUSINESSPLANTYPE'),
               trigger: 'change'
             },
           ],
           classificationtype: [
             {
-              required:  true,
+              required:  false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
               trigger: 'change'
             },
@@ -400,7 +400,6 @@
           upload: uploadUrl(),
       };
     },
-
     mounted() {
       if (this.$route.params._id) {
         this.loading = true;
@@ -409,16 +408,16 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
-              if (this.form.careerplan === '1') {
-                  this.show = true;
-                  this.rules.businessplantype[0].required = true;
-                  this.rules.businessplanbalance[0].required = true;
-              } else{
+              if (this.form.careerplan === '0'){
                   this.show = false;
                   this.show1 = false;
                   this.rules.businessplantype[0].required = false;
                   this.rules.businessplanbalance[0].required = false;
                   this.rules.classificationtype[0].required = false;
+              }else if (this.form.careerplan === '1') {
+                  this.show = true;
+                  this.rules.businessplantype[0].required = true;
+                  this.rules.businessplanbalance[0].required = true;
               }
             if (this.form.freedevice === '1') {
               this.show4 = true;
@@ -548,7 +547,13 @@
       },
       radiochange(val){
           this.form.careerplan = val;
-          if (val === '1') {
+          if (val === '0'){
+              this.show = false;
+              this.show1 = false;
+              this.rules.businessplantype[0].required = false;
+              this.rules.businessplanbalance[0].required = false;
+              this.rules.classificationtype[0].required = false;
+          }else if (val === '1') {
               this.show = true;
               this.show1 = false;
               if(this.form.businessplantype === 'PR002005'){
@@ -557,12 +562,6 @@
               }
               this.rules.businessplantype[0].required = true;
               this.rules.businessplanbalance[0].required = true;
-          }else {
-              this.show = false;
-              this.show1 = false;
-              this.rules.businessplantype[0].required = false;
-              this.rules.businessplanbalance[0].required = false;
-              this.rules.classificationtype[0].required = false;
           }
       },
       radio1change(val){
@@ -656,12 +655,14 @@
           this.paramsTitle();
         } else {
           this.$refs["refform"].validate(valid => {
+              alert(this.rules.businessplantype[0].required)
             if (valid) {
                 this.loading = true;
                 if (this.form.careerplan === '0') {
                     this.form.businessplantype = "";
                     this.form.businessplanbalance = "";
                     this.form.classificationtype = "";
+                    this.rules.businessplantype[0].required = false;
                 }
               if (this.form.salequotation === 'PJ013001') {
                 this.form.reasonsforquotation = "";
