@@ -440,17 +440,19 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
-              if (this.form.uploadfile != "") {
-                  let uploadfile = this.form.uploadfile.split(";");
-                  for (var i = 0; i < uploadfile.length; i++) {
-                      if (uploadfile[i].split(",")[0] != "") {
-                          let o = {};
-                          o.name = uploadfile[i].split(",")[0];
-                          o.url = uploadfile[i].split(",")[1];
-                          this.fileList.push(o)
-                      }
-                  }
-              }
+            if(this.form.uploadfile != null){
+                if (this.form.uploadfile != "") {
+                    let uploadfile = this.form.uploadfile.split(";");
+                    for (var i = 0; i < uploadfile.length; i++) {
+                        if (uploadfile[i].split(",")[0] != "") {
+                            let o = {};
+                            o.name = uploadfile[i].split(",")[0];
+                            o.url = uploadfile[i].split(",")[1];
+                            this.fileList.push(o)
+                        }
+                    }
+                }
+            }
             this.loading = false;
           })
           .catch(error => {
