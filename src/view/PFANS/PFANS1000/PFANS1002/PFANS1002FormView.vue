@@ -1209,6 +1209,10 @@
         this.$store
           .dispatch('PFANS1002Store/selectById', {'businessid': this.$route.params._id})
           .then(response => {
+            if(!response.business){
+              this.loading = false;
+              return;
+            }
             this.form = response.business;
             if (response.travelcontent.length > 0) {
               this.tableP = response.travelcontent;
