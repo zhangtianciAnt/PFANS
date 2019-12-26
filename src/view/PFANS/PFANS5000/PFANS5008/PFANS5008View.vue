@@ -26,7 +26,7 @@
           <span v-if="this.resultShow"
           >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
         </el-row>
-        <span v-if="this.Message">{{this.cuowu}}</span>
+        <span v-if="this.Message1">{{this.cuowu}}</span>
         <div v-if="this.result">
           <el-table :data="message">
             <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
@@ -67,6 +67,9 @@
                 },
                 total: 0,
                 message: [{hang: '', error: '',}],
+                Message1: true,
+                result: false,
+                cuowu: '',
                 daoru: false,
                 checkTableData: [],
                 authHeader: {'x-auth-token': getToken()},
@@ -184,7 +187,7 @@
             handleSuccess(response, file, fileList) {
                 if (response.code !== 0) {
                     this.cuowu = response.message;
-                    this.Message = true;
+                    this.Message1 = true;
                 } else {
                     let datalist = [];
                     for (let c = 0; c < response.data.length; c++) {
@@ -223,7 +226,7 @@
             clear(safe) {
                 this.file = null;
                 this.resultShow = false;
-                this.Message = false;
+                this.Message1 = false;
                 this.result = false;
                 if (!safe) {
                     this.$refs.uploader.clearFiles();
