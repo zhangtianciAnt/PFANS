@@ -115,7 +115,7 @@
         this.form.user_id = this.userlist;
         if (this.userlist !== null && this.userlist !== "") {
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
-          this.form.jobnumber = lst.userinfo.memberid;
+          this.form.jobnumber = lst.userinfo.jobnumber;
           this.form.job = lst.userinfo.post;
           this.loading = false;
         }
@@ -132,7 +132,7 @@
         this.userlist = val;
         this.form.user_id = val;
         let lst = getUserInfo(val);
-        this.form.jobnumber = lst.userinfo.memberid;
+        this.form.jobnumber = lst.userinfo.jobnumber;
         this.form.job = lst.userinfo.post;
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');

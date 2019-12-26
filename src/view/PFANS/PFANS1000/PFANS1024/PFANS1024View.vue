@@ -1,9 +1,11 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
+    <EasyNormalContainer :buttonList="buttonList"
+                         :title="title"
                          @buttonClick="buttonClick"
                          :noback = "true"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                        ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
             <el-dialog :visible.sync="dialogFormVisible">
@@ -70,6 +72,7 @@
                 </el-col>
               </el-row>
                 <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
+                  <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                   <el-table-column :label="$t('label.department')" align="center" width="120">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -292,6 +295,7 @@
               </el-col>
             </el-row>
               <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
+                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -513,7 +517,8 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -753,7 +758,8 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%"  v-model="scope.row.group_id" >
@@ -1019,6 +1025,9 @@
         };
         return{
           dialogFormVisible: false,
+          formLabelWidth: '120px',
+          multiple: false,
+          index: "",
           grouporglist: '',
           errorgroup: '',
           loading: false,
@@ -1026,6 +1035,7 @@
           activeName: 'first',
           disable: true,
           tableInt:[],
+          tableOut:[],
           rules: {
             group_id: [
               {
@@ -1086,6 +1096,27 @@
       },
       mounted(){},
       methods: {
+        getcontracttype(val){
+          this.form.contracttype=val;
+        },
+        getcareeryear(val) {
+          this.form.careeryear = val;
+        },
+        getnumber(val){
+          this.form.number=val;
+        },
+        getChecked(val){
+          this.form.letters=val;
+        },
+        getGroupId(val) {
+          this.form.group_id = val;
+          this.grouporglist = val;
+          if (!this.form.group_id || this.form.group_id === '' || val === "undefined") {
+            this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          } else {
+            this.errorgroup = "";
+          }
+        },
         getRowClass({row, column, rowIndex, columnIndex}) {
 
           if (column.level === 2 && columnIndex >= 0 && columnIndex < 3) {

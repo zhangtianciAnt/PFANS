@@ -1,17 +1,13 @@
-import {
-  get,
-  one,
-  update
-} from './PFANS1032Api'
+import {createvariousfundsApply, getvariousfunds, getvariousfundsApplyOne, updatevariousfundsApply,} from './PFANS6007Api'
 
-const PFANS1032Store = {
+const PFANS6007Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    get() {
+    getvariousfunds() {
       return new Promise((resolve, reject) => {
-        get().then(response => {
+        getvariousfunds().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -22,9 +18,9 @@ const PFANS1032Store = {
         })
       })
     },
-    update({commit}, data) {
+    getvariousfundsApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
-        update(data).then(response => {
+        getvariousfundsApplyOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -35,9 +31,22 @@ const PFANS1032Store = {
         })
       })
     },
-    one({commit}, data) {
+    updatevariousfundsApply({commit}, data) {
       return new Promise((resolve, reject) => {
-        one(data).then(response => {
+        updatevariousfundsApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    createvariousfundsApply({commit}, data) {
+      return new Promise((resolve, reject) => {
+        createvariousfundsApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -49,14 +58,6 @@ const PFANS1032Store = {
       })
     },
   }
-}
-export default PFANS1032Store;
+};
 
-
-
-
-
-
-
-
-
+export default PFANS6007Store;

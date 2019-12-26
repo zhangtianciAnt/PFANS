@@ -81,6 +81,7 @@
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
                         v-model="form.developdate"
+                        :disabled="!disable"
                         type="daterange"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
@@ -174,7 +175,7 @@
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
                       <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
                       <el-switch
-                        :disabled="!disabled"
+                        :disabled="!disable"
                         v-model="form.plan"
                         active-value="1"
                         inactive-value="0">
@@ -243,7 +244,7 @@
                   <template slot-scope="scope">
                     <org  :orglist="scope.row.depart"
                           orgtype="2"
-                          :disabled="!disabled"
+                          :disabled="!disable"
                           :error="errorgroup"
                           style="width: 9rem"
                           :no="scope.row"
@@ -479,7 +480,11 @@
             .then(response => {
               this.form = response.award;
               this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
+              if(this.form.developdate!=="" && this.form.developdate!==null){
+                let sertdate=this.form.developdate.slice(0,10);
+                let enddate =this.form.developdate.slice(this.form.developdate.length-10);
+                this.form.developdate=[sertdate,enddate];
+              }
               if (response.awardDetail.length > 0) {
                 this.tableT = response.awardDetail
                 for (var i = 0; i < this.tableT.length; i++) {
@@ -615,6 +620,18 @@
                   return prev;
                 }
               }, 0);
+              if (index == 2) {
+                sums[index] = Math.round((sums[index]) * 100) / 100;
+              }
+              if (index == 4) {
+                sums[index] = Math.round((sums[index]) * 100) / 100;
+              }
+              if (index == 6) {
+                sums[index] = Math.round((sums[index]) * 100) / 100;
+              }
+              if (index == 7) {
+                sums[index] = Math.round((sums[index]) * 100) / 100;
+              }
             } else {
               sums[index] = '--'
             }
@@ -685,6 +702,22 @@
     }
 </script>
 
-<style scoped>
+<style scoped rel="stylesheet/scss" lang="scss">
+  .el-table {
+    overflow-x: auto;
+  }
 
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+    overflow: visible;
+  }
+
+  .el-table::after {
+    position: relative;
+  }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: visible;
+  }
 </style>

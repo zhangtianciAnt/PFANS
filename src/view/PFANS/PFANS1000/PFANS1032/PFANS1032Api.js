@@ -7,11 +7,11 @@ export function get() {
     method: 'get'
   })
 }
-export function selectById(data) {
+export function one(data) {
   return request({
-    url: 'petition/selectById',
+    url: 'petition/one',
     method: 'post',
-    params: data
+    data: data
   })
 }
 export function update(data) {
