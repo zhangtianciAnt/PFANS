@@ -2271,7 +2271,7 @@
               this.userInfo.customerInfo.userinfo.companyid = this.$route.params._companyid.split();
             }
             this.$store
-              .dispatch("usersStoreMB',", this.userInfo)
+              .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
