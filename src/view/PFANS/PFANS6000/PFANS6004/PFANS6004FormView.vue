@@ -10,7 +10,7 @@
             <!--            姓名-->
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="expname">
-                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem" v-model="form.expname"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
             <!--            性别-->
@@ -59,7 +59,7 @@
             <!--            年龄-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width: 11rem" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -279,7 +279,7 @@
 
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import PFANS6001View from "../PFANS6001/PFANS6001View.vue";
+    import PFANS6004View from "../PFANS6004/PFANS6004View.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
     import moment from "moment";
@@ -289,7 +289,7 @@
         name: 'PFANS6004FormView',
         components: {
             EasyNormalContainer,
-            PFANS6001View,
+            PFANS6004View,
             dicselect,
             org
         },
@@ -319,6 +319,7 @@
                     jobclassification: '',
                     admissiontime: moment(new Date()).format("YYYY-MM-DD"),
                     exitime: moment(new Date()).format("YYYY-MM-DD"),
+                    exitreason: '',
                     alltechnology: '',
                     sitevaluation: '',
                     businessimpact: '',
@@ -415,7 +416,7 @@
                         {
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
-                            trigger: 'change'
+                            trigger: 'blur'
                         },
                     ],
                     // 技术分类
@@ -439,7 +440,7 @@
                         {
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITIME'),
-                            trigger: 'change'
+                            trigger: 'blur'
                         },
                     ],
                     // 退场理由
@@ -483,26 +484,21 @@
                         },
                     ],
                 },
-                show: false,
+                show: true,
             };
         },
         mounted() {
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6001Store/cooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
+                    .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {"expatriatesinfor_id": this.$route.params._id})
                     .then(response => {
                         this.form = response;
                         this.loading = false;
-                        this.modelexits = this.form.exits;
-                        if (this.form.exits === '0') {
+                        if (this.form.exits === '1') {
+                            this.show = false;
+                        } else {
                             this.show = true;
-                            this.rules.exitime[0].required = true;
-                            this.rules.exitreason[0].required = true;
-                            this.rules.alltechnology[0].required = true;
-                            this.rules.sitevaluation[0].required = true;
-                            this.rules.businessimpact[0].required = true;
-                            this.rules.countermeasure[0].required = true;
                         }
                     })
                     .catch(error => {
@@ -526,6 +522,23 @@
                         icon: "el-icon-check"
                     }
                 ];
+            }
+            if (this.form.exits === '1') {
+                this.show = false;
+                this.rules.exitime[0].required = false;
+                this.rules.exitreason[0].required = false;
+                this.rules.alltechnology[0].required = false;
+                this.rules.sitevaluation[0].required = false;
+                this.rules.businessimpact[0].required = false;
+                this.rules.countermeasure[0].required = false;
+            } else {
+                this.show = true;
+                this.rules.exitime[0].required = true;
+                this.rules.exitreason[0].required = true;
+                this.rules.alltechnology[0].required = true;
+                this.rules.sitevaluation[0].required = true;
+                this.rules.businessimpact[0].required = true;
+                this.rules.countermeasure[0].required = true;
             }
         },
         methods: {
@@ -579,6 +592,7 @@
                 this.form.age = ageD;
             },
             changeexits(val) {
+                this.form.exits = val;
                 if (val === '1') {
                     this.show = false;
                     this.rules.exitime[0].required = false;
@@ -603,9 +617,7 @@
                         this.form.expatriatesinfor_id = this.$route.params._id;
                         this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
                         this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-                        this.form.exitime = moment(this.form.exitime).format('YYYY-MM-DD');
                         this.loading = true;
-                        this.form.exits = this.modelexits;
                         if (this.form.exits === '1') {
                             this.form.exitime = '';
                             this.form.exitreason = '';
@@ -642,7 +654,6 @@
                         } else {
                             this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
                             this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-                            this.form.exitime = moment(this.form.exitime).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
                                 .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)

@@ -359,7 +359,6 @@
                         cancelButtonText: this.$t('button.cancel'),
                         type: 'warning'
                     }).then(() => {
-                        debugger;
                         for(let i = 0;i < this.tableData.length;i++){
                             if(this.url === ''){
                                 if(this.tableData[i].folderid === this.folderid){
@@ -371,7 +370,7 @@
                                 let letchildren = this.tableData[i].children;
                                 for(let j = 0;j < letchildren.length;j++){
                                     if(letchildren[j].folderid === this.folderid){
-                                        this.tableData[i].children.splice(j,1);
+                                          this.tableData[i].children.splice(j,1);
                                         j = j - 1
                                     }
                                     else{

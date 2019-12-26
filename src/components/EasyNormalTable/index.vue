@@ -152,6 +152,7 @@
       },
       // 表格筛选
       tableFilter (filters) {
+
         this.loading = true
         this.listQuery.page = 1
         Object.assign(this.filterlist, filters)
@@ -207,18 +208,18 @@
         this.loading = true
         this.listQuery.page = 1
         let td = []
-        let len = this.totaldata.length
+        let len = this.data.length
 
         for (let i = 0; i < len; i++) {
           let has = false
           for (let j = 0; j < this.columns.length; j++) {
-            let name = this.totaldata[i][this.columns[j].code]
+            let name = this.data[i][this.columns[j].code]
             if (name != null && name.toString().search(this.searchValue) !== -1) {
               has = true
             }
           }
           if (has) {
-            td.push(this.totaldata[i])
+            td.push(this.data[i])
           }
         }
 

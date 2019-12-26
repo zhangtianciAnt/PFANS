@@ -259,6 +259,14 @@ export function menu() {
             {
               '_id': 'BROKERAGECONTRACT', 'name': 'menu.BROKERAGECONTRACT', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
                 {
+                  '_id': 'PFANS1026', 'name': 'menu.PFANS1026', 'menuvisible': true, 'menuurl': '/PFANS1026View', 'menuicon': '', 'children': [], 'actions': [
+                    { "_id": "PFANS1026_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
+                    { "_id": "PFANS1026_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },
+                    { "_id": "PFANS1026_edit", "actiontype": "edit", "name": 'button.update', "auth": 4 },
+                    { "_id": "PFANS1026_del", "actiontype": "del", "name": 'button.delete', "auth": 4 }
+                  ]
+                },
+                {
                   '_id': 'PFANS1032', 'name': 'menu.PFANS1032', 'menuvisible': true, 'menuurl': '/PFANS1032View', 'menuicon': '', 'children': [], 'actions': [
                     { "_id": "PFANS1032_read", "actiontype": "0", "name": 'button.view', "auth": 4 },
                     { "_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4 },

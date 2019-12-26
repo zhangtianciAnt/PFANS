@@ -142,6 +142,12 @@
                                 response[j].technology = technology.value1;
                             }
                         }
+                        if (response[j].technology !== null && response[j].technology !== "") {
+                            let technology = getDictionaryInfo(response[j].technology);
+                            if (technology != null) {
+                                response[j].technology = technology.value1;
+                            }
+                        }
                         if (response[j].rn !== null && response[j].rn !== "") {
                             let rn = getDictionaryInfo(response[j].rn);
                             if (rn != null) {

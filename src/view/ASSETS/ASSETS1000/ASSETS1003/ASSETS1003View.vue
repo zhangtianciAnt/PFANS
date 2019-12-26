@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title"
-                         ref="container">
+                         ref="container" style="min-height: 100%">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
                  style="padding: 2rem">
