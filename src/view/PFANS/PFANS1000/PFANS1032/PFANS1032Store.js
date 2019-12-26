@@ -1,6 +1,6 @@
 import {
   get,
-  selectById,
+  one,
   update
 } from './PFANS1032Api'
 
@@ -35,9 +35,9 @@ const PFANS1032Store = {
         })
       })
     },
-    selectById({commit}, data) {
+    one({commit}, data) {
       return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
+        one(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
