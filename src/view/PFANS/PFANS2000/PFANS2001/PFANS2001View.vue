@@ -147,7 +147,7 @@
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'error',
+              type: 'info',
               duration: 2 * 1000
             });
             return;
@@ -164,7 +164,7 @@
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'error',
+              type: 'info',
               duration: 2 * 1000
             });
             return;

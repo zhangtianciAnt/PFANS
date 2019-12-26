@@ -127,7 +127,6 @@
                 this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
                     this.data = response;
                     for (let j = 0; j < this.data.length; j++) {
-                      debugger
                       if(getUserInfo(
                         this.data[j].createby
                       )!==null) {

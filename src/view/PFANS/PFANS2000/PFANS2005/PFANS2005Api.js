@@ -17,7 +17,6 @@ export function getDataList() {
 }
 //更新update
 export function save(data) {
-  debugger
   return request({
     url: 'giving/save',
     method: 'post',

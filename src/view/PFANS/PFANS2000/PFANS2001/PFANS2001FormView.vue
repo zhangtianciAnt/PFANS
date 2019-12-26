@@ -250,7 +250,6 @@
         },
         data() {
           var checkcenter = (rule, value, callback) => {
-              debugger;
                 if(!value || value === ''){
                     this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
                     return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));

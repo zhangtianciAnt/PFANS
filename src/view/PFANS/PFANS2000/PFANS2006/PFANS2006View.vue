@@ -498,7 +498,6 @@
     },
     methods: {
       changed() {
-        debugger;
         if (this.region === '2') {
           this.showTable1 = false;
         } else if (this.region === '1') {

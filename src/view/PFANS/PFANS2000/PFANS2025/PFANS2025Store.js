@@ -21,9 +21,7 @@ const PFANS1001Store = {
       })
     },
     insertInformation({ commit },data) {
-      debugger;
       return new Promise((resolve, reject) => {
-        debugger
         insertInformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
@@ -37,7 +35,6 @@ const PFANS1001Store = {
       })
     },
     updateInformation({ commit },data) {
-        debugger;
         return new Promise((resolve, reject) => {
             updateInformation(data).then(response => {
             if (response.code === 0) {

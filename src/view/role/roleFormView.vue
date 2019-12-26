@@ -381,7 +381,6 @@ export default {
     }
   },
   mounted() {
-    debugger;
     this.roleid = this.$route.params._id;
     if (this.roleid != "") {
       this.getRoleInfo(this.roleid);

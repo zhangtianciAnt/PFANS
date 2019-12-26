@@ -5,7 +5,7 @@
     :buttonList="buttonList"
     @buttonClick="buttonClick"
   >
-    
+
   </EasyNormalContainer>
 </template>
 
@@ -44,7 +44,6 @@ export default {
   },
 
   created() {
-    debugger;
   },
   methods: {
     change: val => {

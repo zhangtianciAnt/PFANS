@@ -49,7 +49,6 @@ const PFANS2011Store = {
     createOvertime({ commit },data) {
       return new Promise((resolve, reject) => {
         createOvertime(data).then(response => {
-          debugger
           if (response.code === 0) {
             resolve(response.data);
           } else {

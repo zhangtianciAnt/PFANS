@@ -32,7 +32,6 @@ service.interceptors.request.use(config => {
 // respone interceptor
 service.interceptors.response.use(
   response => {
-    debugger
     if (response.status >= 200 && response.status < 300) {
         var blob = new Blob([response.data], { type: response.data.type + ';charset=utf-8' }); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
         var downloadElement = document.createElement('a');
