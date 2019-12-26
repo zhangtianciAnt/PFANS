@@ -24,7 +24,7 @@
                 <span style="float:left;color: #5d9cec;font-size: 0.85rem;margin-left: 3%">{{$t('label.INDEX_GSDT')}}</span>
               </el-col>
               <el-col :span="12">
-                <el-link :underline="false" @click="Clickckgd" style="margin-left: 80%;color: #5d9cec"
+                <el-link :underline="false" @click="Clickckgd" style="margin-left: 75%;color: #5d9cec"
                          target="_blank" type="primary">
                   <span style="font-size: 0.85rem">{{$t('label.INDEX_CKGD')}}</span>
                 </el-link>
