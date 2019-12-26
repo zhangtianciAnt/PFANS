@@ -52,7 +52,7 @@
           {
             code: 'idcard',
             label: 'label.PFANS3001VIEW_IDCARD',
-            width: 190,
+            width: 270,
             fix: false,
             filter: true,
           },
