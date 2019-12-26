@@ -56,9 +56,9 @@
                         fix: false,
                         filter: true
                     },
-                    {
-                        code: 'user_id',
-                    },
+                    // {
+                    //     code: 'user_id',
+                    // },
                     {
                         code: 'center_id',
                         label: 'label.center',
