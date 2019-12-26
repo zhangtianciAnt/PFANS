@@ -56,7 +56,7 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import {orderBy} from '@/utils/customize'
   import EasyWorkFlow from '@/components/EasyWorkFlow'
-
+  let moment = require('moment')
   export default {
     name: 'index',
     components: {
@@ -152,7 +152,6 @@
       },
       // 表格筛选
       tableFilter (filters) {
-
         this.loading = true
         this.listQuery.page = 1
         Object.assign(this.filterlist, filters)
@@ -161,7 +160,7 @@
           Object.keys(this.filterlist).map(key => {
             if (this.filterlist[key].length > 0) {
               this.filterlist[key].map(filter => {
-                if (item[key] === filter) {
+                if (item[key] === filter || item[key].indexOf(filter) >= 0) {
                   has++
                 }
               })
@@ -247,6 +246,19 @@
             text: this.data[i][column.code],
             value: this.data[i][column.code]
           })
+
+          // let item = this.data[i][column.code];
+          // if(moment(item,"yyyy-MM-dd").isValid()){
+          //   filters.add({
+          //     text: moment(item).year(),
+          //     value: moment(item).year()
+          //   })
+          //
+          //   filters.add({
+          //     text: moment(item).year() + "-" + (moment(item).month()+1),
+          //     value: moment(item).year()+ "-" + (moment(item).month()+1)
+          //   })
+          // }
         }
         let filtersrst = [...new Set(filters)]
         var hash = {}
@@ -258,7 +270,9 @@
           }
           return item
         }, [])
-        return filtersrst
+
+        // filtersrst = filtersrst.sort();
+        return filtersrst;
       },
       // 行点击
       rowClick (row) {
