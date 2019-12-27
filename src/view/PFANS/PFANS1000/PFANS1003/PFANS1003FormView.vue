@@ -194,6 +194,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')" v-show="show3">
                 <el-upload
+                  v-model="form.uploadfile"
                   :action="upload"
                   :file-list="fileList"
                   :on-remove="fileRemove"
@@ -439,6 +440,11 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
+            if (this.form.addbook === "PJ010001") {
+              this.show3 = true;
+            }else if (this.form.addbook === "PJ010002") {
+              this.show3 = false;
+            }
             if(this.form.uploadfile != null){
                 if (this.form.uploadfile != "") {
                     let uploadfile = this.form.uploadfile.split(";");
@@ -655,7 +661,6 @@
           this.paramsTitle();
         } else {
           this.$refs["refform"].validate(valid => {
-              alert(this.rules.businessplantype[0].required)
             if (valid) {
                 this.loading = true;
                 if (this.form.careerplan === '0') {

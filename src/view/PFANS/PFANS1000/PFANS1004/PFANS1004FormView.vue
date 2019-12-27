@@ -139,7 +139,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport" label-width="6rem">
-                <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 57rem;padding-left:2rem"></el-input>
+                <el-input v-model="form.purchassupport"  class="el-form-item__error1" type="textarea" :rows="3" :disabled="!disabled" style="width: 57rem;padding-left:2rem"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -209,6 +209,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')" v-show="show3">
                 <el-upload
+                  v-model="form.uploadfile"
                   :action="upload"
                   :file-list="fileList"
                   :on-remove="fileRemove"
@@ -398,14 +399,14 @@
           ],
           businessplantype: [
             {
-              required:  true,
+              required:  false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_BUSINESSPLANTYPE'),
               trigger: 'change'
             },
           ],
           classificationtype: [
             {
-              required:  true,
+              required:  false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
               trigger: 'change'
             },
@@ -492,6 +493,11 @@
             } else if (this.form.salequotation === 'PJ013003') {
               this.show2 = true;
             }
+            if (this.form.addbook === "PJ010001") {
+              this.show3 = true;
+            }else if (this.form.addbook === "PJ010002") {
+              this.show3 = false;
+              }
             if (this.form.status === '2') {
               this.disable = false;
             }
@@ -880,5 +886,7 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-
+.el-form-item__error1{
+  padding-left: 30px;
+}
 </style>
