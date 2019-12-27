@@ -628,9 +628,7 @@
             sums[index] = "";
           }
         });
-
-        let summaryvalue = sums[1] / param.data.length;
-        sums[1] = Math.round(summaryvalue * 10) / 10;
+        sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
         return sums;
       },
 
