@@ -314,7 +314,7 @@
             return {
                 loading: false,
                 selectType: "Single",
-                title: "title.PFANS6004FORMVIEW",
+                title: "title.PFANS6004VIEW",
                 errorsuppliername: '',
                 disabled: false,
                 buttonList: [],

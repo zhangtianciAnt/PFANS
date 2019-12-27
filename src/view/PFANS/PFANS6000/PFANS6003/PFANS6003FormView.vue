@@ -269,7 +269,7 @@
             return {
                 loading: false,
                 selectType: "Single",
-                title: "title.PFANS6003FORMVIEW",
+                title: "title.PFANS6003VIEW",
                 disabled: false,
                 buttonList: [],
                 multiple: false,
