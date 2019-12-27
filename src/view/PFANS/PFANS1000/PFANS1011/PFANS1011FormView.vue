@@ -87,31 +87,21 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')">
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23rem">
                     <el-switch :disabled="!disable"
-                               style="width:3rem"
-                               v-model="form.informationpc"
+                               style="width:3rem;padding-left:1rem"
+                               v-model="form.healthofmembers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')">
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24rem">
                     <el-switch :disabled="!disable"
-                               style="width:11rem"
-                               v-model="form.informationno"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')">
-                    <el-switch :disabled="!disable"
-                               style="width:11rem"
-                               v-model="form.management"
+                               style="width:3rem;padding-left:2rem"
+                               v-model="form.customers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -119,31 +109,43 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')">
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23rem">
                     <el-switch :disabled="!disable"
-                               style="width:11rem"
-                               v-model="form.healthofmembers"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')">
-                    <el-switch :disabled="!disable"
-                               style="width:11rem"
-                               v-model="form.customers"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')">
-                    <el-switch :disabled="!disable"
-                               style="width:11rem"
+                               style="width:3rem;padding-left:1rem"
                                v-model="form.objectchina"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')" label-width="24rem">
+                    <el-switch :disabled="!disable"
+                               style="width:3rem;padding-left:2rem"
+                               v-model="form.informationpc"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')" label-width="23rem">
+                    <el-switch :disabled="!disable"
+                               style="width:3rem;padding-left:1rem"
+                               v-model="form.management"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')" label-width="24rem">
+                    <el-switch :disabled="!disable"
+                               style="width:3rem;padding-left:2rem"
+                               v-model="form.informationno"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
@@ -161,7 +163,7 @@
               <el-row style="padding-top:1.5rem">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
-                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea"
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" :rows="4"
                               v-model="form.objective"></el-input>
                   </el-form-item>
                 </el-col>
@@ -169,7 +171,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_LOOKFORWARD')">
-                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea"
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" :rows="4"
                               v-model="form.lookforward"></el-input>
                   </el-form-item>
                 </el-col>
@@ -185,23 +187,24 @@
               <el-row style="padding-top:1.5rem">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
-                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea"
+                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" :rows="4"
                               v-model="form.kolei"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_RECENTLY')">
-                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea"
+                  <el-form-item :label="$t('label.PFANS1011VIEW_RECENTLY')" label-width="6rem">
+                    <el-input :disabled="!disable" style="width:57.2rem;padding-left:2rem" type="textarea" :rows="4"
                               v-model="form.recently"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_NOW')">
-                    <el-input :disabled="!disable" style="width:57.2rem" type="textarea" v-model="form.now"></el-input>
+                  <el-form-item :label="$t('label.PFANS1011VIEW_NOW')" label-width="6rem">
+                    <el-input :disabled="!disable" style="width:57.2rem;padding-left:2rem" type="textarea" :rows="4"
+                              v-model="form.now"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -246,26 +249,28 @@
                 </el-col>
               </el-row>
               <el-row style="padding-top:1.5rem">
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')" prop="businessplace">
-                  <el-input :disabled="!disable" style="width:11rem" v-model="form.businessplace" maxlength="20"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1011VIEW_DEPLOY')" prop="deploy">
-                  <el-input :disabled="!disable" style="width:11rem" v-model="form.deploy" maxlength="20"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
-                  <el-input :disabled="!disable" style="width:11rem" v-model="form.domei" maxlength="20"></el-input>
-                </el-form-item>
-              </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')" prop="businessplace">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.businessplace"
+                              maxlength="20"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_DEPLOY')" prop="deploy">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.deploy" maxlength="20"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.domei" maxlength="20"></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_RESPONSIBLEPERSON')" prop="responsibleperson">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.responsibleperson" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.responsibleperson"
+                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -291,7 +296,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_ACTASAPERSON')"
                                 prop="actasaperson">
-                    <el-input :disabled="!disable" style="width:11rem" v-model="form.actasaperson" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:11rem" v-model="form.actasaperson"
+                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -526,10 +532,10 @@
             trigger: 'change',
           }],
           phone: [{
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
-              trigger: 'blur',
-            },
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
+            trigger: 'blur',
+          },
             {validator: validatePhone, trigger: 'blur'}],
           email: [{
             required: true,
@@ -620,25 +626,23 @@
     },
     methods: {
       getUserids(val) {
-          debugger;
+        debugger;
         this.form.user_id = val;
         let rst = getUserInfo(val);
         let lst = getOrgInfoByUserId(val);
-        if(lst){
-            this.form.center_id = lst.centerNmae;
-            this.form.group_id = lst.groupNmae;
-            this.form.team_id = lst.teamNmae;
+        if (lst) {
+          this.form.center_id = lst.centerNmae;
+          this.form.group_id = lst.groupNmae;
+          this.form.team_id = lst.teamNmae;
+        } else {
+          this.form.center_id = lst.centerNmae;
+          this.form.group_id = lst.groupNmae;
+          this.form.team_id = lst.teamNmae;
         }
-        else{
-              this.form.center_id = lst.centerNmae;
-              this.form.group_id = lst.groupNmae;
-              this.form.team_id = lst.teamNmae;
-        }
-        if(rst){
-            this.form.serviceposition = rst.userinfo.post;
-        }
-        else{
-            this.form.serviceposition = '';
+        if (rst) {
+          this.form.serviceposition = rst.userinfo.post;
+        } else {
+          this.form.serviceposition = '';
         }
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.PFANS2007VIEW_NAME');
