@@ -149,6 +149,7 @@ const store = new Vuex.Store({
     PFANS6002Store,
     PFANS6003Store,
     PFANS6004Store,
+    PFANS6007Store,
     PFANS8001Store,
     PFANS8007Store,
     PFANS8008Store,
