@@ -32,18 +32,25 @@ service.interceptors.request.use(config => {
 // respone interceptor
 service.interceptors.response.use(
   response => {
+    debugger
     if (response.status >= 200 && response.status < 300) {
-        var blob = new Blob([response.data], { type: response.data.type + ';charset=utf-8' }); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+      if("msSaveOrOpenBlob" in navigator){
+        window.navigator.msSaveOrOpenBlob(
+          new Blob([response.data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
+          decodeURI(response.data.type) + ".xlsx"
+        );
+      }else {
+        var blob = new Blob([response.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
         var downloadElement = document.createElement('a');
         var href = window.URL.createObjectURL(blob); //创建下载的链接
         downloadElement.href = href;
-        downloadElement.download = decodeURI(response.data.type) + '.xls'; //下载后文件名
+        downloadElement.download = decodeURI(response.data.type) + '.xlsx'; //下载后文件名
         document.body.appendChild(downloadElement);
         downloadElement.click(); //点击下载
         document.body.removeChild(downloadElement); //下载完成移除元素
         window.URL.revokeObjectURL(href); //释放掉blob对象
         return response.data
-
+      }
     } else {
       return Promise.reject(i18n.t('normal.error_06') + response.status)
     }
