@@ -282,7 +282,7 @@
           afterturningpositiv: '',
           expectedarrivaltime: moment(new Date()).format("YYYY-MM-DD"),
           equipment:'',
-            uploadfile: '',
+          uploadfile: '',
         },
         code: 'PR002',
         code1: 'PR003',
