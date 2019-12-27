@@ -467,28 +467,31 @@
                             })
                             this.list1 = data1
                         }
-                        for (let a = 0; a < this.list1.length; a++) {
+                        if(this.list1){
+                          for (let a = 0; a < this.list1.length; a++) {
                             if (this.day === moment(this.list1[a].date).format('YYYY-MM-DD')) {
-                                if (this.list1[a].type == 1) {
-                                    this.radio1 = '1';
-                                }
-                                if (this.list1[a].type == 2) {
-                                    this.radio1 = '2';
-                                }
-                                if (this.list1[a].type == 3) {
-                                    this.radio1 = '3';
-                                }
-                                if (this.list1[a].type == 4) {
-                                    this.radio1 = '4';
-                                }
-                                if (this.list1[a].type == 5) {
-                                    this.radio1 = '5';
-                                }
-                                if (this.list1[a].type == 6) {
-                                    this.radio1 = '6';
-                                }
+                              if (this.list1[a].type == 1) {
+                                this.radio1 = '1';
+                              }
+                              if (this.list1[a].type == 2) {
+                                this.radio1 = '2';
+                              }
+                              if (this.list1[a].type == 3) {
+                                this.radio1 = '3';
+                              }
+                              if (this.list1[a].type == 4) {
+                                this.radio1 = '4';
+                              }
+                              if (this.list1[a].type == 5) {
+                                this.radio1 = '5';
+                              }
+                              if (this.list1[a].type == 6) {
+                                this.radio1 = '6';
+                              }
                             }
+                          }
                         }
+
                         this.tanchang = true
                     })
                 this.loading = false
