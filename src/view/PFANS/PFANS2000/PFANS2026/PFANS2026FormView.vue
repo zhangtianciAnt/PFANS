@@ -110,8 +110,10 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason">
-                  <el-input :disabled="!disable" :rows="4" style="width: 100%" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason" >
+                  <el-input :disabled="!disable"
+                            :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
+                            style="width: 100%" type="textarea"
                             v-model="form.reason">
                   </el-input>
                 </el-form-item>
@@ -191,8 +193,8 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')">
-                  <el-input :disabled="!disable1" :rows="3" style="width:100%" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')" label-width="6rem">
+                  <el-input :disabled="!disable1" :rows="2"  style="width: 100%;padding-left:2rem"type="textarea"
                             v-model="form.jpwork_delivery">
                   </el-input>
                 </el-form-item>
@@ -271,48 +273,48 @@
               </el-row>
               <el-row>
                 <el-col :span="24">
-                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')">
+                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')" label-width="6rem">
                     <dicselect :code="code1"
                                :data="form.social_evaluation"
                                :disabled="!disable2"
                                :multiple="multiple"
                                @change="getSocial"
-                               style="width: 11rem">
+                               style="width: 11rem;padding-left:2rem">
                     </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')">
-                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')" label-width="6rem">
+                  <el-input :disabled="!disable2"  style="width: 100%;padding-left:2rem" type="textarea"
                             v-model="form.external_evaluation">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')" :rows="6" style="width: 100%"
+                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" label-width="6rem">
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')"  style="width: 100%;padding-left:2rem"
                             type="textarea" v-model="form.reason2">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')">
-                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')" label-width="6rem">
+                  <el-input :disabled="!disable2"  style="width: 100%;padding-left:2rem" type="textarea"
                             v-model="form.impact_resignation_external">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')">
-                  <el-input :disabled="!disable2" style="width: 100%" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')" label-width="6rem">
+                  <el-input :disabled="!disable2" style="width: 100%;padding-left:2rem"  type="textarea"
                             v-model="form.impact_resignation_internal">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_INFLUENCEINFORMATIONSECURITY')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')" :rows="4" style="width: 100%"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')"  :rows="3" style="width: 100%"
                             type="textarea"
                             v-model="form.influence_information_security">
                   </el-input>

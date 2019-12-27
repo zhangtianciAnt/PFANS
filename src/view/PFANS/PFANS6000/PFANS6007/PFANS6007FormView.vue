@@ -8,12 +8,12 @@
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.pjname"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.pjname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.psdcdwindow"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,12 +21,12 @@
             <!--2-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.bpclubname"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.bpclubname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.bpplayer"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.bpplayer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,16 +35,18 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')" prop="year">
                 <el-date-picker
+                  :disabled="!disabled"
                   @change="getYear"
                   style="width: 11rem"
                   type="date"
-                  v-model="form.birth">
+                  v-model="form.year">
                 </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PLMONTHPLAN')" prop="plmonthplan">
                 <dicselect
+                  :disabled="!disabled"
                   :code="code2"
                   :data="form.plmonthplan"
                   :multiple="multiple"
@@ -59,6 +61,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_TYPEOFFEES')" prop="typeoffees">
                 <dicselect
+                  :disabled="!disabled"
                   :code="code3"
                   :data="form.typeoffees"
                   :multiple="multiple"
@@ -70,7 +73,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PAYMENT')" prop="payment">
-                <el-input :disabled="false" style="width: 11rem" v-model="form.payment"></el-input>
+                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.payment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -78,7 +81,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS6007VIEW_REMARKS')">
-                <el-input :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -97,6 +100,7 @@
   import {Message} from 'element-ui'
   import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from "moment";
+  import {valfloat} from '@/utils/validate';
   export default {
     name: 'PFANS6007FormView',
     components: {
@@ -125,6 +129,15 @@
           return callback();
         }
       };
+      var checkyear = (rule, value, callback) => {
+        if (!value || value === '' || value === "undefined") {
+          this.error_year = this.$t('normal.error_09') + this.$t('label.PFANS2007VIEW_YEAR');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2007VIEW_YEAR')));
+        } else {
+          this.error_year = "";
+          return callback();
+        }
+      };
       var checkplmonthplan = (rule, value, callback) => {
         if (!value || value === '' || value === "undefined") {
           this.error_plmonthplan = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_PLMONTHPLAN');
@@ -144,18 +157,21 @@
         }
       };
       var checkpayment = (rule, value, callback) => {
-        if (!value || value === '' || value === "undefined") {
-          this.error_payment = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_TYPEOFFEES');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_TYPEOFFEES')));
+        if (this.form.payment !== null && this.form.payment !== '') {
+          if (valfloat(value)) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.effective') + this.$t('label.PFANS6007VIEW_PAYMENT')));
+          }
         } else {
-          this.error_payment = "";
-          return callback();
+          callback();
         }
       };
       return {
         loading: false,
         error_pjname: '',
         error_bpclubname:'',
+        error_year:'',
         error_plmonthplan:'',
         error_typeoffees:'',
         error_payment:'',
@@ -192,6 +208,13 @@
               trigger: 'change'
             },
           ],
+          year: [
+            {
+              required: true,
+              validator: checkyear,
+              trigger: 'change'
+            },
+          ],
           plmonthplan: [
             {
               required: true,
@@ -215,6 +238,25 @@
           ]
         },
       };
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6007Store/getvariousfundsApplyOne', {"variousfunds_id": this.$route.params._id})
+          .then(response => {
+            this.form = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      }
     },
     created() {
       this.disabled = this.$route.params.disabled;

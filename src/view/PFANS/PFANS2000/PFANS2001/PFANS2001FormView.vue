@@ -208,7 +208,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_OTHERREQUIREMENTS')" label-width="6rem" prop="otherrequirements">
-                    <el-input v-model="form.otherrequirements" type="textarea" :disabled="!disabled" style="width: 34.3rem;padding-left:2rem"></el-input>
+                    <el-input v-model="form.otherrequirements" type="textarea" :rows="3" :disabled="!disabled" style="width: 34.3rem;padding-left:2rem"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

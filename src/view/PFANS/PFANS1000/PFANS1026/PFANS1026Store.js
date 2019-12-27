@@ -1,6 +1,5 @@
 import {
   get,
-  selectById,
   update,
   insert,
   } from './PFANS1026Api'

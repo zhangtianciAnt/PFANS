@@ -404,7 +404,7 @@
           {
             code: 'name',
             label: 'label.PFANS2007VIEW_NAME',
-            width: 150,
+              width: 180,
             fix: false,
             filter: true,
           },
@@ -425,14 +425,14 @@
           {
             code: 'combined',
             label: 'label.PFANS2007VIEW_COMBINEDTAX',
-            width: 200,
+              width: 220,
             fix: false,
             filter: true,
           },
           {
             code: 'goldleaf',
             label: 'label.PFANS2007VIEW_GOLDLEAF',
-            width: 200,
+              width: 220,
             fix: false,
             filter: true,
           },
@@ -453,7 +453,7 @@
           {
             code: 'monthlyaverage',
             label: 'label.PFANS2006VIEW_MONTHLYAVERAGE',
-            width: 200,
+              width: 300,
             fix: false,
             filter: true,
           },
@@ -467,7 +467,7 @@
           {
             code: 'calculation',
             label: 'label.PFANS2007VIEW_ARITHMETIC',
-            width: 200,
+              width: 250,
             fix: false,
             filter: true,
           },

@@ -123,7 +123,7 @@
                     slot="dateCell"
                     slot-scope="{date, data}">
                     <p :class="data.isSelected ? 'is-selected' : ''" @click="riqi">
-                      {{ data.day.split('-').slice(1).join('-') | moment('DD') }}
+                      {{ data.day.split('-').slice(1).join('-') }}
                     </p>
                   </template>
                 </el-calendar>
