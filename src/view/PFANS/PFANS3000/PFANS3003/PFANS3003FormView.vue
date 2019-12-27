@@ -118,7 +118,7 @@
           <el-row :gutter="32">
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width: 100%"></el-input>
+                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width: 95%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
