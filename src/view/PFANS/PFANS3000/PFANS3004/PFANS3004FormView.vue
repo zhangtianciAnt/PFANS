@@ -201,7 +201,9 @@
                         trigger: 'blur'
                     }],
                 },
-                code: 'GT001',
+                code: 'PG001',
+
+
                 code2: 'PR004',
                 multiple: false,
                 disable: false,

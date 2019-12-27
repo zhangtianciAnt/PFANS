@@ -161,7 +161,11 @@
                 this.$store.commit("global/SET_HISTORYURL", this.$route.path);
                 if ("update" === val) {
                     if (!this._id) {
-                        this.$message.error(this.$t("normal.info_01"));
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
                         return;
                     }
                     this.$router.push({
@@ -174,7 +178,11 @@
                     });
                 } else if ("view" === val) {
                     if (!this._id) {
-                        this.$message.error(this.$t("normal.info_01"));
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
                         return;
                     }
                     this.$router.push({

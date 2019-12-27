@@ -777,13 +777,28 @@
         this.form.user_id = val;
         let lst = getUserInfo(val);
         let rst = getOrgInfoByUserId(val);
-        this.form.center_id = rst.centerNmae;
-        this.form.group_id = rst.groupNmae;
-        this.form.team_id = rst.teamNmae;
-        this.form.sex = lst.userinfo.sex ;
-        this.form.educational_background = lst.userinfo.educational;
-        this.form.position = lst.userinfo.post;
-        this.form.entry_time = lst.userinfo.enterday;
+        if(rst){
+            this.form.center_id = rst.centerNmae;
+            this.form.group_id = rst.groupNmae;
+            this.form.team_id = rst.teamNmae;
+        }
+        else{
+            this.form.center_id = '';
+            this.form.group_id = '';
+            this.form.team_id = '';
+        }
+        if(lst){
+            this.form.sex = lst.userinfo.sex ;
+            this.form.educational_background = lst.userinfo.educational;
+            this.form.position = lst.userinfo.post;
+            this.form.entry_time = lst.userinfo.enterday;
+        }
+        else{
+            this.form.sex = '';
+            this.form.educational_background = '';
+            this.form.position = '';
+            this.form.entry_time = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.user_name');
         } else {

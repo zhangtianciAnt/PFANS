@@ -491,7 +491,7 @@
           }],
           address: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_ADDRESS'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
             trigger: 'change',
           }],
           phonenumber: [{
@@ -544,7 +544,7 @@
           }],
           special: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIAL'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_SPECIALCLASS'),
             trigger: 'change',
           }],
           phonenum: [{
@@ -620,13 +620,26 @@
     },
     methods: {
       getUserids(val) {
+          debugger;
         this.form.user_id = val;
         let rst = getUserInfo(val);
         let lst = getOrgInfoByUserId(val);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        this.form.serviceposition = rst.userinfo.post;
+        if(lst){
+            this.form.center_id = lst.centerNmae;
+            this.form.group_id = lst.groupNmae;
+            this.form.team_id = lst.teamNmae;
+        }
+        else{
+              this.form.center_id = lst.centerNmae;
+              this.form.group_id = lst.groupNmae;
+              this.form.team_id = lst.teamNmae;
+        }
+        if(rst){
+            this.form.serviceposition = rst.userinfo.post;
+        }
+        else{
+            this.form.serviceposition = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.PFANS2007VIEW_NAME');
         } else {

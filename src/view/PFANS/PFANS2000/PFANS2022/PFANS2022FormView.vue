@@ -75,9 +75,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" label-width="5rem" v-show="show1" prop="nomineerelationship">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem;padding-left:3rem"
-                          v-model="form.nomineerelationship"></el-input>
+              <el-form-item :label="$t('label.PFANS2022VIEW_QUALIFICATION')" prop="qualifications" v-show="show">
+                <div class="block">
+                  <dicselect
+                    :code="code2"
+                    :data="form.qualifications"
+                    :disabled="!disabled"
+                    :multiple="multiple"
+                    @change="getqualifications"
+                    style="width: 11rem">
+                  </dicselect>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2022VIEW_AMOUNT')">
+                <el-input :disabled="true" maxlength="10" style="width: 11rem" v-model="form.amoutmoney"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -118,22 +131,9 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2022VIEW_QUALIFICATION')" prop="qualifications" v-show="show">
-                <div class="block">
-                  <dicselect
-                    :code="code2"
-                    :data="form.qualifications"
-                    :disabled="!disabled"
-                    :multiple="multiple"
-                    @change="getqualifications"
-                    style="width: 11rem">
-                  </dicselect>
-                </div>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2022VIEW_AMOUNT')">
-                <el-input :disabled="true" maxlength="10" style="width: 11rem" v-model="form.amoutmoney"></el-input>
+              <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" label-width="5rem" v-show="show1" prop="nomineerelationship">
+                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem;padding-left:3rem"
+                          v-model="form.nomineerelationship"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">

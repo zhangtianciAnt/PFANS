@@ -175,11 +175,17 @@
                            active-value="0"
                            inactive-value="1"
                            style="width:11rem"
-                           v-model="modelexits"
+                           v-model="form.exits"
                 ></el-switch>
               </el-form-item>
             </el-col>
           </el-row>
+
+
+
+
+
+
           <!--          第八行-->
           <el-row>
             <!--            退场时间-->
@@ -262,6 +268,17 @@
               </el-form-item>
             </el-col>
           </el-row>
+
+
+
+
+
+
+
+
+
+
+
           <!--          最后一行-->
           <el-row>
             <!--            项目信息-->
@@ -297,12 +314,12 @@
             return {
                 loading: false,
                 selectType: "Single",
-                title: "title.PFANS6004FORMVIEW",
+                title: "title.PFANS6004VIEW",
                 errorsuppliername: '',
                 disabled: false,
                 buttonList: [],
                 multiple: false,
-                modelexits: '1',
+                // modelexits: '1',
                 form: {
                     expatriatesinfor_id: '',
                     expname: '',
@@ -484,7 +501,7 @@
                         },
                     ],
                 },
-                show: true,
+                show: false,
             };
         },
         mounted() {
@@ -525,20 +542,20 @@
             }
             if (this.form.exits === '1') {
                 this.show = false;
-                this.rules.exitime[0].required = false;
-                this.rules.exitreason[0].required = false;
-                this.rules.alltechnology[0].required = false;
-                this.rules.sitevaluation[0].required = false;
-                this.rules.businessimpact[0].required = false;
-                this.rules.countermeasure[0].required = false;
+                // this.rules.exitime[0].required = false;
+                // this.rules.exitreason[0].required = false;
+                // this.rules.alltechnology[0].required = false;
+                // this.rules.sitevaluation[0].required = false;
+                // this.rules.businessimpact[0].required = false;
+                // this.rules.countermeasure[0].required = false;
             } else {
                 this.show = true;
-                this.rules.exitime[0].required = true;
-                this.rules.exitreason[0].required = true;
-                this.rules.alltechnology[0].required = true;
-                this.rules.sitevaluation[0].required = true;
-                this.rules.businessimpact[0].required = true;
-                this.rules.countermeasure[0].required = true;
+                // this.rules.exitime[0].required = true;
+                // this.rules.exitreason[0].required = true;
+                // this.rules.alltechnology[0].required = true;
+                // this.rules.sitevaluation[0].required = true;
+                // this.rules.businessimpact[0].required = true;
+                // this.rules.countermeasure[0].required = true;
             }
         },
         methods: {
