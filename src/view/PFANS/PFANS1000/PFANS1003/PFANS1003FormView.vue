@@ -402,8 +402,8 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
         this.loading = true;
+      if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1003Store/getJudgementOne', {"judgementid": this.$route.params._id})
           .then(response => {
