@@ -157,7 +157,7 @@
                 </el-row>
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
-                    <el-input :disabled="!disable" :rows="4" style="width: 100%" type="textarea"
+                    <el-input :disabled="!disable" style="width: 55rem" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
