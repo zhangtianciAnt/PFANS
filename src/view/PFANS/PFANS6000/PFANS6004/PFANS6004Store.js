@@ -3,6 +3,7 @@ import {
   getexpatriatesinforApplyOne,
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
+  getSupplierNameList
 } from './PFANS6004Api'
 
 const PFANS6004Store = {
@@ -53,6 +54,19 @@ const PFANS6004Store = {
     createexpatriatesinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
         createexpatriatesinforApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getSupplierNameList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getSupplierNameList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
