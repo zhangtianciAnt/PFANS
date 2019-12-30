@@ -67,10 +67,9 @@
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <div class="dpSupIndex" style="width: 8.9rem">
+                <div class="dpSupIndex" style="width: 8.9rem" prop="suppliername">
                   <el-container>
-                    <div class="content bg">
-                    </div>
+                    <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"></input>
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
                     <el-dialog title="供应商信息" :visible.sync="dialogTableVisible" center size="50%" top="8vh" lock-scroll
@@ -78,20 +77,19 @@
                       <div style="text-align: center">
                         <el-row style="text-align: center;height: 90%;overflow: hidden">
                           <el-table
-                            :data="gridData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                            height="500px"
-                            style="width: 100%" @selection-change="handleSelectionChange" ref="multipleTable"
-                            tooltip-effect="dark" :span-method="arraySpanMethod">
-                            <el-table-column type="selection" width="55"></el-table-column>
+                            :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                            :span-method="arraySpanMethod" @row-click="handleClickChange">
+                            :span-method="arraySpanMethod" @row-click="handleClickChange">
                             <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                              width="150"></el-table-column>
-                            <el-table-column property="userid" :label="$t('label.ASSETS1002VIEW_USERID')"
+                            <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
                                              width="100"></el-table-column>
                             <el-table-column property="contactinformation"
                                              :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                             width="100"></el-table-column>
+                                             width="150"></el-table-column>
                             <el-table-column
-                              align="right" width="250">
+                              align="right" width="230">
                               <template slot="header" slot-scope="scope">
                                 <el-input
                                   v-model="search"
@@ -102,21 +100,12 @@
                           </el-table>
                         </el-row>
                         <span slot="footer" class="dialog-footer">
-                          <el-button type="primary">{{$t("button.confirm")}}</el-button>
-                          <el-button @click="toggleSelection()">取消选择</el-button>
+                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
                         </span>
                       </div>
                     </el-dialog>
                   </el-container>
                 </div>
-                <!--                <el-select v-model="form.suppliername" :disabled="!disabled" style="width: 11rem">-->
-                <!--                  <el-option-->
-                <!--                    v-for="item in optionsdata"-->
-                <!--                    :key="item.value"-->
-                <!--                    :label="item.lable"-->
-                <!--                    :value="item.value">-->
-                <!--                  </el-option>-->
-                <!--                </el-select>-->
               </el-form-item>
             </el-col>
           </el-row>
@@ -283,6 +272,24 @@
                     callback();
                 }
             };
+            var checksuppliername = (rule, value, callback) => {
+                if (!value || value === '' || value === "undefined") {
+                    this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
+                } else {
+                    this.errorsuppliername = "";
+                    return callback();
+                }
+            };
+            var checkinterview_date = (rule, value, callback) => {
+                if (!value || value === '' || value === "undefined") {
+                    this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
+                } else {
+                    this.errorinterviewdep = "";
+                    return callback();
+                }
+            };
             return {
                 loading: false,
                 selectType: "Single",
@@ -327,6 +334,7 @@
                 code6: 'BP006',
                 disabled: true,
                 dialogTableVisible: false,
+                // currentRow: null,
                 rules: {
                     // 姓名
                     coopername: [
@@ -363,7 +371,7 @@
                     suppliername: [
                         {
                             required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
+                            validator: checksuppliername,
                             trigger: 'change'
                         },
                     ],
@@ -383,10 +391,10 @@
                         },
                     ],
                     // 面试部门
-                    education: [
+                    interviewdep: [
                         {
                             required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP'),
+                            validator: checkinterview_date,
                             trigger: 'change'
                         },
                     ],
@@ -478,7 +486,7 @@
             getSuppliername(val) {
                 this.form.suppliername = val;
                 if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
-                    this.suppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+                    this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
                 } else {
                     this.errorsuppliername = '';
                 }
@@ -501,22 +509,13 @@
             changewhetherentry(val) {
                 this.form.whetherentry = val;
             },
+            handleCurrentChange(val) {
+                this.currentRow = val;
+            },
             arraySpanMethod({row, column, rowIndex, columnIndex}) {
                 if (columnIndex === 3) {
                     return [1, 2];
                 }
-            },
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.multipleTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
-            },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
             },
             getAge() {
                 let birthdays = new Date(this.form.birth);
@@ -525,6 +524,14 @@
                     d.getFullYear() -
                     birthdays.getFullYear()
                 this.form.age = ageD;
+            },
+            submit() {
+                let val = this.currentRow;
+                this.dialogTableVisible = false;
+                this.form.suppliername = val;
+            },
+            handleClickChange(val) {
+                this.currentRow = val.suppliername
             },
             getSupplierNameList() {
                 this.loading = true;
@@ -538,7 +545,6 @@
                             vote.userid = response[i].prochinese;
                             vote.contactinformation = response[i].protelephone;
                             this.gridData.push(vote)
-                            alert(vote);
                         }
                         this.loading = false;
                     })

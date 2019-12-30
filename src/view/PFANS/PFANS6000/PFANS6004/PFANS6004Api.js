@@ -31,3 +31,11 @@ export function createexpatriatesinforApply(data) {
     data: data
   })
 }
+
+export function getSupplierNameList(data) {
+  return request({
+    url: 'expatriatesinfor/getSupplierNameList',
+    method: 'POST',
+    data: data
+  })
+}
