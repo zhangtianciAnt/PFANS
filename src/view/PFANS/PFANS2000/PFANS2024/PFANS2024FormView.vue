@@ -88,9 +88,9 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 58.8rem" type="textarea" v-model="form.features"></el-input>
+                                  style="width: 58.8rem;padding-left: 2rem" type="textarea" v-model="form.features"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -143,9 +143,9 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING2')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING2')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.nextskillranking2"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.nextskillranking2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -168,9 +168,11 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE1')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE1')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.future1"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea"
+                                  :placeholder="$t('label.PFANS2024FORMVIEW_FUTURE1PLACE')"
+                                  v-model="form.future1"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -203,8 +205,9 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')" label-width="6rem">
                         <dicselect
+                          style="padding-left: 2rem"
                           :code="code2"
                           :data="technology"
                           :disabled="!disable"
@@ -216,8 +219,9 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" label-width="6rem">
                         <dicselect
+                          style="padding-left: 2rem"
                           :code="code3"
                           :data="staff"
                           :disabled="!disable"
@@ -231,7 +235,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
                         <el-input :disabled="!disable"
-                                  maxlength="20" style="width: 13.5rem" type="textarea"
+                                  maxlength="20" style="width: 12rem" type="textarea"
                                   v-model="form.yearschedule"></el-input>
                       </el-form-item>
                     </el-col>

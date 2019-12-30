@@ -62,17 +62,17 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSYEAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSYEAR')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  maxlength="50" style="width: 55rem;padding-left: 2rem" type="textarea"
                                   v-model="form.specific_goals_year1"></el-input>
                         <div style="margin: 2rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  maxlength="50" style="width: 55rem;padding-left: 2rem" type="textarea"
                                   v-model="form.specific_goals_year2"></el-input>
                         <div style="margin: 2rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  maxlength="50" style="width: 55rem;padding-left: 2rem" type="textarea"
                                   v-model="form.specific_goals_year3"></el-input>
                       </el-form-item>
                     </el-col>
@@ -81,7 +81,7 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSYEAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSYEAR')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
                                   maxlength="50" style="width: 55rem" type="textarea"
                                   v-model="form.your_own_goals_year"></el-input>
@@ -92,9 +92,9 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSYEAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSYEAR')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  maxlength="50" style="width: 55rem;padding-left: 2rem" type="textarea"
                                   v-model="form.interview_results_year"></el-input>
                       </el-form-item>
                     </el-col>
@@ -107,27 +107,27 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSSEP')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSSEP')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep1"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_sep1"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep2"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_sep2"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep3"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_sep3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSSEP')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
                                   style="width: 55rem" type="textarea" v-model="form.your_own_goals_sep"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSSEP')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSSEP')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_sep"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.business_results_sep"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSSEP')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSSEP')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_sep"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.interview_results_sep"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -139,27 +139,27 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSDEC')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSDEC')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec1"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_dec1"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec2"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_dec2"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec3"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_dec3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSDEC')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
                                   style="width: 55rem" type="textarea" v-model="form.your_own_goals_dec"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSDEC')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSDEC')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_dec"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.interview_results_dec"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSDEC')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSDEC')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_dec"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.business_results_dec"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -171,27 +171,27 @@
                 <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSMAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSMAR')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar1"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_mar1"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar2"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_mar2"></el-input>
                         <div style="margin: 1rem 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar3"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.specific_goals_mar3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSMAR')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
                                   style="width: 55rem" type="textarea" v-model="form.your_own_goals_mar"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSMAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSMAR')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_mar"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.business_results_mar"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')" label-width="6rem">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_mar"></el-input>
+                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.interview_results_mar"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
