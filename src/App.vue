@@ -1,7 +1,7 @@
 <template>
-  <div class="theme_base">
+  <div class="theme_panasonic">
     <transition name="el-fade-in">
-    <router-view/>
+    <router-view style="font-family: Arial"/>
     </transition>
   </div>
 </template>

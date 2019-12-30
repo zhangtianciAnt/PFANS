@@ -122,8 +122,8 @@
                   <template
                     slot="dateCell"
                     slot-scope="{date, data}">
-                    <p :class="data.isSelected ? 'is-selected' : ''" @click="riqi">
-                      {{ data.day.split('-').slice(1).join('-') }}
+                    <p>
+                      {{ data.day.split('-').slice(2).join('-') }}
                     </p>
                   </template>
                 </el-calendar>
@@ -896,6 +896,11 @@
         this.loading = false;
       },
     },
+    watch: {
+      'companyform.log_date'(val){
+          this.riqi();
+      }
+    }
   };
 </script>
 <style lang="scss">
