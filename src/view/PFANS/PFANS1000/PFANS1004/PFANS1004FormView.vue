@@ -501,6 +501,19 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
+              if(this.form.uploadfile != null){
+                  if (this.form.uploadfile != "") {
+                      let uploadfile = this.form.uploadfile.split(";");
+                      for (var i = 0; i < uploadfile.length; i++) {
+                          if (uploadfile[i].split(",")[0] != "") {
+                              let o = {};
+                              o.name = uploadfile[i].split(",")[0];
+                              o.url = uploadfile[i].split(",")[1];
+                              this.fileList.push(o)
+                          }
+                      }
+                  }
+              }
             this.loading = false;
           })
           .catch(error => {
@@ -519,19 +532,6 @@
         this.form.group_id = lst.groupNmae;
         this.form.team_id = lst.teamNmae;
         this.form.user_id = this.$store.getters.userinfo.userid;
-        }
-        if(this.form.uploadfile != null){
-            if (this.form.uploadfile != "") {
-                let uploadfile = this.form.uploadfile.split(";");
-                for (var i = 0; i < uploadfile.length; i++) {
-                    if (uploadfile[i].split(",")[0] != "") {
-                        let o = {};
-                        o.name = uploadfile[i].split(",")[0];
-                        o.url = uploadfile[i].split(",")[1];
-                        this.fileList.push(o)
-                    }
-                }
-            }
         }
         this.loading = false;
       }
