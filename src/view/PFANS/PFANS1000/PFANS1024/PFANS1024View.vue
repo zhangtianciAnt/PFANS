@@ -54,7 +54,7 @@
                 <el-input v-model="form.group_id"  style="width: 11rem" ></el-input>
               </el-form-item >
               <div  class="dialog-footer" align="center">
-                <el-button @click="dialogFormVisible = false" v-if="show1">
+                <el-button @click="dialogFormVisible = false"  v-if="show1">
                   <span style="margin-right: 86%;">{{$t('label.PFANS1024VIEW_NUMBERSUCCESS')}}
                   </span>
                 </el-button>

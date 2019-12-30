@@ -848,6 +848,14 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }else {
+          this.tableD=[{
+            citation_id: "",
+            staffexitprocedure_id: "",
+            content: "",
+            user_id: null,
+            remarks: "",
+          }]
         }
       },
       addRow() {
