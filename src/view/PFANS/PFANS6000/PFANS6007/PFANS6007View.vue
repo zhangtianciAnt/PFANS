@@ -6,7 +6,10 @@
 
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
-  import {Message} from 'element-ui'
+  import {Message} from 'element-ui';
+  import moment from "moment";
+  import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
+
   export default {
     name: 'PFANS6007View',
     components: {
@@ -106,7 +109,6 @@
                 response[j].bpplayer = user.userinfo.customername;
               }
             }
-            //
             if (response[j].bpclubname !== null && response[j].bpclubname !== "") {
               let bpclubname = getUserInfo(response[j].bpclubname);
               if (bpclubname) {

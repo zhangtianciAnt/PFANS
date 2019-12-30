@@ -14,9 +14,6 @@ import moment from 'moment'
 import CnRegionPicker from 'cn-region-picker'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
-import vuescroll from 'vuescroll';
-import 'vuescroll/dist/vuescroll.css';
-Vue.use(vuescroll);
 
 Vue.config.productionTip = false
 Vue.use(VCharts);

@@ -9,16 +9,16 @@
           <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
             <dicselect
               :code="code"
-              :data="form.value1"
+              :data="form.claimtype"
               :multiple="multiple"
               @change="getnumber"
               style="width: 11rem">
             </dicselect>
           </el-form-item>
           <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-            <el-input v-model="form.value4" style="width: 11rem" ></el-input>
+            <el-input v-model="form.group_id" style="width: 11rem" ></el-input>
             <el-checkbox
-              v-model="form.value"
+              v-model="form.contractnumber"
               :key="index"
               @change="getChecked"
               active-value="1"
@@ -27,19 +27,19 @@
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
             <dicselect :code="code2"
-                       :data="form.value2"
+                       :data="form.contracttype"
                        @change="getcontracttype"
                        style="width: 11rem">
             </dicselect>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
             <dicselect :code="code2"
-                       :data="form.value3"
+                       :data="form.applicationdate"
                        @change="getcareeryear"
                        style="width: 11rem">
             </dicselect>
             <dicselect :code="code3"
-                       :data="form.value3"
+                       :data="form.applicationdate"
                        @change="getcareeryear"
                        style="width: 11rem">
             </dicselect>
@@ -2752,12 +2752,6 @@
       return {
         index: "",
         dialogFormVisible: false,
-        value: "scope.row.contractnumber",
-        value1: "scope.row.claimtype",
-        value2: "scope.row.contracttype",
-        value3: "scope.row.applicationdate",
-        value4: "scope.row.contractnumber",
-        value5: "scope.row.group_id",
         grouporglist: '',
         errorgroup: '',
         loading: false,
@@ -2807,12 +2801,12 @@
             },
         ],
         form:{
-            value: '',
-            value1: '',
-            value2: '',
-            value3: '',
-            value4: '',
-            value5: '',
+            contractnumber: '',
+            claimtype: '',
+            contracttype: '',
+            applicationdate: '',
+            group_id: '',
+            maketype: '',
         },
         formLabelWidth: '120px',
           tablefirst: [
@@ -2867,7 +2861,7 @@
                   outnumber: '',
                   productnumber: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tablesecond: [
@@ -2922,7 +2916,7 @@
                   outnumber: '',
                   productnumber: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tablethird: [
@@ -2969,7 +2963,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tablefourth: [
@@ -3016,7 +3010,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tablefifth: [
@@ -3063,7 +3057,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tablesixth: [
@@ -3110,7 +3104,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tableseventh: [
@@ -3157,7 +3151,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tableeighth: [
@@ -3204,7 +3198,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           tableninth: [
@@ -3251,7 +3245,7 @@
                   remarks: '',
                   state: '',
                   tape: '',
-                  contracttape: '',
+                  maketype: '',
               },
           ],
           code:'HT001',
@@ -3271,7 +3265,7 @@
         this.loading = true;
         if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1026Store/get')
+          .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
           .then(response => {
                 if (response.length > 0) {
                     for(let i = 0;i<response.length;i++){
@@ -3357,16 +3351,16 @@
             }
         },
         getnumber(val){
-            this.form.value1 = val;
+            this.form.claimtype = val;
         },
         getChecked(val){
-            this.form.value = val;
+            this.form.contractnumber = val;
         },
         getcontracttype(val){
-            this.form.value2 = val;
+            this.form.contracttype = val;
         },
         getcareeryear(val){
-            this.form.value3 = val;
+            this.form.applicationdate = val;
         },
         getVarto(val, row){
             row.varto = val;
@@ -3931,7 +3925,7 @@
                 outnumber: '',
                 productnumber: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowsecond() {
@@ -3986,7 +3980,7 @@
                 outnumber: '',
                 productnumber: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowthird() {
@@ -4033,7 +4027,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowfourth() {
@@ -4080,7 +4074,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowfifth() {
@@ -4127,7 +4121,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowsixth() {
@@ -4174,7 +4168,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowseventh() {
@@ -4221,7 +4215,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRoweighth() {
@@ -4268,7 +4262,7 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
         addRowninth() {
@@ -4315,10 +4309,10 @@
                 remarks: '',
                 state: '',
                 tape: '',
-                contracttape: '',
+                maketype: '',
             });
         },
-        buttonClick1(){
+        buttonClick1(val){
             this.dialogFormVisible = false;
             if (val === "application") {
                 this.dialogFormVisible = true;
@@ -4326,7 +4320,7 @@
                 this.show2=false;
             }
         },
-        buttonClick2(){
+        buttonClick2(val){
             this.dialogFormVisible = false;
             if (val === "cancellation") {
                 this.dialogFormVisible = true;
@@ -4339,7 +4333,7 @@
                 if (valid) {
                     this.loading = true;
                     this.contractapplication = {};
-                    row.contracttape = "1";
+                    this.form.maketype = "1";
                     if (this.$route.params._id) {
                         this.$store
                             .dispatch('PFANS1026Store/update', this.contractapplication)

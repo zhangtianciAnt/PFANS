@@ -39,10 +39,3 @@ export function createRecruit(data) {
   })
 }
 
-export function getForSelect (data) {
-  return request({
-    url: 'dictionary/getForSelect',
-    method: 'get',
-    params: data
-  })
-}
