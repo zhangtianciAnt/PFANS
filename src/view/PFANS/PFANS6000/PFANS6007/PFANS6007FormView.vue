@@ -94,11 +94,9 @@
 
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import user from "../../../components/user.vue";
   import PFANS6007View from "../PFANS6007/PFANS6007View.vue";
   import dicselect from "../../../components/dicselect.vue";
   import {Message} from 'element-ui'
-  import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from "moment";
   import {valfloat} from '@/utils/validate';
   export default {
@@ -106,8 +104,6 @@
     components: {
       EasyNormalContainer,
       PFANS6007View,
-      user,
-      getOrgInfoByUserId,
       dicselect
     },
     data() {
@@ -164,7 +160,8 @@
             callback(new Error(this.$t('normal.error_09') + this.$t('label.effective') + this.$t('label.PFANS6007VIEW_PAYMENT')));
           }
         } else {
-          callback();
+          this.error_typeoffees = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_PAYMENT');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_PAYMENT')));
         }
       };
       return {
@@ -176,7 +173,7 @@
         error_typeoffees:'',
         error_payment:'',
         selectType: "Single",
-        title: "label:PFANS6007VIEW_TITLE",
+        title: "title.PFANS6007VIEW_TITLE",
         buttonList: [],
         multiple: false,
         form: {

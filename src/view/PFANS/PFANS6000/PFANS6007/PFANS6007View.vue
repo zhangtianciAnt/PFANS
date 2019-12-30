@@ -9,7 +9,6 @@
   import {Message} from 'element-ui';
   import moment from "moment";
   import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
-
   export default {
     name: 'PFANS6007View',
     components: {
@@ -18,7 +17,7 @@
     data() {
       return {
         loading: false,
-        title: "label:PFANS6007VIEW_TITLE",
+        title: "title.PFANS6007VIEW_TITLE",
         data: [],
         columns: [
           {
