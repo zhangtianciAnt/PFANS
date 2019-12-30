@@ -60,21 +60,63 @@
             <!--            年龄-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width: 11rem" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
             <!--            供应商名称-->
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <org
-                  :disabled="!disabled"
-                  :orglist="form.suppliername"
-                  :error="errorsuppliername"
-                  @getOrgids="getSuppliername"
-                  orgtype="2"
-                  style="width: 8.9rem">
-                </org>
+                <div class="dpSupIndex" style="width: 8.9rem">
+                  <el-container>
+                    <div class="content bg">
+                    </div>
+                    <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
+                               size="small"></el-button>
+                    <el-dialog title="供应商信息" :visible.sync="dialogTableVisible" center size="50%" top="8vh" lock-scroll
+                               append-to-body>
+                      <div style="text-align: center">
+                        <el-row style="text-align: center;height: 90%;overflow: hidden">
+                          <el-table
+                            :data="gridData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                            height="500px"
+                            style="width: 100%" @selection-change="handleSelectionChange" ref="multipleTable"
+                            tooltip-effect="dark" :span-method="arraySpanMethod">
+                            <el-table-column type="selection" width="55"></el-table-column>
+                            <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                             width="150"></el-table-column>
+                            <el-table-column property="userid" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                             width="100"></el-table-column>
+                            <el-table-column property="contactinformation"
+                                             :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                             width="100"></el-table-column>
+                            <el-table-column
+                              align="right" width="250">
+                              <template slot="header" slot-scope="scope">
+                                <el-input
+                                  v-model="search"
+                                  size="mini"
+                                  placeholder="请输入供应商关键字搜索"/>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-row>
+                        <span slot="footer" class="dialog-footer">
+                          <el-button type="primary">{{$t("button.confirm")}}</el-button>
+                          <el-button @click="toggleSelection()">取消选择</el-button>
+                        </span>
+                      </div>
+                    </el-dialog>
+                  </el-container>
+                </div>
+                <!--                <el-select v-model="form.suppliername" :disabled="!disabled" style="width: 11rem">-->
+                <!--                  <el-option-->
+                <!--                    v-for="item in optionsdata"-->
+                <!--                    :key="item.value"-->
+                <!--                    :label="item.lable"-->
+                <!--                    :value="item.value">-->
+                <!--                  </el-option>-->
+                <!--                </el-select>-->
               </el-form-item>
             </el-col>
           </el-row>
@@ -250,6 +292,8 @@
                 disabled: false,
                 buttonList: [],
                 multiple: false,
+                search: '',
+                gridData: [],
                 form: {
                     cooperinterview_id: '',
                     coopername: '',
@@ -282,6 +326,7 @@
                 //入职与否
                 code6: 'BP006',
                 disabled: true,
+                dialogTableVisible: false,
                 rules: {
                     // 姓名
                     coopername: [
@@ -389,6 +434,7 @@
             };
         },
         mounted() {
+            this.getSupplierNameList();
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -455,6 +501,23 @@
             changewhetherentry(val) {
                 this.form.whetherentry = val;
             },
+            arraySpanMethod({row, column, rowIndex, columnIndex}) {
+                if (columnIndex === 3) {
+                    return [1, 2];
+                }
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             getAge() {
                 let birthdays = new Date(this.form.birth);
                 let d = new Date();
@@ -462,6 +525,31 @@
                     d.getFullYear() -
                     birthdays.getFullYear()
                 this.form.age = ageD;
+            },
+            getSupplierNameList() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6001Store/getSupplierNameList', {})
+                    .then(response => {
+                        this.gridData = [];
+                        for (let i = 0; i < response.length; i++) {
+                            var vote = {};
+                            vote.suppliername = response[i].supchinese;
+                            vote.userid = response[i].prochinese;
+                            vote.contactinformation = response[i].protelephone;
+                            this.gridData.push(vote)
+                            alert(vote);
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
             },
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
@@ -530,5 +618,20 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
 
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 </style>

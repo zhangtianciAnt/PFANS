@@ -31,3 +31,11 @@ export function createcooperinterviewApply(data) {
     data: data
   })
 }
+
+export function getSupplierNameList(data) {
+  return request({
+    url: 'cooperinterview/getSupplierNameList',
+    method: 'POST',
+    data: data
+  })
+}
