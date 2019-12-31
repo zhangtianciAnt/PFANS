@@ -55,3 +55,11 @@ export function selectByResult(data) {
     params: data,
   });
 }
+
+export function check(data) {
+  return request({
+    url: 'inventoryplan/check',
+    method: 'post',
+    data: data,
+  });
+}

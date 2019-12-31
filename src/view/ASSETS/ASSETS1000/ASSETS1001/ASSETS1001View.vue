@@ -5,7 +5,7 @@
                      v-loading="loading">
 <!--      <div id="qrcode"></div>-->
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" width="50%">
+    <el-dialog :visible.sync="daoru" width="50%" @close="closed">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
@@ -143,9 +143,10 @@
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'prtQrcode', 'name': 'button.prtQrcode', 'disabled': false, 'icon': 'el-icon-printer'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -156,6 +157,9 @@
       this.getListData();
     },
     methods: {
+      closed(){
+        this.getListData();
+      },
       getListData() {
         this.loading = true;
         this.$store
@@ -330,6 +334,22 @@
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
           });
+        }
+        if(val ==='export2'){
+          this.loading = true;
+          this.$store
+            .dispatch('ASSETS1001Store/download', {})
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
         }
       },
     },

@@ -1,4 +1,4 @@
-import {getInsertInfo, getUpdateInfo,getList,getOneInfo} from './ASSETS1001Api'
+import {getInsertInfo, getUpdateInfo,getList,getOneInfo,download} from './ASSETS1001Api'
 
 const ASSETS1001Store = {
   namespaced: true,
@@ -61,6 +61,15 @@ const ASSETS1001Store = {
         })
       })
     },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 };
 

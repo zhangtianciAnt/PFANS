@@ -1,4 +1,5 @@
 import request from "../../../../utils/request"
+import requestDownload from '../../../../utils/requestDownload'
 
 export function getInsertInfo(data) {
   return request({
@@ -28,5 +29,14 @@ export function getOneInfo(data) {
     url: 'assets/oneInfo',
     method: 'post',
     data: data
+  })
+}
+
+export function download(data) {
+  return requestDownload({
+    url: 'assets/download',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }

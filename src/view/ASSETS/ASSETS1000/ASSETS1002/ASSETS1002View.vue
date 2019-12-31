@@ -103,7 +103,7 @@
           this.$router.push({
             name: 'ASSETS1002FormView',
             params: {
-              _id: this.rowid,
+              _id: '',
               disabled: true,
             },
           });
