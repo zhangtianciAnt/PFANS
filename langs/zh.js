@@ -174,7 +174,7 @@ module.exports = {
     PFANS6001: '协力面试记录',
     PFANS6002: '客户信息',
     PFANS6003: '供应商信息',
-    PFANS6004: '协力面试记录',
+    PFANS6004: '外驻人员登记表',
     STATIONING: '外驻管理',
     PFANS6007: '各種経費',
     APPROVAL: '立项审批',
