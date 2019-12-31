@@ -3,6 +3,7 @@ import {
   getcustomerinforApplyOne,
   updatecustomerinforApply,
   createcustomerinforApply,
+  download,
 } from './PFANS6002Api'
 
 const PFANS6002Store = {
@@ -62,6 +63,15 @@ const PFANS6002Store = {
         })
       })
     },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 };
 
