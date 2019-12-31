@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">
+  <div style="min-height: 100%" class="assets1002">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -29,7 +29,7 @@
           <el-row>
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
             <el-table :data="tableD" @selection-change="selectionChange" height="400" border
-                      header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick">
+                      header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick" cell-class-name = "row_height">
               <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>
@@ -78,6 +78,31 @@
           this.error = '';
         }
       };
+      var validateDate = (rule, value, callback) => {
+        if (value && this.form) {
+          this.$store
+            .dispatch('ASSETS1002Store/check', {'inventorycycle':moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD'),
+            'inventoryplan_id':this.$route.params._id})
+            .then(response => {
+              this.data = response;
+              if(this.data === 1){
+                callback(this.$t('normal.error_plandate'));
+              }else{
+                callback();
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          callback();
+        }
+      };
       return {
         loading: false,
         error: '',
@@ -112,7 +137,12 @@
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_INVENTORYCYCLE'),
             trigger: 'change',
-          }],
+          },
+            {
+              required: true,
+              validator: validateDate,
+              trigger: 'change',
+            }],
         },
         disable: '',
         rowid: '',
@@ -338,5 +368,11 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  .assets1002{
+    .row_height {
+      height: 30px;
+      font-size: 0.8rem;
+      padding: 0px;
+    }
+  }
 </style>

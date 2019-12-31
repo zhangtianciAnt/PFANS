@@ -110,6 +110,7 @@ module.exports = {
     error_checkdatetype: '当天存在日期样式，请重新选择！',
     error_checkerror: '当天无可删除数据，请重新选择！',
     error_attendancesetting: '请先设定公司考勤数据！',
+    error_plandate: '当前时间段存在盘点计划！',
   },
   menu: {
     homePageManagement: '首页',
@@ -173,7 +174,7 @@ module.exports = {
     PFANS6001: '协力面试记录',
     PFANS6002: '客户信息',
     PFANS6003: '供应商信息',
-    PFANS6004: '协力面试记录',
+    PFANS6004: '外驻人员登记表',
     STATIONING: '外驻管理',
     PFANS6007: '各種経費',
     APPROVAL: '立项审批',

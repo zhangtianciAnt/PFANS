@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 export function getcustomerinfor(data) {
   return request({
@@ -29,5 +30,14 @@ export function createcustomerinforApply(data) {
     url: 'customerinfor/create',
     method: 'post',
     data: data
+  })
+}
+
+export function download(data) {
+  return requestDownload({
+    url: 'customerinfor/download',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
