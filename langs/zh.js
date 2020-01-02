@@ -110,6 +110,7 @@ module.exports = {
     error_checkdatetype: '当天存在日期样式，请重新选择！',
     error_checkerror: '当天无可删除数据，请重新选择！',
     error_attendancesetting: '请先设定公司考勤数据！',
+    error_plandate: '当前时间段存在盘点计划！',
   },
   menu: {
     homePageManagement: '首页',

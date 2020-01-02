@@ -213,7 +213,7 @@
         this.qrcode1 = new QRCode('qrcode', {
           width: 132,
           height: 132,
-          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'),
+          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmssSSS'),
           colorDark : "#000",
           colorLight : "#fff",
         })
