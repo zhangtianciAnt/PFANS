@@ -1,11 +1,11 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick" ref="roletable"
+                     :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     ref="roletable"
                      v-loading="loading">
-<!--      <div id="qrcode"></div>-->
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" width="50%" @close="closed">
+    <el-dialog :visible.sync="daoru" @close="closed" width="50%">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
@@ -56,7 +56,6 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
-  import QRCode from 'qrcodejs2';
 
   export default {
     name: 'ASSETS1001View',
@@ -74,7 +73,7 @@
         message: [{hang: '', error: ''}],
         daoru: false,
         authHeader: {'x-auth-token': getToken()},
-        postAction: process.env.BASE_API + '/assets/importUser',
+        postAction: process.env.BASE_API + '/assets/import',
         addActionUrl: '',
         resultShow: false,
         result: false,
@@ -133,6 +132,13 @@
             filter: true,
           },
           {
+            code: 'barcode',
+            label: 'label.ASSETS1001VIEW_BARCODE',
+            width: 100,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'assetstatus',
             label: 'label.ASSETS1001VIEW_ASSETSTATUS',
             width: 100,
@@ -143,8 +149,8 @@
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'prtQrcode', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-printer'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
-          {'key': 'prtQrcode', 'name': 'button.prtQrcode', 'disabled': false, 'icon': 'el-icon-printer'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
         ],
@@ -157,7 +163,7 @@
       this.getListData();
     },
     methods: {
-      closed(){
+      closed() {
         this.getListData();
       },
       getListData() {
@@ -328,14 +334,14 @@
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'principal', 'assetstatus'];
+            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
+            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'principal', 'barcode', 'assetstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
           });
         }
-        if(val ==='export2'){
+        if (val === 'export2') {
           this.loading = true;
           this.$store
             .dispatch('ASSETS1001Store/download', {})
