@@ -104,20 +104,6 @@
             filter: true,
           },
           {
-            code: 'price',
-            label: 'label.ASSETS1001VIEW_PRICE',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'purchasetime',
-            label: 'label.ASSETS1001VIEW_PURCHASETIME',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
             code: 'usedepartment',
             label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
             width: 100,
@@ -134,6 +120,13 @@
           {
             code: 'barcode',
             label: 'label.ASSETS1001VIEW_BARCODE',
+            width: 100,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'bartype',
+            label: 'label.ASSETS1001VIEW_BARTYPE',
             width: 100,
             fix: false,
             filter: true,
@@ -175,6 +168,7 @@
               let user = getUserInfo(response[j].principal);
               if (user) {
                 response[j].principal = user.userinfo.customername;
+                response[j].jobnumber = user.userinfo.jobnumber;
                 response[j].usedepartment = user.userinfo.centername;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
@@ -190,6 +184,12 @@
                 let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
                 if (letErrortype1 != null) {
                   response[j].assetstatus = letErrortype1.value1;
+                }
+              }
+              if (response[j].bartype !== null && response[j].bartype !== '') {
+                let letbartype1 = getDictionaryInfo(response[j].bartype);
+                if (letbartype1 != null) {
+                  response[j].bartype = letbartype1.value1;
                 }
               }
             }
@@ -318,24 +318,11 @@
         if (val === 'import') {
           this.daoru = true;
         }
-        // if (val === 'prtQrcode') {
-        //   document.getElementById('qrcode').innerHTML = '';
-        //   this.selectedlist = this.$refs.roletable.selectedList;
-        //   for(let i = 0; i <this.selectedlist.length; i++ ){
-        //     let qrcode = new QRCode('qrcode', {
-        //       width: 132,
-        //       height: 132,
-        //       text: 'P' + moment(new Date()).format('YYYYMMDDhhmmss'),
-        //       colorDark : "#000",
-        //       colorLight : "#fff",
-        //     })
-        //   }
-        // }
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'principal', 'barcode', 'assetstatus'];
+            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
+            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartype','assetstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
