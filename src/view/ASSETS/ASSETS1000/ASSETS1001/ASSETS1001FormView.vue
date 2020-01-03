@@ -74,9 +74,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row style="padding-top: 20px" v-if="form.barcode">
             <el-col :span="24" align="center">
-              <div id="qrcode"></div>
+              <span style="font-size: 40px;color:blue;border: black solid 1px">{{form.barcode}}</span>
            </el-col>
           </el-row>
         </el-form>
@@ -93,7 +93,6 @@
   import user from '../../../components/user.vue';
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import QRCode from 'qrcodejs2';
 
   export default {
     name: 'ASSETS1001FormView',
@@ -126,7 +125,6 @@
         code2: 'PA002',
         code3: 'PA003',
         multiple: false,
-        qrcode1: '',
       };
     },
     mounted() {
@@ -136,13 +134,6 @@
           .dispatch('ASSETS1001Store/getOneInfo', {'assets_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-                this.qrcode1 = new QRCode('qrcode', {
-                  width: 132,
-                  height: 132,
-                  text: this.form.barcode,
-                  colorDark : "#000",
-                  colorLight : "#fff",
-                })
             this.userlist = this.form.principal;
             this.loading = false;
           })
@@ -161,29 +152,44 @@
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.usedepartment = lst.centerNmae;
         }
-        this.getQr();
       }
     },
     created() {
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'savePrt',
-            name: 'button.savePrt',
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'printing',
-            name: 'button.printing',
-            icon: 'el-icon-printer',
-          },
-        ];
+        if (this.$route.params._id){
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'savePrt',
+              name: 'button.savePrt',
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'printing',
+              name: 'button.printing',
+              icon: 'el-icon-printer',
+            },
+          ];
+        }else{
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'savePrt',
+              name: 'button.savePrt',
+              icon: 'el-icon-check',
+            }
+          ];
+        }
+
       }
     },
     methods: {
@@ -209,19 +215,7 @@
       getTypeassets(val) {
         this.form.typeassets = val;
       },
-      getQr(){
-        this.qrcode1 = new QRCode('qrcode', {
-          width: 132,
-          height: 132,
-          text: 'P' + moment(new Date()).format('YYYYMMDDhhmmssSSS'),
-          colorDark : "#000",
-          colorLight : "#fff",
-        })
-      },
       getSave(){
-        if(this.qrcode1){
-          this.form.barcode = this.qrcode1._htOption.text;
-        }
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -291,13 +285,5 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  #qrcode {
-    display: inline-block;
-    img {
-      width: 132px;
-      height: 132px;
-      background-color: #fff;
-      padding: 6px;
-    }
-  }
+
 </style>
