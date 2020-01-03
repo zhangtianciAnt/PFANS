@@ -4,7 +4,7 @@
                          ref="container">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+                 style="padding: 2rem" :rules="rules">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')" prop="filename">
@@ -138,6 +138,18 @@
         code3: 'PA003',
         code4: 'PA004',
         multiple: false,
+        rules: {
+          filename: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_FILENAME'),
+            trigger: 'change',
+          }],
+          bartype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            trigger: 'change',
+          }]
+        },
       };
     },
     mounted() {
