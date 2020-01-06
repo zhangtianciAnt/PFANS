@@ -49,8 +49,6 @@
                          :locale='locale' :plugins="calendarPlugins"
                          @dateClick="handleDateClick" defaultView="dayGridMonth"
                          height="parent"/>
-
-
         </el-row>
       </el-col>
     </el-row>
@@ -231,7 +229,6 @@
           });
         }
       },
-
       clickDSP() {
         if(this.DSPSX==='0'){
           this.$router.push({
@@ -247,7 +244,6 @@
         this.$router.push({
           name: 'PFANS8003View'
         });
-
       },
       rowclickDataList2(row, event, column) {
         this._id = row.informationid;

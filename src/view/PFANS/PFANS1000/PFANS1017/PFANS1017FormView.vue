@@ -273,7 +273,7 @@
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
   import {getOrgInfoByUserId} from '@/utils/customize';
-  import {telephoneNumber, validateEmail} from '@/utils/validate';
+  import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
 
   export default {
@@ -304,17 +304,18 @@
           callback();
         }
       };
-      var validateTel = (rule, value, callback) => {
-        if (this.form.extension !== null && this.form.extension !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1017FORMVIEW_EXTENSION')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
+        var validateTel = (rule, value, callback) => {
+            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+            if (this.form.extension !== null && this.form.extension !== '') {
+                if (!this.regExp.test(value)) {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
       return {
         buttonList: [],
         baseInfo: {},
@@ -376,10 +377,10 @@
             message: this.$t('normal.error_09') + this.$t('label.application'),
             trigger: 'change',
           }],
-          email: [{},
-            {validator: checkemail, trigger: 'blur'}],
-          extension: [{},
-            {validator: validateTel, trigger: 'blur'}],
+          email: [
+            {validator: checkemail, trigger: 'change'}],
+          extension: [
+            {validator: validateTel, trigger: 'change'}],
           idtype: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
