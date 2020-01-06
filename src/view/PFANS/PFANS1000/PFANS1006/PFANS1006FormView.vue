@@ -119,14 +119,14 @@
           </el-row>
           <el-row>
             <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-              <el-input :disabled="!disable" :rows="4" style="width:57.1rem" type="textarea" v-model="form.remark">
+              <el-input :disabled="!disable" :rows="4" style="width:46.7rem" type="textarea" v-model="form.remark">
               </el-input>
             </el-form-item>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disable" :rows="4" type="textarea" style="width:57.1rem" v-model="form.remarks">
+                <el-input :disabled="!disable" :rows="4" type="textarea" style="width:46.7rem" v-model="form.remarks">
                 </el-input>
               </el-form-item>
             </el-col>
@@ -205,7 +205,7 @@
           <el-row style="padding-top:1rem">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1006FORMVIEW_REASONFORDELAY')" prop="reasonfordelay">
-                <el-input :disabled="!disable" :rows="4" type="textarea" style="width:57.1rem"
+                <el-input :disabled="!disable" :rows="4" type="textarea" style="width:46.7rem"
                           v-model="form.reasonfordelay">
                 </el-input>
               </el-form-item>
