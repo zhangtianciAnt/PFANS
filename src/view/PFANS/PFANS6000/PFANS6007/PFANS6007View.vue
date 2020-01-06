@@ -20,14 +20,14 @@
         title: "title.PFANS6007VIEW_TITLE",
         data: [],
         columns: [
-          {
+          {/*1*/
             code: 'year',
             label: 'label.PFANS2023VIEW_YEARS',
             width: 90,
             fix: false,
             filter: true,
           },
-          {
+          {/*2*/
             code: 'psdcdwindow',
             label: 'label.PFANS6007VIEW_PSDCDWINDOW',
             width: 120,
@@ -44,7 +44,7 @@
           {
             code: 'bpclubname',
             label: 'label.PFANS6007VIEW_BPCLUBNAME',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
