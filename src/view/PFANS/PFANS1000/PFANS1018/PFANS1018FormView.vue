@@ -67,7 +67,9 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <div class="sub_color_blue" type="font-size:6px">{{$t('label.PFANS1018VIEW_APPLICATIONDEPLOYMENT')}}</div>
+              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
+                {{$t('label.PFANS1018VIEW_APPLICATIONDEPLOYMENT')}}
+              </div>
             </el-col>
           </el-row>
           <el-row>
