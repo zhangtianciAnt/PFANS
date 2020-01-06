@@ -38,7 +38,7 @@
                   :disabled="!disabled"
                   @change="getYear"
                   style="width: 11rem"
-                  type="date"
+                  type="year"
                   v-model="form.year">
                 </el-date-picker>
               </el-form-item>
