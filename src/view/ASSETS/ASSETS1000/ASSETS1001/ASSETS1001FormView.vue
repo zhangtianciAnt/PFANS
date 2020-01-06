@@ -4,7 +4,7 @@
                          ref="container">
       <div slot="customize">
         <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+                 style="padding: 2rem" :rules="rules">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')" prop="filename">
@@ -74,9 +74,20 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row style="padding-top: 20px" v-if="form.barcode">
-            <el-col :span="24" align="center">
-              <span style="font-size: 40px;color:blue;border: black solid 1px">{{form.barcode}}</span>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
+                <dicselect
+                  :code="code4"
+                  :data="form.bartype"
+                  :multiple="multiple"
+                  @change="getBartype"
+                  style="width: 11rem">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12"  v-if="form.barcode">
+              <span style="font-size: 30px;color:black;border: black solid 1px">{{form.barcode}}</span>
            </el-col>
           </el-row>
         </el-form>
@@ -120,11 +131,25 @@
           assetstatus: '',
           stockstatus: '',
           barcode: '',
+          bartype: '',
         },
         code1: 'PA001',
         code2: 'PA002',
         code3: 'PA003',
+        code4: 'PA004',
         multiple: false,
+        rules: {
+          filename: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_FILENAME'),
+            trigger: 'change',
+          }],
+          bartype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            trigger: 'change',
+          }]
+        },
       };
     },
     mounted() {
@@ -211,6 +236,9 @@
       },
       getAssetstatus(val) {
         this.form.assetstatus = val;
+      },
+      getBartype(val) {
+        this.form.bartype = val;
       },
       getTypeassets(val) {
         this.form.typeassets = val;
