@@ -61,7 +61,7 @@
                       style="width: 11rem"
                       v-model="form.reserveovertimedate"
                       :disabled="!disable"
-                      @change="getDay"
+                      @change="getDay1"
                       type="date">
                     </el-date-picker>
                   </div>
@@ -303,7 +303,7 @@
                 disable: true,
                 show: false,
                 disactualovertime: false,
-                dateList:[],
+                dataList:[],
             };
         },
         mounted() {
@@ -363,7 +363,6 @@
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
-            debugger;
             this.getDay();
         },
         created() {
@@ -380,11 +379,36 @@
             }
         },
         methods: {
+            getDay1(){
+                let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
+                if(moment(letreserveovertimedate).format('MM-DD') === '05-04'){
+                    this.change('PR001007');
+                }
+                if(moment(letreserveovertimedate).format('MM-DD') === '03-08'){
+                    this.change('PR001008');
+                }
+                for(let i=0;i<this.dataList.length;i++){
+                    if(letreserveovertimedate === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
+                        if(this.dataList[i].type === '1'){
+                            this.change('PR001003');
+                        }else if(this.dataList[i].type === '3'){
+                            this.change('PR001006');
+                        }else if(this.dataList[i].type === '5'){
+                            this.change('PR001005');
+                        }else if(this.dataList[i].type === '6'){
+                            this.change('PR001004');
+                        }else{
+                            this.change('');
+                        }
+                    }
+                }
+
+            },
             getDay() {
                 this.$store
                     .dispatch('PFANS2011Store/getList', {})
                     .then(response => {
-                        this.dateList = response;
+                        this.dataList = response;
                         this.$store.commit("global/SET_DAYS", response);
                     })
             },
