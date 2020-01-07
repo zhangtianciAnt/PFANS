@@ -113,7 +113,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004FORMVIEW_PERIOD')" prop="period" v-show="show6">
-                <el-input v-model="form.period" :disabled="disabled" style="width: 11rem"></el-input>
+                <el-input v-model="form.period" :disabled="true" style="width: 11rem"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
