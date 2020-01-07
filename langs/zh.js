@@ -111,6 +111,8 @@ module.exports = {
     error_checkerror: '当天无可删除数据，请重新选择！',
     error_attendancesetting: '请先设定公司考勤数据！',
     error_plandate: '当前时间段存在盘点计划！',
+    error_greaterequal: '周末加班时间必须大于等于8小时',
+    error_overtime: '周末加班时间必须大于等于8小时！',
   },
   menu: {
     homePageManagement: '首页',
@@ -1015,7 +1017,7 @@ module.exports = {
     PFANS2001VIEW_APPLICATIONTIME: '申请时间',
     PFANS2001VIEW_BASICINFORMATION: '基本信息',
     PFANS2001VIEW_VIEWPROJECT: '所属项目',
-    PFANS2001VIEW_RECRUITMENTROUTE: '建议招聘途径',
+    PFANS2001VIEW_RECRUITMENTROUTE: '招聘途径',
     PFANS2001VIEW_JOBDEMAND: '岗位需求',
     PFANS2001VIEW_NEEDTOTRAVEL: '需否出差',
     PFANS2001VIEW_DEMANDLEVEL: '需求等级',

@@ -8,7 +8,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import moment from "moment";
-    import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import {getUserInfo, getDictionaryInfo, getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS6001View',
@@ -119,11 +119,9 @@
                                 response[j].suppliername = user.userinfo.customername;
                             }
                         }
-                        if (response[j].interviewdep !== null && response[j].interviewdep !== "") {
-                            let interviewdep = getUserInfo(response[j].interviewdep);
-                            if (interviewdep) {
-                                response[j].interviewdep = user.userinfo.customername;
-                            }
+                        let interviewdep = getOrgInfo(response[j].interviewdep);
+                        if (interviewdep) {
+                            response[j].interviewdep = interviewdep.companyname;
                         }
                         if (response[j].result !== null && response[j].result !== "") {
                             let letStage = getDictionaryInfo(response[j].result);
