@@ -61,6 +61,7 @@
                       style="width: 11rem"
                       v-model="form.reserveovertimedate"
                       :disabled="!disable"
+                      @change="getDay"
                       type="date">
                     </el-date-picker>
                   </div>
@@ -93,7 +94,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')">
+              <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
                 <el-input-number v-model="form.actualovertime" :disabled="!disactualovertime" controls-position="right"
                                  :precision="2" :step="0.1" :min="0" :max="24" style="width: 11rem"></el-input-number>
               </el-form-item>
@@ -132,7 +133,7 @@
           <el-row :gutter="32" style="padding-top: 1%">
             <el-col :span="24">
               <el-form-item :label="$t('label.cause')" prop="cause">
-                <el-input type="textarea" v-model="form.cause" :disabled="!disable" style="width: 100%"></el-input>
+                <el-input type="textarea" v-model="form.cause" :disabled="!disable" style="width: 95.5%"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -173,7 +174,7 @@
             var validatePass = (rule, value, callback) => {
                 if (this.show) {
                     if(value === '' || value === null){
-                        callback(new Error(this.$t("normal.error_08") + this.$t("label.PFANS2011VIEW_RESERVESUBSTITUTION")))
+                        callback(new Error(this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_RESERVESUBSTITUTION")))
                     }else
                         {
                         if(this.form.reserveovertimedate !== '' || this.form.reserveovertimedate !== null){
@@ -200,14 +201,25 @@
             };
             var validatePass2 = (rule, value, callback) => {
                 if (this.form.status === '4') {
-                    if (value != 0) {
-                        callback(new Error(this.$t("normal.error_08") + this.$t("label.PFANS2011VIEW_ACTUALOVER")))
+                    if (!value || value === '') {
+                        callback(new Error(this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_ACTUALOVER")))
                     } else {
                         callback()
                     }
                 } else {
                     callback();
                 }
+            };
+            var validatePass3 = (rule, value, callback) => {
+                if (this.form.overtimetype === 'PR001002') {
+                    if (!value || value === '' || value <= '8') {
+                        callback(new Error(this.$t("label.PFANS2011VIEW_GREATEREQUAL")))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback();
+            }
             };
             return {
                 workflowCode: "W0001",
@@ -263,14 +275,19 @@
                     reserveovertime: [
                         {
                             required: true,
-                            message: this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_RESERVEOVERTIME"),
+                            message: this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_RESERVEOVER"),
                             trigger: "change"
                         },
+                        {
+                            validator: validatePass3,
+                            trigger: "change"
+                        }
                     ],
                     actualovertime: [
                         {
+                            required: false,
                             validator: validatePass2,
-                            trigger: "change                                                                                                                                         "
+                            trigger: "change"
                         },
                     ],
                     reservesubstitutiondate: [
@@ -286,6 +303,7 @@
                 disable: true,
                 show: false,
                 disactualovertime: false,
+                dateList:[],
             };
         },
         mounted() {
@@ -305,22 +323,25 @@
                             this.disable = false;
                             this.disactualovertime = true;
                         }
-                        if ((this.form.status === '2' || this.form.status === '5') && this.disable) {
+                        if ((this.form.status === '5') && this.disable) {
                             this.disable = false;
                             this.disactualovertime = false;
                         }
                         if (this.form.status === '0') {
                             this.workflowCode = 'W0001';
                             this.canStart = true;
-                            this.disable = false;
+                            this.disactualovertime = false;
                         } else if (this.form.status === '4') {
                             this.workflowCode = 'W0040';
                             this.canStart = true;
                             this.disable = false;
+                            this.disactualovertime = true;
+                            this.rules.actualovertime[0].required = true;
                         } else if (this.form.status === '7') {
                             this.workflowCode = 'W0040';
                             this.canStart = false;
-                            this.disable = false;
+                            this.disable = true;
+                            this.disactualovertime = true;
                         }
                         this.loading = false;
                     })
@@ -329,7 +350,7 @@
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
-                        })
+                        });
                         this.loading = false;
                     })
             } else {
@@ -342,10 +363,10 @@
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
+            getDay();
         },
         created() {
             this.disable = this.$route.params.disabled;
-            this.disactualovertime = this.$route.params.disabled;
             if (this.disable) {
                 this.buttonList = [
                     {
@@ -358,6 +379,14 @@
             }
         },
         methods: {
+            getDay() {
+                this.$store
+                    .dispatch('PFANS2011Store/getList', {})
+                    .then(response => {
+                        this.dateList = response;
+                        this.$store.commit("global/SET_DAYS", response);
+                    })
+            },
             workflowState(val) {
                 if (val.state === '1') {
                     if (val.workflowCode === 'W0001') {
@@ -412,6 +441,7 @@
                 } else {
                     this.show = false;
                     this.form.reservesubstitutiondate = null;
+                    this.rules.reservesubstitutiondate[0].required = false;
                     this.form.actualsubstitutiondate = null;
                 }
             },
@@ -431,13 +461,13 @@
                     if (valid) {
                         this.loading = true;
                         this.form.userid = this.userlist;
-                        this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
-                        this.form.reserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD')
+                        this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD');
+                        this.form.reserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
                         if (this.form.overtimetype != 'PR001002') {
-                            this.form.reservesubstitutiondate = null
-                            this.form.actualsubstitutiondate = null
+                            this.form.reservesubstitutiondate = null;
+                            this.form.actualsubstitutiondate = null;
                         } else {
-                            this.form.reservesubstitutiondate = moment(this.form.reservesubstitutiondate).format('YYYY-MM-DD')
+                            this.form.reservesubstitutiondate = moment(this.form.reservesubstitutiondate).format('YYYY-MM-DD');
                             if(this.form.actualsubstitutiondate != null){
                                 this.form.actualsubstitutiondate = moment(this.form.actualsubstitutiondate).format('YYYY-MM-DD')
                             }
@@ -464,7 +494,7 @@
                                         message: error,
                                         type: 'error',
                                         duration: 5 * 1000
-                                    })
+                                    });
                                     this.loading = false;
                                 })
                         } else {
