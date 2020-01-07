@@ -1,52 +1,52 @@
 <template>
-  <div>
+  <!--  <div>-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
                      ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="isShow">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" width="50%">
-      <div>
-        <div style="margin-top: 1rem;margin-left: 28%">
-          <el-upload
-            drag
-            ref="uploader"
-            :action="postAction"
-            :on-success="handleSuccess"
-            :before-upload="handleChange"
-            :headers="authHeader"
-            :limit=1
-            :on-remove="this.clear"
-            multiple
-          >
-            <i class="el-icon-upload"></i>
-            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
-          </el-upload>
-        </div>
-        <el-row>
-          <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-          <span v-if="this.resultShow"
-          >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
-        </el-row>
-        <span v-if="this.Message">{{this.cuowu}}</span>
-        <div v-if="this.result">
-          <el-table :data="message">
-            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
-            </el-table-column>
-            <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
-            </el-table-column>
-          </el-table>
-          <div class="pagination-container" style="padding-top: 2rem">
-            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
-                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
-                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
-              <slot><span class="front Content_front"
-                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
-            </el-pagination>
-          </div>
-        </div>
-      </div>
-    </el-dialog>
-  </div>
+  <!--    <el-dialog :visible.sync="daoru" width="50%">   :showSelection="isShow"-->
+  <!--      <div>-->
+  <!--        <div style="margin-top: 1rem;margin-left: 28%">-->
+  <!--          <el-upload-->
+  <!--            drag-->
+  <!--            ref="uploader"-->
+  <!--            :action="postAction"-->
+  <!--            :on-success="handleSuccess"-->
+  <!--            :before-upload="handleChange"-->
+  <!--            :headers="authHeader"-->
+  <!--            :limit=1-->
+  <!--            :on-remove="this.clear"-->
+  <!--            multiple-->
+  <!--          >-->
+  <!--            <i class="el-icon-upload"></i>-->
+  <!--            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>-->
+  <!--          </el-upload>-->
+  <!--        </div>-->
+  <!--        <el-row>-->
+  <!--          <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+  <!--          <span v-if="this.resultShow"-->
+  <!--          >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>-->
+  <!--        </el-row>-->
+  <!--        <span v-if="this.Message">{{this.cuowu}}</span>-->
+  <!--        <div v-if="this.result">-->
+  <!--          <el-table :data="message">-->
+  <!--            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">-->
+  <!--            </el-table-column>-->
+  <!--            <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">-->
+  <!--            </el-table-column>-->
+  <!--          </el-table>-->
+  <!--          <div class="pagination-container" style="padding-top: 2rem">-->
+  <!--            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"-->
+  <!--                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"-->
+  <!--                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">-->
+  <!--              <slot><span class="front Content_front"-->
+  <!--                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
+  <!--            </el-pagination>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </el-dialog>-->
+  <!--  </div>-->
 </template>
 
 <script>

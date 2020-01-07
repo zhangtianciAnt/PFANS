@@ -46,29 +46,29 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice">
+              <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice" width="200">
                 <template slot-scope="scope">
-                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="2" :max="9999999"
-                                   controls-position="right"
+                  <el-input-number  :disabled="!disable" :min="0" :precision="2" :max="9999999"
+                                   controls-position="right" :no="scope.row"  @change="changeSum(scope.row)"
                                    :step="1" v-model="scope.row.unitprice">
                   </el-input-number>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS3005VIEW_QUANTITY')" align="center" prop="numbers">
+              <el-table-column :label="$t('label.PFANS3005VIEW_QUANTITY')" align="center" prop="numbers" width="200">
                 <template slot-scope="scope">
-                  <el-input-number @change="changeSum" :disabled="!disable" :min="0" :precision="0" :max="99999"
-                                   controls-position="right"
+                  <el-input-number @change="changeSum(scope.row)" :disabled="!disable" :min="0" :precision="0" :max="99999"
+                                   controls-position="right" :no="scope.row"
                                    :step="1" v-model="scope.row.numbers">
                   </el-input-number>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1005VIEW_AMOUNT')" align="center" prop="amount">
+              <el-table-column :label="$t('label.PFANS1005VIEW_AMOUNT')" align="center" prop="amount" width="200">
                 <template slot-scope="scope">
-                  <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="scope.row.amount">
+                  <el-input-number @change="changeSum(scope.row)" :disabled="true" :precision="2" controls-position="right" :no="scope.row" v-model="scope.row.amount">
                   </el-input-number>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks">
+              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks" width="200">
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" v-model="scope.row.remarks">
                   </el-input>
@@ -217,8 +217,8 @@
       }
     },
     methods: {
-      changeSum() {
-        this.tableD[0].amount = this.tableD[0].unitprice * this.tableD[0].numbers;
+      changeSum(row) {
+       row.amount = row.unitprice * row.numbers;
       },
       getUserids(val) {
         this.form.user_id = val;

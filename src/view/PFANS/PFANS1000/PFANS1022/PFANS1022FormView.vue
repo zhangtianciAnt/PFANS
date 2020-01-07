@@ -261,12 +261,12 @@
                             trigger: 'change'
                         },
                     ],
-                    extension: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
-                        trigger: 'blur',
-                    },
-                        {validator: validateExtensionnumber, trigger: 'blur'}],
+                    extension: [//{
+                    //     required: true,
+                    //     message: this.$t('normal.error_08') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
+                    //     trigger: 'blur',
+                    // },
+                        {validator: validateExtensionnumber, trigger: 'change'}],
                 },
                 canStart: false,
             };

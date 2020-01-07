@@ -129,7 +129,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:55rem"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
                           v-model="form.objective"></el-input>
               </el-form-item>
             </el-col>
@@ -137,7 +137,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_BORROWING')">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:55rem"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
                           v-model="form.borrowing"></el-input>
               </el-form-item>
             </el-col>
