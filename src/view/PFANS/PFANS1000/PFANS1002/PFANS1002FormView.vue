@@ -1556,31 +1556,15 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.update();
+        this.buttonClick('update');
       },
-      start() {
+      start(val) {
         this.form.status = '2';
-        this.update();
+        this.buttonClick('update');
       },
-      end() {
+      end(val) {
         this.form.status = '0';
-        this.update();
-      },
-      update() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
-          .then(response => {
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
+        this.buttonClick('update');
       },
       paramsTitle() {
         this.$router.push({
