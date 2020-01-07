@@ -1306,6 +1306,7 @@
     },
     methods: {
       checkRequire() {
+          debugger;
         if (
           !this.form.user_id ||
           !this.form.applicationdate ||
@@ -1319,15 +1320,16 @@
           this.activeName = 'first';
         } else if (
           !this.form.objectivetype ||
-          !this.form.objectivetypeother ||
           !this.form.details
         ) {
           this.activeName = 'second';
         } else if (
           !this.form.budgetunit ||
-          !this.form.plantype ||
-          !this.form.classificationtype ||
-          !this.form.balance ||
+          (this.form.plan === '1' && (
+                !this.form.plantype ||
+                !this.form.classificationtype ||
+                !this.form.balance)
+          ) ||
           !this.form.moneys ||
           !this.form.foreigncurrency ||
           !this.form.currency ||
