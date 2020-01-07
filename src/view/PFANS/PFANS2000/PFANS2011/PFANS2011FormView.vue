@@ -213,7 +213,7 @@
             var validatePass3 = (rule, value, callback) => {
                 if (this.form.overtimetype === 'PR001002') {
                     if (!value || value === '' || value <= '8') {
-                        callback(new Error(this.$t("label.PFANS2011VIEW_GREATEREQUAL")))
+                        callback(new Error(this.$t("normal.error_greaterequal")))
                     } else {
                         callback()
                     }
@@ -363,7 +363,8 @@
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
-            getDay();
+            debugger;
+            this.getDay();
         },
         created() {
             this.disable = this.$route.params.disabled;

@@ -586,6 +586,12 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
+                        for(let i = 0; i < this.form.recruitmentroute.length;i++){
+                            this.form.recruitmentroute = this.form.recruitmentroute + ',' + this.form.recruitmentroute[i];
+                        }
+                        this.form.recruitmentroute = this.form.recruitmentroute.substring(1,this.form.recruitmentroute.length);
+                        alert(this.form.recruitmentroute);
+                        return;
                         if (this.$route.params._id) {
                             this.form.recruitid = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
