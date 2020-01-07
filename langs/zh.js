@@ -111,6 +111,7 @@ module.exports = {
     error_checkerror: '当天无可删除数据，请重新选择！',
     error_attendancesetting: '请先设定公司考勤数据！',
     error_plandate: '当前时间段存在盘点计划！',
+    error_greaterequal: '周末加班时间必须大于等于8小时',
   },
   menu: {
     homePageManagement: '首页',
@@ -1356,7 +1357,6 @@ module.exports = {
     PFANS2011VIEW_ACTUALSUBSTITUTION: '实际代休日期',
     PFANS2011FORMVIEW_ERROR: '预定代休日期不能大于加班日当月的3个月之后的月末',
     PFANS2011FORMVIEW_ERROR2: '预定代休日期必须大于予定加班日期',
-    PFANS2011VIEW_GREATEREQUAL: '周末加班下时间应>=8小时',
     PFANS2013VIEW_LASTYEAR: '上年度',
     PFANS2013VIEW_THISYEAR: '本年度',
     PFANS2013VIEW_ANNUALLEAVE: '法定年休',
