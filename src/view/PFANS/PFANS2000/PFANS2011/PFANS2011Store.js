@@ -1,4 +1,4 @@
-import {createOvertime, getOvertime, getOvertimeOne, updateOvertime} from './PFANS2011Api'
+import {createOvertime, getOvertime, getOvertimeOne, updateOvertime, getList} from './PFANS2011Api'
 
 const PFANS2011Store = {
   namespaced: true,
@@ -58,8 +58,21 @@ const PFANS2011Store = {
           reject(error);
         })
       })
-    }
+    },
+    getList({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
-}
+};
 
 export default PFANS2011Store;

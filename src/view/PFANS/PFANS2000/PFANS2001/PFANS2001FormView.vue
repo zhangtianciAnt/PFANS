@@ -66,7 +66,8 @@
                     <dicselect
                       :code="code"
                       :data="form.recruitmentroute"
-                      :multiple="multiple"
+                      :selectType="selectType1"
+                      :multiple="multiple1"
                       @change="getRecruitmentroute"
                       style="width: 11rem"
                       :disabled="!disabled">
@@ -116,36 +117,54 @@
                     </dicselect>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS2001VIEW_EXPECTEDARRIVALTIME')" prop="expectedarrivaltime">
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.expectedarrivaltime" style="width: 11rem" ></el-date-picker>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2001VIEW_EXPECTEDARRIVALTIME')" prop="expectedarrivaltime">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.expectedarrivaltime" style="width: 11rem" ></el-date-picker>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2001VIEW_SUGGESTEDSALARY')">
                 <el-input-number v-model="form.suggestedsalary" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
+                <el-col :span="1">
+                  <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
+                    <span>~</span>
+                  </div>
+                </el-col>
+              <el-col :span="8">
+                <el-input-number v-model="form.turningday" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+              </el-col>
           </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2001VIEW_TURNINGDAY')" prop="turningday">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="form.turningday" style="width: 11rem" ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2001VIEW_AFTERTURNINGPOSITIVE')">
-                    <el-input-number v-model="form.afterturningpositiv" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_SKILLLEVEL')">
-                    <el-input v-model="form.skilllevel" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="form.skilllevel"
+                      :multiple="multiple"
+                      @change="getSkilllevel"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </el-form-item>
+                </el-col>
+                <el-col :span="1">
+                  <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
+                    <span>~</span>
+                  </div>
+                </el-col>
+                <el-col :span="8">
+                    <dicselect
+                      :code="code6"
+                      :data="form.afterturningpositiv"
+                      :multiple="multiple"
+                      @change="getSkilllevel"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                 </el-col>
               </el-row>
             </el-tab-pane>
@@ -279,11 +298,12 @@
                 errorgroup: '',
                 activeName: 'first',
                 checked: true,
-                selectType: "Single",
+                selectType1: "double",
                 title: "title.PFANS2001VIEW",
                 buttonList: [],
                 tabIndex: 0,
                 multiple: false,
+                multiple1: true,
                 form: {
                     recruitid: '',
                     postname: '',
@@ -320,6 +340,7 @@
                 code3: 'PR030',
                 code4: 'PR031',
                 code5: 'PR032',
+                code6: 'PR052',
                 disabled: true,
                 menuList: [],
                 rules: {
@@ -487,14 +508,11 @@
           },
           getRecruitmentroute(val) {
             this.form.recruitmentroute = val;
-            if (val === "PR027004") {
-              this.show1 = true;
-            }else if (val === "PR027001") {
               this.show1 = false;
-            }else if (val === "PR027002") {
-              this.show1 = false;
-            }else if (val === "PR027003") {
-              this.show1 = false;
+            for(let i = 0; i < val.length;i++){
+                if(val[i] === 'PR027004'){
+                    this.show1 = true;
+                }
             }
           },
           getJobdemand(val) {
@@ -508,6 +526,9 @@
           },
           getGenderrequirements(val) {
             this.form.genderrequirements = val;
+          },
+          getSkilllevel(val) {
+            this.form.skilllevel = val;
           },
           getRequirements(val) {
             this.form.requirements = val;

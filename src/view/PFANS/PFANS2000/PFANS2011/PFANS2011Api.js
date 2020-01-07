@@ -27,6 +27,13 @@ export function createOvertime(data) {
     data: data
   })
 }
+export function getList(data) {
+  return request({
+    url: 'workingday/getList',
+    method: 'post',
+    data: data
+  })
+}
 
 
 
