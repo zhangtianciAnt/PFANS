@@ -498,11 +498,11 @@
             },
           ],
         },
-          show: false,
-          show1: false,
-          canStart: false,
-          fileList: [],
-          upload: uploadUrl(),
+        show: false,
+        show1: false,
+        canStart: false,
+        fileList: [],
+        upload: uploadUrl(),
       };
     },
     mounted() {
@@ -513,6 +513,12 @@
           .then(response => {
             this.form = response.assetinformation;
             this.userlist = this.form.user_id;
+            this.getProcessingmethod(this.form.processingmethod);
+            if (this.form.processingmethod === 'PJ012002') {
+              this.show1 = true;
+            } else if (this.form.processingmethod === 'PJ012001') {
+              this.show1 = false;
+            }
             if (this.form.salequotation === 'PJ013001') {
               this.show = true;
             } else if (this.form.salequotation === 'PJ013003') {
@@ -590,14 +596,16 @@
       },
       getProcessingmethod(val) {
         this.form.processingmethod = val;
-        if(val === 'PJ012001'){
-            this.show1 = false;
-            this.rules.salecontract[0].required = false;
-            this.rules.contractno[0].required = false;
-        }else if(val === 'PJ012002'){
-            this.show1 = true;
-            this.rules.salecontract[0].required = true;
-            this.rules.contractno[0].required = true;
+        if (val === 'PJ012001') {
+          this.show1 = false;
+          this.form.salecontract = '';
+          this.form.contractno = '';
+          this.rules.salecontract[0].required = false;
+          this.rules.contractno[0].required = false;
+        } else if (val === 'PJ012002') {
+          this.show1 = true;
+          this.rules.salecontract[0].required = true;
+          this.rules.contractno[0].required = true;
         }
       },
       getSalecontract(val) {
@@ -632,44 +640,44 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }else{
-            this.table1 = [
-                {
-                    scrapdetailsid: '',
-                    assetinformationid: '',
-                    fixedassetnam: '',
-                    megasnumber: '',
-                    settagnumber: '',
-                    purchasedate: '',
-                    originalvalue: '',
-                    yearsofuse: '',
-                    networth: '',
-                    scrapping: '',
-                    remarks: '',
-                },
-            ]
+        } else {
+          this.table1 = [
+            {
+              scrapdetailsid: '',
+              assetinformationid: '',
+              fixedassetnam: '',
+              megasnumber: '',
+              settagnumber: '',
+              purchasedate: '',
+              originalvalue: '',
+              yearsofuse: '',
+              networth: '',
+              scrapping: '',
+              remarks: '',
+            },
+          ];
         }
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }else{
-            this.table2 = [
-                {
-                    salesdetailsid: '',
-                    assetinformationid: '',
-                    fixedassetnam: '',
-                    megasnumber: '',
-                    settagnumber: '',
-                    purchasedate: '',
-                    originalvalue: '',
-                    networth: '',
-                    scrapping: '',
-                    remarks: '',
-                    sellingprice: '',
-                    loss: '',
-                },
-            ]
+        } else {
+          this.table2 = [
+            {
+              salesdetailsid: '',
+              assetinformationid: '',
+              fixedassetnam: '',
+              megasnumber: '',
+              settagnumber: '',
+              purchasedate: '',
+              originalvalue: '',
+              networth: '',
+              scrapping: '',
+              remarks: '',
+              sellingprice: '',
+              loss: '',
+            },
+          ];
         }
       },
       addRow() {
@@ -761,6 +769,10 @@
               }
               this.form.purchasedate = moment(this.form.purchasedate).format('YYYY-MM-DD');
               this.loading = true;
+              if (this.form.processingmethod === 'PJ012001') {
+                this.form.salecontract = '';
+                this.form.contractno = '';
+              }
               this.baseInfo = {};
               this.baseInfo.assetinformation = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.scrapdetails = [];
