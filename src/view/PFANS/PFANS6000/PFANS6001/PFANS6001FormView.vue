@@ -72,7 +72,8 @@
                     <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"></input>
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
-                    <el-dialog title="供应商信息" :visible.sync="dialogTableVisible" center size="50%" top="8vh" lock-scroll
+                    <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                               top="8vh" lock-scroll
                                append-to-body>
                       <div style="text-align: center">
                         <el-row style="text-align: center;height: 90%;overflow: hidden">
