@@ -570,6 +570,8 @@
           this.show1 = true;
           this.show2 = false;
           this.show3 = false;
+          this.form.name="";
+          this.form.accountpayeename="";
           this.rules.name[0].required = false;
           this.rules.accountpayeename[0].required = false;
           this.rules.payeename[0].required = true;
@@ -580,6 +582,11 @@
           this.show1 = false;
           this.show2 = true;
           this.show3 = false;
+          this.form.accountpayeename="";
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
           this.rules.name[0].required = true;
           this.rules.accountpayeename[0].required = false;
           this.rules.payeename[0].required = false;
@@ -590,6 +597,11 @@
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;
+          this.form.name="";
+          this.form.payeename="";
+          this.form.payeecode="";
+          this.form.payeebankaccountnumber="";
+          this.form.payeebankaccount="";
           this.rules.accountpayeename[0].required = true;
           this.rules.name[0].required = false;
           this.rules.payeename[0].required = false;
