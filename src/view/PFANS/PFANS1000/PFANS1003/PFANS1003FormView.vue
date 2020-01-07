@@ -41,7 +41,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_FILENAME')" prop="filename">
-                <el-input v-model="form.filename" :disabled="!disabled" style="width: 34rem" maxlength='50'></el-input>
+                <el-input v-model="form.filename" :disabled="!disabled" style="width: 28.9rem" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -118,13 +118,13 @@
                 :disabled="!disabled"
                 v-show="show4">
               </el-switch>
-                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 57rem"></el-input>
+                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 46.8rem"></el-input>
               </el-form-item>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport" label-width="6rem">
-                <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 57rem;padding-left:2rem"></el-input>
+                <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 46.8rem;padding-left:2rem"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -186,7 +186,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem" v-show="show2">
-                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 57rem;padding-left:2rem" type="textarea"></el-input>
+                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 46.8rem;padding-left:2rem" type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -233,6 +233,18 @@
       user
     },
     data() {
+      var validateinvestigator = (rule, value, callback) => {
+        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+        if (this.form.investigator !== null && this.form.investigator !== '') {
+          if (!this.regExp.test((value))) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1004VIEW_INVESTIGATOR')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
       var checkuser = (rule, value, callback) => {
         if(!value || value === '' || value ==="undefined"){
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -253,6 +265,7 @@
         selectType: "Single",
         title: "title.PFANS1003VIEW",
         buttonList: [],
+        regExp: [],
         tabIndex: 0,
         multiple: false,
         form: {
@@ -292,6 +305,12 @@
         disabled: true,
         menuList: [],
         rules: {
+          investigator: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_INVESTIGATOR'),
+            trigger: 'blur',
+          },
+            {validator: validateinvestigator, trigger: 'blur'}],
           user_id: [
             {
               required: true,

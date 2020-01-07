@@ -132,14 +132,14 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
-                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" style="width: 57rem"></el-input>
+                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" style="width: 46.8rem"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport" label-width="6rem">
-                <el-input v-model="form.purchassupport"  class="el-form-item__error1" type="textarea" :rows="3" :disabled="!disabled" style="width: 57rem;padding-left:2rem"></el-input>
+                <el-input v-model="form.purchassupport"  class="el-form-item__error1" type="textarea" :rows="3" :disabled="!disabled" style="width: 46.8rem;padding-left:2rem"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -201,7 +201,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem" v-show="show2">
-                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 57rem;padding-left:2rem" type="textarea"></el-input>
+                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 46.8rem;padding-left:2rem" type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
