@@ -178,9 +178,9 @@
     methods: {
       submitForm(val) {
         if (val === 1) {
-          this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1035FormView");
+          this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1002FormView");
         }else if (val === 2) {
-            this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1002FormView");
+            this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1035FormView");
         }else if (val === 3) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1003FormView");
         } else if (val === 4) {
