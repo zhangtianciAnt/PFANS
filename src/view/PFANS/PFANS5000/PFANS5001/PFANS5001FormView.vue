@@ -604,7 +604,6 @@
         }
       };
       var valiresig = (rule, value, callback) => {
-        debugger
         if (this.form.startdate && this.form.enddate) {
           let startdate = moment(this.form.startdate).format("YYYY-MM-DD")
           let enddate = moment(this.form.enddate).format("YYYY-MM-DD")
