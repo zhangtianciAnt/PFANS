@@ -23,42 +23,42 @@
           {
             code: 'user_id',
             label: 'label.user_name',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'jobnumber',
             label: 'label.PFANS2020VIEW_JOBNUMBER',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'job',
             label: 'label.PFANS2020VIEW_JOB',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'reason',
             label: 'label.cause',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'createon',
             label: 'label.application_date',
-            width: 200,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'status',
             label: 'label.approval_status',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           }

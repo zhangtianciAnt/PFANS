@@ -161,7 +161,7 @@
                       :code="code6"
                       :data="form.afterturningpositiv"
                       :multiple="multiple"
-                      @change="getSkilllevel"
+                      @change="getAftert"
                       style="width: 11rem"
                       :disabled="!disabled">
                     </dicselect>
@@ -530,6 +530,9 @@
           getSkilllevel(val) {
             this.form.skilllevel = val;
           },
+          getAftert(val) {
+            this.form.afterturningpositiv = val;
+          },
           getRequirements(val) {
             this.form.requirements = val;
             if (val === "PR032005") {
@@ -590,7 +593,7 @@
                             this.form.recruitmentroute = this.form.recruitmentroute + ',' + this.form.recruitmentroute[i];
                         }
                         this.form.recruitmentroute = this.form.recruitmentroute.substring(1,this.form.recruitmentroute.length);
-                        alert(this.form.recruitmentroute);
+                        //alert(this.form.recruitmentroute);
                         return;
                         if (this.$route.params._id) {
                             this.form.recruitid = this.$route.params._id;
