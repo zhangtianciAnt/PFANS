@@ -20,6 +20,7 @@ module.exports = {
   },
   button: {
     insert: '新建',
+    insertLots: '批量新建',
     update: '编辑',
     delete: '删除',
     view: '查看',
@@ -1907,6 +1908,7 @@ module.exports = {
     ASSETS1001VIEW_PRINCIPAL: '设备负责人',
     ASSETS1001VIEW_ASSETSTATUS: '资产状态',
     ASSETS1001VIEW_BARTYPE: '条码类型',
+    ASSETS1001VIEW_SUM: '创建数量',
     ASSETS1001VIEW_STOCKSTATUS: '在库状态',
     ASSETS1001VIEW_BARCODE: '条形码',
     ASSETS1001VIEW_RESULT: '结果',

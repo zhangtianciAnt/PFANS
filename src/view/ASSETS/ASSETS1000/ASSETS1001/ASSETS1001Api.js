@@ -9,6 +9,14 @@ export function getInsertInfo(data) {
   })
 }
 
+export function insertlots(data) {
+  return request({
+    url: 'assets/insertlots',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getUpdateInfo(data) {
   return request({
     url: 'assets/updateInfo',

@@ -1,4 +1,4 @@
-import {getInsertInfo, getUpdateInfo,getList,getOneInfo,download} from './ASSETS1001Api'
+import {getInsertInfo, getUpdateInfo,getList,getOneInfo,download,insertlots} from './ASSETS1001Api'
 
 const ASSETS1001Store = {
   namespaced: true,
@@ -69,7 +69,20 @@ const ASSETS1001Store = {
           reject(error);
         })
       })
-    }
+    },
+    insertlots({commit}, data) {
+      return new Promise((resolve, reject) => {
+        insertlots(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 

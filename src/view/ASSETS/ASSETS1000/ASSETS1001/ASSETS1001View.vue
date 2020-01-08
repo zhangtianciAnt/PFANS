@@ -47,6 +47,25 @@
         </div>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="piliang" @close="closed" width="50%">
+      <el-form :model="form" :rules="rules" label-width="80px" ref="form">
+        <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
+          <dicselect
+            :code="code4"
+            :data="form.bartype"
+            :multiple="multiple"
+            @change="getBartype"
+            style="width: 11rem">
+          </dicselect>
+        </el-form-item>
+        <el-form-item :label="$t('label.ASSETS1001VIEW_SUM')" prop="sum">
+          <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum"></el-input-number>
+        </el-form-item>
+      </el-form>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="onSubmit" type="primary">{{$t('button.insert')}}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,11 +75,13 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import dicselect from '../../../components/dicselect.vue';
 
   export default {
     name: 'ASSETS1001View',
     components: {
       EasyNormalTable,
+      dicselect
     },
     data() {
       return {
@@ -69,6 +90,12 @@
           page: 1,
           limit: 5,
         },
+        piliang: false,
+        form: {
+          bartype: '',
+          sum: 1
+        },
+        code4: 'PA004',
         total: 0,
         message: [{hang: '', error: ''}],
         daoru: false,
@@ -88,6 +115,20 @@
         loading: false,
         title: 'title.ASSETS1001VIEW',
         data: [],
+        rules: {
+          bartype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            trigger: 'change',
+          }],
+          sum: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_SUM'),
+              trigger: 'change',
+            }
+          ]
+        },
         columns: [
           {
             code: 'filename',
@@ -141,6 +182,7 @@
         ],
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'insertLots', 'name': 'button.insertLots', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'prtQrcode', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-printer'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
@@ -156,8 +198,32 @@
       this.getListData();
     },
     methods: {
+      onSubmit() {
+        this.$store
+          .dispatch('ASSETS1001Store/insertlots', this.form)
+          .then(response => {
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+
+            this.piliang = false;
+
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
       closed() {
         this.getListData();
+      },
+      getBartype(val) {
+        this.form.bartype = val;
       },
       getListData() {
         this.loading = true;
@@ -322,7 +388,7 @@
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartype','assetstatus'];
+            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartype', 'assetstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
@@ -344,7 +410,10 @@
               this.loading = false;
             })
         }
-      },
+        if (val === 'insertLots') {
+          this.piliang = true;
+        }
+      }
     },
   };
 </script>
