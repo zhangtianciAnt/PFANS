@@ -1,6 +1,7 @@
 import {getValueByPath} from 'element-ui/src/utils/util'
 import store from '../store'
 
+var departmentName = []
 //table sort all
 export function orderBy(array, sortKey, reverse) {
   if (!sortKey) {
@@ -46,6 +47,31 @@ export function orderBy(array, sortKey, reverse) {
   });
 }
 
+export function getDepartmentById(id){
+  departmentName = [];
+  if(id){
+    let arr = id.split(",");
+    let org  = store.getters.orgList[0]
+    if(arr.includes(org._id)){
+      departmentName.push(org.title);
+    }
+    if(org.orgs !== null){
+      departmentId(org.orgs,arr);
+    }
+  }
+  return departmentName.join();
+}
+
+function departmentId(orgs,arr){
+  for(let org of orgs){
+    if(arr.includes(org._id)){
+      departmentName.push(org.title);
+    }
+    if(org.orgs !== null){
+      departmentId(org.orgs,arr);
+    }
+  }
+}
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
     return null
