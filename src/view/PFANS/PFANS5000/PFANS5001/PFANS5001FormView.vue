@@ -616,9 +616,11 @@
               )
             );
           } else {
+            this.$refs["from1"].clearValidate();
             callback();
           }
         }else {
+          this.$refs["from1"].clearValidate();
           callback();
         }
       };
