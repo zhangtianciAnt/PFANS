@@ -26,56 +26,56 @@
                     {
                         code: 'createon',
                         label: 'label.PFANS2023VIEW_YEARS',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'user_name',
                         label: 'label.user_name',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'center_name',
                         label: 'label.center',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'group_name',
                         label: 'label.group',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'team_name',
                         label: 'label.team',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'stage',
                         label: 'label.PFANS2023VIEW_STAGE',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'status',
                         label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'modifyon',
                         label: 'label.PFANS2023VIEW_MAKINGTIME',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     }

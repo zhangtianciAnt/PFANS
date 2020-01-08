@@ -207,7 +207,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')" label-width="6rem">
                         <dicselect
-                          style="padding-left: 2rem"
+                          style="width: 11rem;padding-left: 2rem"
                           :code="code2"
                           :data="technology"
                           :disabled="!disable"
@@ -221,7 +221,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" label-width="6rem">
                         <dicselect
-                          style="padding-left: 2rem"
+                          style="width: 11rem;padding-left: 2rem"
                           :code="code3"
                           :data="staff"
                           :disabled="!disable"
@@ -235,7 +235,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
                         <el-input :disabled="!disable"
-                                  maxlength="20" style="width: 12rem" type="textarea"
+                                  maxlength="20" style="width: 11rem" type="textarea"
                                   v-model="form.yearschedule"></el-input>
                       </el-form-item>
                     </el-col>
