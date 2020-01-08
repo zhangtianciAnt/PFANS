@@ -94,7 +94,6 @@
 
             this.$store
                 .dispatch('PFANS2023Store/getFpans2023List', {})
-                //根据user_id取组织架构和user_name
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
                         if(response[j].user_id !== null && response[j].user_id !== "") {
@@ -106,22 +105,29 @@
                             response[j].group_name = response[j].group_id;
                             response[j].team_name = response[j].team_id;
                         }
-                        //状态
                         response[j] .status = getStatus(response[j] .status);
-                        // 更新时间
                         if (response[j].createon !== null && response[j].createon !== "") {
                             response[j].modifyon = moment(response[j].createon).format("YYYY-MM-DD");
                         }
-                        //阶段管理
                         if (response[j].stage !== null && response[j].stage !== "") {
                             let letStage = getDictionaryInfo(response[j].stage);
                             if (letStage != null) {
                                 response[j].stage = letStage.value1;
                             }
                         }
-                        // 创建时间
                         if (response[j].createon !== null && response[j].createon !== "") {
                             response[j].createon = moment(response[j].createon).format("YYYY");
+                        }
+                        if(response[j].stage!==null&&response[j].stage!==""){
+                            if(response[j].stage=='0'){
+                                response[j].stage=this.$t('label.PFANS2023FORMVIEW_TARGETGOALSYEAR');
+                            }else if(response[j].stage=='1'){
+                                response[j].stage=this.$t('label.PFANS2023FORMVIEW_TARGETGOALSSEP');
+                            }else if(response[j].stage=='2'){
+                                response[j].stage=this.$t('label.PFANS2023FORMVIEW_TARGETGOALSDEC');
+                            }else if(response[j].stage=='3'){
+                                response[j].stage=this.$t('label.PFANS2023FORMVIEW_TARGETGOALSMAR');
+                            }
                         }
                     }
                     this.data = response;
