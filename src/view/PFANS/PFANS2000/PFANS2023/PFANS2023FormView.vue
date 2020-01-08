@@ -263,7 +263,7 @@
                     specific_goals_year1: '',
                     specific_goals_year2: '',
                     specific_goals_year3: '',
-                    stage: '',
+                    stage: 'PR014002',
                     status: '',
                     skill_rank: '',
                     center_id: '',
@@ -341,7 +341,7 @@
                             this.disablesep = true;
                             this.disabledec = false;
                             this.disablemar = false;
-                            this.canStart = false;
+                            this.canStart = true;
                         } else if (this.form.stage === 'PR014003' && this.form.status === '0') {
                             this.aaaaaa = 'W0037';
                             this.canStart = true;
@@ -368,7 +368,7 @@
                             this.disablemar = false;
                         } else if (this.form.stage === 'PR014003' && this.form.status === '4') {
                             this.aaaaaa = 'W0037';
-                            this.canStart = false;
+                            this.canStart = true;
                             this.disable = false;
                             this.disableyear = false;
                             this.disablesep = false;
@@ -400,7 +400,7 @@
                             this.disablemar = false;
                         } else if (this.form.stage === 'PR014004' && this.form.status === '4') {
                             this.aaaaaa = 'W0038';
-                            this.canStart = false;
+                            this.canStart = true;
                             this.disable = false;
                             this.disableyear = false;
                             this.disablesep = false;
@@ -432,7 +432,7 @@
                             this.disablemar = true;
                         } else if (this.form.stage === 'PR014005' && this.form.status === '4') {
                             this.aaaaaa = 'W0039';
-                            this.canStart = false;
+                            this.canStart = true;
                             this.disable = false;
                             this.disableyear = false;
                             this.disablesep = false;
@@ -497,35 +497,41 @@
             getErrorType(val1) {
                 this.form.skill_rank = val1;
             },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
-            },
+          workflowState(val) {
+            if (val.state === '1') {
+              this.form.status = '3';
+            } else if (val.state === '2') {
+              this.form.status = '4';
+            }
+            this.buttonClick("save");
+          },
+          start() {
+            this.form.status = '2';
+            this.buttonClick("save");
+          },
+          end() {
+            this.form.status = '0';
+            this.buttonClick("save");
+          },
             buttonClick(val) {
                 if (val === 'save') {
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
-                            if (this.form.stage === 'PR014002' && this.form.status === '4') {
+                            if (this.form.stage === 'PR014002' && this.form.status === '4' && val !== 'update') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = 'PR014003';
                                 this.form.status = '0';
-                            } else if (this.form.stage === 'PR014003' && this.form.status === '4') {
+                              }
+                            } else if (this.form.stage === 'PR014003' && this.form.status === '4' && val !== 'update') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = 'PR014004';
                                 this.form.status = '0';
-                            } else if (this.form.stage === 'PR014004' && this.form.status === '4') {
+                                }
+                            } else if (this.form.stage === 'PR014004' && this.form.status === '4' && val !== 'update') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = 'PR014005';
                                 this.form.status = '0';
+                              }
                             }
                             if (this.$route.params._id) {
                                 this.form.goalmanagement_id = this.$route.params._id;
