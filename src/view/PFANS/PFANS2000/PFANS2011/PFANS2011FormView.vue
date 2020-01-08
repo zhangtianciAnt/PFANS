@@ -61,7 +61,7 @@
                       style="width: 11rem"
                       v-model="form.reserveovertimedate"
                       :disabled="!disable"
-                      @change="getDay1"
+                      @change="changeReserveovertimedate"
                       type="date">
                     </el-date-picker>
                   </div>
@@ -212,7 +212,7 @@
             };
             var validatePass3 = (rule, value, callback) => {
                 if (this.form.overtimetype === 'PR001002') {
-                    if (!value || value === '' || value <= '8') {
+                    if (!value || value === '' || value < '8') {
                         callback(new Error(this.$t("normal.error_greaterequal")))
                     } else {
                         callback()
@@ -363,7 +363,7 @@
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
-            this.getDay();
+            this.getWorkingday();
         },
         created() {
             this.disable = this.$route.params.disabled;
@@ -379,13 +379,41 @@
             }
         },
         methods: {
-            getDay1(){
+            changeReserveovertimedate(){
                 let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
                 if(moment(letreserveovertimedate).format('MM-DD') === '05-04'){
                     this.change('PR001007');
-                }
-                if(moment(letreserveovertimedate).format('MM-DD') === '03-08'){
+                    if(this.form.reserveovertimedate.getDay()  === 0
+                        || this.form.reserveovertimedate.getDay() === 6){
+                        this.show = true;
+                        this.rules.reservesubstitutiondate[0].required = true;
+                    }else{
+                        this.show = false;
+                        this.form.reservesubstitutiondate = null;
+                        this.rules.reservesubstitutiondate[0].required = false;
+                        this.form.actualsubstitutiondate = null;
+                    }
+                }else if(moment(letreserveovertimedate).format('MM-DD') === '03-08'){
                     this.change('PR001008');
+                    if(this.form.reserveovertimedate.getDay()  === 0
+                        || this.form.reserveovertimedate.getDay() === 6){
+                        this.show = true;
+                        this.rules.reservesubstitutiondate[0].required = true;
+                    }else{
+                        this.show = false;
+                        this.form.reservesubstitutiondate = null;
+                        this.rules.reservesubstitutiondate[0].required = false;
+                        this.form.actualsubstitutiondate = null;
+                    }
+                }else if(this.form.overtimetype === "PR001002" && this.form.reserveovertime >= 8){
+                    this.show = true;
+                    this.rules.reservesubstitutiondate[0].required = true;
+                }
+                else{
+                    this.show = false;
+                    this.form.reservesubstitutiondate = null;
+                    this.rules.reservesubstitutiondate[0].required = false;
+                    this.form.actualsubstitutiondate = null;
                 }
                 for(let i=0;i<this.dataList.length;i++){
                     if(letreserveovertimedate === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
@@ -397,14 +425,12 @@
                             this.change('PR001005');
                         }else if(this.dataList[i].type === '6'){
                             this.change('PR001004');
-                        }else{
-                            this.change('');
                         }
+                        return;
                     }
                 }
-
             },
-            getDay() {
+            getWorkingday() {
                 this.$store
                     .dispatch('PFANS2011Store/getList', {})
                     .then(response => {
@@ -463,7 +489,7 @@
                 if (val === "PR001002" && this.form.reserveovertime >= 8) {
                     this.show = true;
                     this.rules.reservesubstitutiondate[0].required = true;
-                } else {
+                }else {
                     this.show = false;
                     this.form.reservesubstitutiondate = null;
                     this.rules.reservesubstitutiondate[0].required = false;
