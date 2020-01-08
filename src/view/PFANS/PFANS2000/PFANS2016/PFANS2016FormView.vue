@@ -526,16 +526,21 @@
         }
       },
       getUserids(val) {
-        this.form.user_id = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || val ==="undefined") {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
+        if(val === "undefined"){
+          this.userlist = "1"
+          return
         }
+           this.form.user_id = val;
+           let lst = getOrgInfoByUserId(val);
+           this.form.centerid = lst.centerNmae;
+           this.form.groupid = lst.groupNmae;
+           this.form.teamid = lst.teamNmae;
+           if (!this.form.user_id || this.form.user_id === '' || val ==="undefined") {
+             this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+           } else {
+             this.error = '';
+           }
+
       },
       getErrorType(val) {
         let dictionaryInfo = getDictionaryInfo(val);
