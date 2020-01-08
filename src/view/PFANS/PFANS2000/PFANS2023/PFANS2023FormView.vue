@@ -263,7 +263,7 @@
                     specific_goals_year1: '',
                     specific_goals_year2: '',
                     specific_goals_year3: '',
-                    stage: 'PR014002',
+                    stage: '0',
                     status: '',
                     skill_rank: '',
                     center_id: '',
@@ -310,7 +310,7 @@
                     .then(response => {
                         this.form = response;
                         this.userlist = this.form.user_id;
-                        if (this.form.stage === 'PR014002' && this.form.status === '0') {
+                        if (this.form.stage === '0' && this.form.status === '0') {
                             this.aaaaaa = 'W0036';
                             this.canStart = true;
                             this.disable = true;
@@ -318,7 +318,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '2') {
+                        } else if (this.form.stage === '0' && this.form.status === '2') {
                             this.aaaaaa = 'W0036';
                             this.canStart = false;
                             this.disable = false;
@@ -326,7 +326,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '3') {
+                        } else if (this.form.stage === '0' && this.form.status === '3') {
                             this.aaaaaa = 'W0036';
                             this.canStart = true;
                             this.disable = true;
@@ -334,7 +334,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '4') {
+                        } else if (this.form.stage === '0' && this.form.status === '4') {
                             this.aaaaaa = 'W0036';
                             this.disable = false;
                             this.disableyear = false;
@@ -342,7 +342,7 @@
                             this.disabledec = false;
                             this.disablemar = false;
                             this.canStart = true;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '0') {
+                        } else if (this.form.stage === '1' && this.form.status === '0') {
                             this.aaaaaa = 'W0037';
                             this.canStart = true;
                             this.disable = false;
@@ -350,7 +350,7 @@
                             this.disablesep = true;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '2') {
+                        } else if (this.form.stage === '1' && this.form.status === '2') {
                             this.aaaaaa = 'W0037';
                             this.canStart = false;
                             this.disable = false;
@@ -358,7 +358,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '3') {
+                        } else if (this.form.stage === '1' && this.form.status === '3') {
                             this.aaaaaa = 'W0037';
                             this.canStart = true;
                             this.disable = false;
@@ -366,7 +366,7 @@
                             this.disablesep = true;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '4') {
+                        } else if (this.form.stage === '1' && this.form.status === '4') {
                             this.aaaaaa = 'W0037';
                             this.canStart = true;
                             this.disable = false;
@@ -374,7 +374,7 @@
                             this.disablesep = false;
                             this.disabledec = true;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '0') {
+                        } else if (this.form.stage === '2' && this.form.status === '0') {
                             this.aaaaaa = 'W0038';
                             this.canStart = true;
                             this.disable = false;
@@ -382,7 +382,7 @@
                             this.disablesep = false;
                             this.disabledec = true;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '2') {
+                        } else if (this.form.stage === '2' && this.form.status === '2') {
                             this.aaaaaa = 'W0038';
                             this.canStart = false;
                             this.disable = false;
@@ -390,7 +390,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '3') {
+                        } else if (this.form.stage === '2' && this.form.status === '3') {
                             this.aaaaaa = 'W0038';
                             this.canStart = true;
                             this.disable = false;
@@ -398,7 +398,7 @@
                             this.disablesep = false;
                             this.disabledec = true;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '4') {
+                        } else if (this.form.stage === '2' && this.form.status === '4') {
                             this.aaaaaa = 'W0038';
                             this.canStart = true;
                             this.disable = false;
@@ -406,7 +406,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '0') {
+                        } else if (this.form.stage === '3' && this.form.status === '0') {
                             this.aaaaaa = 'W0039';
                             this.canStart = true;
                             this.disable = false;
@@ -414,7 +414,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '2') {
+                        } else if (this.form.stage === '3' && this.form.status === '2') {
                             this.aaaaaa = 'W0039';
                             this.canStart = false;
                             this.disable = false;
@@ -422,7 +422,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '3') {
+                        } else if (this.form.stage === '3' && this.form.status === '3') {
                             this.aaaaaa = 'W0039';
                             this.canStart = true;
                             this.disable = false;
@@ -430,7 +430,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '4') {
+                        } else if (this.form.stage === '3' && this.form.status === '4') {
                             this.aaaaaa = 'W0039';
                             this.canStart = true;
                             this.disable = false;
@@ -482,7 +482,7 @@
                         name: "button.save",
                     }
                 ];
-                this.form.stage = 'PR014002';
+                this.form.stage = '0';
             }
         },
         methods: {
@@ -517,19 +517,19 @@
                 if (val === 'save') {
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
-                            if (this.form.stage === 'PR014002' && this.form.status === '4' && val !== 'update') {
+                            if (this.form.stage === '0' && this.form.status === '4' && val !== 'update') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
-                                this.form.stage = 'PR014003';
+                                this.form.stage = '1';
                                 this.form.status = '0';
                               }
-                            } else if (this.form.stage === 'PR014003' && this.form.status === '4' && val !== 'update') {
+                            } else if (this.form.stage === '1' && this.form.status === '4' && val !== 'update') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
-                                this.form.stage = 'PR014004';
+                                this.form.stage = '2';
                                 this.form.status = '0';
                                 }
-                            } else if (this.form.stage === 'PR014004' && this.form.status === '4' && val !== 'update') {
+                            } else if (this.form.stage === '2' && this.form.status === '4' && val !== 'update') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
-                                this.form.stage = 'PR014005';
+                                this.form.stage = '3';
                                 this.form.status = '0';
                               }
                             }
