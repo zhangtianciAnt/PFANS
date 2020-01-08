@@ -132,8 +132,14 @@
         this.userlist = val;
         this.form.user_id = val;
         let lst = getUserInfo(val);
-        this.form.jobnumber = lst.userinfo.jobnumber;
-        this.form.job = lst.userinfo.post;
+        if(lst){
+          this.form.jobnumber = lst.userinfo.jobnumber;
+          this.form.job = lst.userinfo.post;
+        }
+        else{
+          this.form.jobnumber  = '';
+          this.form.job = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');
         } else {
