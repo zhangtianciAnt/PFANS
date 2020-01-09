@@ -14,8 +14,8 @@
       </div>
       <el-table :data="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
-                header-cell-class-name="sub_bg_color_grey height" header-row-class-name="height" height="400"
-                highlight-current-row max-height="400" ref="eltable"
+                header-cell-class-name="sub_bg_color_blue height" header-row-class-name="height" height="400"
+                highlight-current-row max-height="400" ref="eltable" stripe border
                 style="width: 100%" v-loading='loading' cell-class-name = "row_height">
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
         </el-table-column>
@@ -354,10 +354,12 @@
     .height {
       height: 40px;
       padding: 0px;
+      color: white;
+      font-size: 0.8rem;
     }
     .row_height {
       height: 40px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding: 0px;
     }
   }

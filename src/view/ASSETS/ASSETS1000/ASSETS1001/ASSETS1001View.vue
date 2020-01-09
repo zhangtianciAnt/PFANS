@@ -53,7 +53,6 @@
           <dicselect
             :code="code4"
             :data="form.bartype"
-            :multiple="multiple"
             @change="getBartype"
             style="width: 11rem">
           </dicselect>
@@ -62,7 +61,6 @@
           <dicselect
             :code="code1"
             :data="form.typeassets"
-            :multiple="multiple"
             @change="getTypeassets"
             style="width: 11rem">
           </dicselect>
