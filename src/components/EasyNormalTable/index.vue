@@ -16,7 +16,7 @@
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_blue height" header-row-class-name="height" height="400"
                 highlight-current-row max-height="400" ref="eltable" stripe border
-                style="width: 100%" v-loading='loading' cell-class-name = "row_height">
+                style="width: 100%" v-loading='loading' :cell-class-name = "rowheight">
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
         </el-table-column>
         <el-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
@@ -70,6 +70,7 @@
           page: 1,
           limit: 10
         },
+        fit:false,
         pagedate: [],
         searchValue: '',
         totaldata: [],
@@ -140,6 +141,10 @@
       }
     },
     methods: {
+      rowheight({row, column, rowIndex, columnIndex}){
+        let val = row[column.columnKey];
+        return 'row_height_left';
+      },
       buttonClick (val) {
         this.$emit('buttonClick', val)
       },
@@ -356,11 +361,19 @@
       padding: 0px;
       color: white;
       font-size: 0.8rem;
+      text-align: center;
     }
-    .row_height {
+    .row_height_left {
       height: 40px;
       font-size: 0.75rem;
       padding: 0px;
+      text-align: left;
+    }
+    .row_height_right{
+      height: 40px;
+      font-size: 0.75rem;
+      padding: 0px;
+      text-align: right;
     }
   }
   /*.el-table__body-wrapper{*/
