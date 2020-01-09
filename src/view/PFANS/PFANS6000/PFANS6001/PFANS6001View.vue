@@ -145,23 +145,24 @@
                             response[j].interview_date = moment(response[j].interview_date).format("YYYY-MM-DD");
                         }
                     }
-                    // 部门id赋值（缺少接口）
+                    // // 部门id赋值（缺少接口）
                     // let interviewdepname = (response.interviewdep || " ").split(",");
                     // if(interviewdepname.length > 0){
                     //   let name = "";
                     //   for(let i = 0; i <interviewdepname.length; i ++){
-                    //       if(interviewdepname[i] && getUserInfo(interviewdepname[i]) != null){
-                    //           name += getUserInfo(
+                    //       if(interviewdepname[i] && getOrgInfo(interviewdepname[i]) != null){
+                    //           name += getOrgInfo(
                     //               interviewdepname[i]
                     //           ).value + ',';
                     //       }
                     //       name = name.substring(0,name.length - 1);
                     //       response.interviewdep = name;
+                    //       alert(name);
                     //   }
                     // };
-                    // for(let i = 0; i < response.length; i++){
-                    //     response[i].groupNmae = getUserInfo(response[i].interviewdep);
-                    // }
+                    for (let i = 0; i < response.length; i++) {
+                        response[i].groupNmae = getUserInfo(response[i].interviewdep);
+                    }
                     this.data = response;
                     this.loading = false;
                 })
