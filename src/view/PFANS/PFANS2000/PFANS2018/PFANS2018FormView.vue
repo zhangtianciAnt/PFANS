@@ -11,9 +11,10 @@
                 <el-time-select
                   :disabled="!disable"
                   :picker-options="{
-                    start: '00:00',
+                    start: '06:00',
                     step: '00:15',
-                    end: '23:45'}"
+                    end: '23:45',
+                    maxTime:form.workshift_end}"
                   style="width:80%"
                   v-model="form.workshift_start">
                 </el-time-select>
@@ -31,9 +32,51 @@
                   :picker-options="{
                       start: '00:00',
                       step: '00:15',
-                      end: '23:45'}"
+                      end: '23:45',
+                       minTime: form.workshift_start,
+                       maxTime:form.lunchbreak_start}"
                   style="width:80%"
                   v-model="form.workshift_end">
+                </el-time-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="3">
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item :label="$t('label.PFANS2018VIEW_LUNCHBREAK')" prop="lunchbreak_start">
+                <el-time-select
+                  :disabled="!disable"
+                  :picker-options="{
+                    start: '00:00',
+                    step: '00:15',
+                    end: '23:45',
+                    minTime: form.workshift_end,
+                    maxTime:form.lunchbreak_end}"
+                  style="width:80%"
+                  v-model="form.lunchbreak_start"
+                >
+                </el-time-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="1">
+              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
+                <span>~</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item prop="lunchbreak_end" label-width="5%">
+                <el-time-select
+                  :disabled="!disable"
+                  :picker-options="{
+                    start: '00:00',
+                    step: '00:15',
+                    end: '23:45',
+                    minTime: form.lunchbreak_start,
+                    maxTime:form.closingtime_start}"
+                  style="width:80%"
+                  v-model="form.lunchbreak_end">
                 </el-time-select>
               </el-form-item>
             </el-col>
@@ -48,7 +91,9 @@
                   :picker-options="{
                     start: '00:00',
                     step: '00:15',
-                    end: '23:45'}"
+                    end: '23:45',
+                    minTime: form.lunchbreak_end,
+                    maxTime:form.closingtime_end}"
                   style="width:80%"
                   v-model="form.closingtime_start">
                 </el-time-select>
@@ -66,44 +111,11 @@
                   :picker-options="{
                     start: '00:00',
                     step: '00:15',
-                    end: '23:45'}"
+                    end: '23:45',
+                    minTime: form.closingtime_start,
+                    maxTime:form.nightshift_start}"
                   style="width:80%"
                   v-model="form.closingtime_end">
-                </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.PFANS2018VIEW_LUNCHBREAK')" prop="lunchbreak_start">
-                <el-time-select
-                  :disabled="!disable"
-                  :picker-options="{
-                    start: '00:00',
-                    step: '00:15',
-                    end: '23:45'}"
-                  style="width:80%"
-                  v-model="form.lunchbreak_start">
-                </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="1">
-              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
-                <span>~</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item prop="lunchbreak_end" label-width="5%">
-                <el-time-select
-                  :disabled="!disable"
-                  :picker-options="{
-                    start: '00:00',
-                    step: '00:15',
-                    end: '23:45'}"
-                  style="width:80%"
-                  v-model="form.lunchbreak_end">
                 </el-time-select>
               </el-form-item>
             </el-col>
@@ -118,7 +130,8 @@
                   :picker-options="{
                     start: '00:00',
                     step: '00:15',
-                    end: '23:45'}"
+                    end: '23:45',
+                   }"
                   style="width:80%"
                   v-model="form.nightshift_start">
                 </el-time-select>
@@ -136,7 +149,8 @@
                   :picker-options="{
                     start: '00:00',
                     step: '00:15',
-                    end: '23:45'}"
+                    end: '23:45',
+                  }"
                   style="width:80%"
                   v-model="form.nightshift_end">
                 </el-time-select>
@@ -252,7 +266,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS2018View from './PFANS2018View';
   import {Message} from 'element-ui';
-
+  import moment from 'moment';
   export default {
     name: 'PFANS2018FormView',
     components: {
@@ -344,26 +358,26 @@
         }
       };
       var validatenightshiftstart = (rule, value, callback) => {
-          if (value !== null && value !== '') {
-              if (this.form.closingtime_end !== null && this.form.closingtime_end !== '' && value <= this.form.closingtime_end) {
-                  callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTSTART') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2018VIEW_CLOSINGTIMEEND')));
-              } else {
-                  callback();
-              }
+        if (value !== null && value !== '') {
+          if (this.form.closingtime_end !== null && this.form.closingtime_end !== '' && value <= this.form.closingtime_end) {
+            callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTSTART') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2018VIEW_CLOSINGTIMEEND')));
           } else {
-              callback();
+            callback();
           }
+        } else {
+          callback();
+        }
       };
       var validatenightshiftend = (rule, value, callback) => {
-          if (value !== null && value !== '') {
-              if (this.form.workshift_start !== null && this.form.workshift_start !== '' && value >= this.form.workshift_start) {
-                  callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTEND') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2018VIEW_WORKSHIFTSTART')));
-              } else {
-                  callback();
-              }
+        if (value !== null && value !== '') {
+          if (this.form.workshift_start !== null && this.form.workshift_start !== '' && value >= this.form.workshift_start) {
+            callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTEND') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2018VIEW_WORKSHIFTSTART')));
           } else {
-              callback();
+            callback();
           }
+        } else {
+          callback();
+        }
       };
       return {
         loading: false,
@@ -428,18 +442,18 @@
           },
             {validator: validateLunchbreak_end, trigger: 'change'},
           ],
-           nightshift_start: [{
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
-              trigger: 'change',
+          nightshift_start: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
+            trigger: 'change',
           },
-              {validator: validatenightshiftstart, trigger: 'change'}],
-           nightshift_end: [{
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
-              trigger: 'change',
+            {validator: validatenightshiftstart, trigger: 'change'}],
+          nightshift_end: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2018VIEW_NIGHTSHIFT'),
+            trigger: 'change',
           },
-              {validator: validatenightshiftend, trigger: 'change'},
+            {validator: validatenightshiftend, trigger: 'change'},
           ],
           compassionateleave: [{
             required: true,
@@ -491,6 +505,7 @@
       };
     },
     mounted() {
+
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -498,6 +513,7 @@
           .then(response => {
             this.form = response;
             this.loading = false;
+            console.log(moment(this.form.nightshift_start).add(15, 'm'))
           })
           .catch(error => {
             Message({

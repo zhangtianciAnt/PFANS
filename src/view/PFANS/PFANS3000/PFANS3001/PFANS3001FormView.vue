@@ -507,9 +507,9 @@
               this.rules.effectivedate[0].required = true;
             }
             this.userlist = this.form.user_id;
-              if (this.form.status === '2') {
-                  this.disable = false;
-              }
+            if (this.form.status === '2') {
+              this.disable = false;
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -550,6 +550,7 @@
           this.rules.passport[0].required = true;
           this.rules.effectivedate[0].required = true;
         }
+        this.$refs["ruleForm"].clearValidate();
       },
       getUserids(val) {
         this.form.user_id = val;

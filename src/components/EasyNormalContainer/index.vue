@@ -160,4 +160,13 @@
     color: #C0C4CC;
     cursor: not-allowed;
   }
+  .el-form--label-top .el-form-item__label {
+    float: none;
+    display: inline-block;
+    text-align: left;
+    padding: 0 0 10px;
+    font-size: 0.8rem;
+    color: #005BAA;
+    font-weight: bold;
+  }
 </style>
