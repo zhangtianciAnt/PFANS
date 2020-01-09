@@ -226,7 +226,7 @@
                         holidaydetailid: '',
                         holidayid: '',
                         application: '',
-                        kind: '',
+                        kind: ' ',
                         cardnumber: '',
                         attendancedate: '',
                         workreasons: '',
@@ -400,7 +400,7 @@
                 }else{
                     this.tableD = [{
                         application: '',
-                        kind: '',
+                        kind: ' ',
                         cardnumber: '',
                         attendancedate: '',
                         workreasons: '',
@@ -414,7 +414,7 @@
                     holidaydetailid: '',
                     holidayid: '',
                     application: '',
-                    kind: '',
+                    kind: ' ',
                     cardnumber: '',
                     attendancedate: '',
                     workreasons: '',
