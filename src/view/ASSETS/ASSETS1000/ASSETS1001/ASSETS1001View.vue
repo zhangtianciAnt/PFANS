@@ -58,6 +58,15 @@
             style="width: 11rem">
           </dicselect>
         </el-form-item>
+        <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
+          <dicselect
+            :code="code1"
+            :data="form.typeassets"
+            :multiple="multiple"
+            @change="getTypeassets"
+            style="width: 11rem">
+          </dicselect>
+        </el-form-item>
         <el-form-item :label="$t('label.ASSETS1001VIEW_SUM')" prop="sum">
           <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum"></el-input-number>
         </el-form-item>
@@ -93,9 +102,11 @@
         piliang: false,
         form: {
           bartype: '',
+          typeassets:'',
           sum: 1
         },
         code4: 'PA004',
+        code1: 'PA001',
         total: 0,
         message: [{hang: '', error: ''}],
         daoru: false,
@@ -119,6 +130,11 @@
           bartype: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            trigger: 'change',
+          }],
+          typeassets:[{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
             trigger: 'change',
           }],
           sum: [
@@ -224,6 +240,9 @@
       },
       getBartype(val) {
         this.form.bartype = val;
+      },
+      getTypeassets(val) {
+        this.form.typeassets = val;
       },
       getListData() {
         this.loading = true;
