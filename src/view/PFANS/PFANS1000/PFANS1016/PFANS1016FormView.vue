@@ -396,12 +396,12 @@
           typesof: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1016FORMVIEW_TYPESOF'),
-            trigger: "blur"
+            trigger: "change"
           }],
           operationtype: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1016FORMVIEW_OPERATIONTYPE'),
-            trigger: "blur"
+            trigger: "change"
           }],
           payment: [{
             required: true,

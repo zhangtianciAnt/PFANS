@@ -204,14 +204,15 @@
           <!--            附件-->
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')">
+              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
+                  :disabled="!disabled"
                   :action="upload"
                   :file-list="fileList"
-                  :on-remove="fileRemove"
-                  :on-preview="fileDownload"
-                  :on-success="fileSuccess"
                   :on-error="fileError"
+                  :on-preview="fileDownload"
+                  :on-remove="fileRemove"
+                  :on-success="fileSuccess"
                   class="upload-demo"
                   drag
                   ref="upload">
@@ -232,8 +233,8 @@
     import PFANS6003View from "../PFANS6003/PFANS6003View.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
-    import {downLoadUrl, uploadUrl} from '@/utils/customize';
-    import {telephoneNumber} from '@/utils/validate';
+    import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
+    import {isvalidPhone} from "@/utils/validate";
     import {validateEmail} from "../../../../utils/validate";
 
     export default {
@@ -245,15 +246,14 @@
         },
         data() {
             var validateTel = (rule, value, callback) => {
-                if (this.form.contactinformation !== null && this.form.contactinformation !== '') {
-                    if (telephoneNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION')));
-                    } else {
-                        callback();
-                    }
+                if (value === "") {
+                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEMOBILE")));
+                } else if (!isvalidPhone(value)) {
+                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
                 } else {
                     callback();
                 }
+                ;
             };
             var checkemail = (rule, value, callback) => {
                 if (this.form.email !== null && this.form.email !== '') {
@@ -446,13 +446,6 @@
                     .then(response => {
                         this.form = response;
                         this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
                             for (var i = 0; i < uploadfile.length; i++) {
@@ -464,6 +457,13 @@
                                 }
                             }
                         }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                         this.loading = false;
                     })
             }

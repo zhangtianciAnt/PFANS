@@ -53,8 +53,15 @@
           <dicselect
             :code="code4"
             :data="form.bartype"
-            :multiple="multiple"
             @change="getBartype"
+            style="width: 11rem">
+          </dicselect>
+        </el-form-item>
+        <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
+          <dicselect
+            :code="code1"
+            :data="form.typeassets"
+            @change="getTypeassets"
             style="width: 11rem">
           </dicselect>
         </el-form-item>
@@ -93,9 +100,11 @@
         piliang: false,
         form: {
           bartype: '',
+          typeassets:'',
           sum: 1
         },
         code4: 'PA004',
+        code1: 'PA001',
         total: 0,
         message: [{hang: '', error: ''}],
         daoru: false,
@@ -119,6 +128,11 @@
           bartype: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            trigger: 'change',
+          }],
+          typeassets:[{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
             trigger: 'change',
           }],
           sum: [
@@ -224,6 +238,9 @@
       },
       getBartype(val) {
         this.form.bartype = val;
+      },
+      getTypeassets(val) {
+        this.form.typeassets = val;
       },
       getListData() {
         this.loading = true;
