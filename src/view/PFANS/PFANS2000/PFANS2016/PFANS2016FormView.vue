@@ -174,7 +174,7 @@
     import user from '../../../components/user.vue';
     import {getOrgInfoByUserId} from '@/utils/customize';
     import moment from 'moment';
-    import {getDictionaryInfo,uploadUrl} from '../../../../utils/customize';
+    import {getDictionaryInfo,uploadUrl,getDepartmentById} from '../../../../utils/customize';
 
     export default {
     name: 'PFANS2016FormView',
@@ -216,56 +216,78 @@
           callback();
         }
       };
-      var validateStartdate = (rule, value, callback) => {
-        if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
-          if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
-          } else {
+      var validateEndtime = (rule, value, callback) => {
+        if (this.form.periodend !== null && this.form.periodend !== '') {
+          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
+            ||(moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
+            callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
+            this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
+          } else {
+            this.clearValidate(["periodstart","occurrencedate","finisheddate"]);
             callback();
+            this.errorendtime = '';
           }
-        } else {
+        } else {
+          this.clearValidate(["periodstart","occurrencedate","periodend"]);
           callback();
+          this.errorendtime = '';
         }
       };
-      var validateEnddate = (rule, value, callback) => {
-        if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
-          if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
-          } else {
+      var validateStarttime = (rule, value, callback) => {
+        if (this.form.periodstart !== null && this.form.periodstart !== '') {
+          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
+            ||(moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
+          ) {
+            callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
+            this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
+            return;
+          } else {
             callback();
+            this.clearValidate(["periodend","occurrencedate","periodstart"]);
+            this.errorstarttime = '';
           }
-        } else {
+        } else {
           callback();
+          this.clearValidate(["periodend","occurrencedate","periodstart"]);
+          this.errorstarttime = '';
         }
       };
-      var validateStarttime = (rule, value, callback) => {
-        if (this.form.periodstart !== null && this.form.periodstart !== '') {
-          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-            && (moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))) {
-            callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
-            this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
-          } else {
+      var validateEnddate = (rule, value, callback) => {
+        debugger
+        if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
+          if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
+          } else {
+            if(moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)){
+              if(this.form.periodstart > this.form.periodend){
+                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+                return;
+              }
+            }
             callback();
-            this.errorstarttime = '';
+            this.clearValidate(["occurrencedate","periodend","periodstart"]);
           }
-        } else {
+        } else {
           callback();
-          this.errorstarttime = '';
+          this.clearValidate(["occurrencedate","periodend","periodstart"]);
         }
       };
-      var validateEndtime = (rule, value, callback) => {
-        if (this.form.periodend !== null && this.form.periodend !== '') {
-          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-            && (moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))) {
-            callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
-            this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
-          } else {
+      var validateStartdate = (rule, value, callback) => {
+        if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
+          if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+          } else {
+            if(moment(value).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)){
+              if(this.form.periodstart > this.form.periodend){
+                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+              }
+            }
             callback();
-            this.errorendtime = '';
+            this.clearValidate(["finisheddate","periodend","periodstart"]);
           }
-        } else {
+        } else {
           callback();
-          this.errorendtime = '';
+          this.clearValidate(["finisheddate","periodend","periodstart"]);
         }
       };
       return {
@@ -413,6 +435,13 @@
       }
     },
     methods: {
+      clearValidate(prop){
+        this.$refs["ruleForm"].fields.forEach( (e) =>{
+          if (prop.includes(e.prop)) {
+            e.clearValidate();
+          }
+        });
+      },
       getOvertimelist() {
         this.loading = true;
         this.$store
