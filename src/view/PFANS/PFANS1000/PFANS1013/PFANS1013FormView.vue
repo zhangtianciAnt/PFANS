@@ -19,14 +19,14 @@
               <el-radio
                 :disabled="!disable"
                 @change="gettype"
-                label="1"
+                label="0"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_DOMESTIC')}}
               </el-radio>
               <el-radio
                 :disabled="!disable"
                 @change="gettype"
-                label="2"
+                label="1"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_ABROAD')}}
               </el-radio>
@@ -884,7 +884,7 @@
         ],
         baseInfo: {},
         form: {
-          type: '1',
+          type: '0',
           center_id: '',
           group_id: '',
           team_id: '',
@@ -1031,7 +1031,7 @@
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
                 if (this.$route.params.method === "view") {
-                  if (this.form.type === '1') {
+                  if (this.form.type === '0') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
@@ -1047,7 +1047,7 @@
                       this.tableA[i].showtick = true;
                       this.tableA[i].disaccommod = true;
                     }
-                  } else if (this.form.type === '2') {
+                  } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
@@ -1058,7 +1058,7 @@
                     this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
                   }
                 } else {
-                  if (this.form.type === '1') {
+                  if (this.form.type === '0') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = false;
                     this.showrow3 = true;
@@ -1074,7 +1074,7 @@
                       this.tableA[i].showtick = true;
                       this.tableA[i].disaccommod = false;
                     }
-                  } else if (this.form.type === '2') {
+                  } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = false;
                     this.tableA[i].showAout = true;
                     this.showrow3 = false;
@@ -1090,7 +1090,7 @@
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails
             }
-            if (this.form.type === '1') {
+            if (this.form.type === '0') {
               this.showdata = true;
               this.showdata2 = false;
               this.showAinner = true;
@@ -1163,7 +1163,7 @@
             this.kind = user.userinfo.type;
           }
         }
-        if (this.form.type === '1') {
+        if (this.form.type === '0') {
           this.showdata = true;
           this.showdata2 = false;
           this.showAinner = true;
@@ -1175,8 +1175,9 @@
           this.showAout = true;
         }
       }
+
       this.$store
-        .dispatch('PFANS1013Store/getdate', {})
+        .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:this.form.type})
         .then(response => {
           for (let i = 0; i < response.length; i++) {
             var vote = {};
@@ -1186,8 +1187,10 @@
             this.relations.push(vote)
           }
         });
+
+
       this.$store
-        .dispatch('PFANS1013Store/getLoanApplication', {})
+        .dispatch('PFANS1013Store/getLoanApplication', {user_id:this.$store.getters.userinfo.userid})
         .then(response => {
           for (let i = 0; i < response.length; i++) {
             var vote = {};
@@ -1207,7 +1210,12 @@
     methods: {
       gettype(val) {
         this.form.type = val;
-        if (val === '1') {
+        if (val === '0') {
+          this.form.business_id=' ';
+          this.form.place='';
+          this.form.startdate='';
+          this.form.enddate='';
+         this.form.datenumber='';
           this.show = true;
           this.show2 = false;
           this.show3 = false;
@@ -1223,6 +1231,11 @@
           this.showrow = true,
             this.showrow2 = false
         } else {
+          this.form.business_id=' ';
+          this.form.place='';
+          this.form.startdate='';
+          this.form.enddate='';
+          this.form.datenumber='';
           this.show = false;
           this.show2 = true;
           this.showdata = false;
@@ -1402,9 +1415,38 @@
               this.form.enddate = res.enddate,
               this.form.datenumber = res.datenumber
           }
-
-
         });
+        for(var i=1;i<this.form.datenumber;i++){
+          this.tableA.push({
+            evectionid: "",
+            accommodationdetails_id: "",
+            accommodationdate: "",
+            activitycontent: "",
+            vehicleon: "",
+            vehiclein: "",
+            movementtime: "",
+            city: "",
+            exitarea: "",
+            facilitytypeon: "",
+            facilitytypein: "",
+            facilityname: "",
+            accommodationallowance: "",
+            accommodation: "",
+            travelallowance: "",
+            travel: "",
+            relatives: "",
+            train: "",
+            plane: "",
+            annexno: "",
+            rowindex: "",
+            disaccommod: false,
+            showtick: true
+          });
+        }
+        for(var i=0;i<this.form.datenumber-1;i++){
+          this.tableA[0].accommodationdate=this.form.startdate;
+          this.tableA[i+1].accommodationdate=moment(this.tableA[i].accommodationdate).add(1, 'days');
+        }
       },
       change2(val) {
         this.result2.forEach(res => {
@@ -1588,7 +1630,7 @@
         if (dictionaryInfo) {
           varrank = dictionaryInfo.value1;
         }
-        if (this.form.type === "1") {
+        if (this.form.type === "0") {
           var varbusiness;
           varrank = varrank.replace("R", "").replace("A", "").replace("B", "").replace("C", "");
           if (this.kind === '0') {
@@ -1657,7 +1699,7 @@
           if (row.movementtime != "" && row.facilitytypeon != "" && row.city != "") {
             row.travelallowance = Number(row.travelallowance) * varmovementtime2;
           }
-        } else if (this.form.type === "2") {
+        } else if (this.form.type === "1") {
           var varbusiness;
           varrank = varrank.replace("R", "").replace("A", "").replace("B", "").replace("C", "");
           if (this.kind === '0') {
@@ -1724,19 +1766,19 @@
         }
       },
       getforeign(sums) {
-        if (this.form.type === '1') {
+        if (this.form.type === '0') {
           this.form.totalcurrency = null;
         }
-        if (this.form.type === '2') {
+        if (this.form.type === '1') {
           this.form.totalcurrency = sums[5] + this.tableAValue[8] + this.tableAValue[9] + this.tableAValue[10] + this.tableRValue[4];
         }
 
       },
       gettotal(val) {
-        if (this.form.type === '1') {
+        if (this.form.type === '0') {
           this.form.totalpay = Math.round((this.tableDValue[1]) * 100) / 100;
           this.form.balance = Math.round(-(this.form.totalpay - this.form.loanamount) * 100) / 100;
-        } else if (this.form.type === '2') {
+        } else if (this.form.type === '1') {
           this.form.totalpay = Math.round((val) * 100) / 100;
           this.form.balance = Math.round((this.form.loanamount - this.form.totalpay) * 100) / 100;
         }
@@ -1902,7 +1944,7 @@
                   || this.tableA[i].plane > 0 || this.tableA[i].annexno !== "") {
                   var varvehiclein;
                   var varfacilitytypein;
-                  if (this.form.type === "1") {
+                  if (this.form.type === "0") {
                     varvehiclein = this.tableA[i].vehicleon;
                     varfacilitytypein = this.tableA[i].facilitytypeon;
                   } else {
