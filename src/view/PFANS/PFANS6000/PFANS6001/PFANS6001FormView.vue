@@ -38,7 +38,7 @@
             <!--            联系方式-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -251,7 +251,7 @@
     import {Message} from 'element-ui';
     import moment from "moment";
     import org from '../../../components/org';
-    import {telephoneNumber} from '@/utils/validate';
+    import {isvalidPhone} from "@/utils/validate";
 
     export default {
         name: 'PFANS6001FormView',
@@ -263,15 +263,14 @@
         },
         data() {
             var validateTel = (rule, value, callback) => {
-                if (this.form.contactinformation !== null && this.form.contactinformation !== '') {
-                    if (telephoneNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION')));
+                if (value === "") {
+                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEMOBILE")));
+                } else if (!isvalidPhone(value)) {
+                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
                     } else {
                         callback();
-                    }
-                } else {
-                    callback();
                 }
+                ;
             };
             var checksuppliername = (rule, value, callback) => {
                 if (!value || value === '' || value === "undefined") {
