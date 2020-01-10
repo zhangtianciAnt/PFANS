@@ -137,7 +137,9 @@
                 .dispatch('PFANS2011Store/getOvertime', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        response[j].status = getStatus(response[j].status);
+                        if (response[j].status !== null && response[j].status !== "") {
+                            response[j].status = getStatus(response[j].status);
+                        }
                         if (response[j].applicationdate !== null && response[j]. applicationdate !== "") {
                             response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
                         }

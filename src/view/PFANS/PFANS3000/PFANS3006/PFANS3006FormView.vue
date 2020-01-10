@@ -207,331 +207,326 @@
 </template>
 
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import dicselect from "../../../components/dicselect.vue";
-    import moment from "moment";
-    import {Message} from 'element-ui';
-    import user from "../../../components/user.vue";
-    import {getOrgInfoByUserId} from '@/utils/customize'
-    import {telephoneNumber, validateNumber} from '@/utils/validate';
+  import EasyNormalContainer from "@/components/EasyNormalContainer";
+  import dicselect from "../../../components/dicselect.vue";
+  import moment from "moment";
+  import {Message} from 'element-ui';
+  import user from "../../../components/user.vue";
+  import {getOrgInfoByUserId} from '@/utils/customize'
+  import {telephoneNumber, validateNumber} from '@/utils/validate';
 
-    export default {
-        name: "PFANS3006FormView",
-        components: {
-            EasyNormalContainer,
-            dicselect,
-            user
-        },
+  export default {
+    name: "PFANS3006FormView",
+    components: {
+      EasyNormalContainer,
+      dicselect,
+      user
+    },
 
-        data() {
-            var validateUserid = (rule, value, callback) => {
-                if (!value || value === '' || value === "undefined") {
-                    callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    callback();
-                    this.error = '';
-                }
-            };
-            var checknumber = (rule, value, callback) => {
-                if (this.form.usenumber !== null && this.form.usenumber !== '') {
-                    if (!validateNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3006VIEW_USENUMBER')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            };
-            var validateTel = (rule, value, callback) => {
-                if (this.form.mobilephone !== null && this.form.mobilephone !== '') {
-                    if (telephoneNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3006VIEW_MOBILEPHONE')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            };
-            var validatestarttime = (rule, value, callback) => {
-                if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
-                    if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-                    }
-                }
-                callback()
-            };
-            var validateendtime = (rule, value, callback) => {
-                if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
-                    if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-                    }
-                }
-                callback()
-            };
-            return {
-                error: "",
-                loading: false,
-                canStart: false,
-                selectType: "Single",
-                userlist: "",
-                title: "title.PFANS3006VIEW",
-                buttonList: [],
-                form: {
-                    centerid: '',
-                    groupid: '',
-                    teamid: '',
-                    userid: '',
-                    usedate: moment(new Date()).format("YYYY-MM-DD"),
-                    mobilephone: '',
-                    usetype: '',
-                    origin: '',
-                    transferstation: '',
-                    destination: '',
-                    starttime: new Date(moment().format("YYYY-MM-DD HH:mm")),
-                    endtime: '',
-                    flightnumber: '',
-                    distinguish: '',
-                    departurecity: '',
-                    fellowmembersname: '',
-                    guestname: '',
-                    usenumber: '',
-                    remarks: '',
-                    welcomeboard: true,
-                    fellowmembers: true,
-                },
-                rules: {
-                    userid: [{
-                        required: true,
-                        validator: validateUserid,
-                        trigger: 'change'
-                    }],
-                    usedate: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_USEDATE'),
-                        trigger: 'change'
-                    }],
-                    mobilephone: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_MOBILEPHONE'),
-                        trigger: 'blur',
-                    },
-                        {validator: validateTel, trigger: 'blur'}],
-                    usetype: [{
-                        required: true,
-                        message: this.$t("normal.error_09") + this.$t("label.PFANS3006VIEW_USETYPE"),
-                        trigger: "change"
-                    }],
-                    origin: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_ORIGIN'),
-                        trigger: 'blur'
-                    }],
-                    transferstation: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_TRANSFERSTATION'),
-                        trigger: 'blur'
-                    }],
-                    destination: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DESTINATION'),
-                        trigger: 'blur'
-                    }],
-                    starttime: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_STARTTIME'),
-                        trigger: 'blur'
-                    },
-                        {validator: validatestarttime, trigger: 'change'}
-                    ],
-                    endtime: [{
-                        validator: validateendtime,
-                        trigger: 'change'
-                    }],
-                    flightnumber: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FLIGHTNUMBER'),
-                        trigger: 'blur'
-                    }],
-                    distinguish: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_DISTINGUISH'),
-                        trigger: 'change'
-                    }],
-                    departurecity: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DEPARTURECITY'),
-                        trigger: 'blur'
-                    }],
-                    guestname: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3002VIEW_GUESTNAME'),
-                        trigger: 'blur'
-                    }],
-                    usenumber: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_USENUMBER'),
-                        trigger: 'blur'
-                    },
-                        {validator: checknumber, trigger: 'blur'},
-                    ],
-                },
-                code: 'PR005',
-                code2: 'PR006',
-                multiple: false,
-                disable: false,
-                erroruser: '',
-            };
-        },
-        mounted() {
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS3006Store/getAppointmentCarOne', {"appointmentcarid": this.$route.params._id})
-                    .then(response => {
-                        this.form = response;
-                        this.loading = false;
-                        this.userlist = this.form.userid;
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        })
-                        if (this.$store.getters.historyUrl) {
-                            this.$router.push(this.$store.getters.historyUrl);
-                        }
-                    })
-            } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = lst.centerNmae;
-                    this.form.groupid = lst.groupNmae;
-                    this.form.teamid = lst.teamNmae;
-                    this.form.userid = this.$store.getters.userinfo.userid;
-                }
-            }
-        },
-        created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        icon: "el-icon-check"
-                    }
-                ];
-            }
-        },
-        methods: {
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-            start(val) {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
-            end(val) {
-                this.form.status = '0';
-                this.buttonClick("update");
-            },
-            getUserids(val) {
-                this.form.userid = val;
-                this.userlist = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.centerid = lst.centerNmae;
-                this.form.groupid = lst.groupNmae;
-                this.form.teamid = lst.teamNmae;
-                if (!this.form.userid || this.form.userid === '' || val === "undefined") {
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.error = "";
-                }
-            },
-            change(val) {
-                this.form.usetype = val;
-            },
-            change2(val) {
-                this.form.distinguish = val;
-            },
-            buttonClick(val) {
-                this.$refs["refform"].validate(valid => {
-                    if (valid) {
-                        this.loading = true;
-                        this.form.userid = this.userlist;
-                        if (this.$route.params._id) {
-                            this.$store
-                                .dispatch('PFANS3006Store/updateAppointmentCar', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_02"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    })
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    })
-                                    this.loading = false;
-                                })
-                        } else {
-                            this.$store
-                                .dispatch('PFANS3006Store/createAppointmentCar', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
-                    }
-                });
-            }
+    data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === "undefined") {
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
         }
+      };
+      var checknumber = (rule, value, callback) => {
+        if (this.form.usenumber !== null && this.form.usenumber !== '') {
+          if (!validateNumber(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3006VIEW_USENUMBER')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      var validateTel = (rule, value, callback) => {
+        if (this.form.mobilephone !== null && this.form.mobilephone !== '') {
+          if (telephoneNumber(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3006VIEW_MOBILEPHONE')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      var validatestarttime = (rule, value, callback) => {
+        if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
+          if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
+            callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
+          }
+        }
+        callback()
+      };
+      var validateendtime = (rule, value, callback) => {
+        if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
+          if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
+            callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
+          }
+        }
+        callback()
+      };
+      return {
+        error: "",
+        loading: false,
+        canStart: false,
+        selectType: "Single",
+        userlist: "",
+        title: "title.PFANS3006VIEW",
+        buttonList: [],
+        form: {
+          centerid: '',
+          groupid: '',
+          teamid: '',
+          userid: '',
+          usedate: moment(new Date()).format("YYYY-MM-DD"),
+          mobilephone: '',
+          usetype: '',
+          origin: '',
+          transferstation: '',
+          destination: '',
+          starttime: new Date(moment().format("YYYY-MM-DD HH:mm")),
+          endtime: '',
+          flightnumber: '',
+          distinguish: '',
+          departurecity: '',
+          fellowmembersname: '',
+          guestname: '',
+          usenumber: '',
+          remarks: '',
+          welcomeboard: true,
+          fellowmembers: true,
+        },
+        rules: {
+          userid: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change'
+          }],
+          usedate: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_USEDATE'),
+            trigger: 'change'
+          }],
+          mobilephone: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_MOBILEPHONE'),
+            trigger: 'blur',
+          },
+            {validator: validateTel, trigger: 'blur'}],
+          usetype: [{
+            required: true,
+            message: this.$t("normal.error_09") + this.$t("label.PFANS3006VIEW_USETYPE"),
+            trigger: "change"
+          }],
+          origin: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_ORIGIN'),
+            trigger: 'blur'
+          }],
+          transferstation: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_TRANSFERSTATION'),
+            trigger: 'blur'
+          }],
+          destination: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DESTINATION'),
+            trigger: 'blur'
+          }],
+          starttime: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_STARTTIME'),
+            trigger: 'blur'
+          },
+            {validator: validatestarttime, trigger: 'change'}
+          ],
+          endtime: [{
+            validator: validateendtime,
+            trigger: 'change'
+          }],
+          flightnumber: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FLIGHTNUMBER'),
+            trigger: 'blur'
+          }],
+          distinguish: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_DISTINGUISH'),
+            trigger: 'change'
+          }],
+          departurecity: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DEPARTURECITY'),
+            trigger: 'blur'
+          }],
+          guestname: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3002VIEW_GUESTNAME'),
+            trigger: 'blur'
+          }],
+          usenumber: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_USENUMBER'),
+            trigger: 'blur'
+          },
+            {validator: checknumber, trigger: 'blur'},
+          ],
+        },
+        code: 'PR005',
+        code2: 'PR006',
+        multiple: false,
+        disable: false,
+        erroruser: '',
+      };
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS3006Store/getAppointmentCarOne', {"appointmentcarid": this.$route.params._id})
+          .then(response => {
+            this.form = response;
+            this.loading = false;
+            this.userlist = this.form.userid;
+            if (this.form.status === '2') {
+              this.disable = false;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            })
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.centerid = lst.centerNmae;
+          this.form.groupid = lst.groupNmae;
+          this.form.teamid = lst.teamNmae;
+          this.form.userid = this.$store.getters.userinfo.userid;
+        }
+      }
+    },
+    created() {
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            icon: "el-icon-check"
+          }
+        ];
+      }
+    },
+    methods: {
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick("update");
+      },
+      start(val) {
+        this.form.status = '2';
+        this.buttonClick("update");
+      },
+      end(val) {
+        this.form.status = '0';
+        this.buttonClick("update");
+      },
+      getUserids(val) {
+        this.form.userid = val;
+        this.userlist = val;
+        let lst = getOrgInfoByUserId(val);
+        this.form.centerid = lst.centerNmae;
+        this.form.groupid = lst.groupNmae;
+        this.form.teamid = lst.teamNmae;
+        if (!this.form.userid || this.form.userid === '' || val === "undefined") {
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          this.error = "";
+        }
+      },
+      change(val) {
+        this.form.usetype = val;
+      },
+      change2(val) {
+        this.form.distinguish = val;
+      },
+      buttonClick(val) {
+        this.$refs["refform"].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            this.form.userid = this.userlist;
+            if (this.$route.params._id) {
+              this.$store
+                .dispatch('PFANS3006Store/updateAppointmentCar', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== "update") {
+                    Message({
+                      message: this.$t("normal.success_02"),
+                      type: 'success',
+                      duration: 5 * 1000
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  })
+                  this.loading = false;
+                })
+            } else {
+              this.$store
+                .dispatch('PFANS3006Store/createAppointmentCar', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t("normal.success_01"),
+                    type: 'success',
+                    duration: 5 * 1000
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            }
+          }
+        });
+      }
     }
+  }
 
 </script>
 
