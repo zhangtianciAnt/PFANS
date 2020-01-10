@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%" class="user_view">
     <el-container class="container" style="width: 100%"  v-loading="loading" element-loading-spinner="el-icon-loading">
-      <el-aside width="20rem" style="overflow: hidden">
+      <el-aside width="20rem" style="overflow: hidden"   v-show="false">
         <EasyTree
           :defaultlist="data"
           :defaultProps="defaultProps"
@@ -11,6 +11,7 @@
           maxheight="20rem"
           minheight="100%"
           ref="treeCom"
+
           :renderContent="renderContent"
         ></EasyTree>
       </el-aside>
@@ -55,84 +56,77 @@ export default {
         {
           code: "customername",
           label: "label.user_name",
-          width: 150,
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "mobilenumber",
           label: "label.user_mobile",
-          width: 120,
+          width: 110,
           fix: false,
           filter: true
         },
         {
           code: "centername",
-          label: "center",
-          width: 150,
+          label: "label.center",
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "groupname",
-          label: "group",
-          width: 150,
+          label: "label.group",
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "teamname",
-          label: "team",
-          width: 150,
+          label: "label.team",
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "enterday",
           label: "label.PFANSUSERVIEW_ENTERDAY",
-          width: 150,
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "post",
           label: "label.PFANSUSERVIEW_POST",
-          width: 150,
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "rank",
           label: "label.PFANSUSERVIEW_RANK",
-          width: 150,
+          width: 120,
           fix: false,
           filter: true
         },
         {
           code: "sex",
           label: "label.sex",
-          width: 150,
+          width: 90,
           fix: false,
           filter: true
         },
         {
           code: "nationality",
           label: "label.PFANSUSERVIEW_NATIONALITY",
-          width: 150,
+          width: 90,
           fix: false,
           filter: true
         },
         {
           code: "birthday",
           label: "label.PFANSUSERVIEW_BIRTHDAY",
-          width: 150,
-          fix: false,
-          filter: true
-        },
-        {
-          code: "statusname",
-          label: "label.PFANSUSERVIEW_STATUSNAME",
-          width: 150,
+          width: 110,
           fix: false,
           filter: true
         }
