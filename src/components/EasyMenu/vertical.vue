@@ -6,16 +6,27 @@
           <i :class="ob.menuicon" v-if="ob.menuicon"></i>
           <span>{{$t(ob.name)}}</span>
         </template>
-        <el-submenu v-for="obi in ob.children" v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0" :index="obi._id" :key="obi._id" v-show="obi.menuvisible">
+        <el-menu-item-group v-for="obi in ob.children" v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0" :index="obi._id" :key="obi._id" v-show="obi.menuvisible">
           <template slot="title">
             <i :class="obi.menuicon" v-if="obi.menuicon"></i>
             <span>{{$t(obi.name)}}</span>
           </template>
-          <el-menu-item v-for="cobi in obi.children" v-if="cobi.menuvisible" :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible">
+
+          <el-menu-item-group v-for="cobi in obi.children" v-if="cobi && cobi.children && cobi.children.length > 0 && Object.keys(cobi.children[0]).length > 0" :index="cobi._id" :key="cobi._id" v-show="cobi.menuvisible">
+            <template slot="title">
+              <i :class="cobi.menuicon" v-if="cobi.menuicon"></i>
+              <span>{{$t(cobi.name)}}</span>
+            </template>
+            <el-menu-item v-for="ccobi in cobi.children" v-if="ccobi.menuvisible" :key="ccobi._id" :index="ccobi.menuurl" v-show="ccobi.menuvisible">
+              <i :class="ccobi.menuicon" v-if="ccobi.menuicon"></i>
+              <span>{{$t(ccobi.name)}}</span>
+            </el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible">
             <i :class="cobi.menuicon" v-if="cobi.menuicon"></i>
             <span>{{$t(cobi.name)}}</span>
           </el-menu-item>
-        </el-submenu>
+        </el-menu-item-group>
         <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible">
           <i :class="obi.menuicon" v-if="obi.menuicon"></i>
           <span>{{$t(obi.name)}}</span>
@@ -109,15 +120,16 @@ export default {
   text-align: center;
 }
 .el-menu-item{
-  height: 38px;
-  line-height: 38px;
+  height: 30px;
+  line-height: 30px;
   min-width: 120px;
   max-width: 200px;
   overflow-x: hidden;
   overflow-y:hidden;
+  margin-left: 20px;
 }
 /deep/ .el-submenu__title{
-  height: 38px;
-  line-height: 38px;
+  height: 30px;
+  line-height: 30px;
 }
 </style>
