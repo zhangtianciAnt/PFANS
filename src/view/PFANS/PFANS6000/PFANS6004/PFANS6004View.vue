@@ -24,7 +24,7 @@
                         //供应商名称
                         code: 'suppliername',
                         label: 'label.PFANS6001VIEW_SUPPLIERNAME',
-                        width: 120,
+                        width: 150,
                         fix: false,
                         filter: true,
                     },
@@ -32,7 +32,7 @@
                         //姓名
                         code: 'expname',
                         label: 'label.user_name',
-                        width: 90,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -40,7 +40,7 @@
                         //性别
                         code: 'sex',
                         label: 'label.sex',
-                        width: 80,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -48,7 +48,7 @@
                         //年龄
                         code: 'age',
                         label: 'label.PFANSUSERFORMVIEW_AGE',
-                        width: 80,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -56,7 +56,7 @@
                         //学历
                         code: 'education',
                         label: 'label.PFANS2026VIEW_EDUCATIONALBACKGROUND',
-                        width: 90,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -72,7 +72,7 @@
                         //技术分类
                         code: 'technology',
                         label: 'label.PFANS2003VIEW_TECHNOLOGY',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },

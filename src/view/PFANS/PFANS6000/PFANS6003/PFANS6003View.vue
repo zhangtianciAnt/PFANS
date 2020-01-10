@@ -24,7 +24,7 @@
                         //供应商名称
                         code: 'supchinese',
                         label: 'label.PFANS6001VIEW_SUPPLIERNAME',
-                        width: 90,
+                        width: 140,
                         fix: false,
                         filter: true,
                     },
@@ -32,7 +32,7 @@
                         //负责人
                         code: 'liableperson',
                         label: 'label.ASSETS1002VIEW_USERID',
-                        width: 80,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -40,7 +40,7 @@
                         //项目联络人
                         code: 'prochinese',
                         label: 'label.PFANS6002FORMVIEW_PROJECTPERSON',
-                        width: 100,
+                        width: 140,
                         fix: false,
                         filter: true,
                     },
@@ -48,7 +48,7 @@
                         //联系电话
                         code: 'protelephone',
                         label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -56,7 +56,7 @@
                         //共同事务联络人
                         code: 'commontperson',
                         label: 'label.PFANS6002VIEW_COMMONTPERSON',
-                        width: 120,
+                        width: 150,
                         fix: false,
                         filter: true,
                     },
@@ -64,7 +64,7 @@
                         //联系电话
                         code: 'comtelephone',
                         label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -72,7 +72,7 @@
                         //地址
                         code: 'addchinese',
                         label: 'label.PFANS6002VIEW_ADDRESS',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -80,7 +80,7 @@
                         //人员规模
                         code: 'perscale',
                         label: 'label.PFANS6002VIEW_PERSCALE',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     }
