@@ -4,12 +4,26 @@
                          @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-
-
+        <el-dialog :visible.sync="csvVisible">
+          <el-upload
+            drag
+            ref="uploader"
+            :action="postAction"
+            :on-success="handleSuccess"
+            :before-upload="handleChange"
+            :headers="authHeader"
+            :limit=1
+            :on-remove="this.clear"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+          </el-upload>
+        </el-dialog>
 
         <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
           <el-tabs v-model="activeName" >
-            <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first" >
               <div>
                 <el-row>
                   <el-col :span="8">
@@ -366,7 +380,6 @@
                 </el-table>
               </div>
             </el-tab-pane>
-
             <el-tab-pane :label="$t('label.PFANS1012VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries"
                         header-cell-class-name="sub_bg_color_grey height"
@@ -652,6 +665,7 @@
 
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
+  import {getToken} from '@/utils/auth'
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui';
   import moment from "moment";
@@ -668,26 +682,6 @@
       user,
 
     },
-
-    props: {
-      header: {
-        type: Array,
-        default: function () {
-          return [];
-        }
-      },
-      data: {
-        type: Array,
-        default: function () {
-          return [];
-        }
-      },
-      fileName: {
-        type: String,
-        default: 'data.csv'
-      }
-    },
-
 
     data() {
       var checkuser = (rule, value, callback) => {
@@ -825,6 +819,9 @@
         loading: false,
         disabled: false,
         disablecurr: false,
+        csvVisible:false,
+        postAction: process.env.BASE_API + '/punchcardrecord/importUser',
+        authHeader: {'x-auth-token': getToken()},
         buttonList: [
           {
             key: 'save',
@@ -833,11 +830,17 @@
             icon: 'el-icon-check',
           },
           {
+            'key': 'import',
+            'name': 'button.import',
+            disabled: false,
+            icon: 'el-icon-upload2'
+          },
+          {
             'key': 'export',
             'name': 'button.export',
-            'disabled': false,
+            disabled: false,
             icon: 'el-icon-download'
-          },
+          }
         ],
         tableData: [{
           abstract: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
@@ -1235,6 +1238,15 @@
       }
     },
     methods: {
+     checkbutton(){
+       if(this.activeName==='first'){
+         this.buttonList[1].disabled=true;
+         this.buttonList[2].disabled=true;
+       }else {
+         this.buttonList[1].disabled=false;
+         this.buttonList[2].disabled=false;
+       }
+     },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -1656,6 +1668,64 @@
           })
         }
       },
+
+      handleChange(file, fileList) {
+        this.clear(true);
+      },
+      handleSuccess(response, file, fileList) {
+        if (response.code !== 0) {
+          this.cuowu = response.message;
+          this.Message = true;
+        } else {
+          let datalist = [];
+          for (let c = 0; c < response.data.length; c++) {
+            let error = response.data[c];
+            error = error.substring(0, 3);
+            if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+              this.errorCount = response.data[c].substring(4)
+              this.resultShow = true;
+            }
+            if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+              this.successCount = response.data[c].substring(4)
+              this.resultShow = true;
+            }
+            if (error === this.$t("label.PFANS2017VIEW_D")) {
+              let obj = {};
+              var str = response.data[c];
+              var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
+              var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
+              var r = str.substr(aPos + 1, bPos - aPos - 1);
+              obj.hang = r;
+              obj.error = response.data[c].substring(6);
+              datalist[c] = obj;
+            }
+            this.message = datalist;
+            this.totaldata = this.message;
+            if (this.errorCount === "0") {
+              this.result = false;
+            } else {
+              this.result = true;
+            }
+            this.getList();
+            this.getFpans2017List();
+          }
+        }
+      },
+      clear(safe) {
+        this.file = null;
+        this.resultShow = false;
+        this.Message = false;
+        this.result = false;
+        if (!safe) {
+          this.$refs.uploader.clearFiles();
+        }
+      },
+
+
+
+
+
+
       buttonClick(val) {
         if (val === "back") {
           this.$router.push({
@@ -1796,27 +1866,27 @@
               }
             }
           })
+        } else if(val==='import'){
+          this.csvVisible=true;
         } else if (val === 'export') {
-          this.$http.FileGet(this.pageParams).then(res => {
-                   const url = this.genUrl(res.data.data.workhour_csv_data, {});//{}指的是表头，res.data.data.workhour_csv_data是后台返回来的数据
-                  const a = document.createElement('a');
-                    a.href = url;
-                   a.download = "工时统计文件.csv";
-                   a.click();
-                   window.URL.revokeObjectURL(url);
-                  });
+          // this.$http.FileGet(this.pageParams).then(res => {
+          //          const url = this.genUrl(res.data.data.workhour_csv_data, {});//{}指的是表头，res.data.data.workhour_csv_data是后台返回来的数据
+          //         const a = document.createElement('a');
+          //           a.href = url;
+          //          a.download = "工时统计文件.csv";
+          //          a.click();
+          //          window.URL.revokeObjectURL(url);
+          //         });
+          //
 
-
-
-
-          // this.selectedlist = this.$refs.container.selectedList;
-          // import('@/vendor/Export2Excel').then(excel => {
-          //   const tHeader = [ this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.user_name')];
-          //   const filterVal = [ 'centerid', 'groupid', 'teamid', 'user_id'];
-          //   const list = this.selectedlist;
-          //   const data = this.formatJson(filterVal, list);
-          //   excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2017'));
-          // })
+          this.selectedlist = this.$refs.container.selectedList;
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = [ this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.user_name')];
+            const filterVal = [ 'centerid', 'groupid', 'teamid', 'user_id'];
+            const list = this.selectedlist;
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel(tHeader, data, this.$t('title.PFANS1012VIEW'));
+          })
         }
       },
   }

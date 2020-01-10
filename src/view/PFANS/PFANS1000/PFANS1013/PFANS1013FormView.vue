@@ -18,14 +18,14 @@
             <el-col :span="8">
               <el-radio
                 :disabled="!disable"
-                @change="gettype"
+                @click="gettype"
                 label="0"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_DOMESTIC')}}
               </el-radio>
               <el-radio
                 :disabled="!disable"
-                @change="gettype"
+                @click="gettype"
                 label="1"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_ABROAD')}}
@@ -1176,17 +1176,35 @@
         }
       }
 
-      this.$store
-        .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:this.form.type})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result = response;
-            vote.value = response[i].businessid;
-            vote.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
-            this.relations.push(vote)
-          }
-        });
+      if(this.form.type==='0'){
+        debugger
+        this.$store
+          .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:0})
+          .then(response => {
+            debugger
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              this.result = response;
+              vote.value = response[i].businessid;
+              vote.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
+              this.relations.push(vote)
+            }
+          });
+      }else {
+        this.$store
+          .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
+          .then(response => {
+            debugger
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              this.result = response;
+              vote.value = response[i].businessid;
+              vote.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
+              this.relations.push(vote)
+            }
+          });
+      }
+
 
       this.$store
         .dispatch('PFANS1013Store/getLoanApplication', {user_id:this.$store.getters.userinfo.userid})
@@ -1255,9 +1273,8 @@
             disaccommod: false,
             showtick: true,
           }]
-
-
         } else {
+          debugger
           this.form.business_id=' ';
           this.form.place='';
           this.form.startdate='';
