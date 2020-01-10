@@ -178,6 +178,7 @@ module.exports = {
     PFANS6002: '客户信息',
     PFANS6003: '供应商信息',
     PFANS6004: '外驻人员登记表',
+    PFANS6005: '単価設定',
     STATIONING: '外驻管理',
     PFANS6007: '各種経費',
     APPROVAL: '立项审批',
