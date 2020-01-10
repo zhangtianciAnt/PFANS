@@ -112,7 +112,9 @@
                             response[j].group_name = response[j].group_id;
                             response[j].team_name = response[j].team_id;
                         }
+                        if (response[j].status !== null && response[j].status !== "") {
                             response[j].status = getStatus(response[j].status);
+                        }
                         if (response[j].skilllevel !== null && response[j].skilllevel !== "") {
                             let letStage = getDictionaryInfo(response[j].skilllevel);
                             if (letStage != null) {

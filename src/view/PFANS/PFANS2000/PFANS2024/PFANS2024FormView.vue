@@ -335,6 +335,7 @@
                     skillrankingfinished: "0",
                     nextskillrankingfinished: "0",
                     futurefinished: "0",
+                    status: '',
                 },
                 multiple: false,
                 multiple1: true,
@@ -353,9 +354,6 @@
                     .then(response => {
                         this.form = response;
                         this.userlist = this.form.user_id;
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
                         let lettechnology;
                         if (this.form.technology.length > 0) {
                             lettechnology = this.form.technology.split(",");
@@ -399,6 +397,8 @@
                     {
                         key: "save",
                         name: "button.save",
+                        disabled: false,
+                        icon: "el-icon-check"
                     }
                 ];
             }
@@ -447,7 +447,6 @@
             },
 
             buttonClick(val) {
-                if (val === 'save') {
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
                             this.form.staff = "";
@@ -520,7 +519,6 @@
                             }
                         }
                     })
-                }
             },
         }
     }
