@@ -1188,7 +1188,6 @@
           }
         });
 
-
       this.$store
         .dispatch('PFANS1013Store/getLoanApplication', {user_id:this.$store.getters.userinfo.userid})
         .then(response => {
@@ -1227,9 +1226,36 @@
           this.showAout = false;
           this.showforeigncurrency = false;
           this.showrow3 = true;
-            this.showrow4 = false;
+          this.showrow4 = false;
           this.showrow = true;
-            this.showrow2 = false;
+          this.showrow2 = false;
+          this.tableA = [{
+            evectionid: "",
+            accommodationdetails_id: "",
+            accommodationdate: "",
+            activitycontent: "",
+            vehicleon: "",
+            vehiclein: "",
+            movementtime: "",
+            city: "",
+            exitarea: "",
+            facilitytypeon: "",
+            facilitytypein: "",
+            facilityname: "",
+            accommodationallowance: "",
+            accommodation: "",
+            travelallowance: "",
+            travel: "",
+            relatives: "",
+            train: "",
+            traintick: 0,
+            plane: "",
+            annexno: "",
+            rowindex: "",
+            disaccommod: false,
+            showtick: true,
+          }]
+
 
         } else {
           this.form.business_id=' ';
@@ -1248,6 +1274,32 @@
           this.showrow4 = true;
           this.showrow = false;
           this.showrow2 = true;
+          this.tableA = [{
+            evectionid: "",
+            accommodationdetails_id: "",
+            accommodationdate: "",
+            activitycontent: "",
+            vehicleon: "",
+            vehiclein: "",
+            movementtime: "",
+            city: "",
+            exitarea: "",
+            facilitytypeon: "",
+            facilitytypein: "",
+            facilityname: "",
+            accommodationallowance: "",
+            accommodation: "",
+            travelallowance: "",
+            travel: "",
+            relatives: "",
+            train: "",
+            traintick: 0,
+            plane: "",
+            annexno: "",
+            rowindex: "",
+            disaccommod: false,
+            showtick: true,
+          }]
         }
       },
       getUserids(val) {
@@ -1411,7 +1463,33 @@
       change(val) {
         this.result.forEach(res => {
           if (res.businessid === val) {
-            this.form.place = res.city,
+            this.tableA = [{
+              evectionid: "",
+              accommodationdetails_id: "",
+              accommodationdate: "",
+              activitycontent: "",
+              vehicleon: "",
+              vehiclein: "",
+              movementtime: "",
+              city: "",
+              exitarea: "",
+              facilitytypeon: "",
+              facilitytypein: "",
+              facilityname: "",
+              accommodationallowance: "",
+              accommodation: "",
+              travelallowance: "",
+              travel: "",
+              relatives: "",
+              train: "",
+              traintick: 0,
+              plane: "",
+              annexno: "",
+              rowindex: "",
+              disaccommod: false,
+              showtick: true,
+            }],
+              this.form.place = res.city,
               this.form.startdate = res.startdate,
               this.form.enddate = res.enddate,
               this.form.datenumber = res.datenumber
