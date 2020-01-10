@@ -128,7 +128,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')" prop="objective">
                 <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
                           v-model="form.objective"></el-input>
               </el-form-item>
@@ -297,6 +297,11 @@
           assetname: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNAME'),
+            trigger: 'change',
+          }],
+          objective: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_OBJECTIVE'),
             trigger: 'change',
           }],
         },
