@@ -69,7 +69,7 @@
                 <el-row :gutter="32">
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
-                      <el-select :disabled="!disable" @change="change" style="width: 11rem" v-model="form.business_id">
+                      <el-select :disabled="!disable" @change="change"  style="width: 11rem" v-model="form.business_id">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -110,7 +110,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_DATENUMBER')">
-                      <el-input :disabled="true" style="width: 11rem" v-model="form.datenumber"></el-input>
+                      <el-input :disabled="true" style="width: 11rem" v-model="form.datenumber" ></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1226,10 +1226,11 @@
           this.showAinner = true;
           this.showAout = false;
           this.showforeigncurrency = false;
-          this.showrow3 = true,
+          this.showrow3 = true;
             this.showrow4 = false;
-          this.showrow = true,
-            this.showrow2 = false
+          this.showrow = true;
+            this.showrow2 = false;
+
         } else {
           this.form.business_id=' ';
           this.form.place='';
@@ -1414,39 +1415,38 @@
               this.form.startdate = res.startdate,
               this.form.enddate = res.enddate,
               this.form.datenumber = res.datenumber
+            for(var i=0;i<this.form.datenumber-1;i++){
+              this.tableA.push({
+                evectionid: "",
+                accommodationdetails_id: "",
+                accommodationdate: "",
+                activitycontent: "",
+                vehicleon: "",
+                vehiclein: "",
+                movementtime: "",
+                city: "",
+                exitarea: "",
+                facilitytypeon: "",
+                facilitytypein: "",
+                facilityname: "",
+                accommodationallowance: "",
+                accommodation: "",
+                travelallowance: "",
+                travel: "",
+                relatives: "",
+                train: "",
+                plane: "",
+                annexno: "",
+                rowindex: "",
+                disaccommod: false,
+                showtick: true
+              });
+              this.tableA[0].accommodationdate=this.form.startdate;
+              this.tableA[i+1].accommodationdate=moment(this.tableA[i].accommodationdate).add(1, 'days');
+            }
           }
+
         });
-        for(var i=1;i<this.form.datenumber;i++){
-          this.tableA.push({
-            evectionid: "",
-            accommodationdetails_id: "",
-            accommodationdate: "",
-            activitycontent: "",
-            vehicleon: "",
-            vehiclein: "",
-            movementtime: "",
-            city: "",
-            exitarea: "",
-            facilitytypeon: "",
-            facilitytypein: "",
-            facilityname: "",
-            accommodationallowance: "",
-            accommodation: "",
-            travelallowance: "",
-            travel: "",
-            relatives: "",
-            train: "",
-            plane: "",
-            annexno: "",
-            rowindex: "",
-            disaccommod: false,
-            showtick: true
-          });
-        }
-        for(var i=0;i<this.form.datenumber-1;i++){
-          this.tableA[0].accommodationdate=this.form.startdate;
-          this.tableA[i+1].accommodationdate=moment(this.tableA[i].accommodationdate).add(1, 'days');
-        }
       },
       change2(val) {
         this.result2.forEach(res => {
