@@ -101,10 +101,9 @@
 
             this.$store
                 .dispatch('PFANS2024Store/getFpans2024List', {})
-                //根据user_id取组织架构和user_name
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        if(response[j].user_id !== null && response[j].user_id !== "") {
+                        if (response[j].user_id !== null && response[j].user_id !== "") {
                             let user = getUserInfo(response[j].user_id);
                             if (user) {
                                 response[j].user_name = user.userinfo.customername;
@@ -113,27 +112,22 @@
                             response[j].group_name = response[j].group_id;
                             response[j].team_name = response[j].team_id;
                         }
-                        //状态
-                        response[j] .status = getStatus(response[j] .status);
-                        //等级
+                            response[j].status = getStatus(response[j].status);
                         if (response[j].skilllevel !== null && response[j].skilllevel !== "") {
                             let letStage = getDictionaryInfo(response[j].skilllevel);
                             if (letStage != null) {
                                 response[j].skilllevel = letStage.value1;
                             }
                         }
-                        //校種
                         if (response[j].schoolspecies !== null && response[j].schoolspecies !== "") {
                             let letStage = getDictionaryInfo(response[j].schoolspecies);
                             if (letStage != null) {
                                 response[j].schoolspecies = letStage.value1;
                             }
                         }
-                        // 入社年
                         if (response[j].entryyear !== null && response[j].entryyear !== "") {
                             response[j].entryyear = moment(response[j].entryyear).format("YYYY-MM-DD");
                         }
-                        // 年度
                         if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
                             response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
                         }
@@ -155,7 +149,6 @@
             rowClick(row) {
                 this.rowid = row.talentplan_id;
             },
-            //点击上部按钮处理
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
