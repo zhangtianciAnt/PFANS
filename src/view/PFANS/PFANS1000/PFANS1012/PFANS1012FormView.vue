@@ -710,7 +710,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
           }
         } else {
           callback();
@@ -721,7 +721,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
           }
         } else {
           callback();
@@ -732,7 +732,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')));
           }
         } else {
           callback();
@@ -743,7 +743,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')));
           }
         } else {
           callback();
@@ -754,7 +754,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALNAME')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PERSONALNAME')));
           }
         } else {
           callback();
@@ -765,7 +765,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PERSONALCODE')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PERSONALCODE')));
           }
         } else {
           callback();
@@ -776,7 +776,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEENAME')));
           }
         } else {
           callback();
@@ -787,7 +787,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_TEMPORARYLOAN')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TEMPORARYLOAN')));
           }
         } else {
           callback();
@@ -798,7 +798,7 @@
           if (value) {
             callback();
           } else {
-            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_COMPANYNAME')));
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_COMPANYNAME')));
           }
         } else {
           callback();

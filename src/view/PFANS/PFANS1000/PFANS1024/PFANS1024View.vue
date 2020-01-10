@@ -64,6 +64,7 @@
                 </el-button>
               </div>
             </el-dialog>
+
           <el-tabs v-model="activeName" >
             <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNTECHNOLOGY')" name="first">
               <el-row>

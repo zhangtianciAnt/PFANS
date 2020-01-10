@@ -18,14 +18,14 @@
             <el-col :span="8">
               <el-radio
                 :disabled="!disable"
-                @click="gettype"
+                @change="gettype"
                 label="0"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_DOMESTIC')}}
               </el-radio>
               <el-radio
                 :disabled="!disable"
-                @click="gettype"
+                @change="gettype"
                 label="1"
                 v-model="form.type"
               >{{$t('label.PFANS1013FORMVIEW_ABROAD')}}
@@ -1176,12 +1176,10 @@
         }
       }
 
-      if(this.form.type==='0'){
-        debugger
+
         this.$store
           .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:0})
           .then(response => {
-            debugger
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               this.result = response;
@@ -1190,20 +1188,19 @@
               this.relations.push(vote)
             }
           });
-      }else {
-        this.$store
-          .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
-          .then(response => {
-            debugger
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              this.result = response;
-              vote.value = response[i].businessid;
-              vote.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
-              this.relations.push(vote)
-            }
-          });
-      }
+
+      this.$store
+        .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
+        .then(response => {
+          debugger
+          for (let i = 0; i < response.length; i++) {
+            var vote1 = {};
+            this.result1 = response;
+            vote1.value = response[i].businessid;
+            vote1.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
+            this.relations.push(vote1)
+          }
+        });
 
 
       this.$store
@@ -1228,6 +1225,7 @@
       gettype(val) {
         this.form.type = val;
         if (val === '0') {
+          alert(this.form.type);
           this.form.business_id=' ';
           this.form.place='';
           this.form.startdate='';
@@ -1274,7 +1272,7 @@
             showtick: true,
           }]
         } else {
-          debugger
+          alert(this.form.type);
           this.form.business_id=' ';
           this.form.place='';
           this.form.startdate='';
