@@ -244,6 +244,7 @@
                     reservesubstitutiondate: '',
                     actualsubstitutiondate: '',
                     cause: '',
+                    status: '',
                 },
                 rules: {
                     userid: [{
@@ -312,6 +313,7 @@
                 this.$store
                     .dispatch('PFANS2011Store/getOvertimeOne', {"overtimeid": this.$route.params._id})
                     .then(response => {
+                        debugger;
                         this.form = response;
                         this.loading = false;
                         this.userlist = this.form.userid;
@@ -319,11 +321,11 @@
                             this.show = true;
                             this.rules.reservesubstitutiondate[0].required = true;
                         }
-                        if ((this.form.status === '4' || this.form.status === '6') && this.disable) {
+                        if ((this.form.status === '4' || this.form.status === '6') && this.disable && this.disactualovertime) {
                             this.disable = false;
                             this.disactualovertime = true;
                         }
-                        if ((this.form.status === '5') && this.disable) {
+                        if ((this.form.status === '5') && this.disable && this.disactualovertime) {
                             this.disable = false;
                             this.disactualovertime = false;
                         }
@@ -439,37 +441,38 @@
                     })
             },
             workflowState(val) {
+                var status;
                 if (val.state === '1') {
                     if (val.workflowCode === 'W0001') {
-                        this.form.status = '3';
+                        status = '3';
                     } else if (val.workflowCode === 'W0040') {
-                        this.form.status = '6';
+                        status = '6';
                     }
                 } else if (val.state === '2') {
                     if (val.workflowCode === 'W0001') {
-                        this.form.status = '4';
+                        status = '4';
                     } else if (val.workflowCode === 'W0040') {
-                        this.form.status = '7';
+                        status = '7';
                         this.canStart = false;
                     }
                 }
-                this.buttonClick("update");
+                this.buttonClick("update",status);
             },
-            start(val) {
+            start() {
                 if (this.form.status === '4' || this.form.status === '6') {
-                    this.form.status = '5';
+                    var status = '5';
                 } else {
-                    this.form.status = '2';
+                    var status = '2';
                 }
-                this.buttonClick("update");
+                this.buttonClick("update",status);
             },
-            end(val) {
+            end() {
                 if (this.form.status === '5') {
-                    this.form.status = '4';
+                    var status = '4';
                 } else {
-                    this.form.status = '0';
+                    var status = '0';
                 }
-                this.buttonClick("update");
+                this.buttonClick("update",status);
             },
             getUserids(val) {
                 this.form.userid = val;
@@ -507,7 +510,7 @@
                     this.form.actualsubstitutiondate = null;
                 }
             },
-            buttonClick(val) {
+            buttonClick(val,status) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
                         this.loading = true;
@@ -515,8 +518,8 @@
                         this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD');
                         this.form.reserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
                         if (this.form.overtimetype != 'PR001002') {
-                            this.form.reservesubstitutiondate = null;
-                            this.form.actualsubstitutiondate = null;
+                            this.form.reservesubstitutiondate = new Date();
+                            this.form.actualsubstitutiondate = new Date();
                         } else {
                             this.form.reservesubstitutiondate = moment(this.form.reservesubstitutiondate).format('YYYY-MM-DD');
                             if(this.form.actualsubstitutiondate != null){
@@ -524,6 +527,9 @@
                             }
                         }
                         if (this.$route.params._id) {
+                            if(status != undefined){
+                                this.form.status = status;
+                            }
                             this.$store
                                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                                 .then(response => {
