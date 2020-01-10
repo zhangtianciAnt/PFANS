@@ -23,14 +23,14 @@
           {/*1*/
             code: 'year',
             label: 'label.PFANS2023VIEW_YEARS',
-            width: 90,
+            width: 120,
             fix: false,
             filter: true,
           },
-          {/*2*/
+          {
             code: 'psdcdwindow',
             label: 'label.PFANS6007VIEW_PSDCDWINDOW',
-            width: 120,
+            width: 150,
             fix: false,
             filter: true,
           },
@@ -51,28 +51,28 @@
           {
             code: 'plmonthplan',
             label: 'label.PFANS6007VIEW_PLMONTHPLAN',
-            width: 140,
+            width: 160,
             fix: false,
             filter: true,
           },
           {
             code: 'typeoffees',
             label: 'label.PFANS6007VIEW_TYPEOFFEES',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'payment',
             label: 'label.PFANS6007VIEW_PAYMENT',
-            width: 120,
+            width: 140,
             fix: false,
             filter: true,
           },
           {
             code: 'remarks',
             label: 'label.PFANS6007VIEW_REMARKS',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           }

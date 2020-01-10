@@ -206,6 +206,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
+                  v-model="form.uploadfile"
                   :disabled="!disabled"
                   :action="upload"
                   :file-list="fileList"

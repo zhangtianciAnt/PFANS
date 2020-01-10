@@ -194,7 +194,7 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')" label-width="6rem">
-                  <el-input :disabled="!disable1" :rows="2"  style="width: 100%;padding-left:2rem"type="textarea"
+                  <el-input :disabled="!disable1" :rows="2"  style="width: 89%;padding-left:2.5rem"type="textarea"
                             v-model="form.jpwork_delivery">
                   </el-input>
                 </el-form-item>
@@ -360,19 +360,6 @@
             callback(new Error(this.$t('normal.error_date1')));
           } else {
             callback();
-          }
-        } else {
-          callback();
-        }
-      };
-      var valiresig = (rule, value, callback) => {
-        if (this.disable2) {
-          if (value) {
-            if (moment(this.form.resignation_date).format('YYYY-MM-DD') < moment(this.form.report_date).format('YYYY-MM-DD')) {
-              callback(new Error(this.$t('label.PFANS2026VIEW_RESIGNATION_DATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2026VIEW_REPORT_DATE')));
-            } else {
-              callback();
-            }
           }
         } else {
           callback();
@@ -547,7 +534,7 @@
           email: '',
           jpwork_delivery: '',
           educational_background: '',
-          resignation_date:moment().format('YYYY-MM-DD'),
+          resignation_date: '',
           reporter: moment().format('YYYY-MM-DD'),
           report_date: moment().format('YYYY-MM-DD'),
           external_evaluation: '',
@@ -597,13 +584,6 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_CAUSE'),
             trigger: 'change',
           }],
-          resignation_date: [{
-            required: this.disable2,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_RESIGNATION_DATE'),
-            trigger: 'change',
-          },
-            {validator: valiresig, trigger: 'change'}
-          ],
           reporterlist: [{
             required: this.disable2,
             validator: checkrep,
@@ -708,7 +688,6 @@
               this.disable1 = false;
               this.disable2 = true;
               this.form.report_date=moment(new Date()).format('YYYY-MM-DD');
-              this.form.resignation_date=moment(new Date()).format('YYYY-MM-DD');
             } else if (this.form.stage === '3' && this.form.status === '2') {
               this.right = 'W0047';
               this.canStart = false;
@@ -894,7 +873,6 @@
             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
             this.form.entry_time = moment(this.form.entry_time).format('YYYY-MM-DD');
             this.form.delivery_sheet_date = moment(this.form.delivery_sheet_date).format('YYYY-MM-DD');
-            this.form.resignation_date = moment(this.form.resignation_date).format('YYYY-MM-DD');
             this.form.report_date = moment(this.form.report_date).format('YYYY-MM-DD');
             this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.citation = [];

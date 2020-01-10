@@ -25,12 +25,11 @@
                         //姓名
                         code: 'coopername',
                         label: 'label.user_name',
-                        width: 90,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //毕业院校
                         code: 'graduateschool',
                         label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
                         width: 120,
@@ -38,18 +37,16 @@
                         filter: true,
                     },
                     {
-                        //供应商名称
                         code: 'suppliername',
                         label: 'label.PFANS6001VIEW_SUPPLIERNAME',
-                        width: 120,
+                        width: 140,
                         fix: false,
                         filter: true,
                     },
                     {
-                        //面试部门
                         code: 'interviewdep',
                         label: 'label.PFANS2003FORMVIEW_INTERVIEWDEP',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -57,7 +54,7 @@
                         //面试结果
                         code: 'result',
                         label: 'label.PFANS6001VIEW_RESULT',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -65,7 +62,7 @@
                         //入职与否
                         code: 'whetherentry',
                         label: 'label.PFANS2003FORMVIEW_WHETHERENTRY',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -73,7 +70,7 @@
                         //技术分类
                         code: 'technology',
                         label: 'label.PFANS2003VIEW_TECHNOLOGY',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -81,7 +78,7 @@
                         //面试时间
                         code: 'interview_date',
                         label: 'label.PFANS2003FORMVIEW_INTERVIEWDATE',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     }
