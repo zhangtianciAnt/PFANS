@@ -3,21 +3,21 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title"
                          @buttonClick="buttonClick" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="reff" style="padding: 2rem">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.type')">
                 <dicselect :code="code1"
                            :data="form.type"
                            @change="getValue"
-                           style="width: 11rem">
+                           style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row type="hidden">
             <el-form-item :label="$t('label.judgement')" v-show="show ">
-              <el-select @change="change" @remove-tag="getAward" multiple  v-model="form.judgement" style="width: 11rem">
+              <el-select @change="change" @remove-tag="getAward" multiple  v-model="form.judgement" style="width: 20vw">
                 <el-option
                   :key="item.value"
                   :label="item.label"
