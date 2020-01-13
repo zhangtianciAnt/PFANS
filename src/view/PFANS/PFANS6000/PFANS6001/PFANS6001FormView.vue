@@ -12,16 +12,16 @@
               </div>
             </el-col>
           </el-row>
-          <!--            第一行-->
+
           <el-row>
-            <!--            姓名-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="coopername">
                 <el-input :disabled="!disabled" maxlength='36' style="width: 11rem"
                           v-model="form.coopername"></el-input>
               </el-form-item>
             </el-col>
-            <!--            性别-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.sex')" prop="sex">
                 <dicselect
@@ -35,7 +35,7 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            联系方式-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
                 <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
@@ -43,9 +43,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--            第二行-->
+
           <el-row>
-            <!--            出生日期-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
@@ -57,13 +57,13 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
-            <!--            年龄-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
                 <el-input :disabled="true" style="width: 11rem" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
-            <!--            供应商名称-->
+
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
@@ -111,16 +111,16 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--            第三行-->
+
           <el-row>
-            <!--            毕业院校-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
                 <el-input :disabled="!disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <!--            学历-->
+
               <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')" prop="education">
                 <dicselect
                   :code="code2"
@@ -134,9 +134,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          第四行-->
+
           <el-row>
-            <!--        经验特长-->
+
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
                 <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
@@ -144,9 +144,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          第五行-->
+
           <el-row>
-            <!--            面试部门-->
+
             <el-col :span="8">
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
@@ -160,7 +160,7 @@
                 </org>
               </el-form-item>
             </el-col>
-            <!--            面试时间-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')" prop="interview_date">
                 <el-date-picker
@@ -172,7 +172,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <!--            面试结果-->
+
               <el-form-item :label="$t('label.PFANS6001VIEW_RESULT')" prop="result">
                 <dicselect
                   :code="code3"
@@ -186,9 +186,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          第六行-->
+
           <el-row>
-            <!--            技术分类-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
                 <dicselect
@@ -201,7 +201,7 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            Rn-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RN')" prop="rn">
                 <dicselect
@@ -215,7 +215,7 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            入职与否-->
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_WHETHERENTRY')" prop="whetherentry">
                 <dicselect
@@ -229,9 +229,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          第七行-->
+
           <el-row>
-            <!--            备注-->
+
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
                 <el-input :disabled="!disabled" :rows="2" style="width: 93% ; height: 10px" type="textarea"
@@ -321,30 +321,30 @@
                     whetherentry: '',
                     remarks: '',
                 },
-                //性别
+
                 code1: 'BP001',
-                //学历
+
                 code2: 'BP002',
-                // 面试结果
+
                 code3: 'BP003',
-                //Rn
+
                 code4: 'BP004',
-                //技术分类
+
                 code5: 'BP005',
-                //入职与否
+
                 code6: 'BP006',
                 disabled: true,
                 dialogTableVisible: false,
-                // currentRow: null,
+
                 rules: {
-                    // 姓名
+
                     coopername: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.user_name'),
                             trigger: 'blur'
                         }],
-                    // 性别
+
                     sex: [
                         {
                             required: true,
@@ -352,7 +352,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 联系方式
+
                     contactinformation: [
                         {
                             required: true,
@@ -360,7 +360,7 @@
                             trigger: 'blur'
                         },
                         {validator: validateTel, trigger: 'blur'}],
-                    // 出生日期
+
                     birth: [
                         {
                             required: true,
@@ -368,7 +368,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 供应商名称
+
                     suppliername: [
                         {
                             required: true,
@@ -376,14 +376,14 @@
                             trigger: 'change'
                         },
                     ],
-                    // 毕业院校
+
                     graduateschool: [
                         {
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
                             trigger: 'blur'
                         }],
-                    // 学历
+
                     education: [
                         {
                             required: true,
@@ -391,7 +391,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 面试部门
+
                     interviewdep: [
                         {
                             required: true,
@@ -399,7 +399,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 面试时间
+
                     interview_date: [
                         {
                             required: true,
@@ -407,7 +407,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 面试结果
+
                     result: [
                         {
                             required: true,
@@ -415,7 +415,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 技术分类
+
                     technology: [
                         {
                             required: true,
@@ -423,7 +423,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // Rn
+
                     rn: [
                         {
                             required: true,
@@ -431,7 +431,7 @@
                             trigger: 'change'
                         },
                     ],
-                    // 入职与否
+
                     whetherentry: [
                         {
                             required: true,
