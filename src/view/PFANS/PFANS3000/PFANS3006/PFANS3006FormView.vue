@@ -15,6 +15,7 @@
         <el-form :model="form" :rules="rules" label-position="left" label-width="11rem"
                  ref="refform" style="padding: 2rem">
           <el-row :gutter="32">
+            <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
@@ -32,32 +33,13 @@
             </el-col>
           </el-row>
           <el-row :gutter="32">
+            <!--2-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 10.2rem"></user>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_USEDATE')" prop="usedate">
-                <div class="block">
-                  <el-date-picker
-                    :disabled="!disable"
-                    style="width: 11rem"
-                    type="date"
-                    v-model="form.usedate">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
-                <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
-                          v-model.trim="form.mobilephone"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="32">
             <el-col :span="8">
               <template>
                 <el-form-item
@@ -75,23 +57,24 @@
               </template>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
-                          v-model.trim="form.origin"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_TRANSFERSTATION')" prop="transferstation">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
-                          v-model.trim="form.transferstation"></el-input>
+              <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
+                <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                          v-model.trim="form.mobilephone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="32">
+           <!--3-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_DESTINATION')" prop="destination">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
-                          v-model.trim="form.destination"></el-input>
+              <el-form-item :label="$t('label.PFANS3006VIEW_USEDATE')" prop="usedate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width: 11rem"
+                    type="date"
+                    v-model="form.usedate">
+                  </el-date-picker>
+                </div>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -112,6 +95,27 @@
                   style="width: 11rem"
                   v-model="form.endtime">
                 </el-time-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="32">
+            <!--4-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
+                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                          v-model.trim="form.origin"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_TRANSFERSTATION')" prop="transferstation">
+                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                          v-model.trim="form.transferstation"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_DESTINATION')" prop="destination">
+                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                          v-model.trim="form.destination"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -144,6 +148,7 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--6-->
           <el-row :gutter="32">
             <el-col :span="8">
               <template>
@@ -162,17 +167,18 @@
               <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERS')" prop="fellowmembers">
                 <el-switch
                   :disabled="!disable"
-                  active-value="1"
-                  inactive-value="0"
                   v-model="form.fellowmembers"
+                  @change="toshow"
+                  active-value="0"
+                  inactive-value="1"
                 >
                 </el-switch>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERSNAME')" prop="fellowmembersname">
+              <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERSNAME')" v-show="show" prop="fellowmembersname">
                 <el-input :disabled="!disable" maxlength='36' style="width: 11rem"
-                          v-model.trim="form.fellowmembersname"></el-input>
+                          v-model.trim="form.fellowmembersname" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -279,6 +285,7 @@
         userlist: "",
         title: "title.PFANS3006VIEW",
         buttonList: [],
+        show: false,
         form: {
           centerid: '',
           groupid: '',
@@ -303,6 +310,12 @@
           fellowmembers: true,
         },
         rules: {
+          //////
+          fellowmembersname:[{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
+            trigger: 'blur'
+          }],
           userid: [{
             required: true,
             validator: validateUserid,
@@ -433,6 +446,13 @@
       }
     },
     methods: {
+      toshow(val){
+        if(val === '1'){
+          this.show = false;
+        }else{
+          this.show = true;
+        }
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
