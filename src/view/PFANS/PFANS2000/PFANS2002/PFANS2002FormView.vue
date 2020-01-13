@@ -9,7 +9,7 @@
     ref="container"
     v-loading="loading"
   >
-    <div slot="customize" style="margin-top:2rem">
+    <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane
@@ -756,6 +756,6 @@
 
 <style scoped>
   .width {
-    width: 11rem;
+    width: 11vw;
   }
 </style>
