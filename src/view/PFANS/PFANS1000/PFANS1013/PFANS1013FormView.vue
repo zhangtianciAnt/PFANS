@@ -1202,7 +1202,6 @@
       this.$store
         .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
         .then(response => {
-          debugger
           for (let i = 0; i < response.length; i++) {
             var vote1 = {};
             this.result1 = response;
