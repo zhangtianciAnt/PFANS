@@ -3,12 +3,12 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          ref="container">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem" :rules="rules">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="ruleForm"
+                 style="padding: 2vw" :rules="rules">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')" prop="filename">
-                <el-input style="width: 11rem" v-model="form.filename"></el-input>
+                <el-input style="width:20vw" v-model="form.filename"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -18,7 +18,7 @@
                   :data="form.stockstatus"
                   :multiple="multiple"
                   @change="getStockstatus"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -31,7 +31,7 @@
                   :data="form.typeassets"
                   :multiple="multiple"
                   @change="getTypeassets"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -42,7 +42,7 @@
                   :data="form.assetstatus"
                   :multiple="multiple"
                   @change="getAssetstatus"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -51,26 +51,26 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
                 <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="1" style="width: 11rem" v-model="form.price"></el-input-number>
+                                 :step="1" style="width:20vw" v-model="form.price"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.usedepartment"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.usedepartment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')" prop="purchasetime">
-                <el-date-picker style="width: 11rem" type="date"
+                <el-date-picker style="width:20vw" type="date"
                                 v-model="form.purchasetime"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -82,7 +82,7 @@
                   :data="form.bartype"
                   :multiple="multiple"
                   @change="getBartype"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
