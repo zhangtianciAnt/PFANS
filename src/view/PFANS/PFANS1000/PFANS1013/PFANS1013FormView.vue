@@ -1040,13 +1040,15 @@
                     this.showrow = true;
                     this.showrow2 = true;
                     this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    if (this.tableA[i].vehicleon === 'PJ025004') {
-                      this.tableA[i].showtick = true;
-                      this.tableA[i].disaccommod = true;
-                    } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
-                      this.tableA[i].showtick = true;
-                      this.tableA[i].disaccommod = true;
-                    }
+                    this.tableA[i].showtick = true;
+                    this.tableA[i].disaccommod = true;
+                    // if (this.tableA[i].vehicleon === 'PJ025004') {
+                    //   this.tableA[i].showtick = true;
+                    //   this.tableA[i].disaccommod = true;
+                    // } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
+                    //   this.tableA[i].showtick = true;
+                    //   this.tableA[i].disaccommod = true;
+                    // }
                   } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
@@ -1056,6 +1058,14 @@
                     this.showrow = true;
                     this.showrow2 = true;
                     this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                    this.tableA[i].disaccommod = true;
+                    // if (this.tableA[i].vehicleon === 'PJ025004') {
+                    //   this.tableA[i].showtick = true;
+                    //   this.tableA[i].disaccommod = true;
+                    // } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
+                    //   this.tableA[i].showtick = true;
+                    //   this.tableA[i].disaccommod = true;
+                    // }
                   }
                 } else {
                   if (this.form.type === '0') {
@@ -1272,7 +1282,6 @@
             showtick: true,
           }]
         } else {
-          alert(this.form.type);
           this.form.business_id=' ';
           this.form.place='';
           this.form.startdate='';
