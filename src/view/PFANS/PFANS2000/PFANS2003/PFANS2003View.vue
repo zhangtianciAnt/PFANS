@@ -8,7 +8,7 @@
     import {Message} from 'element-ui'
     import moment from 'moment'
     import {getUserInfo} from '@/utils/customize'
-    import {getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
+    import {getDictionaryInfo, getOrgInfo,getDepartmentById} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS2003View',
@@ -139,6 +139,9 @@
                             response[j].recommenddep = recommenddep.companyname;
                         }
                     }
+                  for (let i = 0; i < response.length; i++) {
+                    response[i].recommenddep = getDepartmentById(response[i].recommenddep);
+                  }
                     this.data = response;
                     this.loading = false
                 })
