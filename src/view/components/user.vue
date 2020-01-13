@@ -348,12 +348,13 @@
 
   .dpUserIndex {
     .content {
-      height: 38px;
+      height: 34px;
       min-width: 80%;
       border: 0.1rem solid #ebeef5;
       overflow-y: scroll;
       overflow-x:hidden;
-      line-height: 38px;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
     }
     .bg {
       background: white;

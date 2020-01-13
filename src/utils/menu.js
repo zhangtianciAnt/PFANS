@@ -614,30 +614,31 @@ export function menu() {
                       ]
                     },
                   ]
-                }
-              ]
-            },
-            {
-              '_id': 'ITSECURITYMANAGEMENT',
-              'name': 'menu.ITSECURITYMANAGEMENT',
-              'menuvisible': true,
-              'menuurl': '',
-              'menuicon': '',
-              'children': [
+                },
                 {
-                  '_id': 'PFANS1015',
+                  '_id': 'ITSECURITYMANAGEMENT',
                   'name': 'menu.ITSECURITYMANAGEMENT',
                   'menuvisible': true,
-                  'menuurl': '/PFANS1015View',
+                  'menuurl': '',
                   'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1015_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1015_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1015_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1015_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  'children': [
+                    {
+                      '_id': 'PFANS1015',
+                      'name': 'menu.ITSECURITYMANAGEMENT',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1015View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1015_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1015_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1015_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1015_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    }
                   ]
-                }]
+                }
+              ]
             }
           ]
         },
