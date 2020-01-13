@@ -497,7 +497,7 @@
                 <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout" width="120">
                   <template slot-scope="scope">
                     <dicselect :code="code9"
-                               :data="scope.row.exitarea"
+                               :data="scope.row.region"
                                :disabled="!disable"
                                :multiple="multiple"
                                :no="scope.row"
@@ -935,7 +935,7 @@
           vehiclein: "",
           movementtime: "",
           city: "",
-          exitarea: "",
+          region: "",
           facilitytypeon: "",
           facilitytypein: "",
           facilityname: "",
@@ -1202,7 +1202,6 @@
       this.$store
         .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
         .then(response => {
-          debugger
           for (let i = 0; i < response.length; i++) {
             var vote1 = {};
             this.result1 = response;
@@ -1235,8 +1234,7 @@
       gettype(val) {
         this.form.type = val;
         if (val === '0') {
-          alert(this.form.type);
-          this.form.business_id=' ';
+          this.form.business_id='';
           this.form.place='';
           this.form.startdate='';
           this.form.enddate='';
@@ -1264,7 +1262,7 @@
             vehiclein: "",
             movementtime: "",
             city: "",
-            exitarea: "",
+            region: "",
             facilitytypeon: "",
             facilitytypein: "",
             facilityname: "",
@@ -1282,7 +1280,7 @@
             showtick: true,
           }]
         } else {
-          this.form.business_id=' ';
+          this.form.business_id='';
           this.form.place='';
           this.form.startdate='';
           this.form.enddate='';
@@ -1307,7 +1305,7 @@
             vehiclein: "",
             movementtime: "",
             city: "",
-            exitarea: "",
+            region: "",
             facilitytypeon: "",
             facilitytypein: "",
             facilityname: "",
@@ -1368,7 +1366,7 @@
             vehiclein: ' ',
             movementtime: ' ',
             city: '',
-            exitarea: ' ',
+            region: ' ',
             facilitytypeon: ' ',
             facilitytypein: ' ',
             facilityname: '',
@@ -1420,7 +1418,7 @@
           vehiclein: "",
           movementtime: "",
           city: "",
-          exitarea: "",
+          region: "",
           facilitytypeon: "",
           facilitytypein: "",
           facilityname: "",
@@ -1496,7 +1494,7 @@
               vehiclein: "",
               movementtime: "",
               city: "",
-              exitarea: "",
+              region: "",
               facilitytypeon: "",
               facilitytypein: "",
               facilityname: "",
@@ -1527,7 +1525,7 @@
                 vehiclein: "",
                 movementtime: "",
                 city: "",
-                exitarea: "",
+                region: "",
                 facilitytypeon: "",
                 facilitytypein: "",
                 facilityname: "",
@@ -1706,7 +1704,7 @@
         this.getTravel(row);
       },
       getexitarea(val, row) {
-        row.exitarea = val;
+        row.region = val;
         this.getTravel(row);
         this.getTravelFly(row)
       },
@@ -1737,18 +1735,18 @@
           varrank = varrank.replace("R", "").replace("A", "").replace("B", "").replace("C", "");
           if (this.kind === '0') {
             if (Number(varrank) <= 7) {
-              let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypeon);
+              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypeon);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
             } else if (Number(varrank) >= 8) {
-              let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypeon);
+              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypeon);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
             }
           } else if (this.kind === '1') {
-            let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypeon);
+            let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypeon);
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
@@ -1806,18 +1804,18 @@
           varrank = varrank.replace("R", "").replace("A", "").replace("B", "").replace("C", "");
           if (this.kind === '0') {
             if (Number(varrank) <= 7) {
-              let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypein);
+              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypein);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
             } else if (Number(varrank) >= 8) {
-              let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypein);
+              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypein);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
             }
           } else if (this.kind === '1') {
-            let businessdic = getDictionaryInfode(row.exitarea, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypein);
+            let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypein);
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
@@ -1840,18 +1838,18 @@
         if (this.kind === '0') {
           varrank = varrank.replace("R", "").replace("A", "").replace("B", "").replace("C", "");
           if (Number(varrank) <= 7) {
-            let businessdic = getDictionaryInfode(row.vehiclein, row.exitarea, this.$t('label.PFANS1013FORMVIEW_R7DOW'));
+            let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'));
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
           } else if (Number(varrank) >= 8) {
-            let businessdic = getDictionaryInfode(row.vehiclein, row.exitarea, this.$t('label.PFANS1013FORMVIEW_R8UP'));
+            let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'));
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
           }
         } else if (this.kind === '1') {
-          let businessdic = getDictionaryInfode(row.vehiclein, row.exitarea, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
+          let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
           if (businessdic) {
             varbusiness = businessdic.value4;
           }
@@ -2040,7 +2038,7 @@
                 }
               }
               for (let i = 0; i < this.tableA.length; i++) {
-                if (this.tableA[i].accommodationdate !== "" || this.tableA[i].activitycontent !== "" || this.tableA[i].vehicle !== ""
+                if (this.tableA[i].accommodationdate !== "" || this.tableA[i].activitycontent !== "" || this.tableA[i].vehicle !== "" ||this.tableA[i].region !== ""
                   || this.tableA[i].movementtime !== "" || this.tableA[i].city !== "" || this.tableA[i].facilitytype !== "" || this.tableA[i].facilityname !== "" || this.tableA[i].accommodationallowance > 0
                   || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0 || this.tableA[i].relatives > 0 || this.tableA[i].train > 0
                   || this.tableA[i].plane > 0 || this.tableA[i].annexno !== "") {
@@ -2060,6 +2058,7 @@
                       accommodationdate: this.tableA[i].accommodationdate,
                       activitycontent: this.tableA[i].activitycontent,
                       vehicle: varvehiclein,
+                      region: this.tableA[i].region,
                       movementtime: this.tableA[i].movementtime,
                       city: this.tableA[i].city,
                       facilitytype: varfacilitytypein,
