@@ -151,7 +151,12 @@
         },
         methods: {
             rowClick(row) {
+                debugger
                 this.rowid = row.abnormalid;
+                this.buttonList[2].disabled = false;
+                if(row.status && [getStatus("2"),getStatus("4")].includes(row.status)){
+                    this.buttonList[2].disabled = true;
+                }
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
