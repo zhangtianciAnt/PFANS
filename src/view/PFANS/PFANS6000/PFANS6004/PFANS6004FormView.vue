@@ -33,7 +33,8 @@
                             prop="suppliername">
                 <div class="dpSupIndex" style="width: 8.9rem" prop="suppliername">
                   <el-container>
-                    <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"></input>
+                    <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                           :disabled="true"></input>
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
                     <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
