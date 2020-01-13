@@ -25,24 +25,24 @@
                   :label="$t('label.PFANS2007VIEW_NAME')"
                   align="center"
                   prop="confirmperson"
-                  width="150">
+                  width="60">
                   <el-input>
                   </el-input>
                   <el-table-column
                     align="center"
-                    width="150">
+                    width="60">
                   </el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
                   align="center"
                   prop="confirmdata"
-                  width="350">
+                  width="150">
                   <el-input>
                   </el-input>
                   <el-table-column
                     align="center"
-                    width="350">
+                    width="150">
                   </el-table-column>
                 </el-table-column>
 
@@ -242,13 +242,47 @@
                   align="center"
                   prop="outboundmotivation"
                   width="150">
+<!--                  ランク価値-->
+                  <el-table-column
+                    :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
+                    align="center"
+                    prop="conevaluation"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
+                <!--                貢献評価-->
+                <el-table-column
+                  align="center"
+                  width="150">
+                  <el-table-column
+                    :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
+                    align="center"
+                    prop="concoefficient"
+                    width="150">
+                  </el-table-column>
+                </el-table-column>
+                <!--                貢献係数-->
+                <el-table-column
+                  align="center"
+                  width="150">
+                  <el-table-column
+                    :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
+                    align="center"
+                    prop="sizevalue"
+                    width="150">
+                  </el-table-column>
+                </el-table-column>
+
                 <!--                開発単価微調整-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_PRICEADJUST')"
                   align="center"
                   prop="priceadjust"
                   width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
                 <!--                開発総単価-->
                 <el-table-column
@@ -256,6 +290,10 @@
                   align="center"
                   prop="sumprice"
                   width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
 <!--                共通費用-->
                 <el-table-column
@@ -263,6 +301,10 @@
                   align="center"
                   prop="commoncost"
                   width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
 <!--             PSDCD相当ランク-->
                 <el-table-column
@@ -270,6 +312,10 @@
                   align="center"
                   prop="psdcdgrade"
                   width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
 <!--                備考-->
                 <el-table-column
@@ -277,49 +323,21 @@
                   align="center"
                   prop="remarks"
                   width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
-                
+<!--                前年単価-->
                 <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
+                  :label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"
                   align="center"
-                  prop="confirmmark"
+                  prop="lastyearprice"
                   width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                  align="center"
-                  prop="confirmmark"
-                  width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                  align="center"
-                  prop="confirmmark"
-                  width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                  align="center"
-                  prop="confirmmark"
-                  width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                  align="center"
-                  prop="confirmmark"
-                  width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                  align="center"
-                  prop="confirmmark"
-                  width="150">
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.date')"
-                  align="center"
-                  prop="date"
-                  width="150">
+                  <el-table-column
+                    align="center"
+                    width="150">
+                  </el-table-column>
                 </el-table-column>
               </el-table>
             </div>
