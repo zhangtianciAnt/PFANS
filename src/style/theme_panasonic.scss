@@ -37,7 +37,12 @@
     background-color: #005BAA;
   }
   .sub_bg_color_blue{
-    background-color: #036dd5;
+    background-color: #036dd5 !important;
+    height: 40px;
+    padding: 0px;
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
   }
   .sub_bg_color_green{
     background-color: #009966;
