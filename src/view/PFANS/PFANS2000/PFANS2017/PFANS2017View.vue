@@ -261,6 +261,7 @@
             buttonClick(val) {
                 if (val === 'import') {
                     this.daoru = true;
+                    this.$refs.uploader.clearFiles();
                 } else if (val === 'export') {
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
