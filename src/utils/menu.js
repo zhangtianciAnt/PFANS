@@ -74,7 +74,7 @@ export function menu() {
               ]
             },
             {
-              '_id': 'ALLJUDGEMENT',
+              '_id': 'JUDGEMENT',
               'name': 'menu.JUDGEMENT',
               'menuvisible': true,
               'menuurl': '',
@@ -519,7 +519,7 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'ALLCOMMISSIONCONTRACT',
+                  '_id': 'COMMISSIONCONTRACT',
                   'name': 'menu.HARDASSETMANAG',
                   'menuvisible': true,
                   'menuurl': '',
@@ -542,7 +542,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'ACOMMISSIONCONTRACT',
+                  '_id': 'COMMISSIONCONTRACT',
                   'name': 'menu.ASSETS',
                   'menuvisible': true,
                   'menuurl': '',
