@@ -1,52 +1,52 @@
 <template>
-  <!--  <div>-->
+  <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                     ref="roletable"
+                     ref="roletable" :showSelection="isShow"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-  <!--    <el-dialog :visible.sync="daoru" width="50%">   :showSelection="isShow"-->
-  <!--      <div>-->
-  <!--        <div style="margin-top: 1rem;margin-left: 28%">-->
-  <!--          <el-upload-->
-  <!--            drag-->
-  <!--            ref="uploader"-->
-  <!--            :action="postAction"-->
-  <!--            :on-success="handleSuccess"-->
-  <!--            :before-upload="handleChange"-->
-  <!--            :headers="authHeader"-->
-  <!--            :limit=1-->
-  <!--            :on-remove="this.clear"-->
-  <!--            multiple-->
-  <!--          >-->
-  <!--            <i class="el-icon-upload"></i>-->
-  <!--            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>-->
-  <!--          </el-upload>-->
-  <!--        </div>-->
-  <!--        <el-row>-->
-  <!--          <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
-  <!--          <span v-if="this.resultShow"-->
-  <!--          >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>-->
-  <!--        </el-row>-->
-  <!--        <span v-if="this.Message">{{this.cuowu}}</span>-->
-  <!--        <div v-if="this.result">-->
-  <!--          <el-table :data="message">-->
-  <!--            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">-->
-  <!--            </el-table-column>-->
-  <!--            <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">-->
-  <!--            </el-table-column>-->
-  <!--          </el-table>-->
-  <!--          <div class="pagination-container" style="padding-top: 2rem">-->
-  <!--            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"-->
-  <!--                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"-->
-  <!--                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">-->
-  <!--              <slot><span class="front Content_front"-->
-  <!--                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
-  <!--            </el-pagination>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </el-dialog>-->
-  <!--  </div>-->
+    <el-dialog :visible.sync="daoru" width="50%">
+      <div>
+        <div style="margin-top: 1rem;margin-left: 28%">
+          <el-upload
+            drag
+            ref="uploader"
+            :action="postAction"
+            :on-success="handleSuccess"
+            :before-upload="handleChange"
+            :headers="authHeader"
+            :limit=1
+            :on-remove="this.clear"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+          </el-upload>
+        </div>
+        <el-row>
+          <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span v-if="this.resultShow"
+          >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+        </el-row>
+        <span v-if="this.Message">{{this.cuowu}}</span>
+        <div v-if="this.result">
+          <el-table :data="message">
+            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
+            </el-table-column>
+          </el-table>
+          <div class="pagination-container" style="padding-top: 2rem">
+            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
+                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
+              <slot><span class="front Content_front"
+                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+            </el-pagination>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -155,8 +155,8 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
-                    // {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
                     // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
                 ],
                 rowid: '',
@@ -166,7 +166,6 @@
         },
         mounted() {
             this.getcustomerinfor();
-
         },
         methods: {
             getcustomerinfor() {
@@ -324,27 +323,48 @@
                 } else if (val === 'export') {
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [this.$t('label.PFANS5001FORMVIEW_CUSTOMERNAME'), this.$t('label.ASSETS1002VIEW_USERID'), this.$t('label.PFANS6002FORMVIEW_PROJECTPERSON'), this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'), this.$t('label.PFANS6002VIEW_COMMONTPERSON'), this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'), this.$t('label.PFANS6002VIEW_ADDRESS'), this.$t('label.PFANS6002VIEW_PERSCALE')];
-                        const filterVal = ['custchinese', 'liableperson', 'prochinese', 'protelephone', 'commontperson', 'comtelephone', 'addchinese', 'perscale'];
+                        const tHeader = [
+                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEC'),
+                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEJ'),
+                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEE'),
+                            this.$t('label.PFANS6002FORMVIEW_ABBREVIATION'),
+                            this.$t('label.ASSETS1002VIEW_USERID'),
+                            this.$t('label.PFANS6002VIEW_PROJECTNAMEC'),
+                            this.$t('label.PFANS6002VIEW_PROJECTNAMEJ'),
+                            this.$t('label.PFANS6002VIEW_PROJECTNAMEE'),
+                            this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
+                            this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+                            this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
+                            this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
+                            this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+                            this.$t('label.PFANS6002VIEW_ADDRESSC'),
+                            this.$t('label.PFANS6002VIEW_ADDRESSJ'),
+                            this.$t('label.PFANS6002VIEW_ADDRESSE'),
+                            this.$t('label.PFANS6002VIEW_PERSCALE'),
+                        ];
+                        const filterVal = [
+                            'custchinese',
+                            'custjapanese',
+                            'custenglish',
+                            'abbreviation',
+                            'liableperson',
+                            'prochinese',
+                            'projapanese',
+                            'proenglish',
+                            'protelephone',
+                            'protemail',
+                            'commontperson',
+                            'comtelephone',
+                            'comnemail',
+                            'addchinese',
+                            'addjapanese',
+                            'addenglish',
+                            'perscale',
+                        ];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002'));
                     })
-                } else if ('export2' === val) {
-                    this.loading = true;
-                    this.$store
-                        .dispatch('PFANS6002Store/download', {})
-                        .then(response => {
-                            this.loading = false;
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000
-                            });
-                            this.loading = false;
-                        })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'update') {
