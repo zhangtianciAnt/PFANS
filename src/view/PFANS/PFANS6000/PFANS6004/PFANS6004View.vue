@@ -54,6 +54,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import moment from 'moment';
 
     export default {
         name: 'PFANS6004View',
@@ -332,7 +333,7 @@
                             this.$t('label.user_name'),
                             this.$t('label.sex'),
                             this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
-                            this.$t('label.PFANS6001VIEW_BIRTH'),
+                            this.$t('label.PFANSUSERFORMVIEW_AGE'),
                             this.$t('label.ASSETS1002VIEW_USERID'),
                             this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
                             this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
@@ -345,7 +346,7 @@
                             'expname',
                             'sex',
                             'suppliername',
-                            'birth',
+                            'age',
                             'graduateschool',
                             'education',
                             'technology',
@@ -355,8 +356,19 @@
                             'admissiontime',
                         ];
                         const list = this.selectedlist;
+                        for (let h = 0; h < list.length; h++) {
+                            list[h].admissiontime = moment(list[h].admissiontime).format('YYYY-MM-DD');
+                            let operationform = getDictionaryInfo(list[h].operationform);
+                            if (operationform) {
+                                list[h].operationform = operationform.value1;
+                            }
+                            let jobclassification = getDictionaryInfo(list[h].jobclassification);
+                            if (jobclassification) {
+                                list[h].jobclassification = jobclassification.value1;
+                            }
+                        }
                         const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004'));
+                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004') + moment(new Date()).format('YYYYMMDDHHmmss'));
                     })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

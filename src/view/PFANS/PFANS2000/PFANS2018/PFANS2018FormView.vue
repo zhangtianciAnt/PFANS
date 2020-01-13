@@ -197,7 +197,7 @@
               <el-form-item :label="$t('label.PFANS2018FORMVIEW_WEEKENDOVERTIME')" prop="weekendovertime">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :step="8" :max="9999"
                                  controls-position="right"
-                                 placeholder="8.00" style="width: 80%"
+                                  style="width: 80%"
                                  v-model="form.weekendovertime"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
@@ -247,7 +247,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018FORMVIEW_TRANSFINITEREMINDER')" prop="transfinitereminder">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="1" placeholder="136.00" style="width: 80%"
+                                 :step="1"  style="width: 80%"
                                  v-model="form.transfinitereminder"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>

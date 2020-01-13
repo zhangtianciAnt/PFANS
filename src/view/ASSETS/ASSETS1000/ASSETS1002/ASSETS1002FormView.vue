@@ -3,8 +3,7 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm" style="padding: 2vw">
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.ASSETS1002VIEW_INVENTORYCYCLE')" prop="inventorycycle">
@@ -12,6 +11,7 @@
                   :end-placeholder="$t('label.enddate')"
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                   :start-placeholder="$t('label.startdate')"
+                  style="width:20vw"
                   type="daterange"
                   v-model="form.inventorycycle">
                 </el-date-picker>
@@ -22,14 +22,14 @@
             <el-col :span="24">
               <el-form-item :error="error" :label="$t('label.ASSETS1002VIEW_USERID')" prop="userid">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 12rem"></user>
+                      @getUserids="getUserids" style="width:20vw"></user>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
             <el-table :data="tableD" @selection-change="selectionChange" height="400" border
-                      header-cell-class-name="sub_bg_color_grey height" @row-click="rowClick" cell-class-name = "row_height">
+                      header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name = "row_height">
               <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
               </el-table-column>

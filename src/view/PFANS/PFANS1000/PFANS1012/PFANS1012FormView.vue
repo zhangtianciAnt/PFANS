@@ -21,24 +21,24 @@
           </el-upload>
         </el-dialog>
 
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
-          <el-tabs v-model="activeName" >
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first" >
               <div>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')" >
-                      <el-input :disabled="true" style="width:11rem" v-model="form.centerid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:11rem" v-model="form.groupid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:11rem" v-model="form.teamid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -46,12 +46,12 @@
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
+                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
@@ -64,7 +64,7 @@
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getBudge"
-                                 style="width: 11rem">
+                                 style="width:20vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
@@ -75,13 +75,13 @@
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getmodule"
-                                 style="width: 11rem">
+                                 style="width:20vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">
-                      <el-input :disabled="!disable" maxlength="20" style="width:11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.accountnumber"></el-input>
                     </el-form-item>
                   </el-col>
@@ -89,13 +89,13 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
-                      <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.reimbursementdate">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                       <el-form-item :label="$t('label.judgement')" v-if="show7" >
-                      <el-input :disabled="true" style="width: 11rem" v-model="form.judgement">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.judgement">
                       </el-input>
                     </el-form-item>
                   </el-col>
@@ -108,7 +108,7 @@
                         :min="0"
                         :precision="2"
                         @change="getMoney"
-                        style="width: 11rem"
+                        style="width:20vw"
                         controls-position="right"
                         v-model="form.rmbexpenditure"
                       ></el-input-number>
@@ -125,7 +125,7 @@
                         :precision="2"
                         @change="getforeigncurrency"
                         controls-position="right"
-                        style="width: 11rem"
+                        style="width:20vw"
                         v-model="form.foreigncurrency"
                       ></el-input-number>
                     </el-form-item>
@@ -138,7 +138,7 @@
                         :min="0"
                         :precision="2"
                         controls-position="right"
-                        style="width: 11rem"
+                        style="width:20vw"
                         v-model="form.tormb"
                       ></el-input-number>
                     </el-form-item>
@@ -152,7 +152,7 @@
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getCurrency"
-                                 style="width: 11rem">
+                                 style="width:20vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
@@ -165,7 +165,7 @@
                         :precision="3"
                         :step="0.01"
                         controls-position="right"
-                        style="width: 11rem"
+                        style="width:20vw"
                         @change="getCurrencyrate"
                         v-model="form.currencyrate">
                       </el-input-number>
@@ -174,7 +174,7 @@
                 </el-row>
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
-                    <el-input :disabled="!disable" style="width: 55rem" type="textarea"
+                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
@@ -187,7 +187,7 @@
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getPayment"
-                                 style="width: 11rem">
+                                 style="width:20vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
@@ -195,19 +195,19 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem" type="email"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" type="email"
                                 v-model="form.payeecode"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1" prop="payeebankaccountnumber">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.payeebankaccountnumber"></el-input>
                     </el-form-item>
                   </el-col>
@@ -215,7 +215,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1" prop="payeebankaccount">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
                   </el-col>
@@ -223,19 +223,19 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.name"></el-input>
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.code"></el-input>
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
-                      <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.receivables"></el-input>
                     </el-form-item>
                   </el-col>
@@ -243,7 +243,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
-                      <el-select :disabled="!disable" style="width: 11rem" v-model="form.loan">
+                      <el-select :disabled="!disable" style="width:20vw" v-model="form.loan">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -258,14 +258,14 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
                       <el-input :disabled="!disable" maxlength="20"
-                                style="width: 11rem" v-model="form.fullname"></el-input>
+                                style="width:20vw" v-model="form.fullname"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-table :data="tableData"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_grey height" v-if="showdata">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -323,7 +323,7 @@
                 <el-table :data="tableData2"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_grey height" v-if="showdata2">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -382,7 +382,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries"
-                        header-cell-class-name="sub_bg_color_grey height"
+                        header-cell-class-name="sub_bg_color_blue"
                         show-summary>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
@@ -468,7 +468,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_PURCHASE')" name="third" v-if="show6">
               <el-table :data="tableP" :summary-method="getPsummaries"
-                        header-cell-class-name="sub_bg_color_grey height"
+                        header-cell-class-name="sub_bg_color_blue"
                         show-summary>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
@@ -578,7 +578,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth" v-if="show6">
-              <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_grey height"
+              <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
