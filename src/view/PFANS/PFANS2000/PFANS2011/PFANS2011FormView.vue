@@ -204,7 +204,7 @@
     },
     data() {
       var HolidayCheck = (rule, value, callback) => {
-        if (["PR001004","PR001005","PR001003","PR001006"].includes(value) && this.form.reserveovertimedate) {
+        if (["PR001004","PR001005","PR001003","PR001006"].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
           this.dataList.forEach(data => {
             if(this.changeType(value) === data.type && moment(this.form.reserveovertimedate).format("YYYY-MM-DD") === moment(data.workingdate).format("YYYY-MM-DD")){
