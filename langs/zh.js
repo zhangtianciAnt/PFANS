@@ -181,6 +181,7 @@ module.exports = {
     PFANS6005: '単価設定',
     STATIONING: '外驻管理',
     PFANS6007: '各種経費',
+    PFANS6006: '活用情報',
     APPROVAL: '立项审批',
     PFANS5001: '立项审批',
     PFANSSYSTEM: '系统设置',
