@@ -3,7 +3,7 @@
   <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
                        :buttonList="buttonList" :noback = "true">
     <div slot="customize">
-      <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
+      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                ref="refform">
         <el-dialog :visible.sync="dialogFormVisible">
           <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
@@ -58,7 +58,7 @@
             </el-button>
           </div>
         </el-dialog>
-        <el-tabs v-model="activeName">
+        <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first">
             <el-row>
               <el-col>
