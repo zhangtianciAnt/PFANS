@@ -15,8 +15,8 @@
             <el-tabs v-model="activeNam">
               <el-tab-pane label="基本信息" name="first">
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="companyForm"
-                          label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
-                           v-show="currentNode.type === '1'" :disabled="formDisabled">
+                         label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
+                         v-show="currentNode.type === '1'" :disabled="formDisabled">
                   <el-form-item prop="name" label="公司简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
                     <el-input v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.companyshortname}}</span>
@@ -30,17 +30,17 @@
                     <span v-show="!nameengflag">{{currentNode.companyen}}</span>
                   </el-form-item>
                   <!--<el-form-item prop="address" label="公司地址" @mouseover.native="changeflag('addressflag',true)" @mouseout.native="changeflag('addressflag',false)">-->
-                    <!--<el-input v-show="addressflag" v-model="currentNode.companyaddress"></el-input>-->
-                    <!--<span v-show="!addressflag">{{currentNode.companyaddress}}</span>-->
+                  <!--<el-input v-show="addressflag" v-model="currentNode.companyaddress"></el-input>-->
+                  <!--<span v-show="!addressflag">{{currentNode.companyaddress}}</span>-->
                   <!--</el-form-item>-->
                   <!--<el-form-item prop="owner" label="公司法人" @mouseover.native="changeflag('ownerflag',true)" @mouseout.native="changeflag('ownerflag',false)">-->
-                    <!--<el-input v-model="currentNode.companycorporation" v-show="ownerflag"></el-input>-->
-                    <!--<span v-show="!ownerflag">{{currentNode.companycorporation}}</span>-->
+                  <!--<el-input v-model="currentNode.companycorporation" v-show="ownerflag"></el-input>-->
+                  <!--<span v-show="!ownerflag">{{currentNode.companycorporation}}</span>-->
                   <!--</el-form-item>-->
                   <!--<el-form-item prop="time" label="成立时间" @mouseover.native="changeflag('timeflag',true)" @mouseout.native="changeflag('timeflag',false)">-->
-                    <!--<el-date-picker v-model="currentNode.establish" type="date" placeholder="选择日期" v-show="timeflag">-->
-                    <!--</el-date-picker>-->
-                    <!--<span v-show="!timeflag">{{currentNode.establish == null ? '' : formattime(currentNode.establish)}}</span>-->
+                  <!--<el-date-picker v-model="currentNode.establish" type="date" placeholder="选择日期" v-show="timeflag">-->
+                  <!--</el-date-picker>-->
+                  <!--<span v-show="!timeflag">{{currentNode.establish == null ? '' : formattime(currentNode.establish)}}</span>-->
                   <!--</el-form-item>-->
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
@@ -48,8 +48,8 @@
                   </el-form-item>
                 </el-form>
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="departmentForm"
-                          label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
-                           v-show="currentNode.type !== '1'" :disabled="formDisabled">
+                         label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
+                         v-show="currentNode.type !== '1'" :disabled="formDisabled">
                   <el-form-item prop="departmentname" label="部门名称"
                                 @mouseover.native="changeflag('nameflag',true)"
                                 @mouseout.native="changeflag('nameflag',false)"
@@ -75,328 +75,328 @@
 </template>
 
 <script>
-import EasyTree from '@/components/EasyTree'
-import EasyButtonBar from '@/components/EasyButtonBar'
-import { parseTime } from '@/utils/customize'
-import { Message } from 'element-ui'
-export default {
-  name: 'orgTreeView',
-  components: {
-    EasyTree,
-    EasyButtonBar
-  },
-  data () {
-    return {
-      companyFormcheck: {},
-      treeshow: true,
-      data: [],
-      filterText: '',
-      loading: false,
-      defaultProps: {
-        label: 'title',
-        children: 'orgs'
-      },
-      activeNam: 'first',
-      currentNode: {
-        type: '1'
-      },
-      buttonList: [
-        { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
-        { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
-        { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
-        { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' }
-      ],
-      nameflag: false,
-      namelessflag: false,
-      nameengflag: false,
-      addressflag: false,
-      ownerflag: false,
-      timeflag: false,
-      exrinfolist: {
-        banlist: [],
-        invlist: []
-      },
-      newBtnDisabled: false,
-      formDisabled: false
-    }
-  },
-  methods: {
-    getButtonAuth (data) {
-      this.$store
-        .dispatch('tableStore/getActionsAuth', data.owner)
-        .then(response => {
+  import EasyTree from '@/components/EasyTree'
+  import EasyButtonBar from '@/components/EasyButtonBar'
+  import { parseTime } from '@/utils/customize'
+  import { Message } from 'element-ui'
+  export default {
+    name: 'orgTreeView',
+    components: {
+      EasyTree,
+      EasyButtonBar
+    },
+    data () {
+      return {
+        companyFormcheck: {},
+        treeshow: true,
+        data: [],
+        filterText: '',
+        loading: false,
+        defaultProps: {
+          label: 'title',
+          children: 'orgs'
+        },
+        activeNam: 'first',
+        currentNode: {
+          type: '1'
+        },
+        buttonList: [
+          { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
+          { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
+          { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
+          { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' }
+        ],
+        nameflag: false,
+        namelessflag: false,
+        nameengflag: false,
+        addressflag: false,
+        ownerflag: false,
+        timeflag: false,
+        exrinfolist: {
+          banlist: [],
+          invlist: []
+        },
+        newBtnDisabled: false,
+        formDisabled: false
+      }
+    },
+    methods: {
+      getButtonAuth (data) {
+        this.$store
+          .dispatch('tableStore/getActionsAuth', data.owner)
+          .then(response => {
             this.buttonList[3].disabled = response[1];
             this.formDisabled = response[1];
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             this.buttonList[3].disabled = false;
             this.formDisabled = false;
-        })
-    },
-    getNewActionAuth () {
-      this.$store
-          .dispatch('tableStore/getNewActionAuth')
-            .then(response => {
-              this.newBtnDisabled = response;
-              this.buttonList[0].disabled = response;
-              this.buttonList[1].disabled = response;
-              this.buttonList[2].disabled = response;
-            })
-            .catch(error => {
-              this.newBtnDisabled = false;
-              this.buttonList[0].disabled = false;
-              this.buttonList[1].disabled = false;
-              this.buttonList[2].disabled = false;
-            })
-    },
-    handleNodeClick (data) {
-      let temp = []
-      this.companyFormcheck = Object.assign(
-        {},
-        data
-      )
-      if (!data.companyname) {
-        data.companyname = data.title
-      }
-      //设置按钮状态
-      this.getButtonAuth(data);
-      if (data.type === '2') {
-        this.activeNam = 'first'
-        this.buttonList[0].disabled = true
-        this.buttonList[1].disabled = false
-      } else if (data.type === '3') {
-        this.activeNam = 'first'
-        this.buttonList[0].disabled = true
-        this.buttonList[1].disabled = true
-      } else {
-        this.buttonList[0].disabled = false || this.newBtnDisabled
-        this.buttonList[1].disabled = false || this.newBtnDisabled
-      }
-      this.currentNode = data
-      if (data.invoiceinfo) {
-        temp.push(data.invoiceinfo)
-      }
-      this.exrinfolist.invlist = temp
-      if (!data.bankinfo) {
-        this.exrinfolist.banlist = []
-      } else {
-        this.exrinfolist.banlist = data.bankinfo
-      }
-    },
-    getInitData () {
-      this.loading = true;
-      this.$store
-        .dispatch('orgTreeStore/getOrgTree')
-        .then(response => {
-          if (response) {
-            this.data = [response]
-            this.currentNode = response
-            this.getButtonAuth(this.currentNode)
-            if (this.currentNode.invoiceinfo) {
-              this.exrinfolist.invlist = [this.currentNode.invoiceinfo]
-            }
-            if (this.currentNode.bankinfo) {
-              this.exrinfolist.banlist = this.currentNode.bankinfo
-            }
-          }
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
           })
-          this.loading = false;
-        })
-    },
-    buttonClick (val) {
-      if (val === 'save') {
-        this.formcommit();
-      } else {
+      },
+      getNewActionAuth () {
+        this.$store
+          .dispatch('tableStore/getNewActionAuth')
+          .then(response => {
+            this.newBtnDisabled = response;
+            this.buttonList[0].disabled = response;
+            this.buttonList[1].disabled = response;
+            this.buttonList[2].disabled = response;
+          })
+          .catch(error => {
+            this.newBtnDisabled = false;
+            this.buttonList[0].disabled = false;
+            this.buttonList[1].disabled = false;
+            this.buttonList[2].disabled = false;
+          })
+      },
+      handleNodeClick (data) {
+        let temp = []
+        this.companyFormcheck = Object.assign(
+          {},
+          data
+        )
+        if (!data.companyname) {
+          data.companyname = data.title
+        }
+        //设置按钮状态
+        this.getButtonAuth(data);
+        if (data.type === '2') {
+          this.activeNam = 'first'
+          this.buttonList[0].disabled = true
+          this.buttonList[1].disabled = false
+        } else if (data.type === '3') {
+          this.activeNam = 'first'
+          this.buttonList[0].disabled = true
+          this.buttonList[1].disabled = true
+        } else {
+          this.buttonList[0].disabled = false || this.newBtnDisabled
+          this.buttonList[1].disabled = false || this.newBtnDisabled
+        }
+        this.currentNode = data
+        if (data.invoiceinfo) {
+          temp.push(data.invoiceinfo)
+        }
+        this.exrinfolist.invlist = temp
+        if (!data.bankinfo) {
+          this.exrinfolist.banlist = []
+        } else {
+          this.exrinfolist.banlist = data.bankinfo
+        }
+      },
+      getInitData () {
+        this.loading = true;
+        this.$store
+          .dispatch('orgTreeStore/getOrgTree')
+          .then(response => {
+            if (response) {
+              this.data = [response]
+              this.currentNode = response
+              this.getButtonAuth(this.currentNode)
+              if (this.currentNode.invoiceinfo) {
+                this.exrinfolist.invlist = [this.currentNode.invoiceinfo]
+              }
+              if (this.currentNode.bankinfo) {
+                this.exrinfolist.banlist = this.currentNode.bankinfo
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            })
+            this.loading = false;
+          })
+      },
+      buttonClick (val) {
+        if (val === 'save') {
+          this.formcommit();
+        } else {
+          this.$store.commit('global/SET_HISTORYURL', this.$route.path)
+          let type = val === 'new1' ? '1' : (val === 'new2' ? '2' : '3')
+          this.$router.push({
+            name: 'orgFormEdit',
+            params: {
+              currentNode: this.currentNode,
+              orgTree: this.$refs.treeCom.$refs.treeCom,
+              type: type
+            }
+          })
+        }
+      },
+      changeflag (flag, type) {
+        switch (flag) {
+          case 'nameflag':
+            this.nameflag = type
+            break
+          case 'namelessflag':
+            this.namelessflag = type
+            break
+          case 'nameengflag':
+            this.nameengflag = type
+            break
+          case 'addressflag':
+            this.addressflag = type
+            break
+          case 'ownerflag':
+            this.ownerflag = type
+            break
+          default:
+            this.timeflag = type
+        }
+      },
+      formcommit () {
+        if (
+          JSON.stringify(this.currentNode) !==
+          JSON.stringify(this.companyFormcheck)
+        ) {
+          let dataArray = this.$refs.treeCom.getData()
+          this.companyFormcheck = Object.assign({}, this.currentNode)
+          this.loading = true
+          this.currentNode.title = this.currentNode.type === '1' ? this.currentNode.companyshortname : this.currentNode.departmentname
+          this.$store
+            .dispatch('orgTreeStore/saveTree', dataArray[0])
+            .then((response) => {
+              Message({
+                message: this.$t('label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY'),
+                type: 'success',
+                duration: 2 * 1000
+              })
+              this.loading = false
+              this.getInitData()
+            })
+            .catch((error) => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 2 * 1000
+              })
+              this.loading = false
+            })
+        }
+      },
+      formattime (data) {
+        return parseTime(data, '{y}-{m}-{d}')
+      },
+      renderContent (h, { node, data, store }) {
+        if (data) {
+          return (
+            <span style="font-size:0.8rem">
+            <el-tooltip content={node.label} placement="top-end" effect="light">
+            <span>{node.label}</span>
+            </el-tooltip>
+            </span>
+        )
+        }
+      },
+      addinvoice (flag, val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-        let type = val === 'new1' ? '1' : (val === 'new2' ? '2' : '3')
         this.$router.push({
-          name: 'orgFormEdit',
+          name: 'invoiceForm',
           params: {
             currentNode: this.currentNode,
             orgTree: this.$refs.treeCom.$refs.treeCom,
-            type: type
+            type: flag === 'add' ? '1' : '2',
+            invoice: val
           }
         })
-      }
-    },
-    changeflag (flag, type) {
-      switch (flag) {
-        case 'nameflag':
-          this.nameflag = type
-          break
-        case 'namelessflag':
-          this.namelessflag = type
-          break
-        case 'nameengflag':
-          this.nameengflag = type
-          break
-        case 'addressflag':
-          this.addressflag = type
-          break
-        case 'ownerflag':
-          this.ownerflag = type
-          break
-        default:
-          this.timeflag = type
-      }
-    },
-    formcommit () {
-      if (
-        JSON.stringify(this.currentNode) !==
-        JSON.stringify(this.companyFormcheck)
-      ) {
+      },
+      deleteinvoice () {
+        this.currentNode.invoiceinfo = null
+        this.exrinfolist.invlist = []
         let dataArray = this.$refs.treeCom.getData()
-        this.companyFormcheck = Object.assign({}, this.currentNode)
         this.loading = true
-        this.currentNode.title = this.currentNode.type === '1' ? this.currentNode.companyshortname : this.currentNode.departmentname
         this.$store
           .dispatch('orgTreeStore/saveTree', dataArray[0])
-          .then((response) => {
-            Message({
-            message: response,
-            type: 'success',
-            duration: 2 * 1000
-          })
+          .then(() => {
             this.loading = false
-            this.getInitData()
           })
-          .catch((error) => {
-            Message({
-            message: error,
-            type: 'error',
-            duration: 2 * 1000
+          .catch(() => {
+            this.loading = false
           })
+      },
+      addbank (flag, val) {
+        this.$store.commit('global/SET_HISTORYURL', this.$route.path)
+        this.$router.push({
+          name: 'bankForm',
+          params: {
+            currentNode: this.currentNode,
+            orgTree: this.$refs.treeCom.$refs.treeCom,
+            type: flag === 'add' ? '1' : '2',
+            bank: val
+          }
+        })
+      },
+      deletebank (data) {
+        const index = this.exrinfolist.banlist.findIndex(d => d._id === data._id)
+        this.exrinfolist.banlist.splice(index, 1)
+        let dataArray = this.$refs.treeCom.getData()
+        this.loading = true
+        this.$store
+          .dispatch('orgTreeStore/saveTree', dataArray[0])
+          .then(() => {
+            this.loading = false
+          })
+          .catch(() => {
             this.loading = false
           })
       }
     },
-    formattime (data) {
-      return parseTime(data, '{y}-{m}-{d}')
-    },
-    renderContent (h, { node, data, store }) {
-      if (data) {
-        return (
-        <span style="font-size:0.8rem">
-          <el-tooltip content={node.label} placement="top-end" effect="light">
-          <span>{node.label}</span>
-          </el-tooltip>
-        </span>
-        )
-      }
-    },
-    addinvoice (flag, val) {
-      this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-      this.$router.push({
-        name: 'invoiceForm',
-        params: {
-          currentNode: this.currentNode,
-          orgTree: this.$refs.treeCom.$refs.treeCom,
-          type: flag === 'add' ? '1' : '2',
-          invoice: val
-        }
-      })
-    },
-    deleteinvoice () {
-      this.currentNode.invoiceinfo = null
-      this.exrinfolist.invlist = []
-      let dataArray = this.$refs.treeCom.getData()
-      this.loading = true
-      this.$store
-        .dispatch('orgTreeStore/saveTree', dataArray[0])
-        .then(() => {
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
-    },
-    addbank (flag, val) {
-      this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-      this.$router.push({
-        name: 'bankForm',
-        params: {
-          currentNode: this.currentNode,
-          orgTree: this.$refs.treeCom.$refs.treeCom,
-          type: flag === 'add' ? '1' : '2',
-          bank: val
-        }
-      })
-    },
-    deletebank (data) {
-      const index = this.exrinfolist.banlist.findIndex(d => d._id === data._id)
-      this.exrinfolist.banlist.splice(index, 1)
-      let dataArray = this.$refs.treeCom.getData()
-      this.loading = true
-      this.$store
-        .dispatch('orgTreeStore/saveTree', dataArray[0])
-        .then(() => {
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
+    mounted () {
+      this.getNewActionAuth()
+      this.getInitData()
+      this.$store.commit('global/SET_OPERATEID', '')
     }
-  },
-  mounted () {
-    this.getNewActionAuth()
-    this.getInitData()
-    this.$store.commit('global/SET_OPERATEID', '')
   }
-}
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-.org_company {
-  $bodercolor: rgba(0, 0, 0, 0.2);
+  .org_company {
+    $bodercolor: rgba(0, 0, 0, 0.2);
 
-  .container {
-    min-height: 50rem;
-    width: 95%;
-    left: 0;
-    right: 0;
-    /*margin: 2% auto;*/
-    background-color: rgb(255, 255, 255);
-    border-radius: 0.5rem;
-  }
-
-  .box-card {
-    min-height: 28rem;
-  }
-  .el-aside {
-    color: rgb(53, 23, 23);
-    border-right: 0.1rem solid #ebeef5;
-  }
-
-  .title {
-    font-size: 1.6rem;
-  }
-
-  .cardfooter {
-    border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
-    text-align: center;
-    font-size: 1.7rem;
-    height: 2rem;
-    i {
-      padding: 1rem;
-      cursor: pointer;
+    .container {
+      min-height: 50rem;
+      width: 95%;
+      left: 0;
+      right: 0;
+      /*margin: 2% auto;*/
+      background-color: rgb(255, 255, 255);
+      border-radius: 0.5rem;
     }
-    i:hover {
-      color: #409eff;
-    }
-  }
 
-  .invform {
-    min-height: 18rem;
-    .el-form-item {
-      margin-bottom: 0;
+    .box-card {
+      min-height: 28rem;
+    }
+    .el-aside {
+      color: rgb(53, 23, 23);
+      border-right: 0.1rem solid #ebeef5;
+    }
+
+    .title {
+      font-size: 1.6rem;
+    }
+
+    .cardfooter {
+      border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
+      text-align: center;
+      font-size: 1.7rem;
+      height: 2rem;
+      i {
+        padding: 1rem;
+        cursor: pointer;
+      }
+      i:hover {
+        color: #409eff;
+      }
+    }
+
+    .invform {
+      min-height: 18rem;
+      .el-form-item {
+        margin-bottom: 0;
+      }
     }
   }
-}
 </style>
