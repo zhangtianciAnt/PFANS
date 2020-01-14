@@ -69,6 +69,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
                 <el-date-picker
+                  style="width: 11rem"
                   :disabled="!disable"
                   v-model="form.starttime"
                   type="datetime"
@@ -80,6 +81,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ENDTIME')" prop="endtime">
                 <el-date-picker
+                  style="width: 11rem"
                   :disabled="!disable"
                   v-model="form.endtime"
                   type="datetime"
@@ -91,6 +93,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
                 <el-input disabled="false"
+                style="width: 11rem"
                 v-model="form.diffdata"></el-input>
               </el-form-item>
             </el-col>
@@ -157,6 +160,7 @@
                     active-value="1"
                     inactive-value="0"
                     v-model="form.welcomeboard"
+                    @change="downLoad"
                   >
                   </el-switch>
                 </el-form-item>
@@ -323,7 +327,7 @@
         },
         rules: {
           fellowmembersname:[{
-            required: true,
+            required: false,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
             trigger: 'blur'
           }],
@@ -441,11 +445,62 @@
       }
     },
     methods: {
+      downLoad(val){
+        if(val === '1'){
+            this.$confirm('是否立即下载接机提示牌?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    });
+                this.$message({
+                    type: 'success',
+                    message: '下载成功!'
+                });
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+            });
+            /*
+            if(confirm('是否立即下载接机提示牌？')){
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            }*/
+        }
+      },
       toshow(val){
         if(val === '1'){
           this.show = false;
+          this.rules.fellowmembersname[0].required = false;
         }else{
           this.show = true;
+          this.rules.fellowmembersname[0].required = true;
         }
       },
       workflowState(val) {
@@ -481,10 +536,10 @@
         this.form.usetype = val;
         if(val === 'PR005002' || val === 'PR005003'){
             this.show2 = true;
-            this.rules.guestname[0].required = false;
+            this.rules.guestname[0].required = true;
         }else{
             this.show2 = false;
-            this.rules.guestname[0].required = true;
+            this.rules.guestname[0].required = false;
         }
       },
       change2(val) {

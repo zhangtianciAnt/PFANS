@@ -1364,6 +1364,7 @@ module.exports = {
     PFANS2011VIEW_ACTUALSUBSTITUTION: '实际代休日期',
     PFANS2011FORMVIEW_ERROR: '预定代休日期不能大于加班日当月的3个月之后的月末',
     PFANS2011FORMVIEW_ERROR2: '预定代休日期必须大于予定加班日期',
+    PFANS2011FORMVIEW_ERROR3: '加班种类与工作日设定不符',
     PFANS2013VIEW_LASTYEAR: '上年度',
     PFANS2013VIEW_THISYEAR: '本年度',
     PFANS2013VIEW_ANNUALLEAVE: '法定年休',
