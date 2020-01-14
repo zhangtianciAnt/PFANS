@@ -3398,7 +3398,7 @@
         getClaim(val,row){
             row.claim = val;
         },
-        getRowClass1({row, column, rowIndex, columnIndex}) {//getRowClass2
+        getRowClass1({row, column, rowIndex, columnIndex}) {
 
             if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
                 return {
@@ -3455,6 +3455,12 @@
                      'border-right': '1px solid #CC7373',
                      'border-bottom': '1px solid #99CCFF',
                  }
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
             }
         },
         getRowClass2({row, column, rowIndex, columnIndex}) {
@@ -3515,6 +3521,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 }
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass3({row, column, rowIndex, columnIndex}) {
 
@@ -3564,6 +3576,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3617,6 +3635,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass5({row, column, rowIndex, columnIndex}) {
 
@@ -3666,6 +3690,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3719,6 +3749,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass7({row, column, rowIndex, columnIndex}) {
 
@@ -3768,6 +3804,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3821,6 +3863,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass9({row, column, rowIndex, columnIndex}) {
 
@@ -3870,6 +3918,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #99CCFF',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
