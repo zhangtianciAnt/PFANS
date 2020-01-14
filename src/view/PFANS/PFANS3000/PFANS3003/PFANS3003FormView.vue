@@ -12,22 +12,22 @@
       @end="end"
     >
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" :rules="rules" style="padding: 2rem"
+        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 2vw"
                  ref="refform">
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,7 +35,7 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -43,7 +43,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
-                  <el-input v-model.trim="form.occupational" :disabled="!disable" style="width: 11rem"
+                  <el-input v-model.trim="form.occupational" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -51,7 +51,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
-                  <el-input v-model.trim="form.insideline" :disabled="!disable" style="width: 11rem"
+                  <el-input v-model.trim="form.insideline" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -59,7 +59,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
-                  <el-input type="email" v-model.trim="form.email" :disabled="!disable" style="width: 11rem"
+                  <el-input type="email" v-model.trim="form.email" :disabled="!disable" style="width:20vw"
                             maxlength="50"></el-input>
                 </el-form-item>
               </template>
@@ -85,7 +85,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_TYPE')" prop="type" v-if="show">
                 <dicselect
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disable"
                   :code="code"
                   :multiple="multiple"
@@ -98,7 +98,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_CLASSIFICATION')" prop="classification" v-if="show2">
                 <dicselect
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disable"
                   :code="code2"
                   :multiple="multiple"
@@ -111,14 +111,14 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" prop="balance" v-show="show">
                 <el-input-number v-model="form.balance" :disabled="!disable" controls-position="right" :step="1"
-                                 :min="0" :max="9999999999" :precision="2" style="width: 11rem"></el-input-number>
+                                 :min="0" :max="9999999999" :precision="2" style="width:20vw"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="32">
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width: 95%"></el-input>
+                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width:72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

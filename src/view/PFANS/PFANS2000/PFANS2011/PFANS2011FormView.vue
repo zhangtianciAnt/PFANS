@@ -15,26 +15,26 @@
       <div slot="customize">
         <el-form
           :model="form"
-          label-width="8rem"
-          label-position="left"
+          label-width="8vw"
+          label-position="top"
           :rules="rules"
-          style="padding: 2rem"
+          style="padding: 2vw"
           ref="refform"
         >
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -47,7 +47,7 @@
                   :selectType="selectType"
                   :userlist="userlist"
                   @getUserids="getUserids"
-                  style="width: 10.2rem"
+                  style="width: 20vw"
                 ></user>
               </el-form-item>
             </el-col>
@@ -55,7 +55,7 @@
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.applicationdate"
                     :disabled="!disable"
                     type="date"
@@ -73,7 +73,7 @@
                 >
                   <div class="block">
                     <el-date-picker
-                      style="width: 11rem"
+                      style="width:20vw"
                       v-model="form.reserveovertimedate"
                       :disabled="!disable"
                       @change="changeReserveovertimedate"
@@ -87,7 +87,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS2011VIEW_TYPE')" prop="overtimetype">
                   <dicselect
-                    style="width: 11rem"
+                    style="width:20vw"
                     :disabled="!disable"
                     :code="code"
                     :multiple="multiple"
@@ -110,7 +110,7 @@
                   :step="0.1"
                   :min="0"
                   :max="24"
-                  style="width: 11rem"
+                  style="width:20vw"
                   @change="change2"
                 ></el-input-number>
               </el-form-item>
@@ -125,7 +125,7 @@
                   :step="0.1"
                   :min="0"
                   :max="24"
-                  style="width: 11rem"
+                  style="width:20vw"
                 ></el-input-number>
               </el-form-item>
             </el-col>
@@ -140,7 +140,7 @@
               >
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.reservesubstitutiondate"
                     :disabled="!disable"
                     type="date"
@@ -157,7 +157,7 @@
               >
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.actualsubstitutiondate"
                     :disabled="true"
                     type="date"
@@ -173,7 +173,7 @@
                   type="textarea"
                   v-model="form.cause"
                   :disabled="!disable"
-                  style="width: 95.5%"
+                  style="width: 72vw"
                 ></el-input>
               </el-form-item>
             </el-col>
