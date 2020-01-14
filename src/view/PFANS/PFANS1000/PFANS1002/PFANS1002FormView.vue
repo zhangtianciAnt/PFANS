@@ -1306,7 +1306,6 @@
     },
     methods: {
       checkRequire() {
-          debugger;
         if (
           !this.form.user_id ||
           !this.form.applicationdate ||
