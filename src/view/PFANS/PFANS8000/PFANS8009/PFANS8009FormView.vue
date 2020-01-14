@@ -8,10 +8,10 @@
       v-loading="loading"
     >
       <div slot="customize">
-        <el-form :rules="rules" label-position="top" ref="reff">
+        <el-form :rules="rules" label-width="8vw" label-position="top" ref="reff">
           <el-row>
             <el-form-item :label="$t(this.$route.params.codename)">
-              <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+              <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border>
                 <el-table-column :label="$t('label.PFANS8009VIEW_CODE')" align="center" fixed>
                   <template slot-scope="scope">
                     <el-input :disabled="true" v-model="scope.row.code">
