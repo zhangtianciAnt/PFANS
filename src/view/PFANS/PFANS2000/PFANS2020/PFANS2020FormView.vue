@@ -3,30 +3,30 @@
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
                          @end="end"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
-      <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 2rem">
+      <div slot="customize" >
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.user_name')" prop="user_name">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 9.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOBNUMBER')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.jobnumber"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.jobnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOB')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.job"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.job"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-col :span="24">
             <el-row>
               <el-form-item :label="$t('label.cause')">
-                <el-input :disabled="!disable" style="width: 42.5rem"  type="textarea"
+                <el-input :disabled="!disable" style="width: 72vw"  type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-row>
