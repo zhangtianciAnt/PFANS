@@ -3,56 +3,58 @@
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 20px">
-          <el-tabs v-model="activeName">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')" name="first">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.center')">
-                        <el-input :disabled="true" style="width: 11rem" v-model="form.center_id"></el-input>
+                        <el-input :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.group')">
-                        <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                        <el-input :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <el-input :disabled="true" style="width: 11rem" v-model="form.team_id"></el-input>
+                        <el-input :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm">
+                <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id" style="width: 19rem">
+                      <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id" >
                         <user :disabled="!disable" :error="error" :selectType="selectType"
-                              :userlist="userlist" @getUserids="getUserids" style="width:10.1rem"></user>
+                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_SKILL_RANK')" prop="skilllevel"
-                                    style="width: 19rem">
+                                    >
                         <dicselect
                           :code="code"
                           :data="form.skilllevel"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getErrorType">
                         </dicselect>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024VIEW_SCHOOLSPECIES')" style="width: 19rem">
+                      <el-form-item :label="$t('label.PFANS2024VIEW_SCHOOLSPECIES')">
                         <dicselect
                           :code="code1"
                           :data="form.schoolspecies"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getschoolspecie">
                         </dicselect>
                       </el-form-item>
@@ -61,19 +63,19 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024VIEW_ENTRYYEAR')">
-                        <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
                                         v-model="form.entryyear"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')">
-                        <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
                                         v-model="form.graduationyear"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_CONTRACT')">
-                        <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
                                         v-model="form.contract"></el-date-picker>
                       </el-form-item>
                     </el-col>
@@ -82,15 +84,15 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_BUSINESS')" prop="business">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 58.8rem" type="textarea" v-model="form.business"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.business"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')" label-width="6rem">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 58.8rem;padding-left: 2rem" type="textarea" v-model="form.features"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.features"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -99,12 +101,12 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING')" name="second">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.skillranking1"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.skillranking1"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -112,7 +114,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.skillranking2"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.skillranking2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -120,7 +122,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.skillrankingfinished"
@@ -132,20 +133,20 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING')" name="third">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.nextskillranking1"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.nextskillranking1"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING2')" label-width="6rem">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING2')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem;padding-left: 2rem" type="textarea" v-model="form.nextskillranking2"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.nextskillranking2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -153,7 +154,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.nextskillrankingfinished"
@@ -165,24 +165,24 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_FUTURE')" name="fourth">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE1')" label-width="6rem">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE1')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem;padding-left: 2rem" type="textarea"
+                                  style="width: 70vw" type="textarea"
                                   :placeholder="$t('label.PFANS2024FORMVIEW_FUTURE1PLACE')"
                                   v-model="form.future1"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE2')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 55rem" type="textarea" v-model="form.future2"></el-input>
+                                  style="width: 70vw" type="textarea" v-model="form.future2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -190,7 +190,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.futurefinished"
@@ -202,12 +201,12 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_PANE4')" name="fifth">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')" label-width="6rem">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')">
                         <dicselect
-                          style="width: 11rem;padding-left: 2rem"
+                          style="width: 70vw"
                           :code="code2"
                           :data="technology"
                           :disabled="!disable"
@@ -219,9 +218,9 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" label-width="6rem">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" >
                         <dicselect
-                          style="width: 11rem;padding-left: 2rem"
+                          style="width: 70vw"
                           :code="code3"
                           :data="staff"
                           :disabled="!disable"
@@ -235,7 +234,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
                         <el-input :disabled="!disable"
-                                  maxlength="20" style="width: 11rem" type="textarea"
+                                  maxlength="20" style="width: 70vw" type="textarea"
                                   v-model="form.yearschedule"></el-input>
                       </el-form-item>
                     </el-col>
