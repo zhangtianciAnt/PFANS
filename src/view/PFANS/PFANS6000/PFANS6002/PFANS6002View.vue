@@ -54,7 +54,6 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
-    import moment from 'moment';
 
     export default {
         name: 'PFANS6002View',
@@ -365,7 +364,7 @@
                         ];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002') + moment(new Date()).format('YYYYMMDDHHmmss'));
+                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002'));
                     })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
