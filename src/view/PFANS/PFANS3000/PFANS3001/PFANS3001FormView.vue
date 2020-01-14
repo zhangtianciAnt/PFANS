@@ -3,25 +3,25 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 20px">
-          <el-tabs @tab-click="handleClick" v-model="form.ticketstype">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
+                 style="padding: 2vw">
+          <el-tabs @tab-click="handleClick" v-model="form.ticketstype" type="border-card">
             <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_DOMESTIC')" name="first" value="1"></el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_FOREIGN')" name="second" value="2"></el-tab-pane>
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.center')">
-                  <el-input :disabled="true" style="width: 11rem" v-model="form.center_id"></el-input>
+                  <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.group')">
-                  <el-input :disabled="true" style="width: 11rem" v-model="form.group_id"></el-input>
+                  <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.team')">
-                  <el-input :disabled="true" style="width: 11rem" v-model="form.team_id"></el-input>
+                  <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -29,12 +29,12 @@
               <el-col :span="8">
                 <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                   <user :disabled="!disable" :error="error" :selectType="selectType"
-                        :userlist="userlist" @getUserids="getUserids" style="width: 10.1rem"></user>
+                        :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_ROMANID')" prop="romanid">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.romanid"></el-input>
+                  <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.romanid"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -45,7 +45,7 @@
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="getBudgetnumber"
-                    style="width: 11rem">
+                    style="width:20vw">
                   </dicselect>
                 </el-form-item>
               </el-col>
@@ -53,29 +53,29 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')" prop="extensionnumber">
-                  <el-input :disabled="!disable" style="width: 11rem"
+                  <el-input :disabled="!disable" style="width:20vw"
                             v-model="form.extensionnumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-show="showDomestic">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_IDCARD')" prop="idcard">
-                  <el-input :disabled="!disable" maxlength="18" style="width: 11rem" v-model="form.idcard"></el-input>
+                  <el-input :disabled="!disable" maxlength="18" style="width:20vw" v-model="form.idcard"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-show="showDomestic">
                 <el-form-item :label="$t('label.PFANS3001VIEW_MOBILEPHONE')" prop="mobilephone">
-                  <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength="11" style="width:20vw"
                             v-model="form.mobilephone"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-show="showForeign">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_PASSPORT')" prop="passport">
-                  <el-input :disabled="!disable" maxlength="9" style="width: 11rem" v-model="form.passport"></el-input>
+                  <el-input :disabled="!disable" maxlength="9" style="width:20vw" v-model="form.passport"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-show="showForeign">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_EFFECTIVEDATE')" prop="effectivedate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                   v-model="form.effectivedate"></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -83,7 +83,7 @@
             <el-row v-show="showForeign">
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_MOBILEPHONE')" prop="mobilephone">
-                  <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength="11" style="width:20vw"
                             v-model="form.mobilephone"></el-input>
                 </el-form-item>
               </el-col>
@@ -91,19 +91,19 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_TRIPPOINT')" prop="trippoint">
-                  <el-input :disabled="!disable" maxlength="50" style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength="50" style="width:20vw"
                             v-model="form.trippoint"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_TRIPSTART')" prop="tripstart">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                   v-model="form.tripstart"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_TRIPEND')" prop="tripend">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                   v-model="form.tripend"></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -111,12 +111,12 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_GOING')" prop="going">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.going"></el-input>
+                  <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.going"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_GOAIRLINENUMBER')" prop="goairlinenumber">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                             v-model="form.goairlinenumber"></el-input>
                 </el-form-item>
               </el-col>
@@ -125,14 +125,14 @@
               <el-col :span="8">
                 <el-form-item :error="errorgodeparturedate" :label="$t('label.PFANS3001VIEW_GODEPARTUREDATE')"
                               prop="godeparturedate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="datetime"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="datetime"
                                   v-model="form.godeparturedate"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :error="errorgoarrivaldate" :label="$t('label.PFANS3001VIEW_GOARRIVALDATE')"
                               prop="goarrivaldate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="datetime"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="datetime"
                                   v-model="form.goarrivaldate"></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -140,12 +140,12 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_BACK')" prop="back">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.back"></el-input>
+                  <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.back"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_GOAIRLINENUMBER')" prop="reairlinenumber">
-                  <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                             v-model="form.reairlinenumber"></el-input>
                 </el-form-item>
               </el-col>
@@ -154,14 +154,14 @@
               <el-col :span="8">
                 <el-form-item :error="errorredeparturedate" :label="$t('label.PFANS3001VIEW_GODEPARTUREDATE')"
                               prop="redeparturedate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="datetime"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="datetime"
                                   v-model="form.redeparturedate"></el-date-picker>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :error="errorrearrivaldate" :label="$t('label.PFANS3001VIEW_GOARRIVALDATE')"
                               prop="rearrivaldate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="datetime"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="datetime"
                                   v-model="form.rearrivaldate"></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -169,7 +169,7 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_TICKETINGDATE')" prop="ticketingdate">
-                  <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                   v-model="form.ticketingdate"></el-date-picker>
                 </el-form-item>
               </el-col>

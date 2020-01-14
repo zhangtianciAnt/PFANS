@@ -3,33 +3,33 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
               <el-form-item  :label="$t('label.center')">
-                <el-input v-model="form.center_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.center_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input v-model="form.group_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.group_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input v-model="form.team_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.team_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="erroruser"  :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.15rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="!disabled1" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.type" :disabled="!disabled1" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -39,31 +39,33 @@
                   :data="form.subtype"
                   :multiple="multiple"
                   @change="getSubtype"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   :disabled="!disabled">
                 </dicselect>
               </el-form-item>
             </el-col>
+          </el-row>
+            <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="application" >
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.application" style="width: 11rem" ></el-date-picker>
+                <el-date-picker :disabled="!disabled" type="date" v-model="form.application" style="width: 20vw" ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')" prop="extension">
-                <el-input v-model="form.extension" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.extension" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input v-model="form.email" :disabled="!disabled" style="width: 11rem" maxlength='50'></el-input>
+                <el-input v-model="form.email" :disabled="!disabled" style="width: 20vw" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS1021FORMVIEW_REASON')" prop="reason">
-                  <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 57.7rem"></el-input>
+                  <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 71.4vw"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -73,7 +75,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="200" :error="errortitle">

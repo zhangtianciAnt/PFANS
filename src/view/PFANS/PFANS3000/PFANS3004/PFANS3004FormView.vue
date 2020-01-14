@@ -12,22 +12,22 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -35,7 +35,7 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -46,7 +46,7 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   @change="change"
-                  style="width: 11rem"
+                  style="width:20vw"
                 >
                 </dicselect>
               </el-form-item>
@@ -56,7 +56,7 @@
                 <div class="block">
                   <el-date-picker
                     :disabled="!disable"
-                    style="width: 11rem"
+                    style="width:20vw"
                     type="date"
                     v-model="form.applicationdate">
                   </el-date-picker>
@@ -75,7 +75,7 @@
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="change2"
-                    style="width: 11rem"
+                    style="width:20vw"
                   >
                   </dicselect>
                 </el-form-item>
@@ -83,12 +83,12 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3004VIEW_NAME')" prop="name">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model.trim="form.name"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3004VIEW_SIZE')" maxlength="50" prop="size">
-                <el-input :disabled="!disable" style="width: 11rem" v-model.trim="form.size"></el-input>
+                <el-input :disabled="!disable" style="width:20vw" v-model.trim="form.size"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -96,7 +96,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.numbers')" prop="numbers">
                 <el-input-number :disabled="!disable" controls-position="right" :precision="0" :step="1" :min="0"
-                                 :max="9999999999" style="width: 11rem"
+                                 :max="9999999999" style="width:20vw"
                                  v-model.trim="form.numbers"></el-input-number>
               </el-form-item>
             </el-col>
@@ -104,7 +104,7 @@
           <el-row :gutter="32">
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input :disabled="!disable" style="width: 100%" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

@@ -106,7 +106,7 @@
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_PURPOSE')" name="second">
               <div>
                 <el-row type="flex">
-                  <el-col :span="5">
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPE')" prop="objectivetype">
                       <dicselect
                         :code="code1"
@@ -119,9 +119,9 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="6">
+                  <el-col :span="8">
                     <el-form-item prop="objectivetypeother" v-if="show">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw;padding-top:12%;padding-left:3%"
                                 v-model.trim="form.objectivetypeother"></el-input>
                     </el-form-item>
                   </el-col>

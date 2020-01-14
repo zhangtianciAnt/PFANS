@@ -5,14 +5,11 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <el-row>
-            <!--            客户名称-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}</span>
+              </template>
           <!--            第一行-->
           <el-row>
             <!--            中文-->
@@ -54,15 +51,14 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--            第三行-->
-          <el-row>
-            <!--            项目联络人-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}</span>
+              </template>
           <!--            第四行-->
           <el-row>
             <!--            中文-->
@@ -104,15 +100,14 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--          第六行-->
-          <el-row>
-            <!--            共通事务联络人-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6002VIEW_COMMONTPERSON')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002VIEW_COMMONTPERSON')}}</span>
+              </template>
           <el-row>
             <!--            共通事务联络人-->
             <el-col :span="8">
@@ -136,14 +131,14 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--          第七行-->
-          <el-row>
-            <!--            地址-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">{{$t('label.PFANS6002VIEW_ADDRESS')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002VIEW_ADDRESS')}}</span>
+              </template>
           <!--          第八行-->
           <el-row>
             <!--            中文-->
@@ -222,6 +217,8 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

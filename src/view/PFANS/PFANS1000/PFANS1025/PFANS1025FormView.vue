@@ -13,11 +13,6 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1025VIEW_FIRSTDETAILS')" name="first">
               <div>
-                 <span
-                   class="Title_front main_color"
-                   style="float:left"
-                 >{{$t('label.PFANS1025VIEW_FIRSTDETAILS')}}</span>
-                <el-row></el-row>
                <el-row>
                  <el-col :span="8">
                    <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
@@ -77,7 +72,6 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
                         v-model="form.developdate"
@@ -116,19 +110,9 @@
                   </el-col>
                 </el-row>
               </div>
-              <div>
-
-
-
-              </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
               <div>
-                 <span
-                   class="Title_front main_color"
-                   style="float:left"
-                 >{{$t('label.PFANS1025VIEW_SECONDDETAILS')}}</span>
-                <el-row></el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1008FORMVIEW_INITIATOR')" :error="error" prop="user_id">
@@ -223,7 +207,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
@@ -411,7 +394,7 @@
           errorgroup:'',
           selectType: "Single",
           loading: false,
-          title: "",
+          title: "title.PFANS1025VIEW",
           canStart: false,
           multiple: false,
           orglist:'',

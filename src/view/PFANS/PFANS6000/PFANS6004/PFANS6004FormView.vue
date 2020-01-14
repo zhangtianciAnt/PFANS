@@ -3,14 +3,14 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <!--            第一行-->
           <el-row>
             <!--            姓名-->
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="expname">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.expname"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
             <!--            性别-->
@@ -22,7 +22,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesex"
-                  style="width: 11rem"
+                  style="width:20vw"
                   v-model="form.sex">
                 </dicselect>
               </el-form-item>
@@ -31,7 +31,7 @@
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <div class="dpSupIndex" style="width: 8.9rem" prop="suppliername">
+                <div class="dpSupIndex" style="width:20vw" prop="suppliername">
                   <el-container>
                     <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
                            :disabled="true"></input>
@@ -83,7 +83,7 @@
                 <el-date-picker
                   :disabled="!disabled"
                   @change="getAge"
-                  style="width: 11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.birth">
                 </el-date-picker>
@@ -92,7 +92,7 @@
             <!--            年龄-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -101,7 +101,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -113,7 +113,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeeducation"
-                  style="width: 11rem"
+                  style="width:20vw"
                   v-model="form.education">
                 </dicselect>
               </el-form-item>
@@ -130,7 +130,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changetechnology"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -143,8 +143,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changern"
-                  style="
-                  width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -157,7 +156,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeoperationform"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -173,7 +172,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changejobclassification"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -182,7 +181,7 @@
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')" prop="admissiontime">
                 <el-date-picker
                   :disabled="!disabled"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.admissiontime">
                 </el-date-picker>
@@ -190,121 +189,121 @@
             </el-col>
           </el-row>
           <!--          第六行-->
-          <el-row>
-            <!--            退场情报-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6004VIEW_EXINTELLIGENCE')}}
-              </div>
-            </el-col>
-          </el-row>
-          <!--          第七行-->
-          <el-row>
-            <!--            退场与否-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
-                <el-switch :disabled="!disabled"
-                           @change="changeexits"
-                           active-value="0"
-                           inactive-value="1"
-                           style="width:11rem"
-                           v-model="form.exits"
-                ></el-switch>
-              </el-form-item>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title">{{$t('label.PFANS6004VIEW_EXINTELLIGENCE')}}</span>
+              </template>
+              <!--          第七行-->
+              <el-row>
+                <!--            退场与否-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
+                    <el-switch :disabled="!disabled"
+                               @change="changeexits"
+                               active-value="0"
+                               inactive-value="1"
+                               style="width:20vw"
+                               v-model="form.exits"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-          <!--          第八行-->
-          <el-row>
-            <!--            退场时间-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime" v-show="show">
-                <el-date-picker
-                  :disabled="!disabled"
-                  style="width:11rem"
-                  type="date"
-                  v-model="form.exitime">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <!--            退场理由-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" v-show="show">
-                <dicselect
-                  :code="code6"
-                  :data="form.exitreason"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changeexitreason"
-                  style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <!--            所有技术-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-show="show">
-                <dicselect
-                  :code="code7"
-                  :data="form.alltechnology"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changealltechnology"
-                  style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--          第九行-->
-          <el-row>
-            <!--            現場評価-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" v-show="show">
-                <dicselect
-                  :code="code8"
-                  :data="form.sitevaluation"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changesitevaluation"
-                  style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <!--            業務影響-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')" prop="businessimpact" v-show="show">
-                <dicselect
-                  :code="code10"
-                  :data="form.businessimpact"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changebusinessimpact"
-                  style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <!--            対策-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure" v-show="show">
-                <dicselect
-                  :code="code9"
-                  :data="form.countermeasure"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changecountermeasure"
-                  style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-          </el-row>
+              <!--          第八行-->
+              <el-row>
+                <!--            退场时间-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime" v-show="show">
+                    <el-date-picker
+                      :disabled="!disabled"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.exitime">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <!--            退场理由-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" v-show="show">
+                    <dicselect
+                      :code="code6"
+                      :data="form.exitreason"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changeexitreason"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--            所有技术-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-show="show">
+                    <dicselect
+                      :code="code7"
+                      :data="form.alltechnology"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changealltechnology"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--          第九行-->
+              <el-row>
+                <!--            現場評価-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" v-show="show">
+                    <dicselect
+                      :code="code8"
+                      :data="form.sitevaluation"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changesitevaluation"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--            業務影響-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')" prop="businessimpact"
+                                v-show="show">
+                    <dicselect
+                      :code="code10"
+                      :data="form.businessimpact"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changebusinessimpact"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--            対策-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure"
+                                v-show="show">
+                    <dicselect
+                      :code="code9"
+                      :data="form.countermeasure"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changecountermeasure"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--          最后一行-->
-          <el-row>
-            <!--            项目信息-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6004VIEW_PROJECTINFORMATION')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title">{{$t('label.PFANS6004VIEW_PROJECTINFORMATION')}}</span>
+              </template>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

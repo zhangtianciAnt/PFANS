@@ -2,18 +2,18 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"  ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row>
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.pjname"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.pjname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.psdcdwindow"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -21,12 +21,12 @@
             <!--2-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.bpclubname"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpclubname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.bpplayer"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpplayer"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -37,7 +37,7 @@
                 <el-date-picker
                   :disabled="!disabled"
                   @change="getYear"
-                  style="width: 11rem"
+                  style="width:20vw"
                   type="year"
                   v-model="form.year">
                 </el-date-picker>
@@ -51,7 +51,7 @@
                   :data="form.plmonthplan"
                   :multiple="multiple"
                   @change="getPlmonthplan"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -66,14 +66,14 @@
                   :data="form.typeoffees"
                   :multiple="multiple"
                   @change="getTypeoffees"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PAYMENT')" prop="payment">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.payment"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.payment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -81,7 +81,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS6007VIEW_REMARKS')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>

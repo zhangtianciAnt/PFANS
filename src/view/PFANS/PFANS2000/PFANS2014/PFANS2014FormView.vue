@@ -4,22 +4,22 @@
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding:2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding:2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -27,7 +27,7 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:10.14rem" @getUserids="getUserids"></user>
+                      style="width:20vw" @getUserids="getUserids"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -35,7 +35,7 @@
                             prop="application_date">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.application_date">
                 </el-date-picker>
@@ -53,7 +53,7 @@
                     step: '00:15',
                     end: '23:45'
                   }"
-                  style="width:11rem"
+                  style="width:20vw"
                   v-model="form.worktime">
                 </el-time-select>
               </el-form-item>
@@ -64,7 +64,7 @@
                 <el-date-picker
                   startDate
                   :disabled="!disable"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.implement_date">
                 </el-date-picker>
