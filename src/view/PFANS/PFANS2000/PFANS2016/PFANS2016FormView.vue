@@ -429,6 +429,7 @@
           {
             key: 'save',
             name: 'button.save',
+            disabled: false,
             icon: 'el-icon-check',
           },
         ];
