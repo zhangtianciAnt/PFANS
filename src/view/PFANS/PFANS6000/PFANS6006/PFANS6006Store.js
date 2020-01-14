@@ -3,9 +3,9 @@ import {
   getvariousfunds,
   getvariousfundsApplyOne,
   updatevariousfundsApply,
-} from './PFANS6007Api'
+} from './PFANS6006Api'
 
-const PFANS6007Store = {
+const PFANS6006Store = {
   namespaced: true,
   state: {},
   mutations: {},
