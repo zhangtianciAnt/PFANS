@@ -52,15 +52,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
-                <el-date-picker :disabled="!disabled" style="width: 71.4vw"type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw"type="date"
                                 v-model="form.payment"></el-date-picker>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="24">
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 20vw" type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-col>
