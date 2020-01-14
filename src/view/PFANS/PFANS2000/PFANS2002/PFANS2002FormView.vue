@@ -9,7 +9,7 @@
     ref="container"
     v-loading="loading"
   >
-    <div slot="customize" style="margin-top:2rem">
+    <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane
@@ -109,13 +109,14 @@
           </el-tab-pane>
 
           <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_MATERIAL')" name="second">
-            <el-row>
-              <el-col>
+            <el-collapse>
+              <el-collapse-item>
+                <template slot="title">
                 <span
+                  class="collapse_Title"
                   style="margin-left:0.5%;color:#005BAA"
                 >{{$t('label.PFANS2002FORMVIEW_ONESELF')}}</span>
-              </el-col>
-            </el-row>
+                </template>
             <div style="margin-left:5%;margin-top:0%">
               <el-row :gutter="20">
                 <el-col :span="8">
@@ -191,11 +192,11 @@
                 </el-col>
               </el-row>
             </div>
-            <el-row>
-              <el-col>
-                <span style="margin-left:0.5%;color:#005BAA">{{$t('label.PFANS2002FORMVIEW_CLUB')}}</span>
-              </el-col>
-            </el-row>
+              </el-collapse-item>
+              <el-collapse-item>
+                <template slot="title">
+                <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.PFANS2002FORMVIEW_CLUB')}}</span>
+                </template>
             <div style="margin-left:5%;margin-top:0%">
               <el-row :gutter="20">
                 <el-col :span="8">
@@ -210,11 +211,11 @@
                 </el-col>
               </el-row>
             </div>
-            <el-row>
-              <el-col>
-                <span style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
-              </el-col>
-            </el-row>
+         </el-collapse-item>
+              <el-collapse-item>
+                <template slot="title">
+                <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
+                </template>
             <div style="margin-left:5%;margin-top:1%">
               <el-row :gutter="20">
                 <el-upload
@@ -232,6 +233,8 @@
                 </el-upload>
               </el-row>
             </div>
+              </el-collapse-item>
+            </el-collapse>
           </el-tab-pane>
           <el-tab-pane
             :label="$t('label.PFANS2002FORMVIEW_INTERVIEW')"
@@ -756,6 +759,6 @@
 
 <style scoped>
   .width {
-    width: 11rem;
+    width: 11vw;
   }
 </style>

@@ -13,22 +13,22 @@
       :workflowCode="workflowCode"
     >
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" :rules="rules" style="padding: 2rem"
+        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 2vw"
                  ref="refform">
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -36,14 +36,14 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.applicationdate"
                     :disabled="!disable"
                     type="date">
@@ -58,7 +58,7 @@
                 <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVERTIME')" prop="reserveovertimedate">
                   <div class="block">
                     <el-date-picker
-                      style="width: 11rem"
+                      style="width:20vw"
                       v-model="form.reserveovertimedate"
                       :disabled="!disable"
                       @change="changeReserveovertimedate"
@@ -73,7 +73,7 @@
                 <el-form-item
                   :label="$t('label.PFANS2011VIEW_TYPE')" prop="overtimetype">
                   <dicselect
-                    style="width: 11rem"
+                    style="width:20vw"
                     :disabled="!disable"
                     :code="code"
                     :multiple="multiple"
@@ -89,14 +89,14 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
                 <el-input-number v-model="form.reserveovertime" :disabled="!disable" controls-position="right"
-                                 :precision="2" :step="0.1" :min="0" :max="24" style="width: 11rem"
+                                 :precision="2" :step="0.1" :min="0" :max="24" style="width:20vw"
                                  @change="change2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
                 <el-input-number v-model="form.actualovertime" :disabled="!disactualovertime" controls-position="right"
-                                 :precision="2" :step="0.1" :min="0" :max="24" style="width: 11rem"></el-input-number>
+                                 :precision="2" :step="0.1" :min="0" :max="24" style="width:20vw"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -106,7 +106,7 @@
                             prop="reservesubstitutiondate" :error2="error2">
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.reservesubstitutiondate"
                     :disabled="!disable"
                     type="date"
@@ -121,7 +121,7 @@
                             prop="actualsubstitutiondate">
                 <div class="block">
                   <el-date-picker
-                    style="width: 11rem"
+                    style="width:20vw"
                     v-model="form.actualsubstitutiondate"
                     :disabled="true"
                     type="date">
@@ -133,7 +133,7 @@
           <el-row :gutter="32" style="padding-top: 1%">
             <el-col :span="24">
               <el-form-item :label="$t('label.cause')" prop="cause">
-                <el-input type="textarea" v-model="form.cause" :disabled="!disable" style="width: 95.5%"></el-input>
+                <el-input type="textarea" v-model="form.cause" :disabled="!disable" style="width:72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

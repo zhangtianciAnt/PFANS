@@ -7,21 +7,21 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.contractnumber"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.contractnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
-                <el-input   :disabled="!disable"maxlength="20" style="width: 11rem" v-model="form.contracttype"></el-input>
+                <el-input   :disabled="!disable"maxlength="20" style="width:20vw" v-model="form.contracttype"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYENGLISH')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.depositenglish"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.depositenglish"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -29,34 +29,34 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.depositchinese"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.depositchinese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPERSON')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.dereenglish"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.dereenglish"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACEENGLISH')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.prplaceenglish"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.prplaceenglish"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.prplacechinese"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.prplacechinese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.pjnamejapanese"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.pjnamechinese"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.pjnamechinese"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -71,7 +71,7 @@
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                   :start-placeholder="$t('label.startdate')"
                   :end-placeholder="$t('label.enddate')"
-                  style="width: 20rem">
+                  style="width:20vw">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -80,34 +80,34 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.businesscode"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.businesscode"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.deliverydate"></el-input>
+                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.deliverydate"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.claimoney"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.claimoney"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYPHONE')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.depositphone"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.depositphone"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.claimnumber"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.claimnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMTYPE')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.claimtype"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimtype"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -115,7 +115,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                <el-input  :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.currencyformat"></el-input>
+                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.currencyformat"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

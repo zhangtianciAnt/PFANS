@@ -3,8 +3,8 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="22">
               <div class="sub_color_black" style="font-size: 30px ; text-align: center">
@@ -17,7 +17,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="coopername">
-                <el-input :disabled="!disabled" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
                           v-model="form.coopername"></el-input>
               </el-form-item>
             </el-col>
@@ -30,7 +30,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesex"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   v-model="form.sex">
                 </dicselect>
               </el-form-item>
@@ -38,7 +38,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -51,7 +51,7 @@
                 <el-date-picker
                   :disabled="!disabled"
                   @change="getAge"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   type="date"
                   v-model="form.birth">
                 </el-date-picker>
@@ -60,14 +60,14 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width: 20vw"v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <div class="dpSupIndex" style="width: 8.9rem" prop="suppliername">
+                <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
                   <el-container>
                     <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
                            :disabled="true"></input>
@@ -116,7 +116,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="!disabled" style="width: 11rem" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="!disabled" style="width: 20vw" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -128,7 +128,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeeducation"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   v-model="form.education">
                 </dicselect>
               </el-form-item>
@@ -139,7 +139,7 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
                           v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
@@ -156,7 +156,7 @@
                   :error="errorinterviewdep"
                   @getOrgids="getInterviewDep"
                   orgtype="2"
-                  style="width: 8.9rem">
+                  style="width: 20vw">
                 </org>
               </el-form-item>
             </el-col>
@@ -165,7 +165,7 @@
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')" prop="interview_date">
                 <el-date-picker
                   :disabled="!disabled"
-                  style="width:11rem"
+                  style="width: 20vw"
                   type="date"
                   v-model="form.interview_date">
                 </el-date-picker>
@@ -180,7 +180,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeresult"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   v-model="form.result">
                 </dicselect>
               </el-form-item>
@@ -197,7 +197,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changetechnology"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -210,8 +210,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changern"
-                  style="
-                  width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -224,7 +223,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changewhetherentry"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -234,7 +233,7 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 93% ; height: 10px" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>

@@ -6,8 +6,8 @@
                          :noback = "true"
                         ref="container"
                          v-loading="loading">
-      <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
+      <div slot="customize" >
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
             <el-dialog :visible.sync="dialogFormVisible">
               <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
                 <dicselect
@@ -65,7 +65,7 @@
               </div>
             </el-dialog>
 
-          <el-tabs v-model="activeName" >
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNTECHNOLOGY')" name="first">
               <el-row>
                 <el-col>

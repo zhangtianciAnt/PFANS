@@ -7,15 +7,16 @@
       v-loading="loading"
     >
       <div slot="customize">
-        <el-form label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
-          <el-tabs @tab-click="handleClick" v-model="activeName">
+        <el-form label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
               <div id="app">
                 <el-table
                   :data="tableData"
                   style="margin-top:2%;"
-                  :header-cell-style="getRowClass"
+                  header-cell-class-name="sub_bg_color_blue"
                 >
+<!--                  :header-cell-style="getRowClass"-->
                   <el-table-column
                     prop="basicinfor1"
                     :label="$t('label.PFANS2006VIEW_BASICINFOR1')"
@@ -539,8 +540,8 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
-              {{$t('label.PFANS2005FORMVIEW_JS')}}
-              <el-table :data="tableJS" :summary-method="getSummaries" show-summary>
+              <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_JS')}}</span>
+              <el-table :data="tableJS" :summary-method="getSummaries" border show-summary header-cell-class-name="sub_bg_color_blue">
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -655,11 +656,14 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
               <div>
+                <el-collapse>
+                  <el-collapse-item>
+                    <template slot="title">
                 <span
-                  class="Title_front main_color"
-                  style="float:left; padding-top: 1.5rem"
+                  class="collapse_Title"
                 >{{$t('label.PFANS2005FORMVIEW_FEMALELEAVE')}}</span>
-                <el-table :data="tableQT1Woman" header-cell-class-name="sub_bg_color_grey height">
+                    </template>
+                <el-table :data="tableQT1Woman" border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
@@ -737,13 +741,20 @@
                     </slot>
                   </el-pagination>
                 </div>
+              </el-collapse-item>
+              </el-collapse>
               </div>
+
               <div>
+                <el-collapse>
+                  <el-collapse-item>
+                    <template slot="title">
                 <span
-                  class="Title_front main_color"
+                  class="collapse_Title"
                   style="float:left; padding-top: 2rem"
                 >{{$t('label.PFANS2005FORMVIEW_MALELEAVE')}}</span>
-                <el-table :data="tableQT1Man" header-cell-class-name="sub_bg_color_grey height">
+                    </template>
+                <el-table :data="tableQT1Man" header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
@@ -805,6 +816,8 @@
                     </slot>
                   </el-pagination>
                 </div>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT2')" name="fourth">
@@ -817,7 +830,8 @@
                   <el-table
                     :data="tableQT2"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_grey height"
+                    header-cell-class-name="sub_bg_color_blue"
+                    border
                     show-summary
                   >
                     <el-table-column
@@ -949,8 +963,9 @@
                 <el-row>
                   <el-table
                     :data="tableQT4"
-                    header-cell-class-name="sub_bg_color_grey height"
+                    header-cell-class-name="sub_bg_color_blue"
                     show-summary
+                    border
                     :summary-method="getSummaries"
                   >
                     <el-table-column
@@ -1081,7 +1096,8 @@
                   <el-table
                     :data="tableQT5"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_grey height"
+                    header-cell-class-name="sub_bg_color_blue"
+                    border
                     show-summary
                   >
                     <el-table-column
@@ -1229,7 +1245,9 @@
                 class="Title_front main_color"
                 style="float:left"
               >{{$t('label.PFANS2005FORMVIEW_QQYL')}}</span>
-              <el-table :data="tableQQ" :summary-method="getSummaries" show-summary>
+              <el-table :data="tableQQ" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1333,7 +1351,9 @@
                 class="Title_front main_color"
                 style="float:left"
               >{{$t('label.PFANS2005FORMVIEW_CYYL')}}</span>
-              <el-table :data="tableCY" :summary-method="getSummaries" show-summary>
+              <el-table :data="tableCY" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1516,7 +1536,8 @@
                   <el-table
                     :data="tableYDSY"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_grey height"
+                    header-cell-class-name="sub_bg_color_blue"
+                    border
                     show-summary
                   >
                     <el-table-column
@@ -1655,7 +1676,9 @@
                 class="Title_front main_color"
                 style="float:left"
               >{{$t('label.PFANS2005FORMVIEW_ZHSR')}}</span>
-              <el-table :data="tableZHSR" :summary-method="getSummaries" show-summary>
+              <el-table :data="tableZHSR" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1882,7 +1905,9 @@
                 class="Title_front main_color"
                 style="float:left"
               >{{$t('label.PFANS2005FORMVIEW_LYZXKC')}}</span>
-              <el-table :data="tableZXKC" :summary-method="getSummaries" show-summary>
+              <el-table :data="tableZXKC" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -1945,7 +1970,8 @@
                 <el-row>
                   <el-table
                     :data="tableFJKC"
-                    header-cell-class-name="sub_bg_color_grey height"
+                    header-cell-class-name="sub_bg_color_blue"
+                    border
                     show-summary
                     :summary-method="getSummaries"
                   >
@@ -2081,7 +2107,9 @@
                 class="Title_front main_color"
                 style="float:left"
               >{{$t('label.PFANS2005FORMVIEW_MS')}}</span>
-              <el-table :data="tableMS" :summary-method="getSummaries" show-summary>
+              <el-table :data="tableMS" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -2135,8 +2163,10 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_LJSJ')" name="sixteenth">
-              {{$t('label.PFANS2005FORMVIEW_LJNF')}}
-              <el-table :data="tableLJSJ" :summary-method="getSummaries" show-summary>
+              <span class="Title_front main_color" >{{$t('label.PFANS2005FORMVIEW_LJNF')}}</span>
+              <el-table :data="tableLJSJ" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -2211,13 +2241,13 @@
             </el-tab-pane>
 
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GRDB')" name="seventeenth">
-              {{$t('label.PFANS2005FORMVIEW_GRDB')}}
+              <span class="Title_front main_color" >{{$t('label.PFANS2005FORMVIEW_GRDB')}}</span>
               <el-row>
                 <el-table
                   :data="tableGRDB"
                   :summary-method="getSummaries"
                   border
-                  header-cell-class-name="sub_bg_color_grey height"
+                  header-cell-class-name="sub_bg_color_blue"
                   show-summary
                 >
                   <el-table-column
@@ -3359,8 +3389,8 @@
               this.getList();
             }
 
-            this.loading = false;
           });
+            this.loading = false;
       },
       UploadUrlfjkc: function() {
         return (
@@ -3893,157 +3923,157 @@
           this.$refs.uploader.clearFiles();
         }
       },
-      getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 1 && columnIndex === 0) {
-          return {
-            color: 'white',
-            background: '#ec8989',
-            'border-top': '1px solid #ea5555',
-            'border-bottom': '1px solid #ea5555',
-            'border-right': '1px solid #ec8989',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
-          return {
-            color: 'white',
-            background: '#ec8989',
-            'border-bottom': '1px solid #ea5555',
-            'border-right': '1px solid #ec8989',
-          };
-        }
-        if (column.level === 1 && columnIndex === 1) {
-          return {
-            color: 'white',
-            background: '#569df1',
-            'border-top': '1px solid #005baa',
-            'border-bottom': '1px solid #005baa',
-            'border-right': '1px solid #569df1',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 10 && columnIndex < 21) {
-          return {
-            color: 'white',
-            background: '#569df1',
-            'border-bottom': '1px solid #005baa',
-            'border-right': '1px solid #569df1',
-          };
-        }
-        if (column.level === 1 && columnIndex === 2) {
-          return {
-            color: 'white',
-            background: '#3dd1d6',
-            'border-top': '1px solid #0499af',
-            'border-bottom': '1px solid #0499af',
-            'border-right': '1px solid #3dd1d6',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 21 && columnIndex < 35) {
-          return {
-            color: 'white',
-            background: '#3dd1d6',
-            'border-bottom': '1px solid #0499af',
-            'border-right': '1px solid #3dd1d6',
-          };
-        }
-        if (column.level === 1 && columnIndex === 3) {
-          return {
-            color: 'white',
-            background: '#4c4040',
-            'border-right': '1px solid #4c4040',
-            'border-bottom': '1px solid #4c4040',
-            'border-top': '1px solid #4c4040',
-          };
-        }
-        if (column.level === 1 && columnIndex === 4) {
-          return {
-            color: 'white',
-            background: '#4282c1',
-            'border-top': '1px solid #005baa',
-            'border-bottom': '1px solid #005baa',
-            'border-right': '1px solid #4282c1',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 35 && columnIndex < 38) {
-          return {
-            color: 'white',
-            background: '#4282c1',
-            'border-right': '1px solid #4282c1',
-            'border-bottom': '1px solid #005baa',
-          };
-        }
-        if (column.level === 1 && columnIndex === 5) {
-          return {
-            color: 'white',
-            background: '#4c4040',
-            'border-right': '1px solid #4c4040',
-            'border-bottom': '1px solid #4c4040',
-            'border-top': '1px solid #4c4040',
-          };
-        }
-        if (column.level === 1 && columnIndex === 6) {
-          return {
-            color: 'white',
-            background: '#4282c1',
-            'border-bottom': '1px solid #005baa',
-            'border-right': '1px solid #4282c1',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 38 && columnIndex < 41) {
-          return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
-        }
-        if (column.level === 1 && columnIndex === 7) {
-          return {color: 'white', background: '#4c4040'};
-        }
-        if (column.level === 1 && columnIndex === 8) {
-          return {color: 'white', background: '#ec8989'};
-        }
-        if (column.level === 1 && columnIndex >= 9 && columnIndex < 15) {
-          return {color: 'white', background: '#4c4040'};
-        }
-        if (column.level === 1 && columnIndex === 15) {
-          return {
-            color: 'white',
-            background: '#4282c1',
-            'border-bottom': '1px solid #005baa',
-            'border-right': '1px solid #4282c1',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 41 && columnIndex < 44) {
-          return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
-        }
-        if (column.level === 1 && columnIndex >= 16 && columnIndex < 19) {
-          return {color: 'white', background: '#4c4040'};
-        }
-        if (column.level === 1 && columnIndex === 20) {
-          return {color: 'white', background: '#ec8989'};
-        }
-        if (column.level === 1 && (columnIndex === 19 || columnIndex === 21)) {
-          return {color: 'white', background: '#4c4040'};
-        }
-        if (column.level === 1 && columnIndex === 22) {
-          return {
-            color: 'white',
-            background: '#f5b038',
-            'border-bottom': '1px solid #ecc40c',
-            'border-right': '1px solid #f5b038',
-            'border-right': '1px solid #f5b038',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 44 && columnIndex < 52) {
-          return {
-            color: 'white',
-            background: '#f5b038',
-            'border-right': '1px solid #f5b038',
-            'border-bottom': '1px solid #ecc40c',
-          };
-        }
-        if (column.level === 1 && columnIndex === 23) {
-          return {color: 'white', background: '#ec8989'};
-        }
-        if (column.level === 1 && columnIndex >= 24 && columnIndex < 30) {
-          return {color: 'white', background: '#4c4040'};
-        }
-      },
+      // getRowClass({row, column, rowIndex, columnIndex}) {
+      //   if (column.level === 1 && columnIndex === 0) {
+      //     return {
+      //       color: 'white',
+      //       background: '#ec8989',
+      //       'border-top': '1px solid #ea5555',
+      //       'border-bottom': '1px solid #ea5555',
+      //       'border-right': '1px solid #ec8989',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
+      //     return {
+      //       color: 'white',
+      //       background: '#ec8989',
+      //       'border-bottom': '1px solid #ea5555',
+      //       'border-right': '1px solid #ec8989',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 1) {
+      //     return {
+      //       color: 'white',
+      //       background: '#569df1',
+      //       'border-top': '1px solid #005baa',
+      //       'border-bottom': '1px solid #005baa',
+      //       'border-right': '1px solid #569df1',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 10 && columnIndex < 21) {
+      //     return {
+      //       color: 'white',
+      //       background: '#569df1',
+      //       'border-bottom': '1px solid #005baa',
+      //       'border-right': '1px solid #569df1',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 2) {
+      //     return {
+      //       color: 'white',
+      //       background: '#3dd1d6',
+      //       'border-top': '1px solid #0499af',
+      //       'border-bottom': '1px solid #0499af',
+      //       'border-right': '1px solid #3dd1d6',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 21 && columnIndex < 35) {
+      //     return {
+      //       color: 'white',
+      //       background: '#3dd1d6',
+      //       'border-bottom': '1px solid #0499af',
+      //       'border-right': '1px solid #3dd1d6',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 3) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4c4040',
+      //       'border-right': '1px solid #4c4040',
+      //       'border-bottom': '1px solid #4c4040',
+      //       'border-top': '1px solid #4c4040',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 4) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4282c1',
+      //       'border-top': '1px solid #005baa',
+      //       'border-bottom': '1px solid #005baa',
+      //       'border-right': '1px solid #4282c1',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 35 && columnIndex < 38) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4282c1',
+      //       'border-right': '1px solid #4282c1',
+      //       'border-bottom': '1px solid #005baa',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 5) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4c4040',
+      //       'border-right': '1px solid #4c4040',
+      //       'border-bottom': '1px solid #4c4040',
+      //       'border-top': '1px solid #4c4040',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 6) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4282c1',
+      //       'border-bottom': '1px solid #005baa',
+      //       'border-right': '1px solid #4282c1',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 38 && columnIndex < 41) {
+      //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
+      //   }
+      //   if (column.level === 1 && columnIndex === 7) {
+      //     return {color: 'white', background: '#4c4040'};
+      //   }
+      //   if (column.level === 1 && columnIndex === 8) {
+      //     return {color: 'white', background: '#ec8989'};
+      //   }
+      //   if (column.level === 1 && columnIndex >= 9 && columnIndex < 15) {
+      //     return {color: 'white', background: '#4c4040'};
+      //   }
+      //   if (column.level === 1 && columnIndex === 15) {
+      //     return {
+      //       color: 'white',
+      //       background: '#4282c1',
+      //       'border-bottom': '1px solid #005baa',
+      //       'border-right': '1px solid #4282c1',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 41 && columnIndex < 44) {
+      //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
+      //   }
+      //   if (column.level === 1 && columnIndex >= 16 && columnIndex < 19) {
+      //     return {color: 'white', background: '#4c4040'};
+      //   }
+      //   if (column.level === 1 && columnIndex === 20) {
+      //     return {color: 'white', background: '#ec8989'};
+      //   }
+      //   if (column.level === 1 && (columnIndex === 19 || columnIndex === 21)) {
+      //     return {color: 'white', background: '#4c4040'};
+      //   }
+      //   if (column.level === 1 && columnIndex === 22) {
+      //     return {
+      //       color: 'white',
+      //       background: '#f5b038',
+      //       'border-bottom': '1px solid #ecc40c',
+      //       'border-right': '1px solid #f5b038',
+      //       'border-right': '1px solid #f5b038',
+      //     };
+      //   }
+      //   if (column.level === 2 && columnIndex >= 44 && columnIndex < 52) {
+      //     return {
+      //       color: 'white',
+      //       background: '#f5b038',
+      //       'border-right': '1px solid #f5b038',
+      //       'border-bottom': '1px solid #ecc40c',
+      //     };
+      //   }
+      //   if (column.level === 1 && columnIndex === 23) {
+      //     return {color: 'white', background: '#ec8989'};
+      //   }
+      //   if (column.level === 1 && columnIndex >= 24 && columnIndex < 30) {
+      //     return {color: 'white', background: '#4c4040'};
+      //   }
+      // },
       buttonClick(val) {
         if (val === 'import') {
           if (this.tab === '3') {

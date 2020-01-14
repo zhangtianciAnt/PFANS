@@ -3,12 +3,11 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title"
                          ref="container" style="min-height: 100%">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="ruleForm" style="padding: 2vw">
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.ASSETS1003VIEW_FILEADDRESS')" prop="fileaddress">
-                <el-input v-model="form.fileaddress" @change="getAddre"></el-input>
+                <el-input v-model="form.fileaddress" @change="getAddre" style="width:70vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

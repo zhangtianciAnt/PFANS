@@ -4,23 +4,23 @@
                          @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
-          <el-tabs v-model="activeName">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2026VIEW')" name="first">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
-                    <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -28,7 +28,7 @@
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
                     <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -38,7 +38,7 @@
                                :disabled="true"
                                :multiple="multiple"
                                @change="getsex"
-                               style="width: 11rem">
+                               style="width:20vw">
                     </dicselect>
                   </el-form-item>
                 </el-col>
@@ -50,7 +50,7 @@
                                :disabled="true"
                                :multiple="multiple"
                                @change="geteducational_background"
-                               style="width: 11rem">
+                               style="width:20vw">
                     </dicselect>
                   </el-form-item>
                 </el-col>
@@ -58,19 +58,19 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_POSITION')" prop="position">
-                    <el-input :disabled="true" maxlength="20" style="width:11rem"
+                    <el-input :disabled="true" maxlength="20" style="width:20vw"
                               v-model="form.position"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entry_time">
-                    <el-date-picker :disabled="true" style="width: 11rem" v-model="form.entry_time">
+                    <el-date-picker :disabled="true" style="width:20vw" v-model="form.entry_time">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.application_date')" prop="application_date">
-                    <el-date-picker :disabled="true" style="width: 11rem" v-model="form.application_date">
+                    <el-date-picker :disabled="true" style="width:20vw" v-model="form.application_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -78,19 +78,19 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE')" prop="hope_exit_date">
-                    <el-date-picker :disabled="!disable" style="width: 11rem" v-model="form.hope_exit_date">
+                    <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.hope_exit_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_ADDRESS')">
-                    <el-input :disabled="!disable" maxlength="50" style="width: 11rem"
+                    <el-input :disabled="!disable" maxlength="50" style="width:20vw"
                               v-model="form.address"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')" prop="fixed_phone">
-                    <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                    <el-input :disabled="!disable" maxlength="11" style="width:20vw"
                               v-model="form.fixed_phone"></el-input>
                   </el-form-item>
                 </el-col>
@@ -98,13 +98,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.user_mobile')" prop="cellphone">
-                    <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                    <el-input :disabled="!disable" maxlength="11" style="width:20vw"
                               v-model="form.cellphone"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                    <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                               v-model="form.email"></el-input>
                   </el-form-item>
                 </el-col>
@@ -113,7 +113,7 @@
                 <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason" >
                   <el-input :disabled="!disable"
                             :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
-                            style="width: 100%" type="textarea"
+                            style="width: 70vw" type="textarea"
                             v-model="form.reason">
                   </el-input>
                 </el-form-item>
@@ -123,13 +123,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')">
                     <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -139,7 +139,7 @@
                                :disabled="true"
                                :multiple="multiple"
                                @change="getsex"
-                               style="width: 11rem">
+                               style="width:20vw">
                     </dicselect>
                   </el-form-item>
                 </el-col>
@@ -148,6 +148,7 @@
                 <el-table
                   :data="tableData"
                   border
+                  header-cell-class-name="sub_bg_color_blue"
                   style="width: 80%">
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
@@ -185,23 +186,23 @@
             <el-tab-pane :label="$t('label.PFANS2026VIEW_DATA')" name="third">
               <el-row>
                 <el-col :span="12">
-                  <el-form-item :label="$t('label.PFANS2026VIEW_DELIVERYSHEETDATE')" label-width="8.6rem"
+                  <el-form-item :label="$t('label.PFANS2026VIEW_DELIVERYSHEETDATE')"
                                 prop="delivery_sheet_date">
-                    <el-date-picker :disabled="!disable1" style="width: 11rem" v-model="form.delivery_sheet_date">
+                    <el-date-picker :disabled="!disable1" style="width: 70vw" v-model="form.delivery_sheet_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')" label-width="6rem">
-                  <el-input :disabled="!disable1" :rows="2"  style="width: 89%;padding-left:2.5rem"type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_JOBWORKDELIVERY')" >
+                  <el-input :disabled="!disable1" :rows="2"  style="width: 70vw;" type="textarea"
                             v-model="form.jpwork_delivery">
                   </el-input>
                 </el-form-item>
               </el-row>
-              <el-row>
+              <el-row >
                 <el-form-item :label="$t('label.PFANS2026FORMVIEW_CITATION')">
-                  <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+                  <el-table :data="tableD" border header-cell-class-name="sub_bg_color_blue">
                     <el-table-column :label="$t('label.PFANS2026FORMVIEW_CONTENT')" align="center" fixed prop="content">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable1" v-model="scope.row.content">
@@ -216,7 +217,7 @@
                           :userlist="scope.row.user_id"
                           @getUserids="getCitationUserid"
                           selectType="Single"
-                          style="width:90%"
+                          style="width:20vw"
                         ></user>
                       </template>
                     </el-table-column>
@@ -255,66 +256,66 @@
                 <el-col :span="8">
                   <el-form-item :error="errorreporter" :label="$t('label.PFANS2026VIEW_REPORTER')" prop="reporterlist">
                     <user :disabled="!disable2" :error="errorreporter" :selectType="selectType"
-                          :userlist="reporterlist" @getUserids="getReporterids" style="width:10.2rem"></user>
+                          :userlist="reporterlist" @getUserids="getReporterids" style="width:20vw"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_REPORTDATE')">
-                    <el-date-picker :disabled="!disable2" style="width: 11rem" v-model="form.report_date">
+                    <el-date-picker :disabled="!disable2" style="width:20vw" v-model="form.report_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                    <el-date-picker :disabled="!disable2" style="width: 11rem" v-model="form.resignation_date">
+                    <el-date-picker :disabled="!disable2" style="width:20vw" v-model="form.resignation_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="24">
-                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')" label-width="6rem">
+                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')" >
                     <dicselect :code="code1"
                                :data="form.social_evaluation"
                                :disabled="!disable2"
                                :multiple="multiple"
                                @change="getSocial"
-                               style="width: 11rem;padding-left:2rem">
+                               style="width: 70vw;">
                     </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')" label-width="6rem">
-                  <el-input :disabled="!disable2"  style="width: 100%;padding-left:2rem" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')" >
+                  <el-input :disabled="!disable2"  style="width: 70vw;" type="textarea"
                             v-model="form.external_evaluation">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" label-width="6rem">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')"  style="width: 100%;padding-left:2rem"
+                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" >
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')"  style="width: 70vw;"
                             type="textarea" v-model="form.reason2">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')" label-width="6rem">
-                  <el-input :disabled="!disable2"  style="width: 100%;padding-left:2rem" type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')" >
+                  <el-input :disabled="!disable2"  style="width: 70vw;" type="textarea"
                             v-model="form.impact_resignation_external">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')" label-width="6rem">
-                  <el-input :disabled="!disable2" style="width: 100%;padding-left:2rem"  type="textarea"
+                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')" >
+                  <el-input :disabled="!disable2" style="width: 70vw;"  type="textarea"
                             v-model="form.impact_resignation_internal">
                   </el-input>
                 </el-form-item>
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_INFLUENCEINFORMATIONSECURITY')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')"  :rows="3" style="width: 100%"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')"  :rows="3" style="width: 70vw;"
                             type="textarea"
                             v-model="form.influence_information_security">
                   </el-input>
@@ -322,7 +323,7 @@
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS2026VIEW_RETIREMENTSTRATEGY')">
-                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')" style="width: 100%"
+                  <el-input :disabled="!disable2" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')" style="width: 70vw;"
                             type="textarea"
                             v-model="form.retirement_strategy">
                   </el-input>
