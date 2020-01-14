@@ -4,22 +4,22 @@
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding:2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding:2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -27,14 +27,14 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:10.14rem" @getUserids="getUserids"></user>
+                      style="width:20vw" @getUserids="getUserids"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="casedate">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.casedate">
                 </el-date-picker>
@@ -49,7 +49,7 @@
                   :data="form.assettype"
                   :disabled="!disable"
                   :multiple="multiple"
-                  style="width: 11rem"
+                  style="width:20vw"
                   @change="getassettype">
                 </dicselect>
               </el-form-item>
@@ -57,7 +57,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
                 <el-switch :disabled="!disable"
-                           style="width:11rem"
+                           style="width:20vw"
                            v-model="installsoftware"
                            active-value="0"
                            inactive-value="1"
@@ -67,7 +67,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_SUITABLEBRINGOUT')" v-show="show">
                 <el-switch :disabled="!disable"
-                           style="width:11rem"
+                           style="width:20vw"
                            v-model="suitablebringout"
                            active-value="0"
                            inactive-value="1"
@@ -78,17 +78,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">
-                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetnumber" maxlength=""></el-input>
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.assetnumber" maxlength=""></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">
-                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetname" maxlength=""></el-input>
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.assetname" maxlength=""></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
-                <el-input :disabled="!disable" style="width:11rem" v-model="form.ancillaryequipment"
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.ancillaryequipment"
                           maxlength=""></el-input>
               </el-form-item>
             </el-col>
@@ -109,7 +109,7 @@
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate" v-show="show1">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.inputdate">
                 </el-date-picker>
@@ -119,7 +119,7 @@
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_RELEASEDATE')" v-show="show2">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:11rem"
+                  style="width:20vw"
                   type="date"
                   v-model="form.releasedate">
                 </el-date-picker>
@@ -129,7 +129,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')" prop="objective">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:72vw"
                           v-model="form.objective"></el-input>
               </el-form-item>
             </el-col>
@@ -137,7 +137,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_BORROWING')">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:72vw"
                           v-model="form.borrowing"></el-input>
               </el-form-item>
             </el-col>
@@ -167,7 +167,7 @@
                   :data="form.repairkits"
                   :disabled="!disable"
                   :multiple="multiple"
-                  style="width: 11rem"
+                  style="width:20vw"
                   @change="changerepairkits"
                   :picker-options="pickerOptions">
                 </dicselect>
