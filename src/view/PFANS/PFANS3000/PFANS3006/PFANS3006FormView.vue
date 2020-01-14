@@ -65,38 +65,39 @@
           </el-row>
           <el-row :gutter="32">
            <!--3-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_USEDATE')" prop="usedate">
-                <div class="block">
-                  <el-date-picker
-                    :disabled="!disable"
-                    style="width: 11rem"
-                    type="date"
-                    v-model="form.usedate">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-            </el-col>
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
-                <el-time-picker
-                  :disabled="!disable"
-                  format='HH:mm'
+                <el-date-picker
                   style="width: 11rem"
-                  v-model="form.starttime">
-                </el-time-picker>
+                  :disabled="!disable"
+                  v-model="form.starttime"
+                  type="datetime"
+                  placeholder="选择日期时间">
+                </el-date-picker>
               </el-form-item>
             </el-col>
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ENDTIME')" prop="endtime">
-                <el-time-picker
-                  :disabled="!disable"
-                  format='HH:mm'
+                <el-date-picker
                   style="width: 11rem"
-                  v-model="form.endtime">
-                </el-time-picker>
+                  :disabled="!disable"
+                  v-model="form.endtime"
+                  type="datetime"
+                  placeholder="选择日期时间">
+                </el-date-picker>
               </el-form-item>
             </el-col>
+
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
+                <el-input disabled="false"
+                style="width: 11rem"
+                v-model="form.diffdata"></el-input>
+              </el-form-item>
+            </el-col>
+
           </el-row>
           <el-row :gutter="32">
             <!--4-->
@@ -120,16 +121,17 @@
             </el-col>
           </el-row>
           <el-row :gutter="32">
+            <!--5-->
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber">
+                <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber" v-show="show2">
                   <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
                             v-model.trim="form.flightnumber"></el-input>
                 </el-form-item>
               </template>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_DISTINGUISH')" prop="distinguish">
+              <el-form-item :label="$t('label.PFANS3006VIEW_DISTINGUISH')" prop="distinguish" v-show="show2">
                 <dicselect
                   :code="code2"
                   :data="form.distinguish"
@@ -142,7 +144,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity">
+              <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity" v-show="show2">
                 <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
                           v-model.trim="form.departurecity"></el-input>
               </el-form-item>
@@ -152,12 +154,13 @@
           <el-row :gutter="32">
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard">
+                <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard" v-show="show2">
                   <el-switch
                     :disabled="!disable"
                     active-value="1"
                     inactive-value="0"
                     v-model="form.welcomeboard"
+                    @change="downLoad"
                   >
                   </el-switch>
                 </el-form-item>
@@ -185,7 +188,7 @@
           <el-row :gutter="32">
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname">
+                <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname" v-show="show2">
                   <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
                             v-model.trim="form.guestname"></el-input>
                 </el-form-item>
@@ -263,19 +266,30 @@
       };
       var validatestarttime = (rule, value, callback) => {
         if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
-          if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
+          if (moment(this.form.endtime).format("YYYY-MM-DD HH:mm:ss") <= moment(this.form.starttime).format("YYYY-MM-DD HH:mm:ss")) {
             callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
+          }else{
+              this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
+              this.form.usedate = moment(this.form.starttime).format("YYYY-MM-DD");
+              callback()
           }
+        }else{
+            this.form.diffdata = 0
+            callback()
         }
-        callback()
       };
       var validateendtime = (rule, value, callback) => {
         if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
-          if (moment(this.form.endtime).format("HH:mm") <= moment(this.form.starttime).format("HH:mm")) {
+          if (moment(this.form.endtime).format("YYYY-MM-DD HH:mm:ss") <= moment(this.form.starttime).format("YYYY-MM-DD HH:mm:ss")) {
             callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
+          }else{
+              this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
+              callback()
           }
+        }else{
+            this.form.diffdata = 0
+            callback()
         }
-        callback()
       };
       return {
         error: "",
@@ -286,6 +300,7 @@
         title: "title.PFANS3006VIEW",
         buttonList: [],
         show: false,
+        show2: false,
         form: {
           centerid: '',
           groupid: '',
@@ -297,8 +312,9 @@
           origin: '',
           transferstation: '',
           destination: '',
-          starttime: new Date(moment().format("YYYY-MM-DD HH:mm")),
+          starttime: new Date(moment().format("YYYY-MM-DD HH:mm:ss")),
           endtime: '',
+          diffdata: 0,
           flightnumber: '',
           distinguish: '',
           departurecity: '',
@@ -310,9 +326,8 @@
           fellowmembers: true,
         },
         rules: {
-          //////
           fellowmembersname:[{
-            required: true,
+            required: false,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
             trigger: 'blur'
           }],
@@ -342,11 +357,7 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_ORIGIN'),
             trigger: 'blur'
           }],
-          transferstation: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_TRANSFERSTATION'),
-            trigger: 'blur'
-          }],
+
           destination: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DESTINATION'),
@@ -355,29 +366,17 @@
           starttime: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_STARTTIME'),
-            trigger: 'blur'
+            trigger: 'change'
           },
             {validator: validatestarttime, trigger: 'change'}
           ],
           endtime: [{
-            validator: validateendtime,
-            trigger: 'change'
-          }],
-          flightnumber: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FLIGHTNUMBER'),
-            trigger: 'blur'
-          }],
-          distinguish: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_DISTINGUISH'),
-            trigger: 'change'
-          }],
-          departurecity: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DEPARTURECITY'),
-            trigger: 'blur'
-          }],
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_ENDTIME'),
+              trigger: 'change'
+          },
+              {validator: validateendtime, trigger: 'change'}
+          ],
           guestname: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3002VIEW_GUESTNAME'),
@@ -446,11 +445,62 @@
       }
     },
     methods: {
+      downLoad(val){
+        if(val === '1'){
+            this.$confirm('是否立即下载接机提示牌?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    });
+                this.$message({
+                    type: 'success',
+                    message: '下载成功!'
+                });
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+            });
+            /*
+            if(confirm('是否立即下载接机提示牌？')){
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            }*/
+        }
+      },
       toshow(val){
         if(val === '1'){
           this.show = false;
+          this.rules.fellowmembersname[0].required = false;
         }else{
           this.show = true;
+          this.rules.fellowmembersname[0].required = true;
         }
       },
       workflowState(val) {
@@ -484,6 +534,13 @@
       },
       change(val) {
         this.form.usetype = val;
+        if(val === 'PR005002' || val === 'PR005003'){
+            this.show2 = true;
+            this.rules.guestname[0].required = true;
+        }else{
+            this.show2 = false;
+            this.rules.guestname[0].required = false;
+        }
       },
       change2(val) {
         this.form.distinguish = val;

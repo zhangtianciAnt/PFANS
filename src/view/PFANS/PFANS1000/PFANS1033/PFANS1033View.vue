@@ -5,7 +5,7 @@
                          :noback = "true"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-dialog :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
@@ -62,14 +62,14 @@
               </el-button>
             </div>
           </el-dialog>
-          <el-tabs v-model="activeName" >
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1033VIEW_VERIFICATION')" name="first">
               <el-row>
                 <el-col>
                   <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1033VIEW_VERIFICATION')}}</span>
                 </el-col>
               </el-row>
-              <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
+              <el-table :data="tableInt"  :header-cell-style="getRowClass">
                 <el-table-column type="selection" width="60"></el-table-column>
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
@@ -293,7 +293,7 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height">
+              <el-table :data="tableInt" :header-cell-style="getRowClass">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">
@@ -487,7 +487,7 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height">
+              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_blue">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">
@@ -699,7 +699,7 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_grey height">
+              <el-table :data="table0ut" header-cell-class-name="sub_bg_color_blue">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">
@@ -1051,7 +1051,12 @@
             'border-bottom': '1px solid #99CCFF',
           };
         }
-
+        if(column.level === 1 && columnIndex >= 0 && columnIndex < 25){
+            return {
+                color: 'white',
+                background: '#005BAA',
+            };
+        }
       },
 
       buttonClick(val) {

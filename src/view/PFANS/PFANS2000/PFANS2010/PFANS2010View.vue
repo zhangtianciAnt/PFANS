@@ -32,7 +32,7 @@
         },
         data() {
             return {
-                montvalue:moment(new Date()).format("YYYY-M"),
+                montvalue:moment(new Date()).format("YYYY-MM"),
                 region: '1',
                 loading: false,
                 title: 'title.PFANS2010VIEW',
@@ -151,11 +151,12 @@
                     })
             },
             rowClick(row) {
-                this.userid = row.user_id;
+                this.user_id = row.user_id;
                 this.years = row.years;
                 this.months = row.months;
             },
             buttonClick(val) {
+                debugger;
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
                     if (this.user_id === '') {
@@ -169,7 +170,7 @@
                     this.$router.push({
                         name: 'PFANS2010FormView',
                         params: {
-                            userid: this.userid,
+                            userid: this.user_id,
                             years: this.years,
                             months: this.months,
                             disabled: false
@@ -178,7 +179,7 @@
                 }
             },
             changed(val){
-                this.montvalue = moment(val).format("YYYY-M");
+                this.montvalue = moment(val).format("YYYY-MM");
                 this.getlist();
             },
         },

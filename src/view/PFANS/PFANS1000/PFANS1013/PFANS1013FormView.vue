@@ -1018,6 +1018,7 @@
         showforeigncurrency: false,
         canStart: false,
         result: "",
+        result1: "",
         result2: "",
         rank: "",
         kind: ""
@@ -1193,9 +1194,11 @@
       }
 
 
+      if(this.form.type==='0'){
         this.$store
           .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:0})
           .then(response => {
+            debugger
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               this.result = response;
@@ -1204,19 +1207,21 @@
               this.relations.push(vote)
             }
           });
+      }else if(this.form.type==='1'){
+        this.$store
+          .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
+          .then(response => {
+            debugger
+            for (let i = 0; i < response.length; i++) {
+              var vote1 = {};
+              this.result1 = response;
+              vote1.value = response[i].businessid;
+              vote1.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
+              this.relations.push(vote1)
+            }
+          });
 
-      this.$store
-        .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote1 = {};
-            this.result1 = response;
-            vote1.value = response[i].businessid;
-            vote1.label = moment(response[i].applicationdate).format('YYYY-MM-DD');
-            this.relations.push(vote1)
-          }
-        });
-
+      }
 
       this.$store
         .dispatch('PFANS1013Store/getLoanApplication', {user_id:this.$store.getters.userinfo.userid})
