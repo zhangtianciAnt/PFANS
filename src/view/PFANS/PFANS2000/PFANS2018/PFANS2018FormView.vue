@@ -3,8 +3,8 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          ref="container">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="14rem" ref="Form"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="Form"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_WORKSHIFT')" prop="workshift_start">
@@ -15,18 +15,10 @@
                     step: '00:15',
                     end: '23:45',
                     maxTime:form.workshift_end}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.workshift_start">
                 </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="1">
-              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
-                <span>~</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item prop="workshift_end" label-width="5%">
+             <span>~</span>
                 <el-time-select
                   :disabled="!disable"
                   :picker-options="{
@@ -35,7 +27,7 @@
                       end: '23:45',
                        minTime: form.workshift_start,
                        maxTime:form.lunchbreak_start}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.workshift_end">
                 </el-time-select>
               </el-form-item>
@@ -44,7 +36,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2018VIEW_LUNCHBREAK')" prop="lunchbreak_start">
                 <el-time-select
                   :disabled="!disable"
@@ -54,19 +46,11 @@
                     end: '23:45',
                     minTime: form.workshift_end,
                     maxTime:form.lunchbreak_end}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.lunchbreak_start"
                 >
                 </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="1">
-              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
-                <span>~</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item prop="lunchbreak_end" label-width="5%">
+              <span>~</span>
                 <el-time-select
                   :disabled="!disable"
                   :picker-options="{
@@ -75,7 +59,7 @@
                     end: '23:45',
                     minTime: form.lunchbreak_start,
                     maxTime:form.closingtime_start}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.lunchbreak_end">
                 </el-time-select>
               </el-form-item>
@@ -94,18 +78,10 @@
                     end: '23:45',
                     minTime: form.lunchbreak_end,
                     maxTime:form.closingtime_end}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.closingtime_start">
                 </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="1">
-              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
-                <span>~</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item prop="closingtime_end" label-width="5%">
+              <span>~</span>
                 <el-time-select
                   :disabled="!disable"
                   :picker-options="{
@@ -114,7 +90,7 @@
                     end: '23:45',
                     minTime: form.closingtime_start,
                     maxTime:form.nightshift_start}"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.closingtime_end">
                 </el-time-select>
               </el-form-item>
@@ -132,18 +108,10 @@
                     step: '00:15',
                     end: '23:45',
                    }"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.nightshift_start">
                 </el-time-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="1">
-              <div style="line-height: 40px;position: relative;font-size: 14px;text-align: left">
-                <span>~</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item prop="nightshift_end" label-width="5%">
+              <span>~</span>
                 <el-time-select
                   :disabled="!disable"
                   :picker-options="{
@@ -151,7 +119,7 @@
                     step: '00:15',
                     end: '23:45',
                   }"
-                  style="width:80%"
+                  style="width:9.5vw"
                   v-model="form.nightshift_end">
                 </el-time-select>
               </el-form-item>
@@ -163,7 +131,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_COMPASSIONATELEAVE')" prop="compassionateleave">
                 <el-input-number :disabled="!disable" :min="0" :max="9999" controls-position="right"
-                                 :precision="2" :step="0.25" style="width: 80%"
+                                 :precision="2" :step="0.25" style="width:20vw"
                                  v-model="form.compassionateleave"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
@@ -171,7 +139,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_LATEEARLYLEAVE')" prop="lateearlyleave">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="0.25" style="width: 80%" v-model="form.lateearlyleave"></el-input-number>
+                                 :step="0.25" style="width:20vw" v-model="form.lateearlyleave"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
             </el-col>
@@ -180,14 +148,14 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_ABSENTEEISM')" prop="absenteeism">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="4" style="width: 80%" v-model="form.absenteeism"></el-input-number>
+                                 :step="4" style="width:20vw" v-model="form.absenteeism"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_OVERTIME')" prop="overtime">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="0.25" style="width: 80%" v-model="form.overtime"></el-input-number>
+                                 :step="0.25" style="width:20vw" v-model="form.overtime"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
             </el-col>
@@ -197,7 +165,7 @@
               <el-form-item :label="$t('label.PFANS2018FORMVIEW_WEEKENDOVERTIME')" prop="weekendovertime">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :step="8" :max="9999"
                                  controls-position="right"
-                                  style="width: 80%"
+                                  style="width:20vw"
                                  v-model="form.weekendovertime"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
@@ -205,7 +173,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_WEEKDAYSOVERTIME')" prop="weekdaysovertime">
                 <el-input-number :disabled="!disable" :min="0" :max="9999" controls-position="right"
-                                 :precision="2" :step="0.1" style="width: 80%"
+                                 :precision="2" :step="0.1" style="width:20vw"
                                  v-model="form.weekdaysovertime"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
@@ -220,7 +188,7 @@
                     start: '00:00',
                     step: '00:15',
                     end: '23:45'}"
-                  style="width:80%"
+                  style="width:20vw"
                   v-model="form.deadline">
                 </el-time-select>
               </el-form-item>
@@ -228,7 +196,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018FORMVIEW_ABNORMALDEADLINE')" prop="abnormaldeadline">
                 <el-input-number :disabled="!disable" :max="31" :min="1" :step="1" controls-position="right"
-                                 style="width: 40%" v-model="form.abnormaldeadline"></el-input-number>
+                                 style="width:9.5vw" v-model="form.abnormaldeadline"></el-input-number>
                 <span>{{$t('label.day')}}</span>
                 <el-time-select
                   :disabled="!disable"
@@ -236,7 +204,7 @@
                     start: '00:00',
                     step: '00:15',
                     end: '23:45'}"
-                  style="width: 35%"
+                  style="width:9.5vw"
                   v-model="form.abnormaldeadlinetime">
                 </el-time-select>
                 <span>{{$t('label.hour')}}</span>
@@ -247,7 +215,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018FORMVIEW_TRANSFINITEREMINDER')" prop="transfinitereminder">
                 <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="1"  style="width: 80%"
+                                 :step="1"  style="width:20vw"
                                  v-model="form.transfinitereminder"></el-input-number>
                 <span>{{$t('label.hours')}}</span>
               </el-form-item>
