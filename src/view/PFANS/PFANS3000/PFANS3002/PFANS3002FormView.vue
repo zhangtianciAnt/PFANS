@@ -8,22 +8,22 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="10rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -31,25 +31,25 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 9.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAME')" prop="name">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model.trim="form.name"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAMEROME')" prop="namerome">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                           v-model.trim="form.namerome"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_HOTEL')" prop="hotel">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model.trim="form.hotel"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.hotel"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -60,7 +60,7 @@
                   <div class="block">
                     <el-date-picker
                       :disabled="!disable"
-                      style="width: 11rem"
+                      style="width:20vw"
                       type="date"
                       v-model="form.checkin">
                     </el-date-picker>
@@ -74,7 +74,7 @@
                   <div class="block">
                     <el-date-picker
                       :disabled="!disable"
-                      style="width: 11rem"
+                      style="width:20vw"
                       type="date"
                       v-model="form.checkout">
                     </el-date-picker>
@@ -84,7 +84,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_CHECKINDAYS')" prop="checkindays">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.checkindays"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.checkindays"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -106,7 +106,7 @@
           <el-row :gutter="32">
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input :disabled="!disable" style="width: 100%" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

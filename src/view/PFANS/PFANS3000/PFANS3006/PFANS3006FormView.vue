@@ -12,23 +12,23 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="11rem"
-                 ref="refform" style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
+                 ref="refform" style="padding: 2vw">
           <el-row :gutter="32">
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -37,7 +37,7 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width:20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -50,7 +50,7 @@
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="change"
-                    style="width: 11rem"
+                    style="width:20vw"
                   >
                   </dicselect>
                 </el-form-item>
@@ -58,17 +58,17 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
-                <el-input :disabled="!disable" maxlength="11" style="width: 11rem"
+                <el-input :disabled="!disable" maxlength="11" style="width:20vw"
                           v-model.trim="form.mobilephone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="32">
            <!--3-->
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
                 <el-date-picker
+                  style="width:20vw"
                   :disabled="!disable"
                   v-model="form.starttime"
                   type="datetime"
@@ -76,10 +76,10 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ENDTIME')" prop="endtime">
                 <el-date-picker
+                  style="width:20vw"
                   :disabled="!disable"
                   v-model="form.endtime"
                   type="datetime"
@@ -87,42 +87,40 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
                 <el-input disabled="false"
+                style="width:20vw"
                 v-model="form.diffdata"></el-input>
               </el-form-item>
             </el-col>
-
           </el-row>
           <el-row :gutter="32">
             <!--4-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model.trim="form.origin"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_TRANSFERSTATION')" prop="transferstation">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model.trim="form.transferstation"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DESTINATION')" prop="destination">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model.trim="form.destination"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="32">
-            <!--5-->
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber" v-show="show2">
-                  <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                             v-model.trim="form.flightnumber"></el-input>
                 </el-form-item>
               </template>
@@ -142,7 +140,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity" v-show="show2">
-                <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model.trim="form.departurecity"></el-input>
               </el-form-item>
             </el-col>
@@ -176,7 +174,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERSNAME')" v-show="show" prop="fellowmembersname">
-                <el-input :disabled="!disable" maxlength='36' style="width: 11rem"
+                <el-input :disabled="!disable" maxlength='36' style="width:20vw"
                           v-model.trim="form.fellowmembersname" ></el-input>
               </el-form-item>
             </el-col>
@@ -185,7 +183,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname" v-show="show2">
-                  <el-input :disabled="!disable" maxlength='20' style="width: 11rem"
+                  <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                             v-model.trim="form.guestname"></el-input>
                 </el-form-item>
               </template>
@@ -193,7 +191,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_USENUMBER')" prop="usenumber">
                 <el-input-number :disabled="!disable" controls-position="right" :precision="0" :step="1" :min="0"
-                                 :max="999" style="width: 11rem"
+                                 :max="999" style="width:20vw"
                                  v-model.trim="form.usenumber"></el-input-number>
               </el-form-item>
             </el-col>
@@ -201,7 +199,7 @@
           <el-row :gutter="32">
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input :disabled="!disable" style="width: 100%" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -296,7 +294,6 @@
         title: "title.PFANS3006VIEW",
         buttonList: [],
         show: false,
-        show2: false,
         form: {
           centerid: '',
           groupid: '',
@@ -323,7 +320,7 @@
         },
         rules: {
           fellowmembersname:[{
-            required: true,
+            required: false,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
             trigger: 'blur'
           }],
@@ -353,7 +350,6 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_ORIGIN'),
             trigger: 'blur'
           }],
-
           destination: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_DESTINATION'),
@@ -441,11 +437,62 @@
       }
     },
     methods: {
+      downLoad(val){
+        if(val === '1'){
+            this.$confirm('是否立即下载接机提示牌?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    });
+                this.$message({
+                    type: 'success',
+                    message: '下载成功!'
+                });
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+            });
+            /*
+            if(confirm('是否立即下载接机提示牌？')){
+                this.$store
+                    .dispatch('PFANS3006Store/download', {})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            }*/
+        }
+      },
       toshow(val){
         if(val === '1'){
           this.show = false;
+          this.rules.fellowmembersname[0].required = false;
         }else{
           this.show = true;
+          this.rules.fellowmembersname[0].required = true;
         }
       },
       workflowState(val) {
@@ -481,10 +528,10 @@
         this.form.usetype = val;
         if(val === 'PR005002' || val === 'PR005003'){
             this.show2 = true;
-            this.rules.guestname[0].required = false;
+            this.rules.guestname[0].required = true;
         }else{
             this.show2 = false;
-            this.rules.guestname[0].required = true;
+            this.rules.guestname[0].required = false;
         }
       },
       change2(val) {

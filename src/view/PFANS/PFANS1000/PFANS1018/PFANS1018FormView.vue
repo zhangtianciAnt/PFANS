@@ -44,7 +44,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="getSubtype"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -52,7 +52,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.payment"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -60,7 +60,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 69%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 73vw" type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-col>
