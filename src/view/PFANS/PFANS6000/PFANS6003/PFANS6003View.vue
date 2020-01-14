@@ -54,6 +54,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import moment from 'moment';
 
     export default {
         name: 'PFANS6003View',

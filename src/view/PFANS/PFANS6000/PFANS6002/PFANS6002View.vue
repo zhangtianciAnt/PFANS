@@ -54,6 +54,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import moment from 'moment';
 
     export default {
         name: 'PFANS6002View',
@@ -321,6 +322,7 @@
                 if (val === 'import') {
                     this.daoru = true;
                 } else if (val === 'export') {
+                  debugger
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [
