@@ -217,7 +217,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULTSHOWS')">
-                <el-input :disabled="!disable" style="width:71.4vw" type="textarea"
+                <el-input :disabled="!disable" style="width:72vw" type="textarea"
                           v-model="form.resultshows"></el-input>
               </el-form-item>
             </el-col>
@@ -225,7 +225,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disable" style="width:71.4vw" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
