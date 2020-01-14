@@ -8,8 +8,8 @@
       v-loading="loading"
     >
       <div style="margin-top:30px" slot="customize">
-        <el-form ref="form" :model="form" :rules="rules" label-position="left" label-width="10rem">
-          <el-tabs v-model="activeName">
+        <el-form ref="form" :model="form" :rules="rules" label-position="top" label-width="8vw">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane
               :label="$t('label.PFANSUSERFORMVIEW_BASICPERSONALINFORMATION')"
               name="first"
@@ -21,7 +21,7 @@
                     :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                     prop="customername"
                   >
-                    <el-input class="width" v-model="form.customername" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.customername" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -30,13 +30,13 @@
                       code="PR019"
                       @change="changesex"
                       :data="form.sex"
-                      style="width: 11rem"
+                      style="width:20vw"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" prop="adfield">
-                    <el-input class="width" v-model="form.adfield" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.adfield" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -47,20 +47,20 @@
                       v-model="form.birthday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                    <el-input class="width" v-model="form.age" :disabled="true"></el-input>
+                    <el-input class="width" v-model="form.age" :disabled="true" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_NATIONALITY')" prop="nationality">
-                    <el-input class="width" v-model="form.nationality" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.nationality" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -121,7 +121,7 @@
                       v-model="form.marryday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -131,7 +131,7 @@
                       v-model="form.children"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -239,7 +239,7 @@
                       v-model="form.graduationday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -420,7 +420,7 @@
                       v-model="form.workday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -630,7 +630,7 @@
                       v-model="form.fixedate"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -646,7 +646,7 @@
                       v-model="form.laborcontractday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -656,7 +656,7 @@
                       v-model="form.enterday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -669,7 +669,7 @@
                       v-model="form.enddate"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -679,7 +679,7 @@
                       v-model="form.upgraded"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -835,7 +835,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:12rem" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -906,7 +906,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:12rem" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -969,7 +969,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:12rem" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -1035,7 +1035,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:12rem" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -1199,7 +1199,7 @@
                       v-model="scope.row._time"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:10.7rem"
+                      style="width:20vw"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
@@ -1237,7 +1237,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                    <el-date-picker style="width: 11rem" v-model="form.resignation_date" :disabled="true">
+                    <el-date-picker style="width:20vw" v-model="form.resignation_date" :disabled="true">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
