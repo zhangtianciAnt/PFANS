@@ -60,7 +60,7 @@
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 71.4vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-col>

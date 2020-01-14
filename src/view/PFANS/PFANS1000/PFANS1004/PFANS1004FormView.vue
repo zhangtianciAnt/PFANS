@@ -41,7 +41,7 @@
           <el-row>
             <el-col :span="16">
               <el-form-item :label="$t('label.PFANS1004VIEW_FILENAME')" prop="filename">
-                <el-input v-model="form.filename" type="textarea" :disabled="!disabled" style="width:70vw" maxlength='50'></el-input>
+                <el-input v-model="form.filename" type="textarea" :disabled="!disabled" style="width:72vw" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
 
@@ -133,14 +133,14 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
-                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" style="width: 70vw"></el-input>
+                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" style="width: 72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport">
-                <el-input v-model="form.purchassupport"  type="textarea" :rows="3" :disabled="!disabled" style="width:70vw"></el-input>
+                <el-input v-model="form.purchassupport"  type="textarea" :rows="3" :disabled="!disabled" style="width:72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
