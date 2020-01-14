@@ -167,10 +167,10 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2001VIEW_JOBREQUIREMENTS')" name="second">
               <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANS2001VIEW_QUALIFICATIONS')}}</span>
-                  </template>
+                  <el-collapse-item>
+                    <template slot="title">
+                      <span  class="collapse_Title">{{$t('label.PFANS2001VIEW_QUALIFICATIONS')}}</span>
+                    </template>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2001VIEW_GENDERREQUIREMENTS')" prop="genderrequirements">
