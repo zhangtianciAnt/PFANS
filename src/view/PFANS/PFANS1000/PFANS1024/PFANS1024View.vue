@@ -72,7 +72,7 @@
                   <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1024VIEW_INTERNTECHNOLOGY')}}</span>
                 </el-col>
               </el-row>
-                <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
+                <el-table :data="tableInt" :header-cell-style="getRowClass">
                   <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                   <el-table-column :label="$t('label.department')" align="center" width="120">
                     <template slot-scope="scope">
@@ -295,7 +295,7 @@
                   </span>
               </el-col>
             </el-row>
-              <el-table :data="tableInt" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass">
+              <el-table :data="tableInt" :header-cell-style="getRowClass">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
@@ -518,7 +518,7 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="tableOut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
@@ -759,7 +759,7 @@
                   </span>
                 </el-col>
               </el-row>
-              <el-table :data="tableOut" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
@@ -1152,6 +1152,12 @@
               'border-bottom': '1px solid #99CCFF',
             };
           }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 25){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
 
         },
         getRowClass2({row, column, rowIndex, columnIndex}) {
@@ -1188,6 +1194,12 @@
               'border-bottom': '1px solid #99CCFF',
             };
           }
+          if(column.level === 1 && columnIndex >= 0 && columnIndex < 25){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+           }
 
         },
 
