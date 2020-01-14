@@ -8,7 +8,7 @@
       :rules="loginRules"
       ref="loginForm"
       label-position="left"
-      class="sub_bg_color_blue"
+      class="sub_login_color_blue"
       style="height: 100%;background:rgba(0,91,170,0.4)"
     >
       <div>
