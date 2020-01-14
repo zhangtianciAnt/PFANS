@@ -3,38 +3,38 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
               <el-form-item  :label="$t('label.center')">
-                <el-input v-model="form.center_id" :disabled="true" style="width: 11rem" ></el-input>
+                <el-input v-model="form.center_id" :disabled="true" style="width:20vw" ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input v-model="form.group_id" :disabled="true" style="width: 11rem"></el-input>
+                <el-input v-model="form.group_id" :disabled="true" style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input v-model="form.team_id" :disabled="true" style="width: 11rem"></el-input>
+                <el-input v-model="form.team_id" :disabled="true" style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="erroruser"  :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1008FORMVIEW_INSIDENUMBER')" prop="insidenumber">
-                <el-input v-model="form.insidenumber" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.insidenumber" :disabled="!disabled" style="width:20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1008FORMVIEW_MOBILEDAY')" prop="mobiledate" >
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.mobiledate" style="width: 11rem" ></el-date-picker>
+                <el-date-picker :disabled="!disabled" type="date" v-model="form.mobiledate" style="width:20vw" ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -46,17 +46,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errorferrycenter"  :label="$t('label.center')"  prop="ferrycenter_id">
-                <org  :orglist="ferrycenterorglist" :error="errorferrycenter" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getCenterId1"></org>
+                <org  :orglist="ferrycenterorglist" :error="errorferrycenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="errorferrygroup" :label="$t('label.group')" prop="ferrygroup_id" >
-                <org  :orglist="ferrygrouporglist" orgtype="2" :disabled="!disabled" :error="errorferrygroup" style="width: 9rem" @getOrgids="getGroupId1"></org>
+                <org  :orglist="ferrygrouporglist" orgtype="2" :disabled="!disabled" :error="errorferrygroup" style="width:20vw" @getOrgids="getGroupId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <org  :orglist="ferryteamorglist" orgtype="3" :disabled="!disabled" style="width: 9rem" @getOrgids="getTeamId1"></org>
+                <org  :orglist="ferryteamorglist" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -66,7 +66,7 @@
                   :data="form.ferrybudgetunit"
                   :multiple="multiple"
                   @change="getFerrybudgetunit"
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disabled">
                 </dicselect>
               </el-form-item>
@@ -80,17 +80,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errortubecenter"  :label="$t('label.center')"  prop="tubecenter_id">
-                <org  :orglist="tubecenterorglist" :error="errortubecenter" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getCenterId2"></org>
+                <org  :orglist="tubecenterorglist" :error="errortubecenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="errortubegroup" :label="$t('label.group')" prop="tubegroup_id" >
-                <org  :orglist="tubegrouporglist" orgtype="2" :disabled="!disabled" :error="errortubegroup" style="width: 9rem" @getOrgids="getGroupId2"></org>
+                <org  :orglist="tubegrouporglist" orgtype="2" :disabled="!disabled" :error="errortubegroup" style="width:20vw" @getOrgids="getGroupId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <org  :orglist="tubeteamorglist" orgtype="3" :disabled="!disabled" style="width: 9rem" @getOrgids="getTeamId2"></org>
+                <org  :orglist="tubeteamorglist" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -100,14 +100,14 @@
                   :data="form.tubebudgetunit"
                   :multiple="multiple"
                   @change="getTubebudgetunit"
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disabled">
                 </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" fixed type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" width="200">
                 <template slot-scope="scope">

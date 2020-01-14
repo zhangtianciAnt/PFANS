@@ -14,19 +14,19 @@
         <el-form
           :model="form"
           :rules="rules"
-          label-position="left"
-          label-width="8rem"
+          label-position="top"
+          label-width="8vw"
           ref="reff"
-          style="padding: 20px"
+          style="padding: 2vw"
         >
-          <el-tabs v-model="activeName">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_COMPANYPROJECTS')" name="first">
               <div>
                 <el-form
                   :model="form"
                   :rules="rules"
-                  label-position="left"
-                  label-width="8rem"
+                  label-position="top"
+                  label-width="8vw"
                   ref="from1"
                 >
                   <el-row>
@@ -38,7 +38,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="50"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.project_name"
                         ></el-input>
                       </el-form-item>
@@ -51,7 +51,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="50"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.project_namejp"
                         ></el-input>
                       </el-form-item>
@@ -61,7 +61,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.numbers"
                         ></el-input>
                       </el-form-item>
@@ -72,13 +72,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')"
                         prop="departmentid"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code"
                           :data="form.departmentid"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getdepartmentid"
                         ></dicselect>
                       </el-form-item>
@@ -88,7 +88,6 @@
                         :error="errorLeader"
                         :label="$t('label.PFANS5001FORMVIEW_LEADERID')"
                         prop="leaderid"
-                        style="width: 19rem"
                       >
                         <user
                           :disabled="!disable"
@@ -96,7 +95,7 @@
                           :selectType="selectType"
                           :userlist="userlist"
                           @getUserids="getUserids"
-                          style="width:10.1rem"
+                          style="width: 20vw"
                         ></user>
                       </el-form-item>
                     </el-col>
@@ -105,7 +104,6 @@
                         :error="errorManager"
                         :label="$t('label.PFANS5001FORMVIEW_MANAGERID')"
                         prop="managerid"
-                        style="width: 19rem"
                       >
                         <user
                           :disabled="!disable"
@@ -113,7 +111,7 @@
                           :selectType="selectType"
                           :userlist="userlist1"
                           @getUserids="getUserids1"
-                          style="width:10.1rem"
+                          style="width: 20vw"
                         ></user>
                       </el-form-item>
                     </el-col>
@@ -123,13 +121,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
                         prop="projecttype"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code1"
                           :data="form.projecttype"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getprojecttype"
                         ></dicselect>
                       </el-form-item>
@@ -138,13 +136,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_FIELD')"
                         prop="field"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code2"
                           :data="form.field"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getfield"
                         ></dicselect>
                       </el-form-item>
@@ -153,13 +151,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_TECHNOLOGICAL')"
                         prop="technological"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code3"
                           :data="form.technological"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="gettechnological"
                         ></dicselect>
                       </el-form-item>
@@ -173,7 +171,7 @@
                       >
                         <el-date-picker
                           :disabled="!disable"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           type="date"
                           v-model="form.startdate"
                         ></el-date-picker>
@@ -183,7 +181,7 @@
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
                         <el-date-picker
                           :disabled="!disable"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           type="date"
                           v-model="form.enddate"
                         ></el-date-picker>
@@ -199,7 +197,7 @@
                           :min="0"
                           :precision="2"
                           controls-position="right"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.manmonth"
                         ></el-input-number>
                       </el-form-item>
@@ -212,7 +210,7 @@
                           :min="0"
                           :precision="2"
                           controls-position="right"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.cost"
                         ></el-input-number>
                       </el-form-item>
@@ -228,7 +226,7 @@
                           :min="0"
                           :precision="2"
                           controls-position="right"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.salesvolume"
                         ></el-input-number>
                       </el-form-item>
@@ -244,7 +242,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.projectalabel"
                         ></el-input>
                       </el-form-item>
@@ -254,7 +252,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.language"
                         ></el-input>
                       </el-form-item>
@@ -265,13 +263,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_SITUATION')"
                         prop="situation"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code4"
                           :data="form.situation"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getsituation"
                         ></dicselect>
                       </el-form-item>
@@ -280,13 +278,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_CONFIDENTIAL')"
                         prop="confidential"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code5"
                           :data="form.confidential"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getconfidential"
                         ></dicselect>
                       </el-form-item>
@@ -297,13 +295,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_MANAGEMENTTOOL')"
                         prop="managementtool"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code6"
                           :data="form.managementtool"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 70vw"
                           @change="getmanagementtool"
                         ></dicselect>
                       </el-form-item>
@@ -314,13 +312,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                         prop="customername"
-                        style="width: 19rem"
                       >
                         <dicselect
                           :code="code7"
                           :data="form.customername"
                           :disabled="!disable"
                           :multiple="multiple"
+                          style="width: 20vw"
                           @change="getcustomername"
                         ></dicselect>
                       </el-form-item>
@@ -333,7 +331,7 @@
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
-                          style="width: 11rem"
+                          style="width: 20vw"
                           v-model="form.representative"
                         ></el-input>
                       </el-form-item>
@@ -348,7 +346,7 @@
                         <el-input
                           :autosize="{ minRows: 3, maxRows: 4}"
                           :disabled="!disable"
-                          style="width: 56.3rem"
+                          style="width: 70vw"
                           type="textarea"
                           v-model="form.basicsituation"
                         ></el-input>
@@ -364,7 +362,7 @@
                         <el-input
                           :autosize="{ minRows: 3, maxRows: 4}"
                           :disabled="!disable"
-                          style="width: 56.3rem"
+                          style="width: 70vw"
                           type="textarea"
                           v-model="form.briefintroduction"
                         ></el-input>
@@ -380,7 +378,7 @@
                         <el-input
                           :autosize="{ minRows: 3, maxRows: 4}"
                           :disabled="!disable"
-                          style="width: 56.3rem"
+                          style="width: 70vw"
                           type="textarea"
                           v-model="form.requirement"
                         ></el-input>
@@ -415,7 +413,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')" name="second">
               <el-form-item :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')">
-                <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+                <el-table :data="tableD" border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                     align="center"
@@ -490,7 +488,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_PROJECTRESOURCES')" name="third">
               <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')">
-                <el-table :data="tableE" header-cell-class-name="sub_bg_color_grey height">
+                <el-table :data="tableE" border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                     align="center"

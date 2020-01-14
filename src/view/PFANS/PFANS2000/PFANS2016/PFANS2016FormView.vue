@@ -3,22 +3,22 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -26,12 +26,12 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.1rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
-                <el-date-picker :disabled="!disable" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                 v-model="form.applicationdate"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -45,14 +45,14 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   @change="getErrorType"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input :disabled="true"
-                          style="width:11rem;margin-left:-1rem" v-model="form.lengthtime"></el-input>
+                          style="width:20vw" v-model="form.lengthtime"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -60,7 +60,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.startdate')" prop="occurrencedate">
                 <el-date-picker :disabled="!disable" @change="change"
-                                style="width: 11rem" type="date" v-model="form.occurrencedate"></el-date-picker>
+                                style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -69,7 +69,7 @@
                   :disabled="!disable"
                   @change="change"
                   format='HH:mm'
-                  style="width: 11rem"
+                  style="width:20vw"
                   v-model="form.periodstart">
                 </el-time-picker>
               </el-form-item>
@@ -96,7 +96,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enddate')" prop="finisheddate">
                 <el-date-picker :disabled="!disable" @change="change"
-                                style="width: 11rem" type="date" v-model="form.finisheddate"></el-date-picker>
+                                style="width:20vw" type="date" v-model="form.finisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -105,7 +105,7 @@
                   :disabled="!disable"
                   @change="change"
                   format='HH:mm'
-                  style="width: 11rem" v-model="form.periodend">
+                  style="width:20vw" v-model="form.periodend">
                 </el-time-picker>
               </el-form-item>
             </el-col>
@@ -113,12 +113,12 @@
           <el-row v-show="showFemale">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_HOSPITAL')" prop="hospital">
-                <el-input maxlength="50" style="width: 11rem" v-model="form.hospital"></el-input>
+                <el-input maxlength="50" style="width:20vw" v-model="form.hospital"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_EDATE')" prop="edate">
-                <el-date-picker :disabled="!disable" style="width: 11rem"
+                <el-date-picker :disabled="!disable" style="width:20vw"
                                 type="date" v-model="form.edate"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -155,7 +155,7 @@
           <el-row>
             <el-col>
               <el-form-item :label="$t('label.cause')" prop="cause">
-                <el-input :disabled="!disable" :rows="6" style="width: 95%" type="textarea"
+                <el-input :disabled="!disable" :rows="6" style="width: 72vw" type="textarea"
                           v-model="form.cause"></el-input>
               </el-form-item>
             </el-col>
@@ -429,6 +429,7 @@
           {
             key: 'save',
             name: 'button.save',
+            disabled: false,
             icon: 'el-icon-check',
           },
         ];
