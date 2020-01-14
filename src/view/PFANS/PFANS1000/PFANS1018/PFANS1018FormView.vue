@@ -4,22 +4,22 @@
                          @start="start"
                          @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.appcenter_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.appcenter_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.appgroup_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.appgroup_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.appteam_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.appteam_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -28,12 +28,12 @@
               <el-form-item :error="error_applicant" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="error_applicant" :selectType="selectType"
                       :userlist="userapplicantlist"
-                      @getUserids="getApplicantids" style="width: 10.15rem"></user>
+                      @getUserids="getApplicantids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.type"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.type"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -52,7 +52,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
-                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 71.4vw"type="date"
                                 v-model="form.payment"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -75,17 +75,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -93,7 +93,7 @@
             <el-col :span="8">
               <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_name">
                 <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"
-                      @getUserids="getUserids" style="width: 10.15rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -104,13 +104,13 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="getApplicationtype"
-                  style="width: 11rem"
+                  style="width: 20vw"
                 ></dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                           v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
@@ -118,13 +118,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018VIEW_ROMANNAME')" prop="romanname">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                           v-model="form.romanname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width: 20vw"
                           v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>
@@ -136,7 +136,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="getUsinglevel"
-                  style="width: 11rem"
+                  style="width: 20vw"
                 >
                 </dicselect>
               </el-form-item>
