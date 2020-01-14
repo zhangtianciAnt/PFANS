@@ -122,7 +122,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.skillrankingfinished"
@@ -155,7 +154,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.nextskillrankingfinished"
@@ -192,7 +190,6 @@
                     <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
                       <el-switch
                         :disabled="!disable"
-                        :width="60"
                         active-value="0"
                         inactive-value="1"
                         v-model="form.futurefinished"
