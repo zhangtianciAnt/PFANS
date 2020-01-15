@@ -4,22 +4,22 @@
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding:2vw">
+        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
+                 style="padding:2rem">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -27,14 +27,14 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:20vw" @getUserids="getUserids"></user>
+                      style="width:10.14rem" @getUserids="getUserids"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="casedate">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:20vw"
+                  style="width:11rem"
                   type="date"
                   v-model="form.casedate">
                 </el-date-picker>
@@ -49,7 +49,7 @@
                   :data="form.assettype"
                   :disabled="!disable"
                   :multiple="multiple"
-                  style="width:20vw"
+                  style="width: 11rem"
                   @change="getassettype">
                 </dicselect>
               </el-form-item>
@@ -57,7 +57,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
                 <el-switch :disabled="!disable"
-                           style="width:20vw"
+                           style="width:11rem"
                            v-model="installsoftware"
                            active-value="0"
                            inactive-value="1"
@@ -67,7 +67,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_SUITABLEBRINGOUT')" v-show="show">
                 <el-switch :disabled="!disable"
-                           style="width:20vw"
+                           style="width:11rem"
                            v-model="suitablebringout"
                            active-value="0"
                            inactive-value="1"
@@ -76,19 +76,76 @@
             </el-col>
           </el-row>
           <el-row>
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">-->
+<!--                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetnumber" maxlength=""></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+
+
+
+
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">-->
+<!--                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetname" maxlength=""></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+
+
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.assetnumber" maxlength=""></el-input>
+              <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"  prop="assetname">
+                <div class="dpSupIndex" style="width: 8.9rem" prop="assetname">
+                  <el-container>
+                    <input class="content bg" v-model="form.assetname" :error="errorassetname" :disabled="true"></input>
+                    <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                               size="small"></el-button>
+                    <el-dialog :title="$t('title.ASSETS1001FORMVIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                               top="8vh" lock-scroll
+                               append-to-body>
+                      <div style="text-align: center">
+                        <el-row style="text-align: center;height: 90%;overflow: hidden">
+                          <el-table
+                            :data="gridData.filter(data => !search || data.assetname.toLowerCase().includes(search.toLowerCase()))"
+                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                            :span-method="arraySpanMethod" @row-click="handleClickChange">
+                            <el-table-column property="assetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"
+                                             width="150"></el-table-column>
+                            <el-table-column property="file" :label="$t('label.ASSETS1001VIEW_FILENAME')"
+                                             width="150"></el-table-column>
+                            <el-table-column property="bar" :label="$t('label.ASSETS1001VIEW_BARTYPE')"
+                                             width="100"></el-table-column>
+                            <el-table-column
+                              align="right" width="230">
+                              <template slot="header" slot-scope="scope">
+                                <el-input
+                                  v-model="search"
+                                  size="mini"
+                                  placeholder="请输入供应商关键字搜索"/>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-row>
+                        <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
+                        </span>
+                      </div>
+                    </el-dialog>
+                  </el-container>
+                </div>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.assetname" maxlength=""></el-input>
-              </el-form-item>
-            </el-col>
+
+
+
+
+
+
+
+
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.ancillaryequipment"
+                <el-input :disabled="!disable" style="width:11rem" v-model="form.ancillaryequipment"
                           maxlength=""></el-input>
               </el-form-item>
             </el-col>
@@ -109,7 +166,7 @@
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INPUTDATE')" prop="inputdate" v-show="show1">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:20vw"
+                  style="width:11rem"
                   type="date"
                   v-model="form.inputdate">
                 </el-date-picker>
@@ -119,7 +176,7 @@
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_RELEASEDATE')" v-show="show2">
                 <el-date-picker
                   :disabled="!disable"
-                  style="width:20vw"
+                  style="width:11rem"
                   type="date"
                   v-model="form.releasedate">
                 </el-date-picker>
@@ -129,7 +186,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')" prop="objective">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:72vw"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
                           v-model="form.objective"></el-input>
               </el-form-item>
             </el-col>
@@ -137,7 +194,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_BORROWING')">
-                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:72vw"
+                <el-input :disabled="!disable" type="textarea" :rows="4" style="width:46.7rem"
                           v-model="form.borrowing"></el-input>
               </el-form-item>
             </el-col>
@@ -167,7 +224,7 @@
                   :data="form.repairkits"
                   :disabled="!disable"
                   :multiple="multiple"
-                  style="width:20vw"
+                  style="width: 11rem"
                   @change="changerepairkits"
                   :picker-options="pickerOptions">
                 </dicselect>
@@ -205,33 +262,9 @@
         }
       };
       return {
-        pickerOptions: {
-          shortcuts: [{
-            text: this.$t('label.PFANS1016FORMVIEW_WEEKEND'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            },
-          }, {
-            text: this.$t('label.PFANS1016FORMVIEW_MONTH'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            },
-          }, {
-            text: this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            },
-          }],
-        },
+        dialogTableVisible: false,
+        errorassetname: '',
+        gridData: [],
         show1: true,
         show2: true,
         repair: '',
@@ -257,7 +290,7 @@
           assettype: '',
           installsoftware: '',
           suitablebringout: '',
-          assetnumber: '',
+          // assetnumber: '',
           assetname: '',
           ancillaryequipment: '',
           inputdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -289,11 +322,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
             trigger: 'blur',
           }],
-          assetnumber: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNUMBER'),
-            trigger: 'change',
-          }],
+          // assetnumber: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNUMBER'),
+          //   trigger: 'change',
+          // }],
           assetname: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNAME'),
@@ -381,6 +414,55 @@
       }
     },
     methods: {
+      handleCurrentChange(val) {
+        this.currentRow = val;
+      },
+      getAssetname(val) {
+        this.form.assetname = val;
+        if (!this.form.assetname || this.form.assetname === '' || val === 'undefined') {
+          this.assetname = this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_ASSETNAME');
+        } else {
+          this.errorassetname = '';
+        }
+      },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.assetname = val;
+      },
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 3) {
+          return [1, 2];
+        }
+      },
+      handleClickChange(val) {
+        this.currentRow = val.assetname
+      },
+      getAssetsnameList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1009Store/getAssetsnameList', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.assetname = response[i].barcode;
+              vote.file = response[i].filename;
+              vote.bar = response[i].bartype;
+              this.gridData.push(vote)
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
+
       getUserids(val) {
         this.form.user_id = val;
         let lst = getOrgInfoByUserId(val);
@@ -514,5 +596,21 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 
 </style>

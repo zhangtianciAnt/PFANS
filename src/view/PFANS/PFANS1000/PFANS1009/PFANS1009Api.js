@@ -30,3 +30,11 @@ export function createFixedassets(data) {
     data: data
   })
 }
+
+export function getAssetsnameList(data) {
+  return request({
+    url: 'fixedassets/getAssetsnameList',
+    method: 'POST',
+    data: data
+  })
+}
