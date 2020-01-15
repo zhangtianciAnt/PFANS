@@ -245,6 +245,7 @@
               :data="tableData"
               :summary-method="getAverage"
               border
+              stripe="true"
               show-summary
               style="width: 60%;margin-left:15%"
               header-cell-class-name="sub_bg_color_blue"

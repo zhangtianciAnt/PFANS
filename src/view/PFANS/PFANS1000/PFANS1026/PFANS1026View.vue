@@ -60,12 +60,7 @@
         </el-dialog>
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_OVERSEAS')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablefirst" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
+            <el-table :data="tablefirst" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -420,12 +415,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_TECHNICAL')" name="second">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1026VIEW_TECHNICAL')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablesecond" header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">
+            <el-table :data="tablesecond" stripe="true" header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -756,12 +746,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASTRUST')" name="third">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_OVERSEASTRUST')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablethird" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
+            <el-table :data="tablethird" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -1036,12 +1021,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASSERVICE')" name="fourth">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_OVERSEASSERVICE')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablefourth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
+            <el-table :data="tablefourth" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -1316,12 +1296,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTIC')" name="fifth">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_DOMESTIC')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablefifth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">
+            <el-table :data="tablefifth" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -1596,12 +1571,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICTRUST')" name="sixth">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_DOMESTICTRUST')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tablesixth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">
+            <el-table :data="tablesixth" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -1876,12 +1846,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICSERVICE')" name="seventh">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_DOMESTICSERVICE')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tableseventh" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">
+            <el-table :data="tableseventh" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -2156,12 +2121,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_TRUST')" name="eighth">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_TRUST')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tableeighth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">
+            <el-table :data="tableeighth" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
@@ -2436,12 +2396,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1026VIEW_SELL')" name="ninth">
-            <el-row>
-              <el-col>
-                <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1026VIEW_SELL')}}</span>
-              </el-col>
-            </el-row>
-            <el-table :data="tableninth" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">
+            <el-table :data="tableninth" stripe="true" header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
