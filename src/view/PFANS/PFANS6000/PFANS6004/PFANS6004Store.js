@@ -3,8 +3,10 @@ import {
   getexpatriatesinforApplyOne,
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
-  getSupplierNameList
+  getSupplierNameList,
+  download
 } from './PFANS6004Api'
+
 
 const PFANS6004Store = {
   namespaced: true,
@@ -77,6 +79,15 @@ const PFANS6004Store = {
         })
       })
     },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 };
 

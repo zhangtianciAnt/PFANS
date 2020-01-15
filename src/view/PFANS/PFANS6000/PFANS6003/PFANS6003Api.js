@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 export function getsupplierinfor(data) {
   return request({
@@ -29,5 +30,13 @@ export function createsupplierinforApply(data) {
     url: 'supplierinfor/create',
     method: 'post',
     data: data
+  })
+}
+export function download(data) {
+  return requestDownload({
+    url: 'supplierinfor/download',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }

@@ -60,7 +60,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 1051px">
+            <el-table :data="tableT" stripe="true" header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_MACHINENAME')" align="center" width="150">

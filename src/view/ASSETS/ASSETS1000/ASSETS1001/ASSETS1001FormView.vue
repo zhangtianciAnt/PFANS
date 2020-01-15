@@ -6,25 +6,7 @@
         <el-form :model="form" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw" :rules="rules">
           <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')" prop="filename">
-                <el-input style="width:20vw" v-model="form.filename"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="stockstatus">
-                <dicselect
-                  :code="code2"
-                  :data="form.stockstatus"
-                  :multiple="multiple"
-                  @change="getStockstatus"
-                  style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
                 <dicselect
                   :code="code1"
@@ -35,7 +17,18 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="stockstatus">
+                <dicselect
+                  :code="code2"
+                  :data="form.stockstatus"
+                  :multiple="multiple"
+                  @change="getStockstatus"
+                  style="width:20vw">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETSTATUS')" prop="assetstatus">
                 <dicselect
                   :code="code3"
@@ -48,34 +41,12 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')" prop="filename">
+                <el-input style="width:20vw" v-model="form.filename"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <el-input :disabled="true" style="width:20vw" v-model="form.usedepartment"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')" prop="purchasetime">
-                <el-date-picker style="width:20vw" type="date"
-                                v-model="form.purchasetime"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
-                <user :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
                 <dicselect
                   :code="code4"
@@ -86,10 +57,46 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <el-col :span="12"  v-if="form.barcode">
-              <span style="font-size: 30px;color:black;border: black solid 1px">{{form.barcode}}</span>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')" prop="purchasetime">
+                <el-date-picker style="width:20vw" type="date"
+                                v-model="form.purchasetime"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
+                <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
+                                 :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
+                <el-input :disabled="true" style="width:20vw" v-model="form.usedepartment"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
+                <user :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_BARCODE')" prop="usedepartment">
+                <el-input style="width:20vw" v-model="form.barcode"></el-input>
+              </el-form-item>
            </el-col>
           </el-row>
+          <!--<el-collapse :v-show="form.typeassets">-->
+            <!--<el-collapse-item :v-show="form.typeassets === 'PA001002'">-->
+              <!--<template slot="title">-->
+                <!--<span  class="collapse_Title">{{collapseName}}</span>-->
+              <!--</template>-->
+            <!--</el-collapse-item>-->
+          <!--</el-collapse>-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -104,7 +111,7 @@
   import user from '../../../components/user.vue';
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
-
+  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
   export default {
     name: 'ASSETS1001FormView',
     components: {
@@ -148,11 +155,19 @@
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
             trigger: 'change',
-          }]
+          }],
+          typeassets: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+            trigger: 'change',
+          }],
         },
+        collapseName:'',
       };
     },
     mounted() {
+      console.log("11111111111111")
+      console.log(this.form.typeassets)
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -242,6 +257,11 @@
       },
       getTypeassets(val) {
         this.form.typeassets = val;
+        let letErrortype = getDictionaryInfo(val);
+        if (letErrortype != null) {
+          this.collapseName =  letErrortype.value1;
+        }
+
       },
       getSave(){
         if (this.$route.params._id) {

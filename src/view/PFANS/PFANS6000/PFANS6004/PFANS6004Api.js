@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 export function getexpatriatesinfor(data) {
   return request({
@@ -37,5 +38,13 @@ export function getSupplierNameList(data) {
     url: 'expatriatesinfor/getSupplierNameList',
     method: 'POST',
     data: data
+  })
+}
+export function download(data) {
+  return requestDownload({
+    url: 'expatriatesinfor/download',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
