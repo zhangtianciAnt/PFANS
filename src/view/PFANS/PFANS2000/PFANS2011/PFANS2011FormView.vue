@@ -653,8 +653,8 @@
               this.form.reserveovertimedate
             ).format("YYYY-MM-DD");
             if (this.form.overtimetype != "PR001002") {
-              this.form.reservesubstitutiondate = new Date();
-              this.form.actualsubstitutiondate = new Date();
+              this.form.reservesubstitutiondate = null;
+              this.form.actualsubstitutiondate = null;
             } else {
               this.form.reservesubstitutiondate = moment(
                 this.form.reservesubstitutiondate

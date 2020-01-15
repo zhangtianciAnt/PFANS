@@ -12,11 +12,11 @@
               :data="form.claimtype"
               :multiple="multiple"
               @change="getnumber"
-              style="width: 11rem">
+              style="width: 20vw">
             </dicselect>
           </el-form-item>
           <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-            <el-input v-model="form.group_id" style="width: 11rem" ></el-input>
+            <el-input v-model="form.group_id" style="width: 20vw" ></el-input>
             <el-checkbox
               v-model="form.contractnumber"
               :key="index"
@@ -29,23 +29,23 @@
             <dicselect :code="code2"
                        :data="form.contracttype"
                        @change="getcontracttype"
-                       style="width: 11rem">
+                       style="width: 20vw">
             </dicselect>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
             <dicselect :code="code2"
                        :data="form.applicationdate"
                        @change="getcareeryear"
-                       style="width: 11rem">
+                       style="width: 20vw">
             </dicselect>
             <dicselect :code="code3"
                        :data="form.applicationdate"
                        @change="getcareeryear"
-                       style="width: 11rem">
+                       style="width: 20vw">
             </dicselect>
           </el-form-item>
           <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id"  :label-width="formLabelWidth">
-            <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 9rem" @getOrgids="getGroupId"></org>
+            <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 20vw" @getOrgids="getGroupId"></org>
           </el-form-item>
           <div  class="dialog-footer" align="center">
             <el-button @click="buttonClick1" v-if="show1">
