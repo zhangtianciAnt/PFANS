@@ -295,7 +295,7 @@
                             this.result = true;
                         }
                         this.getList();
-                        this.getcustomerinfor();
+                        this.getsupplierinfor();
                     }
                 }
             },
