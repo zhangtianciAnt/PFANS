@@ -13,7 +13,7 @@
               <div id="app">
                 <el-table
                   :data="tableData"
-                  style="margin-top:2%;"
+                  stripe="true"
                   header-cell-class-name="sub_bg_color_blue"
                 >
 <!--                  :header-cell-style="getRowClass"-->
@@ -540,8 +540,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
-              <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_JS')}}</span>
-              <el-table :data="tableJS" :summary-method="getSummaries" border show-summary header-cell-class-name="sub_bg_color_blue">
+              <el-table :data="tableJS" stripe="true" :summary-method="getSummaries" border show-summary header-cell-class-name="sub_bg_color_blue">
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -663,7 +662,7 @@
                   class="collapse_Title"
                 >{{$t('label.PFANS2005FORMVIEW_FEMALELEAVE')}}</span>
                     </template>
-                <el-table :data="tableQT1Woman" border header-cell-class-name="sub_bg_color_blue">
+                <el-table :data="tableQT1Woman" stripe="true" border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
@@ -822,10 +821,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT2')" name="fourth">
               <div>
-                <span
-                  class="Title_front main_color"
-                  style="float:left"
-                >{{$t('label.PFANS2005FORMVIEW_QT2YL')}}</span>
                 <el-row>
                   <el-table
                     :data="tableQT2"
@@ -956,10 +951,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT4')" name="fifth">
               <div>
-                <span
-                  class="Title_front main_color"
-                  style="float:left"
-                >{{$t('label.PFANS2005FORMVIEW_QT4YL')}}</span>
                 <el-row>
                   <el-table
                     :data="tableQT4"
@@ -1088,10 +1079,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT5')" name="sixth">
               <div>
-                <span
-                  class="Title_front main_color"
-                  style="float:left"
-                >{{$t('label.PFANS2005FORMVIEW_QT5YL')}}</span>
                 <el-row>
                   <el-table
                     :data="tableQT5"
@@ -1241,10 +1228,6 @@
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh"></el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_TZ')" name="eighth"></el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QQ')" name="ninth">
-              <span
-                class="Title_front main_color"
-                style="float:left"
-              >{{$t('label.PFANS2005FORMVIEW_QQYL')}}</span>
               <el-table :data="tableQQ" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -1347,10 +1330,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_CY')" name="tenth">
-              <span
-                class="Title_front main_color"
-                style="float:left"
-              >{{$t('label.PFANS2005FORMVIEW_CYYL')}}</span>
               <el-table :data="tableCY" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -1528,10 +1507,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_YDSY')" name="eleventh">
               <div>
-                <span
-                  class="Title_front main_color"
-                  style="float:left"
-                >{{$t('label.PFANS2005FORMVIEW_YDSY')}}</span>
                 <el-row>
                   <el-table
                     :data="tableYDSY"
@@ -1672,10 +1647,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZHSR')" name="twelfth">
-              <span
-                class="Title_front main_color"
-                style="float:left"
-              >{{$t('label.PFANS2005FORMVIEW_ZHSR')}}</span>
               <el-table :data="tableZHSR" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -1901,10 +1872,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZXKC')" name="thirteenth">
-              <span
-                class="Title_front main_color"
-                style="float:left"
-              >{{$t('label.PFANS2005FORMVIEW_LYZXKC')}}</span>
               <el-table :data="tableZXKC" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -1963,10 +1930,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_FJKC')" name="fourteenth">
               <div>
-                <span
-                  class="Title_front main_color"
-                  style="float:left"
-                >{{$t('label.PFANS2005FORMVIEW_FJKCYL')}}</span>
                 <el-row>
                   <el-table
                     :data="tableFJKC"
@@ -2103,10 +2066,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_MS')" name="fifteenth">
-              <span
-                class="Title_front main_color"
-                style="float:left"
-              >{{$t('label.PFANS2005FORMVIEW_MS')}}</span>
               <el-table :data="tableMS" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -2163,7 +2122,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_LJSJ')" name="sixteenth">
-              <span class="Title_front main_color" >{{$t('label.PFANS2005FORMVIEW_LJNF')}}</span>
               <el-table :data="tableLJSJ" :summary-method="getSummaries" show-summary
                         header-cell-class-name="sub_bg_color_blue"
                         border>
@@ -2241,7 +2199,6 @@
             </el-tab-pane>
 
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GRDB')" name="seventeenth">
-              <span class="Title_front main_color" >{{$t('label.PFANS2005FORMVIEW_GRDB')}}</span>
               <el-row>
                 <el-table
                   :data="tableGRDB"
