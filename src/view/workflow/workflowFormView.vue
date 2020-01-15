@@ -2,17 +2,17 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
-      <div slot="customize" style="margin-top: 4rem;">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+      <div slot="customize" style="margin-top: 4vw;">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_name')" prop="workflowname">
-                <el-input maxlength="255" style="width: 80%" v-model="form.workflowname"></el-input>
+                <el-input maxlength="255" style="width:20vw" v-model="form.workflowname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_page')" prop="formid">
-                <el-select v-model="form.formid">
+                <el-select v-model="form.formid" style="width:20vw">
                   <el-option
                     :key="item.menuurl"
                     :label="$t(item.name)"
@@ -24,21 +24,21 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_code')" prop="code">
-                <el-input maxlength="5" style="width: 80%" v-model="form.code"></el-input>
+                <el-input maxlength="5" style="width:20vw" v-model="form.code"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-form-item :label="$t('label.workflow_remarks')">
-              <el-input style="width: 80%" type="textarea" v-model="form.workflowtext"></el-input>
+              <el-input style="width: 72vw" type="textarea" v-model="form.workflowtext"></el-input>
             </el-form-item>
           </el-row>
         </el-form>
-        <el-steps :active="editableTabs.length" align-center style="padding: 4rem">
+        <el-steps :active="editableTabs.length" align-center style="padding: 5vw">
           <el-step :key="item.name" :title="$t(item.title)" v-for="(item, index) in editableTabs"></el-step>
         </el-steps>
 
-        <el-tabs @tab-remove="removeTab" closable style="padding-top: 4rem" type="card" v-model="editableTabsValue">
+        <el-tabs @tab-remove="removeTab" closable type="border-card" v-model="editableTabsValue">
           <el-tab-pane
             :key="item.name"
             :label="$t(item.title)"
