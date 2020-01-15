@@ -6,130 +6,152 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input v-model="form.center_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input v-model="form.group_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input v-model="form.team_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <el-input v-model="form.type" :disabled="!disabled6" style="width: 20vw" maxlength='20'></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.application_date')" prop="application">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.application"
-                                style="width: 20vw"></el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MACHINEMEDIA')" prop="machinemedia">
-                <dicselect
-                  :code="code"
-                  :data="form.machinemedia"
-                  :multiple="multiple"
-                  @change="getMachinemedia"
-                  style="width: 20vw"
-                  :disabled="!disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_MANAGEMENT')" prop="management">
-                <el-input v-model="form.management" :disabled="!disabled" style="width: 20vw"
-                          maxlength='20'></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL')">
-                <el-radio-group v-model="radio">
-                  <el-radio :label="1" :disabled="!disabled">{{$t('label.yes')}}</el-radio>
-                  <el-radio :label="2" :disabled="!disabled">{{$t('label.no')}}</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :error="errorexportdate" :label="$t('label.PFASN1023FORMVIEW_EXPORTDATE')"
-                            prop="exportdate">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.exportdate"
-                                style="width: 20vw"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="errorreturndate" :label="$t('label.PFASN1023FORMVIEW_RETURNDATE')"
-                            prop="returndate">
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.returndate"
-                                style="width: 20vw"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDINGPLACE')" prop="holdingplace">
-                <el-input v-model="form.holdingplace" :disabled="!disabled" style="width: 20vw"
-                          maxlength='50'></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDOUTREASON')" prop="holdoutreason">
-                <el-input v-model="form.holdoutreason" type="textarea" :disabled="!disabled"
-                          style="width: 71.4vw"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <div class="sub_color_blue">{{$t('label.PFASN1023FORMVIEW_STOREDDATA')}}</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_COMPANY')">
-                <el-input v-model="form.company" :disabled="!disabled1" style="width: 20vw"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked2" @change="getChecked2" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_SECRET')">
-                <el-input v-model="form.secret" :disabled="!disabled2" style="width: 20vw"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked3" @change="getChecked3" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_INFORMATION')">
-                <el-input v-model="form.information" :disabled="!disabled3" style="width: 20vw"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked4" @change="getChecked4" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_INTELLIGENCE')">
-                <el-input v-model="form.intelligence" :disabled="!disabled4" style="width: 20vw"></el-input>
-              </el-form-item>
-            </el-checkbox>
-            <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
-              <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
-                <el-input v-model="form.confident" :disabled="!disabled5" style="width: 20vw"></el-input>
-              </el-form-item>
-            </el-checkbox>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title">{{$t('title.PFANS1023VIEW')}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.center')">
+                    <el-input v-model="form.center_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.group')">
+                    <el-input v-model="form.group_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <el-input v-model="form.team_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
+                    <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
+                          @getUserids="getUserids" style="width: 20vw"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.pfanstype')" prop="type">
+                    <el-input v-model="form.type" :disabled="!disabled6" style="width: 20vw" maxlength='20'></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.application_date')" prop="application">
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.application"
+                                    style="width: 20vw"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFASN1023FORMVIEW_MACHINEMEDIA')" prop="machinemedia">
+                    <dicselect
+                      :code="code"
+                      :data="form.machinemedia"
+                      :multiple="multiple"
+                      @change="getMachinemedia"
+                      style="width: 20vw"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFASN1023FORMVIEW_MANAGEMENT')" prop="management">
+                    <el-input v-model="form.management" :disabled="!disabled" style="width: 20vw"
+                              maxlength='20'></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFASN1023FORMVIEW_COMPATIBLESEAL')">
+                    <el-radio-group v-model="radio">
+                      <el-radio :label="1" :disabled="!disabled">{{$t('label.yes')}}</el-radio>
+                      <el-radio :label="2" :disabled="!disabled">{{$t('label.no')}}</el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="errorexportdate" :label="$t('label.PFASN1023FORMVIEW_EXPORTDATE')"
+                                prop="exportdate">
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.exportdate"
+                                    style="width: 20vw"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :error="errorreturndate" :label="$t('label.PFASN1023FORMVIEW_RETURNDATE')"
+                                prop="returndate">
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.returndate"
+                                    style="width: 20vw"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDINGPLACE')" prop="holdingplace">
+                    <el-input v-model="form.holdingplace" :disabled="!disabled" style="width: 20vw"
+                              maxlength='50'></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFASN1023FORMVIEW_HOLDOUTREASON')" prop="holdoutreason">
+                    <el-input v-model="form.holdoutreason" type="textarea" :disabled="!disabled"
+                              style="width: 71.4vw"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title">{{$t('label.PFASN1023FORMVIEW_STOREDDATA')}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
+                    <el-form-item :label="$t('label.PFANS1023FORMVIEW_COMPANY')" label-width="8vw">
+                      <el-input v-model="form.company" :disabled="!disabled1" style="width: 18.4vw"></el-input>
+                    </el-form-item>
+                  </el-checkbox>
+                </el-col>
+                <el-col :span="8">
+                  <el-checkbox v-model="checked2" @change="getChecked2" :disabled="!disabled">
+                    <el-form-item :label="$t('label.PFANS1023FORMVIEW_SECRET')" label-width="8vw">
+                      <el-input v-model="form.secret" :disabled="!disabled2" style="width: 18.4vw"></el-input>
+                    </el-form-item>
+                  </el-checkbox>
+                </el-col>
+                <el-col :span="8">
+                  <el-checkbox v-model="checked3" @change="getChecked3" :disabled="!disabled">
+                    <el-form-item :label="$t('label.PFANS1023FORMVIEW_INFORMATION')" label-width="8vw">
+                      <el-input v-model="form.information" :disabled="!disabled3" style="width: 18.4vw"></el-input>
+                    </el-form-item>
+                  </el-checkbox>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-checkbox v-model="checked4" @change="getChecked4" :disabled="!disabled">
+                    <el-form-item :label="$t('label.PFANS1023FORMVIEW_INTELLIGENCE')">
+                      <el-input v-model="form.intelligence" :disabled="!disabled4" style="width: 18.4vw"></el-input>
+                    </el-form-item>
+                  </el-checkbox>
+                </el-col>
+                <el-col :span="8">
+                  <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
+                    <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
+                      <el-input v-model="form.confident" :disabled="!disabled5" style="width: 18.4vw"></el-input>
+                    </el-form-item>
+                  </el-checkbox>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -217,7 +239,7 @@
           machinemedia: '',
           management: '',
           application: moment(new Date()).format('YYYY-MM-DD'),
-          exportdate:'' ,
+          exportdate: '',
           returndate: '',
           holdingplace: '',
           compatibleseal: '',
