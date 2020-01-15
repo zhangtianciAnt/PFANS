@@ -148,7 +148,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1007FORMVIEW_SCRAPASSETDETAILS')" name="second">
               <el-row>
-                <el-table :data="table1" border header-cell-class-name="sub_bg_color_blue" stripe="true">
+                <el-table :data="table1" border="true" header-cell-class-name="sub_bg_color_blue" stripe="true">
                   <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed type="index">
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETNAME')" align="center"
@@ -244,7 +244,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1007FORMVIEW_SALESASSETDETAILS')" name="third">
               <el-row>
-                <el-table :data="table2" border header-cell-class-name="sub_bg_color_blue" stripe="true">
+                <el-table :data="table2" border="true" header-cell-class-name="sub_bg_color_blue" stripe="true">
                   <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                    type="index"></el-table-column>
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETNAME')" align="center"

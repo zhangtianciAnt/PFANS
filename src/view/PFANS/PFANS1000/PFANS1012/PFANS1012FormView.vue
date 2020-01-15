@@ -46,7 +46,7 @@
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 10.2rem" v-model="form.user_id"></user>
+                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -265,7 +265,7 @@
                 <el-table :data="tableData"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe="true" border="true">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -284,7 +284,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.budgetunit')" align="center"width="150">
+                  <el-table-column :label="$t('label.budgetunit')" align="center"width="220">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetunit">
                       </el-input>
@@ -323,7 +323,7 @@
                 <el-table :data="tableData2"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2" stripe="true" border="true">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -383,7 +383,7 @@
             <el-tab-pane :label="$t('label.PFANS1012VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
+                        show-summary stripe="true" border="true">
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
@@ -469,7 +469,7 @@
             <el-tab-pane :label="$t('label.PFANS1012VIEW_PURCHASE')" name="third" v-if="show6">
               <el-table :data="tableP" :summary-method="getPsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
+                        show-summary stripe="true" border="true">
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.purchasedetailsdate">
@@ -579,7 +579,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth" v-if="show6" >
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
+                        show-summary stripe="true" border="true">
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">

@@ -76,22 +76,6 @@
             </el-col>
           </el-row>
           <el-row>
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNUMBER')" prop="assetnumber">-->
-<!--                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetnumber" maxlength=""></el-input>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-
-
-
-
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">-->
-<!--                <el-input :disabled="!disable" style="width:11rem" v-model="form.assetname" maxlength=""></el-input>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-
-
             <el-col :span="8">
               <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"  prop="assetname">
                 <div class="dpSupIndex" style="width: 20vw" prop="assetname">
@@ -108,19 +92,17 @@
                             :data="gridData.filter(data => !search || data.assetname.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                             :span-method="arraySpanMethod" @row-click="handleClickChange">
-                            <el-table-column property="assetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"
-                                             width="150"></el-table-column>
-                            <el-table-column property="file" :label="$t('label.ASSETS1001VIEW_FILENAME')"
-                                             width="150"></el-table-column>
-                            <el-table-column property="bar" :label="$t('label.ASSETS1001VIEW_BARTYPE')"
-                                             width="100"></el-table-column>
+                            <el-table-column property="assetname" :label="$t('label.ASSETS1001VIEW_FILENAME')"
+                                             width="200"></el-table-column>
+                            <el-table-column property="usedepart" :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')"
+                                             width="250"></el-table-column>
                             <el-table-column
-                              align="right" width="230">
+                              align="right" width="200">
                               <template slot="header" slot-scope="scope">
                                 <el-input
                                   v-model="search"
                                   size="mini"
-                                  placeholder="请输入供应商关键字搜索"/>
+                                  :placeholder="$t('label.PFANS1016FORMVIEW_IMPORT')" />
                               </template>
                             </el-table-column>
                           </el-table>
@@ -202,7 +184,6 @@
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                   :start-placeholder="$t('label.startdate')"
                   :end-placeholder="$t('label.enddate')"
-                  :picker-options="pickerOptions"
                   style="width: 20vw">
                 </el-date-picker>
               </el-form-item>
@@ -217,8 +198,7 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   style="width:20vw"
-                  @change="changerepairkits"
-                  :picker-options="pickerOptions">
+                  @change="changerepairkits">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -257,6 +237,7 @@
         dialogTableVisible: false,
         errorassetname: '',
         gridData: [],
+        search: '',
         show1: true,
         show2: true,
         repair: '',
@@ -282,7 +263,6 @@
           assettype: '',
           installsoftware: '',
           suitablebringout: '',
-          // assetnumber: '',
           assetname: '',
           ancillaryequipment: '',
           inputdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -314,15 +294,10 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
             trigger: 'blur',
           }],
-          // assetnumber: [{
-          //   required: true,
-          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNUMBER'),
-          //   trigger: 'change',
-          // }],
           assetname: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1009FORMVIEW_ASSETNAME'),
-            trigger: 'change',
+            trigger: 'blur',
           }],
           objective: [{
             required: true,
@@ -355,6 +330,7 @@
       }
     },
     mounted() {
+      this.getAssetsnameList();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -438,9 +414,8 @@
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              vote.assetname = response[i].barcode;
-              vote.file = response[i].filename;
-              vote.bar = response[i].bartype;
+              vote.assetname = response[i].filename;
+              vote.usedepart = response[i].usedepartment;
               this.gridData.push(vote)
             }
             this.loading = false;
@@ -454,7 +429,6 @@
             this.loading = false;
           })
       },
-
       getUserids(val) {
         this.form.user_id = val;
         let lst = getOrgInfoByUserId(val);
