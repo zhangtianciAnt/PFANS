@@ -5,6 +5,11 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('title.PFANS1008VIEW')}}</span>
+              </template>
           <el-row>
             <el-col :span="8">
               <el-form-item  :label="$t('label.center')">
@@ -38,11 +43,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="8">
-              <div class="sub_color_blue" >{{$t('label.PFANS1008FORMVIEW_CROSSINGDEPARTMENT')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1008FORMVIEW_CROSSINGDEPARTMENT')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errorferrycenter"  :label="$t('label.center')"  prop="ferrycenter_id">
@@ -72,11 +80,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="8">
-              <div class="sub_color_blue" >{{$t('label.PFANS1008FORMVIEW_TRANSFERDEPARTMENT')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1008FORMVIEW_TRANSFERDEPARTMENT')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errortubecenter"  :label="$t('label.center')"  prop="tubecenter_id">
@@ -106,6 +117,7 @@
               </el-form-item>
             </el-col>
           </el-row>
+
           <el-row>
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" fixed type="index"></el-table-column>
@@ -159,6 +171,8 @@
               </el-table-column>
             </el-table>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>
