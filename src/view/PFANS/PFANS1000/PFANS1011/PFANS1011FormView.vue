@@ -163,7 +163,7 @@
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
-                    <el-input :disabled="!disable" style="width:70vw" type="textarea" :rows="4"
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" :rows="4"
                               v-model="form.objective"></el-input>
                   </el-form-item>
                 </el-col>
@@ -171,7 +171,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_LOOKFORWARD')">
-                    <el-input :disabled="!disable" style="width:70vw" type="textarea" :rows="4"
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" :rows="4"
                               v-model="form.lookforward"></el-input>
                   </el-form-item>
                 </el-col>
@@ -187,7 +187,7 @@
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
-                    <el-input :disabled="!disable" style="width:70vw" type="textarea" :rows="4"
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" :rows="4"
                               v-model="form.kolei"></el-input>
                   </el-form-item>
                 </el-col>
@@ -195,7 +195,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_RECENTLY')" label-width="6vw">
-                    <el-input :disabled="!disable" style="width:70vw" type="textarea" :rows="4"
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" :rows="4"
                               v-model="form.recently"></el-input>
                   </el-form-item>
                 </el-col>
@@ -203,7 +203,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_NOW')" label-width="6vw">
-                    <el-input :disabled="!disable" style="width:70vw" type="textarea" :rows="4"
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" :rows="4"
                               v-model="form.now"></el-input>
                   </el-form-item>
                 </el-col>

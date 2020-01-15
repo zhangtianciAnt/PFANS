@@ -9,7 +9,7 @@
       :canStart="canStart"
       @start="start"
     >
-      <div slot="customize" style="margin-top: 4rem;">
+      <div slot="customize" style="margin-top: 4vw;">
         <el-row>
           <el-steps :active="active" finish-status="success" align-center>
             <el-step :title="roleid==='' ? '创建角色' : '编辑角色'"></el-step>
@@ -19,17 +19,17 @@
         </el-row>
         <el-row v-show="active === 0">
           <div style="width: 100%; min-height:20rem; margin: 5% auto; border-radius: 0.5rem;">
-            <el-form label-width="8rem" :model="roleForm" ref="roleForm" status-icon>
+            <el-form label-width="8vw" label-position="top" :model="roleForm" ref="roleForm" status-icon>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item
                     label="角色名称:"
                     prop="rolename"
                     :rules="[
-                                        { required: true, message: '请输入角色名称', trigger: 'blur' }]"
+                             { required: true, message: '请输入角色名称', trigger: 'blur' }]"
                   >
-                    <el-input v-model="roleForm.rolename"></el-input>
                   </el-form-item>
+                    <el-input v-model="roleForm.rolename" style="width:70vw"></el-input>
                 </el-col>
               </el-row>
               <el-row>
@@ -40,8 +40,8 @@
                     :rules="[
                                         { required: true, message: '请输入角色说明', trigger: 'blur' }]"
                   >
-                    <el-input type="textarea" v-model="roleForm.description"></el-input>
                   </el-form-item>
+                    <el-input type="textarea" v-model="roleForm.description" style="width:70vw"></el-input>
                 </el-col>
               </el-row>
               <el-row>
