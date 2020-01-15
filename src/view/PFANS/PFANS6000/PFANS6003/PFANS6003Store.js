@@ -3,7 +3,9 @@ import {
   getsupplierinforApplyOne,
   updatesupplierinforApply,
   createsupplierinforApply,
+  download
 } from './PFANS6003Api'
+
 
 const PFANS6003Store = {
   namespaced: true,
@@ -62,6 +64,15 @@ const PFANS6003Store = {
         })
       })
     },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 };
 

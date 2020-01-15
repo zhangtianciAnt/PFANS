@@ -158,6 +158,7 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                     {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+                  {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
                 ],
                 rowid: '',
                 row: 'expatriatesinfor_id',
@@ -369,6 +370,21 @@
                         }
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004'));
+                    })
+                } else if(val === 'export2'){
+                  this.loading=true;
+                  this.$store
+                    .dispatch('PFANS6004Store/download', {})
+                    .then(response => {
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
                     })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

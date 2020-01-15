@@ -1324,15 +1324,33 @@
           this.activeName = 'second';
         } else if (
           !this.form.budgetunit ||
+
+
+
           (this.form.plan === '1' && (
                 !this.form.plantype ||
-                !this.form.classificationtype ||
-                !this.form.balance)
+            (this.form.plantype ==='PR002005'&&(
+              !this.form.classificationtype)
+            ) ||
+              !this.form.balance)
           ) ||
+
+
+
           !this.form.moneys ||
           !this.form.foreigncurrency ||
-          !this.form.currency ||
-          !this.form.otherfxrate ||
+
+
+
+          this.form.currency === 'PJ003001' && (
+              !this.form.dollarfxrate) ||
+          !this.form.currency === 'PJ003002' && (
+                !this.form.jpyfxrate) ||
+        !this.form.currency === 'PJ003003' && (
+                !this.form.otherfxrate) ||
+
+
+
           !this.form.bookingday ||
           !this.form.actuarialdate ||
           !this.form.loanday ||
@@ -1350,7 +1368,9 @@
         ) {
           this.activeName = 'fourth';
         } else if (
-          !this.form.technology ||
+          (this.form.provision === '1' && (
+              !this.form.technology)
+          ) ||
           !this.form.judgment ||
           !this.form.judgmentno ||
           !this.form.fixedassetsno
