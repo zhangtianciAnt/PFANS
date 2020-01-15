@@ -83,6 +83,7 @@
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
+  import Stomp from "stompjs";
 
   export default {
     name: 'ASSETS1001View',
@@ -180,7 +181,7 @@
             filter: true,
           },
           {
-            code: 'bartype',
+            code: 'bartypeName',
             label: 'label.ASSETS1001VIEW_BARTYPE',
             width: 100,
             fix: false,
@@ -211,7 +212,36 @@
     mounted() {
       this.getListData();
     },
+    created() {
+      this.initWebSocket();
+    },
+    destroyed() {
+      this.websock.close() //离开路由之后断开websocket连接
+    },
     methods: {
+      initWebSocket(){ //初始化weosocket
+        const wsuri = "ws://127.0.0.1:6690/add";
+        this.websock = new WebSocket(wsuri);
+        this.websock.onmessage = this.websocketonmessage;
+        this.websock.onopen = this.websocketonopen;
+        this.websock.onerror = this.websocketonerror;
+        this.websock.onclose = this.websocketclose;
+      },
+      websocketonopen(e){ //连接建立之后执行send方法发送数据
+        console.log('连接',e);
+      },
+      websocketonerror(){//连接建立失败重连
+        this.initWebSocket();
+      },
+      websocketonmessage(e){ //数据接收
+        const redata = JSON.parse(e.data);
+      },
+      websocketsend(Data){//数据发送
+        this.websock.send(Data);
+      },
+      websocketclose(e){  //关闭
+        console.log('断开连接',e);
+      },
       onSubmit() {
         this.$store
           .dispatch('ASSETS1001Store/insertlots', this.form)
@@ -272,7 +302,7 @@
               if (response[j].bartype !== null && response[j].bartype !== '') {
                 let letbartype1 = getDictionaryInfo(response[j].bartype);
                 if (letbartype1 != null) {
-                  response[j].bartype = letbartype1.value1;
+                  response[j].bartypeName = letbartype1.value1;
                 }
               }
             }
@@ -405,7 +435,7 @@
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartype', 'assetstatus'];
+            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
@@ -429,6 +459,27 @@
         }
         if (val === 'insertLots') {
           this.piliang = true;
+        }
+        if(val === 'prtQrcode'){
+          this.selectedlist = this.$refs.roletable.selectedList;
+          if (this.selectedlist.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          let list = [];
+          for(let i of this.selectedlist){
+            var item = {};
+            item.type = i.bartype;
+            item.rfid = i.rfidcd;
+            item.text = i.barcode;
+            list.push(item);
+          }
+
+          this.websocketsend(JSON.stringify(list));
         }
       }
     },
