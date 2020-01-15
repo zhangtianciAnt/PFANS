@@ -4,12 +4,12 @@
                          @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
-          <el-tabs v-model="activeName">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
             <div>
               <el-table
                 :data="tableData"
                 border="false"
+                header-cell-class-name="sub_bg_color_blue"
                 style="width: 100%">
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
@@ -341,7 +341,6 @@
                 </el-table-column>
               </el-table>
             </div>
-          </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
