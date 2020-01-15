@@ -159,7 +159,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER')" prop="objectivetypeother" v-if="show">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER')" prop="objectivetypeother"
+                                  v-if="show">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model.trim="form.objectivetypeother"></el-input>
                     </el-form-item>
@@ -175,8 +176,8 @@
                 </el-row>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third" >
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe="true" border="true">
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue">
                 <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
                   <template slot-scope="scope">
                     <div class="block">
@@ -1209,7 +1210,7 @@
         this.$store
           .dispatch('PFANS1002Store/selectById', {'businessid': this.$route.params._id})
           .then(response => {
-            if(!response.business){
+            if (!response.business) {
               this.loading = false;
               return;
             }
@@ -1324,37 +1325,22 @@
           this.activeName = 'second';
         } else if (
           !this.form.budgetunit ||
-
-
-
           (this.form.plan === '1' && (
-                !this.form.plantype ||
-            (this.form.plantype ==='PR002005'&&(
-              !this.form.classificationtype)
-            ) ||
+              !this.form.plantype ||
+              (this.form.plantype === 'PR002005' && (
+                  !this.form.classificationtype)
+              ) ||
               !this.form.balance)
           ) ||
-
-
-
-          !this.form.moneys ||
-          !this.form.foreigncurrency ||
-
-
-
           this.form.currency === 'PJ003001' && (
-              !this.form.dollarfxrate) ||
+            !this.form.dollarfxrate) ||
           !this.form.currency === 'PJ003002' && (
-                !this.form.jpyfxrate) ||
-        !this.form.currency === 'PJ003003' && (
-                !this.form.otherfxrate) ||
-
-
-
+            !this.form.jpyfxrate) ||
+          !this.form.currency === 'PJ003003' && (
+            !this.form.otherfxrate) ||
           !this.form.bookingday ||
           !this.form.actuarialdate ||
           !this.form.loanday ||
-          !this.form.loanmoney ||
           !this.form.accommodationcost ||
           !this.form.accommodation ||
           !this.form.passportno ||
@@ -1363,8 +1349,7 @@
           !this.form.visa ||
           !this.form.validstart ||
           !this.form.validend ||
-          !this.form.permit ||
-          !this.form.scheduled
+          !this.form.permit
         ) {
           this.activeName = 'fourth';
         } else if (
@@ -1414,8 +1399,7 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        else {
+        } else {
           this.tableP = [{
             travelcontentdate: '',
             place: '',
