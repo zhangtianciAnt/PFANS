@@ -60,54 +60,105 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row :gutter="20">
-              <el-col :span="8">
-                <el-form-item
+            <!--hhhh-->
+            <!--  <el-row :gutter="20">
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANS2002VIEW_EDUCATION')"
+                    prop="education"
+                  >
+                    <dicselect
+                      :data="form.education"
+                      :disabled="disabled"
+                      @change="changeEducation"
+                      class="width"
+                      code="PR022"
+                      style="width:20vw"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
+                    prop="specialty"
+                  >
+                    <el-input
+                      :disabled="disabled"
+                      class="width"
+                      maxlength="20"
+                      style="width:20vw"
+                      v-model="form.specialty"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANS2002FORMVIEW_QUITYEAR')"
+                    prop="quityear"
+                  >
+                    <el-date-picker
+                      :disabled="disabled"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      type="year"
+                      style="width:20vw"
+                      v-model="form.quityear"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>-->
+            <el-row>
+              <el-table
+                :data="form.tableData"
+                style="width:95%;margin-left:2%;margin-top:1%"
+                border
+              >
+                <el-table-column
                   :label="$t('label.PFANS2002VIEW_EDUCATION')"
                   prop="education"
+                  align="center"
+                  width="340"
                 >
-                  <dicselect
-                    :data="form.education"
-                    :disabled="disabled"
-                    @change="changeEducation"
-                    class="width"
-                    code="PR022"
-                    style="width:20vw"
-                  ></dicselect>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item
+                  <template slot-scope="scope">
+                    <dicselect
+                      :data="scope.row.education"
+                      :disabled="disabled"
+                      @change="changeEducation"
+                      class="width"
+                      code="PR022"
+                      style="width:20vw"
+                    ></dicselect>
+                  </template>
+                </el-table-column>
+                <el-table-column
                   :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
                   prop="specialty"
+                  align="center"
                 >
-                  <el-input
-                    :disabled="disabled"
-                    class="width"
-                    maxlength="20"
-                    style="width:20vw"
-                    v-model="form.specialty"
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item
+                  <template slot-scope="scope">
+                    <el-input class="width" v-model="scope.row.specialty" maxlength="20"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
                   :label="$t('label.PFANS2002FORMVIEW_QUITYEAR')"
                   prop="quityear"
-                >
-                  <el-date-picker
-                    :disabled="disabled"
-                    :placeholder="$t('normal.error_09')"
-                    class="width"
-                    type="year"
-                    style="width:20vw"
-                    v-model="form.quityear"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
+                  align="center">
+                  <template slot-scope="scope">
+                    <!--<el-input class="width" v-model="scope.row.quityear" maxlength="50"></el-input>-->
+                    <el-date-picker
+                      :disabled="disabled"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      type="date"
+                      style="width:20vw"
+                      v-model="scope.row.quityear"
+                    ></el-date-picker>
+                  </template>
+                </el-table-column>
+              </el-table>
             </el-row>
           </el-tab-pane>
-
+          <!--第二个tab-->
           <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_MATERIAL')" name="second">
             <el-collapse>
               <el-collapse-item>
@@ -117,122 +168,158 @@
                   style="margin-left:0.5%;color:#005BAA"
                 >{{$t('label.PFANS2002FORMVIEW_ONESELF')}}</span>
                 </template>
-            <div style="margin-left:5%;margin-top:0%">
-              <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_RESUME')">
-                    <el-switch :disabled="disabled" v-model="form.resume"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_IDENTITY')">
-                    <el-switch :disabled="disabled" v-model="form.identity"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_DIPLOMA')">
-                    <el-switch :disabled="disabled" v-model="form.diploma"></el-switch>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                <div style="margin-left:5%;margin-top:0%">
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_RESUME')">
+                        <el-switch :disabled="disabled" v-model="form.resume"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_IDENTITY')">
+                        <el-switch :disabled="disabled" v-model="form.identity"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_DIPLOMA')">
+                        <el-switch :disabled="disabled" v-model="form.diploma"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
 
-              <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_EXPERIENCE')">
-                    <el-switch :disabled="disabled" v-model="form.experience"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENTRY')">
-                    <el-switch :disabled="disabled" v-model="form.entry"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_REPORT')">
-                    <el-switch :disabled="disabled" v-model="form.report"></el-switch>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_EXPERIENCE')">
+                        <el-switch :disabled="disabled" v-model="form.experience"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENTRY')">
+                        <el-switch :disabled="disabled" v-model="form.entry"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_REPORT')">
+                        <el-switch :disabled="disabled" v-model="form.report"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
 
-              <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER1')">
-                    <el-switch :disabled="disabled" v-model="form.other1"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER2')">
-                    <el-switch :disabled="disabled" v-model="form.other2"></el-switch>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER1_1')">
+                        <el-switch :disabled="disabled" v-model="form.other1"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER2_1')">
+                        <el-switch :disabled="disabled" v-model="form.other2"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
 
-              <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENGLISH')" maxlength="10">
-                    <el-input
-                      :disabled="disabled"
-                      class="width"
-                      maxlength="10"
-                      style="width:20vw"
-                      v-model="form.english"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_JANPANESE')" maxlength="10">
-                    <el-input
-                      :disabled="disabled"
-                      class="width"
-                      maxlength="10"
-                      style="width:20vw"
-                      v-model="form.janpanese"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENGLISH')" maxlength="10">
+                        <!--<el-input
+                          :disabled="disabled"
+                          class="width"
+                          maxlength="10"
+                          style="width:20vw"
+                          v-model="form.english"
+                        ></el-input>-->
+                        <dicselect
+                          :data="form.english"
+                          :disabled="disabled"
+                          @change="changeEnglish"
+                          class="width"
+                          code="PR053"
+                          style="width:20vw"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS2002FORMVIEW_ENGLISHDETAIL')"
+                        prop="english_detail"
+                        v-show="english_show"
+                      >
+                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.english_detail"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_JANPANESE')" maxlength="10">
+                        <!--<el-input
+                          :disabled="disabled"
+                          class="width"
+                          maxlength="10"
+                          style="width:20vw"
+                          v-model="form.janpanese"
+                        ></el-input>-->
+                        <dicselect
+                          :data="form.janpanese"
+                          :disabled="disabled"
+                          @change="changeJanpanese"
+                          class="width"
+                          code="PR054"
+                          style="width:20vw"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS2002FORMVIEW_JANPANESEDETAIL')"
+                        prop="janpanese_detail"
+                        v-show="janpanese_show"
+                      >
+                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.janpanese_detail"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </div>
               </el-collapse-item>
               <el-collapse-item>
                 <template slot="title">
-                <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.PFANS2002FORMVIEW_CLUB')}}</span>
+                  <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.PFANS2002FORMVIEW_CLUB')}}</span>
                 </template>
-            <div style="margin-left:5%;margin-top:0%">
-              <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_TICKET')">
-                    <el-switch :disabled="disabled" v-model="form.ticket"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2002FORMVIEW_HEALTH')">
-                    <el-switch :disabled="disabled" v-model="form.health"></el-switch>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </div>
-         </el-collapse-item>
+                <div style="margin-left:5%;margin-top:0%">
+                  <el-row :gutter="20">
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_TICKET')">
+                        <el-switch :disabled="disabled" v-model="form.ticket"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_HEALTH')">
+                        <el-switch :disabled="disabled" v-model="form.health"></el-switch>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-collapse-item>
               <el-collapse-item>
                 <template slot="title">
-                <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
+                  <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
                 </template>
-            <div style="margin-left:5%;margin-top:1%">
-              <el-row :gutter="20">
-                <el-upload
-                  :action="upload"
-                  :file-list="fileList"
-                  :on-remove="fileRemove"
-                  :on-preview="fileDownload"
-                  :on-success="fileSuccess"
-                  :on-error="fileError"
-                  class="upload-demo"
-                  drag
-                  ref="upload">
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
-                </el-upload>
-              </el-row>
-            </div>
+                <div style="margin-left:5%;margin-top:1%">
+                  <el-row :gutter="20">
+                    <el-upload
+                      :action="upload"
+                      :file-list="fileList"
+                      :on-remove="fileRemove"
+                      :on-preview="fileDownload"
+                      :on-success="fileSuccess"
+                      :on-error="fileError"
+                      class="upload-demo"
+                      drag
+                      ref="upload">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                    </el-upload>
+                  </el-row>
+                </div>
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
@@ -245,7 +332,6 @@
               :data="tableData"
               :summary-method="getAverage"
               border
-              stripe="true"
               show-summary
               style="width: 60%;margin-left:15%"
               header-cell-class-name="sub_bg_color_blue"
@@ -378,6 +464,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <!--採用ルート-->
             <el-row :gutter="20">
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')" >
@@ -389,6 +476,15 @@
                     code="PR051"
                     style="width:20vw"
                   ></dicselect>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item
+                  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
+                  prop="other3"
+                  v-show="other3_show"
+                >
+                  <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.other3"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-if="display">
@@ -426,6 +522,9 @@
                 loading: false,
                 display: false,
                 disbaled: false,
+                english_show: false,
+                janpanese_show: false,
+                other3_show: false,
                 num: 0,
                 activeName: "first",
                 sex_options: [
@@ -447,17 +546,34 @@
                     name: "",
                     sex: "",
                     birthday: "",
-                    education: "",
-                    specialty: "",
-                    quityear: "",
+                    tableData: [
+                        {
+                            education: "",
+                            specialty: "",
+                            quityear: "",
+                        },
+                        {
+                            education: "",
+                            specialty: "",
+                            quityear: "",
+                        },
+                        {
+                            education: "",
+                            specialty: "",
+                            quityear: "",
+                        }
+                    ],
                     center_id: "",
                     group_id: "",
                     team_id: "",
                     level: "",
                     english: "",
+                    english_detail: "",
                     janpanese: "",
+                    janpanese_detail: "",
                     other1: false,
                     other2: false,
+                    other3: '',
                     resume: false,
                     identity: false,
                     diploma: false,
@@ -506,6 +622,24 @@
         },
 
         methods: {
+            changeEnglish(val){
+                if(val === 'PR053004'){
+                    this.form.english = val
+                    this.english_show = true
+                }else{
+                    this.form.english = val
+                    this.english_show = false
+                }
+            },
+            changeJanpanese(val){
+                if(val === 'PR054005'){
+                    this.form.janpanese = val
+                    this.janpanese_show = true
+                }else{
+                    this.form.janpanese = val
+                    this.janpanese_show = false
+                }
+            },
             changeOption(form, method) {
                 let arr = [
                     "other1",
@@ -611,6 +745,11 @@
                     this.form.others = "";
                 }
                 this.form.adoption = val;
+                if(val === "PR051005"){
+                    this.other3_show = true
+                }else{
+                    this.other3_show = false
+                }
             },
             changeLevel(val) {
                 this.form.level = val;
@@ -703,6 +842,7 @@
                         this.loading = true;
                         if (!this.$route.params._id) {
                             this.changeOption(this.form, "save");
+                            console.log(this.form);
                             this.$store
                                 .dispatch("PFANS2002Store/insert", this.form)
                                 .then(response => {

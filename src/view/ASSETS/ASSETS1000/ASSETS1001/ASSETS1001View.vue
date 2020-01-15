@@ -231,7 +231,7 @@
         console.log('连接',e);
       },
       websocketonerror(){//连接建立失败重连
-        this.initWebSocket();
+        // this.initWebSocket();
       },
       websocketonmessage(e){ //数据接收
         const redata = JSON.parse(e.data);
