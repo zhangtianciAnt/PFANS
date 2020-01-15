@@ -412,8 +412,8 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')" name="second">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')">
-                <el-table :data="tableD" border header-cell-class-name="sub_bg_color_blue">
+              <el-form-item >
+                <el-table :data="tableD" border stripe="true" header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                     align="center"
@@ -487,8 +487,8 @@
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_PROJECTRESOURCES')" name="third">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')">
-                <el-table :data="tableE" border header-cell-class-name="sub_bg_color_blue">
+              <el-form-item >
+                <el-table :data="tableE" stripe="true" border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                     align="center"

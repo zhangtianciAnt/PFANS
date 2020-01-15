@@ -252,14 +252,15 @@
                           :summary-method="getDsummaries"
                           header-cell-class-name="sub_bg_color_blue"
                           show-summary
-                          v-if="showdata">
-                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="350">
+                          v-if="showdata"
+                          stripe="true" border="true">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="370">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb" width="300">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb" width="370">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -277,15 +278,16 @@
                         :summary-method="getsummaries"
                         header-cell-class-name="sub_bg_color_blue"
                         show-summary
-                        v-if="showdata2">
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="280">
+                        v-if="showdata2"
+                        stripe="true" border="true">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center" prop="ratecurrency"
-                                 width="140">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -299,7 +301,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center" prop="usdcurrency"
-                                 width="140">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -313,7 +315,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center" prop="jpycurrency"
-                                 width="140">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -326,7 +328,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb" width="140">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -339,7 +341,7 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total" width="140">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -357,26 +359,26 @@
             <!--            第二页-->
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary  stripe="true" border="true">
+                <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
                                     v-model="scope.row.trafficdate"></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.region">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.vehicle">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="130">
+                <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-tooltip :content="scope.row.startingpoint" :disabled="scope.row.startingpoint===''?true:false"
                                 class="item" effect="light"
@@ -386,7 +388,7 @@
                     </el-tooltip>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
+                <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -403,7 +405,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                  prop="foreigncurrency"
-                                 v-if="showforeigncurrency" width="150">
+                                 v-if="showforeigncurrency" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -418,7 +420,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="90">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.annexno">
                     </el-input>
@@ -451,14 +453,14 @@
             <el-tab-pane :label="$t('label.PFANS1013VIEW_ACCOMMODATION')" name="third">
               <el-table :data="tableA" :summary-method="getAsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary  stripe="true" border="true">
+                <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">
                     </el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACTIVITYCONTENT')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACTIVITYCONTENT')" align="center" width="200">
                   <template slot-scope="scope">
                     <dicselect :code="code4"
                                :data="scope.row.activitycontent"
@@ -469,7 +471,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">
                   <template slot-scope="scope">
                     <dicselect :code="code5"
                                :data="scope.row.vehicleon"
@@ -489,7 +491,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="200">
                   <template slot-scope="scope">
                     <dicselect :code="code7"
                                :data="scope.row.movementtime"
@@ -500,7 +502,7 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout" width="120">
+                <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout" width="200">
                   <template slot-scope="scope">
                     <dicselect :code="code9"
                                :data="scope.row.region"
@@ -511,14 +513,14 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" v-else width="120">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_CITY')" align="center" v-else width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" :no="scope.row" @blur="getCity(scope.row)" style="width: 100%"
                               v-model="scope.row.city">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYTYPE')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYTYPE')" align="center" width="200">
                   <template slot-scope="scope">
                     <dicselect :code="code10"
                                :data="scope.row.facilitytypeon"
@@ -538,14 +540,14 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" v-model="scope.row.facilityname">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACCOMMODATIONALLOWANCE')" align="center"
-                                 prop="accommodationallowance" width="150">
+                                 prop="accommodationallowance" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="scope.row.disaccommod"
@@ -562,7 +564,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACCOMMODATION')" align="center"
                                  prop="accommodation"
-                                 v-if="showAout" width="150">
+                                 v-if="showAout" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="scope.row.disaccommod"
@@ -579,7 +581,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"
                                  prop="travelallowance"
-                                 v-else width="150">
+                                 v-else width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -593,7 +595,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVEL')" align="center" prop="travel"
-                                 v-if="showAout" width="150">
+                                 v-if="showAout" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -607,7 +609,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" prop="relatives" v-else
-                                 width="150">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled=true
@@ -622,7 +624,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_PLANE')" align="center" prop="plane"
                                  v-if="showAout"
-                                 width="160">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="true"
@@ -637,7 +639,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAIN')" align="center" prop="train" v-else
-                                 width="150">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled=true
@@ -653,7 +655,7 @@
                 </el-table-column>
 
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" v-if="showAinner"
-                                 width="150">
+                                 width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="scope.row.showtick"
@@ -669,7 +671,7 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="36" v-model="scope.row.annexno">
                     </el-input>
@@ -701,26 +703,26 @@
             <!--            第四页-->
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary  stripe="true" border="true">
+                <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">
                     </el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.costitem">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.remarks">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
+                <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -736,7 +738,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                  prop="foreigncurrency"
-                                 v-if="showforeigncurrency" width="150">
+                                 v-if="showforeigncurrency" width="200">
                   <template slot-scope="scope">
                     <el-input-number
                       :disabled="!disable"
@@ -751,7 +753,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
                     </el-input>

@@ -16,7 +16,7 @@
                         v-model="companyform.log_date"
                         :disabled="!disable"
                         type="date"
-                        style="width:  11rem"
+                        style="width:16vw"
                       >
                       </el-date-picker>
                     </el-form-item>
@@ -24,7 +24,7 @@
                   <el-col :span="10">
                     <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
                       <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
-                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -78,7 +78,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="11">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:  18.7rem" prop="work_phase">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
                       <dicselect
                         :disabled="!disable"
                         :code="code2"
@@ -89,7 +89,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="10">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  18.7rem"
+                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
                                   prop="behavior_breakdown">
                       <dicselect
                         :disabled="!disable"
