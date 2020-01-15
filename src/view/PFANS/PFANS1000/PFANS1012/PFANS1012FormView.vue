@@ -672,7 +672,8 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
   import {getDictionaryInfo} from "../../../../utils/customize";
-  import Papa from "papaparse"
+  import json2csv from "json2csv";
+
 
   export default {
     name: 'PFANS1012FormView',
@@ -1830,42 +1831,10 @@
           })
 
         }  else if (val === 'export') {
-          // import('@/vendor/Blob').then(csv => {
-          //   var tableTdata=this.tableT
-          //   let str='';
-          //   str +='trafficdate'+','+'region'+','+'vehicle';
-          //
-          //   str +='\n'+this.tableT[i].trafficdate +','+ this.tableT[i].region +','+ this.tableT[i].vehicle
-          //   let exportContent="\uFEFF";
-          //   let blob=new Blob([exportContent+str],{
-          //     type:"text/plain;charset=utf-8"
-          //   });
-          //   FileSaver.saveAs(blob,"demo.csv");
-          // })
-          // this.selectedlist = this.$refs.reff.selectedList;
-          //   traffic:{
-          //     const tHeader = [this.$t('label.date'), this.$t('label.PFANS1012VIEW_REGION')];
-          //     const filterVal = ['trafficdate', 'region'];
-          //     const list = this.selectedlist;
-          //   }
-          //  var maintraffic=data.traffic
-          // let maintitle=maintraffic.tHeader;
-          //   let mainForkey=maintraffic.fileVal;
-          //  let mainList=maintraffic.list;
-          //  let mainstr=[];
-          //  mainstr.push(maintitle.join("\t,")+"\n");
-          //  for(let i=0;i<maintraffic.length;i++){
-          //    let temp=[];
-          //    for(let j=0;j<mainForkey.length;j++){
-          //      temp.push(maintraffic[i][mainForkey[j]]);
-          //    }
-          //    mainstr.push(temp.join("\t,")+"\n");
-          //  }
-          // let str='';
-          // str +='trafficdate'+','+'region'+','+'vehicle';
-          // str +='\n'+this.tableT[i].trafficdate +','+ this.tableT[i].region +','+ this.tableT[i].vehicle
-          let heads=[this.$t('label.date'),this.$t('label.PFANS1012VIEW_REGION')];
-          let filterVal = ['trafficdate', 'region'];
+          let heads=[this.$t('label.date'),this.$t('label.PFANS1012VIEW_REGION'),this.$t('label.PFANS1012VIEW_VEHICLE'),
+            this.$t('label.PFANS1012VIEW_STARTINGPOINT'),this.$t('label.PFANS1012VIEW_RMB'),
+            this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'),this.$t('label.PFANS1012VIEW_ANNEXNO')];
+          let filterVal = ['trafficdate', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'annexno'];
           let csvData=[];
           var tableTdata=this.tableT;
           for(let i=0;i<tableTdata.length;i++){
@@ -1873,16 +1842,25 @@
             csvData.push({
               [heads[0]]:obj.trafficdate,
               [heads[1]]:obj.region,
+              [heads[2]]:obj.vehicle,
+              [heads[3]]:obj.startingpoint,
+              [heads[4]]:obj.rmb,
+              [heads[5]]:obj.foreigncurrency,
+              [heads[6]]:obj.annexno,
             })
           }
-           const url='data:text/csv;charset=utf-8,\ufeff'+encodeURIComponent(csvData)
-            let link=document.createElement('a')
-          link.href=url;
-           link.download='demo.csv';
-           document.body.appendChild(link);
-           link.click();
+          const result = json2csv.parse(csvData, {
+            excelStrings: true
+          });
+          let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + result;
+          const link = document.createElement("a");
+          link.href = csvContent;
+          link.download = this.$t('label.PFANS1012VIEW_TRAFFIC')+'.csv';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
         }
-      },
+      }
   }
   }
 </script>
