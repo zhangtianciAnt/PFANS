@@ -4,22 +4,18 @@
                          @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 20px">
-          <el-tabs v-model="activeName">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
             <div>
               <el-table
                 :data="tableData"
-                border="false"
+                border
+                :header-cell-style="getRowClass"
                 style="width: 100%">
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                   align="center"
                   prop="ordernumber"
                   width="50">
-                  <el-table-column
-                    align="center"
-                    width="50">
-                  </el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2007VIEW_NAME')"
@@ -28,10 +24,6 @@
                   width="60">
                   <el-input>
                   </el-input>
-                  <el-table-column
-                    align="center"
-                    width="60">
-                  </el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
@@ -40,10 +32,6 @@
                   width="150">
                   <el-input>
                   </el-input>
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
 
                 <el-table-column
@@ -51,10 +39,6 @@
                   align="center"
                   prop="confirmmark"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                技術スキル-->
                 <el-table-column
@@ -62,10 +46,6 @@
                   align="center"
                   prop="technology"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                技術価値-->
                 <el-table-column
@@ -73,10 +53,6 @@
                   align="center"
                   prop="technologyvalue"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                管理スキル-->
                 <el-table-column
@@ -84,10 +60,6 @@
                   align="center"
                   prop="managementskills"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                管理価値-->
                 <el-table-column
@@ -95,10 +67,6 @@
                   align="center"
                   prop="managementvalue"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                分野スキル-->
                 <el-table-column
@@ -106,10 +74,6 @@
                   align="center"
                   prop="fieldskills"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                分野価値-->
                 <el-table-column
@@ -117,10 +81,6 @@
                   align="center"
                   prop="fieldvalue"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                語学スキル-->
                 <el-table-column
@@ -128,10 +88,6 @@
                   align="center"
                   prop="languageskills"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                語学価値-->
                 <el-table-column
@@ -139,10 +95,6 @@
                   align="center"
                   prop="languagevalue"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                勤務スキル-->
                 <el-table-column
@@ -150,10 +102,6 @@
                   align="center"
                   prop="jobskills"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                勤務価値-->
                 <el-table-column
@@ -161,10 +109,6 @@
                   align="center"
                   prop="workvalue"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                勤続評価-->
                 <el-table-column
@@ -172,10 +116,6 @@
                   align="center"
                   prop="worktime"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                勤続価値-->
                 <el-table-column
@@ -183,10 +123,6 @@
                   align="center"
                   prop="workvalue1"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                責任者激励-->
                 <el-table-column
@@ -201,33 +137,22 @@
                     prop="servingsize"
                     width="150">
                   </el-table-column>
-                </el-table-column>
                 <!--                規模価値-->
-                <el-table-column
-                  align="center"
-                  width="150">
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
                     prop="sizevalue"
                     width="150">
                   </el-table-column>
-                </el-table-column>
                 <!--                貢献評価-->
-                <el-table-column
-                  align="center"
-                  width="150">
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONEVALUATION')"
                     align="center"
                     prop="conevaluation"
                     width="150">
                   </el-table-column>
-                </el-table-column>
                 <!--                貢献係数-->
-                <el-table-column
-                  align="center"
-                  width="150">
+
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
@@ -249,22 +174,14 @@
                     prop="conevaluation"
                     width="150">
                   </el-table-column>
-                </el-table-column>
                 <!--                貢献評価-->
-                <el-table-column
-                  align="center"
-                  width="150">
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
                     prop="concoefficient"
                     width="150">
                   </el-table-column>
-                </el-table-column>
                 <!--                貢献係数-->
-                <el-table-column
-                  align="center"
-                  width="150">
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
@@ -279,10 +196,6 @@
                   align="center"
                   prop="priceadjust"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
                 <!--                開発総単価-->
                 <el-table-column
@@ -290,10 +203,6 @@
                   align="center"
                   prop="sumprice"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
 <!--                共通費用-->
                 <el-table-column
@@ -301,10 +210,6 @@
                   align="center"
                   prop="commoncost"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
 <!--             PSDCD相当ランク-->
                 <el-table-column
@@ -312,10 +217,6 @@
                   align="center"
                   prop="psdcdgrade"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
 <!--                備考-->
                 <el-table-column
@@ -323,10 +224,6 @@
                   align="center"
                   prop="remarks"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
 <!--                前年単価-->
                 <el-table-column
@@ -334,14 +231,9 @@
                   align="center"
                   prop="lastyearprice"
                   width="150">
-                  <el-table-column
-                    align="center"
-                    width="150">
-                  </el-table-column>
                 </el-table-column>
               </el-table>
             </div>
-          </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -382,6 +274,34 @@
 
             };
         },
+      mounted(){},
+      methods: {
+        getRowClass({row, column, rowIndex, columnIndex}) {
+          if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
+            return {
+              color: 'white',
+              background: '#99CCFF',
+              'border-bottom': '1px solid #99CCFF',
+              'border-right': '1px solid #73B9FF',
+            };
+          }
+          if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
+            return {
+              color: 'white',
+              background: '#99CC99',
+              'border-bottom': '1px solid #99CCFF',
+              'border-right': '1px solid #73CC73',
+            };
+          }
+          if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
+            return {
+              color: 'white',
+              background: '#005BAA',
+            };
+          }
+
+        },
+      }
     }
 </script>
 

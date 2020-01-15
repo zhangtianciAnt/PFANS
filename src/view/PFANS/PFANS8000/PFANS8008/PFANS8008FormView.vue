@@ -7,9 +7,9 @@
     v-loading="loading"
   >
     <div slot="customize" style="margin-top:2rem">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="20vw" ref="form">
+      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
         <el-form-item :label="$t('label.PFANS8008VIEW_MESSAGE_HEADER')" prop="title">
-          <el-input :disabled="!disable" class="width" maxlength="50" v-model="form.title"></el-input>
+          <el-input :disabled="!disable" class="width" maxlength="50" v-model="form.title" style="width:20vw"></el-input>
         </el-form-item>
         <el-form-item :label="$t('label.PFANS8008VIEW_AVAILABLESTATE')">
           <el-radio

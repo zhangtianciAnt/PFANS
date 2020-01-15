@@ -47,11 +47,12 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <div class="sub_color_blue">{{$t('label.PFANS1007FORMVIEW_SPECIFICCONTENTS')}}</div>
-                </el-col>
-              </el-row>
+              <el-collapse>
+                <el-collapse-item>
+                  <template slot="title">
+                    <span  class="collapse_Title">{{$t('label.PFANS1007FORMVIEW_SPECIFICCONTENTS')}}</span>
+                  </template>
+
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1007FORMVIEW_PROCESSINGMETHOD')" prop="processingmethod">
@@ -142,6 +143,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+                </el-collapse-item>
+              </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1007FORMVIEW_SCRAPASSETDETAILS')" name="second">
               <el-row>

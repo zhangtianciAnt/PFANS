@@ -3,15 +3,14 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" :buttonList="buttonList"
                          v-loading="loading">
       <div slot="customize" style="margin-top: 4rem;">
-        <el-form ref="form" label-width="8rem" label-position="left">
-          <el-form :model="companyform" ref="companyform" label-width="7.5rem"
+        <el-form ref="form" label-width="8vw" label-position="top" style="padding: 2vw">
+          <el-form :model="companyform" ref="companyform"
                    class="demo-ruleForm" :rules="rules">
             <el-container>
               <el-aside style="width: 58%;height: 40rem">
                 <el-row>
                   <el-col :span="11">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
-                                  style="width: 5%" prop="log_date">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
                       <el-date-picker
                         @change="clickdata"
                         v-model="companyform.log_date"
@@ -47,7 +46,7 @@
                     </el-col>
                     <el-col :span="10">
                       <el-form-item>
-                        <el-link style="width: 9rem;color: #5d9cec;margin-left: 1.6rem" target="_blank"
+                        <el-link style="width: 9rem;color: #005baa;margin-left: 7vw;font-weight: 700" target="_blank"
                                  :underline="false"
                                  @click="program=true" type="primary" :disabled="!disable">
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>

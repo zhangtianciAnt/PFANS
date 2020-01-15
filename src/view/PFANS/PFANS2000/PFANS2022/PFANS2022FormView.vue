@@ -4,33 +4,33 @@
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" maxlength='36' style="width: 11rem" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="error_userids" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="error_userids" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.15rem"></user>
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="application_date">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.application_date"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -44,7 +44,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="getfirstclass"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -56,7 +56,7 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   @change="gettwoclass"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -70,7 +70,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" v-show="show4">
-                <el-input :disabled="!disabled1" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                           v-model="form.experience"></el-input>
               </el-form-item>
             </el-col>
@@ -83,21 +83,21 @@
                     :disabled="!disabled"
                     :multiple="multiple"
                     @change="getqualifications"
-                    style="width: 11rem">
+                    style="width: 20vw">
                   </dicselect>
                 </div>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_AMOUNT')">
-                <el-input :disabled="true" maxlength="10" style="width: 11rem" v-model="form.amoutmoney"></el-input>
+                <el-input :disabled="true" maxlength="10" style="width: 20vw" v-model="form.amoutmoney"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_JOININGDAY')" v-show="show1" prop="joiningday">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.joiningday"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -109,7 +109,7 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="getenteringform"
-                  style="width: 11rem">
+                  style="width: 20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -118,13 +118,13 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_RECOMMENDATIONDAY')" prop="recommendationday"
                             v-show="show1">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.recommendationday"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_REGINSTRATIONDAY')" v-show="show1" prop="reginstrationday">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.reginstrationday"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -138,7 +138,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_WEDDINGDAY')" prop="weddingday" v-show="show2">
-                <el-date-picker :disabled="!disabled" style="width: 11rem" type="date"
+                <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
                                 v-model="form.weddingday"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -146,14 +146,14 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_SPOUSENAME')" prop="spousename" v-show="show2">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                           v-model="form.spousename"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-form-item :label="$t('label.remarks')" v-show="show3">
-              <el-input :disabled="!disabled" style="width: 57rem" type="textarea" v-model="form.remarks"></el-input>
+              <el-input :disabled="!disabled" style="width: 72vw" type="textarea" v-model="form.remarks"></el-input>
             </el-form-item>
           </el-row>
           <el-row>
