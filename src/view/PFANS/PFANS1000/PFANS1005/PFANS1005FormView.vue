@@ -37,7 +37,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
+            <el-table :data="tableD" border="true" header-cell-class-name="sub_bg_color_blue" stripe="true">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed type="index">
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects">

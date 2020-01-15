@@ -144,41 +144,42 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <div align="center">
+              <div >
                 <el-table
                   :data="tableData"
                   border
+                  stripe="true"
                   header-cell-class-name="sub_bg_color_blue"
-                  style="width: 80%">
+                  style="width:70vw">
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                     align="center"
                     prop="ordernumber"
-                    width="50">
+                    width="80">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_CONFIRMPERSON')"
                     align="center"
                     prop="confirmperson"
-                    width="150">
+                    width="180">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_CONFIRMEDATA')"
                     align="center"
                     prop="confirmdata"
-                    width="350">
+                    width="387">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
                     align="center"
                     prop="confirmmark"
-                    width="150">
+                    width="180">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.date')"
                     align="center"
                     prop="date"
-                    width="150">
+                    width="180">
                   </el-table-column>
                 </el-table>
               </div>
@@ -202,7 +203,7 @@
               </el-row>
               <el-row >
                 <el-form-item :label="$t('label.PFANS2026FORMVIEW_CITATION')">
-                  <el-table :data="tableD" border header-cell-class-name="sub_bg_color_blue">
+                  <el-table :data="tableD" stripe="true" style="width: 70vw" border header-cell-class-name="sub_bg_color_blue">
                     <el-table-column :label="$t('label.PFANS2026FORMVIEW_CONTENT')" align="center" fixed prop="content">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable1" v-model="scope.row.content">
