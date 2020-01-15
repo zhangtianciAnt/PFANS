@@ -159,8 +159,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item prop="objectivetypeother" v-if="show">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw;padding-top:12%;padding-left:3%"
+                    <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER')" prop="objectivetypeother" v-if="show">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model.trim="form.objectivetypeother"></el-input>
                     </el-form-item>
                   </el-col>
@@ -175,8 +175,8 @@
                 </el-row>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue">
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third" >
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe="true" border="true">
                 <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
                   <template slot-scope="scope">
                     <div class="block">
@@ -1678,6 +1678,9 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+  .el-col el-col-8{
+    padding-top: 20vw;
+  }
 </style>
 
 
