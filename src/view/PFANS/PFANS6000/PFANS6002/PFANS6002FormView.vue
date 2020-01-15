@@ -3,36 +3,33 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding: 2rem">
-          <el-row>
-            <!--            客户名称-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}
-              </div>
-            </el-col>
-          </el-row>
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}</span>
+              </template>
           <!--            第一行-->
           <el-row>
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="custchinese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.custchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="custjapanese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.custjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="custenglish">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.custenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -42,47 +39,46 @@
             <!--            简称-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')" prop="abbreviation">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.abbreviation"></el-input>
               </el-form-item>
             </el-col>
             <!--            负责人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1002VIEW_USERID')" prop="liableperson">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.liableperson"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--            第三行-->
-          <el-row>
-            <!--            项目联络人-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}</span>
+              </template>
           <!--            第四行-->
           <el-row>
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.prochinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.projapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.proenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -92,78 +88,77 @@
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.protelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        邮箱地址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--          第六行-->
-          <el-row>
-            <!--            共通事务联络人-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">
-                {{$t('label.PFANS6002VIEW_COMMONTPERSON')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002VIEW_COMMONTPERSON')}}</span>
+              </template>
           <el-row>
             <!--            共通事务联络人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002VIEW_COMMONTPERSON')" prop="commontperson">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.commontperson"></el-input>
               </el-form-item>
             </el-col>
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.comtelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        电子邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.comnemail"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
           <!--          第七行-->
-          <el-row>
-            <!--            地址-->
-            <el-col :span="8">
-              <div class="sub_color_blue" style="height:40px ; font-size: 20px">{{$t('label.PFANS6002VIEW_ADDRESS')}}
-              </div>
-            </el-col>
-          </el-row>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS6002VIEW_ADDRESS')}}</span>
+              </template>
           <!--          第八行-->
           <el-row>
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="addchinese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.addchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="addjapanese">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.addjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="addenglish">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.addenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -179,14 +174,14 @@
                   :disabled="!disabled"
                   :multiple="multiple"
                   @change="changeperscale"
-                  style="width: 11rem">
+                  style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
             <!--            网址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
-                <el-input :disabled="!disabled" style="width: 11rem"
+                <el-input :disabled="!disabled" style="width:20vw"
                           v-model="form.website"></el-input>
               </el-form-item>
             </el-col>
@@ -196,7 +191,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 93%" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -222,6 +217,8 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

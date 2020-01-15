@@ -368,7 +368,7 @@
                             }
                         }
                         const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004') + moment(new Date()).format('YYYYMMDDHHmmss'));
+                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004'));
                     })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

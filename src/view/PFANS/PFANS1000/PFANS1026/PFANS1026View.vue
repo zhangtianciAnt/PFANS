@@ -3,7 +3,7 @@
   <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
                        :buttonList="buttonList" :noback = "true">
     <div slot="customize">
-      <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
+      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                ref="refform">
         <el-dialog :visible.sync="dialogFormVisible">
           <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
@@ -58,7 +58,7 @@
             </el-button>
           </div>
         </el-dialog>
-        <el-tabs v-model="activeName">
+        <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first">
             <el-row>
               <el-col>
@@ -3398,7 +3398,7 @@
         getClaim(val,row){
             row.claim = val;
         },
-        getRowClass1({row, column, rowIndex, columnIndex}) {//getRowClass2
+        getRowClass1({row, column, rowIndex, columnIndex}) {
 
             if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
                 return {
@@ -3455,6 +3455,12 @@
                      'border-right': '1px solid #CC7373',
                      'border-bottom': '1px solid #99CCFF',
                  }
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
             }
         },
         getRowClass2({row, column, rowIndex, columnIndex}) {
@@ -3515,6 +3521,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 }
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass3({row, column, rowIndex, columnIndex}) {
 
@@ -3564,6 +3576,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3617,6 +3635,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass5({row, column, rowIndex, columnIndex}) {
 
@@ -3666,6 +3690,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3719,6 +3749,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass7({row, column, rowIndex, columnIndex}) {
 
@@ -3768,6 +3804,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #CC7373',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },
@@ -3821,6 +3863,12 @@
                     'border-bottom': '1px solid #99CCFF',
                 };
             }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
+                };
+            }
         },
         getRowClass9({row, column, rowIndex, columnIndex}) {
 
@@ -3870,6 +3918,12 @@
                     background: '#CC9999',
                     'border-right': '1px solid #99CCFF',
                     'border-bottom': '1px solid #99CCFF',
+                };
+            }
+            if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
+                return {
+                    color: 'white',
+                    background: '#005BAA',
                 };
             }
         },

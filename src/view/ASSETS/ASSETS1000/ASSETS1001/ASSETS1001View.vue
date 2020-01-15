@@ -54,7 +54,7 @@
             :code="code4"
             :data="form.bartype"
             @change="getBartype"
-            style="width: 11rem">
+            style="width: 20vw">
           </dicselect>
         </el-form-item>
         <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
@@ -62,11 +62,11 @@
             :code="code1"
             :data="form.typeassets"
             @change="getTypeassets"
-            style="width: 11rem">
+            style="width:20vw">
           </dicselect>
         </el-form-item>
         <el-form-item :label="$t('label.ASSETS1001VIEW_SUM')" prop="sum">
-          <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum"></el-input-number>
+          <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum" style="width:20vw"></el-input-number>
         </el-form-item>
       </el-form>
       <span class="dialog-footer" slot="footer">

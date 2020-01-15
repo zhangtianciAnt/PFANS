@@ -4,22 +4,22 @@
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="refform"
-                 style="padding:2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding:2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.center_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:11rem" v-model="form.team_id"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -31,7 +31,7 @@
                       :selectType="selectType"
                       :userlist="userlist"
                       @getUserids="getUserids"
-                      style="width:10.14rem"
+                      style="width:20vw"
                       v-model="form.user_id"
                 ></user>
               </el-form-item>
@@ -39,7 +39,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
                 <el-input :disabled="true"
-                          style="width:11rem"
+                          style="width:20vw"
                           v-model="form.type"
                           maxlength='36'
                 ></el-input>
@@ -52,7 +52,7 @@
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changesubtype"
-                           style="width: 11rem">
+                           style="width:20vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -61,7 +61,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.application')" prop="application">
                 <el-date-picker :disabled="!disable"
-                                style="width:11rem"
+                                style="width:20vw"
                                 type="date"
                                 v-model="form.application"
                 ></el-date-picker>
@@ -71,7 +71,7 @@
               <el-form-item :label="$t('label.email')" prop="email">
                 <el-input :disabled="!disable"
                           maxlength="20"
-                          style="width: 11rem"
+                          style="width:20vw"
                           v-model="form.email"
                 ></el-input>
               </el-form-item>
@@ -79,7 +79,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')" prop="extension">
                 <el-input :disabled="!disable"
-                          style="width: 11rem"
+                          style="width:20vw"
                           v-model="form.extension"
                           maxlength="11"
                 ></el-input>
@@ -94,7 +94,7 @@
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changeidtype"
-                           style="width: 11rem">
+                           style="width:71.4vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -105,7 +105,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_grey height" style="width: 1051px">
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 1051px">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center" width="150">

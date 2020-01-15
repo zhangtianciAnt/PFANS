@@ -167,10 +167,10 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2001VIEW_JOBREQUIREMENTS')" name="second">
               <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANS2001VIEW_QUALIFICATIONS')}}</span>
-                  </template>
+                  <el-collapse-item>
+                    <template slot="title">
+                      <span  class="collapse_Title">{{$t('label.PFANS2001VIEW_QUALIFICATIONS')}}</span>
+                    </template>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2001VIEW_GENDERREQUIREMENTS')" prop="genderrequirements">
@@ -454,6 +454,7 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
+            this.form.recruitmentroute = this.form.recruitmentroute.split(",");
             if (this.form.recruitmentroute === 'PR027004') {
               this.show1 = true;
             }
@@ -592,12 +593,7 @@
       buttonClick(val) {
         this.$refs["refform"].validate(valid => {
           if (valid) {
-            for (let i = 0; i < this.form.recruitmentroute.length; i++) {
-              this.form.recruitmentroute = this.form.recruitmentroute + ',' + this.form.recruitmentroute[i];
-            }
-            this.form.recruitmentroute = this.form.recruitmentroute.substring(1, this.form.recruitmentroute.length);
-            //alert(this.form.recruitmentroute);
-            return;
+              this.form.recruitmentroute = this.form.recruitmentroute.join(",");
             if (this.$route.params._id) {
               this.form.recruitid = this.$route.params._id;
               this.form.center_id = this.centerorglist;

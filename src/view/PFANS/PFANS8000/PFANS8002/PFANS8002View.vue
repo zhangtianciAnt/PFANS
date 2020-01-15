@@ -148,7 +148,7 @@
             return;
           }
           let name = this.row.url.replace("/", "");
-          this._id = this.row.noticeid;
+          this._id = this.row.dataid;
           this.workflowurl = this.row.workflowurl.replace("/", "");
           this.$router.push({
             name: name,

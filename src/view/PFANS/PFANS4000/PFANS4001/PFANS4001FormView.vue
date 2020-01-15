@@ -3,22 +3,22 @@
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm"
-                 style="padding: 2rem">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -26,29 +26,27 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width:10rem"></user>
+                      @getUserids="getUserids" style="width:20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.application_date')"
-                            style="width: 5%" prop="application_date">
+              <el-form-item :label="$t('label.application_date')" prop="application_date">
                 <el-date-picker
                   v-model="form.application_date"
                   :disabled="true"
                   type="date"
-                  style="width:  11rem"
+                  style="width:20vw"
                 >
                 </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS4001FORMVIEW_YYRQ')"
-                            style="width: 5%" prop="usedate">
+              <el-form-item :label="$t('label.PFANS4001FORMVIEW_YYRQ')" prop="usedate">
                 <el-date-picker
                   v-model="form.usedate"
                   :disabled="!disable"
                   type="date"
-                  style="width:  11rem"
+                  style="width:20vw"
                 >
                 </el-date-picker>
               </el-form-item>
@@ -56,34 +54,37 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS4001FORMVIRW_WJLX')" style="width:19rem" prop="filetype">
+              <el-form-item :label="$t('label.PFANS4001FORMVIRW_WJLX')" prop="filetype">
                 <dicselect
                   :disabled="!disable"
                   :code="code"
                   :multiple="multiple"
                   :data="form.filetype"
+                  style="width:20vw"
                   @change="wjlx">
                 </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS4001FORMVIRW_YYLX')" style="width:19rem" prop="sealtype">
+              <el-form-item :label="$t('label.PFANS4001FORMVIRW_YYLX')" prop="sealtype">
                 <dicselect
                   :disabled="!disable"
                   :code="code2"
                   :multiple="multiple2"
                   :data="form.sealtype"
+                  style="width:20vw"
                   @change="yilx">
                 </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS4001FORMVIRW_KH')" style="width:19rem" prop="client">
+              <el-form-item :label="$t('label.PFANS4001FORMVIRW_KH')" prop="client">
                 <dicselect
                   :disabled="!disable"
                   :code="code3"
                   :multiple="multiple3"
                   :data="form.client"
+                  style="width:20vw"
                   @change="kh">
                 </dicselect>
               </el-form-item>
@@ -92,24 +93,24 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_YYFS')" prop="printscore">
-                <el-input-number :disabled="!disable" :min="0" :step="1" :max="9999999999" :precision="0" style="width:11rem"
+                <el-input-number :disabled="!disable" :min="0" :step="1" :max="9999999999" :precision="0" style="width:20vw"
                                  v-model.trim="form.printscore"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1034VIEW_FILENAME')" prop="filename">
-                <el-input v-model="form.filename" :disabled="!disable" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.filename" :disabled="!disable" style="width:20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-form-item :label="$t('label.remarks')" style="width: 100%" prop="remarks"
-            >
+            <el-form-item :label="$t('label.remarks')" prop="remarks">
               <el-input
                 :disabled="!disable"
                 type="textarea"
                 :rows="7"
-                v-model="form.remarks">
+                v-model="form.remarks"
+                style="width: 72vw" >
               </el-input>
             </el-form-item>
           </el-row>

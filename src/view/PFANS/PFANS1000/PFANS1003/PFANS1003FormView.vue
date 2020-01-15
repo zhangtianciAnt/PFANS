@@ -41,7 +41,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_FILENAME')" prop="filename">
-                <el-input v-model="form.filename" :disabled="!disabled" style="width: 28.9vw" maxlength='50'></el-input>
+                <el-input v-model="form.filename" :disabled="!disabled" style="width: 20vw" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -118,13 +118,13 @@
                 :disabled="!disabled"
                 v-show="show4">
               </el-switch>
-                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 70vw"></el-input>
+                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 72vw"></el-input>
               </el-form-item>
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport" label-width="6vw">
-                <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 70vw"></el-input>
+              <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport">
+                <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -145,12 +145,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject" label-width="7vw">
+              <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject">
                 <el-input v-model="form.thisproject" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_SETTINGPLACE')" label-width="6vw">
+              <el-form-item :label="$t('label.PFANS1004VIEW_SETTINGPLACE')">
                 <el-input v-model="form.settingplace" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
@@ -185,8 +185,8 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6vw" v-show="show2">
-                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 70vw;padding-left:2vw" type="textarea"></el-input>
+              <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" v-show="show2">
+                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 72vw" type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

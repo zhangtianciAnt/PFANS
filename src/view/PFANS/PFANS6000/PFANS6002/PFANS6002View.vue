@@ -321,6 +321,7 @@
                 if (val === 'import') {
                     this.daoru = true;
                 } else if (val === 'export') {
+                  debugger
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [
@@ -363,7 +364,7 @@
                         ];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002') + moment(new Date()).format('YYYYMMDDHHmmss'));
+                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002'));
                     })
                 }
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

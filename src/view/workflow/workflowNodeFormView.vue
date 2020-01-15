@@ -1,15 +1,15 @@
 <template>
     <div>
-      <el-form ref="form" :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules">
+      <el-form ref="form" :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules">
         <el-row>
           <el-col :span="12">
             <el-form-item :label="$t('label.node_name')" prop="nodename">
-              <el-input v-model="form.nodename" style="width: 80%" @change="change" :disabled="disabled"></el-input>
+              <el-input v-model="form.nodename" style="width: 20vw" @change="change" :disabled="disabled"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item :label="$t('label.node_type')" style="width: 80%" prop="nodetype">
-              <el-select v-model="form.nodetype" :disabled="disabled">
+            <el-form-item :label="$t('label.node_type')" prop="nodetype">
+              <el-select v-model="form.nodetype" :disabled="disabled"  style="width:20vw">
                 <el-option :label="$t('label.node_type_0')" value="2"></el-option>
                 <el-option :label="$t('label.node_type_1')" value="1"></el-option>
               </el-select>
@@ -19,14 +19,14 @@
         <el-row>
           <el-col :span="24">
             <el-form-item :label="$t('label.node_remarks')" prop="remarks">
-              <el-input v-model="form.remarks" style="width: 79%" :disabled="disabled"
+              <el-input v-model="form.remarks" style="width:72vw" :disabled="disabled"
                         type="textarea"
                         :rows="2"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-form-item :label="$t('label.user_type')" style="width: 80%" prop="nodeusertype">
+          <el-form-item :label="$t('label.user_type')" prop="nodeusertype">
             <el-radio-group v-model="form.nodeusertype" :disabled="disabled" @change="changeNodeType">
               <el-radio label="1">{{$t('label.user_type_0')}}</el-radio>
               <el-radio label="2">{{$t('label.user_type_1')}}</el-radio>
@@ -36,7 +36,7 @@
         </el-row>
         <el-row>
             <el-form-item :label="$t('label.node_operate_user')" prop="user" :error="error"  v-if="usershow">
-              <user :selectType="selectType" @getUserids="getUserids" :userlist="userlist" :disabled="disabled" :error="error"></user>
+              <user :selectType="selectType" @getUserids="getUserids" :userlist="userlist" :disabled="disabled" :error="error"  style="width:20vw"></user>
             </el-form-item>
         </el-row>
       </el-form>
