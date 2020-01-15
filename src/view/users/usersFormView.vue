@@ -65,36 +65,36 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_NATION')" prop="nation">
-                    <el-input class="width" v-model="form.nation" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_REGISTER')" prop="register">
-                    <el-input class="width" v-model="form.register" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
-                    <el-input class="width" v-model="form.idnumber" maxlength="18"></el-input>
+                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PASSPORT')">
-                    <el-input class="width" v-model="form.passport" maxlength="10"></el-input>
+                    <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SECURITY')">
-                    <el-input class="width" v-model="form.security" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.security" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_HOUSEFUND')">
-                    <el-input class="width" v-model="form.housefund" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.housefund" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -103,6 +103,7 @@
                       v-model="form.marital"
                       :placeholder="$t('normal.error_09')"
                       class="width"
+                      style="width:20vw"
                     >
                       <el-option
                         v-for="item in marital_options"
@@ -141,6 +142,7 @@
                       v-model="form.experience"
                       :placeholder="$t('normal.error_09')"
                       class="width"
+                      style="width:20vw"
                     >
                       <el-option
                         v-for="item in experience_options"
@@ -155,12 +157,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
-                    <el-input class="width" v-model="form.address" maxlength="50"/>
+                    <el-input class="width" v-model="form.address" maxlength="50" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email"/>
+                    <el-input class="width" v-model="form.email" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -170,17 +172,17 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber"/>
+                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PHONE')" prop="phone">
-                    <el-input class="width" v-model.number="form.phone" maxlength="20"/>
+                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXTENSION')" prop="extension">
-                    <el-input class="width" v-model.number="form.extension" maxlength="20"></el-input>
+                    <el-input class="width" v-model.number="form.extension" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -197,7 +199,7 @@
                     :label="$t('label.PFANSUSERFORMVIEW_EDUCATIONALCALENDAR')"
                     prop="graduation"
                   >
-                    <el-input class="width" v-model="form.graduation" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.graduation" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -205,6 +207,7 @@
                     <dicselect
                       code="PG018"
                       class="width"
+                      style="width:20vw"
                       @change="changeDegree"
                       :data="form.degree"
                     ></dicselect>
@@ -218,6 +221,7 @@
                     <dicselect
                       code="PR022"
                       class="width"
+                      style="width:20vw"
                       @change="changeEducational"
                       :data="form.educational"
                     ></dicselect>
@@ -227,7 +231,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SPECIALTY')" prop="specialty">
-                    <el-input class="width" v-model="form.specialty" maxlength="10"></el-input>
+                    <el-input class="width" v-model="form.specialty" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -508,7 +512,7 @@
                     <org
                       :orglist="form.teamid"
                       orgtype="3"
-                      style="width:8.5rem"
+                      style="width:20vw"
                       selectType="Single"
                       @getOrgids="getTeamid"
                     ></org>
@@ -520,7 +524,7 @@
                     <org
                       :orglist="form.groupid"
                       orgtype="2"
-                      style="width:8.5rem"
+                      style="width:20vw"
                       selectType="Single"
                       @getOrgids="getGroupid"
                     ></org>
@@ -532,7 +536,7 @@
                       :orglist="form.centerid"
                       orgtype="1"
                       :error="error"
-                      style="width:8.5rem"
+                      style="width:20vw"
                       selectType="Single"
                       @getOrgids="getCenterid"
                     ></org>
@@ -542,7 +546,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="jobnumber">
-                    <el-input class="width" v-model="form.jobnumber" maxlength="10"></el-input>
+                    <el-input class="width" v-model="form.jobnumber" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -550,6 +554,7 @@
                     <dicselect
                       code="PG001"
                       class="width"
+                      style="width:20vw"
                       @change="changeUnit"
                       :data="form.budgetunit"
                     ></dicselect>
@@ -563,6 +568,7 @@
                       v-model="form.difference"
                       :placeholder="$t('normal.error_09')"
                       class="width"
+                      style="width:20vw"
                     >
                       <el-option
                         v-for="item in difference_options"
@@ -577,7 +583,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                    <el-input class="width" v-model="form.post"></el-input>
+                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -588,6 +594,7 @@
                       v-model="form.type"
                       :placeholder="$t('normal.error_09')"
                       class="width"
+                      style="width:20vw"
                       @change="changeRank"
                     >
                       <el-option
@@ -601,7 +608,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')" prop="rank">
-                    <dicselect :code="code" class="width" :data="form.rank" v-if="display"
+                    <dicselect :code="code" class="width" style="width:20vw" :data="form.rank" v-if="display"
                                @change="getRank"></dicselect>
                   </el-form-item>
                 </el-col>
@@ -614,6 +621,7 @@
                       v-model="form.laborcontracttype"
                       :placeholder="$t('normal.error_09')"
                       class="width"
+                      style="width:20vw"
                     >
                       <el-option
                         v-for="item in laborcontracttype"
@@ -695,6 +703,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -710,6 +719,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -728,6 +738,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -743,6 +754,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -758,6 +770,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -773,6 +786,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -780,7 +794,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
-                    <el-input class="width" v-model="form.seatnumber" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -791,6 +805,7 @@
                       :precision="2"
                       :step="100"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -844,7 +859,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
-                    <el-input class="width" v-model="form.caution" maxlength="20"></el-input>
+                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -862,6 +877,7 @@
                       :precision="2"
                       :step="100"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -925,6 +941,7 @@
                       :precision="2"
                       :step="0.1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -991,6 +1008,7 @@
                       :precision="2"
                       :step="0.1"
                       class="width"
+                      style="width:20vw"
                     ></el-input-number>
                     <el-button
                       type="text"
