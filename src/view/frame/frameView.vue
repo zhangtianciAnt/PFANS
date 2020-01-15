@@ -333,6 +333,7 @@
       },
       loginonFailed(loginframe) {
         console.log("Failed---: " + loginframe);
+        this.loginconnect();
       },
       //断开连接
       disconnect() {
@@ -369,6 +370,7 @@
         this.client.subscribe(topic, this.responseCallback, this.onFailed);
       },
       onFailed(frame) {
+        this.messageconnect();
         console.log("Failed: " + frame);
       },
       //连接成功回掉函数
