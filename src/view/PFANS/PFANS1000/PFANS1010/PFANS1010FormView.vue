@@ -6,6 +6,11 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw">
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('title.PFANS1010VIEW')}}</span>
+              </template>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -97,11 +102,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1010FORMVIEW_COMPANYNAME')" prop="company">
@@ -109,6 +117,7 @@
               </el-form-item>
             </el-col>
           </el-row>
+
           <el-row style="width: 800px" align="right">
             <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue"  style="width: 1041px">
               <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center" width="500">
@@ -139,11 +148,14 @@
               </el-table-column>
             </el-table>
           </el-row>
-          <el-row style="padding-top:1.5rem">
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT')" prop="moneys">
@@ -197,6 +209,8 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

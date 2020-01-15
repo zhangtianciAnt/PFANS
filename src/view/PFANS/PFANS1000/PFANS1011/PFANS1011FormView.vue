@@ -87,20 +87,18 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:1vw"
                                v-model="form.healthofmembers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:2vw"
                                v-model="form.customers"
                                active-value="0"
                                inactive-value="1"
@@ -109,20 +107,18 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:1vw"
                                v-model="form.objectchina"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')" label-width="24vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:2vw"
                                v-model="form.informationpc"
                                active-value="0"
                                inactive-value="1"
@@ -131,20 +127,18 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')" label-width="23vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:1vw"
                                v-model="form.management"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
                   </el-form-item>
                 </el-col>
-                <el-col :span="11">
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')" label-width="24vw">
                     <el-switch :disabled="!disable"
-                               style="width:3vw;padding-left:2vw"
                                v-model="form.informationno"
                                active-value="0"
                                inactive-value="1"

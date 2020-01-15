@@ -6,6 +6,11 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw">
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('title.PFANS1006VIEW')}}</span>
+              </template>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -66,11 +71,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1006FORMVIEW_BORROWINGCONTENT')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1006FORMVIEW_BORROWINGCONTENT')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errorapplicationdate" :label="$t('label.application_date')" prop="application_date">
@@ -131,11 +139,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1006FORMVIEW_PAYMENTMETHOD')}}</div>
-            </el-col>
-          </el-row>
+            </el-collapse-item>
+          </el-collapse>
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS1006FORMVIEW_PAYMENTMETHOD')}}</span>
+              </template>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
@@ -211,6 +222,8 @@
               </el-form-item>
             </el-col>
           </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

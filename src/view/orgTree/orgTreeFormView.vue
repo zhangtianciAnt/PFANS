@@ -3,38 +3,38 @@
     <EasyNormalContainer :buttonList="buttonList" :title="type==='1'?$t('button.newCom'):$t('button.newDep')"
                          @buttonClick="buttonClick" ref="container">
       <div slot="customize">
-        <el-form :model="companyform" class="demo-ruleForm" label-width="8rem"
-                 ref="companyform" status-icon style="width:80%;margin:5% auto"
+        <el-form :model="companyform" class="demo-ruleForm" label-width="8vw"
+                 ref="companyform" status-icon style="width:80%;margin:5% auto" label-position="top"
                  v-show="type === '1'">
           <el-form-item :rules="[
               { required: true, message: '请输入公司名称', trigger: 'blur' }]" label="公司名称" prop="companyname">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyname"></el-input>
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyname" style="width:72vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
               { required: true, message: '请输入公司简称', trigger: 'blur' }]" label="公司简称" prop="companyshortname">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyshortname"></el-input>
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyshortname" style="width:72vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
               { required: true, message: '请输入英文缩写', trigger: 'blur' },
               { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyen"></el-input>
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyen" style="width:72vw"></el-input>
           </el-form-item>
           <el-form-item label="上级公司" prop="upcompany">
             <span>{{currentNode.companyshortname}}</span>
           </el-form-item>
         </el-form>
 
-        <el-form :model="companyform" class="demo-ruleForm" label-width="8rem"
-                 ref="depform" status-icon style="width:80%;margin:5% auto"
+        <el-form :model="companyform" class="demo-ruleForm" label-width="8vw"
+                 ref="depform" status-icon style="width:80%;margin:5% auto" label-position="top"
                  v-show="type !== '1'">
           <el-form-item :rules="[
               { required: true, message: '请输入部门名称', trigger: 'blur' }]" label="部门名称" prop="departmentname">
-            <el-input auto-complete="off" placeholder="部门名称" v-model="companyform.departmentname"></el-input>
+            <el-input auto-complete="off" placeholder="部门名称" v-model="companyform.departmentname" style="width:72vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
                { required: true, message: '请输入英文缩写', trigger: 'blur' },
                { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
-            <el-input auto-complete="off" placeholder="英文缩写" v-model="companyform.companyen"></el-input>
+            <el-input auto-complete="off" placeholder="英文缩写" v-model="companyform.companyen" style="width:72vw"></el-input>
           </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{upcompany}}</span>
