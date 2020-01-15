@@ -22,7 +22,7 @@
         <!--</el-dialog>-->
 
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" >
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first"  >
               <div>
                 <el-row>
