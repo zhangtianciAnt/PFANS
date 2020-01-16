@@ -38,3 +38,11 @@ export function getPfans2016One(data) {
     data: data
   })
 }
+
+export function getReplacerest(data) {
+  return request({
+    url: 'replacerest/getReplacerest',
+    method: 'post',
+    data: data
+  })
+}
