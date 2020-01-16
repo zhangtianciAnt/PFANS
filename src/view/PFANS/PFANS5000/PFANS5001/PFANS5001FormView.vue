@@ -389,6 +389,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.enclosure')">
                         <el-upload
+                          v-model="form.uploadfile"
                           :action="upload"
                           :file-list="fileList"
                           :on-remove="fileRemove"
@@ -729,8 +730,6 @@
       };
       return {
         disable: false,
-        errorsuppliername: '',
-        dialogTableVisible: false,
         customerinfor: [],
         expatriates:[],
         disabled: true,
@@ -932,7 +931,8 @@
           representative: "",
           basicsituation: "",
           briefintroduction: "",
-          requirement: ""
+          requirement: "",
+          uploadfile: ''
         },
         multiple: false,
         code: "PP006",
@@ -955,9 +955,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch("PFANS5001Store/selectById", {
-            companyprojectsid: this.$route.params._id
-          })
+          .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
           .then(response => {
             this.form = response.companyprojects;
             this.userlist = this.form.leaderid;
@@ -966,16 +964,17 @@
             if (response.projectplan.length > 0) {
               this.tableD = response.projectplan;
             }
-            if (response.outsource.length > 0) {
-              this.tableR = response.outsource;
+            if (response.outSources.length > 0) {
+              this.tableR = response.outSources;
             }
             if (response.projectresources.length > 0) {
               this.tableE = response.projectresources;
             }
             this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
             this.baseInfo.projectplan=JSON.parse(JSON.stringify(this.tableD));
-            this.baseInfo.outsource=JSON.parse(JSON.stringify(this.tableR));
+            this.baseInfo.outSources=JSON.parse(JSON.stringify(this.tableR));
             this.baseInfo.projectresources=JSON.parse(JSON.stringify(this.tableE));
+            if(this.form.uploadfile != null){
             if (this.form.uploadfile != "") {
               let uploadfile = this.form.uploadfile.split(";");
               for (var i = 0; i < uploadfile.length; i++) {
@@ -986,6 +985,7 @@
                   this.fileList.push(o)
                 }
               }
+            }
             }
             this.loading = false;
           })
@@ -1192,6 +1192,7 @@
           bpcompany: "",
           bpname: "",
           rn: "",
+          rowindex:"",
         });
       },
       buttonClick(val) {
@@ -1204,7 +1205,7 @@
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.projectplan = [];
             this.baseInfo.projectresources = [];
-            this.baseInfo.outsource = [];
+            this.baseInfo.outSources = [];
             for (let i = 0; i < this.tableD.length; i++) {
               if (
                 this.tableD[i].plantype !== "" ||
@@ -1243,7 +1244,7 @@
                 this.tableR[i].bpname !== "" ||
                 this.tableR[i].rn !== ""
               ) {
-                this.baseInfo.outsource.push({
+                this.baseInfo.outSources.push({
                   outsource_id: this.tableR[i].outsource_id,
                   companyprojects_id: this.tableR[i].companyprojects_id,
                   bpcompany: this.tableR[i].bpcompany,
