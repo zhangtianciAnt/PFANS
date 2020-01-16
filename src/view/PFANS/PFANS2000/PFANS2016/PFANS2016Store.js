@@ -1,4 +1,4 @@
-import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,getOvertimelist} from './PFANS2016Api'
+import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,getOvertimelist,getReplacerest} from './PFANS2016Api'
 
 const PFANS2016Store = {
   namespaced: true,
@@ -65,6 +65,20 @@ const PFANS2016Store = {
     getPfans2016One({ commit },data) {
       return new Promise((resolve, reject) => {
         getPfans2016One(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getReplacerest({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getReplacerest(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
