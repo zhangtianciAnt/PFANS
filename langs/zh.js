@@ -512,6 +512,7 @@ module.exports = {
     PFANS1004VIEW_BUSINESSPLANBALANCE: '事业计划余额',
     PFANS1004VIEW_AMOUNTTOBEGIVEN: '実施予定金額',
     PFANS1004VIEW_GIST: '要旨',
+    PFANS1004VIEW_GISTTAB: '目的・効果・時期・使用責任者などを簡明に',
     PFANS1004VIEW_PURCHASSUPPORT: '購 入 先 名  /支払い先名',
     PFANS1004VIEW_UNITPRICE: '单价',
     PFANS1004VIEW_THISPROJECT: 'プロジェクト（予算コード）',
