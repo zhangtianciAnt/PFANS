@@ -328,6 +328,8 @@
             name="third"
             style="padding-top:10px;padding-left:10px"
           >
+            <el-row >
+              <el-col :span="24">
             <el-table
               :data="tableData"
               :summary-method="getAverage"
@@ -390,6 +392,8 @@
                 </template>
               </el-table-column>
             </el-table>
+              </el-col>
+            </el-row>
           </el-tab-pane>
 
           <el-tab-pane

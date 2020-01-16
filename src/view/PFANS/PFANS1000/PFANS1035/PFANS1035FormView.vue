@@ -17,7 +17,7 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
@@ -34,7 +34,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -54,7 +54,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CONDOMINIUMCOMPANY2')" prop="condominiumcompany">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
@@ -68,7 +68,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_STARTDATE2')" prop="startdate">
@@ -126,7 +126,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="24">
                     <el-form-item prop="details">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -137,8 +137,10 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border>
-                <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE2')" align="center" width="300">
+              <el-row >
+                <el-col :span="24">
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE2')" align="center">
                   <template slot-scope="scope">
                     <div class="block">
                       <el-date-picker
@@ -150,13 +152,13 @@
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center" width="200">
+                <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
                               v-model.trim="scope.row.place"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_CONTENT2')" align="center" width="300">
+                <el-table-column :label="$t('label.PFANS1002VIEW_CONTENT2')" align="center">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
                               v-model.trim="scope.row.content"></el-input>
@@ -183,10 +185,12 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_EXPENSE')" name="fourth">
               <div>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                       <dicselect
@@ -201,7 +205,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PLAN2')" prop="plan">
                       <span style="margin-right: 1vw ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
@@ -217,7 +221,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PLANTYPE')" prop="plantype" v-if="show2">
                       <dicselect
@@ -260,7 +264,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_BOOKINGDAY')" prop="bookingday">
@@ -276,7 +280,7 @@
                     </template>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_LOANDAY2')" prop="loanday">
@@ -306,7 +310,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ACCOMMODATIONCOST2')" prop="accommodationcost">
                       <dicselect :code="code5"
@@ -334,7 +338,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_OTHERS2')" name="fifth">
               <div>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSENGERS2')" prop="passengers">
                       <el-switch
@@ -384,7 +388,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_REASON2')" prop="reason" v-if="show5">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -392,7 +396,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OTHEREXPLANATION2')" prop="otherexplanation">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"

@@ -133,6 +133,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem" >
+            <el-col :span="24">
             <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
@@ -263,6 +264,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            </el-col>
           </el-row>
         </el-form>
       </div>

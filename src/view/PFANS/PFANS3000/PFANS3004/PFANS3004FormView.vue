@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
                 <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -64,7 +64,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item
@@ -92,7 +92,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.numbers')" prop="numbers">
                 <el-input-number :disabled="!disable" controls-position="right" :precision="0" :step="1" :min="0"
@@ -101,7 +101,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
                 <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>

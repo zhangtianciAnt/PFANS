@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw">
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -51,7 +51,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                 <dicselect
@@ -79,7 +79,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_APARTMENTPLACE')" prop="apartmentplace" v-if="show">
                 <dicselect
@@ -125,7 +125,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_CONTRACTSTARTDATE')" prop="contractstartdate">
@@ -158,7 +158,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_BUSINESSSTARTDATE')" prop="businessstartdate">
@@ -191,7 +191,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_CONTRACTTIME')" prop="contracttime">
@@ -207,7 +207,7 @@
               </template>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_TOTALCOST')" prop="totalcost">
@@ -225,7 +225,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_USECOUPON')">
@@ -335,7 +335,7 @@
               </template>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3007FORMVIEW_MONEYS')" prop="moneys">
@@ -365,7 +365,7 @@
               </template>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS3007VIEW_REMARKS')" prop="remarks">
                 <el-input :disabled="!disable" style="width: 73vw" type="textarea" v-model="form.remarks"></el-input>
