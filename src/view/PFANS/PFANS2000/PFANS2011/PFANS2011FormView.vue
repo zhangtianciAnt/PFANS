@@ -204,7 +204,7 @@
     },
     data() {
       var HolidayCheck = (rule, value, callback) => {
-        if (["PR001004","PR001005","PR001003","PR001006"].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
+        if (["PR001004","PR001005","PR001003"].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
           this.dataList.forEach(data => {
             if(this.changeType(value) === data.type && moment(this.form.reserveovertimedate).format("YYYY-MM-DD") === moment(data.workingdate).format("YYYY-MM-DD")){
@@ -531,8 +531,6 @@
           ) {
             if (this.dataList[i].type === "1") {
               this.change("PR001003");
-            } else if (this.dataList[i].type === "3") {
-              this.change("PR001006");
             } else if (this.dataList[i].type === "5") {
               this.change("PR001005");
             } else if (this.dataList[i].type === "6") {
@@ -552,9 +550,6 @@
         switch (type) {
           case "PR001003":
             type = "1";
-            break;
-          case "PR001006":
-            type = "3";
             break;
           case "PR001005":
             type = "5";

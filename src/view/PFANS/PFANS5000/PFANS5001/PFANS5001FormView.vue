@@ -389,6 +389,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.enclosure')">
                         <el-upload
+                          v-model="form.uploadfile"
                           :action="upload"
                           :file-list="fileList"
                           :on-remove="fileRemove"
@@ -420,14 +421,16 @@
                     prop="plantype"
                   >
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code8"
-                        :data="scope.row.plantype"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        :no="scope.row"
-                        @change="getplantype"
-                      ></dicselect>
+                      <el-select :disabled="!disable"
+                                 :no="scope.row"
+                                 v-model="scope.row.plantype">
+                        <el-option
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          v-for="item in customerinfor">
+                        </el-option>
+                      </el-select>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -492,7 +495,6 @@
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                     align="center"
-                    prop="plantype"
                   >
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="7" v-model="scope.row.numbers"></el-input>
@@ -511,9 +513,8 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    :label="$t('label.PFANS5001FORMVIEW_ROLE')"
+                    :label="$t('label.PFANS2003FORMVIEW_RN')"
                     align="center"
-                    prop="remarks"
                   >
                     <template slot-scope="scope">
                       <dicselect
@@ -526,6 +527,7 @@
                       ></dicselect>
                     </template>
                   </el-table-column>
+
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
@@ -547,6 +549,110 @@
                 </el-table>
               </el-form-item>
             </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTSOURCE')" name="fourth">
+              <el-form-item >
+                <el-table :data="tableR"  border header-cell-class-name="sub_bg_color_blue">
+
+                  <el-table-column
+                    :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
+                    align="center"
+                    prop="bpcompany">
+                    <template slot-scope="scope">
+                      <el-input :disabled="true" maxlength="7"  :no="scope.row" v-model="scope.row.bpcompany"></el-input>
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="bpname">
+                    <template slot-scope="scope">
+                      <el-select :disabled="!disable" @change="getchange(scope.row)" v-model="scope.row.bpname">
+                        <el-option
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          v-for="item in expatriates">
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-table-column>
+
+             <!--     <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="user_Bp">
+                    <template slot-scope="scope">
+                      <el-container>
+                      <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                             :disabled="true"></input>
+                      <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
+                                 size="small"></el-button>
+                      <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                                 top="8vh" lock-scroll
+                                 append-to-body>
+                        <div style="text-align: center">
+                          <el-row style="text-align: center;height: 90%;overflow: hidden">
+                            <el-table
+                              :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                              height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                              :span-method="arraySpanMethod" @row-click="handleClickChange">
+                              <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                               width="150"></el-table-column>
+                              <el-table-column
+                                align="right" width="230">
+                                <template slot="header" slot-scope="scope">
+                                  <el-input
+                                    v-model="search"
+                                    size="mini"
+                                    placeholder="请输入供应商关键字搜索"/>
+                                </template>
+                              </el-table-column>
+                            </el-table>
+                          </el-row>
+                          <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
+                        </span>
+                        </div>
+                      </el-dialog>
+                      </el-container>
+                    </template>
+                  </el-table-column>
+
+-->
+
+                  <el-table-column
+                    :label="$t('label.PFANS2003FORMVIEW_RN')"
+                    align="center" prop="rn">
+                    <template slot-scope="scope">
+                      <dicselect
+                        :code="code9"
+                        :data="scope.row.rn"
+                        :disabled="!disable"
+                        :multiple="multiple"
+                        :no="scope.row"
+                      ></dicselect>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="!disable"
+                        @click.native.prevent="deleteRow(scope.$index, tableR)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}</el-button>
+                      <el-button
+                        :disabled="!disable"
+                        @click="addRow()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}</el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-form-item>
+            </el-tab-pane>
+
+
+
+
           </el-tabs>
         </el-form>
       </div>
@@ -624,6 +730,9 @@
       };
       return {
         disable: false,
+        customerinfor: [],
+        expatriates:[],
+        disabled: true,
         error: "",
         errorLeader: "",
         errorManager: "",
@@ -649,6 +758,16 @@
             numbers: "",
             user_id: "",
             role: ""
+          }
+        ],
+        tableR: [
+          {
+            outsource_id:"",
+            companyprojects_id:"",
+            bpcompany: "",
+            bpname: "",
+            rn: "",
+            rowindex:"",
           }
         ],
         data: [],
@@ -812,7 +931,8 @@
           representative: "",
           basicsituation: "",
           briefintroduction: "",
-          requirement: ""
+          requirement: "",
+          uploadfile: ''
         },
         multiple: false,
         code: "PP006",
@@ -823,7 +943,10 @@
         code5: "PP005",
         code6: "PP007",
         code7: "PG017",
-        code8: "PG017",
+        code8: "PR021",
+        code9:"PR021",
+        result: "",
+        result1: "",
         fileList: [],
         upload: uploadUrl()
       };
@@ -832,18 +955,37 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch("PFANS5001Store/selectById", {
-            companyprojectsid: this.$route.params._id
-          })
+          .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
           .then(response => {
             this.form = response.companyprojects;
             this.userlist = this.form.leaderid;
             this.userlist1 = this.form.managerid;
+
             if (response.projectplan.length > 0) {
               this.tableD = response.projectplan;
             }
+            if (response.outSources.length > 0) {
+              this.tableR = response.outSources;
+            }
             if (response.projectresources.length > 0) {
               this.tableE = response.projectresources;
+            }
+            this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.projectplan=JSON.parse(JSON.stringify(this.tableD));
+            this.baseInfo.outSources=JSON.parse(JSON.stringify(this.tableR));
+            this.baseInfo.projectresources=JSON.parse(JSON.stringify(this.tableE));
+            if(this.form.uploadfile != null){
+            if (this.form.uploadfile != "") {
+              let uploadfile = this.form.uploadfile.split(";");
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(",")[0] != "") {
+                  let o = {};
+                  o.name = uploadfile[i].split(",")[0];
+                  o.url = uploadfile[i].split(",")[1];
+                  this.fileList.push(o)
+                }
+              }
+            }
             }
             this.loading = false;
           })
@@ -853,24 +995,37 @@
               type: "error",
               duration: 5 * 1000
             });
-            if (this.form.uploadfile != "") {
-              let uploadfile = this.form.uploadfile.split(";");
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(",")[0] != "") {
-                  let o = {};
-                  o.name = uploadfile[i].split(",")[0];
-                  o.url = uploadfile[i].split(",")[1];
-                  this.fileList.push(o);
-                }
-              }
-            }
+
             this.loading = false;
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         this.userlist1 = this.$store.getters.userinfo.userid;
       }
+      this.$store
+        .dispatch('PFANS5001Store/getcustomer', {})
+        .then(response => {
+          for (let i = 0; i < response.length; i++) {
+            var vote = {};
+            this.result1 = response;
+            vote.value = response[i].customerinfor_id;
+            vote.label =response[i].custchinese;
+            this.customerinfor.push(vote)
+          }
+        });
+      this.$store
+        .dispatch('PFANS5001Store/getexpat', {})
+        .then(response => {
+          for (let i = 0; i < response.length; i++) {
+            var vote = {};
+            this.result = response;
+            vote.value = response[i].expatriatesinfor_id;
+            vote.label =response[i].expname;
+            this.expatriates.push(vote)
+          }
+        })
     },
+
     created() {
       this.disable = this.$route.params.disabled;
       if (this.disable) {
@@ -946,6 +1101,15 @@
       getrole(val1, row) {
         row.role = val1;
       },
+      getchange(row){
+        this.result.forEach(res=>{
+          if(res.expatriatesinfor_id===row.bpname){
+            row.bpcompany=res.suppliername;
+           row.rn=res.rn;
+          }
+        })
+      },
+
       workflowState(val) {
         if (val.state === "1") {
           this.form.status = "3";
@@ -1022,6 +1186,14 @@
           user_id: "",
           role: ""
         });
+        this.tableR.push({
+          outsource_id:"",
+          companyprojects_id:"",
+          bpcompany: "",
+          bpname: "",
+          rn: "",
+          rowindex:"",
+        });
       },
       buttonClick(val) {
         this.form.leaderid = this.userlist;
@@ -1033,6 +1205,7 @@
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.projectplan = [];
             this.baseInfo.projectresources = [];
+            this.baseInfo.outSources = [];
             for (let i = 0; i < this.tableD.length; i++) {
               if (
                 this.tableD[i].plantype !== "" ||
@@ -1065,6 +1238,22 @@
                 });
               }
             }
+            for (let i = 0; i < this.tableR.length; i++) {
+              if (
+                this.tableR[i].bpcompany !== "" ||
+                this.tableR[i].bpname !== "" ||
+                this.tableR[i].rn !== ""
+              ) {
+                this.baseInfo.outSources.push({
+                  outsource_id: this.tableR[i].outsource_id,
+                  companyprojects_id: this.tableR[i].companyprojects_id,
+                  bpcompany: this.tableR[i].bpcompany,
+                  bpname: this.tableR[i].bpname,
+                  rn: this.tableR[i].rn
+                });
+              }
+            }
+
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.$store

@@ -109,7 +109,7 @@
               </el-row>-->
             <el-row>
               <el-table
-                :data="form.tableData"
+                :data="tableData3"
                 style="width:95%;margin-left:2%;margin-top:1%"
                 border
               >
@@ -123,7 +123,7 @@
                     <dicselect
                       :data="scope.row.education"
                       :disabled="disabled"
-                      @change="changeEducation"
+                      @change="((val)=>{changeEducation(val,scope.$index)})"
                       class="width"
                       code="PR022"
                       style="width:20vw"
@@ -136,7 +136,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.specialty" maxlength="20"></el-input>
+                    <el-input :disabled="disabled" class="width" v-model="scope.row.specialty" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -247,8 +247,7 @@
                         <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.english_detail"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row :gutter="20">
+
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_JANPANESE')" maxlength="10">
                         <!--<el-input
@@ -275,6 +274,14 @@
                         v-show="janpanese_show"
                       >
                         <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.janpanese_detail"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row :gutter="20">
+                    <el-col>
+                      <!--手动说明备注项-->
+                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_REMARK')">
+                        <el-input type="textarea" v-model="form.remark"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -525,7 +532,7 @@
             return {
                 loading: false,
                 display: false,
-                disbaled: false,
+                disabled: false,
                 english_show: false,
                 janpanese_show: false,
                 other3_show: false,
@@ -545,28 +552,40 @@
                     }
                 ],
                 titles: "label.PFANS2002FORMVIEW",
+                tableData3: [
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    },
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    },
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    }
+                ],
                 form: {
                     entry_enclosure: "",
                     name: "",
                     sex: "",
                     birthday: "",
-                    tableData: [
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        },
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        },
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        }
-                    ],
+
+                    education1: "",
+                    specialty1: "",
+                    quityear1: "",
+                    education2: "",
+                    specialty2: "",
+                    quityear2: "",
+                    education3: "",
+                    specialty3: "",
+                    quityear3: "",
+
+                    remark: "",
                     center_id: "",
                     group_id: "",
                     team_id: "",
@@ -577,7 +596,7 @@
                     janpanese_detail: "",
                     other1: false,
                     other2: false,
-                    other3: '',
+                    other3: "",
                     resume: false,
                     identity: false,
                     diploma: false,
@@ -679,10 +698,20 @@
                 this.$store
                     .dispatch("PFANS2002Store/getOne", id)
                     .then(response => {
+                        console.log(response[0]);
                         if (response) {
                             this.form = response[0];
                             this.changeOption(this.form, "view");
                             this.tableData = this.form.interview;
+                            this.tableData3[0].education=response[0].education1;
+                            this.tableData3[0].specialty=response[0].specialty1;
+                            this.tableData3[0].quityear=response[0].quityear1;
+                            this.tableData3[1].education=response[0].education2;
+                            this.tableData3[1].specialty=response[0].specialty2;
+                            this.tableData3[1].quityear=response[0].quityear2;
+                            this.tableData3[2].education=response[0].education3;
+                            this.tableData3[2].specialty=response[0].specialty3;
+                            this.tableData3[2].quityear=response[0].quityear3;
                             this.changeUsing(this.form.adoption);
                             if (this.form.entry_enclosure != "") {
                                 let uploadfile = this.form.entry_enclosure.split(";");
@@ -722,8 +751,8 @@
             getUserids(val) {
                 this.form.others = val;
             },
-            changeEducation(val) {
-                this.form.education = val;
+            changeEducation(val,index) {
+                this.tableData3[index].education = val;
             },
             workflowState(val) {
                 if (val.state === "1") {
@@ -846,7 +875,18 @@
                         this.loading = true;
                         if (!this.$route.params._id) {
                             this.changeOption(this.form, "save");
-                            console.log(this.form);
+                            this.form.education1 = this.tableData3[0].education;
+                            this.form.quityear1 = this.tableData3[0].quityear;
+                            this.form.specialty1 = this.tableData3[0].specialty;
+
+                            this.form.education2 = this.tableData3[1].education;
+                            this.form.quityear2 = this.tableData3[1].quityear;
+                            this.form.specialty2 = this.tableData3[1].specialty;
+
+                            this.form.education3 = this.tableData3[2].education;
+                            this.form.quityear3 = this.tableData3[2].quityear;
+                            this.form.specialty3 = this.tableData3[2].specialty;
+
                             this.$store
                                 .dispatch("PFANS2002Store/insert", this.form)
                                 .then(response => {

@@ -651,12 +651,9 @@
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTDAY')"
-                    prop="laborcontractday"
-                  >
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENTERDAY')" prop="enterday">
                     <el-date-picker
-                      v-model="form.laborcontractday"
+                      v-model="form.enterday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
@@ -664,9 +661,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENTERDAY')" prop="enterday">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_UPGRADED')">
                     <el-date-picker
-                      v-model="form.enterday"
+                      v-model="form.upgraded"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
@@ -687,14 +684,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_UPGRADED')">
-                    <el-date-picker
-                      v-model="form.upgraded"
-                      type="date"
-                      :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:20vw"
-                    ></el-date-picker>
-                  </el-form-item>
+
                 </el-col>
               </el-row>
 
