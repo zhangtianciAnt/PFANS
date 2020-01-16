@@ -265,7 +265,7 @@
                 <el-table :data="tableData"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe="true" border="true">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe border>
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -323,7 +323,7 @@
                 <el-table :data="tableData2"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2" stripe="true" border="true">
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2" stripe border>
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -336,13 +336,13 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1012VIEW_SUBJECTNAME')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1012VIEW_SUBJECTNAME')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.subjectname">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.budgetunit')" align="center"width="150">
+                  <el-table-column :label="$t('label.budgetunit')" align="center"width="190">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetunit">
                       </el-input>
@@ -383,7 +383,7 @@
             <el-tab-pane :label="$t('label.PFANS1012VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe="true" border="true">
+                        show-summary stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
@@ -469,7 +469,7 @@
             <el-tab-pane :label="$t('label.PFANS1012VIEW_PURCHASE')" name="third" v-if="show6">
               <el-table :data="tableP" :summary-method="getPsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe="true" border="true">
+                        show-summary stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.purchasedetailsdate">
@@ -579,7 +579,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth" v-if="show6" >
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe="true" border="true">
+                        show-summary stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">

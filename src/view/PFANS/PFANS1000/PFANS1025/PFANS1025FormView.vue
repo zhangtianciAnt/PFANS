@@ -216,7 +216,7 @@
                 </el-row>
               </div>
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary  stripe="true" border="true">
+                        show-summary  stripe border>
                 <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">

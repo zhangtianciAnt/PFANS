@@ -229,7 +229,7 @@
             <el-col :span="24">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_USECOUPON')">
-                  <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe="true" border="true">
+                  <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">
@@ -262,7 +262,7 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <el-table :data="tableD2" header-cell-class-name="sub_bg_color_blue height" v-if="showdata2" stripe="true" border="true">
+                  <el-table :data="tableD2" header-cell-class-name="sub_bg_color_blue height" v-if="showdata2" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">
@@ -296,7 +296,7 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <el-table :data="tableD3" header-cell-class-name="sub_bg_color_blue" v-if="showdata3" stripe="true" border="true">
+                  <el-table :data="tableD3" header-cell-class-name="sub_bg_color_blue" v-if="showdata3" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
                                      prop="copuntype">
                       <template slot-scope="scope">

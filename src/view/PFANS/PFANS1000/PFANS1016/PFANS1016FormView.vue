@@ -133,7 +133,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem" >
-            <el-table :data="tableT"stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
+            <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
                 <template slot-scope="scope">
                   <dicselect
@@ -147,7 +147,7 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="250">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="300">
                 <template slot-scope="scope">
                   <div style="width: 100%;float:left">
                     <div style="width: 70%;float: left">
@@ -196,7 +196,7 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="250">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="300">
                 <template slot-scope="scope">
                   <div style="width: 100%;float:left">
                     <div style="width: 70%;float: left">
@@ -219,7 +219,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="250">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="300">
                 <template slot-scope="scope">
                   <div style="width: 100%;float:left">
                     <div style="width: 70%;float: left">
@@ -242,7 +242,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="150">
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     @click.native.prevent="deleteRow(scope.$index, tableT)"
