@@ -144,7 +144,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <div >
+                <el-row >
+                  <el-col :span="24">
                 <el-table
                   :data="tableData"
                   border
@@ -181,7 +182,8 @@
                     width="180">
                   </el-table-column>
                 </el-table>
-              </div>
+                  </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2026VIEW_DATA')" name="third">
               <el-row>
@@ -202,6 +204,8 @@
               </el-row>
               <el-row >
                 <el-form-item :label="$t('label.PFANS2026FORMVIEW_CITATION')">
+                  <el-row >
+                    <el-col :span="24">
                   <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue">
                     <el-table-column :label="$t('label.PFANS2026FORMVIEW_CONTENT')" align="center" fixed prop="content" width="230">
                       <template slot-scope="scope">
@@ -247,6 +251,8 @@
                       </template>
                     </el-table-column>
                   </el-table>
+                    </el-col>
+                  </el-row>
                 </el-form-item>
               </el-row>
             </el-tab-pane>
