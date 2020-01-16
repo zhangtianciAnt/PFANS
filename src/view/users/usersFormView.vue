@@ -258,7 +258,7 @@
               <el-table
                 :data="educationTable"
                 style="width:95%;margin-top:1%"
-                border="true" header-cell-class-name="sub_bg_color_blue" stripe="true"
+                border header-cell-class-name="sub_bg_color_blue" stripe
               >
                 <el-table-column
                   prop="time"
@@ -321,7 +321,7 @@
                   >{{this.$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
                 </el-col>
               </el-row>
-              <el-table :data="skillTable" style="width:90%;margin-top:1%" border="true" header-cell-class-name="sub_bg_color_blue" stripe="true">
+              <el-table :data="skillTable" style="width:90%;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center">
                   <template slot-scope="scope">
                     <el-input class="width" v-model="scope.row.name" maxlength="20"></el-input>
@@ -368,7 +368,7 @@
                   >{{this.$t('label.PFANSUSERFORMVIEW_LANGUAGEQUALIFICATION')}}</span>
                 </el-col>
               </el-row>
-              <el-table :data="languageTable" style="width:90%;margin-top:1%" border="true" header-cell-class-name="sub_bg_color_blue" stripe="true">
+              <el-table :data="languageTable" style="width:90%;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column
                   prop="programme"
                   :label="$t('label.PFANS5008VIEW_PROGRAM')"

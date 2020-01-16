@@ -253,7 +253,7 @@
                           header-cell-class-name="sub_bg_color_blue"
                           show-summary
                           v-if="showdata"
-                          stripe="true" border="true">
+                          stripe border>
                   <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="370">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
@@ -279,7 +279,7 @@
                         header-cell-class-name="sub_bg_color_blue"
                         show-summary
                         v-if="showdata2"
-                        stripe="true" border="true">
+                        stripe border>
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
@@ -359,7 +359,7 @@
             <!--            第二页-->
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary  stripe="true" border="true">
+                        show-summary  stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
@@ -453,7 +453,7 @@
             <el-tab-pane :label="$t('label.PFANS1013VIEW_ACCOMMODATION')" name="third">
               <el-table :data="tableA" :summary-method="getAsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary  stripe="true" border="true">
+                        show-summary  stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">
@@ -703,7 +703,7 @@
             <!--            第四页-->
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary  stripe="true" border="true">
+                        show-summary  stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">

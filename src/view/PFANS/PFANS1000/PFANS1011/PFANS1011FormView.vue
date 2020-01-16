@@ -8,11 +8,6 @@
                  style="padding:2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESS')" name="first">
-              <el-row>
-                <el-col>
-                  <span style="margin-right: 86%;color:#005BAA">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESS')}}</span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -46,11 +41,6 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_FACETOFACE')" name="second">
-              <el-row>
-                <el-col>
-                  <span style="margin-right:11vw;color:#005BAA">{{$t('label.PFANS1011VIEW_FACETOFACE')}}</span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -148,12 +138,6 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')" name="third">
-              <el-row>
-                <el-col>
-                  <span style="margin-right:11vw;color:#005BAA">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}
-                  </span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
@@ -172,12 +156,6 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_HEALTHCONDITION')" name="fourth">
-              <el-row>
-                <el-col>
-                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_HEALTHCONDITION')}}
-                  </span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
@@ -204,12 +182,6 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_EMERGENCYCONTACT')" name="fifth">
-              <el-row>
-                <el-col>
-                  <span style="margin-right: 89%;color:#005BAA">{{$t('label.PFANS1011VIEW_EMERGENCYCONTACT')}}
-                  </span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2007VIEW_NAME')" prop="name">
@@ -236,12 +208,6 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')" name="Sixthly">
-              <el-row>
-                <el-col>
-                  <span style="margin-right:11vw;color:#005BAA">{{$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')}}
-                  </span>
-                </el-col>
-              </el-row>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')" prop="businessplace">

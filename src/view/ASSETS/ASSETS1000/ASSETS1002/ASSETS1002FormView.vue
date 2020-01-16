@@ -28,7 +28,7 @@
           </el-row>
           <el-row>
             <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
-            <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe="true" border="true"
+            <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border
                       header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name = "row_height">
               <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">

@@ -119,7 +119,7 @@
           </el-row>
 
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" stripe border>
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" fixed type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center" width="200">
                 <template slot-scope="scope">
