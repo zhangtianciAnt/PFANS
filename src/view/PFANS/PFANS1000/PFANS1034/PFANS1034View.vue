@@ -18,7 +18,7 @@
                 @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_grey height" header-row-class-name="height" height="400"
                 highlight-current-row max-height="400" ref="eltable"
-                style="width: 100%" v-loading='loading' border default-expand-all
+                style="width: 100%" v-loading='loading' border default-expand-all stripe
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}">>
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
         </el-table-column>
