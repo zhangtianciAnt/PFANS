@@ -109,7 +109,7 @@
               </el-row>-->
             <el-row>
               <el-table
-                :data="form.tableData"
+                :data="tableData3"
                 style="width:95%;margin-left:2%;margin-top:1%"
                 border
               >
@@ -123,7 +123,7 @@
                     <dicselect
                       :data="scope.row.education"
                       :disabled="disabled"
-                      @change="changeEducation"
+                      @change="((val)=>{changeEducation(val,scope.$index)})"
                       class="width"
                       code="PR022"
                       style="width:20vw"
@@ -541,28 +541,39 @@
                     }
                 ],
                 titles: "label.PFANS2002FORMVIEW",
+                tableData3: [
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    },
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    },
+                    {
+                        education: "",
+                        specialty: "",
+                        quityear: "",
+                    }
+                ],
                 form: {
                     entry_enclosure: "",
                     name: "",
                     sex: "",
                     birthday: "",
-                    tableData: [
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        },
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        },
-                        {
-                            education: "",
-                            specialty: "",
-                            quityear: "",
-                        }
-                    ],
+
+                    education1: "",
+                    specialty1: "",
+                    quityear1: "",
+                    education2: "",
+                    specialty2: "",
+                    quityear2: "",
+                    education3: "",
+                    specialty3: "",
+                    quityear3: "",
+
                     center_id: "",
                     group_id: "",
                     team_id: "",
@@ -573,7 +584,7 @@
                     janpanese_detail: "",
                     other1: false,
                     other2: false,
-                    other3: '',
+                    other3: "",
                     resume: false,
                     identity: false,
                     diploma: false,
@@ -718,8 +729,8 @@
             getUserids(val) {
                 this.form.others = val;
             },
-            changeEducation(val) {
-                this.form.education = val;
+            changeEducation(val,index) {
+                this.tableData3[index].education = val;
             },
             workflowState(val) {
                 if (val.state === "1") {
@@ -842,7 +853,18 @@
                         this.loading = true;
                         if (!this.$route.params._id) {
                             this.changeOption(this.form, "save");
-                            console.log(this.form);
+                            this.form.education1 = this.tableData3[0].education;
+                            this.form.quityear1 = this.tableData3[0].quityear;
+                            this.form.specialty1 = this.tableData3[0].specialty;
+
+                            this.form.education2 = this.tableData3[1].education;
+                            this.form.quityear2 = this.tableData3[1].quityear;
+                            this.form.specialty2 = this.tableData3[1].specialty;
+
+                            this.form.education3 = this.tableData3[2].education;
+                            this.form.quityear3 = this.tableData3[2].quityear;
+                            this.form.specialty3 = this.tableData3[2].specialty;
+
                             this.$store
                                 .dispatch("PFANS2002Store/insert", this.form)
                                 .then(response => {
