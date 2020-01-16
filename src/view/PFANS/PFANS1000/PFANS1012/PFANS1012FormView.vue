@@ -262,10 +262,12 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <el-row >
+                  <el-col :span="24">
                 <el-table :data="tableData"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe border>
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe border style="width: 70vw">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -284,7 +286,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.budgetunit')" align="center"width="220">
+                  <el-table-column :label="$t('label.budgetunit')" align="center"width="240">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetunit">
                       </el-input>
@@ -313,17 +315,21 @@
                       </el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.remarks')" align="center" width="150">
+                  <el-table-column :label="$t('label.remarks')" align="center" width="300">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.remarks" >
                       </el-input>
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
+                <el-row >
+                  <el-col :span="24">
                 <el-table :data="tableData2"
                           show-summary
                           :summary-method="getDsummaries"
-                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2" stripe border>
+                          header-cell-class-name="sub_bg_color_blue" v-if="showdata2" stripe border style="width: 70vw">
                   <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.abstract">
@@ -336,13 +342,13 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1012VIEW_SUBJECTNAME')" align="center" width="180">
+                  <el-table-column :label="$t('label.PFANS1012VIEW_SUBJECTNAME')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.subjectname">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.budgetunit')" align="center"width="190">
+                  <el-table-column :label="$t('label.budgetunit')" align="center"width="240">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetunit">
                       </el-input>
@@ -371,38 +377,42 @@
                       </el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.remarks')" align="center" width="150">
+                  <el-table-column :label="$t('label.remarks')" align="center" width="300">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.remarks" >
                       </el-input>
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
               </div>
             </el-tab-pane >
             <el-tab-pane :label="$t('label.PFANS1012VIEW_TRAFFIC')" name="second">
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary stripe border style="width: 70vw">
+                <el-table-column :label="$t('label.date')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
                                     v-model="scope.row.trafficdate"></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" style="width: 100%" maxlength="20"  v-model="scope.row.region">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="100">
+                <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" style="width: 100%"  maxlength="20" v-model="scope.row.vehicle">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="140">
+                <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-tooltip class="item" effect="light" :content="scope.row.startingpoint" placement="top" :disabled="scope.row.startingpoint===''?true:false">
                       <el-input :disabled="!disable" style="width: 100%"  maxlength="20" v-model="scope.row.startingpoint"/>
@@ -438,7 +448,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.annexno">
                     </el-input>
@@ -465,12 +475,14 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane >
             <el-tab-pane :label="$t('label.PFANS1012VIEW_PURCHASE')" name="third" v-if="show6">
               <el-table :data="tableP" :summary-method="getPsummaries"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary stripe border style="width: 70vw">
+                <el-table-column :label="$t('label.date')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.purchasedetailsdate">
                     </el-date-picker>
@@ -549,7 +561,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.annexno">
                     </el-input>
@@ -579,8 +591,8 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth" v-if="show6" >
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="160">
+                        show-summary stripe border style="width: 70vw">
+                <el-table-column :label="$t('label.date')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">
                     </el-date-picker>
@@ -628,7 +640,7 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center">
+                <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
                     </el-input>

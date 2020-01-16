@@ -253,20 +253,21 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_EDUCATIONEXPERIENCE')}}</span>
                   </template>
+                  <el-row >
+                    <el-col :span="24">
               <el-table
                 :data="educationTable"
-                style="width:95%;margin-top:1%"
+                style="width:72vw;margin-top:1%"
                 border header-cell-class-name="sub_bg_color_blue" stripe
               >
                 <el-table-column
                   prop="time"
                   :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
                     <el-date-picker
-                      style="width:300px"
+                      style="width:100%"
                       v-model="scope.row.time"
                       type="daterange"
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -280,15 +281,14 @@
                   prop="school"
                   :label="$t('label.PFANS2003VIEW_SCHOOL')"
                   align="center"
-                  width="300"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.school" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="340">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -310,6 +310,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
@@ -319,25 +321,26 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
                   </template>
-              <el-table :data="skillTable" style="margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center" width="300">
+                  <el-row >
+                    <el-col :span="24">
+              <el-table :data="skillTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
+                <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.name" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.name" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="ability"
                   :label="$t('label.PFANSUSERFORMVIEW_ABILITY')"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.ability" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.ability" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="340">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -359,6 +362,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
               <el-collapse>
@@ -366,30 +371,30 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_LANGUAGEQUALIFICATION')}}</span>
                   </template>
-              <el-table :data="languageTable" style="margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
+                  <el-row >
+                    <el-col :span="24">
+              <el-table :data="languageTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column
                   prop="programme"
                   :label="$t('label.PFANS5008VIEW_PROGRAM')"
                   align="center"
-                  width="300"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="level"
                   :label="$t('label.PFANSUSERFORMVIEW_LEVEL')"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.level" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.level" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="340">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -411,6 +416,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
@@ -436,16 +443,17 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_BEFOREWORK')}}</span>
                   </template>
+                  <el-row >
+                    <el-col :span="24">
               <el-table
                 :data="beforeWorkTable"
-                style="margin-top:1%"
+                style="width:72vw;margin-top:1%"
                 border header-cell-class-name="sub_bg_color_blue" stripe
               >
                 <el-table-column
                   prop="time"
                   :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
                   align="center"
-                  width="380"
                 >
                   <template slot-scope="scope">
                     <el-date-picker
@@ -455,6 +463,7 @@
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
                       unlink-panels
+                      style="width: 100%"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
@@ -462,25 +471,23 @@
                   prop="company"
                   :label="$t('label.PFANSUSERFORMVIEW_COMPANY')"
                   align="center"
-                  width="200"
                 >
                   <template slot-scope="scope">
-                    <el-input style="width:9rem" v-model="scope.row.company" maxlength="20"></el-input>
+                    <el-input v-model="scope.row.company" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="postion"
                   :label="$t('label.PFANS2020VIEW_JOB')"
                   align="center"
-                  width="200"
                 >
                   <template slot-scope="scope">
-                    <el-input style="width:9rem" v-model="scope.row.postion" maxlength="20"></el-input>
+                    <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="200">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input style="width:9rem" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -502,6 +509,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
@@ -812,6 +821,8 @@
                       :visible.sync="dialogTableVisible"
                       style="padding-top:5px"
                     >
+                      <el-row >
+                        <el-col :span="24">
                       <el-table :data="gridData" stripe>
                         <el-table-column
                           property="date"
@@ -849,6 +860,8 @@
                           </template>
                         </el-table-column>
                       </el-table>
+                        </el-col>
+                      </el-row>
                     </el-dialog>
                   </el-form-item>
                 </el-col>
@@ -884,6 +897,8 @@
                       :visible.sync="dialogTableVisible2"
                       style="padding-top:5px"
                     >
+                      <el-row >
+                        <el-col :span="24">
                       <el-table :data="oldageData" stripe>
                         <el-table-column
                           property="date"
@@ -921,6 +936,8 @@
                           </template>
                         </el-table-column>
                       </el-table>
+                        </el-col>
+                      </el-row>
                     </el-dialog>
                   </el-form-item>
                 </el-col>
@@ -948,6 +965,8 @@
                       :visible.sync="dialogTableVisible3"
                       style="padding-top:5px"
                     >
+                      <el-row >
+                        <el-col :span="24">
                       <el-table :data="houseData" stripe>
                         <el-table-column
                           property="date"
@@ -985,6 +1004,8 @@
                           </template>
                         </el-table-column>
                       </el-table>
+                        </el-col>
+                      </el-row>
                     </el-dialog>
                   </el-form-item>
                 </el-col>
@@ -1015,6 +1036,8 @@
                       :visible.sync="dialogTableVisible4"
                       style="padding-top:5px"
                     >
+                      <el-row >
+                        <el-col :span="24">
                       <el-table :data="medicalData" stripe>
                         <el-table-column
                           property="date"
@@ -1052,6 +1075,8 @@
                           </template>
                         </el-table-column>
                       </el-table>
+                        </el-col>
+                      </el-row>
                     </el-dialog>
                   </el-form-item>
                 </el-col>
@@ -1068,16 +1093,17 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_AFTERWORk')}}</span>
                   </template>
+                  <el-row >
+                    <el-col :span="24">
               <el-table
                 :data="workAfterTable"
-                style="margin-top:1%"
+                style="width:72vw;margin-top:1%"
                 border header-cell-class-name="sub_bg_color_blue" stripe
               >
                 <el-table-column
                   prop="time"
                   :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
                   align="center"
-                  width="380"
                 >
                   <template slot-scope="scope">
                     <el-date-picker
@@ -1087,6 +1113,7 @@
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
                       unlink-panels
+                      style="width: 100%"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
@@ -1094,15 +1121,14 @@
                   prop="programme"
                   :label="$t('label.PFANS5008VIEW_PROGRAM')"
                   align="center"
-                  width="300"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="300">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1124,6 +1150,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
               <el-collapse>
@@ -1131,12 +1159,13 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_TRAININGPRACTICE')}}</span>
                   </template>
-              <el-table :data="trainTable" style="margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
+                  <el-row >
+                    <el-col :span="24">
+              <el-table :data="trainTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column
                   prop="time"
                   :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
                   align="center"
-                  width="380"
                 >
                   <template slot-scope="scope">
                     <el-date-picker
@@ -1146,17 +1175,18 @@
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
                       unlink-panels
+                      style="width: 100%"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column prop="programme" :label="$t('label.operation')" align="center" width="300">
+                <el-table-column prop="programme" :label="$t('label.operation')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center" width="300">
+                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1178,38 +1208,40 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
-
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')" name="seven">
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')" name="seven" style="padding-left:0.5%">
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')}}</span>
                   </template>
-              <el-table :data="rewardTable" style="margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
+                  <el-row >
+                    <el-col :span="24">
+              <el-table :data="rewardTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column
                   prop="notes"
                   :label="$t('label.PFANS3004VIEW_NAME')"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="time"
                   :label="$t('label.PFANSUSERFORMVIEW_TIME')"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
                     <el-date-picker
                       v-model="scope.row._time"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
+                      style="width: 100%"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
@@ -1217,10 +1249,9 @@
                   prop="notes"
                   :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')"
                   align="center"
-                  width="300"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1242,10 +1273,12 @@
                   </template>
                 </el-table-column>
               </el-table>
+                    </el-col>
+                  </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight">
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight" style="padding-left:0.5%">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date" >

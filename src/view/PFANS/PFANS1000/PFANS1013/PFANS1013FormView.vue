@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <el-row :gutter="32" style="padding-top: 2%;padding-bottom: 2%">
+          <el-row  style="padding-top: 2%;padding-bottom: 2%">
             <el-col :span="8">
               <el-radio
                 :disabled="!disable"
@@ -35,7 +35,7 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TOTAL')" name="first">
               <div>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -52,7 +52,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -66,7 +66,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
                       <el-select :disabled="!disable" @change="change"  style="width:20vw" v-model="form.business_id">
@@ -85,7 +85,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
@@ -114,7 +114,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                       <dicselect
@@ -154,7 +154,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_TOTALCURRENCY')" v-show="show2">
                       <el-input-number
@@ -217,7 +217,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="32">
+                <el-row >
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_TOTALPAY')">
                       <el-input-number
@@ -248,19 +248,22 @@
                 </el-row>
               </div>
               <div>
+                <el-row >
+                  <el-col :span="24">
                 <el-table :data="tableData"
                           :summary-method="getDsummaries"
                           header-cell-class-name="sub_bg_color_blue"
                           show-summary
                           v-if="showdata"
-                          stripe border>
-                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="370">
+                          stripe border
+                          style="width: 46vw">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb" width="370">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -273,13 +276,18 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
               </div>
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableData2"
                         :summary-method="getsummaries"
                         header-cell-class-name="sub_bg_color_blue"
                         show-summary
                         v-if="showdata2"
-                        stripe border>
+                        stripe border
+                        style="width: 70vw">
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="true" style="width: 100%" v-model="scope.row.costitem">
@@ -355,9 +363,13 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
             <!--            第二页-->
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second">
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="200">
@@ -447,10 +459,14 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
 
             <!--            第三页-->
             <el-tab-pane :label="$t('label.PFANS1013VIEW_ACCOMMODATION')" name="third">
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableA" :summary-method="getAsummaries"
                         header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
@@ -698,10 +714,14 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
 
             <!--            第四页-->
             <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
                 <el-table-column :label="$t('label.date')" align="center" width="200">
@@ -780,6 +800,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
           </el-tabs>
         </el-form>

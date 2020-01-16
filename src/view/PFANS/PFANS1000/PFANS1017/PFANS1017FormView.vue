@@ -94,7 +94,7 @@
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changeidtype"
-                           style="width:71.4vw">
+                           style="width:72vw">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -105,6 +105,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
+            <el-col :span="24">
             <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                type="index"></el-table-column>
@@ -195,7 +196,7 @@
                     :disabled="!disable"
                     :multiple="multiple"
                     @change="changecybozu"
-                    style="width: 8rem"
+                    style="width: 100%"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -261,6 +262,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            </el-col>
           </el-row>
         </el-form>
       </div>

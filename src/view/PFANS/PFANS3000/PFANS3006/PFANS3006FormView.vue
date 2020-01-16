@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
                  ref="refform" style="padding: 2vw">
-          <el-row :gutter="32">
+          <el-row >
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -32,7 +32,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <!--2-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
@@ -63,7 +63,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
            <!--3-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
@@ -95,7 +95,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <!--4-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
@@ -116,7 +116,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber" v-show="show2">
@@ -146,7 +146,7 @@
             </el-col>
           </el-row>
           <!--6-->
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard" v-show="show2">
@@ -179,7 +179,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname" v-show="show2">
@@ -196,7 +196,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
                 <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
