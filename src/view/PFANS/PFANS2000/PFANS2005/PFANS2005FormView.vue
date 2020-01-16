@@ -13,7 +13,8 @@
               <div id="app">
                 <el-table
                   :data="tableData"
-                  stripe="true"
+                  stripe
+                  border
                   header-cell-class-name="sub_bg_color_blue"
                 >
 <!--                  :header-cell-style="getRowClass"-->
@@ -540,7 +541,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
-              <el-table :data="tableJS" stripe="true" :summary-method="getSummaries" border show-summary header-cell-class-name="sub_bg_color_blue">
+              <el-table :data="tableJS" stripe border :summary-method="getSummaries" border show-summary header-cell-class-name="sub_bg_color_blue">
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -662,7 +663,7 @@
                   class="collapse_Title"
                 >{{$t('label.PFANS2005FORMVIEW_FEMALELEAVE')}}</span>
                     </template>
-                <el-table :data="tableQT1Woman" stripe="true" border header-cell-class-name="sub_bg_color_blue">
+                <el-table :data="tableQT1Woman" stripe border header-cell-class-name="sub_bg_color_blue">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
