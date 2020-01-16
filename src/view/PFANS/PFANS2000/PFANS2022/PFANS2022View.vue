@@ -24,7 +24,7 @@
           {
             code: 'user_id',
             label: 'label.applicant',
-            width: 90,
+            width: 100,
             fix: false,
             filter: true,
           },
@@ -52,28 +52,28 @@
           {
             code: 'twoclass',
             label: 'label.PFANS2022VIEW_TYPE',
-            width: 100,
+            width: 130,
             fix: false,
             filter: true,
           },
           {
             code: 'amoutmoney',
             label: 'label.PFANS2022VIEW_AMOUNT',
-            width: 130,
+            width: 150,
             fix: false,
             filter: true,
           },
           {
             code: 'application_date',
             label: 'label.application_date',
-            width: 100,
+            width: 130,
             fix: false,
             filter: true,
           },
           {
             code: 'status',
             label: 'label.approval_status',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           }

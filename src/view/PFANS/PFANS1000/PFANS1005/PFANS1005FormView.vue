@@ -36,9 +36,10 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe>
-              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed type="index">
+          <el-row >
+            <el-col :span="24">
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe style="width: 73vw">
+              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" type="index">
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects">
                 <template slot-scope="scope">
@@ -68,7 +69,7 @@
                   </el-input-number>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks" width="200">
+              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks">
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" v-model="scope.row.remarks">
                   </el-input>
@@ -95,6 +96,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            </el-col>
           </el-row>
         </el-form>
       </div>

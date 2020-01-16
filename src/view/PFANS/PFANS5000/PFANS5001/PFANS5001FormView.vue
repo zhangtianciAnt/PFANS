@@ -416,7 +416,9 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')" name="second">
               <el-form-item >
-                <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue">
+                <el-row >
+                  <el-col :span="24">
+                <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
                   <el-table-column
                     :label="$t('label.PFANS5008VIEW_JDJOBS')"
                     align="center">
@@ -448,7 +450,7 @@
                       <el-date-picker
                         :disabled="!disable"
                         :no="scope.row"
-                        style="width: 11rem"
+                        style="width:100%"
                         type="date"
                         v-model="scope.row.starttime"
                       ></el-date-picker>
@@ -459,7 +461,7 @@
                       <el-date-picker
                         :disabled="!disable"
                         :no="scope.row"
-                        style="width: 11rem"
+                        style="width:100%"
                         type="date"
                         v-model="scope.row.endtime"
                       ></el-date-picker>
@@ -484,11 +486,15 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_PROJECTRESOURCES')" name="third">
               <el-form-item >
-                <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue">
+                <el-row >
+                  <el-col :span="24">
+                <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                     align="center"
@@ -544,11 +550,15 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTSOURCE')" name="fourth">
               <el-form-item >
-                <el-table :data="tableR"  border header-cell-class-name="sub_bg_color_blue">
+                <el-row >
+                  <el-col :span="24">
+                <el-table :data="tableR"  border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
 
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
@@ -644,12 +654,10 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                  </el-col>
+                </el-row>
               </el-form-item>
             </el-tab-pane>
-
-
-
-
           </el-tabs>
         </el-form>
       </div>

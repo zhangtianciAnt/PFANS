@@ -53,7 +53,7 @@
           {
             code: 'status',
             label: 'label.approval_status',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
