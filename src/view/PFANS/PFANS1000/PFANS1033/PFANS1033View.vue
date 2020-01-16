@@ -64,7 +64,7 @@
           </el-dialog>
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1033VIEW_VERIFICATION')" name="first">
-              <el-table :data="tableInt" stripe="true" :header-cell-style="getRowClass" >
+              <el-table :data="tableInt" stripe :header-cell-style="getRowClass" >
                 <el-table-column type="selection" width="60"></el-table-column>
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
@@ -282,7 +282,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1033VIEW_KEEPITSECRET')" name="second">
-              <el-table :data="tableInt" stripe="true" :header-cell-style="getRowClass">
+              <el-table :data="tableInt" stripe :header-cell-style="getRowClass">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">
@@ -470,7 +470,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1033VIEW_INDENTURE')" name="third">
-              <el-table :data="table0ut" stripe="true" header-cell-class-name="sub_bg_color_blue">
+              <el-table :data="table0ut" stripe header-cell-class-name="sub_bg_color_blue">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">
@@ -676,7 +676,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1033VIEW_SETUPINDENTURE')" name="fourth">
-              <el-table :data="table0ut" stripe="true" header-cell-class-name="sub_bg_color_blue">
+              <el-table :data="table0ut" stripe header-cell-class-name="sub_bg_color_blue">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center"  prop="content" type="index"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center">
                   <template slot-scope="scope">

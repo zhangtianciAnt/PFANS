@@ -148,7 +148,7 @@
                 <el-table
                   :data="tableData"
                   border
-                  stripe="true"
+                  stripe
                   header-cell-class-name="sub_bg_color_blue"
                   style="width:70vw">
                   <el-table-column
@@ -203,7 +203,7 @@
               </el-row>
               <el-row >
                 <el-form-item :label="$t('label.PFANS2026FORMVIEW_CITATION')">
-                  <el-table :data="tableD" stripe="true" style="width: 70vw" border header-cell-class-name="sub_bg_color_blue">
+                  <el-table :data="tableD" stripe style="width: 70vw" border header-cell-class-name="sub_bg_color_blue">
                     <el-table-column :label="$t('label.PFANS2026FORMVIEW_CONTENT')" align="center" fixed prop="content">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable1" v-model="scope.row.content">

@@ -67,7 +67,7 @@
 
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNTECHNOLOGY')" name="first">
-                <el-table :data="tableInt" stripe="true" :header-cell-style="getRowClass">
+                <el-table :data="tableInt" stripe :header-cell-style="getRowClass">
                   <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                   <el-table-column :label="$t('label.department')" align="center" width="120">
                     <template slot-scope="scope">
@@ -284,7 +284,7 @@
                 </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNSERVITUDE')" name="second">
-              <el-table :data="tableInt" stripe="true" :header-cell-style="getRowClass">
+              <el-table :data="tableInt" stripe :header-cell-style="getRowClass">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
@@ -501,7 +501,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1024VIEW_OVERSEASTECHNOLOGY')" name="third">
-              <el-table :data="tableOut" stripe="true" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" stripe :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
@@ -736,7 +736,7 @@
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1024VIEW_OVERSEASSERVITUDE')" name="fourth">
-              <el-table :data="tableOut" stripe="true" :header-cell-style="getRowClass2">
+              <el-table :data="tableOut" stripe :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="120">
                   <template slot-scope="scope">
