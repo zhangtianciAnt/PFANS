@@ -21,7 +21,7 @@
           style="padding: 2vw"
           ref="refform"
         >
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -38,7 +38,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user
@@ -64,7 +64,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item
@@ -99,7 +99,7 @@
               </template>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
                 <el-input-number
@@ -130,7 +130,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item
                 :label="$t('label.PFANS2011VIEW_RESERVESUBSTITUTION')"
@@ -166,7 +166,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32" style="padding-top: 1%">
+          <el-row  style="padding-top: 1%">
             <el-col :span="24">
               <el-form-item :label="$t('label.cause')" prop="cause">
                 <el-input

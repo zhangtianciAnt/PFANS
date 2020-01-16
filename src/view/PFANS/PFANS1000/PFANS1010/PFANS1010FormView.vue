@@ -42,8 +42,9 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
+            <el-col :span="24">
             <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
-              <el-table-column :label="$t('label.user_name')" align="center" width="400">
+              <el-table-column :label="$t('label.user_name')" align="center">
                 <template slot-scope="scope">
                   <user
                     :no="scope.row"
@@ -51,13 +52,12 @@
                     @getUserids="getuserid"
                     :userlist="scope.row.user"
                     selectType="Single"
-                    style="width:100%"
                   ></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason" style="width:20vw">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason">
                   </el-input>
                 </template>
               </el-table-column>
@@ -82,6 +82,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
             <el-col :span="8">
@@ -117,10 +118,10 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row style="width: 800px" align="right">
-            <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue"  style="width: 1041px" border stripe>
-              <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center" width="500">
+            <el-col :span="24">
+            <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue"  style="width: 46vw" border stripe>
+              <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">
                   </el-input>
@@ -147,6 +148,7 @@
                 </template>
               </el-table-column>
             </el-table>
+            </el-col>
           </el-row>
             </el-collapse-item>
           </el-collapse>

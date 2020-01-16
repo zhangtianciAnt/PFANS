@@ -26,9 +26,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <span>{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
-            <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span  class="collapse_Title">{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
+              </template>
+              <el-row >
+                <el-col :span="24">
+            <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border style="width: 70vw"
                       header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name = "row_height">
               <el-table-column type="selection" width="55"></el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
@@ -44,7 +49,10 @@
               <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
               </el-table-column>
             </el-table>
-          </el-row>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>

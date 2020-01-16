@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 2vw"
                  ref="refform">
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -39,7 +39,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
@@ -65,7 +65,7 @@
               </template>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_PLAN')" prop="plan">
                 <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
@@ -81,7 +81,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_TYPE')" prop="type" v-if="show">
                 <dicselect
@@ -115,7 +115,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
                 <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width:72vw"></el-input>

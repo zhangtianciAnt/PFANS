@@ -10,7 +10,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
@@ -27,7 +27,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -35,7 +35,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAME')" prop="name">
                 <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.name"></el-input>
@@ -53,7 +53,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_CHECKIN')" prop="checkin">
@@ -88,7 +88,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_SMOKE')" prop="smoke">
                 <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
@@ -103,7 +103,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
                 <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>

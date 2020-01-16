@@ -215,8 +215,10 @@
                   </el-col>
                 </el-row>
               </div>
+              <el-row >
+                <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
-                        show-summary  stripe border>
+                        show-summary  stripe border style="width: 70vw">
                 <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
@@ -229,7 +231,7 @@
                           orgtype="2"
                           :disabled="!disable"
                           :error="errorgroup"
-                          style="width:20vw"
+                          style="width:90%"
                           :no="scope.row"
                           @getOrgids="getGroupId"></org>
                   </template>
@@ -337,6 +339,8 @@
                   </template>
                 </el-table-column>
               </el-table>
+                </el-col>
+              </el-row>
             </el-tab-pane>
           </el-tabs>
         </el-form>
