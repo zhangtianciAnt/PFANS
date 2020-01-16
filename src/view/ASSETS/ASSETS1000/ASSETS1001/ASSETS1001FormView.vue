@@ -18,7 +18,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')" prop="stockstatus">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')">
                 <dicselect
                   :code="code2"
                   :data="form.stockstatus"
@@ -29,7 +29,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETSTATUS')" prop="assetstatus">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETSTATUS')">
                 <dicselect
                   :code="code3"
                   :data="form.assetstatus"
@@ -58,26 +58,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')" prop="purchasetime">
-                <el-date-picker style="width:20vw" type="date"
-                                v-model="form.purchasetime"></el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                 :step="1" style="width:20vw" v-model="form.price"></el-input-number>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" prop="usedepartment">
-                <el-input :disabled="true" style="width:20vw" v-model="form.usedepartment"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" prop="principal">
+              <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
@@ -85,18 +66,142 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1001VIEW_BARCODE')" prop="usedepartment">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_BARCODE')">
                 <el-input style="width:20vw" v-model="form.barcode"></el-input>
               </el-form-item>
            </el-col>
           </el-row>
-          <!--<el-collapse :v-show="form.typeassets">-->
-            <!--<el-collapse-item :v-show="form.typeassets === 'PA001002'">-->
-              <!--<template slot="title">-->
-                <!--<span  class="collapse_Title">{{collapseName}}</span>-->
-              <!--</template>-->
-            <!--</el-collapse-item>-->
-          <!--</el-collapse>-->
+          <el-collapse v-show="form.typeassets">
+            <el-collapse-item v-show="form.typeassets === 'PA001002'">
+              <template slot="title">
+                <span  class="collapse_Title">{{collapseName}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PCNO')">
+                    <el-input style="width:20vw" v-model="form.pcno"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REALPRICE')">
+                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
+                                     :step="1" style="width:20vw" v-model="form.realprice"></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
+                    <el-input style="width:20vw" v-model="form.model"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')">
+                    <el-date-picker style="width:20vw" type="date"
+                                    v-model="form.purchasetime"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')">
+                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
+                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
+                                     :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+            <el-collapse-item v-show="form.typeassets === 'PA001003'">
+              <template slot="title">
+                <span  class="collapse_Title">{{collapseName}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS1')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_NO')">
+                    <el-input style="width:20vw" v-model="form.no"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_ACTIVITIONDATE')">
+                    <el-date-picker style="width:20vw" type="date"
+                                    v-model="form.activitiondate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETNUMBER')">
+                    <el-input style="width:20vw" v-model="form.assetnumber"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_ORIPRICE')" prop="price">
+                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
+                                     :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
+                    <el-input style="width:20vw" v-model="form.model"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_ADDRESS')">
+                    <el-input style="width:20vw" v-model="form.address"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION')">
+                    <el-input style="width:20vw" v-model="form.psdcddebitsituation"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON')">
+                    <el-input style="width:20vw" v-model="form.psdcdbringoutreason"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPERIOD')">
+                    <el-input style="width:20vw" v-model="form.psdcdperiod"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY')">
+                    <el-input style="width:20vw" v-model="form.psdcdcounterparty"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE')">
+                    <el-input style="width:20vw" v-model="form.psdcdresponsible"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')">
+                    <el-input style="width:20vw" v-model="form.psdcdreturnconfirmation"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -129,16 +234,8 @@
         title: 'title.ASSETS1001FORMVIEW',
         buttonList: [],
         form: {
-          filename: '',
-          typeassets: '',
-          price: '',
-          purchasetime: moment(new Date()).format('YYYY-MM-DD'),
-          usedepartment: '',
-          principal: '',
-          assetstatus: '',
-          stockstatus: '',
-          barcode: '',
-          bartype: '',
+          typeassets:'',
+          bartype:''
         },
         code1: 'PA001',
         code2: 'PA002',
@@ -166,8 +263,6 @@
       };
     },
     mounted() {
-      console.log("11111111111111")
-      console.log(this.form.typeassets)
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -185,13 +280,6 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.form.principal = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.usedepartment = lst.centerNmae;
-        }
       }
     },
     created() {

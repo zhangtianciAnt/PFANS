@@ -105,7 +105,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
-            <el-table :data="tableT" stripe="true" header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
+            <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
               <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center" width="150">
@@ -240,7 +240,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="150">
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     @click.native.prevent="deleteRow(scope.$index, tableT)"

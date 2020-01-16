@@ -8,6 +8,7 @@
                    class="demo-ruleForm" :rules="rules">
             <el-container>
               <el-aside style="width: 58%;height: 40rem">
+                <el-tabs type="border-card">
                 <el-row>
                   <el-col :span="11">
                     <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
@@ -16,7 +17,7 @@
                         v-model="companyform.log_date"
                         :disabled="!disable"
                         type="date"
-                        style="width:  11rem"
+                        style="width:16vw"
                       >
                       </el-date-picker>
                     </el-form-item>
@@ -24,7 +25,7 @@
                   <el-col :span="10">
                     <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
                       <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
-                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 11rem"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -32,9 +33,8 @@
                 <el-row>
                   <div v-show="isShow">
                     <el-col :span="6">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')" style="width: 18.7rem"
-                                    prop="project_id">
-                        <el-select v-model="companyform.project_id" :disabled="!disable">
+                      <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')" prop="project_id">
+                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw">
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -78,25 +78,27 @@
                 </el-row>
                 <el-row>
                   <el-col :span="11">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:  18.7rem" prop="work_phase">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
                       <dicselect
                         :disabled="!disable"
                         :code="code2"
                         :multiple="multiple2"
                         :data="companyform.work_phase"
-                        @change="JDjobs">
+                        @change="JDjobs"
+                        style="width: 16vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="10">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  18.7rem"
+                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
                                   prop="behavior_breakdown">
                       <dicselect
                         :disabled="!disable"
                         :code="code3"
                         :multiple="multiple3"
                         :data="companyform.behavior_breakdown"
-                        @change="XWXF">
+                        @change="XWXF"
+                        style="width: 16vw">
                       </dicselect>
                     </el-form-item>
                   </el-col>
@@ -105,17 +107,21 @@
                   <el-input
                     type="textarea"
                     :rows="2"
-                    v-model="companyform.wbs_id" :disabled="!disable">
+                    v-model="companyform.wbs_id" :disabled="!disable"
+                    style="width: 36vw">
                   </el-input>
                 </el-form-item>
                 <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width: 81.8%" prop="work_memo">
                   <el-input
                     type="textarea"
                     :rows="7"
-                    v-model="companyform.work_memo" :disabled="!disable">
+                    v-model="companyform.work_memo" :disabled="!disable"
+                    style="width: 36vw">
                   </el-input>
                 </el-form-item>
+                </el-tabs>
               </el-aside>
+              <el-tabs type="border-card">
               <el-main>
                 <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
                   <template
@@ -157,6 +163,7 @@
                   </el-table-column>
                 </el-table>
               </el-main>
+              </el-tabs>
             </el-container>
           </el-form>
         </el-form>

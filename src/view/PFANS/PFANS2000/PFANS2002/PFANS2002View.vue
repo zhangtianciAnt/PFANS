@@ -59,7 +59,7 @@
             filter: true
           },
           {
-            code: "_education",
+            code: "education1",
             label: "label.PFANS2002VIEW_EDUCATION",
             width: 150,
             fix: false,
@@ -130,9 +130,12 @@
             if (this.data[j].center_id) this.data[j].center = getOrgInfo(this.data[j].center_id).companyname;
             if (this.data[j].group_id) this.data[j].group = getOrgInfo(this.data[j].group_id).companyname;
             if (this.data[j].team_id) this.data[j].team = getOrgInfo(this.data[j].team_id).departmentname;
-            this.data[j]._education = getDictionaryInfo(
-              this.data[j].education
-            ).value1;
+              if (response[j].education1 !== null && response[j].education1 !== "") {
+                  let letStage = getDictionaryInfo(response[j].education1);
+                  if (letStage != null) {
+                      response[j].education1 = letStage.value1;
+                  }
+              }
             for (var val of JSON.parse(this.data[j].interview)) {
               if (val.interviewer) {
                 interview += getUserInfo(val.interviewer).userinfo.customername + ",";

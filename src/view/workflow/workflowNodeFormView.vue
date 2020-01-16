@@ -2,12 +2,12 @@
     <div>
       <el-form ref="form" :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item :label="$t('label.node_name')" prop="nodename">
               <el-input v-model="form.nodename" style="width: 20vw" @change="change" :disabled="disabled"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item :label="$t('label.node_type')" prop="nodetype">
               <el-select v-model="form.nodetype" :disabled="disabled"  style="width:20vw">
                 <el-option :label="$t('label.node_type_0')" value="2"></el-option>

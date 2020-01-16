@@ -42,7 +42,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
-            <el-table :data="tableT" border="true" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" stripe="true">
+            <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
               <el-table-column :label="$t('label.user_name')" align="center" width="400">
                 <template slot-scope="scope">
                   <user
@@ -119,7 +119,7 @@
           </el-row>
 
           <el-row style="width: 800px" align="right">
-            <el-table :data="tableP" border="true" header-cell-class-name="sub_bg_color_blue"  style="width: 1041px" stripe="true">
+            <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue"  style="width: 1041px" border stripe>
               <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center" width="500">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">

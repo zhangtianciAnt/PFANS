@@ -52,7 +52,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue">
+            <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="application" width="190"

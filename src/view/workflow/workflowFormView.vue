@@ -34,7 +34,7 @@
             </el-form-item>
           </el-row>
         </el-form>
-        <el-steps :active="editableTabs.length" align-center style="padding: 5vw">
+        <el-steps :active="editableTabs.length" align-center style="padding: 3vw">
           <el-step :key="item.name" :title="$t(item.title)" v-for="(item, index) in editableTabs"></el-step>
         </el-steps>
 

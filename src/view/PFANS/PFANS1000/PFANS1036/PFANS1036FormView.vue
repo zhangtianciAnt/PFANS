@@ -44,7 +44,7 @@
                 </el-row>
                 <el-tabs v-model="activeName2" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="120">
                           <template slot-scope="scope">
@@ -263,7 +263,7 @@
                         </el-table-column>
                       </el-table-column>
                     </el-table>
-                    <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue"  stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="120">
                           <template slot-scope="scope">
@@ -486,7 +486,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
-                    <el-table :data="tableC" :summary-method="getCSummaries" show-summary
+                    <el-table :data="tableC" :summary-method="getCSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
@@ -914,7 +914,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CAREER')" name="third">
-                    <el-table :data="tableD" :summary-method="getDSummaries" show-summary
+                    <el-table :data="tableD" :summary-method="getDSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column align="center" width="100">
                         <template slot-scope="scope">
@@ -1373,7 +1373,7 @@
                 </el-row>
                 <el-tabs v-model="activeName3" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
-                    <el-table :data="tableE" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableE" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -1605,7 +1605,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_NEWBUSINESSYEAR')" name="second">
-                    <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="100">
                           <template slot-scope="scope">
@@ -1863,7 +1863,7 @@
                       </el-table-column>
 
                     </el-table>
-                    <el-table :data="tableG" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableG" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -2095,7 +2095,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_LASTBUSINESSYEAR')" name="third">
-                    <el-table :data="tableH" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableH" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -2325,7 +2325,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_OTHER')" name="forth">
-                    <el-table :data="tableI" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableI" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -2586,7 +2586,7 @@
                 </el-row>
                 <el-tabs v-model="activeName4" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
-                    <el-table :data="tableE2" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableE2" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -2818,7 +2818,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_NEWBUSINESSYEAR')" name="second">
-                    <el-table :data="tableF2" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableF2" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="100">
                           <template slot-scope="scope">
@@ -3076,7 +3076,7 @@
                       </el-table-column>
 
                     </el-table>
-                    <el-table :data="tableG2" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableG2" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -3308,7 +3308,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_LASTBUSINESSYEAR')" name="third">
-                    <el-table :data="tableH2" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableH2" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -3540,7 +3540,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_OTHER')" name="forth">
-                    <el-table :data="tableI2" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableI2" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -3802,7 +3802,7 @@
                   </el-col>
                 </el-row>
                 <el-tabs v-model="activeName5" type="border-card">
-                  <el-table :data="tableJ" header-cell-class-name="sub_bg_color_blue">
+                  <el-table :data="tableJ" header-cell-class-name="sub_bg_color_blue" stripe="true">
                     <el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="100">
                         <template slot-scope="scope">
@@ -4074,7 +4074,7 @@
                 </el-row>
                 <el-tabs v-model="activeName6" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableK" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableK" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <template slot-scope="scope">
@@ -4185,7 +4185,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
-                    <el-table :data="tableL" :summary-method="getLSummaries" show-summary
+                    <el-table :data="tableL" :summary-method="getLSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="100">
@@ -4437,7 +4437,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B2')" name="third">
-                    <el-table :data="tableM" :summary-method="getMSummaries" show-summary
+                    <el-table :data="tableM" :summary-method="getMSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="100">
@@ -4689,7 +4689,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
-                    <el-table :data="tableN" :summary-method="getNSummaries" show-summary
+                    <el-table :data="tableN" :summary-method="getNSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="100">
@@ -4971,7 +4971,7 @@
                   </el-col>
                 </el-row>
                 <el-tabs v-model="activeName7" type="border-card">
-                  <el-table :data="tableO" :summary-method="getOSummaries" show-summary
+                  <el-table :data="tableO" :summary-method="getOSummaries" show-summary stripe="true"
                             header-cell-class-name="sub_bg_color_blue">
                     <el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="100">
@@ -5264,7 +5264,7 @@
                 </el-row>
                 <el-tabs v-model="activeName8" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLTOTAL')" name="first">
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column align="center" width="100">
                           <el-table-column>
@@ -5509,7 +5509,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLDETAILED')" name="second">
-                    <el-table :data="tableQ" :summary-method="getQSummaries" show-summary
+                    <el-table :data="tableQ" :summary-method="getQSummaries" show-summary stripe="true"
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="100">
@@ -5763,7 +5763,7 @@
                         </template>
                       </el-table-column>
                     </el-table>
-                    <el-table :data="tableR" header-cell-class-name="sub_bg_color_blue">
+                    <el-table :data="tableR" header-cell-class-name="sub_bg_color_blue" stripe="true">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="100">
                           <el-table-column>
