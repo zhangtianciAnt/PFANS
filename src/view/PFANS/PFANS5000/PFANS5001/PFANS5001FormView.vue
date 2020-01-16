@@ -313,14 +313,16 @@
                         :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                         prop="customername"
                       >
-                        <dicselect
-                          :code="code7"
-                          :data="form.customername"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getcustomername"
-                        ></dicselect>
+                          <el-select :disabled="!disable"
+                                     @change="getcustomer"
+                                     v-model="form.customername">
+                            <el-option
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                              v-for="item in customerinfor">
+                            </el-option>
+                          </el-select>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -329,7 +331,7 @@
                         prop="representative"
                       >
                         <el-input
-                          :disabled="!disable"
+                          :disabled="true"
                           maxlength="20"
                           style="width: 20vw"
                           v-model="form.representative"
@@ -418,21 +420,16 @@
                   <el-col :span="24">
                 <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
                   <el-table-column
-                    :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                    align="center"
-                    prop="plantype"
-                  >
+                    :label="$t('label.PFANS5008VIEW_JDJOBS')"
+                    align="center">
                     <template slot-scope="scope">
-                      <el-select :disabled="!disable"
+                      <dicselect :code="code7"
+                                 :data="scope.row.plantype"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
                                  :no="scope.row"
-                                 v-model="scope.row.plantype">
-                        <el-option
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                          v-for="item in customerinfor">
-                        </el-option>
-                      </el-select>
+                                 @change="getplantype">
+                      </dicselect>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -538,14 +535,14 @@
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable"
-                        @click.native.prevent="deleteRow(scope.$index, tableE)"
+                        @click.native.prevent="deleteRow1(scope.$index, tableE)"
                         plain
                         size="small"
                         type="danger"
                       >{{$t('button.delete')}}</el-button>
                       <el-button
                         :disabled="!disable"
-                        @click="addRow()"
+                        @click="addRow1()"
                         plain
                         size="small"
                         type="primary"
@@ -632,7 +629,7 @@
                       <dicselect
                         :code="code9"
                         :data="scope.row.rn"
-                        :disabled="!disable"
+                        :disabled="true"
                         :multiple="multiple"
                         :no="scope.row"
                       ></dicselect>
@@ -642,14 +639,14 @@
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable"
-                        @click.native.prevent="deleteRow(scope.$index, tableR)"
+                        @click.native.prevent="deleteRow2(scope.$index, tableR)"
                         plain
                         size="small"
                         type="danger"
                       >{{$t('button.delete')}}</el-button>
                       <el-button
                         :disabled="!disable"
-                        @click="addRow()"
+                        @click="addRow2()"
                         plain
                         size="small"
                         type="primary"
@@ -672,6 +669,7 @@
   import user from "../../../components/user.vue";
   import dicselect from "../../../components/dicselect.vue";
   import { uploadUrl } from "@/utils/customize";
+  import {getUserInfo} from '@/utils/customize'
   import { Message } from "element-ui";
   import moment from 'moment';
 
@@ -950,7 +948,7 @@
         code4: "PP004",
         code5: "PP005",
         code6: "PP007",
-        code7: "PG017",
+        code7: "PP008",
         code8: "PR021",
         code9:"PR021",
         result: "",
@@ -1078,6 +1076,10 @@
       },
       getCitationUserid(userlist, row) {
         row.user_id = userlist;
+        if( row.user_id !=null &&  row.user_id!==""){
+          let lst=getUserInfo(row.user_id);
+          row.role = lst.userinfo.rank;
+        }
       },
       getdepartmentid(val1) {
         this.form.departmentid = val1;
@@ -1100,14 +1102,12 @@
       getmanagementtool(val1) {
         this.form.managementtool = val1;
       },
-      getcustomername(val1) {
-        this.form.customername = val1;
-      },
+
       getplantype(val1, row) {
         row.plantype = val1;
       },
-      getrole(val1, row) {
-        row.role = val1;
+      getrole(val1,row) {
+        row.role=val1;
       },
       getchange(row){
         this.result.forEach(res=>{
@@ -1117,7 +1117,13 @@
           }
         })
       },
-
+      getcustomer(val){
+        this.result1.forEach(res=>{
+          if(res.customerinfor_id===val){
+            this.form.representative=res.liableperson;
+          }
+        })
+      },
       workflowState(val) {
         if (val.state === "1") {
           this.form.status = "3";
@@ -1176,8 +1182,46 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }else {
+          this.tableD=[{
+            projectplan_id: "",
+            companyprojects_id: "",
+            plantype: " ",
+            numbers: "",
+            starttime: "",
+            endtime: ""
+          }]
         }
       },
+      deleteRow1(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }else {
+          this.tableE=[{
+            projectresources_id: "",
+            companyprojects_id: "",
+            numbers: "",
+            user_id: "",
+            role: " "
+          }]
+        }
+      },
+
+      deleteRow2(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }else {
+          this.tableR=[{
+            outsource_id:"",
+            companyprojects_id:"",
+            bpcompany: "",
+            bpname: " ",
+            rn: " ",
+            rowindex:"",
+          }]
+        }
+      },
+
       addRow() {
         this.tableD.push({
           projectplan_id: "",
@@ -1187,6 +1231,8 @@
           starttime: "",
           endtime: ""
         });
+      },
+      addRow1(){
         this.tableE.push({
           projectresources_id: "",
           companyprojects_id: "",
@@ -1194,6 +1240,9 @@
           user_id: "",
           role: ""
         });
+
+      },
+      addRow2() {
         this.tableR.push({
           outsource_id:"",
           companyprojects_id:"",
