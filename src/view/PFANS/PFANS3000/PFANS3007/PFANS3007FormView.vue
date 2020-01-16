@@ -212,7 +212,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_TOTALCOST')" prop="totalcost">
                   <el-input-number :disabled="!disable" @change="changetotalcost" maxlength='20' style="width:20vw"
-                                   controls-position="right" :max="9999999999" :precision="2"
+                                   controls-position="right" :max="9999999999" :min="0" :precision="2"
                                    v-model.trim="form.totalcost"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>

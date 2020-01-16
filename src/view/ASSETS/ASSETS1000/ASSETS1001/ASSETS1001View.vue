@@ -234,7 +234,21 @@
         // this.initWebSocket();
       },
       websocketonmessage(e){ //数据接收
+        this.loading = false;
         const redata = JSON.parse(e.data);
+        if(redata.code === 200){
+          Message({
+            message: this.$t('normal.success_03'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+        }else{
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
       },
       websocketsend(Data){//数据发送
         this.websock.send(Data);
@@ -470,6 +484,7 @@
             });
             return;
           }
+          this.loading = true;
           let list = [];
           for(let i of this.selectedlist){
             var item = {};
