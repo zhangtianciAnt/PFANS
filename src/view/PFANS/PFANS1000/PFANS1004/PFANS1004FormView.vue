@@ -133,7 +133,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
-                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" style="width: 72vw"></el-input>
+                <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :placeholder="$t('label.PFANS1004VIEW_GISTTAB')" style="width: 72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
