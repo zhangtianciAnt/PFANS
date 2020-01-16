@@ -651,7 +651,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_OTHERS1')" name="sixth">
               <div>
-                <el-row :gutter="24">
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
                       <el-switch

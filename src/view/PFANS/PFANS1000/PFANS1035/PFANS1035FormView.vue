@@ -359,7 +359,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row :gutter="24">
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
                       <el-switch

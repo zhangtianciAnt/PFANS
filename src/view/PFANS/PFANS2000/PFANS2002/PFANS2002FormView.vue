@@ -15,9 +15,9 @@
           <el-tab-pane
             :label="$t('label.PFANS2002FORMVIEW_ORGIN')"
             name="first"
-            style="padding-top:1%;padding-left:3%"
+            style="padding-top:1%"
           >
-            <el-row :gutter="20">
+            <el-row>
               <el-col :span="8">
                 <el-form-item
                   :label="$t('label.PFANS2002VIEW_NAME')"
@@ -60,64 +60,18 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <!--hhhh-->
-            <!--  <el-row :gutter="20">
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANS2002VIEW_EDUCATION')"
-                    prop="education"
-                  >
-                    <dicselect
-                      :data="form.education"
-                      :disabled="disabled"
-                      @change="changeEducation"
-                      class="width"
-                      code="PR022"
-                      style="width:20vw"
-                    ></dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
-                    prop="specialty"
-                  >
-                    <el-input
-                      :disabled="disabled"
-                      class="width"
-                      maxlength="20"
-                      style="width:20vw"
-                      v-model="form.specialty"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANS2002FORMVIEW_QUITYEAR')"
-                    prop="quityear"
-                  >
-                    <el-date-picker
-                      :disabled="disabled"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      type="year"
-                      style="width:20vw"
-                      v-model="form.quityear"
-                    ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>-->
             <el-row>
+              <el-col :span="24">
               <el-table
                 :data="tableData3"
-                style="width:95%;margin-left:2%;margin-top:1%"
-                border
+                style="width:73vw;margin-top:1%"
+                border stripe
+                header-cell-class-name="sub_bg_color_blue"
               >
                 <el-table-column
                   :label="$t('label.PFANS2002VIEW_EDUCATION')"
                   prop="education"
                   align="center"
-                  width="340"
                 >
                   <template slot-scope="scope">
                     <dicselect
@@ -126,7 +80,7 @@
                       @change="((val)=>{changeEducation(val,scope.$index)})"
                       class="width"
                       code="PR022"
-                      style="width:20vw"
+                      style="width:100%"
                     ></dicselect>
                   </template>
                 </el-table-column>
@@ -136,7 +90,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input :disabled="disabled" class="width" v-model="scope.row.specialty" maxlength="20"></el-input>
+                    <el-input :disabled="disabled" class="width" v-model="scope.row.specialty" maxlength="20" style="width:100%"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -144,18 +98,18 @@
                   prop="quityear"
                   align="center">
                   <template slot-scope="scope">
-                    <!--<el-input class="width" v-model="scope.row.quityear" maxlength="50"></el-input>-->
                     <el-date-picker
                       :disabled="disabled"
                       :placeholder="$t('normal.error_09')"
                       class="width"
                       type="date"
-                      style="width:20vw"
+                      style="width:100%"
                       v-model="scope.row.quityear"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
               </el-table>
+              </el-col>
             </el-row>
           </el-tab-pane>
           <!--第二个tab-->
@@ -169,7 +123,7 @@
                 >{{$t('label.PFANS2002FORMVIEW_ONESELF')}}</span>
                 </template>
                 <div style="margin-left:5%;margin-top:0%">
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_RESUME')">
                         <el-switch :disabled="disabled" v-model="form.resume"></el-switch>
@@ -187,7 +141,7 @@
                     </el-col>
                   </el-row>
 
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_EXPERIENCE')">
                         <el-switch :disabled="disabled" v-model="form.experience"></el-switch>
@@ -205,7 +159,7 @@
                     </el-col>
                   </el-row>
 
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER1_1')">
                         <el-switch :disabled="disabled" v-model="form.other1"></el-switch>
@@ -218,16 +172,9 @@
                     </el-col>
                   </el-row>
 
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENGLISH')" maxlength="10">
-                        <!--<el-input
-                          :disabled="disabled"
-                          class="width"
-                          maxlength="10"
-                          style="width:20vw"
-                          v-model="form.english"
-                        ></el-input>-->
                         <dicselect
                           :data="form.english"
                           :disabled="disabled"
@@ -250,13 +197,6 @@
 
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_JANPANESE')" maxlength="10">
-                        <!--<el-input
-                          :disabled="disabled"
-                          class="width"
-                          maxlength="10"
-                          style="width:20vw"
-                          v-model="form.janpanese"
-                        ></el-input>-->
                         <dicselect
                           :data="form.janpanese"
                           :disabled="disabled"
@@ -277,7 +217,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col>
                       <!--手动说明备注项-->
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_REMARK')">
@@ -292,7 +232,7 @@
                   <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.PFANS2002FORMVIEW_CLUB')}}</span>
                 </template>
                 <div style="margin-left:5%;margin-top:0%">
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_TICKET')">
                         <el-switch :disabled="disabled" v-model="form.ticket"></el-switch>
@@ -311,7 +251,7 @@
                   <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
                 </template>
                 <div style="margin-left:5%;margin-top:1%">
-                  <el-row :gutter="20">
+                  <el-row>
                     <el-upload
                       :action="upload"
                       :file-list="fileList"
@@ -340,15 +280,14 @@
             <el-table
               :data="tableData"
               :summary-method="getAverage"
-              border
+              border stripe
               show-summary
-              style="width: 60%;margin-left:15%"
+              style="width:72vw"
               header-cell-class-name="sub_bg_color_blue"
             >
               <el-table-column
                 :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
                 align="center"
-                fixed
                 prop="interviewer"
               >
                 <template slot-scope="scope">
@@ -358,7 +297,7 @@
                     :userlist="scope.row.interviewer"
                     @getUserids="getInterviewerids"
                     selectType="Single"
-                    style="width:70%;margin-left:10%"
+                    style="width:100%"
                   ></user>
                 </template>
               </el-table-column>
@@ -375,6 +314,7 @@
                     :precision="1"
                     :step="0.1"
                     v-model="scope.row.score"
+                    style="width:100%"
                   ></el-input-number>
                 </template>
               </el-table-column>
@@ -408,7 +348,7 @@
             name="fouth"
             style="padding-top:1%"
           >
-            <el-row :gutter="20">
+            <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.center')" >
                   <org
@@ -446,7 +386,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row :gutter="20">
+            <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_LEVEL')">
                   <dicselect
@@ -476,7 +416,7 @@
               </el-col>
             </el-row>
             <!--採用ルート-->
-            <el-row :gutter="20">
+            <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')" >
                   <dicselect
