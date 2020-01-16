@@ -1,4 +1,5 @@
-import {getFpans5001List,selectById,update,insert} from './PFANS5001Api'
+import {getFpans5001List,selectById,update,insert,getcustomer,getexpat} from './PFANS5001Api'
+
 
 const PFANS5001Store = {
   namespaced: true,
@@ -60,6 +61,35 @@ const PFANS5001Store = {
         })
       })
     },
+    getcustomer({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getcustomer(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getexpat({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getexpat(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+
   }
 };
 

@@ -11,20 +11,20 @@
         <el-form :rules="rules" label-width="8vw" label-position="top" ref="reff">
           <el-row>
             <el-form-item :label="$t(this.$route.params.codename)">
-              <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border>
-                <el-table-column :label="$t('label.PFANS8009VIEW_CODE')" align="center" fixed>
+              <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe>
+                <el-table-column :label="$t('label.PFANS8009VIEW_CODE')" align="center" fixed width="340">
                   <template slot-scope="scope">
                     <el-input :disabled="true" v-model="scope.row.code">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE1')" align="center">
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE1')" align="center" width="340">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" v-model="scope.row.value1">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE2')" align="center">
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE2')" align="center" width="300">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" v-model="scope.row.value2">
                     </el-input>
