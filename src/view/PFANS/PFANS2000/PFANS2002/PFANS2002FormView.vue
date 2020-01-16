@@ -64,7 +64,7 @@
               <el-col :span="24">
               <el-table
                 :data="tableData3"
-                style="width:73vw;margin-top:1%"
+                style="width:46vw;margin-top:1%"
                 border stripe
                 header-cell-class-name="sub_bg_color_blue"
               >
@@ -282,7 +282,7 @@
               :summary-method="getAverage"
               border stripe
               show-summary
-              style="width:72vw"
+              style="width:46vw"
               header-cell-class-name="sub_bg_color_blue"
             >
               <el-table-column
