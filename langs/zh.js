@@ -1426,6 +1426,7 @@ module.exports = {
     PFANS2018VIEW_NIGHTSHIFT: '深夜加班时间',
     PFANS2018VIEW_NIGHTSHIFTSTART: '深夜加班时间开始',
     PFANS2018VIEW_NIGHTSHIFTEND: '深夜加班时间结束',
+    PFANS2018VIEW_WORKINGHOURS: '工作时间基本计算单位',
     PFANS2019_HOSPITAL: '妊娠诊断医院',
     PFANS2019_EDATE: '预产期',
     PFANS2019_NEWDATE: '新生儿出生日期',

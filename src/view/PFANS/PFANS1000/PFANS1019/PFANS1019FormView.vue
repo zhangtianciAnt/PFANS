@@ -143,7 +143,7 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="150">
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     @click.native.prevent="deleteRow(scope.$index, tableT)"

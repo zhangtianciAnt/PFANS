@@ -212,7 +212,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_TOTALCOST')" prop="totalcost">
                   <el-input-number :disabled="!disable" @change="changetotalcost" maxlength='20' style="width:20vw"
-                                   controls-position="right" :max="9999999999" :precision="2"
+                                   controls-position="right" :max="9999999999" :min="0" :precision="2"
                                    v-model.trim="form.totalcost"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>
@@ -229,16 +229,16 @@
             <el-col :span="24">
               <template>
                 <el-form-item :label="$t('label.PFANS3007VIEW_USECOUPON')">
-                  <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe="true" border="true">
+                  <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" v-if="showdata" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
-                                     prop="copuntype">
+                                     prop="copuntype" width="280">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
-                                     prop="copunnumber">
+                                     prop="copunnumber" width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
                                          @change="changecopunnumber" :min="0"
@@ -246,14 +246,14 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
+                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue" width="300">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
-                                     prop="copunusenumber">
+                                     prop="copunusenumber" width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
                                          style="width: 100%"
@@ -262,16 +262,16 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <el-table :data="tableD2" header-cell-class-name="sub_bg_color_blue height" v-if="showdata2" stripe="true" border="true">
+                  <el-table :data="tableD2" header-cell-class-name="sub_bg_color_blue height" v-if="showdata2" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
-                                     prop="copuntype">
+                                     prop="copuntype" width="280">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
-                                     prop="copunnumber">
+                                     prop="copunnumber" width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
                                          @change="changecopunnumber" :min="0"
@@ -279,14 +279,14 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
+                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue" width="300">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
-                                     prop="copunusenumber">
+                                     prop="copunusenumber"  width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
                                          :max="Number(scope.row.copunnumbermax)"
@@ -296,16 +296,16 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <el-table :data="tableD3" header-cell-class-name="sub_bg_color_blue" v-if="showdata3" stripe="true" border="true">
+                  <el-table :data="tableD3" header-cell-class-name="sub_bg_color_blue" v-if="showdata3" stripe border>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNTYPE')" align="center" fixed
-                                     prop="copuntype">
+                                     prop="copuntype" width="280">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copuntype">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNNUMBER')" align="center"
-                                     prop="copunnumber">
+                                     prop="copunnumber" width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="true" :no="scope.row" style="width: 100%"
                                          @change="changecopunnumber" :min="0"
@@ -313,14 +313,14 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue">
+                    <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNVALUE')" align="center" prop="copunvalue" width="300">
                       <template slot-scope="scope">
                         <el-input :disabled="true" :no="scope.row" style="width: 100%" v-model="scope.row.copunvalue">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS3007FORMVIEW_COPUNUSENUMBER')" align="center"
-                                     prop="copunusenumber">
+                                     prop="copunusenumber" width="300">
                       <template slot-scope="scope">
                         <el-input-number :disabled="!disable" :no="scope.row" :precision="0" :step="1" :min="0"
                                          :max="Number(scope.row.copunnumbermax)"

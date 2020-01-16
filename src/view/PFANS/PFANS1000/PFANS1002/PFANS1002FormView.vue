@@ -177,7 +177,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue">
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border>
                 <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE1')" align="center" width="300">
                   <template slot-scope="scope">
                     <div class="block">

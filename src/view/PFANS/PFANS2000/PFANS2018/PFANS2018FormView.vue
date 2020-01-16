@@ -221,6 +221,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
+                <el-form-item :label="$t('label.PFANS2018VIEW_WORKINGHOURS')" prop="workinghours">
+                  <el-input-number :disabled="!disable" :min="0" :max="9999" controls-position="right"
+                                   :precision="2" :step="0.1" style="width:20vw"
+                                   v-model="form.workinghours"></el-input-number>
+                  <span>{{$t('label.hours')}}</span>
+                </el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -369,6 +375,7 @@
           abnormaldeadline: '',
           abnormaldeadlinetime: '',
           transfinitereminder: '',
+          workinghours: '',
         },
         buttonList: [],
         disable: true,
@@ -469,6 +476,11 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS2018FORMVIEW_TRANSFINITEREMINDER'),
             trigger: 'change',
           }],
+          workinghours: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS2018VIEW_WORKINGHOURS'),
+            trigger: 'change',
+          }]
         },
       };
     },
