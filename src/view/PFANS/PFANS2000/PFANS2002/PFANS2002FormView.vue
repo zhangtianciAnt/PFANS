@@ -20,10 +20,74 @@
             <el-row :gutter="20">
               <el-col :span="8">
                 <el-form-item
-                  :label="$t('label.PFANS2002VIEW_NAME')"
+                  :label="$t('label.user_name')"
                   prop="name"
                 >
-                  <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
+                  <!--<el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.name"></el-input>-->
+
+
+
+
+
+
+
+                  <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                    <el-container>
+                      <input class="content bg" v-model="form.name" :error="errorsuppliername"
+                             :disabled="true"></input>
+                      <el-button :disabled="disabled" icon="el-icon-search" @click="dialogTableVisible = true"
+                                 size="small"></el-button>
+                      <el-dialog  :visible.sync="dialogTableVisible" center size="50%"
+                                 top="8vh" lock-scroll
+                                 append-to-body>
+                        <div style="text-align: center">
+                          <el-row style="text-align: center;height: 90%;overflow: hidden">
+                            <!--<el-table-->
+                              <!--:data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"-->
+                              <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+                              <!--:span-method="arraySpanMethod" @row-click="handleClickChange">-->
+                              <!--<el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"-->
+                                               <!--width="150"></el-table-column>-->
+                              <!--<el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
+                                               <!--width="100"></el-table-column>-->
+                              <!--<el-table-column property="contactinformation"-->
+                                               <!--:label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
+                                               <!--width="150"></el-table-column>-->
+                              <!--<el-table-column-->
+                                <!--align="right" width="230">-->
+                                <!--<template slot="header" slot-scope="scope">-->
+                                  <!--<el-input-->
+                                    <!--v-model="search"-->
+                                    <!--size="mini"-->
+                                    <!--placeholder="请输入供应商关键字搜索"/>-->
+                                <!--</template>-->
+                              <!--</el-table-column>-->
+                            <!--</el-table>-->
+                          </el-row>
+                          <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
+                        </span>
+                        </div>
+                      </el-dialog>
+                    </el-container>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </el-form-item>
               </el-col>
               <el-col :span="8">
