@@ -131,6 +131,7 @@ module.exports = {
     PFANS1036: '事业计划',
     JUDGEMENT: '决裁与报销',
     PFANS1001: '决裁',
+    PFANS1037: '固定资产决裁',
     PFANS1002: '境外出張申請',
     PFANS1035: '境内出張申請',
     PFANS1003: '無償設備',
