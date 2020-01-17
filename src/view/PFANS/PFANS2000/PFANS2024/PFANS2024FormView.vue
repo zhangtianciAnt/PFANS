@@ -204,6 +204,14 @@
                 <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
+                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
+                                        v-model="form.yearschedule"></el-date-picker>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')">
                         <dicselect
                           style="width: 70vw"
@@ -227,15 +235,6 @@
                           :multiple="multiple1"
                           @change="getstaff">
                         </dicselect>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
-                        <el-input :disabled="!disable"
-                                  maxlength="20" style="width: 70vw" type="textarea"
-                                  v-model="form.yearschedule"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>

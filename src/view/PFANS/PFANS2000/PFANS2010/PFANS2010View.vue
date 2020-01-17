@@ -52,52 +52,49 @@
                     {
                         code: 'user_name',
                         label: 'label.user_name',
-                        width: 80,
+                        width: 100,
                         fix: false,
                         filter: true
                     },
-                    // {
-                    //     code: 'user_id',
-                    // },
                     {
                         code: 'center_id',
                         label: 'label.center',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'group_id',
                         label: 'label.group',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'team_id',
                         label: 'label.team',
-                        width: 80,
+                        width: 100,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'years',
                         label: 'label.year',
-                        width: 40,
+                        width: 70,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'months',
                         label: 'label.month',
-                        width: 40,
+                        width: 70,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'recognitionstate',
                         label: 'label.PFANS2010VIEW_RECOGNITION',
-                        width: 60,
+                        width: 120,
                         fix: false,
                         filter: true
                     },

@@ -24,7 +24,7 @@
                     {
                         code: 'user_id',
                         label: 'label.applicant',
-                        width: 90,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
@@ -45,14 +45,14 @@
                     {
                         code: 'appteam_id',
                         label: 'label.team',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     },
                     {
                         code: 'status',
                         label: 'label.approval_status',
-                        width: 100,
+                        width: 120,
                         fix: false,
                         filter: true,
                     }
