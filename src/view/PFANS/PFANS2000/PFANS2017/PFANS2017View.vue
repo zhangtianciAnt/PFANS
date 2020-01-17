@@ -246,7 +246,9 @@
                 this.Message = false;
                 this.result = false;
                 if (!safe) {
-                    this.$refs.uploader.clearFiles();
+                    if(this.$refs.uploader != undefined){
+                        this.$refs.uploader.clearFiles();
+                    }
                 }
             },
             formatJson(filterVal, jsonData) {
