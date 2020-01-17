@@ -346,7 +346,7 @@ module.exports = {
     node_remarks: '注意事项',
     user_type: '审批人类型',
     user_type_0: '指定用户',
-    user_type_1: '逐级审批',
+    user_type_1: '直属上级',
     user_type_2: '画面指定',
     user_name: '姓名',
     year: '年',

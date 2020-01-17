@@ -7,20 +7,23 @@
                  ref="companyform" status-icon style="width:80%;margin:5% auto" label-position="top"
                  v-show="type === '1'">
           <el-form-item :rules="[
-              { required: true, message: '请输入公司名称', trigger: 'blur' }]" label="公司名称" prop="companyname">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyname" style="width:72vw"></el-input>
+              { required: true, message: '请输入名称', trigger: 'blur' }]" label="名称" prop="companyname">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyname" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
-              { required: true, message: '请输入公司简称', trigger: 'blur' }]" label="公司简称" prop="companyshortname">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyshortname" style="width:72vw"></el-input>
+              { required: true, message: '请输司简称', trigger: 'blur' }]" label="简称" prop="companyshortname">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyshortname" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
               { required: true, message: '请输入英文缩写', trigger: 'blur' },
               { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
-            <el-input auto-complete="off" placeholder="" v-model="companyform.companyen" style="width:72vw"></el-input>
+            <el-input auto-complete="off" placeholder="" v-model="companyform.companyen" style="width:20vw"></el-input>
           </el-form-item>
-          <el-form-item label="上级公司" prop="upcompany">
+          <el-form-item label="上级组织" prop="upcompany">
             <span>{{currentNode.companyshortname}}</span>
+          </el-form-item>
+          <el-form-item label="组织负责人" prop="user">
+            <user selectType="Single" @getUserids="getUserids"  style="width:20vw" :userlist="userlist"></user>
           </el-form-item>
         </el-form>
 
@@ -28,16 +31,19 @@
                  ref="depform" status-icon style="width:80%;margin:5% auto" label-position="top"
                  v-show="type !== '1'">
           <el-form-item :rules="[
-              { required: true, message: '请输入部门名称', trigger: 'blur' }]" label="部门名称" prop="departmentname">
-            <el-input auto-complete="off" placeholder="部门名称" v-model="companyform.departmentname" style="width:72vw"></el-input>
+              { required: true, message: '请输入名称', trigger: 'blur' }]" label="名称" prop="departmentname">
+            <el-input auto-complete="off" placeholder="部门名称" v-model="companyform.departmentname" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item :rules="[
                { required: true, message: '请输入英文缩写', trigger: 'blur' },
                { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
-            <el-input auto-complete="off" placeholder="英文缩写" v-model="companyform.companyen" style="width:72vw"></el-input>
+            <el-input auto-complete="off" placeholder="英文缩写" v-model="companyform.companyen" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{upcompany}}</span>
+          </el-form-item>
+          <el-form-item label="组织负责人" prop="user">
+            <user selectType="Single" @getUserids="getUserids"  style="width:20vw" :userlist="userlist"></user>
           </el-form-item>
           <el-form-item
             label="状态"
@@ -63,15 +69,18 @@
   import EasyButtonBar from '@/components/EasyButtonBar';
   import {validatAlphabets, validateNumber} from '@/utils/validate';
   import {getUUID} from '@/utils/customize';
+  import user from "../components/user.vue";
 
   export default {
     name: "orgTreeFormView",
     components: {
       EasyNormalContainer,
-      EasyButtonBar
+      EasyButtonBar,
+      user
     },
     data() {
       return {
+        userlist:"",
         type: this.$route.params.type,
         currentNode: this.$route.params.currentNode,
         orgTree: this.$route.params.orgTree,
@@ -88,6 +97,9 @@
       };
     },
     methods: {
+      getUserids(val){
+        this.companyform.user = val;
+      },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
