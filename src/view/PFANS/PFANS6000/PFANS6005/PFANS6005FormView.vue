@@ -1,239 +1,510 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
+                         ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-            <div>
-              <el-table
-                :data="tableData"
-                border
-                :header-cell-style="getRowClass"
-                style="width: 100%">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+          <el-form-item >
+              <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%">
+                <!-- 序号-->
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                   align="center"
-                  prop="ordernumber"
-                  width="50">
+                  width="80">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.pricesetid"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
+                <!-- 名前-->
                 <el-table-column
                   :label="$t('label.PFANS2007VIEW_NAME')"
                   align="center"
-                  prop="confirmperson"
-                  width="60">
-                  <el-input>
-                  </el-input>
+                  width="120">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.user_id"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
+                <!-- 卒業年-->
+                <el-table-column
+                  :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
+                  align="center"
+                  width="160">
+                  <template slot-scope="scope">
+                  <el-date-picker
+                    :no="scope.row"
+                    :disabled="!disable"
+                    type="date"
+                    style="width: 100%"
+                    v-model="scope.row.graduation"
+                  ></el-date-picker>
+                  </template>
+                </el-table-column>
+                <!-- 会社名-->
                 <el-table-column
                   :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
                   align="center"
-                  prop="confirmdata"
+                  prop="company"
                   width="150">
-                  <el-input>
+                  <template slot-scope="scope">
+                  <el-input
+                    :no="scope.row"
+                    :disabled="!disable"
+                    v-model="scope.row.company"
+                    style="width: 100%">
                   </el-input>
+                  </template>
                 </el-table-column>
-
+                <!-- 查定时间-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_CHECKTIME')"
                   align="center"
-                  prop="confirmmark"
-                  width="150">
+                  width="160">
+                  <template slot-scope="scope">
+                    <el-date-picker
+                      :no="scope.row"
+                      :disabled="!disable"
+                      type="date"
+                      style="width: 100%"
+                      v-model="scope.row.assesstime"
+                    ></el-date-picker>
+                  </template>
                 </el-table-column>
-                <!--                技術スキル-->
+                <!-- 技術スキル-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGY')"
                   align="center"
-                  prop="technology"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code1"
+                      :data="scope.row.technical"
+                      :disabled="!disable"
+                      @change="changetechnical"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                技術価値-->
+                <!-- 技術価値-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGYVALUE')"
                   align="center"
-                  prop="technologyvalue"
+                  prop="technology"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.technology"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                管理スキル-->
+                <!-- 管理スキル-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTSKILLS')"
                   align="center"
-                  prop="managementskills"
+                  prop="management"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code2"
+                      :data="scope.row.management"
+                      :disabled="!disable"
+                      @change="changemanagement"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                管理価値-->
+                <!-- 管理価値-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTVALUE')"
                   align="center"
-                  prop="managementvalue"
+                  prop="value"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.value"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                分野スキル-->
+                <!--   分野スキル-->
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_FIELDSKILLS')"
                   align="center"
                   prop="fieldskills"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code3"
+                      :data="scope.row.fieldskills"
+                      :disabled="!disable"
+                      @change="changefieldskills"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                分野価値-->
+                <!-- 分野価値-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_FIELDVALUE')"
                   align="center"
-                  prop="fieldvalue"
+                  prop="field"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.field"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                語学スキル-->
+                <!-- 語学スキル-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_LANGUAGESKILLS')"
                   align="center"
-                  prop="languageskills"
+                  prop="language"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code4"
+                      :data="scope.row.language"
+                      :disabled="!disable"
+                      @change="changelanguage"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                語学価値-->
+                <!--  語学価値-->
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_LANGUAGEVALUE')"
                   align="center"
                   prop="languagevalue"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.languagevalue"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                勤務スキル-->
+                <!-- 勤務スキル-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_JOBSKILLS')"
                   align="center"
-                  prop="jobskills"
+                  prop="workskills"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code5"
+                      :data="scope.row.workskills"
+                      :disabled="!disable"
+                      @change="changeworkskills"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                勤務価値-->
+                <!--  勤務価値-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_WORKVALUE')"
                   align="center"
-                  prop="workvalue"
+                  prop="service"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.service"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                勤続評価-->
+                <!-- 勤続評価-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_WORKTIME')"
                   align="center"
-                  prop="worktime"
+                  prop="evaluation"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code6"
+                      :data="scope.row.evaluation"
+                      :disabled="!disable"
+                      @change="changeevaluation"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-                <!--                勤続価値-->
+                <!--  勤続価値-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_WORKVALUE1')"
                   align="center"
-                  prop="workvalue1"
+                  prop="rvicevalue"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="disable"
+                      v-model="scope.row.rvicevalue"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                責任者激励-->
+                <!-- 責任者激励-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_INCENTIVELEADER')"
                   align="center"
-                  prop="incentiveleader"
                   width="150">
-                  <!--                PSDCD駐在規模-->
+                  <!-- PSDCD駐在規模-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SERVINGSIZE')"
                     align="center"
-                    prop="servingsize"
+                    prop="psdcdscale"
                     width="150">
+                    <template slot-scope="scope">
+                      <dicselect
+                        :no="scope.row"
+                        :code="code7"
+                        :data="scope.row.psdcdscale"
+                        :disabled="!disable"
+                        @change="changepsdcdscale"
+                        style="width: 100%"
+                      ></dicselect>
+                    </template>
                   </el-table-column>
-                <!--                規模価値-->
+                <!-- 規模価値-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
-                    prop="sizevalue"
+                    prop="scalevalue"
                     width="150">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="disable"
+                        v-model="scope.row.scalevalue"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
                   </el-table-column>
-                <!--                貢献評価-->
+                <!-- 貢献評価-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONEVALUATION')"
                     align="center"
-                    prop="conevaluation"
+                    prop="contribution"
                     width="150">
+                    <template slot-scope="scope">
+                      <dicselect
+                        :no="scope.row"
+                        :code="code8"
+                        :data="scope.row.contribution"
+                        :disabled="!disable"
+                        @change="changecontribution"
+                        style="width: 100%"
+                      ></dicselect>
+                    </template>
                   </el-table-column>
-                <!--                貢献係数-->
-
+                <!-- 貢献係数-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
-                    prop="concoefficient"
+                    prop="coefficient"
                     width="150">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="disable"
+                        v-model="scope.row.coefficient"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
                   </el-table-column>
                 </el-table-column>
-
-                <!--                出向者激励-->
+                <!--  出向者激励-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_OUTBOUNDMOTIVATION')"
                   align="center"
-                  prop="outboundmotivation"
                   width="150">
-<!--                  ランク価値-->
+                <!--出项者PSDCD相当ランク-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
                     align="center"
-                    prop="conevaluation"
+                    prop="staffpsdcdrank"
                     width="150">
+                    <template slot-scope="scope">
+                      <dicselect
+                        :no="scope.row"
+                        :code="code9"
+                        :data="scope.row.staffpsdcdrank"
+                        :disabled="!disable"
+                        @change="changestaffpsdcdrank"
+                        style="width: 100%"
+                      ></dicselect>
+                    </template>
                   </el-table-column>
-                <!--                貢献評価-->
+                  <!--  ランク価値-->
+                  <el-table-column
+                    :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
+                    align="center"
+                    prop="rankvalue"
+                    width="150">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="disable"
+                        v-model="scope.row.rankvalue"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                <!--  貢献評価-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
-                    prop="concoefficient"
+                    prop="butionevaluation"
                     width="150">
+                    <template slot-scope="scope">
+                      <dicselect
+                        :no="scope.row"
+                        :code="code8"
+                        :data="scope.row.butionevaluation"
+                        :disabled="!disable"
+                        @change="changebutionevaluation"
+                        style="width: 100%"
+                      ></dicselect>
+                    </template>
                   </el-table-column>
-                <!--                貢献係数-->
+                <!-- 貢献係数-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
-                    prop="sizevalue"
+                    prop="butioncoefficient"
                     width="150">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="disable"
+                        v-model="scope.row.butioncoefficient"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
                   </el-table-column>
                 </el-table-column>
-
-                <!--                開発単価微調整-->
+                <!-- 開発単価微調整-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_PRICEADJUST')"
                   align="center"
-                  prop="priceadjust"
+                  prop="unitprice"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.unitprice"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-                <!--                開発総単価-->
+                <!-- 開発総単価-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_SUMPRICE')"
                   align="center"
-                  prop="sumprice"
+                  prop="totalunit"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.totalunit"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-<!--                共通費用-->
+                <!-- 共通費用-->
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
                   align="center"
-                  prop="commoncost"
+                  prop="common"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.common"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-<!--             PSDCD相当ランク-->
+                <!-- PSDCD相当ランク-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
                   align="center"
-                  prop="psdcdgrade"
+                  prop="psdcdrank"
                   width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code9"
+                      :data="scope.row.psdcdrank"
+                      :disabled="!disable"
+                      @change="changepsdcdrank"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
                 </el-table-column>
-<!--                備考-->
+                <!--  備考-->
                 <el-table-column
                   :label="$t('label.PFANS6007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disable"
+                      v-model="scope.row.remarks"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
-<!--                前年単価-->
+                <!-- 前年単価-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"
                   align="center"
-                  prop="lastyearprice"
+                  prop="yearunit"
                   width="150">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      plain
+                      :disabled="!disable"
+                      v-model="scope.row.yearunit"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
                 </el-table-column>
               </el-table>
-            </div>
+          </el-form-item>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -242,39 +513,137 @@
 
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect.vue';
+    import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import dicselect from '../../../components/dicselect';
-
+    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {validateEmail} from '@/utils/validate';
+    import moment from 'moment';
+    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
     export default {
-        name: "PFANS6005FormView",
-        components: {
-            dicselect,
-            EasyNormalContainer,
-            user,
-        },
-        data() {
-            return {
-                tableData: [{
-                    ordernumber: '1',
-                    confirmperson: this.$t('label.center'),
-                    confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA1'),
-                    confirmmark: '',
-                    date: '',
-                },
-                ],
-                title: 'title.PFANS6005VIEW',
-                buttonList: [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ],
+      name: "PFANS6005FormView",
+      components: {
+        dicselect,
+        EasyNormalContainer,
+        user,
+        validateEmail,
+      },
+      data() {
+        return {
+          loading: false,
+          buttonList: [],
+          baseInfo: {},
+          scope: '',
+          row: '',
 
-            };
-        },
-      mounted(){},
+          tableData: [{
+            pricesetid: '',
+            user_id: '',
+            graduation: '',
+            company: '',
+            assesstime: '',
+            technical: '',
+            technology: '',
+            management: '',
+            value: '',
+            fieldskills: '',
+            field: '',
+            language: '',
+            languagevalue: '',
+            workskills: '',
+            service: '',
+            evaluation: '',
+            rvicevalue: '',
+            psdcdscale: '',
+            scalevalue: '',
+            contribution: '',
+            coefficient: '',
+            staffpsdcdrank: '',
+            rankvalue: '',
+            butionevaluation: '',
+            butioncoefficient: '',
+            unitprice: '',
+            totalunit: '',
+            common: '',
+            psdcdrank: '',
+            remarks: '',
+            yearunit: '',
+            year: '',
+          }
+          ],
+          form: {
+          //   pricesetid: '',
+          //   user_id: '',
+          //   graduation: '',
+          //   company: '',
+          //   assesstime: '',
+          //   technical: '',
+          //   technology: '',
+          //   management: '',
+          //   value: '',
+          //   fieldskills: '',
+          //   field: '',
+          //   language: '',
+          //   languagevalue: '',
+          //   workskills: '',
+          //   service: '',
+          //   evaluation: '',
+          //   rvicevalue: '',
+          //   psdcdscale: '',
+          //   scalevalue: '',
+          //   contribution: '',
+          //   coefficient: '',
+          //   staffpsdcdrank: '',
+          //   rankvalue: '',
+          //   butionevaluation: '',
+          //   butioncoefficient: '',
+          //   unitprice: '',
+          //   totalunit: '',
+          //   common: '',
+          //   psdcdrank: '',
+          //   remarks: '',
+          //   yearunit: '',
+          //   year: '',
+          },
+          code1: 'BP015',
+          code2: 'BP016',
+          code3: 'BP017',
+          code4: 'BP018',
+          code5: 'BP019',
+          code6: 'BP020',
+          code7: 'BP021',
+          code8: 'BP022',
+          code9: 'BP023',
+          data: [],
+          title: 'title.PFANS6005VIEW',
+          disabled: false,
+          buttonList: [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: true,
+              icon: 'el-icon-check',
+            },
+          ],
+
+        };
+      },
+      mounted() {
+        this.getpriceset();
+      },
+      created() {
+        this.disable = this.$route.params.disabled;
+        if (this.disable) {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+      },
       methods: {
         getRowClass({row, column, rowIndex, columnIndex}) {
           if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
@@ -299,9 +668,154 @@
               background: '#005BAA',
             };
           }
-
         },
-      }
+        getpriceset() {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6005Store/getpriceset', {})
+            .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                // 技術スキル
+                // if (response[j].technical !== null && response[j].technical !== "") {
+                  let technical = getDictionaryInfo(response[j].technical);
+                  if (technical != null) {
+                    debugger;
+                    response[j].technical = technical.value1;
+                    response[j].technology = technical.value2;
+                    console.log("ssssdasdasd" + response[j].technology)
+                  }
+                // }
+              }
+              this.tableData = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
+        },
+        updatepriceset() {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6005Store/updatepriceset', this.tableData)
+            .then(response => {
+              Message({
+                message: this.$t("normal.success_02"),
+                type: "success",
+                duration: 5 * 1000
+              });
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        },
+        buttonClick(val) {
+          if (val === 'save') {
+            this.updatepriceset();
+            this.getpriceset();
+          }
+        },
+        changetechnical(val){
+          this.tableData.technical = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.technology = dictionaryInfo.value2;
+            console.log("asdasda  " + this.tableData.technology);
+          }
+        },
+        changemanagement(val){
+          this.tableData.management = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.value = dictionaryInfo.value2;
+            console.log("asdasda  " + this.tableData.value);
+          }
+        },
+        changefieldskills(val){
+          this.tableData.fieldskills = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.field = dictionaryInfo.value2;
+            console.log("asdasda  " + this.tableData.field);
+          }
+        },
+        changelanguage(val){
+          this.tableData.language = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.languagevalue = dictionaryInfo.value2;
+            console.log("asdasda  " + this.tableData.languagevalue);
+          }
+        },
+        changeworkskills(val){
+          this.tableData.workskills = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.service = dictionaryInfo.value2;
+            console.log("asdasda  " + this.tableData.service);
+          }
+        },
+        changeevaluation(val){
+          this.tableData.evaluation = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.tableData.rvicevalue = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.rvicevalue);
+          }
+        },
+        changepsdcdscale(val){
+          this.tableData.psdcdscale = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.form.scalevalue = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.scalevalue);
+          }
+        },
+        changecontribution(val){
+          this.tableData.contribution = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.form.coefficient = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.coefficient);
+          }
+        },
+        changestaffpsdcdrank(val){
+          this.tableData.staffpsdcdrank = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.form.rankvalue = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.rankvalue);
+          }
+        },
+        changebutionevaluation(val){
+          this.tableData.butionevaluation = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.form.butioncoefficient = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.butioncoefficient);
+          }
+        },
+        changepsdcdrank(val){
+          this.tableData.psdcdrank = val;
+          let dictionaryInfo = getDictionaryInfo(val);
+          if (dictionaryInfo) {
+            this.form.psdcdrank = dictionaryInfo.value2;
+            console.log("asdasda  " + this.form.psdcdrank);
+          }
+        },
+
+      },
     }
 </script>
 

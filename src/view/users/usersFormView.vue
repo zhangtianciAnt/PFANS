@@ -1324,8 +1324,8 @@
           callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
         } else {
           let params = {
-            id: this.$route.params._id,
-            mobilenumber: value
+              id: this.$route.params._id,
+              mobilenumber: value
           };
           this.$store
             .dispatch("usersStore/mobileCheck", params)

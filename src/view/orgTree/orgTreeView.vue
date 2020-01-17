@@ -17,11 +17,11 @@
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="companyForm"
                          label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
                          v-show="currentNode.type === '1'" :disabled="formDisabled">
-                  <el-form-item prop="name" label="公司简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
+                  <el-form-item prop="name" label="简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
                     <el-input v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.companyshortname}}</span>
                   </el-form-item>
-                  <el-form-item prop="lessname" label="公司全称" @mouseover.native="changeflag('namelessflag',true)" @mouseout.native="changeflag('namelessflag',false)">
+                  <el-form-item prop="lessname" label="全称" @mouseover.native="changeflag('namelessflag',true)" @mouseout.native="changeflag('namelessflag',false)">
                     <el-input v-model="currentNode.companyname" v-show="namelessflag"></el-input>
                     <span v-show="!namelessflag">{{currentNode.companyname}}</span>
                   </el-form-item>
@@ -42,6 +42,9 @@
                   <!--</el-date-picker>-->
                   <!--<span v-show="!timeflag">{{currentNode.establish == null ? '' : formattime(currentNode.establish)}}</span>-->
                   <!--</el-form-item>-->
+                  <el-form-item prop="user" label="组织负责人">
+                    <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
+                  </el-form-item>
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
@@ -50,7 +53,7 @@
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="departmentForm"
                          label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
                          v-show="currentNode.type !== '1'" :disabled="formDisabled">
-                  <el-form-item prop="departmentname" label="部门名称"
+                  <el-form-item prop="departmentname" label="名称"
                                 @mouseover.native="changeflag('nameflag',true)"
                                 @mouseout.native="changeflag('nameflag',false)"
                                 :rules="[{ required: true, message: '请输入部门名称', trigger: 'blur' }]">
@@ -59,6 +62,9 @@
                   </el-form-item>
                   <el-form-item label="上级组织" prop="cname">
                     <span >{{currentNode.upcompany}}</span>
+                  </el-form-item>
+                  <el-form-item prop="user" label="组织负责人">
+                    <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
                   </el-form-item>
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
@@ -79,11 +85,13 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import { parseTime } from '@/utils/customize'
   import { Message } from 'element-ui'
+  import user from "../components/user.vue";
   export default {
     name: 'orgTreeView',
     components: {
       EasyTree,
-      EasyButtonBar
+      EasyButtonBar,
+      user
     },
     data () {
       return {
@@ -121,6 +129,9 @@
       }
     },
     methods: {
+      getUserids(val){
+        this.currentNode.user = val;
+      },
       getButtonAuth (data) {
         this.$store
           .dispatch('tableStore/getActionsAuth', data.owner)
@@ -256,6 +267,7 @@
           this.companyFormcheck = Object.assign({}, this.currentNode)
           this.loading = true
           this.currentNode.title = this.currentNode.type === '1' ? this.currentNode.companyshortname : this.currentNode.departmentname
+          debugger
           this.$store
             .dispatch('orgTreeStore/saveTree', dataArray[0])
             .then((response) => {

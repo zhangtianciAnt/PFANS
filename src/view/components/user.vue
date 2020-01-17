@@ -23,7 +23,7 @@
                       @row-click="handleClickChange" @row-dblclick="handleClickChange" @selection-change="handleSelectionChange"
               :data="tableList" row-key="_id"
               style="width: 100%">
-              <el-table-column reserve-selection type="selection" width="55">
+              <el-table-column reserve-selection type="selection" width="55" v-if="isShow">
               </el-table-column>
               <el-table-column
                 prop="customername"
@@ -117,9 +117,18 @@
             }
           }
         }
+      }else{
+        this.multipleSelection = [];
       }
     },
     watch: {
+      selectType(val){
+        if(val === 'mult'){
+          this.isShow = true
+        }else{
+          this.isShow =false
+        }
+      },
       userlist(val) {
         if (val) {
           this.multipleSelection = [];

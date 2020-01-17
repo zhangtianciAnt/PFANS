@@ -1,4 +1,5 @@
-import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,getOvertimelist,getReplacerest} from './PFANS2016Api'
+import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
+        getOvertimelist,getReplacerest} from './PFANS2016Api'
 
 const PFANS2016Store = {
   namespaced: true,
@@ -34,7 +35,16 @@ const PFANS2016Store = {
       })
     },
 
-    updatePfans2016({commit}, data) {
+    async updatePfans2016({commit}, data) {
+      if(data.errortype === 'PR013005'){
+        let userid = {user_id:data.user_id}
+        let slectToken = await getReplacerest(userid);
+        if(slectToken.data.length >= 0){
+          return new Promise((resolve, reject) => {
+            resolve('PR013005');
+          })
+        }
+      }
       return new Promise((resolve, reject) => {
         updatePfans2016(data).then(response => {
           if (response.code === 0) {

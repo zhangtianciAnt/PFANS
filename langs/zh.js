@@ -114,6 +114,7 @@ module.exports = {
     error_plandate: '当前时间段存在盘点计划！',
     error_greaterequal: '周末加班时间必须大于等于8小时',
     error_overtime: '周末加班时间必须大于等于8小时！',
+    error_retire: '先休代休，再休年假！',
   },
   menu: {
     homePageManagement: '首页',
@@ -346,7 +347,7 @@ module.exports = {
     node_remarks: '注意事项',
     user_type: '审批人类型',
     user_type_0: '指定用户',
-    user_type_1: '逐级审批',
+    user_type_1: '直属上级',
     user_type_2: '画面指定',
     user_name: '姓名',
     year: '年',
