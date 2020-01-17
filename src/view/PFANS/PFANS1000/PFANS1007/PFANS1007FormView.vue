@@ -119,7 +119,7 @@
                   <el-form-item :label="$t('label.PFANS1007FORMVIEW_REASONSFORQUOTATION')" label-width="6rem"
                                 v-show="show">
                     <el-input v-model="form.reasonsforquotation" :disabled="!disabled"
-                              style="width: 70vw;padding-left:2rem" type="textarea"></el-input>
+                              style="width: 70vw" type="textarea"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
