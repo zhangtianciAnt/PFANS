@@ -113,6 +113,7 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         this.form.user_id = this.userlist;
+        this.loading = false;
         if (this.userlist !== null && this.userlist !== "") {
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
           this.form.jobnumber = lst.userinfo.jobnumber;
@@ -129,19 +130,16 @@
     },
     methods: {
       getUserids(val) {
-        this.userlist = val;
         this.form.user_id = val;
         let lst = getUserInfo(val);
         if(lst){
           this.form.jobnumber = lst.userinfo.jobnumber;
           this.form.job = lst.userinfo.post;
         }
-        else{
-          this.form.jobnumber  = '';
-          this.form.job = '';
-        }
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');
+          this.form.jobnumber='',
+           this.form.job=""
         } else {
           this.error = "";
         }

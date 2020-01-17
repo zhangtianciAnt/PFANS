@@ -344,7 +344,7 @@
                     })
                 } else {
                     this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
-                    this.params.years = moment(this.day).format('YYYY');
+                  this.params.years = this.yearsModel;
                     this.loading = true;
                     this.$store
                         .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
