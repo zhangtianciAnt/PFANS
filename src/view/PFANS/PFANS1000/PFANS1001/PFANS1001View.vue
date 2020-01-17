@@ -74,42 +74,6 @@
         </div>
       </div>
       <div>
-        <div @click="submitForm(7)" class="m-content">
-          <el-col :span="18">
-          <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1007')}}
-          </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png6" class="m-img">
-          </el-col>
-        </div>
-      </div>
-      <div>
-        <div @click="submitForm(8)" class="m-content">
-          <el-col :span="18">
-          <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1008')}}
-          </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png7" class="m-img">
-          </el-col>
-        </div>
-      </div>
-      <div>
-        <div @click="submitForm(9)" class="m-content">
-          <el-col :span="18">
-          <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1009')}}
-          </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png8" class="m-img">
-          </el-col>
-        </div>
-      </div>
-      <div>
         <div @click="submitForm(10)" class="m-content">
           <el-col :span="18">
           <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
@@ -189,12 +153,6 @@
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1005FormView");
         } else if (val === 6) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1006FormView");
-        } else if (val === 7) {
-          this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1007FormView");
-        } else if (val === 8) {
-          this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1008FormView");
-        } else if (val === 9) {
-          this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1009FormView");
         } else if (val === 10) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1010FormView");
         } else if (val === 11) {

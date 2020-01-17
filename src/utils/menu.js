@@ -526,10 +526,10 @@ export function menu() {
                   'menuicon': '',
                   'children': [
                     {
-                      '_id': 'PFANS1001',
-                      'name': 'menu.PFANS1001',
+                      '_id': 'PFANS1037',
+                      'name': 'menu.PFANS1037',
                       'menuvisible': true,
-                      'menuurl': '/PFANS1001View',
+                      'menuurl': '/PFANS1037View',
                       'menuicon': '',
                       'children': [],
                       'actions': [

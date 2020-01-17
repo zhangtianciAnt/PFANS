@@ -384,7 +384,7 @@
                         name: 'PFANS3006FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disable: true
                         }
                     })
                 }
@@ -393,7 +393,7 @@
                         name: 'PFANS3006FormView',
                         params: {
                             _id: '',
-                            disabled: true
+                            disable: true
                         }
                     })
                 }
@@ -410,7 +410,7 @@
                         name: 'PFANS3006FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disable: false
                         }
                     })
                 }
