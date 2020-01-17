@@ -25,6 +25,23 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item
+                :label="$t('label.PFANS2002VIEW_BIRTHDAY')"
+                prop="birthday"
+              >
+                <el-date-picker
+                  :disabled="disabled"
+                  :placeholder="$t('normal.error_09')"
+                  class="width"
+                  type="date"
+                  style="width:20vw"
+                  v-model="form.birthday"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
               <el-form-item :error="erroracceptdate" :label="$t('label.PFANS2003VIEW_ACCEPTDATE')" prop="accept_date">
                 <el-date-picker
                   :disabled="!disable"
@@ -34,8 +51,6 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="8">
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
@@ -361,6 +376,7 @@
           interviewrecord_id: '',
           name: '',
           sex: '',
+          birthday: "",
           accept_date: '',
           interviewdep: '',
           interview_date: '',
@@ -405,6 +421,10 @@
             message: this.$t('normal.error_09') + this.$t('label.sex'),
             trigger: 'change',
           }],
+          birthday: [{
+            required: true,
+            message: this.$t("normal.error_08")+ this.$t('label.PFANS2002VIEW_BIRTHDAY'),
+            trigger: 'change'}],
           accept_date: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),

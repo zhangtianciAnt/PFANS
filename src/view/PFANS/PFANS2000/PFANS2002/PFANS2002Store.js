@@ -2,8 +2,10 @@ import {
   get,
   insert,
   update,
-  getOne
+  getOne,
+  getNameList
 } from './PFANS2002Api'
+
 
 const PFANS2002Store = {
   namespaced: true,
@@ -59,6 +61,19 @@ const PFANS2002Store = {
           }
         }).catch(error => {
           console.log(error)
+          reject(error);
+        })
+      })
+    },
+    getNameList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getNameList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
           reject(error);
         })
       })
