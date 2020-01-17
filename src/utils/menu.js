@@ -699,6 +699,20 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'user',
+                  'name': 'menu.user',
+                  'menuvisible': true,
+                  'menuurl': '/usersView',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "user_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "user_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "user_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "user_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS2026',
                   'name': 'menu.PFANS2026',
                   'menuvisible': true,
@@ -1258,20 +1272,6 @@ export function menu() {
                 {"_id": "org_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                 {"_id": "org_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                 {"_id": "org_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-              ]
-            },
-            {
-              '_id': 'user',
-              'name': 'menu.user',
-              'menuvisible': true,
-              'menuurl': '/usersView',
-              'menuicon': '',
-              'children': [],
-              'actions': [
-                {"_id": "user_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                {"_id": "user_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                {"_id": "user_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                {"_id": "user_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
               ]
             },
             {
