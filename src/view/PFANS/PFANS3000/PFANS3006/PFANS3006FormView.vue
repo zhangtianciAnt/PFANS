@@ -89,7 +89,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
-                <el-input disabled="false"
+                <el-input :disabled="false"
                 style="width:20vw"
                 v-model="form.diffdata"></el-input>
               </el-form-item>
@@ -294,6 +294,7 @@
         title: "title.PFANS3006VIEW",
         buttonList: [],
         show: false,
+        show2: false,
         form: {
           centerid: '',
           groupid: '',
@@ -425,7 +426,7 @@
       }
     },
     created() {
-      this.disable = this.$route.params.disabled;
+      this.disable = this.$route.params.disable;
       if (this.disable) {
         this.buttonList = [
           {
