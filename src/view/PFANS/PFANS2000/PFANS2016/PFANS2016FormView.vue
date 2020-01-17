@@ -38,9 +38,10 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_ERRORTYPE')" prop="errortype">
+              <el-form-item :error="errort" :label="$t('label.PFANS2016FORMVIEW_ERRORTYPE')" prop="errortype">
                 <dicselect
                   :code="code"
+                  :error="errort"
                   :data="form.errortype"
                   :disabled="!disable"
                   :multiple="multiple"
@@ -167,16 +168,16 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import PFANS2016View from '../PFANS2016/PFANS2016View.vue';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import moment from 'moment';
-  import {getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import PFANS2016View from '../PFANS2016/PFANS2016View.vue';
+    import {Message} from 'element-ui';
+    import dicselect from '../../../components/dicselect.vue';
+    import user from '../../../components/user.vue';
+    import {getOrgInfoByUserId} from '@/utils/customize';
+    import moment from 'moment';
+    import {getDictionaryInfo,uploadUrl,getDepartmentById} from '../../../../utils/customize';
 
-  export default {
+    export default {
     name: 'PFANS2016FormView',
     components: {
       EasyNormalContainer,
@@ -186,7 +187,7 @@
     },
     data() {
       var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+        if (!value || value === '' || value ==="undefined") {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
@@ -216,82 +217,82 @@
           callback();
         }
       };
-      var validateEndtime = (rule, value, callback) => {
-        if (this.form.periodend !== null && this.form.periodend !== '') {
-          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
-            || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
-            callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
-            this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
-          } else {
-            this.clearValidate(['periodstart', 'occurrencedate', 'finisheddate']);
+      var validateEndtime = (rule, value, callback) => {
+        if (this.form.periodend !== null && this.form.periodend !== '') {
+          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
+            ||(moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
+            callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
+            this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
+          } else {
+            this.clearValidate(["periodstart","occurrencedate","finisheddate"]);
             callback();
-            this.errorendtime = '';
+            this.errorendtime = '';
           }
-        } else {
-          this.clearValidate(['periodstart', 'occurrencedate', 'periodend']);
+        } else {
+          this.clearValidate(["periodstart","occurrencedate","periodend"]);
           callback();
-          this.errorendtime = '';
+          this.errorendtime = '';
         }
       };
-      var validateStarttime = (rule, value, callback) => {
-        if (this.form.periodstart !== null && this.form.periodstart !== '') {
-          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
-            || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-          ) {
-            callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
-            this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
+      var validateStarttime = (rule, value, callback) => {
+        if (this.form.periodstart !== null && this.form.periodstart !== '') {
+          if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
+            ||(moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
+          ) {
+            callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
+            this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
             return;
-          } else {
+          } else {
             callback();
-            this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-            this.errorstarttime = '';
+            this.clearValidate(["periodend","occurrencedate","periodstart"]);
+            this.errorstarttime = '';
           }
-        } else {
+        } else {
           callback();
-          this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-          this.errorstarttime = '';
+          this.clearValidate(["periodend","occurrencedate","periodstart"]);
+          this.errorstarttime = '';
         }
       };
-      var validateEnddate = (rule, value, callback) => {
-        debugger
-        if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
-          if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
-          } else {
-            if (moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)) {
-              if (this.form.periodstart > this.form.periodend) {
-                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+      var validateEnddate = (rule, value, callback) => {
+        if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
+          if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
+          } else {
+            if(moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)){
+              if(this.form.periodstart > this.form.periodend){
+                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
                 return;
               }
             }
             callback();
-            this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
+            this.clearValidate(["occurrencedate","periodend","periodstart"]);
           }
-        } else {
+        } else {
           callback();
-          this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
+          this.clearValidate(["occurrencedate","periodend","periodstart"]);
         }
       };
-      var validateStartdate = (rule, value, callback) => {
-        if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
-          if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
-          } else {
-            if (moment(value).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)) {
-              if (this.form.periodstart > this.form.periodend) {
-                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+      var validateStartdate = (rule, value, callback) => {
+        if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
+          if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+          } else {
+            if(moment(value).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)){
+              if(this.form.periodstart > this.form.periodend){
+                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
               }
             }
             callback();
-            this.clearValidate(['finisheddate', 'periodend', 'periodstart']);
+            this.clearValidate(["finisheddate","periodend","periodstart"]);
           }
-        } else {
+        } else {
           callback();
-          this.clearValidate(['finisheddate', 'periodend', 'periodstart']);
+          this.clearValidate(["finisheddate","periodend","periodstart"]);
         }
       };
       return {
         loading: false,
+        errort:'',
         errorendtime: '',
         errorstarttime: '',
         options: [],
@@ -330,10 +331,10 @@
         relation: '',
         rules: {
           user_id: [{
-            required: true,
-            validator: validateUserid,
-            trigger: 'change',
-          }],
+              required: true,
+              validator: validateUserid,
+              trigger: 'change',
+            }],
           occurrencedate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.startdate'),
@@ -384,18 +385,18 @@
             this.form = response;
             this.userlist = this.form.user_id;
             this.relation = this.form.relation;
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
+              if (this.form.status === '2') {
+                  this.disable = false;
+              }
             this.getOvertimelist();
-            if (this.form.uploadfile != '') {
-              let uploadfile = this.form.uploadfile.split(';');
+            if (this.form.uploadfile != "") {
+              let uploadfile = this.form.uploadfile.split(";");
               for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(',')[0] != '') {
+                if (uploadfile[i].split(",")[0] != "") {
                   let o = {};
-                  o.name = uploadfile[i].split(',')[0];
-                  o.url = uploadfile[i].split(',')[1];
-                  this.fileList.push(o);
+                  o.name = uploadfile[i].split(",")[0];
+                  o.url = uploadfile[i].split(",")[1];
+                  this.fileList.push(o)
                 }
               }
             }
@@ -436,9 +437,9 @@
       }
     },
     methods: {
-      clearValidate(prop) {
-        this.$refs['ruleForm'].fields.forEach((e) => {
-          if (prop.includes(e.prop)) {
+      clearValidate(prop){
+        this.$refs["ruleForm"].fields.forEach( (e) =>{
+          if (prop.includes(e.prop)) {
             e.clearValidate();
           }
         });
@@ -556,20 +557,20 @@
         }
       },
       getUserids(val) {
-        if (val === 'undefined') {
-          this.userlist = '1';
-          return;
+        if(val === "undefined"){
+          this.userlist = "1"
+          return
         }
-        this.form.user_id = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
-        }
+           this.form.user_id = val;
+           let lst = getOrgInfoByUserId(val);
+           this.form.centerid = lst.centerNmae;
+           this.form.groupid = lst.groupNmae;
+           this.form.teamid = lst.teamNmae;
+           if (!this.form.user_id || this.form.user_id === '' || val ==="undefined") {
+             this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+           } else {
+             this.error = '';
+           }
 
       },
       getErrorType(val) {
@@ -610,32 +611,32 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('update');
+        this.buttonClick("update");
       },
       start() {
         this.form.status = '2';
-        this.buttonClick('update');
+        this.buttonClick("update");
       },
       end() {
         this.form.status = '0';
-        this.buttonClick('update');
+        this.buttonClick("update");
       },
-      fileError(err, file, fileList) {
+      fileError(err, file, fileList){
         Message({
-          message: this.$t('normal.error_04'),
+          message: this.$t("normal.error_04"),
           type: 'error',
-          duration: 5 * 1000,
+          duration: 5 * 1000
         });
       },
-      fileRemove(file, fileList) {
+      fileRemove(file, fileList){
         this.fileList = [];
-        this.form.uploadfile = '';
+        this.form.uploadfile = "";
         for (var item of fileList) {
           let o = {};
           o.name = item.name;
           o.url = item.url;
           this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
+          this.form.uploadfile += item.name + "," + item.url + ";"
         }
       },
       fileDownload(file) {
@@ -643,10 +644,11 @@
           var url = downLoadUrl(file.url);
           window.open(url);
         }
+
       },
       fileSuccess(response, file, fileList) {
         this.fileList = [];
-        this.form.uploadfile = '';
+        this.form.uploadfile = "";
         for (var item of fileList) {
           let o = {};
           o.name = item.name;
@@ -656,20 +658,13 @@
             o.url = item.url;
           }
           this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
+          this.form.uploadfile += o.name + "," + o.url + ";"
         }
       },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            this.loading = true;
-            //年休判断
-            if (this.form.errortype === 'PR013005'){
-              if(this.getReplacerest()){
-                return;
-              }
-              alert(this.getReplacerest());
-            }
+            this.errort = '';
             let letrelation = '';
             for (let j = 0; j < this.form.relation.length; j++) {
               letrelation = letrelation + ',' + this.form.relation[j];
@@ -677,21 +672,28 @@
             this.form.relation = letrelation.substring(1, letrelation.length);
             if (this.$route.params._id) {
               this.form.abnormalid = this.$route.params._id;
+              this.loading = true;
               this.$store
                 .dispatch('PFANS2016Store/updatePfans2016', this.form)
                 .then(response => {
-                  this.data = response;
                   this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
+                  if(response === 'PR013005'){
+                      this.errort = this.$t('normal.ERROR_RETIRE');
                   }
+                  else{
+                      this.data = response;
+                      if(val !== "update"){
+                          Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                          });
+                          if (this.$store.getters.historyUrl) {
+                              this.$router.push(this.$store.getters.historyUrl);
+                          }
+                      }
+                  }
+
                 })
                 .catch(error => {
                   Message({
@@ -728,31 +730,6 @@
             }
           }
         });
-      },
-      //年休判断
-      getReplacerest(){
-        this.$store
-          .dispatch('PFANS2016Store/getReplacerest', {userid:this.form.user_id})
-          .then(response => {
-            debugger;
-            this.loading = false;
-            if(response.length > 0){
-              Message({
-                message: this.$t('normal.error_retire'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              return true;
-            }
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       },
     },
   };

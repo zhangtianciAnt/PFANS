@@ -61,8 +61,8 @@ export default {
           filter: true
         },
         {
-          code: "mobilenumber",
-          label: "label.user_mobile",
+          code: "extension",
+          label: "label.PFANSUSERFORMVIEW_EXTENSION",
           width: 110,
           fix: false,
           filter: true
@@ -117,9 +117,9 @@ export default {
           filter: true
         },
         {
-          code: "nationality",
-          label: "label.PFANSUSERVIEW_NATIONALITY",
-          width: 90,
+          code: "budgetunit",
+          label: "label.budgetunit",
+          width: 120,
           fix: false,
           filter: true
         },
@@ -364,7 +364,6 @@ export default {
               delete o.userinfo;
               _tableList.push(o);
             });
-
             for (var j = 0; j < _tableList.length; j++) {
               let result = "";
               for (var i = 0; i < _tableList[j].departmentid.length; i++) {
@@ -401,6 +400,12 @@ export default {
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
               }else{
                 _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+              }
+              if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
+                let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
+                if (letbudge) {
+                  _tableList[j].budgetunit = letbudge.value1;
+                }
               }
             }
           }
@@ -472,7 +477,7 @@ export default {
   mounted() {
     this.getInitData();
     this.$store.commit("global/SET_OPERATEID", "");
-     this.$store.commit(
+    this.$store.commit(
           "usersStore/SET_ORGS",
           this.$refs.treeCom.$refs.treeCom
         );
