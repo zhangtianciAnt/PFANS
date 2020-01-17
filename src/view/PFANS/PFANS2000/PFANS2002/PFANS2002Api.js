@@ -33,6 +33,11 @@ export function getOne(data) {
       id:data
     }
   })
-
-
+}
+export function getNameList(data) {
+  return request({
+    url: 'recruitjudgement/getNameList',
+    method: 'POST',
+    data:data
+  })
 }

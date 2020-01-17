@@ -19,22 +19,25 @@
           >
             <el-row>
               <el-col :span="8">
-                <el-form-item
-                  :label="$t('label.user_name')"
-                  prop="name"
-                >
-                  <!--<el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.name"></el-input>-->
-
-
-
-
-
-
-
-                  <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                <el-form-item :error="errorname" :label="$t('label.user_name')" prop="name">
+                  <div class="dpSupIndex" style="width: 20vw" prop="name">
                     <el-container>
-                      <input class="content bg" v-model="form.name" :error="errorsuppliername"
+                      <input class="content bg" v-model="form.name"  :error="errorname"
                              :disabled="true"></input>
+                      <!--<el-select-->
+                        <!--:disabled="disabled"-->
+                        <!--class="width"-->
+                        <!--v-model="form.sex"-->
+                        <!--style="width:20vw"-->
+                      <!--&gt;-->
+                        <!--<el-option-->
+                          <!--:key="item.value"-->
+                          <!--:label="item.label"-->
+                          <!--:value="item.value"-->
+                          <!--v-for="item in options"-->
+                        <!--&gt;</el-option>-->
+                      <!--</el-select>-->
+
                       <el-button :disabled="disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                  size="small"></el-button>
                       <el-dialog  :visible.sync="dialogTableVisible" center size="50%"
@@ -42,27 +45,26 @@
                                  append-to-body>
                         <div style="text-align: center">
                           <el-row style="text-align: center;height: 90%;overflow: hidden">
-                            <!--<el-table-->
-                              <!--:data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"-->
-                              <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
-                              <!--:span-method="arraySpanMethod" @row-click="handleClickChange">-->
-                              <!--<el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"-->
-                                               <!--width="150"></el-table-column>-->
-                              <!--<el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
-                                               <!--width="100"></el-table-column>-->
-                              <!--<el-table-column property="contactinformation"-->
-                                               <!--:label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
-                                               <!--width="150"></el-table-column>-->
-                              <!--<el-table-column-->
-                                <!--align="right" width="230">-->
-                                <!--<template slot="header" slot-scope="scope">-->
-                                  <!--<el-input-->
-                                    <!--v-model="search"-->
-                                    <!--size="mini"-->
-                                    <!--placeholder="请输入供应商关键字搜索"/>-->
-                                <!--</template>-->
-                              <!--</el-table-column>-->
-                            <!--</el-table>-->
+                            <el-table
+                              :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                              height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                              :span-method="arraySpanMethod" @row-click="handleClickChange">
+                              <el-table-column property="name" :label="$t('label.user_name')"
+                                               width="150"></el-table-column>
+                              <el-table-column property="sex" :label="$t('label.sex')"
+                                               width="100"></el-table-column>
+                              <el-table-column property="birthday" :label="$t('label.PFANS2002VIEW_BIRTHDAY')"
+                                               width="100"></el-table-column>
+                              <el-table-column
+                                align="right" width="230">
+                                <template slot="header" slot-scope="scope">
+                                  <el-input
+                                    v-model="search"
+                                    size="mini"
+                                    :placeholder="$t('label.PFANS2002FORMVIEW_CHECK')"/>
+                                </template>
+                              </el-table-column>
+                            </el-table>
                           </el-row>
                           <span slot="footer" class="dialog-footer">
                           <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
@@ -72,40 +74,16 @@
                     </el-container>
                   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.sex')" prop="sex">
-                  <el-select
-                    :disabled="disabled"
-                    :placeholder="$t('normal.error_09')"
-                    class="width"
-                    v-model="form.sex"
-                    style="width:20vw"
-                  >
-                    <el-option
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      v-for="item in sex_options"
-                    ></el-option>
-                  </el-select>
+                  <dicselect
+                    :data="form.sex"
+                    :disabled="!disabled"
+                    :multiple="multiple"
+                    style="width: 20vw">
+                  </dicselect>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -334,11 +312,54 @@
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane
-            :label="$t('label.PFANS2002FORMVIEW_INTERVIEW')"
-            name="third"
-            style="padding-top:10px;padding-left:10px"
-          >
+          <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_INTERVIEW')" name="third" style="padding-top:10px">
+           <el-row>
+             <el-col :span="8">
+               <el-form-item
+                 :label="$t('label.PFANS2002FORMVIEW_INTIME')"
+                 prop="intime"
+               >
+                 <el-date-picker
+                   :disabled="disabled"
+                   :placeholder="$t('normal.error_09')"
+                   class="width"
+                   type="date"
+                   style="width:20vw"
+                   v-model="form.intime"
+                 ></el-date-picker>
+               </el-form-item>
+             </el-col>
+             <el-col :span="8">
+               <el-form-item
+                 :label="$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')"  prop="expectedtime">
+                 <el-date-picker
+                   :disabled="disabled"
+                   :placeholder="$t('normal.error_09')"
+                   class="width"
+                   type="date"
+                   style="width:20vw"
+                   v-model="form.expectedtime"
+                 ></el-date-picker>
+               </el-form-item>
+             </el-col>
+             <el-col :span="8">
+               <el-form-item
+                 :label="$t('label.PFANS2026VIEW_ENTRYTIME')"  prop="entrytime">
+                 <el-date-picker
+                   :disabled="disabled"
+                   :placeholder="$t('normal.error_09')"
+                   class="width"
+                   type="date"
+                   style="width:20vw"
+                   v-model="form.entrytime"
+                 ></el-date-picker>
+               </el-form-item>
+             </el-col>
+           </el-row>
+
+
+
+
             <el-row >
               <el-col :span="24">
             <el-table
@@ -527,28 +548,57 @@
     import user from "../../../components/user";
     import org from "../../../components/org";
     import {uploadUrl} from '../../../../utils/customize';
+    import {getDictionaryInfo} from '../../../../utils/customize';
+    import moment from "moment";
     import {Message} from 'element-ui';
 
     export default {
         name: "PFANS2002FormView",
         components: {EasyNormalContainer, dicselect, user, org},
         data() {
+          var checkname = (rule, value, callback) => {
+            if (!value || value === '' || value === "undefined") {
+              this.errorname = this.$t('normal.error_09') + this.$t('label.user_name');
+              return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+            } else {
+              this.errorname = "";
+              return callback();
+            }
+          };
+          var validexpected = (rule, value, callback) => {
+            if (this.form.expectedtime !== '' && this.form.expectedtime !== null && this.form.intime !== '' && this.form.intime !== null) {
+              if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.expectedtime).format('YYYY-MM-DD')) {
+                callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
+              }
+            }
+            callback();
+          };
+
+          var validentrytime = (rule, value, callback) => {
+            if (this.form.entrytime !== '' && this.form.entrytime !== null && this.form.intime !== '' && this.form.intime !== null) {
+              if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.entrytime).format('YYYY-MM-DD')) {
+                return  callback(new Error(this.$t('label.PFANS2026VIEW_ENTRYTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
+              }
+            }
+            callback();
+          };
+
+
             return {
                 loading: false,
                 display: false,
                 disabled: false,
+                errorname:'',
                 english_show: false,
                 janpanese_show: false,
                 other3_show: false,
+               dialogTableVisible: false,
+              multiple: false,
+              search: '',
+              result: "",
+              gridData: [],
                 num: 0,
                 activeName: "first",
-                sex_options: [
-                    {value: "1", label: this.$t("label.PFANS2002FORMVIEW_BOY")},
-                    {
-                        value: "2",
-                        label: this.$t("label.PFANS2002FORMVIEW_GRIL")
-                    }
-                ],
                 tableData: [
                     {
                         interviewer: "",
@@ -589,6 +639,9 @@
                     specialty3: "",
                     quityear3: "",
 
+                    intime:"",
+                    expectedtime:"",
+                    entrytime:"",
                     remark: "",
                     center_id: "",
                     group_id: "",
@@ -620,12 +673,25 @@
                 fileList: [],
                 upload: uploadUrl(),
                 rules: {
-                    name: [{required: true, message: this.$t("normal.error_08")}],
+                    name: [{required: true, validator: checkname,trigger:'blur'}],
                     sex: [{required: true, message: this.$t("normal.error_08")}],
                     birthday: [{required: true, message: this.$t("normal.error_08")}],
                     education: [{required: true, message: this.$t("normal.error_08")}],
                     specialty: [{required: true, message: this.$t("normal.error_08")}],
-                    quityear: [{required: true, message: this.$t("normal.error_08")}]
+                    quityear: [{required: true, message: this.$t("normal.error_08")}],
+                  expectedtime: [{required: true, validator: validexpected,trigger:'change'}],
+                  intime: [
+                    {required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTIME'),
+                      trigger:'change'},
+                    {
+                      validator: validexpected,trigger:'change'
+                    },
+                    {
+                      validator: validentrytime,trigger:'change'
+                    }
+                  ],
+                  entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
                 }
             };
         },
@@ -643,12 +709,38 @@
             }
         },
         mounted() {
+          this.getNameList();
             if (this.$route.params._id) {
                 this.getOne(this.$route.params._id);
             }
         },
 
         methods: {
+          getNameList() {
+            debugger
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2002Store/getNameList', {})
+              .then(response => {
+                this.gridData = [];
+                for (let i = 0; i < response.length; i++) {
+                  var vote = {};
+                  this.result=response;
+                  vote.name = response[i].name;
+                  vote.sex = getDictionaryInfo(response[i].sex).value1;
+                  this.gridData.push(vote)
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             changeEnglish(val){
                 if(val === 'PR053004'){
                     this.form.english = val
@@ -697,6 +789,25 @@
                     }
                 }
             },
+          submit() {
+            let val = this.currentRow;
+            let lst=this.currentRow2;
+            let lst2=this.currentRow3;
+            this.dialogTableVisible = false;
+            this.form.name = val;
+            this.form.sex=lst;
+            this.form.birthday=lst2;
+          },
+          handleClickChange(val) {
+            this.currentRow = val.name;
+            this.currentRow2=val.sex;
+            this.currentRow3=val.birthday;
+          },
+          arraySpanMethod({row, column, rowIndex, columnIndex}) {
+            if (columnIndex === 3) {
+              return [1, 2];
+            }
+          },
             getOne(id) {
                 this.loading = true;
                 this.$store
@@ -946,8 +1057,24 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
   .width {
     width: 11vw;
+  }
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
   }
 </style>

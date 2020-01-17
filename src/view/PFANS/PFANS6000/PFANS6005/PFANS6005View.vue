@@ -23,7 +23,7 @@
                         //査定時間
                         code: 'checktime',
                         label: 'label.PFANS6005VIEW_CHECKTIME',
-                        width: 120,
+                        width: 90,
                         fix: false,
                         filter: true,
                     },
@@ -31,7 +31,7 @@
                         //单价设定姓名
                         code: 'priname',
                         label: 'label.PFANS2007VIEW_NAME',
-                        width: 130,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -39,7 +39,7 @@
                         //卒業年
                         code: 'graduationyear',
                         label: 'label.PFANS2024VIEW_GRADUATIONYEAR',
-                        width: 120,
+                        width: 90,
                         fix: false,
                         filter: true,
                     },
@@ -47,7 +47,7 @@
                         //会社名
                         code: 'clubname',
                         label: 'label.PFANS1036FORMVIEW_CLUBNAME',
-                        width: 120,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -55,7 +55,7 @@
                         //開発単価微調整（开发单价微调）
                         code: 'priceadjust',
                         label: 'label.PFANS6005VIEW_PRICEADJUST',
-                        width: 150,
+                        width: 130,
                         fix: false,
                         filter: true,
                     },
@@ -63,7 +63,7 @@
                         //開発総単価(开发总单价)
                         code: 'sumprice',
                         label: 'label.PFANS6005VIEW_SUMPRICE',
-                        width: 140,
+                        width: 110,
                         fix: false,
                         filter: true,
                     },
@@ -71,7 +71,7 @@
                         //PSDCD相当ランク
                         code: 'PSDCDgrade',
                         label: 'label.PFANS6005VIEW_PSDCDGRADE',
-                        width: 180,
+                        width: 140,
                         fix: false,
                         filter: true,
                     },
@@ -79,7 +79,7 @@
                         //前年単価
                         code: 'lastyearprice',
                         label: 'label.PFANS6005VIEW_LASTYEARPRICE',
-                        width: 120,
+                        width: 90,
                         fix: false,
                         filter: true,
                     },
@@ -87,7 +87,7 @@
                         //前年差
                         code: 'lastyearpoor',
                         label: 'label.PFANS6005FORMVIEW_LASTYEARPOOR',
-                        width: 110,
+                        width: 80,
                         fix: false,
                         filter: true,
                     },
@@ -95,7 +95,7 @@
                         //备考
                         code: 'note',
                         label: 'label.PFANS6005FORMVIEW_NOTE',
-                        width: 100,
+                        width: 70,
                         fix: false,
                         filter: true,
                     },
