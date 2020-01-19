@@ -8,7 +8,15 @@
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.pjname"></el-input>
+                <!--<el-input :disabled="!disabled" style="width:20vw" v-model="form.pjname"></el-input>-->
+                <el-select v-model="form.pjname" placeholder="请选择" @change="changeOption">
+                  <el-option
+                    v-for="(item,index) in options1"
+                    :key="index"
+                    :label="item.project_name"
+                    :value="item.project_name">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -99,6 +107,7 @@
   import {Message} from 'element-ui'
   import moment from "moment";
   import {valfloat} from '@/utils/validate';
+  import {getUserInfo} from '@/utils/customize';
   export default {
     name: 'PFANS6007FormView',
     components: {
@@ -165,6 +174,7 @@
         }
       };
       return {
+        options1: [],
         loading: false,
         error_pjname: '',
         error_bpclubname:'',
@@ -178,8 +188,8 @@
         multiple: false,
         form: {
           variousfunds_id:'',
-          pjname:'华夏',
-          psdcdwindow:'ndsss',
+          pjname:'',
+          psdcdwindow:'',
           bpclubname:'newserch',
           bpplayer:'汪峰',
           plmonthplan:'',
@@ -237,7 +247,7 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
+      if (this.$route.params._id) {//查看详情
         this.loading = true;
         this.$store
           .dispatch('PFANS6007Store/getvariousfundsApplyOne', {"variousfunds_id": this.$route.params._id})
@@ -253,6 +263,34 @@
             });
             this.loading = false;
           })
+      }else{//新建
+          this.$store
+              .dispatch('PFANS6007Store/getFpans5001List', {})
+              .then(response => {
+                  for(let j=0;j < response.length;j++){
+                      //项目负责人
+                      let item = {username:"",project_name:""};
+                      if(response[j].leaderid !== null && response[j].leaderid !== "") {
+                          let user = getUserInfo(response[j].leaderid);
+                          if (user) {
+                               item.username= user.userinfo.customername;
+                          }
+                      }
+                      if(response[j].project_name !== null && response[j].project_name !== "") {
+                          item.project_name = response[j].project_name
+                      }
+                      this.options1.push(item);
+                  }
+                  this.loading = false;
+              })
+              .catch(error => {
+                  Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                  });
+                  this.loading = false;
+              })
       }
     },
     created() {
@@ -269,6 +307,13 @@
       }
     },
     methods: {
+      changeOption(val){
+          for(let i=0;i < this.options1.length;i++){
+              if(this.options1[i].project_name === val){
+                  this.form.psdcdwindow = this.options1[i].username;
+              }
+          }
+      },
       getYear(val) {
         this.form.year = val;
       },
