@@ -31,3 +31,13 @@ export function createvariousfundsApply(data) {
     data: data
   })
 }
+
+
+//获取流程列表
+export function getFpans5001List(data) {
+  return request({
+    url: 'companyprojects/list',
+    method: 'post',
+    data: data
+  })
+}
