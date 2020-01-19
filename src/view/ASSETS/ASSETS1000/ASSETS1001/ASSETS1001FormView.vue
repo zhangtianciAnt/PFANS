@@ -72,7 +72,7 @@
             </el-col>
           </el-row>
           <el-collapse v-show="form.typeassets">
-            <el-collapse-item v-show="form.typeassets === 'PA001002'">
+            <el-collapse-item v-show="form.typeassets === 'PA001001'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -119,7 +119,7 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001003'">
+            <el-collapse-item v-show="form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -201,7 +201,7 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001001'">
+            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>

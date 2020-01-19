@@ -40,14 +40,10 @@
               </el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
               </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_PRICE')" align="center" prop="price">
-              </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_PURCHASETIME')" align="center" prop="purchasetime">
-              </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')" align="center" prop="usedepartment">
-              </el-table-column>
               <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
               </el-table-column>
+              <el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">
+            </el-table-column>
             </el-table>
                 </el-col>
               </el-row>

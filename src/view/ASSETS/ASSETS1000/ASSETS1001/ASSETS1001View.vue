@@ -5,7 +5,7 @@
                      ref="roletable"
                      v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" @close="closed" width="50%">
+    <el-dialog :visible.sync="daoru" @close="closed" width="50%" destroy-on-close>
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
@@ -47,8 +47,8 @@
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="piliang" @close="closed" width="50%">
-      <el-form :model="form" :rules="rules" label-width="80px" ref="form">
+    <el-dialog :visible.sync="piliang" @close="closed" width="50%" destroy-on-close>
+        <el-form :model="form" :rules="rules" label-width="80px" ref="form">
         <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
           <dicselect
             :code="code4"
@@ -279,6 +279,7 @@
       },
       closed() {
         this.getListData();
+        this.$refs.form.resetFields();
       },
       getBartype(val) {
         this.form.bartype = val;

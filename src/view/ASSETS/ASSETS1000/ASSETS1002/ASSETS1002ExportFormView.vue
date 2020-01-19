@@ -10,8 +10,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo} from '@/utils/customize';
-
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
   export default {
     name: 'ASSETS1002ExportFormView',
     components: {
@@ -28,49 +27,28 @@
           {
             code: 'filename',
             label: 'label.ASSETS1001VIEW_FILENAME',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'typeassets',
             label: 'label.ASSETS1001VIEW_TYPEASSETS',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'price',
-            label: 'label.ASSETS1001VIEW_PRICE',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'purchasetime',
-            label: 'label.ASSETS1001VIEW_PURCHASETIME',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'usedepartment',
-            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'principal',
             label: 'label.ASSETS1001VIEW_PRINCIPAL',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'barcode',
             label: 'label.ASSETS1001VIEW_BARCODE',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
@@ -115,6 +93,12 @@
                   response[j].result = this.$t('✔');
                 }
               }
+              if (response[j].bartype !== null && response[j].bartype !== '') {
+                let letbartype1 = getDictionaryInfo(response[j].bartype);
+                if (letbartype1 != null) {
+                  response[j].bartypeName = letbartype1.value1;
+                }
+              }
             }
             this.data = response;
             this.loading = false;
@@ -152,10 +136,9 @@
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'),
-              this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'),
+            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'),
               this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_RESULT')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'principal', 'barcode', 'result'];
+            const filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'result'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('title.ASSETS1002EXPORTFORMVIEW'));
