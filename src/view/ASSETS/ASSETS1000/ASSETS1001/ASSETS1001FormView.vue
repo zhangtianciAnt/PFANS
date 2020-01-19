@@ -1,10 +1,10 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         ref="container">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="ruleForm"
-                 style="padding: 2vw" :rules="rules">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
+                 ref="ruleForm" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">
@@ -69,12 +69,12 @@
               <el-form-item :label="$t('label.ASSETS1001VIEW_BARCODE')">
                 <el-input style="width:20vw" v-model="form.barcode"></el-input>
               </el-form-item>
-           </el-col>
+            </el-col>
           </el-row>
           <el-collapse v-show="form.typeassets">
             <el-collapse-item v-show="form.typeassets === 'PA001002'">
               <template slot="title">
-                <span  class="collapse_Title">{{collapseName}}</span>
+                <span class="collapse_Title">{{collapseName}}</span>
               </template>
               <el-row>
                 <el-col :span="8">
@@ -84,8 +84,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_REALPRICE')">
-                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                     :step="1" style="width:20vw" v-model="form.realprice"></el-input-number>
+                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                                     controls-position="right" style="width:20vw" v-model="form.realprice"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -113,15 +113,15 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                     :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-collapse-item>
             <el-collapse-item v-show="form.typeassets === 'PA001003'">
               <template slot="title">
-                <span  class="collapse_Title">{{collapseName}}</span>
+                <span class="collapse_Title">{{collapseName}}</span>
               </template>
               <el-row>
                 <el-col :span="8">
@@ -149,8 +149,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ORIPRICE')" prop="price">
-                    <el-input-number :min="0" :precision="2" :max="9999" controls-position="right"
-                                     :step="1" style="width:20vw" v-model="form.price"></el-input-number>
+                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -201,6 +201,209 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
+            <el-collapse-item v-show="form.typeassets === 'PA001001'">
+              <template slot="title">
+                <span class="collapse_Title">{{collapseName}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_TONGGUANNO')">
+                    <el-input style="width:20vw" v-model="form.pcno"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
+                    <el-input style="width:20vw" v-model="form.model"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
+                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_HSCODE')">
+                    <el-input style="width:20vw" v-model="form.no"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_INTIME')">
+                    <el-date-picker style="width:20vw" type="date"
+                                    v-model="form.purchasetime"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_YANQIDATE')">
+                    <el-date-picker style="width:20vw" type="date"
+                                    v-model="form.activitiondate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-collapse>
+                  <el-collapse-item>
+                    <template slot="title">
+                      <span class="collapse_Title">入荷確認</span>
+                    </template>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM1')">
+                          <el-switch style="width:20vw" v-model="form.inparams1"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM2')">
+                          <el-switch style="width:20vw" v-model="form.inparams2"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM3')">
+                          <user :selectType="selectType" :userlist="form.inparams3"
+                                @getUserids="getinparams3" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM4')">
+                          <el-date-picker style="width:20vw" type="date"
+                                          v-model="form.inparams4"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM5')">
+                          <el-switch style="width:20vw" v-model="form.inparams5"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM6')">
+                          <user :selectType="selectType" :userlist="form.inparams6"
+                                @getUserids="getinparams6" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM4')">
+                          <el-date-picker style="width:20vw" type="date"
+                                          v-model="form.inparams7"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM7')">
+                          <el-input style="width:20vw" v-model="form.inparams8"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                    </el-row>
+                  </el-collapse-item>
+                  <el-collapse-item>
+                    <template slot="title">
+                      <span class="collapse_Title">出荷確認</span>
+                    </template>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM5')">
+                          <el-input style="width:20vw" v-model="form.outparams1"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM8')">
+                          <user :selectType="selectType" :userlist="form.outparams2"
+                                @getUserids="getoutparams2" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM4')">
+                          <el-date-picker style="width:20vw" type="date"
+                                          v-model="form.outparams3"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM9')">
+                          <el-switch style="width:20vw" v-model="form.outparams4"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM10')">
+                          <el-switch style="width:20vw" v-model="form.outparams5"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM11')">
+                          <el-switch style="width:20vw" v-model="form.outparams6"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM6')">
+                          <user :selectType="selectType" :userlist="form.outparams7"
+                                @getUserids="getoutparams7" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM3')">
+                          <user :selectType="selectType" :userlist="form.outparams8"
+                                @getUserids="getoutparams8" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM4')">
+                          <el-date-picker style="width:20vw" type="date"
+                                          v-model="form.outparams9"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM12')">
+                          <el-switch style="width:20vw" v-model="form.outparams10"></el-switch>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM13')">
+                          <user :selectType="selectType" :userlist="form.outparams11"
+                                @getUserids="getoutparams11" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM14')">
+                          <user :selectType="selectType" :userlist="form.outparams12"
+                                @getUserids="getoutparams12" style="width: 20vw"></user>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM4')">
+                          <el-date-picker style="width:20vw" type="date"
+                                          v-model="form.outparams13"></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM7')">
+                          <el-input style="width:20vw" v-model="form.outparams14"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+                  </el-collapse-item>
+                </el-collapse>
+              </el-row>
+            </el-collapse-item>
           </el-collapse>
         </el-form>
       </div>
@@ -214,9 +417,8 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import moment from 'moment';
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+
   export default {
     name: 'ASSETS1001FormView',
     components: {
@@ -234,8 +436,8 @@
         title: 'title.ASSETS1001FORMVIEW',
         buttonList: [],
         form: {
-          typeassets:'',
-          bartype:''
+          typeassets: '',
+          bartype: ''
         },
         code1: 'PA001',
         code2: 'PA002',
@@ -259,7 +461,7 @@
             trigger: 'change',
           }],
         },
-        collapseName:'',
+        collapseName: '',
       };
     },
     mounted() {
@@ -270,6 +472,10 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.principal;
+            let letErrortype = getDictionaryInfo(this.form.typeassets);
+            if (letErrortype != null) {
+              this.collapseName = letErrortype.value1;
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -285,7 +491,7 @@
     created() {
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        if (this.$route.params._id){
+        if (this.$route.params._id) {
           this.buttonList = [
             {
               key: 'save',
@@ -303,7 +509,7 @@
               icon: 'el-icon-printer',
             },
           ];
-        }else{
+        } else {
           this.buttonList = [
             {
               key: 'save',
@@ -321,6 +527,27 @@
       }
     },
     methods: {
+      getinparams3(val) {
+        this.form.inparams3 = val;
+      },
+      getinparams6(val) {
+        this.form.inparams6 = val;
+      },
+      getoutparams2(val) {
+        this.form.outparams2 = val;
+      },
+      getoutparams7(val) {
+        this.form.outparams7 = val;
+      },
+      getoutparams8(val) {
+        this.form.outparams8 = val;
+      },
+      getoutparams11(val) {
+        this.form.outparams11 = val;
+      },
+      getoutparams12(val) {
+        this.form.outparams12 = val;
+      },
       getUserids(val) {
         this.form.principal = val;
         this.userlist = val;
@@ -347,11 +574,11 @@
         this.form.typeassets = val;
         let letErrortype = getDictionaryInfo(val);
         if (letErrortype != null) {
-          this.collapseName =  letErrortype.value1;
+          this.collapseName = letErrortype.value1;
         }
 
       },
-      getSave(){
+      getSave() {
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -405,13 +632,13 @@
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
-            if(val === 'save'){
+            if (val === 'save') {
               this.getSave();
             }
-            if(val === 'savePrt'){
+            if (val === 'savePrt') {
               this.getSave();
             }
-            if(val === 'printing'){
+            if (val === 'printing') {
             }
           }
         });
