@@ -10,15 +10,8 @@
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                   align="center"
+                  type="index"
                   width="80">
-                  <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disable"
-                      v-model="scope.row.pricesetid"
-                      style="width: 100%">
-                    </el-input>
-                  </template>
                 </el-table-column>
                 <!-- 名前-->
                 <el-table-column
