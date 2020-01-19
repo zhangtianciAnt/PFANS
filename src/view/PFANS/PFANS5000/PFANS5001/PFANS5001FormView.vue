@@ -162,28 +162,17 @@
                         ></dicselect>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
-                        prop="startdate"
-                      >
-                        <el-date-picker
-                          :disabled="!disable"
-                          style="width: 20vw"
-                          type="date"
-                          v-model="form.startdate"
-                        ></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
-                        <el-date-picker
-                          :disabled="!disable"
-                          style="width: 20vw"
-                          type="date"
-                          v-model="form.enddate"
+                      <el-form-item :label="$t('label.PFANS1022FORMVIEW_PERIOD')" prop="startdate">
+                        <el-date-picker unlink-panels
+                                        class="bigWidth"
+                                        :disabled="!disable"
+                                        v-model.trim="form.startdate"
+                                        type="daterange"
+                                        style="width: 20vw"
+                                        :end-placeholder="$t('label.PFANS5001FORMVIEW_ENDDATE')"
+                                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                        :start-placeholder="$t('label.PFANS5001FORMVIEW_STARTDATE')"
                         ></el-date-picker>
                       </el-form-item>
                     </el-col>
@@ -495,14 +484,6 @@
                 <el-row >
                   <el-col :span="24">
                 <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-                  <el-table-column
-                    :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <el-input :disabled="!disable" maxlength="7" v-model="scope.row.numbers"></el-input>
-                    </template>
-                  </el-table-column>
                   <el-table-column :label="$t('label.user_name')" align="center" prop="user_id">
                     <template slot-scope="scope">
                       <user
@@ -513,6 +494,20 @@
                         selectType="Single"
                         style="width:90%"
                       ></user>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_END')" align="center" prop="admission"
+                                   width="370">
+                    <template slot-scope="scope">
+                      <el-date-picker unlink-panels
+                                      class="bigWidth"
+                                      :disabled="!disable"
+                                      v-model.trim="scope.row.admission"
+                                      type="daterange"
+                                      :end-placeholder="$t('label.PFANS2002FORMVIEW_EXITTIME')"
+                                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                      :start-placeholder="$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')"
+                      ></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -622,6 +617,20 @@
 
 -->
 
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_END')" align="center" prop="admissiondate"
+                                   width="370">
+                    <template slot-scope="scope">
+                      <el-date-picker unlink-panels
+                                      class="bigWidth"
+                                      :disabled="!disable"
+                                      v-model.trim="scope.row.admissiondate"
+                                      type="daterange"
+                                      :end-placeholder="$t('label.PFANS2002FORMVIEW_EXITTIME')"
+                                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                      :start-placeholder="$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')"
+                      ></el-date-picker>
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2003FORMVIEW_RN')"
                     align="center" prop="rn">
@@ -713,27 +722,6 @@
           this.errorManager = "";
         }
       };
-      var valiresig = (rule, value, callback) => {
-        if (this.form.startdate && this.form.enddate) {
-          let startdate = moment(this.form.startdate).format("YYYY-MM-DD")
-          let enddate = moment(this.form.enddate).format("YYYY-MM-DD")
-          if (moment(enddate).isBefore(startdate)) {
-            callback(
-              new Error(
-                this.$t("label.PFANS5001FORMVIEW_ENDDATE") +
-                this.$t("normal.error_checkTime1") +
-                this.$t("label.PFANS5001FORMVIEW_STARTDATE")
-              )
-            );
-          } else {
-            this.$refs["from1"].clearValidate();
-            callback();
-          }
-        }else {
-          this.$refs["from1"].clearValidate();
-          callback();
-        }
-      };
       return {
         disable: false,
         customerinfor: [],
@@ -763,7 +751,8 @@
             companyprojects_id: "",
             numbers: "",
             user_id: "",
-            role: ""
+            role: "",
+            admission: []
           }
         ],
         tableR: [
@@ -773,6 +762,7 @@
             bpcompany: "",
             bpname: "",
             rn: "",
+            admissiondate: [],
             rowindex:"",
           }
         ],
@@ -838,24 +828,6 @@
                 this.$t("label.PFANS5001FORMVIEW_FIELD"),
               trigger: "change"
             }
-          ],
-          startdate: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANS5001FORMVIEW_STARTDATE"),
-              trigger: "blur"
-            },{validator: valiresig, trigger: 'change'}
-          ],
-          enddate: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANS5001FORMVIEW_ENDDATE"),
-              trigger: "blur"
-            },{validator: valiresig, trigger: 'change'}
           ],
           manmonth: [
             {
@@ -938,7 +910,7 @@
           basicsituation: "",
           briefintroduction: "",
           requirement: "",
-          uploadfile: ''
+          uploadfile: '',
         },
         multiple: false,
         code: "PP006",
@@ -970,10 +942,29 @@
             if (response.projectplan.length > 0) {
               this.tableD = response.projectplan;
             }
-            if (response.outSources.length > 0) {
-              this.tableR = response.outSources;
+            if (response.outsource.length > 0) {
+                for (let j = 0; j < response.outsource.length; j++) {
+                    if (response.outsource[j].admissiondate !== '' && response.outsource[j].admissiondate !== null) {
+                        let admissiondate = response.outsource[j].admission;
+                        let admissiondat = admissiondate.slice(0, 10);
+                        let admissiondate1 = admissiondate.slice(admissiondate.length - 10);
+                        response.outsource[j].admissiondate = [admissiondat, admissiondate1];
+
+                    }
+                }
+              this.tableR = response.outsource;
             }
             if (response.projectresources.length > 0) {
+                for (let j = 0; j < response.projectresources.length; j++) {
+                if (response.projectresources[j].admission !== '' && response.projectresources[j].admission !== null) {
+                    let admission = response.projectresources[j].admission;
+                    let admissio = admission.slice(0, 10);
+                    let admission1 = admission.slice(admission.length - 10);
+                    response.projectresources[j].admission = [admissio, admission1];
+
+                }
+            }
+
               this.tableE = response.projectresources;
             }
             this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
@@ -1008,28 +999,28 @@
         this.userlist = this.$store.getters.userinfo.userid;
         this.userlist1 = this.$store.getters.userinfo.userid;
       }
-      this.$store
-        .dispatch('PFANS5001Store/getcustomer', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result1 = response;
-            vote.value = response[i].customerinfor_id;
-            vote.label =response[i].custchinese;
-            this.customerinfor.push(vote)
-          }
-        });
-      this.$store
-        .dispatch('PFANS5001Store/getexpat', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result = response;
-            vote.value = response[i].expatriatesinfor_id;
-            vote.label =response[i].expname;
-            this.expatriates.push(vote)
-          }
-        })
+      // this.$store
+      //   .dispatch('PFANS5001Store/getcustomer', {})
+      //   .then(response => {
+      //     for (let i = 0; i < response.length; i++) {
+      //       var vote = {};
+      //       this.result1 = response;
+      //       vote.value = response[i].customerinfor_id;
+      //       vote.label =response[i].custchinese;
+      //       this.customerinfor.push(vote)
+      //     }
+      //   });
+      // this.$store
+      //   .dispatch('PFANS5001Store/getexpat', {})
+      //   .then(response => {
+      //     for (let i = 0; i < response.length; i++) {
+      //       var vote = {};
+      //       this.result = response;
+      //       vote.value = response[i].expatriatesinfor_id;
+      //       vote.label =response[i].expname;
+      //       this.expatriates.push(vote)
+      //     }
+      //   })
     },
 
     created() {
@@ -1044,6 +1035,7 @@
       }
     },
     methods: {
+
       getUserids(val) {
         this.userlist = val;
         this.form.leaderid = val;
@@ -1102,7 +1094,6 @@
       getmanagementtool(val1) {
         this.form.managementtool = val1;
       },
-
       getplantype(val1, row) {
         row.plantype = val1;
       },
@@ -1200,9 +1191,9 @@
           this.tableE=[{
             projectresources_id: "",
             companyprojects_id: "",
-            numbers: "",
             user_id: "",
-            role: " "
+            role: " ",
+            admission: [],
           }]
         }
       },
@@ -1217,6 +1208,7 @@
             bpcompany: "",
             bpname: " ",
             rn: " ",
+            admissiondate: [],
             rowindex:"",
           }]
         }
@@ -1236,9 +1228,9 @@
         this.tableE.push({
           projectresources_id: "",
           companyprojects_id: "",
-          numbers: "",
           user_id: "",
-          role: ""
+          role: "",
+          admission: [],
         });
 
       },
@@ -1249,6 +1241,7 @@
           bpcompany: "",
           bpname: "",
           rn: "",
+          admissiondate: [],
           rowindex:"",
         });
       },
@@ -1281,32 +1274,39 @@
               }
             }
             for (let i = 0; i < this.tableE.length; i++) {
+                let start = moment(this.tableE[i].admission[0]).format('YYYY-MM-DD');
+                let end= moment(this.tableE[i].admission[1]).format('YYYY-MM-DD');
               if (
                 this.tableE[i].numbers !== "" ||
                 this.tableE[i].user_id !== "" ||
-                this.tableE[i].role !== ""
+                this.tableE[i].role !== "" ||
+                this.tableE[i].admission !== 0
               ) {
                 this.baseInfo.projectresources.push({
                   projectresources_id: this.tableE[i].projectresources_id,
                   companyprojects_id: this.tableE[i].companyprojects_id,
                   numbers: this.tableE[i].numbers,
                   user_id: this.tableE[i].user_id,
-                  role: this.tableE[i].role
+                  role: this.tableE[i].role,
+                  admission: moment(this.tableE[i].admission[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableE[i].admission[1]).format('YYYY-MM-DD'),
                 });
               }
+              console.log(this.baseInfo.projectresources);
             }
-            for (let i = 0; i < this.tableR.length; i++) {
+            for (let j = 0; j < this.tableR.length; j++) {
               if (
-                this.tableR[i].bpcompany !== "" ||
-                this.tableR[i].bpname !== "" ||
-                this.tableR[i].rn !== ""
+                this.tableR[j].bpcompany !== "" ||
+                this.tableR[j].bpname !== "" ||
+                this.tableR[j].rn !== "" ||
+                this.tableR[j].admissiondate !== ""
               ) {
                 this.baseInfo.outSources.push({
-                  outsource_id: this.tableR[i].outsource_id,
-                  companyprojects_id: this.tableR[i].companyprojects_id,
-                  bpcompany: this.tableR[i].bpcompany,
-                  bpname: this.tableR[i].bpname,
-                  rn: this.tableR[i].rn
+                  outsource_id: this.tableR[j].outsource_id,
+                  companyprojects_id: this.tableR[j].companyprojects_id,
+                  bpcompany: this.tableR[j].bpcompany,
+                  bpname: this.tableR[j].bpname,
+                  rn: this.tableR[j].rn,
+                  admissiondate: moment(this.tableR[j].admissiondate[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableR[j].admissiondate[1]).format('YYYY-MM-DD'),
                 });
               }
             }
