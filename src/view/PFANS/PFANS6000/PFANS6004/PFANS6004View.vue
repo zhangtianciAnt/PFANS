@@ -158,7 +158,7 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                     {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-                  {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+                  // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
                 ],
                 rowid: '',
                 row: 'expatriatesinfor_id',
@@ -334,27 +334,25 @@
                             this.$t('label.user_name'),
                             this.$t('label.sex'),
                             this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
-                            this.$t('label.PFANSUSERFORMVIEW_AGE'),
-                            this.$t('label.ASSETS1002VIEW_USERID'),
                             this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
                             this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
                             this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+                            this.$t('label.PFANS2003FORMVIEW_RN'),
                             this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
                             this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
-                            this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
+
                         ];
                         const filterVal = [
                             'expname',
                             'sex',
                             'suppliername',
-                            'age',
                             'graduateschool',
                             'education',
                             'technology',
                             'rn',
                             'operationform',
                             'jobclassification',
-                            'admissiontime',
+
                         ];
                         const list = this.selectedlist;
                         for (let h = 0; h < list.length; h++) {

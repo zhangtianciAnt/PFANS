@@ -717,7 +717,6 @@
 
         methods: {
           getNameList() {
-            debugger
             this.loading = true;
             this.$store
               .dispatch('PFANS2002Store/getNameList', {})
@@ -728,6 +727,7 @@
                   this.result=response;
                   vote.name = response[i].name;
                   vote.sex = getDictionaryInfo(response[i].sex).value1;
+                  vote.birthday=moment(response[i].birthday).format('YYYY-MM');
                   this.gridData.push(vote)
                 }
                 this.loading = false;
