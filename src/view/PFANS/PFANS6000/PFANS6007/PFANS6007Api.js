@@ -41,3 +41,11 @@ export function getFpans5001List(data) {
     data: data
   })
 }
+
+export function getexpatriatesinfor(data) {
+  return request({
+    url: 'expatriatesinfor/get',
+    method: 'get',
+    params: data
+  })
+}

@@ -675,7 +675,6 @@
                     debugger;
                     response[j].technical = technical.value1;
                     response[j].technology = technical.value2;
-                    console.log("ssssdasdasd" + response[j].technology)
                   }
                 // }
               }

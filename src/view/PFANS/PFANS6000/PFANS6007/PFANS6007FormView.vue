@@ -190,8 +190,8 @@
           variousfunds_id:'',
           pjname:'',
           psdcdwindow:'',
-          bpclubname:'newserch',
-          bpplayer:'汪峰',
+          bpclubname:'',
+          bpplayer:'',
           plmonthplan:'',
           typeoffees:'',
           payment:'',
@@ -265,21 +265,25 @@
           })
       }else{//新建
           this.$store
-              .dispatch('PFANS6007Store/getFpans5001List', {})
+              .dispatch('PFANS6007Store/getexpatriatesinfor', {})
               .then(response => {
                   for(let j=0;j < response.length;j++){
                       //项目负责人
-                      let item = {username:"",project_name:""};
-                      if(response[j].leaderid !== null && response[j].leaderid !== "") {
-                          let user = getUserInfo(response[j].leaderid);
-                          if (user) {
-                               item.username= user.userinfo.customername;
-                          }
-                      }
+                      let item = {username: "",project_name: "",bpclubname: "",bpplayer: ""};
                       if(response[j].project_name !== null && response[j].project_name !== "") {
-                          item.project_name = response[j].project_name
+                          item.bpclubname = response[j].bpcompany;
+                          item.project_name = response[j].project_name;
+                          item.bpplayer = response[j].bpname;;
+                          let user = getUserInfo(response[j].managerid);
+                          if (user) {
+                              item.username= user.userinfo.customername;
+                          }
+                          this.options1.push(item);
                       }
-                      this.options1.push(item);
+                  }
+                  console.log(this.options1.length);
+                  for(let i=0;i<this.options1.length;i++){
+                      console.log(this.options1[i].username+" || "+this.options1[i].project_name+" || "+this.options1[i].bpclubname+" || "+this.options1[i].bpplayer)
                   }
                   this.loading = false;
               })
@@ -311,6 +315,8 @@
           for(let i=0;i < this.options1.length;i++){
               if(this.options1[i].project_name === val){
                   this.form.psdcdwindow = this.options1[i].username;
+                  this.form.bpclubname = this.options1[i].bpclubname;
+                  this.form.bpplayer = this.options1[i].bpplayer;
               }
           }
       },
