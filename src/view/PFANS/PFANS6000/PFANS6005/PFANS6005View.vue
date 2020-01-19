@@ -196,9 +196,12 @@
               }
             }
 
+              console.log("FFFFFFFF"+response[j].graduation);
+              console.log("FFFFFFFF"+response[j].company);
 
+              response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
           }
-          this.data = response;
+          this.data=response;
           this.loading = false;
         })
         .catch(error => {
