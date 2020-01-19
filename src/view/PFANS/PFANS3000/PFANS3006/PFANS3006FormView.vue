@@ -317,7 +317,7 @@
           usenumber: '',
           remarks: '',
           welcomeboard: true,
-          fellowmembers: true,
+          fellowmembers: false,
         },
         rules: {
           fellowmembersname:[{
@@ -402,8 +402,7 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
-            console.log(this.form.fellowmembers);
-            if(this.form.fellowmembers === 0){
+            if(this.form.fellowmembers == 1){
                 this.show=false;
             }else{
                 this.show=true;
