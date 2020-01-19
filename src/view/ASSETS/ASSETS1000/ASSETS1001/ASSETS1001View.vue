@@ -454,8 +454,8 @@
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),this.$t('label.ASSETS1001VIEW_STOCKSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus'];
+            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),this.$t('label.ASSETS1001VIEW_STOCKSTATUS')];
+            const filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
