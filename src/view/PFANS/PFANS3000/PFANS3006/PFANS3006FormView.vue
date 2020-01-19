@@ -402,6 +402,10 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
+            /*console.log(this.form.fellowmembers);
+            if(this.form.fellowmembers === 0){
+
+            }*/
             this.loading = false;
           })
           .catch(error => {
