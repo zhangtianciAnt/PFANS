@@ -258,12 +258,14 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM1')">
-                          <el-switch style="width:20vw" v-model="form.inparams1"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.inparams1"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM2')">
-                          <el-switch style="width:20vw" v-model="form.inparams2"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.inparams2"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -282,7 +284,8 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM5')">
-                          <el-switch style="width:20vw" v-model="form.inparams5"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.inparams5"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -334,17 +337,20 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM9')">
-                          <el-switch style="width:20vw" v-model="form.outparams4"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.outparams4"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM10')">
-                          <el-switch style="width:20vw" v-model="form.outparams5"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.outparams5"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM11')">
-                          <el-switch style="width:20vw" v-model="form.outparams6"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.outparams6"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -371,7 +377,8 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM12')">
-                          <el-switch style="width:20vw" v-model="form.outparams10"></el-switch>
+                          <el-switch style="width:20vw" v-model="form.outparams10"active-value="1"
+                                     inactive-value="0"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
