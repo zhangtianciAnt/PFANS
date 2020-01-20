@@ -852,7 +852,6 @@
           if (dictionaryInfo) {
             this.tableData[index].psdcdrank = dictionaryInfo.value2;
           }
-           /* this.arr[index][10] = parseInt(this.tableData[index].psdcdrank);*/
         },
 
       },
