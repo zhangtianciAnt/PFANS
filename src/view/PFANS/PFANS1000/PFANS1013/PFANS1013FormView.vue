@@ -1222,7 +1222,6 @@
         this.$store
           .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:0})
           .then(response => {
-            debugger
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               this.result = response;
@@ -1235,7 +1234,6 @@
         this.$store
           .dispatch('PFANS1013Store/getdate', {user_id:this.$store.getters.userinfo.userid,businesstype:1})
           .then(response => {
-            debugger
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
               this.result1 = response;
@@ -1250,7 +1248,6 @@
       this.$store
         .dispatch('PFANS1013Store/getLoanApplication', {user_id:this.$store.getters.userinfo.userid})
         .then(response => {
-          debugger
           for (let i = 0; i < response.length; i++) {
             var vote = {};
             this.result2 = response;
@@ -1586,7 +1583,6 @@
       },
       change2(val) {
         this.result2.forEach(res => {
-          debugger
           if (res.loanapplication_id === val) {
             this.form.loanamount = res.moneys;
           }
