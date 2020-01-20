@@ -25,7 +25,7 @@
                           <el-table
                             :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                            :span-method="arraySpanMethod1" @row-click="handleClickChange1">
+                            :span-method="arraySpanMethod" @row-click="handleClickChange1">
                             <el-table-column property="expname" :label="$t('label.user_name')"
                                              width="100"></el-table-column>
                             <el-table-column property="se" :label="$t('label.sex')"
@@ -787,12 +787,10 @@
         this.currentRow1 = val.expname;
       },
       getExpnameList() {
-        debugger;
         this.loading = true;
         this.$store
           .dispatch('PFANS6004Store/getExpnameList', {})
           .then(response => {
-            debugger
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
