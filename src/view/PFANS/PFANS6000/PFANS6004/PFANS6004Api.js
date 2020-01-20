@@ -40,6 +40,15 @@ export function getSupplierNameList(data) {
     data: data
   })
 }
+
+export function getExpnameList(data) {
+  return request({
+    url: 'expatriatesinfor/getExpnameList',
+    method: 'POST',
+    data: data
+  })
+}
+
 export function download(data) {
   return requestDownload({
     url: 'expatriatesinfor/download',
