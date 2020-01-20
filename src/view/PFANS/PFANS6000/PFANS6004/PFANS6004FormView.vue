@@ -98,7 +98,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.sex"
-                  :disabled="!disabled"
+                  :disabled="true"
                   :multiple="multiple"
                   @change="changesex"
                   style="width:20vw"
@@ -159,7 +159,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
-                  :disabled="!disabled"
+                  :disabled="true"
                   @change="getAge"
                   style="width:20vw"
                   type="date"
@@ -179,7 +179,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -188,7 +188,7 @@
                 <dicselect
                   :code="code2"
                   :data="form.education"
-                  :disabled="!disabled"
+                  :disabled="true"
                   :multiple="multiple"
                   @change="changeeducation"
                   style="width:20vw"
@@ -216,7 +216,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.technology"
-                  :disabled="!disabled"
+                  :disabled="true"
                   :multiple="multiple"
                   @change="changetechnology"
                   style="width:20vw">
@@ -229,7 +229,7 @@
                 <dicselect
                   :code="code4"
                   :data="form.rn"
-                  :disabled="!disabled"
+                  :disabled="true"
                   :multiple="multiple"
                   @change="changern"
                   style="width:20vw">
@@ -771,9 +771,33 @@
         }
       },
       submit1() {
-        let val = this.currentRow1;
+        let lst = this.currentRow;
+        let lst1=this.currentRow2;
+        let lst2=this.currentRow3;
+        let lst3=this.currentRow4;
+        let lst4=this.currentRow5;
+        let lst5=this.currentRow6;
+        let lst6=this.currentRow7;
+        let lst7=this.currentRow8;
         this.dialogTableVisible1 = false;
-        this.form.expname = val;
+        this.form.expname = lst;
+        this.form.sex=lst1;
+        this.form.birth=lst2;
+        this.form.age=lst3;
+        this.form.graduateschool=lst4;
+        this.form.education=lst5;
+        this.form.technology=lst6;
+        this.form.rn=lst7;
+      },
+      handleClickChange1(val) {
+        this.currentRow = val.expname;
+        this.currentRow2=val.se;
+        this.currentRow3=val.birth;
+        this.currentRow4=val.age;
+        this.currentRow5=val.graduateschool;
+        this.currentRow6=val.education;
+        this.currentRow7=val.technology;
+        this.currentRow8=val.rn;
       },
       submit() {
         let val = this.currentRow;
@@ -782,9 +806,6 @@
       },
       handleClickChange(val) {
         this.currentRow = val.suppliername;
-      },
-      handleClickChange1(val) {
-        this.currentRow1 = val.expname;
       },
       getExpnameList() {
         this.loading = true;
