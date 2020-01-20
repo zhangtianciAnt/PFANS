@@ -58,18 +58,34 @@
                   </template>
                 </el-table-column>
                 <!-- 查定时间-->
+                <!--<el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
+                  <el-date-picker
+                    style="width:20vw"
+                    :disabled="!disable"
+                    v-model="form.starttime"
+                    type="datetime"
+                    placeholder="选择日期时间">
+                  </el-date-picker>
+                </el-form-item>-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_CHECKTIME')"
                   align="center"
-                  width="160">
+                  width="200">
                   <template slot-scope="scope">
-                    <el-date-picker
+                    <!--<el-date-picker
                       :no="scope.row"
                       :disabled="!disable"
                       type="date"
                       style="width: 100%"
                       v-model="scope.row.assesstime"
-                    ></el-date-picker>
+                    ></el-date-picker>-->
+                    <el-date-picker
+                      style="width:12vw"
+                      :disabled="!disable"
+                      v-model="scope.row.assesstime"
+                      type="datetime"
+                      placeholder="选择日期时间">
+                    </el-date-picker>
                   </template>
                 </el-table-column>
                 <!-- 技術スキル-->
@@ -414,6 +430,7 @@
                       :no="scope.row"
                       :disabled="!disable"
                       v-model="scope.row.unitprice"
+                      @blur="countTotalunit(scope.$index)"
                       style="width: 100%">
                     </el-input>
                   </template>
@@ -528,7 +545,7 @@
           baseInfo: {},
           scope: '',
           row: '',
-
+          arr: [],//二维数组初始化变量服务于更改和计算
           tableData: [{
             pricesetid: '',
             user_id: '',
@@ -637,7 +654,23 @@
           ];
         }
       },
+
       methods: {
+        countTotalunit(index){
+            console.log("comin");//parseFloat
+               /* this.tableData[index].totalunit = parseInt(this.tableData[index].technology)
+                    +parseInt(this.tableData[index].value)+parseInt(this.tableData[index].field)
+                    +parseInt(this.tableData[index].languagevalue)+parseInt(this.tableData[index].service)
+                    +parseInt(this.tableData[index].rvicevalue)+(parseInt(this.tableData[index].rankvalue)
+                        *parseFloat(this.tableData[index].butioncoefficient))+parseInt(this.tableData[index].unitprice);*/
+                let sum = 0;
+                for(let i=0 ; i<6;i++){
+                    if(this.arr[index][i] !== "" && this.arr[index][i] !== null)
+                    sum += this.arr[index][i];
+                }
+            this.tableData[index].totalunit = sum+(this.arr[index][8]*this.arr[index][9])+this.arr[index][10];
+            console.log("count:"+this.tableData[index].totalunit);
+        },
         getRowClass({row, column, rowIndex, columnIndex}) {
           if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
             return {
@@ -668,16 +701,21 @@
             .dispatch('PFANS6005Store/getpriceset', {})
             .then(response => {
               for (let j = 0; j < response.length; j++) {
-                // 技術スキル
-                // if (response[j].technical !== null && response[j].technical !== "") {
-                  let technical = getDictionaryInfo(response[j].technical);
-                  if (technical != null) {
-                    debugger;
-                    response[j].technical = technical.value1;
-                    response[j].technology = technical.value2;
-                  }
-                // }
+                response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+                    this.arr[j] = [];
+                    this.arr[j][0] = parseInt(response[j].technology==null?0:response[j].technology)
+                    this.arr[j][1] = parseInt(response[j].value==null?0:response[j].value)
+                    this.arr[j][2] = parseInt(response[j].field==null?0:response[j].field)
+                    this.arr[j][3] = parseInt(response[j].languagevalue==null?0:response[j].languagevalue)
+                    this.arr[j][4] = parseInt(response[j].service==null?0:response[j].service)
+                    this.arr[j][5] = parseInt(response[j].rvicevalue==null?0:response[j].rvicevalue)
+                    this.arr[j][6] = parseInt(response[j].scalevalue==null?0:response[j].scalevalue)
+                    this.arr[j][7] = parseFloat(response[j].coefficient==null?0:response[j].coefficient)
+                    this.arr[j][8] = parseInt(response[j].rankvalue==null?0:response[j].rankvalue)
+                    this.arr[j][9] = parseFloat(response[j].butioncoefficient==null?0:response[j].butioncoefficient)
+                    this.arr[j][10] = parseInt(response[j].unitprice==null?0:response[j].unitprice)
               }
+
               this.tableData = response;
               this.loading = false;
             })
@@ -724,6 +762,8 @@
           if (dictionaryInfo) {
             this.tableData[index].technology = dictionaryInfo.value2;
           }
+          this.arr[index][0] = parseInt(this.tableData[index].technology);
+          this.countTotalunit(index);
         },
         changemanagement(val,index){
           this.tableData[index].management = val;
@@ -731,6 +771,8 @@
           if (dictionaryInfo) {
             this.tableData[index].value = dictionaryInfo.value2;
           }
+            this.arr[index][1] = parseInt(this.tableData[index].value);
+            this.countTotalunit(index);
         },
         changefieldskills(val,index){
           this.tableData[index].fieldskills = val;
@@ -738,6 +780,8 @@
           if (dictionaryInfo) {
             this.tableData[index].field = dictionaryInfo.value2;
           }
+            this.arr[index][2] = parseInt(this.tableData[index].field);
+            this.countTotalunit(index);
         },
         changelanguage(val,index){
           this.tableData[index].language = val;
@@ -745,6 +789,8 @@
           if (dictionaryInfo) {
             this.tableData[index].languagevalue = dictionaryInfo.value2;
           }
+            this.arr[index][3] = parseInt(this.tableData[index].languagevalue);
+            this.countTotalunit(index);
         },
         changeworkskills(val,index){
           this.tableData[index].workskills = val;
@@ -752,6 +798,8 @@
           if (dictionaryInfo) {
             this.tableData[index].service = dictionaryInfo.value2;
           }
+            this.arr[index][4] = parseInt(this.tableData[index].service);
+            this.countTotalunit(index);
         },
         changeevaluation(val,index){
           this.tableData[index].evaluation = val;
@@ -759,6 +807,8 @@
           if (dictionaryInfo) {
             this.tableData[index].rvicevalue = dictionaryInfo.value2;
           }
+            this.arr[index][5] = parseInt(this.tableData[index].rvicevalue);
+            this.countTotalunit(index);
         },
         changepsdcdscale(val,index){
           this.tableData[index].psdcdscale = val;
@@ -766,6 +816,8 @@
           if (dictionaryInfo) {
             this.tableData[index].scalevalue = dictionaryInfo.value2;
           }
+            this.arr[index][6] = parseInt(this.tableData[index].scalevalue);
+            this.countTotalunit(index);
         },
         changecontribution(val,index){
           this.tableData[index].contribution = val;
@@ -773,6 +825,8 @@
           if (dictionaryInfo) {
             this.tableData[index].coefficient = dictionaryInfo.value2;
           }
+            this.arr[index][7] = parseInt(this.tableData[index].coefficient);
+            this.countTotalunit(index);
         },
         changestaffpsdcdrank(val,index){
           this.tableData[index].staffpsdcdrank = val;
@@ -780,6 +834,8 @@
           if (dictionaryInfo) {
             this.tableData[index].rankvalue = dictionaryInfo.value2;
           }
+            this.arr[index][8] = parseInt(this.tableData[index].rankvalue);
+            this.countTotalunit(index);
         },
         changebutionevaluation(val,index){
           this.tableData[index].butionevaluation = val;
@@ -787,6 +843,8 @@
           if (dictionaryInfo) {
             this.tableData[index].butioncoefficient = dictionaryInfo.value2;
           }
+            this.arr[index][9] = parseInt(this.tableData[index].butioncoefficient);
+            this.countTotalunit(index);
         },
         changepsdcdrank(val,index){
           this.tableData[index].psdcdrank = val;
@@ -794,6 +852,7 @@
           if (dictionaryInfo) {
             this.tableData[index].psdcdrank = dictionaryInfo.value2;
           }
+           /* this.arr[index][10] = parseInt(this.tableData[index].psdcdrank);*/
         },
 
       },
