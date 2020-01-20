@@ -589,20 +589,20 @@
             }
             if (this.form.exits === '1') {
                 this.show = false;
-                // this.rules.exitime[0].required = false;
-                // this.rules.exitreason[0].required = false;
-                // this.rules.alltechnology[0].required = false;
-                // this.rules.sitevaluation[0].required = false;
-                // this.rules.businessimpact[0].required = false;
-                // this.rules.countermeasure[0].required = false;
+                this.rules.exitime[0].required = false;
+                this.rules.exitreason[0].required = false;
+                this.rules.alltechnology[0].required = false;
+                this.rules.sitevaluation[0].required = false;
+                this.rules.businessimpact[0].required = false;
+                this.rules.countermeasure[0].required = false;
             } else {
                 this.show = true;
-                // this.rules.exitime[0].required = true;
-                // this.rules.exitreason[0].required = true;
-                // this.rules.alltechnology[0].required = true;
-                // this.rules.sitevaluation[0].required = true;
-                // this.rules.businessimpact[0].required = true;
-                // this.rules.countermeasure[0].required = true;
+                this.rules.exitime[0].required = true;
+                this.rules.exitreason[0].required = true;
+                this.rules.alltechnology[0].required = true;
+                this.rules.sitevaluation[0].required = true;
+                this.rules.businessimpact[0].required = true;
+                this.rules.countermeasure[0].required = true;
             }
         },
         methods: {
@@ -729,6 +729,12 @@
                             this.form.sitevaluation = '';
                             this.form.businessimpact = '';
                             this.form.countermeasure = '';
+                            this.rules.exitime[0].required = false;
+                            this.rules.exitreason[0].required = false;
+                            this.rules.alltechnology[0].required = false;
+                            this.rules.sitevaluation[0].required = false;
+                            this.rules.businessimpact[0].required = false;
+                            this.rules.countermeasure[0].required = false;
                         }
                         if (this.$route.params._id) {
                             this.$store
