@@ -10,15 +10,8 @@
                 <el-table-column
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                   align="center"
+                  type="index"
                   width="80">
-                  <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disable"
-                      v-model="scope.row.pricesetid"
-                      style="width: 100%">
-                    </el-input>
-                  </template>
                 </el-table-column>
                 <!-- 名前-->
                 <el-table-column
@@ -43,7 +36,7 @@
                   <el-date-picker
                     :no="scope.row"
                     :disabled="!disable"
-                    type="date"
+                    type="year"
                     style="width: 100%"
                     v-model="scope.row.graduation"
                   ></el-date-picker>
@@ -90,7 +83,7 @@
                       :code="code1"
                       :data="scope.row.technical"
                       :disabled="!disable"
-                      @change="changetechnical"
+                      @change="(val)=>{changetechnical(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -122,7 +115,7 @@
                       :code="code2"
                       :data="scope.row.management"
                       :disabled="!disable"
-                      @change="changemanagement"
+                      @change="(val)=>{changemanagement(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -154,7 +147,7 @@
                       :code="code3"
                       :data="scope.row.fieldskills"
                       :disabled="!disable"
-                      @change="changefieldskills"
+                      @change="(val)=>{changefieldskills(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -186,7 +179,7 @@
                       :code="code4"
                       :data="scope.row.language"
                       :disabled="!disable"
-                      @change="changelanguage"
+                      @change="((val)=>{changelanguage(val,scope.$index)})"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -218,7 +211,7 @@
                       :code="code5"
                       :data="scope.row.workskills"
                       :disabled="!disable"
-                      @change="changeworkskills"
+                      @change="(val)=>{changeworkskills(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -250,7 +243,7 @@
                       :code="code6"
                       :data="scope.row.evaluation"
                       :disabled="!disable"
-                      @change="changeevaluation"
+                      @change="(val)=>{changeevaluation(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -287,7 +280,7 @@
                         :code="code7"
                         :data="scope.row.psdcdscale"
                         :disabled="!disable"
-                        @change="changepsdcdscale"
+                        @change="(val)=>{changepsdcdscale(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
                     </template>
@@ -319,7 +312,7 @@
                         :code="code8"
                         :data="scope.row.contribution"
                         :disabled="!disable"
-                        @change="changecontribution"
+                        @change="(val)=>{changecontribution(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
                     </template>
@@ -357,7 +350,7 @@
                         :code="code9"
                         :data="scope.row.staffpsdcdrank"
                         :disabled="!disable"
-                        @change="changestaffpsdcdrank"
+                        @change="(val)=>{changestaffpsdcdrank(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
                     </template>
@@ -389,7 +382,7 @@
                         :code="code8"
                         :data="scope.row.butionevaluation"
                         :disabled="!disable"
-                        @change="changebutionevaluation"
+                        @change="(val)=>{changebutionevaluation(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
                     </template>
@@ -467,7 +460,7 @@
                       :code="code9"
                       :data="scope.row.psdcdrank"
                       :disabled="!disable"
-                      @change="changepsdcdrank"
+                      @change="(val)=>{changepsdcdrank(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
                   </template>
@@ -682,7 +675,6 @@
                     debugger;
                     response[j].technical = technical.value1;
                     response[j].technology = technical.value2;
-                    console.log("ssssdasdasd" + response[j].technology)
                   }
                 // }
               }
@@ -726,92 +718,81 @@
             this.getpriceset();
           }
         },
-        changetechnical(val){
-          this.tableData.technical = val;
+        changetechnical(val,index){
+          this.tableData[index].technical = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.technology = dictionaryInfo.value2;
-            console.log("asdasda  " + this.tableData.technology);
+            this.tableData[index].technology = dictionaryInfo.value2;
           }
         },
-        changemanagement(val){
-          this.tableData.management = val;
+        changemanagement(val,index){
+          this.tableData[index].management = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.value = dictionaryInfo.value2;
-            console.log("asdasda  " + this.tableData.value);
+            this.tableData[index].value = dictionaryInfo.value2;
           }
         },
-        changefieldskills(val){
-          this.tableData.fieldskills = val;
+        changefieldskills(val,index){
+          this.tableData[index].fieldskills = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.field = dictionaryInfo.value2;
-            console.log("asdasda  " + this.tableData.field);
+            this.tableData[index].field = dictionaryInfo.value2;
           }
         },
-        changelanguage(val){
-          this.tableData.language = val;
+        changelanguage(val,index){
+          this.tableData[index].language = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.languagevalue = dictionaryInfo.value2;
-            console.log("asdasda  " + this.tableData.languagevalue);
+            this.tableData[index].languagevalue = dictionaryInfo.value2;
           }
         },
-        changeworkskills(val){
-          this.tableData.workskills = val;
+        changeworkskills(val,index){
+          this.tableData[index].workskills = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.service = dictionaryInfo.value2;
-            console.log("asdasda  " + this.tableData.service);
+            this.tableData[index].service = dictionaryInfo.value2;
           }
         },
-        changeevaluation(val){
-          this.tableData.evaluation = val;
+        changeevaluation(val,index){
+          this.tableData[index].evaluation = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData.rvicevalue = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.rvicevalue);
+            this.tableData[index].rvicevalue = dictionaryInfo.value2;
           }
         },
-        changepsdcdscale(val){
-          this.tableData.psdcdscale = val;
+        changepsdcdscale(val,index){
+          this.tableData[index].psdcdscale = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.form.scalevalue = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.scalevalue);
+            this.tableData[index].scalevalue = dictionaryInfo.value2;
           }
         },
-        changecontribution(val){
-          this.tableData.contribution = val;
+        changecontribution(val,index){
+          this.tableData[index].contribution = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.form.coefficient = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.coefficient);
+            this.tableData[index].coefficient = dictionaryInfo.value2;
           }
         },
-        changestaffpsdcdrank(val){
-          this.tableData.staffpsdcdrank = val;
+        changestaffpsdcdrank(val,index){
+          this.tableData[index].staffpsdcdrank = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.form.rankvalue = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.rankvalue);
+            this.tableData[index].rankvalue = dictionaryInfo.value2;
           }
         },
-        changebutionevaluation(val){
-          this.tableData.butionevaluation = val;
+        changebutionevaluation(val,index){
+          this.tableData[index].butionevaluation = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.form.butioncoefficient = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.butioncoefficient);
+            this.tableData[index].butioncoefficient = dictionaryInfo.value2;
           }
         },
-        changepsdcdrank(val){
-          this.tableData.psdcdrank = val;
+        changepsdcdrank(val,index){
+          this.tableData[index].psdcdrank = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.form.psdcdrank = dictionaryInfo.value2;
-            console.log("asdasda  " + this.form.psdcdrank);
+            this.tableData[index].psdcdrank = dictionaryInfo.value2;
           }
         },
 

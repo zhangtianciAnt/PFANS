@@ -118,6 +118,17 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <!--           卒业年-->
+              <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
+                <el-date-picker
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  type="year"
+                  v-model="form.graduation_year">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
           <!--          第四行-->
           <el-row>
@@ -356,6 +367,7 @@
                     suppliername: '',
                     graduateschool: '',
                     education: '',
+                    graduation_year: '',
                     technology: '',
                     rn: '',
                     operationform: '',
@@ -436,6 +448,13 @@
                         {
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+                            trigger: 'change'
+                        },
+                    ],
+                    graduation_year: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
                             trigger: 'change'
                         },
                     ],

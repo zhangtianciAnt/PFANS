@@ -317,7 +317,7 @@
           usenumber: '',
           remarks: '',
           welcomeboard: true,
-          fellowmembers: true,
+          fellowmembers: false,
         },
         rules: {
           fellowmembersname:[{
@@ -401,6 +401,11 @@
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
               this.disable = false;
+            }
+            if(this.form.fellowmembers == 1){
+                this.show=false;
+            }else{
+                this.show=true;
             }
             this.loading = false;
           })

@@ -5,7 +5,7 @@
                      ref="roletable"
                      v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" @close="closed" width="50%">
+    <el-dialog :visible.sync="daoru" @close="closed" width="50%" destroy-on-close>
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
@@ -47,8 +47,8 @@
         </div>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="piliang" @close="closed" width="50%">
-      <el-form :model="form" :rules="rules" label-width="80px" ref="form">
+    <el-dialog :visible.sync="piliang" @close="closed" width="50%" destroy-on-close>
+        <el-form :model="form" :rules="rules" label-width="80px" ref="form">
         <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
           <dicselect
             :code="code4"
@@ -160,13 +160,6 @@
             filter: true,
           },
           {
-            code: 'usedepartment',
-            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
             code: 'principal',
             label: 'label.ASSETS1001VIEW_PRINCIPAL',
             width: 120,
@@ -190,6 +183,13 @@
           {
             code: 'assetstatus',
             label: 'label.ASSETS1001VIEW_ASSETSTATUS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'stockstatus',
+            label: 'label.ASSETS1001VIEW_STOCKSTATUS',
             width: 120,
             fix: false,
             filter: true,
@@ -279,6 +279,7 @@
       },
       closed() {
         this.getListData();
+        this.$refs.form.resetFields();
       },
       getBartype(val) {
         this.form.bartype = val;
@@ -311,6 +312,12 @@
                 let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
                 if (letErrortype1 != null) {
                   response[j].assetstatus = letErrortype1.value1;
+                }
+              }
+              if (response[j].stockstatus !== null && response[j].stockstatus !== '') {
+                let letErrortype1 = getDictionaryInfo(response[j].stockstatus);
+                if (letErrortype1 != null) {
+                  response[j].stockstatus = letErrortype1.value1;
                 }
               }
               if (response[j].bartype !== null && response[j].bartype !== '') {
@@ -448,8 +455,8 @@
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRICE'), this.$t('label.ASSETS1001VIEW_PURCHASETIME'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'price', 'purchasetime', 'usedepartment', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus'];
+            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),this.$t('label.ASSETS1001VIEW_STOCKSTATUS')];
+            const filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
