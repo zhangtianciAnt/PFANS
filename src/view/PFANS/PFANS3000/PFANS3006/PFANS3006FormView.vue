@@ -152,6 +152,7 @@
                 <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard" v-show="show2">
                   <el-switch
                     :disabled="!disable"
+                    @change="downLoad"
                     active-value="1"
                     inactive-value="0"
                     v-model="form.welcomeboard"
@@ -407,6 +408,13 @@
             }else{
                 this.show=true;
             }
+
+            if(this.form.usetype === 'PR005002' || this.form.usetype === 'PR005003'){
+                this.show2 = true;
+            }else{
+                this.show2 = false;
+            }
+
             this.loading = false;
           })
           .catch(error => {
@@ -474,22 +482,6 @@
                     message: '已取消'
                 });
             });
-            /*
-            if(confirm('是否立即下载接机提示牌？')){
-                this.$store
-                    .dispatch('PFANS3006Store/download', {})
-                    .then(response => {
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            }*/
         }
       },
       toshow(val){
