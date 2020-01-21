@@ -271,9 +271,9 @@
                       //项目负责人
                       let item = {username: "",project_name: "",bpclubname: "",bpplayer: ""};
                       if(response[j].project_name !== null && response[j].project_name !== "") {
-                          item.bpclubname = response[j].bpcompany;
+                          item.bpclubname = response[j].suppliername;
                           item.project_name = response[j].project_name;
-                          item.bpplayer = response[j].bpname;;
+                          item.bpplayer = response[j].expname;;
                           let user = getUserInfo(response[j].managerid);
                           if (user) {
                               item.username= user.userinfo.customername;
@@ -281,10 +281,10 @@
                           this.options1.push(item);
                       }
                   }
-                  console.log(this.options1.length);
+                  /*console.log(this.options1.length);
                   for(let i=0;i<this.options1.length;i++){
                       console.log(this.options1[i].username+" || "+this.options1[i].project_name+" || "+this.options1[i].bpclubname+" || "+this.options1[i].bpplayer)
-                  }
+                  }*/
                   this.loading = false;
               })
               .catch(error => {
