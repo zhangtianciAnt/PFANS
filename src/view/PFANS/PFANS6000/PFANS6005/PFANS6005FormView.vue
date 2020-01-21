@@ -430,7 +430,7 @@
                       :no="scope.row"
                       :disabled="!disable"
                       v-model="scope.row.unitprice"
-                      @blur="countTotalunit(scope.$index)"
+                      @blur="unitpriceBuler(scope.$index)"
                       style="width: 100%">
                     </el-input>
                   </template>
@@ -657,19 +657,17 @@
 
       methods: {
         countTotalunit(index){
-            console.log("comin");//parseFloat
-               /* this.tableData[index].totalunit = parseInt(this.tableData[index].technology)
-                    +parseInt(this.tableData[index].value)+parseInt(this.tableData[index].field)
-                    +parseInt(this.tableData[index].languagevalue)+parseInt(this.tableData[index].service)
-                    +parseInt(this.tableData[index].rvicevalue)+(parseInt(this.tableData[index].rankvalue)
-                        *parseFloat(this.tableData[index].butioncoefficient))+parseInt(this.tableData[index].unitprice);*/
                 let sum = 0;
                 for(let i=0 ; i<6;i++){
                     if(this.arr[index][i] !== "" && this.arr[index][i] !== null)
                     sum += this.arr[index][i];
                 }
             this.tableData[index].totalunit = sum+(this.arr[index][8]*this.arr[index][9])+this.arr[index][10];
-            console.log("count:"+this.tableData[index].totalunit);
+            this.tableData[index].common = this.arr[index][6]*this.arr[index][7];
+        },
+        unitpriceBuler(index){
+            this.arr[index][10] = parseInt(this.tableData[index].unitprice);
+            this.countTotalunit(index);
         },
         getRowClass({row, column, rowIndex, columnIndex}) {
           if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
@@ -715,7 +713,6 @@
                     this.arr[j][9] = parseFloat(response[j].butioncoefficient==null?0:response[j].butioncoefficient)
                     this.arr[j][10] = parseInt(response[j].unitprice==null?0:response[j].unitprice)
               }
-
               this.tableData = response;
               this.loading = false;
             })
@@ -740,6 +737,7 @@
               });
               this.data = response;
               this.loading = false;
+              this.getpriceset();
             })
             .catch(error => {
               Message({
@@ -817,7 +815,6 @@
             this.tableData[index].scalevalue = dictionaryInfo.value2;
           }
             this.arr[index][6] = parseInt(this.tableData[index].scalevalue);
-            this.countTotalunit(index);
         },
         changecontribution(val,index){
           this.tableData[index].contribution = val;
@@ -825,7 +822,7 @@
           if (dictionaryInfo) {
             this.tableData[index].coefficient = dictionaryInfo.value2;
           }
-            this.arr[index][7] = parseInt(this.tableData[index].coefficient);
+            this.arr[index][7] = parseFloat(this.tableData[index].coefficient);
             this.countTotalunit(index);
         },
         changestaffpsdcdrank(val,index){
@@ -835,7 +832,6 @@
             this.tableData[index].rankvalue = dictionaryInfo.value2;
           }
             this.arr[index][8] = parseInt(this.tableData[index].rankvalue);
-            this.countTotalunit(index);
         },
         changebutionevaluation(val,index){
           this.tableData[index].butionevaluation = val;
@@ -843,7 +839,7 @@
           if (dictionaryInfo) {
             this.tableData[index].butioncoefficient = dictionaryInfo.value2;
           }
-            this.arr[index][9] = parseInt(this.tableData[index].butioncoefficient);
+            this.arr[index][9] = parseFloat(this.tableData[index].butioncoefficient);
             this.countTotalunit(index);
         },
         changepsdcdrank(val,index){
@@ -853,7 +849,6 @@
             this.tableData[index].psdcdrank = dictionaryInfo.value2;
           }
         },
-
       },
     }
 </script>
