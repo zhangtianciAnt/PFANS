@@ -21,7 +21,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       v-model="scope.row.user_id"
                       style="width: 100%">
                     </el-input>
@@ -35,7 +35,7 @@
                   <template slot-scope="scope">
                   <el-date-picker
                     :no="scope.row"
-                    :disabled="!disable"
+                    :disabled="!disabled"
                     type="year"
                     style="width: 100%"
                     v-model="scope.row.graduation"
@@ -51,37 +51,21 @@
                   <template slot-scope="scope">
                   <el-input
                     :no="scope.row"
-                    :disabled="!disable"
+                    :disabled="!disabled"
                     v-model="scope.row.company"
                     style="width: 100%">
                   </el-input>
                   </template>
                 </el-table-column>
                 <!-- 查定时间-->
-                <!--<el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
-                  <el-date-picker
-                    style="width:20vw"
-                    :disabled="!disable"
-                    v-model="form.starttime"
-                    type="datetime"
-                    placeholder="选择日期时间">
-                  </el-date-picker>
-                </el-form-item>-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_CHECKTIME')"
                   align="center"
                   width="200">
                   <template slot-scope="scope">
-                    <!--<el-date-picker
-                      :no="scope.row"
-                      :disabled="!disable"
-                      type="date"
-                      style="width: 100%"
-                      v-model="scope.row.assesstime"
-                    ></el-date-picker>-->
                     <el-date-picker
                       style="width:12vw"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       v-model="scope.row.assesstime"
                       type="datetime"
                       placeholder="选择日期时间">
@@ -98,7 +82,7 @@
                       :no="scope.row"
                       :code="code1"
                       :data="scope.row.technical"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changetechnical(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -113,7 +97,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.technology"
                       style="width: 100%">
                     </el-input>
@@ -130,7 +114,7 @@
                       :no="scope.row"
                       :code="code2"
                       :data="scope.row.management"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changemanagement(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -145,7 +129,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.value"
                       style="width: 100%">
                     </el-input>
@@ -162,7 +146,7 @@
                       :no="scope.row"
                       :code="code3"
                       :data="scope.row.fieldskills"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changefieldskills(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -177,7 +161,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.field"
                       style="width: 100%">
                     </el-input>
@@ -194,7 +178,7 @@
                       :no="scope.row"
                       :code="code4"
                       :data="scope.row.language"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="((val)=>{changelanguage(val,scope.$index)})"
                       style="width: 100%"
                     ></dicselect>
@@ -209,7 +193,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.languagevalue"
                       style="width: 100%">
                     </el-input>
@@ -226,7 +210,7 @@
                       :no="scope.row"
                       :code="code5"
                       :data="scope.row.workskills"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changeworkskills(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -241,7 +225,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.service"
                       style="width: 100%">
                     </el-input>
@@ -258,7 +242,7 @@
                       :no="scope.row"
                       :code="code6"
                       :data="scope.row.evaluation"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changeevaluation(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -273,7 +257,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="disable"
+                      :disabled="disabled2"
                       v-model="scope.row.rvicevalue"
                       style="width: 100%">
                     </el-input>
@@ -295,7 +279,7 @@
                         :no="scope.row"
                         :code="code7"
                         :data="scope.row.psdcdscale"
-                        :disabled="!disable"
+                        :disabled="!disabled"
                         @change="(val)=>{changepsdcdscale(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
@@ -310,7 +294,7 @@
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
-                        :disabled="disable"
+                        :disabled="disabled2"
                         v-model="scope.row.scalevalue"
                         style="width: 100%">
                       </el-input>
@@ -327,7 +311,7 @@
                         :no="scope.row"
                         :code="code8"
                         :data="scope.row.contribution"
-                        :disabled="!disable"
+                        :disabled="!disabled"
                         @change="(val)=>{changecontribution(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
@@ -342,7 +326,7 @@
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
-                        :disabled="disable"
+                        :disabled="disabled2"
                         v-model="scope.row.coefficient"
                         style="width: 100%">
                       </el-input>
@@ -365,7 +349,7 @@
                         :no="scope.row"
                         :code="code9"
                         :data="scope.row.staffpsdcdrank"
-                        :disabled="!disable"
+                        :disabled="!disabled"
                         @change="(val)=>{changestaffpsdcdrank(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
@@ -380,7 +364,7 @@
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
-                        :disabled="disable"
+                        :disabled="disabled2"
                         v-model="scope.row.rankvalue"
                         style="width: 100%">
                       </el-input>
@@ -397,7 +381,7 @@
                         :no="scope.row"
                         :code="code8"
                         :data="scope.row.butionevaluation"
-                        :disabled="!disable"
+                        :disabled="!disabled"
                         @change="(val)=>{changebutionevaluation(val,scope.$index)}"
                         style="width: 100%"
                       ></dicselect>
@@ -412,7 +396,7 @@
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
-                        :disabled="disable"
+                        :disabled="disabled2"
                         v-model="scope.row.butioncoefficient"
                         style="width: 100%">
                       </el-input>
@@ -428,7 +412,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       v-model="scope.row.unitprice"
                       @blur="unitpriceBuler(scope.$index)"
                       style="width: 100%">
@@ -444,7 +428,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="!disable"
+                      :disabled="disabled2"
                       v-model="scope.row.totalunit"
                       style="width: 100%">
                     </el-input>
@@ -459,7 +443,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="!disable"
+                      :disabled="disabled2"
                       v-model="scope.row.common"
                       style="width: 100%">
                     </el-input>
@@ -476,7 +460,7 @@
                       :no="scope.row"
                       :code="code9"
                       :data="scope.row.psdcdrank"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       @change="(val)=>{changepsdcdrank(val,scope.$index)}"
                       style="width: 100%"
                     ></dicselect>
@@ -491,7 +475,7 @@
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
-                      :disabled="!disable"
+                      :disabled="!disabled"
                       v-model="scope.row.remarks"
                       style="width: 100%">
                     </el-input>
@@ -507,7 +491,7 @@
                     <el-input
                       :no="scope.row"
                       plain
-                      :disabled="!disable"
+                      :disabled="disabled2"
                       v-model="scope.row.yearunit"
                       style="width: 100%">
                     </el-input>
@@ -627,6 +611,7 @@
           data: [],
           title: 'title.PFANS6005VIEW',
           disabled: false,
+            disabled2: true,
           buttonList: [
             {
               key: 'save',
@@ -635,14 +620,13 @@
               icon: 'el-icon-check',
             },
           ],
-
         };
       },
       mounted() {
         this.getpriceset();
       },
       created() {
-        this.disable = this.$route.params.disabled;
+        this.disabled = this.$route.params.disabled;
         if (this.disable) {
           this.buttonList = [
             {
