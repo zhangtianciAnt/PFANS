@@ -737,6 +737,7 @@
               });
               this.data = response;
               this.loading = false;
+              this.getpriceset();
             })
             .catch(error => {
               Message({
