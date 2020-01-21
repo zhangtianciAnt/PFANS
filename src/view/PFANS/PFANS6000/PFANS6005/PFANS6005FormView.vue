@@ -611,12 +611,12 @@
           data: [],
           title: 'title.PFANS6005VIEW',
           disabled: false,
-            disabled2: true,
+          disabled2: true,
           buttonList: [
             {
               key: 'save',
               name: 'button.save',
-              disabled: true,
+              disabled: false,
               icon: 'el-icon-check',
             },
           ],
@@ -650,8 +650,14 @@
             this.tableData[index].common = this.arr[index][6]*this.arr[index][7];
         },
         unitpriceBuler(index){
-            this.arr[index][10] = parseInt(this.tableData[index].unitprice);
-            this.countTotalunit(index);
+            if(this.tableData[index].unitprice !== '' && this.tableData[index].unitprice !== null){
+                this.arr[index][10] = parseInt(this.tableData[index].unitprice);
+                this.countTotalunit(index);
+            }else{
+                this.arr[index][10] = 0;
+                this.countTotalunit(index);
+            }
+
         },
         getRowClass({row, column, rowIndex, columnIndex}) {
           if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
