@@ -7,46 +7,50 @@
                         ref="container"
                          v-loading="loading">
       <div slot="customize" >
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="reff" style="padding: 2vw">
             <el-dialog :visible.sync="dialogFormVisible">
-              <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
-                <dicselect
-                  :code="code"
-                  :data="form.number"
-                  :multiple="multiple"
-                  @change="getnumber"
-                  style="width: 20vw">
-                </dicselect>
-              </el-form-item>
-              <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')":label-width="formLabelWidth">
-                <el-input v-model="form.originalcontract" style="width: 20vw" ></el-input>
-                <el-checkbox
-                  v-model="form.letters"
-                  :key="index"
-                  @change="getChecked"
-                  active-value="1"
-                  inactive-value="0"
-                >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
-              </el-form-item>
-              <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')":label-width="formLabelWidth">
-                <dicselect :code="code2"
-                           :data="form.contracttype"
-                           @change="getcontracttype"
-                           style="width: 20vw">
-                </dicselect>
-              </el-form-item>
-              <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
-                <dicselect :code="code2"
-                           :data="form.careeryear"
-                           @change="getcareeryear"
-                           style="width: 20vw">
-                </dicselect>
-                <dicselect :code="code3"
-                           :data="form.careeryear"
-                           @change="getcareeryear"
-                           style="width: 20vw">
-                </dicselect>
-              </el-form-item>
+
+                  <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
+                    <dicselect
+                      :code="code"
+                      :data="form.number"
+                      :multiple="multiple"
+                      @change="getnumber"
+                      style="width: 20vw">
+                    </dicselect>
+                  </el-form-item>
+                  <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')":label-width="formLabelWidth">
+                    <el-input v-model="form.originalcontract" style="width: 20vw" ></el-input>
+                    <el-checkbox
+                      v-model="form.letters"
+                      :key="index"
+                      @change="getChecked"
+                      active-value="1"
+                      inactive-value="0"
+                    >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
+                  </el-form-item>
+                 <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')":label-width="formLabelWidth">
+                   <dicselect :code="code2"
+                              :data="form.contracttype"
+                              @change="getcontracttype"
+                              style="width: 20vw">
+                   </dicselect>
+                 </el-form-item>
+                 <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
+                   <!--<dicselect :code="code2"-->
+                   <!--:data="form.careeryear"-->
+                   <!--@change="getcareeryear"  -->
+                   <!--style="width: 20vw">-->
+                   <!--</dicselect>-->
+                   <el-date-picker v-model="form.careeryear" style="width: 20vw" type="year":placeholder="$t('normal.error_09')" value-format="yyyy"> </el-date-picker>
+                   <dicselect :code="code3"
+                              :data="form.career"
+                              @change="getcareeryear"
+                              style="width: 20vw">
+                   </dicselect>
+                 </el-form-item>
+
+
               <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id"  :label-width="formLabelWidth">
                 <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 20vw" @getOrgids="getGroupId"></org>
               </el-form-item>
@@ -54,7 +58,7 @@
                 <el-input v-model="form.group_id"  style="width: 20vw" ></el-input>
               </el-form-item >
               <div  class="dialog-footer" align="center">
-                <el-button @click="dialogFormVisible = false"  v-if="show1">
+                <el-button @click="dialogFormVisible = false"  v-if="show1" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1024VIEW_NUMBERSUCCESS')}}
                   </span>
                 </el-button>
@@ -1053,15 +1057,47 @@
             contracttype: '',
             group_id:'',
             entrycondition:'',
-
-
-
-
-
-
-
-
-
+            career:'',
+            contractapplication_id: '',
+            deployment: '',
+            applicationdate: '',
+            user_id: '',
+            contractnumber: '',
+            entrypayment: '',
+            deliverycondition: '',
+            delivery: '',
+            claimcondition: '',
+            claim: '',
+            claimtype: '',
+            deliverydate: '',
+            completiondate: '',
+            deliveryfinshdate: '',
+            loadingjudge: '',
+            claimdate: '',
+            claimamount: '',
+            currencyposition: '',
+            supportdate: '',
+            contractdate: '',
+            custojapanese: '',
+            custoenglish: '',
+            custoabbreviation: '',
+            custochinese: '',
+            businesscode: '',
+            varto: '',
+            placejapanese: '',
+            placeenglish: '',
+            placechinese: '',
+            responjapanese: '',
+            responerglish: '',
+            responphone: '',
+            responemail: '',
+            conjapanese: '',
+            conenglish: '',
+            conchinese: '',
+            remarks: '',
+            entrustednumber: '',
+            papercontract: '',
+            state: '',
 
           },
           code:'HT001',
@@ -1074,11 +1110,14 @@
       },
       mounted(){},
       methods: {
+        submit(){
+
+        },
         getcontracttype(val){
           this.form.contracttype=val;
         },
         getcareeryear(val) {
-          this.form.careeryear = val;
+          this.form.career = val;
         },
         getnumber(val){
           this.form.number=val;
