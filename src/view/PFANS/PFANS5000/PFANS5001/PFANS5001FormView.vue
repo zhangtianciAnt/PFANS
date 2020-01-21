@@ -494,62 +494,86 @@
               <el-form-item >
                 <el-row >
                   <el-col :span="24">
-                    <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-                      <el-table-column
-                        :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                        align="center"
-                      >
-                        <template slot-scope="scope">
-                          <el-input :disabled="!disable" maxlength="7" v-model="scope.row.numbers"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.user_name')" align="center" prop="user_id">
-                        <template slot-scope="scope">
-                          <user
-                            :disabled="!disable"
-                            :no="scope.row"
-                            :userlist="scope.row.user_id"
-                            @getUserids="getCitationUserid"
-                            selectType="Single"
-                            style="width:90%"
-                          ></user>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS2003FORMVIEW_RN')"
-                        align="center"
-                      >
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code8"
-                            :data="scope.row.role"
-                            :disabled="!disable"
-                            :multiple="multiple"
-                            :no="scope.row"
-                            @change="getrole"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+                      <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
+                        <el-table-column :label="$t('label.user_name')" align="center">
+                          <template slot-scope="scope">
+                            <user
+                              :disabled="!disable"
+                              :no="scope.row"
+                              :userlist="scope.row.user_id"
+                              @getUserids="getCitationUserid"
+                              selectType="Single"
+                              style="width:90%"
+                            ></user>
+                          </template>
+                        </el-table-column>
 
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRow1(scope.$index, tableE)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}</el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRow1()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}</el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+                        <el-table-column
+                          :label="$t('label.PFANS2003FORMVIEW_RN')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <dicselect
+                              :code="code8"
+                              :data="scope.row.role"
+                              :disabled="!disable"
+                              :multiple="multiple"
+                              :no="scope.row"
+                              @change="getrole"
+                            ></dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                          align="center"
+                          width="160vm"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row.admissiontime"
+                              :disabled="!disable"
+                              type="date"
+                              style="width: 100%"
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+
+                        <el-table-column
+                          :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                          align="center"
+                          width="160vm"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row.exittime"
+                              :disabled="!disable"
+                              type="date"
+                              style="width: 100%"
+                            >
+                            </el-date-picker>
+                          </template>
+                        </el-table-column>
+
+
+                        <el-table-column :label="$t('label.operation')" align="center" width="200">
+                          <template slot-scope="scope">
+                            <el-button
+                              :disabled="!disable"
+                              @click.native.prevent="deleteRow1(scope.$index, tableE)"
+                              plain
+                              size="small"
+                              type="danger"
+                            >{{$t('button.delete')}}</el-button>
+                            <el-button
+                              :disabled="!disable"
+                              @click="addRow1()"
+                              plain
+                              size="small"
+                              type="primary"
+                            >{{$t('button.insert')}}</el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -569,7 +593,7 @@
                         </template>
                       </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="bpname">
+                      <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="bpname"  width="150vm">
                         <template slot-scope="scope">
                           <el-select :disabled="!disable" @change="getchange(scope.row)" v-model="scope.row.bpname">
                             <el-option
@@ -635,6 +659,37 @@
                           ></dicselect>
                         </template>
                       </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                        align="center"
+                        width="160vm"
+                      >
+                        <template slot-scope="scope">
+                          <el-date-picker
+                            v-model="scope.row.admissiontime"
+                            :disabled="!disable"
+                            type="date"
+                            style="width: 100%"
+                          >
+                          </el-date-picker>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                        align="center"
+                        width="160vm"
+                      >
+                        <template slot-scope="scope">
+                          <el-date-picker
+                            v-model="scope.row.exittime"
+                            :disabled="!disable"
+                            type="date"
+                            style="width: 100%"
+                          >
+                          </el-date-picker>
+                        </template>
+                      </el-table-column>
+
                       <el-table-column :label="$t('label.operation')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-button
@@ -763,6 +818,8 @@
                         companyprojects_id: "",
                         numbers: "",
                         user_id: "",
+                      admissiontime:"",
+                      exittime:"",
                         role: ""
                     }
                 ],
@@ -772,6 +829,8 @@
                         companyprojects_id:"",
                         bpcompany: "",
                         bpname: "",
+                      admissiontime:"",
+                      exittime:"",
                         rn: "",
                         rowindex:"",
                     }
@@ -1202,6 +1261,8 @@
                         companyprojects_id: "",
                         numbers: "",
                         user_id: "",
+                      admissiontime:"",
+                      exittime:"",
                         role: " "
                     }]
                 }
@@ -1216,6 +1277,8 @@
                         companyprojects_id:"",
                         bpcompany: "",
                         bpname: " ",
+                      admissiontime:"",
+                      exittime:"",
                         rn: " ",
                         rowindex:"",
                     }]
@@ -1238,6 +1301,8 @@
                     companyprojects_id: "",
                     numbers: "",
                     user_id: "",
+                  admissiontime:"",
+                  exittime:"",
                     role: ""
                 });
 
@@ -1248,6 +1313,8 @@
                     companyprojects_id:"",
                     bpcompany: "",
                     bpname: "",
+                  admissiontime:"",
+                  exittime:"",
                     rn: "",
                     rowindex:"",
                 });
@@ -1284,6 +1351,8 @@
                             if (
                                 this.tableE[i].numbers !== "" ||
                                 this.tableE[i].user_id !== "" ||
+                              this.tableE[i].admissiontime!==""||
+                              this.tableE[i].exittime!==""||
                                 this.tableE[i].role !== ""
                             ) {
                                 this.baseInfo.projectresources.push({
@@ -1291,6 +1360,8 @@
                                     companyprojects_id: this.tableE[i].companyprojects_id,
                                     numbers: this.tableE[i].numbers,
                                     user_id: this.tableE[i].user_id,
+                                  admissiontime: this.tableE[i].admissiontime,
+                                  exittime: this.tableE[i].exittime,
                                     role: this.tableE[i].role
                                 });
                             }
@@ -1299,6 +1370,8 @@
                             if (
                                 this.tableR[i].bpcompany !== "" ||
                                 this.tableR[i].bpname !== "" ||
+                              this.tableR[i].admissiontime!==""||
+                              this.tableR[i].exittime!==""||
                                 this.tableR[i].rn !== ""
                             ) {
                                 this.baseInfo.outSources.push({
@@ -1306,6 +1379,8 @@
                                     companyprojects_id: this.tableR[i].companyprojects_id,
                                     bpcompany: this.tableR[i].bpcompany,
                                     bpname: this.tableR[i].bpname,
+                                  admissiontime:this.tableR[i].admissiontime,
+                                  exittime: this.tableR[i].exittime,
                                     rn: this.tableR[i].rn
                                 });
                             }
