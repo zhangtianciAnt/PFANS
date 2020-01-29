@@ -201,7 +201,7 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006'">
+            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006' || form.typeassets === 'PA001007' || form.typeassets === 'PA001008'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -246,6 +246,11 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
                     <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_CUSTOMER')">
+                    <el-input style="width:20vw" v-model="form.customer"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
