@@ -3,7 +3,8 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm" style="padding: 2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
+                 style="padding: 2vw">
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.ASSETS1002VIEW_INVENTORYCYCLE')" prop="inventorycycle">
@@ -26,29 +27,30 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span  class="collapse_Title">{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>
-              </template>
-              <el-row >
-                <el-col :span="24">
-            <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border style="width: 70vw"
-                      header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name = "row_height">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
-              </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
-              </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
-              </el-table-column>
-              <el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">
-            </el-table-column>
-            </el-table>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
+          <!--          <el-collapse>-->
+          <!--            <el-collapse-item>-->
+          <!--              <template slot="title">-->
+          <!--                <span  class="collapse_Title">{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>-->
+          <!--              </template>-->
+          <el-row>
+            <el-col :span="24">
+              <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border
+                        style="width: 70vw"
+                        header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name="row_height">
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
+                </el-table-column>
+                <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
+                </el-table-column>
+                <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
+                </el-table-column>
+                <el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+          <!--            </el-collapse-item>-->
+          <!--          </el-collapse>-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -84,17 +86,19 @@
       };
       var validateDate = (rule, value, callback) => {
         if (value && this.form) {
-          if(this.form.status !== '0'){
+          if (this.form.status !== '0') {
             return;
           }
           this.$store
-            .dispatch('ASSETS1002Store/check', {'inventorycycle':moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD'),
-            'inventoryplan_id':this.$route.params._id})
+            .dispatch('ASSETS1002Store/check', {
+              'inventorycycle': moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD'),
+              'inventoryplan_id': this.$route.params._id
+            })
             .then(response => {
               this.data = response;
-              if(this.data === 1){
+              if (this.data === 1) {
                 callback(this.$t('normal.error_plandate'));
-              }else{
+              } else {
                 callback();
               }
             })
@@ -375,7 +379,7 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .assets1002{
+  .assets1002 {
     .row_height {
       height: 30px;
       font-size: 0.8rem;
