@@ -73,6 +73,27 @@
         <el-button @click="onSubmit" type="primary">{{$t('button.insert')}}</el-button>
       </span>
     </el-dialog>
+
+    <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+      <el-table
+        :data="downtypes"
+        style="width: 100%">
+        <el-table-column
+          prop="name"
+          :label="$t('label.ASSETS1001VIEW_FILENAME')"
+        >
+        </el-table-column>
+
+        <el-table-column :label="$t('label.operation')">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleDownload(scope.row)"
+            >{{$t('button.download2')}}</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -123,6 +144,7 @@
         downloadLoading: false,
         showSelection: true,
         loading: false,
+        pop_download: false,
         title: 'title.ASSETS1001VIEW',
         data: [],
         rules: {
@@ -206,8 +228,17 @@
         ],
         rowid: '',
         row_id: 'assets_id',
-        selectedlist: [],
+        selectedlist: []
       };
+    },
+    computed: {
+      downtypes(){
+        return [
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_GUDING'), type: 2},
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI'), type: 1},
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_QITA'), type: 0}
+        ]
+      }
     },
     mounted() {
       this.getListData();
@@ -389,7 +420,7 @@
               var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
               var r = str.substr(aPos + 1, bPos - aPos - 1);
               obj.hang = r;
-              obj.error = response.data[c].substring(6);
+              obj.error = response.data[c].substring(6 + r.length -3);
               datalist[c] = obj;
             }
             this.message = datalist;
@@ -463,20 +494,7 @@
           });
         }
         if (val === 'export2') {
-          this.loading = true;
-          this.$store
-            .dispatch('ASSETS1001Store/download', {})
-            .then(response => {
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000
-              });
-              this.loading = false;
-            })
+          this.pop_download = true;
         }
         if (val === 'insertLots') {
           this.piliang = true;
@@ -503,6 +521,22 @@
 
           this.websocketsend(JSON.stringify(list));
         }
+      },
+      handleDownload(row) {
+        this.loading = true;
+        this.$store
+            .dispatch('ASSETS1001Store/download', {'type': row.type})
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
       }
     },
   };

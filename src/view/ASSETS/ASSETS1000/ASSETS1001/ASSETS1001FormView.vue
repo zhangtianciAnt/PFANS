@@ -253,6 +253,18 @@
                     <el-input style="width:20vw" v-model="form.customer"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_CONTROLNO')">
+                    <el-input style="width:20vw" v-model="form.controlno"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MACHINENAME')">
+                    <el-input style="width:20vw" v-model="form.machinename"></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-collapse>
