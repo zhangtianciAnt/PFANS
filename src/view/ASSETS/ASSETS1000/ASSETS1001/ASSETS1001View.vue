@@ -323,6 +323,7 @@
         this.$store
           .dispatch('ASSETS1001Store/getList', {})
           .then(response => {
+              debugger
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
               if (user) {
@@ -334,6 +335,7 @@
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
               }
               if (response[j].typeassets !== null && response[j].typeassets !== '') {
+                  response[j].typeassets1 = response[j].typeassets;
                 let letErrortype = getDictionaryInfo(response[j].typeassets);
                 if (letErrortype != null) {
                   response[j].typeassets = letErrortype.value1;
@@ -371,6 +373,7 @@
           });
       },
       rowClick(row) {
+          debugger
         this.rowid = row.assets_id;
       },
       handleSizeChange(val) {
@@ -484,14 +487,17 @@
           this.daoru = true;
         }
         if (val === 'export') {
+            debugger
           this.selectedlist = this.$refs.roletable.selectedList;
-          import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.PFANS2020VIEW_JOBNUMBER'), this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_BARTYPE'), this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),this.$t('label.ASSETS1001VIEW_STOCKSTATUS')];
-            const filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus'];
-            const list = this.selectedlist;
-            const data = this.formatJson(filterVal, list);
-            excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
-          });
+            if(this.selectedlist.length === 0){
+                Message({
+                    message: this.$t("normal.info_01"),
+                    type: 'info',
+                    duration: 2 * 1000
+                });
+            }else{
+            this.export(this.selectedlist);
+            }
         }
         if (val === 'export2') {
           this.pop_download = true;
@@ -521,6 +527,156 @@
 
           this.websocketsend(JSON.stringify(list));
         }
+      },
+      export(selectedlist){
+          debugger;
+          let tHeader = "";
+          let filterVal = "";
+          let arr1 = ["PA001001"];
+          let arr2 = ["PA001002","PA001003","PA001004"];
+          let arr3 = ["PA001005","PA001006","PA001007","PA001008"];
+          if(selectedlist.every(list => {
+              return arr1.includes(list.typeassets1)
+          })){
+               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.ASSETS1001VIEW_BARCODE'),
+                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
+                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_PCNO'),
+                  this.$t('label.ASSETS1001VIEW_REALPRICE'),
+                  this.$t('label.ASSETS1001VIEW_MODEL'),
+                  this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
+                  this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
+                this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
+                  this.$t('label.ASSETS1001VIEW_REMARKS'),
+                  this.$t('label.ASSETS1001VIEW_PRICE')
+              ];
+               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','realprice','model','purchasetime','usedepartment','departmentcode','remarks','price'];
+          }else if(selectedlist.every(list => {
+              return arr2.includes(list.typeassets1)
+          })){
+               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.ASSETS1001VIEW_BARCODE'),
+                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
+                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_REMARKS1'),
+                  this.$t('label.ASSETS1001VIEW_NO'),
+                  this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),
+                  this.$t('label.ASSETS1001VIEW_ASSETNUMBER'),
+                  this.$t('label.ASSETS1001VIEW_ORIPRICE'),
+                  this.$t('label.ASSETS1001VIEW_MODEL'),
+                  this.$t('label.ASSETS1001VIEW_ADDRESS'),
+                  this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
+                  this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDPERIOD'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDISOVERDUE'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),
+                  this.$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')
+              ];
+               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
+                  'remarks','no','activitiondate','price','assetnumber','model','address','usedepartment','departmentcode','psdcddebitsituation','psdcdbringoutreason'
+                  ,'psdcdperiod','psdcdreturndate','psdcdisoverdue','psdcdcounterparty','psdcdresponsible','psdcdreturnconfirmation'];
+
+          }else if(selectedlist.every(list => {
+              return arr3.includes(list.typeassets1)
+          })){
+              selectedlist.forEach(
+                  list => {
+                      if(list.outparams12){
+                          list.outparams12 = getUserInfo(list.outparams12).userinfo.customername;
+                      }if(list.outparams11){
+                          list.outparams11 = getUserInfo(list.outparams11).userinfo.customername;
+                      }if(list.inparams3){
+                          list.inparams3 = getUserInfo(list.inparams3).userinfo.customername;
+                      }if(list.inparams6){
+                          list.inparams6 = getUserInfo(list.inparams6).userinfo.customername;
+                      }if(list.outparams2){
+                          list.outparams2 = getUserInfo(list.outparams2).userinfo.customername;
+                      }if(list.outparams7){
+                          list.outparams7 = getUserInfo(list.outparams7).userinfo.customername;
+                      }if(list.outparams8){
+                          list.outparams8 = getUserInfo(list.outparams7).userinfo.customername;
+                      }
+                      list.inparams1 = list.inparams1 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.inparams2 = list.inparams2 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.inparams5 = list.inparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.outparams4 = list.outparams4 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.outparams5 = list.outparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.outparams6 = list.outparams6 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                      list.outparams10 = list.outparams10 === "1" ? this.$t("label.yes") : this.$t("label.no");
+                  }
+              )
+               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.ASSETS1001VIEW_BARCODE'),
+                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
+                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+                  this.$t('label.ASSETS1001VIEW_TONGGUANNO'),
+                  this.$t('label.ASSETS1001VIEW_MODEL'),
+                  this.$t('label.ASSETS1001VIEW_PRICE'),
+                  this.$t('label.ASSETS1001VIEW_HSCODE'),
+                  this.$t('label.ASSETS1001VIEW_INTIME'),
+                  this.$t('label.ASSETS1001VIEW_YANQIDATE'),
+                  this.$t('label.ASSETS1001VIEW_REMARKS'),
+                  this.$t('label.ASSETS1001VIEW_CUSTOMER'),
+                  this.$t('label.ASSETS1001VIEW_CONTROLNO'),
+                  this.$t('label.ASSETS1001VIEW_MACHINENAME'),
+                  this.$t('label.ASSETS1001VIEW_PARAM1'),
+                  this.$t('label.ASSETS1001VIEW_PARAM2'),
+                  this.$t('label.ASSETS1001VIEW_PARAM3'),
+                  this.$t('label.ASSETS1001VIEW_PARAM4'),
+                  this.$t('label.ASSETS1001VIEW_PARAM5'),
+                  this.$t('label.ASSETS1001VIEW_PARAM6'),
+                  this.$t('label.ASSETS1001VIEW_PARAM4'),
+                  this.$t('label.ASSETS1001VIEW_PARAM7'),
+                  this.$t('label.ASSETS1001VIEW_PARAM5'),
+                  this.$t('label.ASSETS1001VIEW_PARAM8'),
+                  this.$t('label.ASSETS1001VIEW_PARAM4'),
+                  this.$t('label.ASSETS1001VIEW_PARAM9'),
+                  this.$t('label.ASSETS1001VIEW_PARAM10'),
+                  this.$t('label.ASSETS1001VIEW_PARAM11'),
+                  this.$t('label.ASSETS1001VIEW_PARAM6'),
+                  this.$t('label.ASSETS1001VIEW_PARAM3'),
+                  this.$t('label.ASSETS1001VIEW_PARAM4'),
+                  this.$t('label.ASSETS1001VIEW_PARAM12'),
+                  this.$t('label.ASSETS1001VIEW_PARAM13'),
+                  this.$t('label.ASSETS1001VIEW_PARAM14'),
+                  this.$t('label.ASSETS1001VIEW_PARAM4'),
+                  this.$t('label.ASSETS1001VIEW_PARAM7')
+              ];
+               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
+                  'pcno','model','price','no','purchasetime','activitiondate','remarks','customer','controlno','machinename',
+                  'inparams1','inparams2',
+                   'inparams3','inparams4','inparams5','inparams6',
+                   'inparams7','inparams8','outparams1',
+                  'outparams2', 'outparams3','outparams4','outparams5','outparams6','outparams7','outparams8','outparams9',
+                  'outparams10','outparams11','outparams12','outparams13','outparams14'];
+          }else{
+              Message({
+                  message: "请选择相同资产类型的数据",
+                  type: 'error',
+                  duration: 2 * 1000
+              });
+          }
+          if(tHeader&&filterVal){
+              import('@/vendor/Export2Excel').then(excel => {
+                  const list = this.selectedlist;
+                  const data = this.formatJson(filterVal, list);
+                  excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
+              });
+          }
       },
       handleDownload(row) {
         this.loading = true;
