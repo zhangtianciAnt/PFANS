@@ -467,6 +467,7 @@
           });
         }
         if (val === 'edit') {
+            debugger
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -496,7 +497,8 @@
                     duration: 2 * 1000
                 });
             }else{
-            this.export(this.selectedlist);
+                let selectedList = this.selectedlist;
+                this.export(selectedList);
             }
         }
         if (val === 'export2') {
@@ -528,16 +530,22 @@
           this.websocketsend(JSON.stringify(list));
         }
       },
-      export(selectedlist){
+      export(selectedList){
           debugger;
           let tHeader = "";
           let filterVal = "";
           let arr1 = ["PA001001"];
           let arr2 = ["PA001002","PA001003","PA001004"];
           let arr3 = ["PA001005","PA001006","PA001007","PA001008"];
-          if(selectedlist.every(list => {
+          if(selectedList.every(list => {
               return arr1.includes(list.typeassets1)
           })){
+              selectedList.forEach(
+                  list => {
+                      if(list.purchasetime){
+                          list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+                      }
+                      });
                tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
                   this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
                   this.$t('label.PFANS2020VIEW_JOBNUMBER'),
@@ -555,9 +563,19 @@
                   this.$t('label.ASSETS1001VIEW_PRICE')
               ];
                filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','realprice','model','purchasetime','usedepartment','departmentcode','remarks','price'];
-          }else if(selectedlist.every(list => {
+          }else if(selectedList.every(list => {
               return arr2.includes(list.typeassets1)
           })){
+              selectedList.forEach(
+                  list => {
+                      if(list.activitiondate){
+                          list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+                      }if(list.psdcdperiod){
+                          list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
+                      }if(list.psdcdreturndate){
+                          list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
+                      }
+                  });
                tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
                   this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
                   this.$t('label.PFANS2020VIEW_JOBNUMBER'),
@@ -568,8 +586,8 @@
                   this.$t('label.ASSETS1001VIEW_REMARKS1'),
                   this.$t('label.ASSETS1001VIEW_NO'),
                   this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),
-                  this.$t('label.ASSETS1001VIEW_ASSETNUMBER'),
                   this.$t('label.ASSETS1001VIEW_ORIPRICE'),
+                  this.$t('label.ASSETS1001VIEW_LABELNUMBER'),
                   this.$t('label.ASSETS1001VIEW_MODEL'),
                   this.$t('label.ASSETS1001VIEW_ADDRESS'),
                   this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
@@ -587,26 +605,42 @@
                   'remarks','no','activitiondate','price','assetnumber','model','address','usedepartment','departmentcode','psdcddebitsituation','psdcdbringoutreason'
                   ,'psdcdperiod','psdcdreturndate','psdcdisoverdue','psdcdcounterparty','psdcdresponsible','psdcdreturnconfirmation'];
 
-          }else if(selectedlist.every(list => {
+          }else if(selectedList.every(list => {
               return arr3.includes(list.typeassets1)
           })){
-              selectedlist.forEach(
+              selectedList.forEach(
                   list => {
-                      if(list.outparams12){
+                      debugger
+                      if(list.outparams12 && getUserInfo(list.outparams12)){
                           list.outparams12 = getUserInfo(list.outparams12).userinfo.customername;
-                      }if(list.outparams11){
+                      }if(list.outparams11 && getUserInfo(list.outparams11)){
                           list.outparams11 = getUserInfo(list.outparams11).userinfo.customername;
-                      }if(list.inparams3){
+                      }if(list.inparams3 && getUserInfo(list.inparams3)){
                           list.inparams3 = getUserInfo(list.inparams3).userinfo.customername;
-                      }if(list.inparams6){
+                      }if(list.inparams6 && getUserInfo(list.outparams6)){
                           list.inparams6 = getUserInfo(list.inparams6).userinfo.customername;
-                      }if(list.outparams2){
+                      }if(list.outparams2 && getUserInfo(list.outparams2)){
                           list.outparams2 = getUserInfo(list.outparams2).userinfo.customername;
-                      }if(list.outparams7){
+                      }if(list.outparams7 && getUserInfo(list.outparams7)){
                           list.outparams7 = getUserInfo(list.outparams7).userinfo.customername;
-                      }if(list.outparams8){
-                          list.outparams8 = getUserInfo(list.outparams7).userinfo.customername;
+                      }if(list.outparams8 && getUserInfo(list.outparams8)){
+                          list.outparams8 = getUserInfo(list.outparams8).userinfo.customername;
+                      }if(list.purchasetime){
+                          list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+                      }if(list.activitiondate){
+                          list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+                      }if(list.inparams4){
+                          list.inparams4 = moment(list.inparams4).format("YYYY/MM/DD");
+                      }if(list.inparams7){
+                          list.inparams7 = moment(list.inparams7).format("YYYY/MM/DD");
+                      }if(list.outparams3){
+                          list.outparams3 = moment(list.outparams3).format("YYYY/MM/DD");
+                      }if(list.outparams13){
+                          list.outparams13 = moment(list.outparams13).format("YYYY/MM/DD");
+                      }if(list.outparams9){
+                          list.outparams9 = moment(list.outparams9).format("YYYY/MM/DD");
                       }
+
                       list.inparams1 = list.inparams1 === "1" ? this.$t("label.yes") : this.$t("label.no");
                       list.inparams2 = list.inparams2 === "1" ? this.$t("label.yes") : this.$t("label.no");
                       list.inparams5 = list.inparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
@@ -665,14 +699,14 @@
                   'outparams10','outparams11','outparams12','outparams13','outparams14'];
           }else{
               Message({
-                  message: "请选择相同资产类型的数据",
+                  message: this.$t("label.ASSETS1001VIEW_ERROR"),
                   type: 'error',
                   duration: 2 * 1000
               });
           }
           if(tHeader&&filterVal){
               import('@/vendor/Export2Excel').then(excel => {
-                  const list = this.selectedlist;
+                  const list = selectedList;
                   const data = this.formatJson(filterVal, list);
                   excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
               });

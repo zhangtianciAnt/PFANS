@@ -2036,5 +2036,7 @@ module.exports = {
     ASSETS1001VIEW_TEMPLAET_GUDING: '固定资产',
     ASSETS1001VIEW_TEMPLAET_BUWAI: '簿外资产',
     ASSETS1001VIEW_TEMPLAET_QITA: '其他资产',
-  },
+    ASSETS1001VIEW_LABELNUMBER: '标签号',
+    ASSETS1001VIEW_ERROR: '请选择相同资产类型的数据'
+  }
 };
