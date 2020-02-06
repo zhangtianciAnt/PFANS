@@ -553,16 +553,16 @@
                   this.$t('label.ASSETS1001VIEW_BARTYPE'),
                   this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
                   this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_PCNO'),
-                  this.$t('label.ASSETS1001VIEW_REALPRICE'),
-                  this.$t('label.ASSETS1001VIEW_MODEL'),
-                  this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
-                  this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
-                this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
-                  this.$t('label.ASSETS1001VIEW_REMARKS'),
-                  this.$t('label.ASSETS1001VIEW_PRICE')
+                 this.$t('label.ASSETS1001VIEW_PCNO'),
+                 this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
+                 this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
+                 this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
+                 this.$t('label.ASSETS1001VIEW_PRICE'),
+                 this.$t('label.ASSETS1001VIEW_REALPRICE'),
+                 this.$t('label.ASSETS1001VIEW_MODEL'),
+                 this.$t('label.ASSETS1001VIEW_REMARKS')
               ];
-               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','realprice','model','purchasetime','usedepartment','departmentcode','remarks','price'];
+               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','usedepartment','departmentcode','purchasetime','price','realprice','model','remarks'];
           }else if(selectedList.every(list => {
               return arr2.includes(list.typeassets1)
           })){
