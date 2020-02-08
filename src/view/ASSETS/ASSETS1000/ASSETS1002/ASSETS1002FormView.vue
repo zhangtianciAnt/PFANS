@@ -87,7 +87,7 @@
       var validateDate = (rule, value, callback) => {
         if (value && this.form) {
           if (this.form.status !== '0') {
-            return;
+            callback();
           }
           this.$store
             .dispatch('ASSETS1002Store/check', {
