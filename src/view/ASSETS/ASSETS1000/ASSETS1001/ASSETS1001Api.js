@@ -43,8 +43,8 @@ export function getOneInfo(data) {
 export function download(data) {
   return requestDownload({
     url: 'assets/download',
-    method: 'post',
-    data: data,
+    method: 'get',
+    params: data,
     responseType: 'blob'
   })
 }

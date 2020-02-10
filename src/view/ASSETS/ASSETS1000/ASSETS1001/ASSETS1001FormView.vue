@@ -107,14 +107,21 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
-                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
+                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
                     <el-input-number :max="9999" :min="0" :precision="2" :step="1"
                                      controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -166,6 +173,18 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')">
+                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
+                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION')">
                     <el-input style="width:20vw" v-model="form.psdcddebitsituation"></el-input>
                   </el-form-item>
@@ -175,11 +194,22 @@
                     <el-input style="width:20vw" v-model="form.psdcdbringoutreason"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPERIOD')">
                     <el-input style="width:20vw" v-model="form.psdcdperiod"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNDATE')">
+                    <el-input style="width:20vw" v-model="form.psdcdreturndate"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDISOVERDUE')">
+                    <el-switch style="width:20vw" v-model="form.psdcdisoverdue"active-value="1"
+                               inactive-value="0"></el-switch>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -187,13 +217,13 @@
                     <el-input style="width:20vw" v-model="form.psdcdcounterparty"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE')">
                     <el-input style="width:20vw" v-model="form.psdcdresponsible"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')">
                     <el-input style="width:20vw" v-model="form.psdcdreturnconfirmation"></el-input>
@@ -201,7 +231,7 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006'">
+            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006' || form.typeassets === 'PA001007' || form.typeassets === 'PA001008'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -246,6 +276,23 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
                     <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_CUSTOMER')">
+                    <el-input style="width:20vw" v-model="form.customer"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_CONTROLNO')">
+                    <el-input style="width:20vw" v-model="form.controlno"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MACHINENAME')">
+                    <el-input style="width:20vw" v-model="form.machinename"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -425,10 +472,12 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import ElRow from "element-ui/packages/row/src/row";
 
   export default {
     name: 'ASSETS1001FormView',
     components: {
+      ElRow,
       EasyNormalContainer,
       ASSETS1001View,
       dicselect,
