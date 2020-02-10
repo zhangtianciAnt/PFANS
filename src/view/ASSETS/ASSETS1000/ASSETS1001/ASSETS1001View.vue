@@ -12,7 +12,6 @@
             :action="postAction"
             :before-upload="handleChange"
             :headers="authHeader"
-            :limit=1
             :on-remove="this.clear"
             :on-success="handleSuccess"
             drag
