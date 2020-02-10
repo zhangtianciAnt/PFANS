@@ -1112,6 +1112,20 @@ export function menu() {
                 {"_id": "PFANS5008_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
               ]
             },
+            {
+              '_id': 'PFANS5009',
+              'name': 'menu.PFANS5009',
+              'menuvisible': true,
+              'menuurl': '/PFANS5009View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "PFANS5009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "PFANS5009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "PFANS5009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "PFANS5009_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
           ]
         },
         {
