@@ -1,7 +1,7 @@
 <template>
   <div class="EasyNormalTable" style="min-height: 100%" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
-      <div class="clearfix" slot="header" style="height: 20px">
+      <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
@@ -42,7 +42,7 @@
       </el-table>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
-                       :page-sizes="[10,20,30,50]" :total="total" @current-change="handleCurrentChange"
+                       :page-sizes="[10,20,30,50,10000]" :total="total" @current-change="handleCurrentChange"
                        @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
           <!--<slot><span class="front Content_front"-->
                       <!--style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
@@ -138,6 +138,10 @@
         default: function () {
           return []
         }
+      },
+      buttonShow:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {

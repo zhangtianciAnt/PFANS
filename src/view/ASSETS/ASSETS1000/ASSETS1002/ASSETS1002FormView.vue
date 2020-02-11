@@ -27,30 +27,26 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--          <el-collapse>-->
-          <!--            <el-collapse-item>-->
-          <!--              <template slot="title">-->
-          <!--                <span  class="collapse_Title">{{$t('label.ASSETS1002FORMVIEW_INVENTORYRANGE')}}</span>-->
-          <!--              </template>-->
           <el-row>
             <el-col :span="24">
-              <el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border
-                        style="width: 70vw"
-                        header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name="row_height">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">
-                </el-table-column>
-                <el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">
-                </el-table-column>
-                <el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">
-                </el-table-column>
-                <el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">
-                </el-table-column>
-              </el-table>
+              <!--<el-table :data="tableD" @selection-change="selectionChange" height="400" stripe border-->
+                        <!--style="width: 70vw"-->
+                        <!--header-cell-class-name="sub_bg_color_blue" @row-click="rowClick" cell-class-name="row_height">-->
+                <!--<el-table-column type="selection" width="55"></el-table-column>-->
+                <!--<el-table-column :label="$t('label.ASSETS1001VIEW_FILENAME')" align="center" prop="filename">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" align="center" prop="typeassets">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.ASSETS1001VIEW_PRINCIPAL')" align="center" prop="principal">-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">-->
+                <!--</el-table-column>-->
+              <!--</el-table>-->
+              <EasyNormalTable :columns="columns" :data="tableD" :rowid="row_id" :buttonShow="buttonShow"
+                               :showSelection="showSelection" @rowClick="rowClick" :buttonList="buttonList"
+                               ref="roletable"></EasyNormalTable>
             </el-col>
           </el-row>
-          <!--            </el-collapse-item>-->
-          <!--          </el-collapse>-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -59,6 +55,7 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import EasyNormalTable from '@/components/EasyNormalTable';
   import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
@@ -70,6 +67,7 @@
     name: 'ASSETS1002FormView',
     components: {
       EasyNormalContainer,
+      EasyNormalTable,
       ASSETS1001View,
       dicselect,
       user,
@@ -115,12 +113,15 @@
         }
       };
       return {
+        buttonShow:false,
         loading: false,
         error: '',
+        row_id: 'assets_id',
         userlist: '',
         selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
         buttonList: [],
+        showSelection: true,
         form: {
           inventorycycle: [],
           userid: '',
@@ -136,6 +137,37 @@
             principal: '',
           },
         ],
+        columns: [
+          {
+            code: 'filename',
+            label: 'label.ASSETS1001VIEW_FILENAME',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'typeassets',
+            label: 'label.ASSETS1001VIEW_TYPEASSETS',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'principal',
+            label: 'label.ASSETS1001VIEW_PRINCIPAL',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'barcode',
+            label: 'label.ASSETS1001VIEW_BARCODE',
+            width: 120,
+            fix: false,
+            filter: false,
+          }
+        ],
+        buttonList:[],
         multipleSelection: [],
         baseInfo: {},
         rules: {
@@ -325,8 +357,8 @@
             this.baseInfo = {};
             if (val === 'save') {
               this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.inventoryRange = this.multipleSelection;
-              this.baseInfo.inventoryResults = this.multipleSelection;
+              this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
+              this.baseInfo.inventoryResults = this.$refs.roletable.selectedList;
               this.loading = true;
               this.$store
                 .dispatch('ASSETS1002Store/insert', this.baseInfo)
@@ -369,7 +401,7 @@
             }
             this.form.status = resultFlg;
             this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.inventoryRange = this.multipleSelection;
+            this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
             this.getUpdate();
           }
         });
