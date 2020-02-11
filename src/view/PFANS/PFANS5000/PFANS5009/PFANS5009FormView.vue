@@ -355,11 +355,19 @@
           deadline: moment(new Date()).format('YYYY-MM-DD'),
         },
         tableP: [{
-          travelcontent_id: '',
-          businessid: '',
-          travelcontentdate: '',
-          place: '',
-          content: '',
+          projectinformationid: '',
+          stageinformationid: '',
+          phase: '',
+          stageproduct: '',
+          productstatus: '',
+          estimatedwork: '',
+          actualwork: '',
+          estimatedstarttime: '',
+          estimatedendtime: '',
+          remarks: '',
+          actualstarttime: '',
+          actualendtime: '',
+          product: '',
           rowindex: '',
         }],
         code: 'PP001',
@@ -545,69 +553,11 @@
           this.row.productstatus = "weitijiao";
         }
       },
-      // addRow() {
-      //   this.tableP.push({
-      //     projectinformationid: '',
-      //     stageinformation_id: '',
-      //     travelcontentdate: '',
-      //     place: '',
-      //     content: '',
-      //     rowindex: '',
-      //     display: true,
-      //   });
-      // },
-      // deleteRow(index, rows) {
-      //   if (rows.length > 1) {
-      //     rows.splice(index, 1);
-      //   } else {
-      //     this.tableP = [{
-      //       travelcontentdate: '',
-      //       place: '',
-      //       content: '',
-      //     }];
-      //   }
-      // },
-      getRecruitmentroute(val) {
-        this.form.recruitmentroute = val;
-        this.show1 = false;
-        for (let i = 0; i < val.length; i++) {
-          if (val[i] === 'PR027004') {
-            this.show1 = true;
-          }
-        }
-      },
       getArea(val) {
         this.form.area = val;
       },
       getType(val) {
         this.form.type = val;
-      },
-      getDemandlevel(val) {
-        this.form.demandlevel = val;
-      },
-      getGenderrequirements(val) {
-        this.form.genderrequirements = val;
-      },
-      getSkilllevel(val) {
-        this.form.skilllevel = val;
-      },
-      getAftert(val) {
-        this.form.afterturningpositiv = val;
-      },
-      getRequirements(val) {
-        this.form.requirements = val;
-        if (val === 'PR032005') {
-          this.show2 = true;
-        }
-        if (val === 'PR035009') {
-          this.show2 = false;
-        } else if (val === 'PR032002') {
-          this.show2 = false;
-        } else if (val === 'PR032003') {
-          this.show2 = false;
-        } else if (val === 'PR032004') {
-          this.show2 = false;
-        }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -625,29 +575,29 @@
         this.form.status = '0';
         this.buttonClick('update');
       },
-      getCompanyProjectList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/getCompanyProjectList', {})
-          .then(response => {
-            this.optionsdata = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.value = response[i].companyprojects_id;
-              vote.lable = response[i].project_name;
-              this.optionsdata.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+      // getCompanyProjectList() {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS5009Store/getCompanyProjectList', {})
+      //     .then(response => {
+      //       this.optionsdata = [];
+      //       for (let i = 0; i < response.length; i++) {
+      //         var vote = {};
+      //         vote.value = response[i].companyprojects_id;
+      //         vote.lable = response[i].project_name;
+      //         this.optionsdata.push(vote);
+      //       }
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       this.loading = false;
+      //     });
+      // },
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
@@ -686,33 +636,34 @@
                   this.loading = false;
                 });
 
-            } else {
-              this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-              this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
-              this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
-              this.$store
-                .dispatch('PFANS5009Store/createRecruit', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
             }
+            // else {
+            //   this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
+            //   this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
+            //   this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
+            //   this.$store
+            //     .dispatch('PFANS5009Store/createRecruit', this.form)
+            //     .then(response => {
+            //       this.data = response;
+            //       this.loading = false;
+            //       Message({
+            //         message: this.$t('normal.success_01'),
+            //         type: 'success',
+            //         duration: 5 * 1000,
+            //       });
+            //       if (this.$store.getters.historyUrl) {
+            //         this.$router.push(this.$store.getters.historyUrl);
+            //       }
+            //     })
+            //     .catch(error => {
+            //       Message({
+            //         message: error,
+            //         type: 'error',
+            //         duration: 5 * 1000,
+            //       });
+            //       this.loading = false;
+            //     });
+            // }
           }
         });
       },
