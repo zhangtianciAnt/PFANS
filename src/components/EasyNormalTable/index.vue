@@ -1,7 +1,7 @@
 <template>
   <div class="EasyNormalTable" style="min-height: 100%" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
-      <div class="clearfix" slot="header" style="height: 20px">
+      <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
@@ -138,6 +138,10 @@
         default: function () {
           return []
         }
+      },
+      buttonShow:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {
