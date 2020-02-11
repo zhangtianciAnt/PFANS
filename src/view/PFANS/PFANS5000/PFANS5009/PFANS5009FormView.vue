@@ -235,7 +235,7 @@
                     <el-switch
                       :disabled="!disabled"
                       :no="scope.row"
-                      @change="getProduct"
+                      @change="getProduct(scope.row)"
                       active-value="1"
                       inactive-value="0"
                       v-model.trim="scope.row.product"
@@ -546,11 +546,11 @@
         this.form.team_id = val;
         this.teamorglist = val;
       },
-      getProduct(val){
-        if(val === '1'){
-          this.row.productstatus = "yitijiao";
+      getProduct(row){
+        if(row.product === '1'){
+          row.productstatus = this.$t('label.PFANS5009FORMVIEW_SUBMITTED');
         }else{
-          this.row.productstatus = "weitijiao";
+          row.productstatus = this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED');
         }
       },
       getArea(val) {
