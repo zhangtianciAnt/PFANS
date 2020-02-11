@@ -20,7 +20,7 @@
           style="padding: 2vw"
         >
           <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_COMPANYPROJECTS')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
                 <el-form
                   :model="form"
@@ -238,7 +238,7 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item
-                        :label="$t('label.受託工数')"
+                        :label="$t('label.PFANS5009FORMVIEW_WORK')"
                         prop="projectalabel"
                       >
                         <el-input
@@ -251,7 +251,7 @@
                     </el-col>
                     <el-col :span="8">
                       <el-form-item
-                        :label="$t('label.納期')"
+                        :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
                         prop="situation"
                       >
                         <el-input
@@ -315,12 +315,12 @@
                 </el-form>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')" name="second">
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" name="second">
               <el-row>
                 <el-col :span="8">
                   <el-form-item
                     :error="errorLeader"
-                    :label="$t('label.PFANS5001FORMVIEW_LEADERID')"
+                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                     prop="leaderid"
                   >
                     <user
@@ -372,15 +372,15 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_PROJECTRESOURCES')" name="third">
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_DEVELOPMENTPLAN')" name="third">
               <el-form-item >
                 <el-row >
                   <el-col :span="24">
                       <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-                        <el-table-column :label="$t('label.工作阶段')" align="center">
+                        <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                           <template slot-scope="scope">
                             <dicselect
-                              :code="code8"
+                              :code="code7"
                               :data="scope.row.role"
                               :disabled="!disable"
                               :multiple="multiple"
@@ -391,7 +391,7 @@
                         </el-table-column>
 
                         <el-table-column
-                          :label="$t('label.阶段成果物')"
+                          :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"
                           align="center"
                         >
                           <template slot-scope="scope">
@@ -406,7 +406,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column
-                          :label="$t('label.预计工数（人月）')"
+                          :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
                           align="center">
                           <template slot-scope="scope">
                             <el-input
@@ -418,7 +418,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column
-                          :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                          :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')"
                           align="center"
                           width="160vm"
                         >
@@ -433,7 +433,7 @@
                         </el-table-column>
 
                         <el-table-column
-                          :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                          :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')"
                           align="center"
                           width="160vm"
                         >
@@ -448,7 +448,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column
-                          :label="$t('label.备注')"
+                          :label="$t('label.PFANS5009FORMVIEW_REMARKS')"
                           align="center">
                           <template slot-scope="scope">
                             <el-input
@@ -482,137 +482,26 @@
                 </el-row>
               </el-form-item>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTSOURCE')" name="fourth">
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_SYSTEM')" name="fourth">
               <el-form-item >
                 <el-row >
                   <el-col :span="24">
-                    <el-table :data="tableR"  border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-
-                      <el-table-column
-                        :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
-                        align="center"
-                        prop="bpcompany">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="7"  :no="scope.row" v-model="scope.row.bpcompany"></el-input>
-                        </template>
-                      </el-table-column>
-
-                      <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="bpname"  width="150vm">
-                        <template slot-scope="scope">
-                          <el-select :disabled="!disable" @change="getchange(scope.row)" v-model="scope.row.bpname">
-                            <el-option
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                              v-for="item in expatriates">
-                            </el-option>
-                          </el-select>
-                        </template>
-                      </el-table-column>
-
-                      <!--     <el-table-column :label="$t('label.PFANS5001FORMVIEW_BPNAME')" align="center" prop="user_Bp">
-                             <template slot-scope="scope">
-                               <el-container>
-                               <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
-                                      :disabled="true"></input>
-                               <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
-                                          size="small"></el-button>
-                               <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
-                                          top="8vh" lock-scroll
-                                          append-to-body>
-                                 <div style="text-align: center">
-                                   <el-row style="text-align: center;height: 90%;overflow: hidden">
-                                     <el-table
-                                       :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
-                                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                       :span-method="arraySpanMethod" @row-click="handleClickChange">
-                                       <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                                        width="150"></el-table-column>
-                                       <el-table-column
-                                         align="right" width="230">
-                                         <template slot="header" slot-scope="scope">
-                                           <el-input
-                                             v-model="search"
-                                             size="mini"
-                                             placeholder="请输入供应商关键字搜索"/>
-                                         </template>
-                                       </el-table-column>
-                                     </el-table>
-                                   </el-row>
-                                   <span slot="footer" class="dialog-footer">
-                                   <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
-                                 </span>
-                                 </div>
-                               </el-dialog>
-                               </el-container>
-                             </template>
-                           </el-table-column>
-
-         -->
-
-                      <el-table-column
-                        :label="$t('label.PFANS2003FORMVIEW_RN')"
-                        align="center" prop="rn">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code9"
-                            :data="scope.row.rn"
-                            :disabled="true"
-                            :multiple="multiple"
-                            :no="scope.row"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
-                        align="center"
-                        width="160vm"
-                      >
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            v-model="scope.row.admissiontime"
-                            :disabled="!disable"
-                            type="date"
-                            style="width: 100%"
-                          >
-                          </el-date-picker>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
-                        align="center"
-                        width="160vm"
-                      >
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            v-model="scope.row.exittime"
-                            :disabled="!disable"
-                            type="date"
-                            style="width: 100%"
-                          >
-                          </el-date-picker>
-                        </template>
-                      </el-table-column>
-
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRow2(scope.$index, tableR)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}</el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRow2()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}</el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
+              <el-form-item >
+                <el-row >
+                  <el-col :span="24">
+                  </el-col>
+                </el-row>
+              </el-form-item>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_FILEUPLOAD')" name="sixth">
+              <el-form-item >
+                <el-row >
+                  <el-col :span="24">
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -922,8 +811,8 @@
                 code4: "PP004",
                 code5: "PP005",
                 code6: "PP007",
-                code7: "PP008",
-                code8: "PR021",
+                code7: "PP014",
+                code8: "PP015",
                 code9:"PR021",
                 result: "",
                 result1: "",
