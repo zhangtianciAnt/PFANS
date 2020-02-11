@@ -31,6 +31,26 @@
                 >
                   <el-row>
                     <el-col :span="8">
+                      <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                        <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist" @getOrgids="getCenterId"
+                             orgtype="1" style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                        <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                             orgtype="2" style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.team')">
+                        <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
+                             style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAME')"
                         prop="project_name"
@@ -56,33 +76,18 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="numbers">
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="20"
-                          style="width: 20vw"
-                          v-model="form.numbers"
-                        ></el-input>
-                      </el-form-item>
-                    </el-col>
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="numbers">-->
+<!--                        <el-input-->
+<!--                          :disabled="!disable"-->
+<!--                          maxlength="20"-->
+<!--                          style="width: 20vw"-->
+<!--                          v-model="form.numbers"-->
+<!--                        ></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
                   </el-row>
                   <el-row>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')"
-                        prop="departmentid"
-                      >
-                        <dicselect
-                          :code="code"
-                          :data="form.departmentid"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getdepartmentid"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
                     <el-col :span="8">
                       <el-form-item
                         :error="errorLeader"
@@ -148,18 +153,13 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_TECHNOLOGICAL')"
-                        prop="technological"
-                      >
-                        <dicselect
-                          :code="code3"
-                          :data="form.technological"
+                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="language">
+                        <el-input
                           :disabled="!disable"
-                          :multiple="multiple"
+                          maxlength="20"
                           style="width: 20vw"
-                          @change="gettechnological"
-                        ></dicselect>
+                          v-model="form.language"
+                        ></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -188,55 +188,57 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANMONTH')" prop="manmonth">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 20vw"
-                          v-model="form.manmonth"
-                        ></el-input-number>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_COST')" prop="cost">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 20vw"
-                          v-model="form.cost"
-                        ></el-input-number>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_SALESVOLUME')"
-                        prop="salesvolume"
-                      >
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 20vw"
-                          v-model="form.salesvolume"
-                        ></el-input-number>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANMONTH')" prop="manmonth">-->
+<!--                        <el-input-number-->
+<!--                          :disabled="!disable"-->
+<!--                          :max="1000000000"-->
+<!--                          :min="0"-->
+<!--                          :precision="2"-->
+<!--                          controls-position="right"-->
+<!--                          style="width: 20vw"-->
+<!--                          v-model="form.manmonth"-->
+<!--                        ></el-input-number>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_COST')" prop="cost">-->
+<!--                        <el-input-number-->
+<!--                          :disabled="!disable"-->
+<!--                          :max="1000000000"-->
+<!--                          :min="0"-->
+<!--                          :precision="2"-->
+<!--                          controls-position="right"-->
+<!--                          style="width: 20vw"-->
+<!--                          v-model="form.cost"-->
+<!--                        ></el-input-number>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item-->
+<!--                        :label="$t('label.PFANS5001FORMVIEW_SALESVOLUME')"-->
+<!--                        prop="salesvolume"-->
+<!--                      >-->
+<!--                        <el-input-number-->
+<!--                          :disabled="!disable"-->
+<!--                          :max="1000000000"-->
+<!--                          :min="0"-->
+<!--                          :precision="2"-->
+<!--                          controls-position="right"-->
+<!--                          style="width: 20vw"-->
+<!--                          v-model="form.salesvolume"-->
+<!--                        ></el-input-number>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
 
+
+                  <!--受託工数-->
                   <el-row>
                     <el-col :span="8">
                       <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_PROJECTALABEL')"
+                        :label="$t('label.受託工数')"
                         prop="projectalabel"
                       >
                         <el-input
@@ -248,111 +250,34 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="language">
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="20"
-                          style="width: 20vw"
-                          v-model="form.language"
-                        ></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
                       <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_SITUATION')"
+                        :label="$t('label.納期')"
                         prop="situation"
                       >
-                        <dicselect
-                          :code="code4"
-                          :data="form.situation"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getsituation"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_CONFIDENTIAL')"
-                        prop="confidential"
-                      >
-                        <dicselect
-                          :code="code5"
-                          :data="form.confidential"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getconfidential"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_MANAGEMENTTOOL')"
-                        prop="managementtool"
-                      >
-                        <dicselect
-                          :code="code6"
-                          :data="form.managementtool"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 70vw"
-                          @change="getmanagementtool"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                        prop="customername"
-                      >
-                        <el-select :disabled="!disable"
-                                   @change="getcustomer"
-                                   v-model="form.customername">
-                          <el-option
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                            v-for="item in customerinfor">
-                          </el-option>
-                        </el-select>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_REPRESENTATIVE')"
-                        prop="representative"
-                      >
                         <el-input
-                          :disabled="true"
+                          :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.representative"
+                          v-model="form.situation"
                         ></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_BASICSITUATION')"
-                        prop="basicsituation"
-                      >
-                        <el-input
-                          :autosize="{ minRows: 3, maxRows: 4}"
-                          :disabled="!disable"
-                          style="width: 70vw"
-                          type="textarea"
-                          v-model="form.basicsituation"
-                        ></el-input>
-                      </el-form-item>
+                      <template>
+                        <el-form-item
+                          :label="$t('label.其他管理工具')"
+                          prop="situation"
+                        >
+                        <el-checkbox-group v-model="checkList">
+                          <el-checkbox label="SVN"></el-checkbox>
+                          <el-checkbox label="redmine"></el-checkbox>
+                          <el-checkbox label="gitlab"></el-checkbox>
+                          <el-checkbox label="其他"></el-checkbox>
+                        </el-checkbox-group>
+                        </el-form-item>
+                      </template>
                     </el-col>
                   </el-row>
                   <el-row>
@@ -387,129 +312,86 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.enclosure')">
-                        <el-upload
-                          v-model="form.uploadfile"
-                          :action="upload"
-                          :file-list="fileList"
-                          :on-remove="fileRemove"
-                          :on-preview="fileDownload"
-                          :on-success="fileSuccess"
-                          :on-error="fileError"
-                          class="upload-demo"
-                          drag
-                          ref="upload"
-                        >
-                          <i class="el-icon-upload"></i>
-                          <div class="el-upload__text">
-                            {{$t('label.enclosurecontent')}}
-                            <em>{{$t('normal.info_09')}}</em>
-                          </div>
-                        </el-upload>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
                 </el-form>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TASKPLAN')" name="second">
-              <el-form-item >
-                <el-row >
-                  <el-col :span="24">
-                    <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-                      <el-table-column
-                        :label="$t('label.PFANS5008VIEW_JDJOBS')"
-                        align="center">
-                        <template slot-scope="scope">
-                          <dicselect :code="code7"
-                                     :data="scope.row.plantype"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getplantype">
-                          </dicselect>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5001FORMVIEW_MANMONTH')"
-                        align="center"
-                        prop="user_id"
-                      >
-                        <template slot-scope="scope">
-                          <el-input :disabled="!disable" maxlength="5" v-model="scope.row.numbers"></el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
-                        align="center"
-                        prop
-                      >
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            :disabled="!disable"
-                            :no="scope.row"
-                            style="width:100%"
-                            type="date"
-                            v-model="scope.row.starttime"
-                          ></el-date-picker>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.end')" align="center" prop="remarks">
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            :disabled="!disable"
-                            :no="scope.row"
-                            style="width:100%"
-                            type="date"
-                            v-model="scope.row.endtime"
-                          ></el-date-picker>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableD)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}</el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRow()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}</el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                </el-row>
-              </el-form-item>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item
+                    :error="errorLeader"
+                    :label="$t('label.PFANS5001FORMVIEW_LEADERID')"
+                    prop="leaderid"
+                  >
+                    <user
+                      :disabled="!disable"
+                      :error="errorLeader"
+                      :selectType="selectType"
+                      :userlist="userlist"
+                      @getUserids="getUserids"
+                      style="width: 20vw"
+                    ></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :error="errorManager"
+                    :label="$t('label.PFANS5001FORMVIEW_MANAGERID')"
+                    prop="managerid"
+                  >
+                    <user
+                      :disabled="!disable"
+                      :error="errorManager"
+                      :selectType="selectType"
+                      :userlist="userlist1"
+                      @getUserids="getUserids1"
+                      style="width: 20vw"
+                    ></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS2001VIEW_AGEREQUIREMENT')" prop="agerequirement">
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                              v-model="form.agerequirement"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION')"
+                    prop="briefintroduction"
+                  >
+                    <el-input
+                      :disabled="!disable"
+                      style="width: 71vw"
+                      type="textarea"
+                      v-model="form.briefintroduction"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_PROJECTRESOURCES')" name="third">
               <el-form-item >
                 <el-row >
                   <el-col :span="24">
                       <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
-                        <el-table-column :label="$t('label.user_name')" align="center">
+                        <el-table-column :label="$t('label.工作阶段')" align="center">
                           <template slot-scope="scope">
-                            <user
+                            <dicselect
+                              :code="code8"
+                              :data="scope.row.role"
                               :disabled="!disable"
+                              :multiple="multiple"
                               :no="scope.row"
-                              :userlist="scope.row.user_id"
-                              @getUserids="getCitationUserid"
-                              selectType="Single"
-                              style="width:90%"
-                            ></user>
+                              @change="getrole"
+                            ></dicselect>
                           </template>
                         </el-table-column>
 
                         <el-table-column
-                          :label="$t('label.PFANS2003FORMVIEW_RN')"
+                          :label="$t('label.阶段成果物')"
                           align="center"
                         >
                           <template slot-scope="scope">
@@ -521,6 +403,18 @@
                               :no="scope.row"
                               @change="getrole"
                             ></dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          :label="$t('label.预计工数（人月）')"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input
+                              :no="scope.row"
+                              :disabled="!disable"
+                              v-model="scope.row.technology"
+                              style="width: 100%">
+                            </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column
@@ -553,8 +447,18 @@
                             </el-date-picker>
                           </template>
                         </el-table-column>
-
-
+                        <el-table-column
+                          :label="$t('label.备注')"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input
+                              :no="scope.row"
+                              :disabled="!disable"
+                              v-model="scope.row.technology"
+                              style="width: 100%">
+                            </el-input>
+                          </template>
+                        </el-table-column>
                         <el-table-column :label="$t('label.operation')" align="center" width="200">
                           <template slot-scope="scope">
                             <el-button
@@ -727,13 +631,17 @@
     import {getUserInfo} from '@/utils/customize'
     import { Message } from "element-ui";
     import moment from 'moment';
+    import {getOrgInfoByUserId} from '@/utils/customize';
+    import org from "../../../components/org";
 
     export default {
         name: "PFANS5001FormView",
         components: {
             dicselect,
             EasyNormalContainer,
-            user
+            getOrgInfoByUserId,
+            user,
+            org
         },
         data() {
             var validateUserid = (rule, value, callback) => {
@@ -790,8 +698,15 @@
                 }
             };
             return {
+                centerorglist: '',
+                grouporglist: '',
+                teamorglist: '',
+                errorcenter: '',
+                errorgroup: '',
+
                 disable: false,
                 customerinfor: [],
+                checkList: [],
                 expatriates:[],
                 disabled: true,
                 error: "",
@@ -837,7 +752,7 @@
                 ],
                 data: [],
                 loading: false,
-                title: "title.PFANS5001VIEW",
+                title: "title.PFANS5001VIEW1",
                 rules: {
                     leaderid: [
                         {
@@ -1103,6 +1018,28 @@
             }
         },
         methods: {
+            getCenterId(val) {
+                this.form.center_id = val;
+                this.centerorglist = val;
+                if (!this.form.center_id || this.form.center_id === '' || val === "undefined") {
+                    this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+                } else {
+                    this.errorcenter = "";
+                }
+            },
+            getGroupId(val) {
+                this.form.group_id = val;
+                this.grouporglist = val;
+                if (!this.form.group_id || this.form.group_id === '' || val === "undefined") {
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+                } else {
+                    this.errorgroup = "";
+                }
+            },
+            getTeamId(val) {
+                this.form.team_id = val;
+                this.teamorglist = val;
+            },
             getUserids(val) {
                 this.userlist = val;
                 this.form.leaderid = val;
