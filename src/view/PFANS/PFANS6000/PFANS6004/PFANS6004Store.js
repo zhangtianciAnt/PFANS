@@ -3,10 +3,12 @@ import {
   getexpatriatesinforApplyOne,
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
+  setexpatriatesinforApply,
+  updateexpatriatesinfor,
   getSupplierNameList,
-  getExpnameList,
   download
 } from './PFANS6004Api'
+import {updatepriceset} from '../PFANS6005/PFANS6005Api';
 
 
 const PFANS6004Store = {
@@ -54,6 +56,21 @@ const PFANS6004Store = {
         })
       })
     },
+
+    updateexpatriatesinfor({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updateexpatriatesinfor(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     createexpatriatesinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
         createexpatriatesinforApply(data).then(response => {
@@ -67,9 +84,10 @@ const PFANS6004Store = {
         })
       })
     },
-    getSupplierNameList({commit}, data) {
+
+    setexpatriatesinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
-        getSupplierNameList(data).then(response => {
+        setexpatriatesinforApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -80,9 +98,10 @@ const PFANS6004Store = {
         })
       })
     },
-    getExpnameList({commit}, data) {
+
+    getSupplierNameList({commit}, data) {
       return new Promise((resolve, reject) => {
-        getExpnameList(data).then(response => {
+        getSupplierNameList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -19,13 +19,13 @@
                   align="center"
                   width="120">
                   <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disabled"
-                      v-model="scope.row.user_id"
-                      style="width: 100%">
-                    </el-input>
-                  </template>
+                  <el-input
+                    :no="scope.row"
+                    :disabled="!disabled"
+                    v-model="scope.row.user_id"
+                    style="width: 100%">
+                  </el-input>
+                </template>
                 </el-table-column>
                 <!-- 卒業年-->
                 <el-table-column

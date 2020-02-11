@@ -8,8 +8,7 @@
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
-                <!--<el-input :disabled="!disabled" style="width:20vw" v-model="form.pjname"></el-input>-->
-                <el-select v-model="form.pjname" placeholder="请选择" @change="changeOption">
+                <el-select v-model="form.pjname" style="width:20vw" placeholder="请选择" @change="changeOption">
                   <el-option
                     v-for="(item,index) in options1"
                     :key="index"

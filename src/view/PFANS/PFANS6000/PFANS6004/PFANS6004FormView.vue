@@ -25,12 +25,12 @@
                           <el-table
                             :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                            :span-method="arraySpanMethod" @row-click="handleClickChange1">
+                            @row-click="handleClickChange1">
                             <el-table-column property="expname" :label="$t('label.user_name')"
                                              width="100"></el-table-column>
-                            <el-table-column property="se" :label="$t('label.sex')"
+                            <el-table-column property="sex" :label="$t('label.sex')"
                                              width="100"></el-table-column>
-                            <el-table-column property="contactinforma"
+                            <el-table-column property="contactinformation"
                                              :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')"
                                              width="150"></el-table-column>
                             <el-table-column property="birth"
@@ -51,9 +51,6 @@
                             <el-table-column property="speciality"
                                              :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')"
                                              width="100"></el-table-column>
-                            <!--                            <el-table-column property="interviewdep"-->
-                            <!--                                             :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"-->
-                            <!--                                             width="100"></el-table-column>-->
                             <el-table-column property="interview_date"
                                              :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')"
                                              width="100"></el-table-column>
@@ -108,48 +105,8 @@
             </el-col>
             <!--            供应商名称-->
             <el-col :span="8">
-              <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                            prop="suppliername">
-                <div class="dpSupIndex" style="width:20vw" prop="suppliername">
-                  <el-container>
-                    <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
-                           :disabled="true"></input>
-                    <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
-                               size="small"></el-button>
-                    <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
-                               top="8vh" lock-scroll
-                               append-to-body>
-                      <div style="text-align: center">
-                        <el-row style="text-align: center;height: 90%;overflow: hidden">
-                          <el-table
-                            :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
-                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                            :span-method="arraySpanMethod" @row-click="handleClickChange">
-                            <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                             width="150"></el-table-column>
-                            <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                             width="100"></el-table-column>
-                            <el-table-column property="contactinformation"
-                                             :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                             width="150"></el-table-column>
-                            <el-table-column
-                              align="right" width="230">
-                              <template slot="header" slot-scope="scope">
-                                <el-input
-                                  v-model="search"
-                                  size="mini"
-                                  placeholder="请输入供应商关键字搜索"/>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-row>
-                        <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
-                        </span>
-                      </div>
-                    </el-dialog>
-                  </el-container>
-                </div>
+              <el-form-item :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" prop="suppliername">
+                <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -436,7 +393,6 @@
         buttonList: [],
         multiple: false,
         search: '',
-        gridData: [],
         gridData1: [],
         form: {
           expatriatesinfor_id: '',
@@ -633,7 +589,6 @@
       };
     },
     mounted() {
-      this.getSupplierNameList();
       this.getExpnameList();
       if (this.$route.params._id) {
         this.loading = true;
@@ -736,11 +691,6 @@
       handleCurrentChange1(val) {
         this.currentRow1 = val;
       },
-      arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 3) {
-          return [1, 2];
-        }
-      },
 
       getAge() {
         let birthdays = new Date(this.form.birth);
@@ -772,32 +722,53 @@
       },
       submit1() {
         let lst = this.currentRow;
-        let lst1=this.currentRow2;
-        let lst2=this.currentRow3;
-        let lst3=this.currentRow4;
-        let lst4=this.currentRow5;
-        let lst5=this.currentRow6;
-        let lst6=this.currentRow7;
-        let lst7=this.currentRow8;
+        let lst1 = this.currentRow2;
+        let lst2 = this.currentRow3;
+        let lst3 = this.currentRow4;
+        let lst4 = this.currentRow5;
+        let lst5 = this.currentRow6;
+        let lst6 = this.currentRow7;
+        let lst7 = this.currentRow8;
+        let lst8 = this.currentRow9;
+        let lst9 = this.currentRow10;
+        let lst10 = this.currentRow11;
+        let lst11 = this.currentRow12;
+        let lst12 = this.currentRow13;
+        let lst13 = this.currentRow14;
+        let lst14 = this.currentRow15;
         this.dialogTableVisible1 = false;
         this.form.expname = lst;
-        this.form.sex=lst1;
-        this.form.birth=lst2;
-        this.form.age=lst3;
-        this.form.graduateschool=lst4;
-        this.form.education=lst5;
-        this.form.technology=lst6;
-        this.form.rn=lst7;
+        this.form.sex = lst1;
+        this.form.contactinformation = lst2;
+        this.form.birth = lst3;
+        this.form.age = lst4;
+        this.form.suppliername = lst5;
+        this.form.graduateschool = lst6;
+        this.form.education = lst7;
+        this.form.speciality = lst8;
+        this.form.interview_date = lst9;
+        this.form.result = lst10;
+        this.form.technology = lst11;
+        this.form.rn = lst12;
+        this.form.whetherentry = lst13;
+        this.form.remarks = lst14;
       },
       handleClickChange1(val) {
         this.currentRow = val.expname;
-        this.currentRow2=val.se;
-        this.currentRow3=val.birth;
-        this.currentRow4=val.age;
-        this.currentRow5=val.graduateschool;
-        this.currentRow6=val.education;
-        this.currentRow7=val.technology;
-        this.currentRow8=val.rn;
+        this.currentRow2=val.sex;
+        this.currentRow3=val.contactinformation;
+        this.currentRow4=val.birth;
+        this.currentRow5=val.age;
+        this.currentRow6=val.suppliername;
+        this.currentRow7=val.graduateschool;
+        this.currentRow8=val.education;
+        this.currentRow9=val.speciality;
+        this.currentRow10=val.interview_date;
+        this.currentRow11=val.result;
+        this.currentRow12=val.technology;
+        this.currentRow13=val.rn;
+        this.currentRow14=val.whetherentry
+        this.currentRow15=val.remarks
       },
       submit() {
         let val = this.currentRow;
@@ -810,21 +781,20 @@
       getExpnameList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getExpnameList', {})
+          .dispatch('PFANS6001Store/getcooperinterview', {})
           .then(response => {
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.expname = response[i].coopername;
-              vote.se = getDictionaryInfo(response[i].sex).value1;
-              vote.contactinforma = response[i].contactinformation;
+              vote.sex = getDictionaryInfo(response[i].sex).value1;
+              vote.contactinformation = response[i].contactinformation;
               vote.birth=moment(response[i].birth).format('YYYY-MM-DD');
               vote.age = response[i].age;
               vote.suppliername = response[i].suppliername;
               vote.graduateschool = response[i].graduateschool;
               vote.education = getDictionaryInfo(response[i].education).value1;
               vote.speciality = response[i].speciality;
-              // vote.interviewdep = response[i].interviewdep;
               vote.interview_date=moment(response[i].interview_date).format('YYYY-MM-DD');
               vote.result = getDictionaryInfo(response[i].result).value1;
               vote.technology = getDictionaryInfo(response[i].technology).value1;
@@ -832,30 +802,6 @@
               vote.whetherentry = getDictionaryInfo(response[i].whetherentry).value1;
               vote.remarks = response[i].remarks;
               this.gridData1.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      getSupplierNameList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6001Store/getSupplierNameList', {})
-          .then(response => {
-            this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.suppliername = response[i].supchinese;
-              vote.userid = response[i].prochinese;
-              vote.contactinformation = response[i].protelephone;
-              this.gridData.push(vote);
             }
             this.loading = false;
           })
