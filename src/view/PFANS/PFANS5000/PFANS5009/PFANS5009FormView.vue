@@ -363,7 +363,7 @@
           rowindex: '',
         }],
         code: 'PP001',
-        code1: 'PP002,
+        code1: 'PP002',
         disabled: true,
         menuList: [],
         rules: {
