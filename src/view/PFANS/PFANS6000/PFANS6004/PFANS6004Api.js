@@ -24,6 +24,13 @@ export function updateexpatriatesinforApply(data) {
     data: data
   })
 }
+export function updateexpatriatesinfor(data) {
+  return request({
+    url: 'expatriatesinfor/updateexpatriatesinfor',
+    method: 'post',
+    data: data
+  })
+}
 
 export function createexpatriatesinforApply(data) {
   return request({
@@ -32,18 +39,17 @@ export function createexpatriatesinforApply(data) {
     data: data
   })
 }
-
-export function getSupplierNameList(data) {
+export function setexpatriatesinforApply(data) {
   return request({
-    url: 'expatriatesinfor/getSupplierNameList',
-    method: 'POST',
+    url: 'expatriatesinfor/setexpatriatesinforApply',
+    method: 'post',
     data: data
   })
 }
 
-export function getExpnameList(data) {
+export function getSupplierNameList(data) {
   return request({
-    url: 'expatriatesinfor/getExpnameList',
+    url: 'expatriatesinfor/getSupplierNameList',
     method: 'POST',
     data: data
   })
