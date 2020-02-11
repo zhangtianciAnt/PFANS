@@ -2,13 +2,18 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
                          @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                         @end="end" @start="start" @workflowState="workflowState" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
 
             <el-tab-pane :label="$t('label.PFANS5004VIEW_CLOSEAPPLICAT')" name="first"  >
               <div>
+                <el-collapse>
+                  <el-collapse-item>
+                    <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS5004VIEW_CLOSEAPPLICAT')}}</span>
+                    </template>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" >
@@ -51,7 +56,13 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
+                  </el-collapse-item>
+                </el-collapse>
+                <el-collapse>
+                  <el-collapse-item>
+                    <template slot="title">
+                <span  class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>
+                    </template>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PREDICTDATE')" >
@@ -142,6 +153,8 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </el-tab-pane>
 
@@ -149,37 +162,37 @@
               <div>
                 <el-table :data="source"
                           header-cell-class-name="sub_bg_color_blue"
-                          show-summary stripe border style="width: 70vw">
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="150">
+                          show-summary stripe border >
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.numbers"></el-input>
                     </template>
                   </el-table-column>
                   <!--姓名-->
-                  <el-table-column :label="$t('label.user_name')" align="center" width="150">
+                  <el-table-column :label="$t('label.user_name')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.name"></el-input>
                     </template>
                   </el-table-column>
                   <!--社员外协-->
-                  <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>
                     </template>
                     <!--稼働率-->
-                  </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="150">
+                  </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.croprate"></el-input>
                   </template>
                 </el-table-column>
                   <!--PJ稼働率-->
-                  <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.pjcroprate"></el-input>
                     </template>
                   </el-table-column>
                   <!--直接稼働率-->
-                  <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.dicroprate"></el-input>
                     </template>
@@ -212,17 +225,17 @@
               <div>
                 <el-table :data="stage"
                           header-cell-class-name="sub_bg_color_blue"
-                          show-summary stripe border style="width: 70vw">
+                          show-summary stripe border>
                   <!--工作阶段-->
                   <el-table-column :label="$t('label.PFANS5004VIEW_WORKSTAGE')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.numbers"></el-input>
+                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.workstage"></el-input>
                     </template>
                   </el-table-column>
                   <!--阶段成果物-->
                   <el-table-column :label="$t('label.PFANS5004VIEW_STAGETHING')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.name"></el-input>
+                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stagething"></el-input>
                     </template>
                   </el-table-column>
                   <!--预计工数（人月）-->
@@ -231,21 +244,21 @@
                       <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>
                     </template>
                     <!--起止时间-->
-                  </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME')" align="center" width="150">
+                  </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME2')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.croprate"></el-input>
+                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stdatetime"></el-input>
                   </template>
                 </el-table-column>
                   <!--备注-->
                   <el-table-column :label="$t('label.PFANS5004VIEW_NOTE')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.pjcroprate"></el-input>
+                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.note1"></el-input>
                     </template>
                   </el-table-column>
                   <!--完成时间-->
                   <el-table-column :label="$t('label.PFANS5004VIEW_FINSHTIME')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.dicroprate"></el-input>
+                      <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.finshtime"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -289,7 +302,7 @@
       },
       data(){
           return{
-            title: "title.PFANS1012VIEW",
+            title: "title.PFANS5004VIEW",
             loading: false,
             activeName:'first',
             disable: false,
@@ -301,6 +314,7 @@
                 icon: 'el-icon-check',
               }
             ],
+            baseInfo: {},
             form:{
               projectnumber:'',
               projectname:'',
@@ -346,7 +360,91 @@
             canStart: false
           }
       },
+      mounted(){
+     if(this.$route.params._id){
+       this.loading = true;
+       this.$store
+         .dispatch('PFANS5004Store/selectById', {'closeapplicatid': this.$route.params._id})
+         .then(response => {
+           this.form=response.closeApplicat;
+           if(response.projectSecore.length>0){
+             this.source=response.projectSecore;
+           }
+           if(response.stageNews.length>0){
+             this.stage=response.stageNews;
+           }
+           this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
+           this.baseInfo.projectSecore=JSON.parse(JSON.stringify(this.source));
+           this.baseInfo.stageNews=JSON.parse(JSON.stringify(this.stage));
+         })
+         .catch(error=>{
+           Message({
+             message: error,
+             type: 'error',
+             duration: 5 * 1000
+           });
+           this.loading = false;
+         })
+     }else {
+
+     }
+      },
+      created() {
+        if (!this.$route.params.disabled) {
+          this.buttonList = [];
+        }
+        this.disable = this.$route.params.disabled;
+      },
       methods:{
+        addRow() {
+          this.source.push({
+            number:'',
+            name:'',
+            commune:'',
+            croprate:'',
+            pjcroprate:'',
+            dicroprate:'',
+          });
+        },
+        deleteRow(index, rows) {
+          if (rows.length > 1) {
+            rows.splice(index, 1);
+          } else {
+            this.source=[{
+              number:'',
+              name:'',
+              commune:'',
+              croprate:'',
+              pjcroprate:'',
+              dicroprate:'',
+            }]
+          }
+        },
+        addRow2() {
+          this.stage.push({
+            workstage:'',
+            stagething:'',
+            predictnukmber:'',
+            datetime:'',
+            note:'',
+            finshtime:'',
+          });
+        },
+        deleteRow2(index, rows) {
+          if (rows.length > 1) {
+            rows.splice(index, 1);
+          } else {
+            this.stage=[{
+              workstage:'',
+              stagething:'',
+              predictnukmber:'',
+              datetime:'',
+              note:'',
+              finshtime:'',
+            }]
+          }
+        },
+
         workflowState(val) {
           if (val.state === '1') {
             this.form.status = '3';
@@ -405,11 +503,123 @@
         },
       },
       buttonClick(val) {
+          if(val==="save"){
+            this.$refs["reff"].validate(valid => {
+              if(valid){
+                this.baseInfo={};
+                this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.projectSecore=[];
+                this.baseInfo.stageNews=[];
+                for(let i=0;i<this.source.length;i++){
+                  if(this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+                    || this.source[i].pjcroprate !== "" ||  this.source[i].dicroprate !== "" ){
+                    this.baseInfo.projectSecore.push(
+                      {
+                        closeapplicatid: this.source[i].closeapplicatid,
+                        projectsecoreid: this.source[i].projectsecoreid,
+                        number: this.source[i].number,
+                        name: this.source[i].name,
+                        commune: this.source[i].commune,
+                        croprate: this.source[i].croprate ,
+                        pjcroprate: this.source[i].pjcroprate,
+                        dicroprate: this.source[i].dicroprate,
+                      }
+                    );
+                  }
+                }
+                for(let i=0;i<this.stage.length;i++){
+                  if(this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
+                    || this.stage[i].stdatetime !== "" ||  this.stage[i].note1 !== "" ||  this.stage[i].finshtime !== ""){
+                    this.baseInfo.stageNews.push(
+                      {
+                        stagenews_id: this.stage[i].stagenews_id,
+                        closeapplicatid: this.stage[i].closeapplicatid,
+                        workstage: this.stage[i].workstage,
+                        stagething: this.stage[i].stagething,
+                        predictnukmber: this.stage[i].predictnukmber,
+                        projectnumber: this.stage[i].projectnumber ,
+                        stdatetime: this.stage[i].stdatetime,
+                        note1: this.stage[i].note1,
+                        finshtime: this.stage[i].finshtime,
+                      }
+                    );
+                  }
+                }
+                if (this.$route.params._id) {
+                  //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS5004Store/update', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      if (val !== "update") {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      }
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    })
+                }else {
+                  this.$store
+                    .dispatch('PFANS5004Store/insert', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      this.$message({
+                        message: this.$t("normal.success_01"),
+                        type: "success",
+                        duration: 5 * 1000
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    });
+                }
+
+              }
+            })
+          }
 
         }
     }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss">
+  .el-table {
+    overflow-x: auto;
+  }
 
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+    overflow: visible;
+  }
+
+  .el-table::after {
+    position: relative;
+  }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: visible;
+  }
 </style>
