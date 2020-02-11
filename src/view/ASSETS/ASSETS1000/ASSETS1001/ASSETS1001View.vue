@@ -279,6 +279,8 @@
             duration: 5 * 1000,
           });
         }
+
+        this.$refs.roletable.$refs.eltable.clearSelection();
       },
       websocketsend(Data){//数据发送
         this.websock.send(Data);
