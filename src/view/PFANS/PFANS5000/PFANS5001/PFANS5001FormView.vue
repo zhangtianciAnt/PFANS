@@ -703,6 +703,7 @@
                 teamorglist: '',
                 errorcenter: '',
                 errorgroup: '',
+
                 disable: false,
                 customerinfor: [],
                 checkList: [],
