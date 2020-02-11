@@ -1,7 +1,11 @@
 <template>
   <div style="min-height: 100%">
-  <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                       :buttonList="buttonList" :noback = "true">
+  <EasyNormalContainer ref="container"
+                       :title="title"
+                       @buttonClick="buttonClick"
+                       v-loading="loading"
+                       :buttonList="buttonList"
+                       :noback = "true">
     <div slot="customize">
       <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                ref="refform">
@@ -48,11 +52,11 @@
             <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 20vw" @getOrgids="getGroupId"></org>
           </el-form-item>
           <div  class="dialog-footer" align="center">
-            <el-button @click="buttonClick1" v-if="show1">
+            <el-button @click="dialogFormVisible = false" v-if="show1">
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
             </el-button>
-            <el-button  @click="buttonClick2" v-if="show2">
+            <el-button  @click="dialogFormVisible = false" v-if="show2">
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
             </el-button>
@@ -2733,28 +2737,28 @@
                   },
               ]
         },
-        buttonList:[
-            {
+          buttonList:[
+              {
                   key: 'application',
                   name: 'button.application',
                   disabled: false,
-            },
-            {
+              },
+              {
                   key: 'cancellation',
                   name: 'button.cancellation',
                   disabled: false,
-            },
-            {
+              },
+              {
                   key: 'save',
                   name: 'button.save',
                   disabled: false,
-            },
-            {
+              },
+              {
                   key: 'makeinto',
                   name: 'button.makeinto',
                   disabled: false,
-            },
-        ],
+              },
+          ],
         form:{
             contractnumber: '',
             claimtype: '',
@@ -3217,60 +3221,60 @@
       };
     },
     mounted() {
-        this.loading = true;
-        if (this.$route.params._id) {
-        this.$store
-          .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
-          .then(response => {
-                if (response.length > 0) {
-                    for(let i = 0;i<response.length;i++){
-                        if(response[i].type === '1'){
-                            this.tablefirst = response[i];
-                        }
-                        else if(response[i].type === '2'){
-                            this.tablesecond = response[i];
-                        }
-                        else if(response[i].type === '3'){
-                            this.tablethird = response[i];
-                        }
-                        else if(response[i].type === '4'){
-                            this.tablefourth = response[i];
-                        }
-                        else if(response[i].type === '5'){
-                            this.tablefifth = response[i];
-                        }
-                        else if(response[i].type === '6'){
-                            this.tablesixth = response[i];
-                        }
-                        else if(response[i].type === '7'){
-                            this.tableseventh = response[i];
-                        }
-                        else if(response[i].type === '8'){
-                            this.tableeighth = response[i];
-                        }
-                        else if(response[i].type === '9'){
-                            this.tableninth = response[i];
-                        }
-                    }
-                }
-            this.form = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false
-          })
-        } else {
-            this.userlist = this.$store.getters.userinfo.userid;
-            if (this.userlist !== null && this.userlist !== '') {
-                this.form.user_id = this.$store.getters.userinfo.userid;
-            }
-            this.loading = false;
-        }
+        // this.loading = true;
+        // if (this.$route.params._id) {
+        // this.$store
+        //   .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
+        //   .then(response => {
+        //         if (response.length > 0) {
+        //             for(let i = 0;i<response.length;i++){
+        //                 if(response[i].type === '1'){
+        //                     this.tablefirst = response[i];
+        //                 }
+        //                 else if(response[i].type === '2'){
+        //                     this.tablesecond = response[i];
+        //                 }
+        //                 else if(response[i].type === '3'){
+        //                     this.tablethird = response[i];
+        //                 }
+        //                 else if(response[i].type === '4'){
+        //                     this.tablefourth = response[i];
+        //                 }
+        //                 else if(response[i].type === '5'){
+        //                     this.tablefifth = response[i];
+        //                 }
+        //                 else if(response[i].type === '6'){
+        //                     this.tablesixth = response[i];
+        //                 }
+        //                 else if(response[i].type === '7'){
+        //                     this.tableseventh = response[i];
+        //                 }
+        //                 else if(response[i].type === '8'){
+        //                     this.tableeighth = response[i];
+        //                 }
+        //                 else if(response[i].type === '9'){
+        //                     this.tableninth = response[i];
+        //                 }
+        //             }
+        //         }
+        //     this.form = response;
+        //     this.loading = false;
+        //   })
+        //   .catch(error => {
+        //     Message({
+        //       message: error,
+        //       type: 'error',
+        //       duration: 5 * 1000
+        //     });
+        //     this.loading = false
+        //   })
+        // } else {
+        //     this.userlist = this.$store.getters.userinfo.userid;
+        //     if (this.userlist !== null && this.userlist !== '') {
+        //         this.form.user_id = this.$store.getters.userinfo.userid;
+        //     }
+        //     this.loading = false;
+        // }
     },
     methods: {
         getGroupId(val) {
@@ -4321,23 +4325,33 @@
                 maketype: '',
             });
         },
-        buttonClick1(val){
-            this.dialogFormVisible = false;
+        // buttonClick1(val){
+        //     this.dialogFormVisible = false;
+        //     if (val === "application") {
+        //         this.dialogFormVisible = true;
+        //         this.show1=true;
+        //         this.show2=false;
+        //     }
+        // },
+        // buttonClick2(val){
+        //     this.dialogFormVisible = false;
+        //     if (val === "cancellation") {
+        //         this.dialogFormVisible = true;
+        //         this.show1=false;
+        //         this.show2=true;
+        //     }
+        // },
+        buttonClick(val) {
             if (val === "application") {
                 this.dialogFormVisible = true;
                 this.show1=true;
                 this.show2=false;
             }
-        },
-        buttonClick2(val){
-            this.dialogFormVisible = false;
             if (val === "cancellation") {
                 this.dialogFormVisible = true;
                 this.show1=false;
                 this.show2=true;
             }
-        },
-        buttonClick(val) {
             this.$refs["refform"].validate(valid => {
                 if (valid) {
                     this.loading = true;
