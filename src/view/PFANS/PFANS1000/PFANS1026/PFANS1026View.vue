@@ -20,13 +20,10 @@
             </dicselect>
           </el-form-item>
           <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-            <el-input v-model="form.group_id" style="width: 20vw" ></el-input>
+            <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
             <el-checkbox
-              v-model="form.contractnumber"
-              :key="index"
+              v-model="checked1"
               @change="getChecked"
-              active-value="1"
-              inactive-value="0"
             >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
@@ -37,12 +34,12 @@
             </dicselect>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
-            <dicselect :code="code2"
+            <dicselect :code="code3"
                        :data="form.applicationdate"
                        @change="getcareeryear"
                        style="width: 20vw">
             </dicselect>
-            <dicselect :code="code3"
+            <dicselect :code="code4"
                        :data="form.applicationdate"
                        @change="getcareeryear"
                        style="width: 20vw">
@@ -2709,6 +2706,7 @@
             }
         };
       return {
+        checked1: false,
         index: "",
         dialogFormVisible: false,
         grouporglist: '',
@@ -2726,6 +2724,7 @@
         erroroutmanager: "",
         errormanager: "",
         disabled: true,
+        disabled1: false,
         multiple: false,
         rowindex: '',
         rules: {
@@ -3214,9 +3213,9 @@
           ],
           code:'HT001',
           code1: 'PJ028',
-          code2: 'PJ028',
-          code3: 'PJ028',
-          code4: 'PJ028',
+          code2: 'HT008',
+          code3: 'HT007',
+          code4: 'HT003',
           code5: 'PJ028',
           code6: 'PJ028',
           code7: 'PJ028',
@@ -3318,7 +3317,13 @@
             this.form.claimtype = val;
         },
         getChecked(val){
-            this.form.contractnumber = val;
+            this.checked1 = val;
+            if(val === true){
+                this.disabled1 = true;
+            }else{
+                this.disabled1 = false;
+                this.form.contractnumber = '';
+            }
         },
         getcontracttype(val){
             this.form.contracttype = val;
@@ -4330,22 +4335,6 @@
                 maketype: '',
             });
         },
-        // buttonClick1(val){
-        //     this.dialogFormVisible = false;
-        //     if (val === "application") {
-        //         this.dialogFormVisible = true;
-        //         this.show1=true;
-        //         this.show2=false;
-        //     }
-        // },
-        // buttonClick2(val){
-        //     this.dialogFormVisible = false;
-        //     if (val === "cancellation") {
-        //         this.dialogFormVisible = true;
-        //         this.show1=false;
-        //         this.show2=true;
-        //     }
-        // },
         click1(val) {
                if(val === "insert") {
                    this.$refs["refform"].validate(valid => {
