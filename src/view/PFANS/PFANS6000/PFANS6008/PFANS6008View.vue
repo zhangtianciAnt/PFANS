@@ -706,69 +706,21 @@
       };
     },
     mounted() {
-//      this.loading = true;
-//      this.$store
-//        .dispatch('PFANS6007Store/getvariousfunds')
-//        .then(response => {
-//          for (let j = 0; j < response.length; j++) {
-//            if (response[j].year !== null && response[j].year !== "") {
-//              response[j].year = moment(response[j].year).format("YYYY");
-//            }
-//            if (response[j].psdcdwindow !== null && response[j].psdcdwindow !== "") {
-//              let psdcdwindow = getUserInfo(response[j].psdcdwindow);
-//              if (psdcdwindow) {
-//                response[j].psdcdwindow = user.userinfo.customername;
-//              }
-//
-//            }
-//            if (response[j].bpplayer !== null && response[j].bpplayer !== "") {
-//              let bpplayer = getUserInfo(response[j].bpplayer);
-//              if (bpplayer) {
-//                response[j].bpplayer = user.userinfo.customername;
-//              }
-//            }
-//            if (response[j].bpclubname !== null && response[j].bpclubname !== "") {
-//              let bpclubname = getUserInfo(response[j].bpclubname);
-//              if (bpclubname) {
-//                response[j].bpclubname = user.userinfo.customername;
-//              }
-//            }
-//            if (response[j].plmonthplan !== null && response[j].plmonthplan !== "") {
-//              let plmonthplan = getDictionaryInfo(response[j].plmonthplan);
-//              if (plmonthplan != null) {
-//                response[j].plmonthplan = plmonthplan.value1;
-//              }
-//            }
-//            if (response[j].typeoffees !== null && response[j].typeoffees !== "") {
-//              let typeoffees = getDictionaryInfo(response[j].typeoffees);
-//              if (typeoffees != null) {
-//                response[j].typeoffees = typeoffees.value1;
-//              }
-//            }
-//            if (response[j].payment !== null && response[j].payment !== "") {
-//              let payment = getUserInfo(response[j].payment);
-//              if (payment) {
-//                response[j].payment = user.userinfo.customername;
-//              }
-//            }
-//            if (response[j].remarks !== null && response[j].remarks !== "") {
-//              let remarks = getUserInfo(response[j].remarks);
-//              if (remarks != null) {
-//                response[j].remarks = user.userinfo.customername;
-//              }
-//            }
-//          }
-//          this.data = response;
-//          this.loading = false;
-//        })
-//        .catch(error => {
-//          Message({
-//            message: error,
-//            type: 'error',
-//            duration: 5 * 1000
-//          });
-//          this.loading = false
-//        })
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6008Store/getCostList')
+        .then(response => {
+          this.data = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false
+        })
     },
     methods: {
       buttonClick(val) {

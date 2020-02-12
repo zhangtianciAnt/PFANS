@@ -1,11 +1,11 @@
 import request from '../../../../utils/request'
 
-// export function getvariousfunds(data) {
-//   return request({
-//     url: 'variousfunds/get',
-//     method: 'get',
-//     params: data
-//   })
-// }
+export function getCostList(data) {
+  return request({
+    url: 'variousfunds/getCostList',
+    method: 'get',
+    params: data
+  })
+}
 
 
