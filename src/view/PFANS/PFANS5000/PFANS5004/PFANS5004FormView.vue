@@ -154,123 +154,171 @@
                     <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.dicroprate"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.operation')" align="center" width="200">
-                  <template slot-scope="scope">
-                    <el-button
-                      :disabled="!disable"
-                      @click.native.prevent="deleteRow(scope.$index, source)"
-                      plain
-                      size="small"
-                      type="danger"
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      :disabled="!disable"
-                      @click="addRow()"
-                      plain
-                      size="small"
-                      type="primary"
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
               </el-table>
             </el-tab-pane>
 
 
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third"  >
-              <el-table :data="stage"
-                        header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe border style="width: 70vw">
-                <!--工作阶段-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_WORKSTAGE')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <dicselect :code="code1"
-                               :data="scope.row.workstage"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               :no="scope.row"
-                               @change="getworkstage" style="width: 100%">
-                    </dicselect>
-                  </template>
-                </el-table-column>
-                <!--阶段成果物-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_STAGETHING')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <dicselect :code="code2"
-                               :data="scope.row.stagething"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               :no="scope.row"
-                               @change="setstagething"
-                               style="width: 100%" v-show="scope.row.showrow1">
-                    </dicselect>
-                    <dicselect :code="code3"
-                               :data="scope.row.stagething"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               :no="scope.row"
-                               @change="setstagething"
-                               style="width: 100%" v-show="scope.row.showrow2">
-                    </dicselect>
-                    <dicselect :code="code4"
-                               :data="scope.row.stagething"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               :no="scope.row"
-                               @change="setstagething"
-                               style="width: 100%" v-show="scope.row.showrow3">
-                    </dicselect>
-                  </template>
-                </el-table-column>
-                <!--预计工数（人月）-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_PREDICTNUKMBER')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>
-                  </template>
-                  <!--起止时间-->
-                </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME2')" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stdatetime"></el-input>
-                </template>
-              </el-table-column>
-                <!--备注-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_NOTE')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.note1"></el-input>
-                  </template>
-                </el-table-column>
-                <!--完成时间-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_FINSHTIME')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.finshtime"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" align="center" width="200">
-                  <template slot-scope="scope">
-                    <el-button
-                      :disabled="!disable"
-                      @click.native.prevent="deleteRow2(scope.$index, stage)"
-                      plain
-                      size="small"
-                      type="danger"
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      :disabled="!disable"
-                      @click="addRow2()"
-                      plain
-                      size="small"
-                      type="primary"
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+            <!--<el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third"  >-->
+              <!--<el-table :data="stage"-->
+                        <!--header-cell-class-name="sub_bg_color_blue"-->
+                        <!--show-summary stripe border style="width: 70vw">-->
+                <!--&lt;!&ndash;工作阶段&ndash;&gt;-->
+                <!--<el-table-column :label="$t('label.PFANS5004VIEW_WORKSTAGE')" align="center" width="150">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<dicselect :code="code1"-->
+                               <!--:data="scope.row.workstage"-->
+                               <!--:disabled="!disable"-->
+                               <!--:multiple="multiple"-->
+                               <!--:no="scope.row"-->
+                               <!--@change="getworkstage" style="width: 100%">-->
+                    <!--</dicselect>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--&lt;!&ndash;阶段成果物&ndash;&gt;-->
+                <!--<el-table-column :label="$t('label.PFANS5004VIEW_STAGETHING')" align="center" width="150">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<dicselect :code="code2"-->
+                               <!--:data="scope.row.stagething"-->
+                               <!--:disabled="!disable"-->
+                               <!--:multiple="multiple"-->
+                               <!--:no="scope.row"-->
+                               <!--@change="setstagething"-->
+                               <!--style="width: 100%" v-show="scope.row.showrow1">-->
+                    <!--</dicselect>-->
+                    <!--<dicselect :code="code3"-->
+                               <!--:data="scope.row.stagething"-->
+                               <!--:disabled="!disable"-->
+                               <!--:multiple="multiple"-->
+                               <!--:no="scope.row"-->
+                               <!--@change="setstagething"-->
+                               <!--style="width: 100%" v-show="scope.row.showrow2">-->
+                    <!--</dicselect>-->
+                    <!--<dicselect :code="code4"-->
+                               <!--:data="scope.row.stagething"-->
+                               <!--:disabled="!disable"-->
+                               <!--:multiple="multiple"-->
+                               <!--:no="scope.row"-->
+                               <!--@change="setstagething"-->
+                               <!--style="width: 100%" v-show="scope.row.showrow3">-->
+                    <!--</dicselect>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--&lt;!&ndash;预计工数（人月）&ndash;&gt;-->
+                <!--<el-table-column :label="$t('label.PFANS5004VIEW_PREDICTNUKMBER')" align="center" width="150">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>-->
+                  <!--</template>-->
+                  <!--&lt;!&ndash;起止时间&ndash;&gt;-->
+                <!--</el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME2')" align="center" width="150">-->
+                <!--<template slot-scope="scope">-->
+                  <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stdatetime"></el-input>-->
+                <!--</template>-->
+              <!--</el-table-column>-->
+                <!--&lt;!&ndash;备注&ndash;&gt;-->
+                <!--<el-table-column :label="$t('label.PFANS5004VIEW_NOTE')" align="center" width="150">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.note1"></el-input>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--&lt;!&ndash;完成时间&ndash;&gt;-->
+                <!--<el-table-column :label="$t('label.PFANS5004VIEW_FINSHTIME')" align="center" width="150">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.finshtime"></el-input>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+              <!--</el-table>-->
 
+            <!--</el-tab-pane>-->
+            <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">
+              <el-form-item >
+                <el-row >
+                  <el-col :span="24">
+                    <el-table :data="stage" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
+                        <template slot-scope="scope">
+                          <dicselect
+                            :code="code7"
+                            :data="scope.row.role"
+                            :disabled="!disable"
+                            :multiple="multiple"
+                            :no="scope.row"
+                          ></dicselect>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"
+                        align="center"
+                      >
+                        <template slot-scope="scope">
+                          <dicselect
+                            :code="code8"
+                            :data="scope.row.role"
+                            :disabled="!disable"
+                            :multiple="multiple"
+                            :no="scope.row"
+                          ></dicselect>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="!disable"
+                            v-model="scope.row.technology"
+                            style="width: 100%">
+                          </el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')"
+                        align="center"
+                        width="160vm"
+                      >
+                        <template slot-scope="scope">
+                          <el-date-picker
+                            v-model="scope.row.admissiontime"
+                            :disabled="!disable"
+                            type="date"
+                            style="width: 100%"
+                          ></el-date-picker>
+                        </template>
+                      </el-table-column>
+
+                      <el-table-column
+                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')"
+                        align="center"
+                        width="160vm"
+                      >
+                        <template slot-scope="scope">
+                          <el-date-picker
+                            v-model="scope.row.exittime"
+                            :disabled="!disable"
+                            type="date"
+                            style="width: 100%"
+                          >
+                          </el-date-picker>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS5009FORMVIEW_REMARKS')"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="!disable"
+                            v-model="scope.row.technology"
+                            style="width: 100%">
+                          </el-input>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                </el-row>
+              </el-form-item>
             </el-tab-pane>
-
           </el-tabs>
         </el-form>
       </div>
@@ -341,18 +389,13 @@
           rowindex: "",
         }],
         stage:[{
-          stagenews_id:'',
-          closeapplicatid:'',
-          workstage:'',
-          stagething:'',
-          predictnukmber:'',
-          datetime:'',
-          note1:'',
-          finshtime:'',
-          rowindex: "",
-          showrow1: true,
-          showrow2: false,
-          showrow3: false,
+          projectresources_id: "",
+          companyprojects_id: "",
+          numbers: "",
+          user_id: "",
+          admissiontime:"",
+          exittime:"",
+          role: ""
         }],
         rules: {
           assetaddress: [{
@@ -384,24 +427,10 @@
             if(response.projectSecore.length>0){
               this.source=response.projectSecore;
             }
-            if(response.stageNews.length>0){
-              this.stage=response.stageNews;
-              for (var i = 0; i < this.stage.length; i++) {
-                if(this.stage[i].workstage==='PP012001'){
-                  this.stage[i].showrow1=true;
-                  this.stage[i].showrow2 = false;
-                  this.stage[i].showrow3 = false;
-                }else if(this.stage[i].workstage==='PP012002'){
-                  this.stage[i].showrow1=false;
-                  this.stage[i].showrow2 = true;
-                  this.stage[i].showrow3 = false;
-                }else if(this.stage[i].workstage==='PP012003'){
-                  this.stage[i].showrow1=false;
-                  this.stage[i].showrow2 = false;
-                  this.stage[i].showrow3 = true;
-                }
-              }
+            if (response.projectresources.length > 0) {
+              this.stage = response.projectresources;
             }
+
             if(this.form.uploadfile != null){
               if (this.form.uploadfile != "") {
                 let uploadfile = this.form.uploadfile.split(";");
