@@ -197,7 +197,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
                 <dicselect
-                  :code="code5"
+                  :code="code20"
                   :data="form.operationform"
                   :disabled="!disabled"
                   :multiple="multiple"
@@ -213,7 +213,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')" prop="jobclassification">
                 <dicselect
-                  :code="code5"
+                  :code="code21"
                   :data="form.jobclassification"
                   :disabled="!disabled"
                   :multiple="multiple"
@@ -496,6 +496,10 @@
         code9: 'BP011',
         //業務影響
         code10: 'BP010',
+        //作业形态
+        code20: 'BP024',
+        //作业分类
+        code21: 'BP025',
         result1: "",
         disabled: true,
         dialogTableVisible: false,
