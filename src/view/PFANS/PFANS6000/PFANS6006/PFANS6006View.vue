@@ -3,7 +3,7 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
                          ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-form  label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
             <el-table :data="tableData" border stripe style="width: 100%" :header-cell-style="getRowClass" >
               <!-- 序号-->
@@ -535,8 +535,7 @@
           exitreason: '',
           businessimpact: '',
           countermeasure: '',
-        }
-        ],
+        }],
         data: [],
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
@@ -590,6 +589,7 @@
             });
             this.data = response;
             this.loading = false;
+            this.getexpatriatesinfor();
           })
           .catch(error => {
             Message({
@@ -703,17 +703,16 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        })
       }
     },
     mounted() {
-      this.getexpatriatesinfor();
       this.setexpatriatesinforApply();
     },
   }
