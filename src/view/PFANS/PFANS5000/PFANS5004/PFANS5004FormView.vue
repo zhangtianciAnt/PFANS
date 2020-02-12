@@ -26,28 +26,21 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNUMBER')">
+                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_FIELD')">
                           <el-input :disabled="!disable" style="width:20vw" v-model="form.projectnumber"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_CONFIDENTIAL')" >
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.secret"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANAGERID')" >
                           <el-input :disabled="!disable" style="width:20vw" v-model="form.mananger"></el-input>
                         </el-form-item>
                       </el-col>
-                    </el-row>
-                    <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_DATETIME')" >
                           <el-date-picker unlink-panels
-                                          v-model="datetime"
+                                          v-model="form.datetime"
                                           type="daterange"
                                           :end-placeholder="$t('label.enddate')"
                                           :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -65,43 +58,8 @@
                     </template>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_PREDICTDATE')" >
-                          <el-date-picker
-                            :disabled="!disable"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.predictdate"></el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_REALDATE')" >
-                          <el-date-picker
-                            :disabled="!disable"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.realdate"></el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_TESTDATE')" >
-                          <el-date-picker
-                            :disabled="!disable"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.testdate"></el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-
-                    <el-row>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_REALPEOPEL')" >
-                          <el-input :disabled="true" style="width:20vw" v-model="form.realpeopel"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_REPORTNUMBER')">
-                          <el-input :disabled="true" style="width:20vw" v-model="form.reportnumber"></el-input>
+                        <el-form-item :label="$t('label.PFANS5004VIEW_ASSETADDRESS')" prop="assetaddress">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.assetaddress"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -264,7 +222,6 @@
                                @change="setstagething"
                                style="width: 100%" v-show="scope.row.showrow3">
                     </dicselect>
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stagething"></el-input>
                   </template>
                 </el-table-column>
                 <!--预计工数（人月）-->
@@ -326,8 +283,8 @@
   import {getToken} from '@/utils/auth'
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from "../../../components/dicselect";
+  import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
   import {getDictionaryInfo} from "../../../../utils/customize";
   export default {
     name: "PFANS5004FormView",
@@ -393,14 +350,24 @@
           note1:'',
           finshtime:'',
           rowindex: "",
+          showrow1: true,
+          showrow2: false,
+          showrow3: false,
         }],
-        rules: {},
+        rules: {
+          assetaddress: [{
+              required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
+              trigger: 'blur',
+            },
+          ]},
         fileList: [],
-        //upload: uploadUrl(),
+        upload: uploadUrl(),
         code1:'PP012',
         code2: 'PP013',
         code3: 'PP014',
         code4: 'PP015',
+        multiple:false,
         showrow1: true,
         showrow2: false,
         showrow3: false,
@@ -432,6 +399,19 @@
                   this.stage[i].showrow1=false;
                   this.stage[i].showrow2 = false;
                   this.stage[i].showrow3 = true;
+                }
+              }
+            }
+            if(this.form.uploadfile != null){
+              if (this.form.uploadfile != "") {
+                let uploadfile = this.form.uploadfile.split(";");
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(",")[0] != "") {
+                    let o = {};
+                    o.name = uploadfile[i].split(",")[0];
+                    o.url = uploadfile[i].split(",")[1];
+                    this.fileList.push(o)
+                  }
                 }
               }
             }
@@ -510,19 +490,20 @@
         }
       },
       getworkstage(val,row){
+        debugger;
         row.workstage=val;
         if(val==='PP012001'){
-          this.stage[i].showrow1=true;
-          this.stage[i].showrow2 = false;
-          this.stage[i].showrow3 = false;
+          row.showrow1=true;
+          row.showrow2 = false;
+          row.showrow3 = false;
         }else if(val==='PP012002'){
-          this.stage[i].showrow1=false;
-          this.stage[i].showrow2 = true;
-          this.stage[i].showrow3 = false;
+          row.showrow1=false;
+          row.showrow2 = true;
+          row.showrow3 = false;
         }else if(val==='PP012003'){
-          this.stage[i].showrow1=false;
-          this.stage[i].showrow2 = false;
-          this.stage[i].showrow3 = true;
+          row.showrow1=false;
+          row.showrow2 = false;
+          row.showrow3 = true;
         }
       },
       setstagething(val,row){
@@ -586,7 +567,6 @@
       },
     },
     buttonClick(val) {
-      if(val==="save"){
         this.$refs["reff"].validate(valid => {
           if(valid){
             this.baseInfo={};
@@ -598,8 +578,8 @@
                 || this.source[i].pjcroprate !== "" ||  this.source[i].dicroprate !== "" ){
                 this.baseInfo.projectSecore.push(
                   {
-                    closeapplicatid: this.source[i].closeapplicatid,
                     projectsecoreid: this.source[i].projectsecoreid,
+                    closeapplicatid: this.source[i].closeapplicatid,
                     number: this.source[i].number,
                     name: this.source[i].name,
                     commune: this.source[i].commune,
@@ -681,7 +661,7 @@
 
           }
         })
-      }
+
 
     }
   }

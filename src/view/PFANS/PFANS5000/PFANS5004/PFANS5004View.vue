@@ -36,25 +36,39 @@
               },
               {
                 code: 'projectstype',
-                label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
+                label: 'label.PFANS5004VIEW_STAGETHING',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
                 code: 'startdate',
-                label: 'label.startdate',
+                label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
                 code: 'status',
-                label: 'label.PFANS5004VIEW_PROJECTSTATUS',
+                label: 'label.PFANS5009VIEW_ACTUALWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
+              {
+                code: 'applicationtime',
+                label: 'label.PFANS5009VIEW_SITUATION',
+                width: 150,
+                fix: false,
+                filter: true,
+              },
+              {
+                code: 'status',
+                label: 'label.PFANS5009VIEW_STATUS',
+                width: 150,
+                fix: false,
+                filter: true,
+              }
             ],
             buttonList: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
