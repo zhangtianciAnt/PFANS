@@ -373,7 +373,6 @@
                   prop="customername"
                   :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                   width="150"
-                  @change="getcustomer"
                 >
                 </el-table-column>
 <!--                项目类型-->
@@ -650,13 +649,6 @@
     mounted() {
       this.getExpnameList();
       this.selectById();
-      this.$store
-        .dispatch('PFANS5001Store/getcustomer', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            this.result1 = response;
-          }
-        });
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -935,92 +927,84 @@
             });
             this.loading = false;
           })
-      }
-    },
-    getcustomer(val){
-      this.result1.forEach(res=>{
-        if(res.customerinfor_id === val){
-          this.tableData.customername=res.liableperson;
-        }
-      })
-    },
-
-    buttonClick(val) {
-      this.$refs['refform'].validate(valid => {
-        if (valid) {
-          this.form.expatriatesinfor_id = this.$route.params._id;
-          this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-          this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-          this.loading = true;
-          if (this.form.exits === '1') {
-            this.form.exitime = '';
-            this.form.exitreason = '';
-            this.form.alltechnology = '';
-            this.form.sitevaluation = '';
-            this.form.businessimpact = '';
-            this.form.countermeasure = '';
-            this.rules.exitime[0].required = false;
-            this.rules.exitreason[0].required = false;
-            this.rules.alltechnology[0].required = false;
-            this.rules.sitevaluation[0].required = false;
-            this.rules.businessimpact[0].required = false;
-            this.rules.countermeasure[0].required = false;
-          }
-          if (this.$route.params._id) {
-            this.$store
-              .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                if (val !== 'update') {
+      },
+      buttonClick(val) {
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            this.form.expatriatesinfor_id = this.$route.params._id;
+            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+            this.loading = true;
+            if (this.form.exits === '1') {
+              this.form.exitime = '';
+              this.form.exitreason = '';
+              this.form.alltechnology = '';
+              this.form.sitevaluation = '';
+              this.form.businessimpact = '';
+              this.form.countermeasure = '';
+              this.rules.exitime[0].required = false;
+              this.rules.exitreason[0].required = false;
+              this.rules.alltechnology[0].required = false;
+              this.rules.sitevaluation[0].required = false;
+              this.rules.businessimpact[0].required = false;
+              this.rules.countermeasure[0].required = false;
+            }
+            if (this.$route.params._id) {
+              this.$store
+                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
                   Message({
-                    message: this.$t('normal.success_02'),
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            } else {
+              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+              this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
                     type: 'success',
                     duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                }
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-                this.loading = false;
-              });
-          } else {
-            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t('normal.success_01'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-                if (this.$store.getters.historyUrl) {
-                  this.$router.push(this.$store.getters.historyUrl);
-                }
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+            }
           }
-        }
-      });
-    },
+        });
+      },
+    }
   };
 </script>
 
