@@ -1076,6 +1076,20 @@ export function menu() {
           'menuicon': 'el-icon-s-data',
           'children': [
             {
+              '_id': 'PFANS5008',
+              'name': 'menu.PFANS5008',
+              'menuvisible': true,
+              'menuurl': '/PFANS5008View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "PFANS5008_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "PFANS5008_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "PFANS5008_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "PFANS5008_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
+            {
               '_id': 'APPROVAL',
               'name': 'menu.APPROVAL',
               'menuvisible': true,
@@ -1096,20 +1110,6 @@ export function menu() {
                     {"_id": "PFANS5001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
-              ]
-            },
-            {
-              '_id': 'PFANS5008',
-              'name': 'menu.PFANS5008',
-              'menuvisible': true,
-              'menuurl': '/PFANS5008View',
-              'menuicon': '',
-              'children': [],
-              'actions': [
-                {"_id": "PFANS5008_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                {"_id": "PFANS5008_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                {"_id": "PFANS5008_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                {"_id": "PFANS5008_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
               ]
             },
             {
@@ -1275,6 +1275,20 @@ export function menu() {
                     {"_id": "PFANS6006_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                     {"_id": "PFANS6006_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS6006_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS6008',
+                  'name': 'menu.PFANS6008',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS6008View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS6008_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS6008_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS6008_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS6008_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
               ]
