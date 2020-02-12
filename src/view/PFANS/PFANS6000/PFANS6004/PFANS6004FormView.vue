@@ -343,11 +343,61 @@
             </el-collapse-item>
           </el-collapse>
           <!--          最后一行-->
+          <!--          项目信息-->
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
                 <span class="collapse_Title">{{$t('label.PFANS6004VIEW_PROJECTINFORMATION')}}</span>
               </template>
+              <el-table
+                :data="tableData"
+                border
+                style="width:100%"
+              >
+<!--                部门-->
+                <el-table-column
+                  prop="departmentid"
+                  :label="$t('label.department')"
+                  width="150"
+                >
+                </el-table-column>
+<!--                项目-->
+                <el-table-column
+                  prop="project_name"
+                  :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
+                  width="150"
+                >
+                </el-table-column>
+<!--                客户-->
+                <el-table-column
+                  prop="customername"
+                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                  width="150"
+                  @change="getcustomer"
+                >
+                </el-table-column>
+<!--                项目类型-->
+                <el-table-column
+                  prop="projecttype"
+                  :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
+                  width="150"
+                >
+                </el-table-column>
+<!--                开始时间-->
+                <el-table-column
+                  prop="startdate"
+                  :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
+                  width="150"
+                >
+                </el-table-column>
+<!--                结束时间-->
+                <el-table-column
+                  prop="enddate"
+                  :label="$t('label.end')"
+                  width="150"
+                >
+                </el-table-column>
+              </el-table>
             </el-collapse-item>
           </el-collapse>
         </el-form>
@@ -362,7 +412,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '../../../../utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -419,6 +469,14 @@
           countermeasure: '',
           exits: '1',
         },
+        tableData: [{
+          departmentid: '',
+          project_name: '',
+          customername: '',
+          projecttype: '',
+          startdate: '',
+          endtime: '',
+        }],
         //性别
         code1: 'BP001',
         //学历
@@ -439,6 +497,7 @@
         code9: 'BP011',
         //業務影響
         code10: 'BP010',
+        result1: "",
         disabled: true,
         dialogTableVisible: false,
         dialogTableVisible1: false,
@@ -590,6 +649,14 @@
     },
     mounted() {
       this.getExpnameList();
+      this.selectById();
+      this.$store
+        .dispatch('PFANS5001Store/getcustomer', {})
+        .then(response => {
+          for (let i = 0; i < response.length; i++) {
+            this.result1 = response;
+          }
+        });
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -755,20 +822,20 @@
       },
       handleClickChange1(val) {
         this.currentRow = val.expname;
-        this.currentRow2=val.sex;
-        this.currentRow3=val.contactinformation;
-        this.currentRow4=val.birth;
-        this.currentRow5=val.age;
-        this.currentRow6=val.suppliername;
-        this.currentRow7=val.graduateschool;
-        this.currentRow8=val.education;
-        this.currentRow9=val.speciality;
-        this.currentRow10=val.interview_date;
-        this.currentRow11=val.result;
-        this.currentRow12=val.technology;
-        this.currentRow13=val.rn;
-        this.currentRow14=val.whetherentry
-        this.currentRow15=val.remarks
+        this.currentRow2 = val.sex;
+        this.currentRow3 = val.contactinformation;
+        this.currentRow4 = val.birth;
+        this.currentRow5 = val.age;
+        this.currentRow6 = val.suppliername;
+        this.currentRow7 = val.graduateschool;
+        this.currentRow8 = val.education;
+        this.currentRow9 = val.speciality;
+        this.currentRow10 = val.interview_date;
+        this.currentRow11 = val.result;
+        this.currentRow12 = val.technology;
+        this.currentRow13 = val.rn;
+        this.currentRow14 = val.whetherentry;
+        this.currentRow15 = val.remarks;
       },
       submit() {
         let val = this.currentRow;
@@ -789,13 +856,13 @@
               vote.expname = response[i].coopername;
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               vote.contactinformation = response[i].contactinformation;
-              vote.birth=moment(response[i].birth).format('YYYY-MM-DD');
+              vote.birth = moment(response[i].birth).format('YYYY-MM-DD');
               vote.age = response[i].age;
               vote.suppliername = response[i].suppliername;
               vote.graduateschool = response[i].graduateschool;
               vote.education = getDictionaryInfo(response[i].education).value1;
               vote.speciality = response[i].speciality;
-              vote.interview_date=moment(response[i].interview_date).format('YYYY-MM-DD');
+              vote.interview_date = moment(response[i].interview_date).format('YYYY-MM-DD');
               vote.result = getDictionaryInfo(response[i].result).value1;
               vote.technology = getDictionaryInfo(response[i].technology).value1;
               vote.rn = getDictionaryInfo(response[i].rn).value1;
@@ -814,82 +881,145 @@
             this.loading = false;
           });
       },
-      buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.form.expatriatesinfor_id = this.$route.params._id;
-            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-            this.loading = true;
-            if (this.form.exits === '1') {
-              this.form.exitime = '';
-              this.form.exitreason = '';
-              this.form.alltechnology = '';
-              this.form.sitevaluation = '';
-              this.form.businessimpact = '';
-              this.form.countermeasure = '';
-              this.rules.exitime[0].required = false;
-              this.rules.exitreason[0].required = false;
-              this.rules.alltechnology[0].required = false;
-              this.rules.sitevaluation[0].required = false;
-              this.rules.businessimpact[0].required = false;
-              this.rules.countermeasure[0].required = false;
+      selectById() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].departmentid !== null && response[j].departmentid !== "") {
+                let departmentid = getDictionaryInfo(response[j].departmentid);
+                if (departmentid != null) {
+                  response[j].departmentid = departmentid.value1;
+                }
+              }
+              if (response[j].project_name !== null && response[j].project_name !== "") {
+                let project_name = getUserInfo(response[j].project_name);
+                if (project_name) {
+                  response[j].project_name = user.userinfo.customername;
+                }
+              }
+              if (response[j].customername !== null && response[j].customername !== "") {
+                let customername = getUserInfo(response[j].customername);
+                if (customername) {
+                  response[j].customername = user.userinfo.customername;
+                }
+              }
+              if (response[j].startdate !== null && response[j].startdate !== "") {
+                response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+              }
+              if (response[j].enddate !== null && response[j].enddate !== "") {
+                response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+              }
+              if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                let projecttype = getDictionaryInfo(response[j].projecttype);
+                if (projecttype != null) {
+                  response[j].projecttype = projecttype.value1;
+                }
+              }
+              if (response[j].jobclassification !== null && response[j].jobclassification !== "") {
+                let jobclassification = getDictionaryInfo(response[j].jobclassification);
+                if (jobclassification != null) {
+                  response[j].jobclassification = jobclassification.value1;
+                }
+              }
             }
-            if (this.$route.params._id) {
-              this.$store
-                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
+            this.tableData = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      }
+    },
+    getcustomer(val){
+      this.result1.forEach(res=>{
+        if(res.customerinfor_id === val){
+          this.tableData.customername=res.liableperson;
+        }
+      })
+    },
+
+    buttonClick(val) {
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
+          this.form.expatriatesinfor_id = this.$route.params._id;
+          this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+          this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+          this.loading = true;
+          if (this.form.exits === '1') {
+            this.form.exitime = '';
+            this.form.exitreason = '';
+            this.form.alltechnology = '';
+            this.form.sitevaluation = '';
+            this.form.businessimpact = '';
+            this.form.countermeasure = '';
+            this.rules.exitime[0].required = false;
+            this.rules.exitreason[0].required = false;
+            this.rules.alltechnology[0].required = false;
+            this.rules.sitevaluation[0].required = false;
+            this.rules.businessimpact[0].required = false;
+            this.rules.countermeasure[0].required = false;
+          }
+          if (this.$route.params._id) {
+            this.$store
+              .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== 'update') {
                   Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-              this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
+                    message: this.$t('normal.success_02'),
                     type: 'success',
                     duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-            }
+                this.loading = false;
+              });
+          } else {
+            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                Message({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
-        });
-      },
+        }
+      });
     },
   };
 </script>
