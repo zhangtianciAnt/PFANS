@@ -87,7 +87,6 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
@@ -172,15 +171,6 @@
             params: {
               _id: this.rowid,
               disabled: false
-            }
-          })
-        }
-        if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS5009FormView',
-            params: {
-              _id: '',
-              disabled: true
             }
           })
         }
