@@ -42,7 +42,7 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="name2">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="name2">
                         <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
                                   v-model="form.name2"></el-input>
                       </el-form-item>
@@ -70,7 +70,6 @@
                           :data="form.type"
                           :disabled="!disabled"
                           :multiple="multiple1"
-                          :selectType="selectType1"
                           @change="getType"
                           style="width:20vw">
                         </dicselect>
@@ -83,7 +82,6 @@
                           :data="form.area"
                           :disabled="!disabled"
                           :multiple="multiple1"
-                          :selectType="selectType1"
                           @change="getArea"
                           style="width:20vw">
                         </dicselect>
@@ -243,7 +241,6 @@
                     </el-switch>
                   </template>
                 </el-table-column>
-
 <!--                <el-table-column :label="$t('label.operation')" align="center" width="200">-->
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-button-->
@@ -285,9 +282,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS5009View from '../PFANS5009/PFANS5009View.vue';
   import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from 'moment';
   import org from '../../../components/org';
 
@@ -296,9 +291,7 @@
     components: {
       EasyNormalContainer,
       PFANS5009View,
-      getOrgInfoByUserId,
       dicselect,
-      user,
       org,
     },
     data() {
@@ -326,13 +319,10 @@
         centerorglist: '',
         grouporglist: '',
         teamorglist: '',
-        optionsdata: [],
         loading: false,
         errorcenter: '',
         errorgroup: '',
         activeName: 'first',
-        checked: true,
-        selectType1: 'double',
         title: 'title.PFANS5009VIEW',
         buttonList: [],
         tabIndex: 0,
@@ -471,21 +461,88 @@
       };
     },
     mounted() {
-      this.getCompanyProjectList();
-      this.loading = true;
       if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch("PFANS2011Store/getOvertimeOne", {
+            overtimeid: this.$route.params._id
+          })
+          .then(response => {
+            debugger;
+            this.form = response;
+            this.loading = false;
+            this.userlist = this.form.userid;
+            if (
+              this.form.overtimetype === "PR001002" &&
+              this.form.reserveovertime >= 8
+            ) {
+              this.show = true;
+              this.rules.reservesubstitutiondate[0].required = true;
+            }
+            if (
+              (this.form.status === "4" || this.form.status === "6") &&
+              this.disable &&
+              this.disactualovertime
+            ) {
+              this.disable = false;
+              this.disactualovertime = true;
+            }
+            if (
+              this.form.status === "5" &&
+              this.disable &&
+              this.disactualovertime
+            ) {
+              this.disable = false;
+              this.disactualovertime = false;
+            }
+            if (this.form.status === "0") {
+              this.workflowCode = "W0001";
+              this.canStart = true;
+              this.disactualovertime = false;
+            } else if (this.form.status === "4") {
+              this.workflowCode = "W0040";
+              this.canStart = true;
+              this.disable = false;
+              this.disactualovertime = true;
+              this.rules.actualovertime[0].required = true;
+            } else if (this.form.status === "7") {
+              this.workflowCode = "W0040";
+              this.canStart = false;
+              this.disable = true;
+              this.disactualovertime = true;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== "") {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.centerid = lst.centerNmae;
+          this.form.groupid = lst.groupNmae;
+          this.form.teamid = lst.teamNmae;
+          this.form.userid = this.$store.getters.userinfo.userid;
+        }
+      }
+      this.getWorkingday();
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
         this.$store
           .dispatch('PFANS5009Store/getRecruitOne', {'projectinformationid': this.$route.params._id})
           .then(response => {
-            if (!response.projectinformation) {
-              this.loading = false;
-              return;
-            }
-            this.form = response.projectinformation;
+            this.form = response;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            this.userlist = this.form.user_id;
             this.baseInfo.projectinformation = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableP));
             //this.form.recruitmentroute = this.form.recruitmentroute.split(',');
@@ -559,22 +616,22 @@
       getType(val) {
         this.form.type = val;
       },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('update');
-      },
-      start() {
-        this.form.status = '2';
-        this.buttonClick('update');
-      },
-      end() {
-        this.form.status = '0';
-        this.buttonClick('update');
-      },
+      // workflowState(val) {
+      //   if (val.state === '1') {
+      //     this.form.status = '3';
+      //   } else if (val.state === '2') {
+      //     this.form.status = '4';
+      //   }
+      //   this.buttonClick('update');
+      // },
+      // start() {
+      //   this.form.status = '2';
+      //   this.buttonClick('update');
+      // },
+      // end() {
+      //   this.form.status = '0';
+      //   this.buttonClick('update');
+      // },
       // getCompanyProjectList() {
       //   this.loading = true;
       //   this.$store
@@ -601,15 +658,14 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
-            this.form.recruitmentroute = this.form.recruitmentroute.join(',');
             if (this.$route.params._id) {
               this.form.projectinformation = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;
               this.form.team_id = this.teamorglist;
-              this.form.applicationtime = moment(this.form.applicationtime).format('YYYY-MM-DD');
-              this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
-              this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
+              this.form.starttime = moment(this.form.starttime).format('YYYY-MM-DD');
+              this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
+              this.form.deadline = moment(this.form.deadline).format('YYYY-MM-DD');
               this.loading = true;
               this.$store
                 .dispatch('PFANS5009Store/updateRecruit', this.form)
