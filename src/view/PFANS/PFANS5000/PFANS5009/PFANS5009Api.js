@@ -1,29 +1,14 @@
 import request from '../../../../utils/request'
 
-export function getRecruit() {
+export function selectById() {
   return request({
-    url: 'recruit/get',
-    method: 'get'
+    url: 'recruit/selectById',
+    method: 'get',
+    params: data
   })
 }
 
-export function getCompanyProjectList(data) {
-  return request({
-    url: 'logmanagement/getCompanyProjectList',
-    method: 'POST',
-    data: data
-  })
-}
-
-export function getRecruitOne(data) {
-  return request({
-    url: 'recruit/one',
-    method: 'post',
-    data: data
-  })
-}
-
-export function updateRecruit(data) {
+export function update(data) {
   return request({
     url: 'recruit/update',
     method: 'post',
@@ -31,9 +16,9 @@ export function updateRecruit(data) {
   })
 }
 
-export function createRecruit(data) {
+export function insert(data) {
   return request({
-    url: 'recruit/create',
+    url: 'recruit/insert',
     method: 'post',
     data: data
   })

@@ -1,7 +1,7 @@
 import {
-  getRecruit,
-  getRecruitOne,
-  updateRecruit,
+  selectById,
+  update,
+  insert,
   createRecruit,
   getForSelect,
   getCompanyProjectList,
