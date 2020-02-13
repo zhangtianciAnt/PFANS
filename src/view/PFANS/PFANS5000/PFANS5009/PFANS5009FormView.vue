@@ -612,7 +612,7 @@
                 });
               }
             }if (this.$route.params._id) {
-              this.form.projectinformation = this.$route.params._id;
+              this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;
               this.form.team_id = this.teamorglist;
@@ -621,7 +621,7 @@
               this.form.deadline = moment(this.form.deadline).format('YYYY-MM-DD');
               this.loading = true;
               this.$store
-                .dispatch('PFANS5009Store/updateRecruit', this.form)
+                .dispatch('PFANS5009Store/update', this.baseInfo)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
