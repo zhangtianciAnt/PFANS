@@ -6,6 +6,7 @@
 
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
+  import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
   import {Message} from "element-ui";
   import moment from "moment";
 
@@ -28,7 +29,7 @@
                 filter: true
               },
               {
-                code: 'projectname',
+                code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
                 fix: false,
@@ -42,21 +43,21 @@
                 filter: true
               },
               {
-                code: 'startdate',
+                code: 'stagething',
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
-                code: 'status',
+                code: 'realday',
                 label: 'label.PFANS5009VIEW_ACTUALWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
-                code: 'applicationtime',
+                code: 'predict',
                 label: 'label.PFANS5009VIEW_SITUATION',
                 width: 150,
                 fix: false,
@@ -72,7 +73,7 @@
             ],
             buttonList: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-              {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
+              {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
             ],
             rowid: '',
@@ -82,7 +83,7 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5004Store/get', {})
+          .dispatch('PFANS5004Store/getFpans5001List', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== "") {
@@ -90,6 +91,7 @@
                 if (response[j].status !== null && response[j].status !== "") {
                   response[j].status = getStatus(response[j].status);
                 }
+
                 if (response[j].startdate !== null && response[j].startdate !== "") {
                   response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
                 }
@@ -117,8 +119,8 @@
             this.$router.push({
               name: 'PFANS5004FormView',
               params: {
-                _id: '',
-                disabled: true,
+                _id: this.rowid,
+                disabled: true
               }
             })
           }

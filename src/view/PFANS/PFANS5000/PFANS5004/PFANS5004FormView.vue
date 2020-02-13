@@ -160,74 +160,74 @@
 
 
             <!--<el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third"  >-->
-              <!--<el-table :data="stage"-->
-                        <!--header-cell-class-name="sub_bg_color_blue"-->
-                        <!--show-summary stripe border style="width: 70vw">-->
-                <!--&lt;!&ndash;工作阶段&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS5004VIEW_WORKSTAGE')" align="center" width="150">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect :code="code1"-->
-                               <!--:data="scope.row.workstage"-->
-                               <!--:disabled="!disable"-->
-                               <!--:multiple="multiple"-->
-                               <!--:no="scope.row"-->
-                               <!--@change="getworkstage" style="width: 100%">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--&lt;!&ndash;阶段成果物&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS5004VIEW_STAGETHING')" align="center" width="150">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect :code="code2"-->
-                               <!--:data="scope.row.stagething"-->
-                               <!--:disabled="!disable"-->
-                               <!--:multiple="multiple"-->
-                               <!--:no="scope.row"-->
-                               <!--@change="setstagething"-->
-                               <!--style="width: 100%" v-show="scope.row.showrow1">-->
-                    <!--</dicselect>-->
-                    <!--<dicselect :code="code3"-->
-                               <!--:data="scope.row.stagething"-->
-                               <!--:disabled="!disable"-->
-                               <!--:multiple="multiple"-->
-                               <!--:no="scope.row"-->
-                               <!--@change="setstagething"-->
-                               <!--style="width: 100%" v-show="scope.row.showrow2">-->
-                    <!--</dicselect>-->
-                    <!--<dicselect :code="code4"-->
-                               <!--:data="scope.row.stagething"-->
-                               <!--:disabled="!disable"-->
-                               <!--:multiple="multiple"-->
-                               <!--:no="scope.row"-->
-                               <!--@change="setstagething"-->
-                               <!--style="width: 100%" v-show="scope.row.showrow3">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--&lt;!&ndash;预计工数（人月）&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS5004VIEW_PREDICTNUKMBER')" align="center" width="150">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>-->
-                  <!--</template>-->
-                  <!--&lt;!&ndash;起止时间&ndash;&gt;-->
-                <!--</el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME2')" align="center" width="150">-->
-                <!--<template slot-scope="scope">-->
-                  <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stdatetime"></el-input>-->
-                <!--</template>-->
-              <!--</el-table-column>-->
-                <!--&lt;!&ndash;备注&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS5004VIEW_NOTE')" align="center" width="150">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.note1"></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--&lt;!&ndash;完成时间&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS5004VIEW_FINSHTIME')" align="center" width="150">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.finshtime"></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
+            <!--<el-table :data="stage"-->
+            <!--header-cell-class-name="sub_bg_color_blue"-->
+            <!--show-summary stripe border style="width: 70vw">-->
+            <!--&lt;!&ndash;工作阶段&ndash;&gt;-->
+            <!--<el-table-column :label="$t('label.PFANS5004VIEW_WORKSTAGE')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<dicselect :code="code1"-->
+            <!--:data="scope.row.workstage"-->
+            <!--:disabled="!disable"-->
+            <!--:multiple="multiple"-->
+            <!--:no="scope.row"-->
+            <!--@change="getworkstage" style="width: 100%">-->
+            <!--</dicselect>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
+            <!--&lt;!&ndash;阶段成果物&ndash;&gt;-->
+            <!--<el-table-column :label="$t('label.PFANS5004VIEW_STAGETHING')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<dicselect :code="code2"-->
+            <!--:data="scope.row.stagething"-->
+            <!--:disabled="!disable"-->
+            <!--:multiple="multiple"-->
+            <!--:no="scope.row"-->
+            <!--@change="setstagething"-->
+            <!--style="width: 100%" v-show="scope.row.showrow1">-->
+            <!--</dicselect>-->
+            <!--<dicselect :code="code3"-->
+            <!--:data="scope.row.stagething"-->
+            <!--:disabled="!disable"-->
+            <!--:multiple="multiple"-->
+            <!--:no="scope.row"-->
+            <!--@change="setstagething"-->
+            <!--style="width: 100%" v-show="scope.row.showrow2">-->
+            <!--</dicselect>-->
+            <!--<dicselect :code="code4"-->
+            <!--:data="scope.row.stagething"-->
+            <!--:disabled="!disable"-->
+            <!--:multiple="multiple"-->
+            <!--:no="scope.row"-->
+            <!--@change="setstagething"-->
+            <!--style="width: 100%" v-show="scope.row.showrow3">-->
+            <!--</dicselect>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
+            <!--&lt;!&ndash;预计工数（人月）&ndash;&gt;-->
+            <!--<el-table-column :label="$t('label.PFANS5004VIEW_PREDICTNUKMBER')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>-->
+            <!--</template>-->
+            <!--&lt;!&ndash;起止时间&ndash;&gt;-->
+            <!--</el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_DATETIME2')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.stdatetime"></el-input>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
+            <!--&lt;!&ndash;备注&ndash;&gt;-->
+            <!--<el-table-column :label="$t('label.PFANS5004VIEW_NOTE')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.note1"></el-input>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
+            <!--&lt;!&ndash;完成时间&ndash;&gt;-->
+            <!--<el-table-column :label="$t('label.PFANS5004VIEW_FINSHTIME')" align="center" width="150">-->
+            <!--<template slot-scope="scope">-->
+            <!--<el-input :disabled="!disable" maxlength="20"  v-model="scope.row.finshtime"></el-input>-->
+            <!--</template>-->
+            <!--</el-table-column>-->
+            <!--</el-table>-->
 
             <!--</el-tab-pane>-->
             <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">
@@ -238,7 +238,7 @@
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
                           <dicselect
-                            :code="code7"
+                            :code="code1"
                             :data="scope.row.role"
                             :disabled="!disable"
                             :multiple="multiple"
@@ -252,7 +252,7 @@
                       >
                         <template slot-scope="scope">
                           <dicselect
-                            :code="code8"
+                            :code="code2"
                             :data="scope.row.role"
                             :disabled="!disable"
                             :multiple="multiple"
@@ -399,10 +399,10 @@
         }],
         rules: {
           assetaddress: [{
-              required: true,
+            required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
-              trigger: 'blur',
-            },
+            trigger: 'blur',
+          },
           ]},
         fileList: [],
         upload: uploadUrl(),
@@ -421,8 +421,10 @@
       if(this.$route.params._id){
         this.loading = true;
         this.$store
-          .dispatch('PFANS5004Store/selectById', {'closeapplicatid': this.$route.params._id})
+          .dispatch('PFANS5004Store/getFpans5001List', {})
+          // .dispatch('PFANS5004Store/selectById', {'companyprojectsid': this.$route.params._id})
           .then(response => {
+            debugger
             this.form=response.closeApplicat;
             if(response.projectSecore.length>0){
               this.source=response.projectSecore;
@@ -456,8 +458,6 @@
             });
             this.loading = false;
           })
-      }else {
-
       }
     },
     created() {
@@ -467,57 +467,6 @@
       this.disable = this.$route.params.disabled;
     },
     methods:{
-      addRow() {
-        this.source.push({
-          number:'',
-          name:'',
-          commune:'',
-          croprate:'',
-          pjcroprate:'',
-          dicroprate:'',
-        });
-      },
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.source=[{
-            number:'',
-            name:'',
-            commune:'',
-            croprate:'',
-            pjcroprate:'',
-            dicroprate:'',
-          }]
-        }
-      },
-      addRow2() {
-        this.stage.push({
-          workstage:'',
-          stagething:'',
-          predictnukmber:'',
-          datetime:'',
-          note:'',
-          finshtime:'',
-          showrow1: true,
-          showrow2: false,
-          showrow3: false,
-        });
-      },
-      deleteRow2(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.stage=[{
-            workstage:'',
-            stagething:'',
-            predictnukmber:'',
-            datetime:'',
-            note:'',
-            finshtime:'',
-          }]
-        }
-      },
       getworkstage(val,row){
         debugger;
         row.workstage=val;
@@ -596,103 +545,78 @@
       },
     },
     buttonClick(val) {
-        this.$refs["reff"].validate(valid => {
-          if(valid){
-            this.baseInfo={};
-            this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectSecore=[];
-            this.baseInfo.stageNews=[];
-            for(let i=0;i<this.source.length;i++){
-              if(this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
-                || this.source[i].pjcroprate !== "" ||  this.source[i].dicroprate !== "" ){
-                this.baseInfo.projectSecore.push(
-                  {
-                    projectsecoreid: this.source[i].projectsecoreid,
-                    closeapplicatid: this.source[i].closeapplicatid,
-                    number: this.source[i].number,
-                    name: this.source[i].name,
-                    commune: this.source[i].commune,
-                    croprate: this.source[i].croprate ,
-                    pjcroprate: this.source[i].pjcroprate,
-                    dicroprate: this.source[i].dicroprate,
-                  }
-                );
-              }
+      this.$refs["reff"].validate(valid => {
+        if(valid){
+          this.baseInfo={};
+          this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.projectSecore=[];
+          this.baseInfo.stageNews=[];
+          for(let i=0;i<this.source.length;i++){
+            if(this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+              || this.source[i].pjcroprate !== "" ||  this.source[i].dicroprate !== "" ){
+              this.baseInfo.projectSecore.push(
+                {
+                  projectsecoreid: this.source[i].projectsecoreid,
+                  closeapplicatid: this.source[i].closeapplicatid,
+                  number: this.source[i].number,
+                  name: this.source[i].name,
+                  commune: this.source[i].commune,
+                  croprate: this.source[i].croprate ,
+                  pjcroprate: this.source[i].pjcroprate,
+                  dicroprate: this.source[i].dicroprate,
+                }
+              );
             }
-            for(let i=0;i<this.stage.length;i++){
-              if(this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
-                || this.stage[i].stdatetime !== "" ||  this.stage[i].note1 !== "" ||  this.stage[i].finshtime !== ""){
-                this.baseInfo.stageNews.push(
-                  {
-                    stagenews_id: this.stage[i].stagenews_id,
-                    closeapplicatid: this.stage[i].closeapplicatid,
-                    workstage: this.stage[i].workstage,
-                    stagething: this.stage[i].stagething,
-                    predictnukmber: this.stage[i].predictnukmber,
-                    projectnumber: this.stage[i].projectnumber ,
-                    stdatetime: this.stage[i].stdatetime,
-                    note1: this.stage[i].note1,
-                    finshtime: this.stage[i].finshtime,
-                  }
-                );
-              }
+          }
+          for(let i=0;i<this.stage.length;i++){
+            if(this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
+              || this.stage[i].stdatetime !== "" ||  this.stage[i].note1 !== "" ||  this.stage[i].finshtime !== ""){
+              this.baseInfo.stageNews.push(
+                {
+                  stagenews_id: this.stage[i].stagenews_id,
+                  closeapplicatid: this.stage[i].closeapplicatid,
+                  workstage: this.stage[i].workstage,
+                  stagething: this.stage[i].stagething,
+                  predictnukmber: this.stage[i].predictnukmber,
+                  projectnumber: this.stage[i].projectnumber ,
+                  stdatetime: this.stage[i].stdatetime,
+                  note1: this.stage[i].note1,
+                  finshtime: this.stage[i].finshtime,
+                }
+              );
             }
-            if (this.$route.params._id) {
-              //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS5004Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
+          }
+          if (this.$route.params._id) {
+            //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
+            this.$store
+              .dispatch('PFANS5004Store/update', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== "update") {
                   Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            }else {
-              this.$store
-                .dispatch('PFANS5004Store/insert', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  this.$message({
-                    message: this.$t("normal.success_01"),
-                    type: "success",
-                    duration: 5 * 1000
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
                 });
-            }
-
+                this.loading = false;
+              })
           }
-        })
-
-
+        }
+      })
     }
+
   }
 </script>
 
