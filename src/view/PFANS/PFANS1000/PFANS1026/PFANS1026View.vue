@@ -2728,13 +2728,13 @@
         multiple: false,
         rowindex: '',
         rules: {
-              group_id: [
-                  {
-                      required: true,
-                      validator: checkgroup,
-                      trigger: 'change'
-                  },
-              ]
+              // group_id: [
+              //     {
+              //         required: true,
+              //         validator: checkgroup,
+              //         trigger: 'change'
+              //     },
+              // ]
         },
           buttonList:[
               {
@@ -2772,116 +2772,8 @@
             maketype: '',
         },
         formLabelWidth: '120px',
-          tablefirst: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  decide: '',
-                  firstjudge: '',
-                  secondjudge: '',
-                  outputmanager: '',
-                  manager: '',
-                  decisionnumber: '',
-                  outnumber: '',
-                  productnumber: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tablesecond: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  decide: '',
-                  firstjudge: '',
-                  secondjudge: '',
-                  outputmanager: '',
-                  manager: '',
-                  decisionnumber: '',
-                  outnumber: '',
-                  productnumber: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
+          tablefirst: [],
+          tablesecond: [],
           tablethird: [
               {
                   contractapplication_id: '',
@@ -3896,15 +3788,23 @@
                 };
             }
         },
-        addRowfirsh() {
-            this.tablefirsh.push({
+        //海外受託 技術開発
+        addRowfirst() {
+            //契約書番号
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
+            this.tablefirst.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
                 contracttype: '',
-                contractnumber: '',
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -3925,7 +3825,7 @@
                 custoabbreviation: '',
                 custochinese: '',
                 businesscode: '',
-                claimdatetime: [],
+
                 varto: '',
                 placejapanese: '',
                 placeenglish: '',
@@ -3952,6 +3852,13 @@
             });
         },
         addRowsecond() {
+            //契約書番号
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tablesecond.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -3959,7 +3866,7 @@
                 applicationdate: '',
                 user_id: '',
                 contracttype: '',
-                contractnumber: '',
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -3980,7 +3887,7 @@
                 custoabbreviation: '',
                 custochinese: '',
                 businesscode: '',
-                claimdatetime: [],
+
                 varto: '',
                 placejapanese: '',
                 placeenglish: '',
@@ -4335,7 +4242,116 @@
                 maketype: '',
             });
         },
-        click1(val) {
+        click1() {//111
+          this.tablefirst = [];
+          this.tablesecond = [];
+          //請求方式
+            let letclaimtype = '';
+            if(this.form.contractnumber != ''){
+                letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
+            }
+            let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
+            let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
+            let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
+            let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+            debugger;
+          //海外受託 技術開発
+          if(this.form.contracttype === 'HT008001'){
+
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowfirst();
+                  this.tablefirst[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.tablefirst[0].claimtype = letclaimtypeone;
+                  this.tablefirst[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.tablefirst[0].claimtype = letclaimtypeone;
+                  this.tablefirst[1].claimtype = letclaimtypetwo;
+                  this.tablefirst[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.addRowfirst();
+                  this.tablefirst[0].claimtype = letclaimtypeone;
+                  this.tablefirst[1].claimtype = letclaimtypetwo;
+                  this.tablefirst[2].claimtype = letclaimtypethree;
+                  this.tablefirst[3].claimtype = letclaimtypefour;
+              }
+          }
+          //海外複合受託 技術開発
+          else if(this.form.contracttype === 'HT008002'){
+              alert(1);
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowsecond();
+                  this.tablesecond[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.tablesecond[0].claimtype = letclaimtypeone;
+                  this.tablesecond[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.tablesecond[0].claimtype = letclaimtypeone;
+                  this.tablesecond[1].claimtype = letclaimtypetwo;
+                  this.tablesecond[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.addRowsecond();
+                  this.tablesecond[0].claimtype = letclaimtypeone;
+                  this.tablesecond[1].claimtype = letclaimtypetwo;
+                  this.tablesecond[2].claimtype = letclaimtypethree;
+                  this.tablesecond[3].claimtype = letclaimtypefour;
+              }
+          }
+          //海外受託 役務
+          else if(this.form.contracttype === 'HT008003'){
+
+          }
+          //海外複合受託 役務
+          else if(this.form.contracttype === 'HT008004'){
+
+          }
+          //国内受託 技術開発
+          else if(this.form.contracttype === 'HT008005'){
+
+          }
+          //国内複合受託 技術開発
+          else if(this.form.contracttype === 'HT008006'){
+
+          }
+          //国内受託 役務
+          else if(this.form.contracttype === 'HT008007'){
+
+          }
+          //国内複合受託 役務
+          else if(this.form.contracttype === 'HT008008'){
+
+          }
+          //販売
+          else if(this.form.contracttype === 'HT008009'){
+
+          }
+        },
+        click1X(val) {
+            alert(val);
                if(val === "insert") {
                    this.$refs["refform"].validate(valid => {
                        if (valid) {
@@ -4404,60 +4420,71 @@
                 this.show2=true;
             }
             if (val === "save") {
+                debugger;
+                let tabledata = [];
+                //海外受託 技術開発
+                if(this.form.contracttype === 'HT008001'){
+                    tabledata = this.tablefirst;
+                }
+                //海外複合受託 技術開発
+                else if(this.form.contracttype === 'HT008002'){
+                    tabledata = this.tablesecond;
+                }
+                //海外受託 役務
+                else if(this.form.contracttype === 'HT008003'){
+                    tabledata = this.tablethird;
+                }
+                //海外複合受託 役務
+                else if(this.form.contracttype === 'HT008004'){
+                    tabledata = this.tablefourth;
+                }
+                //国内受託 技術開発
+                else if(this.form.contracttype === 'HT008005'){
+                    tabledata = this.tablefifth;
+                }
+                //国内複合受託 技術開発
+                else if(this.form.contracttype === 'HT008006'){
+                    tabledata = this.tablesixth;
+                }
+                //国内受託 役務
+                else if(this.form.contracttype === 'HT008007'){
+                    tabledata = this.tableseventh;
+                }
+                //国内複合受託 役務
+                else if(this.form.contracttype === 'HT008008'){
+                    tabledata = this.tableeighth;
+                }
+                //販売
+                else if(this.form.contracttype === 'HT008009'){
+                    tabledata = this.tableninth;
+                }
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
                         this.loading = true;
                         this.contractapplication = {};
                         this.form.maketype = "1";
-                        if (this.$route.params._id) {
-                            this.$store
-                                .dispatch('PFANS1026Store/update', this.contractapplication)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        } else {
-                            this.$store
-                                .dispatch('PFANS1026Store/insert', this.contractapplication)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
+                        this.$store
+                            .dispatch('PFANS1026Store/insert', tabledata)
+                            .then(response => {
+                                this.data = response;
+                                this.loading = false;
+                                Message({
+                                    message: this.$t("normal.success_01"),
+                                    type: 'success',
+                                    duration: 5 * 1000
+                                });
+                                if (this.$store.getters.historyUrl) {
+                                    this.$router.push(this.$store.getters.historyUrl);
+                                }
+                            })
+                            .catch(error => {
+                                Message({
+                                    message: error,
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                            })
                     }
                 });
             }

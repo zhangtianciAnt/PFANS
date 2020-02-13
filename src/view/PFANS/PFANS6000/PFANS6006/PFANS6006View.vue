@@ -65,7 +65,7 @@
                 <el-table-column
                   :label="$t('label.PFANS5001FORMVIEW_BPNAME')"
                   align="center"
-                  width="120">
+                  width="150">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -545,7 +545,11 @@
             'name': 'button.save',
             'disabled': false,
           },
-
+          {
+            'key': 'generate',
+            'name': 'button.generate',
+            'disabled': false
+          },
         ],
       };
     },
@@ -554,7 +558,11 @@
         if (val === 'save') {
           this.updateexpatriatesinfor();
         }
+        if (val === 'generate') {
+          this.setexpatriatesinforApply();
+        }
       },
+
       updateexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -587,9 +595,7 @@
               type: "success",
               duration: 5 * 1000
             });
-            this.data = response;
             this.loading = false;
-
           })
           .catch(error => {
             Message({
@@ -598,6 +604,7 @@
               duration: 5 * 1000,
             });
             this.loading = false;
+            this.getexpatriatesinfor();
           });
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
@@ -713,7 +720,6 @@
       }
     },
     mounted() {
-      // this.setexpatriatesinforApply();
       this.getexpatriatesinfor();
     },
   }

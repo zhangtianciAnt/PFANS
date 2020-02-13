@@ -36,38 +36,38 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="name1">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
                         <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
-                                  v-model="form.name1"></el-input>
+                                  v-model="form.project_name"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="name2">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
                         <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
-                                  v-model="form.name2"></el-input>
+                                  v-model="form.project_namejp"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_PL')" prop="pl">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
                         <el-input :disabled="!disabled" maxlength='50' style="width:20vw"
-                                  v-model="form.pl"></el-input>
+                                  v-model="form.leaderid"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TL')" prop="tl">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
                         <el-input :disabled="!disabled" maxlength='50' style="width:20vw"
-                                  v-model="form.tl"></el-input>
+                                  v-model="form.managerid"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TYPE')" prop="type">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TYPE')" prop="projecttype">
                         <dicselect
                           :code="code"
-                          :data="form.type"
+                          :data="form.projecttype"
                           :disabled="!disabled"
                           :multiple="multiple1"
                           @change="getType"
@@ -76,10 +76,10 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_AREA')" prop="area">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_AREA')" prop="field">
                         <dicselect
                           :code="code1"
-                          :data="form.area"
+                          :data="form.field"
                           :disabled="!disabled"
                           :multiple="multiple1"
                           @change="getArea"
@@ -96,15 +96,15 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_STARTTIME')" prop="starttime">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_STARTTIME')" prop="startdate">
                         <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
-                                        v-model="form.starttime"></el-date-picker>
+                                        v-model="form.startdate"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_ENDTIME')" prop="endtime">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_ENDTIME')" prop="enddate">
                         <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
-                                        v-model="form.endtime"></el-date-picker>
+                                        v-model="form.enddate"></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -328,25 +328,24 @@
         tabIndex: 0,
         multiple1: false,
         form: {
-          projectinformationid: '',
           center_id: '',
           group_id: '',
           team_id: '',
-          name1: '',
-          name2: '',
-          pl: '',
-          tl: '',
-          type: '',
-          area: '',
+          project_name: '',
+          project_namejp: '',
+          leaderid: '',
+          managerid: '',
+          projecttype: '',
+          field: '',
           language: '',
-          starttime: moment(new Date()).format('YYYY-MM-DD'),
-          endtime: '',
+          startdate: moment(new Date()).format('YYYY-MM-DD'),
+          enddate: '',
           work: '',
           deadline: moment(new Date()).format('YYYY-MM-DD'),
         },
         tableP: [{
-          projectinformationid: '',
-          stageinformationid: '',
+          companyprojects_id: '',
+          stageinformation_id: '',
           phase: '',
           stageproduct: '',
           productstatus: '',
@@ -379,42 +378,42 @@
               trigger: 'change',
             },
           ],
-          name1: [
+          project_name: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_NAME1'),
               trigger: 'blur',
             },
           ],
-          name2: [
+          project_namejp: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_NAME2'),
               trigger: 'blur',
             },
           ],
-          pl: [
+          leaderid: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_PL'),
               trigger: 'blur',
             },
           ],
-          tl: [
+          managerid: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_TL'),
               trigger: 'blur',
             },
           ],
-          type: [
+          projecttype: [
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_TYPE'),
               trigger: 'change',
             },
           ],
-          area: [
+          field: [
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_AREA'),
@@ -428,14 +427,14 @@
               trigger: 'blur',
             },
           ],
-          starttime: [
+          startdate: [
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_STARTTIME'),
               trigger: 'change',
             },
           ],
-          endtime: [
+          enddate: [
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_ENDTIME'),
@@ -464,97 +463,17 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch("PFANS2011Store/getOvertimeOne", {
-            overtimeid: this.$route.params._id
-          })
+          .dispatch('PFANS5009Store/selectById', {'companyprojects_id': this.$route.params._id})
           .then(response => {
-            debugger;
-            this.form = response;
-            this.loading = false;
-            this.userlist = this.form.userid;
-            if (
-              this.form.overtimetype === "PR001002" &&
-              this.form.reserveovertime >= 8
-            ) {
-              this.show = true;
-              this.rules.reservesubstitutiondate[0].required = true;
-            }
-            if (
-              (this.form.status === "4" || this.form.status === "6") &&
-              this.disable &&
-              this.disactualovertime
-            ) {
-              this.disable = false;
-              this.disactualovertime = true;
-            }
-            if (
-              this.form.status === "5" &&
-              this.disable &&
-              this.disactualovertime
-            ) {
-              this.disable = false;
-              this.disactualovertime = false;
-            }
-            if (this.form.status === "0") {
-              this.workflowCode = "W0001";
-              this.canStart = true;
-              this.disactualovertime = false;
-            } else if (this.form.status === "4") {
-              this.workflowCode = "W0040";
-              this.canStart = true;
-              this.disable = false;
-              this.disactualovertime = true;
-              this.rules.actualovertime[0].required = true;
-            } else if (this.form.status === "7") {
-              this.workflowCode = "W0040";
-              this.canStart = false;
-              this.disable = true;
-              this.disactualovertime = true;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: "error",
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== "") {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
-          this.form.userid = this.$store.getters.userinfo.userid;
-        }
-      }
-      this.getWorkingday();
-    },
-    mounted() {
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/getRecruitOne', {'projectinformationid': this.$route.params._id})
-          .then(response => {
-            this.form = response;
+            this.form = response.companyprojects;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            this.baseInfo.projectinformation = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableP));
-            //this.form.recruitmentroute = this.form.recruitmentroute.split(',');
             if (response.stageinformation.length > 0) {
               this.tableP = response.stageinformation;
             }
-            // if (this.form.recruitmentroute === 'PR027004') {
-            //   this.show1 = true;
-            // }
-            // if (this.form.requirements === 'PR032005') {
-            //   this.show2 = true;
-            // }
             this.loading = false;
           })
           .catch(error => {
@@ -611,10 +530,10 @@
         }
       },
       getArea(val) {
-        this.form.area = val;
+        this.form.field = val;
       },
       getType(val) {
-        this.form.type = val;
+        this.form.projecttype = val;
       },
       // workflowState(val) {
       //   if (val.state === '1') {
@@ -658,13 +577,47 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
-            if (this.$route.params._id) {
+            this.loading = true;
+            this.baseInfo = {};
+            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.stageInformation = [];
+            for (let i = 0; i < this.tableP.length; i++) {
+              if (
+                this.tableP[i].phase !== "" ||
+                this.tableP[i].stageproduct !== "" ||
+                this.tableP[i].productstatus !== "" ||
+                this.tableP[i].estimatedwork !== ""||
+                this.tableP[i].actualwork !== "" ||
+                this.tableP[i].estimatedstarttime !== "" ||
+                this.tableP[i].estimatedendtime !== "" ||
+                this.tableP[i].remarks !== "" ||
+                this.tableP[i].actualstarttime !== "" ||
+                this.tableP[i].actualendtime !== "" ||
+                this.tableP[i].product !== ""
+              ) {
+                this.baseInfo.stageInformation.push({
+                  stageInformation_id: this.tableP[i].stageInformation_id,
+                  companyprojects_id: this.tableP[i].companyprojects_id,
+                  phase: this.tableP[i].phase,
+                  stageproduct: this.tableP[i].stageproduct,
+                  productstatus: this.tableP[i].productstatus,
+                  estimatedwork: this.tableP[i].estimatedwork,
+                  actualwork: this.tableP[i].actualwork,
+                  estimatedstarttime: this.tableP[i].estimatedstarttime,
+                  estimatedendtime: this.tableP[i].estimatedendtime,
+                  remarks: this.tableP[i].remarks,
+                  actualstarttime: this.tableP[i].actualstarttime,
+                  actualendtime: this.tableP[i].actualendtime,
+                  product: this.tableP[i].product
+                });
+              }
+            }if (this.$route.params._id) {
               this.form.projectinformation = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;
               this.form.team_id = this.teamorglist;
-              this.form.starttime = moment(this.form.starttime).format('YYYY-MM-DD');
-              this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
+              this.form.startdate = moment(this.form.startdate).format('YYYY-MM-DD');
+              this.form.enddate = moment(this.form.enddate).format('YYYY-MM-DD');
               this.form.deadline = moment(this.form.deadline).format('YYYY-MM-DD');
               this.loading = true;
               this.$store

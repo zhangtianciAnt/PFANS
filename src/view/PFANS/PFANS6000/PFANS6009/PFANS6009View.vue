@@ -1,21 +1,24 @@
 <template>
-  <div style="min-height: 100%">
-        <el-tabs v-model="activeName2" type="border-card">
-          <el-tab-pane :label="$t('label.PFANS6009TAB1')" name="first">
-            <EasyNormalTable
-              :buttonList="buttonList"
-              :columns="columns"
-              :data="data"
-              :rowid="row"
-              :title="title"
-              @buttonClick="buttonClick"
-              v-loading="loading">
-            </EasyNormalTable>
-          </el-tab-pane>
-          <el-tab-pane :label="$t('label.PFANS6009TAB2')" name="second"></el-tab-pane>
-          <el-tab-pane :label="$t('label.PFANS6009TAB3')" name="third"></el-tab-pane>
-        </el-tabs>
-  </div>
+  <EasyNormalTable
+  :buttonList="buttonList"
+  :rowid="row"
+  :title="title"
+  @buttonClick="buttonClick"
+  v-loading="loading">
+    <el-tabs v-model="activeName" type="border-card">
+      <el-tab-pane :label="$t('label.PFANS6009TAB1')" name="first">
+        <el-table :data="this.tableA" stripe>
+          <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columns"
+                           v-if="item.child && item.child.length > 0">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child">
+            </el-table-column>
+          </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane :label="$t('label.PFANS6009TAB2')" name="second"></el-tab-pane>
+      <el-tab-pane :label="$t('label.PFANS6009TAB3')" name="third"></el-tab-pane>
+    </el-tabs>
+  </EasyNormalTable>
 </template>
 
 <script>
@@ -32,691 +35,322 @@
       return {
         loading: false,
         title: "title.PFANS6009VIEW_TITLE",
-        data: [],
+        activeName: 'first',
+        tableA: [],
         tableB: [],
         tableC: [],
         columns: [
           {
-            code: 'bpname',
-            label: 'label.PFANS6008VIEW_BPNAME',
-            width: 150,
-            fix: false,
-            filter: true,
-          },
-          {
             code: 'bpcompany',
-            label: 'label.PFANS6008VIEW_BPCOMPANY',
+            label: 'label.PFANS6009VIEW_BPCOMPANY',
             width: 120,
             fix: false,
-            filter: true,
           },
           {
             code: 'four',
-            label: 'label.PFANS6008VIEW_FOUR',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour4',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost4',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support4',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'five',
-            label: 'label.PFANS6008VIEW_FIVE',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour5',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost5',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support5',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'six',
-            label: 'label.PFANS6008VIEW_SIX',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour6',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost6',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support6',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
-          },
-          {
-            code: 'sixtotal',
-            label: 'label.PFANS6008VIEW_SIX',
-            child: [
-              {
-                code: 'totalmanhours6',
-                label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'totalcost6',
-                label: 'label.PFANS6008VIEW_TOTALCOST',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'expense6',
-                label: 'label.PFANS6008VIEW_EXPENSE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'contract6',
-                label: 'label.PFANS6008VIEW_CONTRACT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              }
-            ],
-            width: 540,
-            fix: false,
-            filter: true,
           },
           {
             code: 'seven',
-            label: 'label.PFANS6008VIEW_SEVEN',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour7',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost7',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support7',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'eight',
-            label: 'label.PFANS6008VIEW_EIGHT',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour8',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost8',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support8',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'nine',
-            label: 'label.PFANS6008VIEW_NINE',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour9',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost9',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support9',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
-          },
-          {
-            code: 'ninetotal',
-            label: 'label.PFANS6008VIEW_NINE',
-            child: [
-              {
-                code: 'totalmanhours9',
-                label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'totalcost9',
-                label: 'label.PFANS6008VIEW_TOTALCOST',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'expense9',
-                label: 'label.PFANS6008VIEW_EXPENSE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'contract9',
-                label: 'label.PFANS6008VIEW_CONTRACT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              }
-            ],
-            width: 540,
-            fix: false,
-            filter: true,
           },
           {
             code: 'ten',
-            label: 'label.PFANS6008VIEW_TEN',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour10',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost10',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support10',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'eleven',
-            label: 'label.PFANS6008VIEW_ELEVEN',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour11',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost11',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support11',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'twelve',
-            label: 'label.PFANS6008VIEW_TWELVE',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour12',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost12',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support12',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
-          },
-          {
-            code: 'twelvetotal',
-            label: 'label.PFANS6008VIEW_TWELVE',
-            child: [
-              {
-                code: 'totalmanhours12',
-                label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'totalcost12',
-                label: 'label.PFANS6008VIEW_TOTALCOST',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'expense12',
-                label: 'label.PFANS6008VIEW_EXPENSE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'contract12',
-                label: 'label.PFANS6008VIEW_CONTRACT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              }
-            ],
-            width: 540,
-            fix: false,
-            filter: true,
           },
           {
             code: 'one',
-            label: 'label.PFANS6008VIEW_ONE',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour1',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost1',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support1',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'two',
-            label: 'label.PFANS6008VIEW_TWO',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour2',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost2',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support2',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
             code: 'three',
-            label: 'label.PFANS6008VIEW_THREE',
+            label: '',
             child: [
               {
-                code: 'unitprice',
-                label: 'label.PFANS6008VIEW_UNITPRICE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
                 code: 'manhour3',
-                label: 'label.PFANS6008VIEW_MANHOUR',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
                 code: 'cost3',
-                label: 'label.PFANS6008VIEW_COST',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'support3',
-                label: 'label.PFANS6008VIEW_SUPPORT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
           },
           {
-            code: 'threetotal',
-            label: 'label.PFANS6008VIEW_THREE',
+            code: 'total',
+            label: 'label.PFANS6009VIEW_TOTAL',
             child: [
               {
-                code: 'totalmanhours3',
-                label: 'label.PFANS6008VIEW_TOTALMANHOURS',
+                code: 'totalmanhours',
+                label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
               },
               {
-                code: 'totalcost3',
-                label: 'label.PFANS6008VIEW_TOTALCOST',
+                code: 'totalcost',
+                label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
                 width: 90,
                 fix: false,
-                filter: true,
-              },
-              {
-                code: 'expense3',
-                label: 'label.PFANS6008VIEW_EXPENSE',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
-              },
-              {
-                code: 'contract3',
-                label: 'label.PFANS6008VIEW_CONTRACT',
-                labelClass: 'pfans2013view_column_5',
-                width: 90,
-                fix: false,
-                filter: true,
               }
             ],
             width: 540,
             fix: false,
-            filter: true,
-          }
+          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
         rowid: '',
-        row: 'variousfunds_id'
+        row: 'variousfunds_id',
+        array: [
+          '2019年4月','2019年5月','2019年6月','2019年7月','2019年8月','2019年9月','2019年10月','2019年11月','2019年12月','2019年1月','2019年2月','2019年3月'
+        ]
       };
     },
     mounted() {
       this.loading = true;
+
+      for (var i = 1; i < this.array.length; i++) {
+        this.columns[i].label = this.array[i];
+      }
+
       this.$store
         .dispatch('PFANS6009Store/getCostList')
         .then(response => {
