@@ -466,26 +466,26 @@
       }
       this.disable = this.$route.params.disabled;
     },
-    methods:{
-      getworkstage(val,row){
+    methods: {
+      getworkstage(val, row) {
         debugger;
-        row.workstage=val;
-        if(val==='PP012001'){
-          row.showrow1=true;
+        row.workstage = val;
+        if (val === 'PP012001') {
+          row.showrow1 = true;
           row.showrow2 = false;
           row.showrow3 = false;
-        }else if(val==='PP012002'){
-          row.showrow1=false;
+        } else if (val === 'PP012002') {
+          row.showrow1 = false;
           row.showrow2 = true;
           row.showrow3 = false;
-        }else if(val==='PP012003'){
-          row.showrow1=false;
+        } else if (val === 'PP012003') {
+          row.showrow1 = false;
           row.showrow2 = false;
           row.showrow3 = true;
         }
       },
-      setstagething(val,row){
-        row.stagething=val;
+      setstagething(val, row) {
+        row.stagething = val;
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -503,14 +503,14 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
-      fileError(err, file, fileList){
+      fileError(err, file, fileList) {
         Message({
           message: this.$t("normal.error_04"),
           type: 'error',
           duration: 5 * 1000
         });
       },
-      fileRemove(file, fileList){
+      fileRemove(file, fileList) {
         this.fileList = [];
         this.form.uploadfile = "";
         for (var item of fileList) {
@@ -526,7 +526,6 @@
           var url = downLoadUrl(file.url);
           window.open(url);
         }
-
       },
       fileSuccess(response, file, fileList) {
         this.fileList = [];
@@ -543,80 +542,79 @@
           this.form.uploadfile += o.name + "," + o.url + ";"
         }
       },
-    },
-    buttonClick(val) {
-      this.$refs["reff"].validate(valid => {
-        if(valid){
-          this.baseInfo={};
-          this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
-          this.baseInfo.projectSecore=[];
-          this.baseInfo.stageNews=[];
-          for(let i=0;i<this.source.length;i++){
-            if(this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
-              || this.source[i].pjcroprate !== "" ||  this.source[i].dicroprate !== "" ){
-              this.baseInfo.projectSecore.push(
-                {
-                  projectsecoreid: this.source[i].projectsecoreid,
-                  closeapplicatid: this.source[i].closeapplicatid,
-                  number: this.source[i].number,
-                  name: this.source[i].name,
-                  commune: this.source[i].commune,
-                  croprate: this.source[i].croprate ,
-                  pjcroprate: this.source[i].pjcroprate,
-                  dicroprate: this.source[i].dicroprate,
-                }
-              );
-            }
-          }
-          for(let i=0;i<this.stage.length;i++){
-            if(this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
-              || this.stage[i].stdatetime !== "" ||  this.stage[i].note1 !== "" ||  this.stage[i].finshtime !== ""){
-              this.baseInfo.stageNews.push(
-                {
-                  stagenews_id: this.stage[i].stagenews_id,
-                  closeapplicatid: this.stage[i].closeapplicatid,
-                  workstage: this.stage[i].workstage,
-                  stagething: this.stage[i].stagething,
-                  predictnukmber: this.stage[i].predictnukmber,
-                  projectnumber: this.stage[i].projectnumber ,
-                  stdatetime: this.stage[i].stdatetime,
-                  note1: this.stage[i].note1,
-                  finshtime: this.stage[i].finshtime,
-                }
-              );
-            }
-          }
-          if (this.$route.params._id) {
-            //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
-            this.$store
-              .dispatch('PFANS5004Store/update', this.baseInfo)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                if (val !== "update") {
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
+      buttonClick(val) {
+        this.$refs["reff"].validate(valid => {
+          if (valid) {
+            this.baseInfo = {};
+            this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.projectSecore = [];
+            this.baseInfo.stageNews = [];
+            for (let i = 0; i < this.source.length; i++) {
+              if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+                || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
+                this.baseInfo.projectSecore.push(
+                  {
+                    projectsecoreid: this.source[i].projectsecoreid,
+                    closeapplicatid: this.source[i].closeapplicatid,
+                    number: this.source[i].number,
+                    name: this.source[i].name,
+                    commune: this.source[i].commune,
+                    croprate: this.source[i].croprate,
+                    pjcroprate: this.source[i].pjcroprate,
+                    dicroprate: this.source[i].dicroprate,
                   }
-                }
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false;
-              })
+                );
+              }
+            }
+            for (let i = 0; i < this.stage.length; i++) {
+              if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
+                || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
+                this.baseInfo.stageNews.push(
+                  {
+                    stagenews_id: this.stage[i].stagenews_id,
+                    closeapplicatid: this.stage[i].closeapplicatid,
+                    workstage: this.stage[i].workstage,
+                    stagething: this.stage[i].stagething,
+                    predictnukmber: this.stage[i].predictnukmber,
+                    projectnumber: this.stage[i].projectnumber,
+                    stdatetime: this.stage[i].stdatetime,
+                    note1: this.stage[i].note1,
+                    finshtime: this.stage[i].finshtime,
+                  }
+                );
+              }
+            }
+            if (this.$route.params._id) {
+              //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS5004Store/update', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== "update") {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            }
           }
-        }
-      })
+        })
+      }
     }
-
   }
 </script>
 
