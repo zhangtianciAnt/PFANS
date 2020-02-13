@@ -43,13 +43,14 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.team')">
+                      <el-form-item :label="$t('label.team')" >
                         <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
                              style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
+                     <!--   项目名称(中)-->
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAME')"
@@ -63,6 +64,7 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
+                    <!-- 项目名称(和)-->
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAMEJP')"
@@ -128,7 +130,7 @@
                         prop="projecttype"
                       >
                         <dicselect
-                          :code="code1"
+                          :code="code2"
                           :data="form.projecttype"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -143,7 +145,7 @@
                         prop="field"
                       >
                         <dicselect
-                          :code="code2"
+                          :code="code3"
                           :data="form.field"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -153,12 +155,12 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="language">
+                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.language"
+                          v-model="form.languages"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -239,26 +241,26 @@
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_WORK')"
-                        prop="projectalabel"
+                        prop="work"
                       >
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.projectalabel"
+                          v-model="form.work"
                         ></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
-                        prop="situation"
+                        prop="deadline"
                       >
                         <el-input
                           :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.situation"
+                          v-model="form.deadline"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -267,8 +269,8 @@
                     <el-col :span="8">
                       <template>
                         <el-form-item
-                          :label="$t('label.其他管理工具')"
-                          prop="situation"
+                          :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
+                          prop="tools"
                         >
                         <el-checkbox-group v-model="checkList">
                           <el-checkbox label="SVN"></el-checkbox>
@@ -336,8 +338,8 @@
                 <el-col :span="8">
                   <el-form-item
                     :error="errorManager"
-                    :label="$t('label.PFANS5001FORMVIEW_MANAGERID')"
-                    prop="managerid"
+                    :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')"
+                    prop="deployment"
                   >
                     <user
                       :disabled="!disable"
@@ -350,23 +352,23 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2001VIEW_AGEREQUIREMENT')" prop="agerequirement">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_BEHALF')" prop="behalf">
                     <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
-                              v-model="form.agerequirement"></el-input>
+                              v-model="form.behalf"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item
-                    :label="$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION')"
-                    prop="briefintroduction"
+                    :label="$t('label.PFANS5001FORMVIEW_INTELLIGENCE')"
+                    prop="intelligence"
                   >
                     <el-input
                       :disabled="!disable"
                       style="width: 71vw"
                       type="textarea"
-                      v-model="form.briefintroduction"
+                      v-model="form.intelligence"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -380,7 +382,7 @@
                         <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                           <template slot-scope="scope">
                             <dicselect
-                              :code="code7"
+                              :code="code"
                               :data="scope.row.role"
                               :disabled="!disable"
                               :multiple="multiple"
@@ -396,7 +398,7 @@
                         >
                           <template slot-scope="scope">
                             <dicselect
-                              :code="code8"
+                              :code="code1"
                               :data="scope.row.role"
                               :disabled="!disable"
                               :multiple="multiple"
@@ -641,7 +643,7 @@
                 ],
                 data: [],
                 loading: false,
-                title: "title.PFANS5001VIEW1",
+                title: "label.PFANS5001VIEW1",
                 rules: {
                     leaderid: [
                         {
@@ -777,43 +779,49 @@
                 },
                 baseInfo: {},
                 form: {
-                    leaderid: "",
-                    managerid: "",
                     project_name: "",
                     project_namejp: "",
-                    numbers: "",
-                    departmentid: "",
+                    leaderid: "",
+                    managerid: "",
                     projecttype: "",
                     field: "",
-                    technological: "",
+                    languages: "",
                     startdate: "",
                     enddate: "",
+                    work: "",
+                    deadline: "",
+                    tools: "",
+                    briefintroduction: "",
+                    requirement: "",
+                    behalf: "",
+                    intelligence:"",
+
+                    numbers: "",
+                    departmentid: "",
+                    technological: "",
                     manmonth: "",
                     cost: "",
                     salesvolume: "",
                     projectalabel: "",
-                    language: "",
                     situation: "",
                     confidential: "",
                     managementtool: "",
                     customername: "",
                     representative: "",
                     basicsituation: "",
-                    briefintroduction: "",
-                    requirement: "",
                     uploadfile: ''
                 },
                 multiple: false,
-                code: "PP006",
-                code1: "PP001",
-                code2: "PP002",
-                code3: "PP003",
-                code4: "PP004",
-                code5: "PP005",
-                code6: "PP007",
-                code7: "PP014",
-                code8: "PP015",
-                code9:"PR021",
+                code: "PP012",
+                code1: "PP013",
+                code2: "PP001",
+                code3: "PP002",
+                // code4: "PP004",
+                // code5: "PP005",
+                // code6: "PP007",
+                // code7: "PP014",
+                // code8: "PP015",
+                // code9:"PR021",
                 result: "",
                 result1: "",
                 fileList: [],
