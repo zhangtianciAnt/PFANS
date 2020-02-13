@@ -14,7 +14,6 @@
           </el-row>
 
           <el-row>
-
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="coopername">
                 <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
@@ -45,7 +44,6 @@
           </el-row>
 
           <el-row>
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
@@ -60,7 +58,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width: 20vw"v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width: 20vw" v-model="form.age"></el-input>
               </el-form-item>
             </el-col>
 
@@ -102,7 +100,7 @@
                           </el-table>
                         </el-row>
                         <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
                         </span>
                       </div>
                     </el-dialog>
@@ -119,8 +117,8 @@
                 <el-input :disabled="!disabled" style="width: 20vw" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
 
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')" prop="education">
                 <dicselect
                   :code="code2"
@@ -131,6 +129,18 @@
                   style="width: 20vw"
                   v-model="form.education">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <!--           卒业年-->
+              <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
+                <el-date-picker
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  type="year"
+                  v-model="form.graduation_year">
+                </el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -245,382 +255,392 @@
 </template>
 
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import PFANS6001View from "../PFANS6001/PFANS6001View.vue";
-    import dicselect from "../../../components/dicselect.vue";
-    import {Message} from 'element-ui';
-    import moment from "moment";
-    import org from '../../../components/org';
-    import {isvalidPhone} from "@/utils/validate";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import PFANS6001View from '../PFANS6001/PFANS6001View.vue';
+  import dicselect from '../../../components/dicselect.vue';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import org from '../../../components/org';
+  import {isvalidPhone} from '@/utils/validate';
 
-    export default {
-        name: 'PFANS6001FormView',
-        components: {
-            EasyNormalContainer,
-            PFANS6001View,
-            dicselect,
-            org
-        },
-        data() {
-            var validateTel = (rule, value, callback) => {
-                if (value === "") {
-                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEMOBILE")));
-                } else if (!isvalidPhone(value)) {
-                    callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
-                    } else {
-                        callback();
-                }
-                ;
-            };
-            var checksuppliername = (rule, value, callback) => {
-                if (!value || value === '' || value === "undefined") {
-                    this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
-                } else {
-                    this.errorsuppliername = "";
-                    return callback();
-                }
-            };
-            var checkinterview_date = (rule, value, callback) => {
-                if (!value || value === '' || value === "undefined") {
-                    this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
-                } else {
-                    this.errorinterviewdep = "";
-                    return callback();
-                }
-            };
-            return {
-                loading: false,
-                selectType: "Single",
-                title: "title.PFANS6001VIEW",
-                errorinterviewdep: '',
-                errorsuppliername: '',
-                disabled: false,
-                buttonList: [],
-                multiple: false,
-                search: '',
-                gridData: [],
-                form: {
-                    cooperinterview_id: '',
-                    coopername: '',
-                    sex: '',
-                    contactinformation: '',
-                    birth: '',
-                    age: '',
-                    suppliername: '',
-                    graduateschool: '',
-                    education: '',
-                    speciality: '',
-                    interviewdep: '',
-                    interview_date: moment(new Date()).format("YYYY-MM-DD"),
-                    result: '',
-                    technology: '',
-                    rn: '',
-                    whetherentry: '',
-                    remarks: '',
-                },
-
-                code1: 'BP001',
-
-                code2: 'PR022',
-
-                code3: 'BP003',
-
-                code4: 'PR021',
-
-                code5: 'BP005',
-
-                code6: 'BP006',
-                disabled: true,
-                dialogTableVisible: false,
-
-                rules: {
-
-                    coopername: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                            trigger: 'blur'
-                        }],
-
-                    sex: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.sex'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    contactinformation: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
-                            trigger: 'blur'
-                        },
-                        {validator: validateTel, trigger: 'blur'}],
-
-                    birth: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_BIRTH'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    suppliername: [
-                        {
-                            required: true,
-                            validator: checksuppliername,
-                            trigger: 'change'
-                        },
-                    ],
-
-                    graduateschool: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
-                            trigger: 'blur'
-                        }],
-
-                    education: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    interviewdep: [
-                        {
-                            required: true,
-                            validator: checkinterview_date,
-                            trigger: 'change'
-                        },
-                    ],
-
-                    interview_date: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    result: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    technology: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    rn: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
-                            trigger: 'change'
-                        },
-                    ],
-
-                    whetherentry: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_WHETHERENTRY'),
-                            trigger: 'change'
-                        },
-                    ],
-                },
-            };
-        },
-        mounted() {
-            this.getSupplierNameList();
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS6001Store/getcooperinterviewApplyOne', {"cooperinterview_id": this.$route.params._id})
-                    .then(response => {
-                        this.form = response;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            }
-        },
-        created() {
-            this.disabled = this.$route.params.disabled;
-            if (this.disabled) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        disabled: false,
-                        icon: "el-icon-check"
-                    }
-                ];
-            }
-        },
-        methods: {
-            getInterviewDep(val) {
-                this.form.interviewdep = val;
-                if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
-                    this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-                } else {
-                    this.errorinterviewdep = '';
-                }
-            },
-            getSuppliername(val) {
-                this.form.suppliername = val;
-                if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
-                    this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-                } else {
-                    this.errorsuppliername = '';
-                }
-            },
-            changesex(val) {
-                this.form.sex = val;
-            },
-            changeeducation(val) {
-                this.form.education = val;
-            },
-            changeresult(val) {
-                this.form.result = val;
-            },
-            changetechnology(val) {
-                this.form.technology = val;
-            },
-            changern(val) {
-                this.form.rn = val;
-            },
-            changewhetherentry(val) {
-                this.form.whetherentry = val;
-            },
-            handleCurrentChange(val) {
-                this.currentRow = val;
-            },
-            arraySpanMethod({row, column, rowIndex, columnIndex}) {
-                if (columnIndex === 3) {
-                    return [1, 2];
-                }
-            },
-            getAge() {
-                let birthdays = new Date(this.form.birth);
-                let d = new Date();
-                let ageD =
-                    d.getFullYear() -
-                    birthdays.getFullYear()
-                this.form.age = ageD;
-            },
-            submit() {
-                let val = this.currentRow;
-                this.dialogTableVisible = false;
-                this.form.suppliername = val;
-            },
-            handleClickChange(val) {
-                this.currentRow = val.suppliername
-            },
-            getSupplierNameList() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS6001Store/getSupplierNameList', {})
-                    .then(response => {
-                        this.gridData = [];
-                        for (let i = 0; i < response.length; i++) {
-                            var vote = {};
-                            vote.suppliername = response[i].supchinese;
-                            vote.userid = response[i].prochinese;
-                            vote.contactinformation = response[i].protelephone;
-                            this.gridData.push(vote)
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            },
-            buttonClick(val) {
-                this.$refs["refform"].validate(valid => {
-                    if (valid) {
-                        this.form.cooperinterview_id = this.$route.params._id;
-                        this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-                        this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
-                        this.loading = true;
-                        if (this.$route.params._id) {
-                            this.$store
-                                .dispatch('PFANS6001Store/updatecooperinterviewApply', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        } else {
-                            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-                            this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS6001Store/createcooperinterviewApply', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
-                    }
-                })
-            }
+  export default {
+    name: 'PFANS6001FormView',
+    components: {
+      EasyNormalContainer,
+      PFANS6001View,
+      dicselect,
+      org,
+    },
+    data() {
+      var validateTel = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEMOBILE')));
+        } else if (!isvalidPhone(value)) {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE')));
+        } else {
+          callback();
         }
-    }
+        ;
+      };
+      var checksuppliername = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
+        } else {
+          this.errorsuppliername = '';
+          return callback();
+        }
+      };
+      var checkinterview_date = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
+        } else {
+          this.errorinterviewdep = '';
+          return callback();
+        }
+      };
+      return {
+        loading: false,
+        selectType: 'Single',
+        title: 'title.PFANS6001VIEW',
+        errorinterviewdep: '',
+        errorsuppliername: '',
+        disabled: false,
+        buttonList: [],
+        multiple: false,
+        search: '',
+        gridData: [],
+        form: {
+          cooperinterview_id: '',
+          coopername: '',
+          sex: '',
+          contactinformation: '',
+          birth: '',
+          age: '',
+          suppliername: '',
+          graduateschool: '',
+          education: '',
+          graduation_year: '',
+          speciality: '',
+          interviewdep: '',
+          interview_date: moment(new Date()).format('YYYY-MM-DD'),
+          result: '',
+          technology: '',
+          rn: '',
+          whetherentry: '',
+          remarks: '',
+        },
+
+        code1: 'BP001',
+
+        code2: 'PR022',
+
+        code3: 'BP003',
+
+        code4: 'PR021',
+
+        code5: 'BP005',
+
+        code6: 'BP006',
+        disabled: true,
+        dialogTableVisible: false,
+
+        rules: {
+
+          coopername: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            }],
+
+          sex: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.sex'),
+              trigger: 'change',
+            },
+          ],
+
+          contactinformation: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
+              trigger: 'blur',
+            },
+            {validator: validateTel, trigger: 'blur'}],
+
+          birth: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_BIRTH'),
+              trigger: 'change',
+            },
+          ],
+
+          suppliername: [
+            {
+              required: true,
+              validator: checksuppliername,
+              trigger: 'change',
+            },
+          ],
+
+          graduateschool: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
+              trigger: 'blur',
+            }],
+
+          education: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+              trigger: 'change',
+            },
+          ],
+
+          //毕业年
+          graduation_year: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
+              trigger: 'change',
+            },
+          ],
+
+          interviewdep: [
+            {
+              required: true,
+              validator: checkinterview_date,
+              trigger: 'change',
+            },
+          ],
+
+          interview_date: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
+              trigger: 'change',
+            },
+          ],
+
+          result: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
+              trigger: 'change',
+            },
+          ],
+
+          technology: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+              trigger: 'change',
+            },
+          ],
+
+          rn: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
+              trigger: 'change',
+            },
+          ],
+
+          whetherentry: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_WHETHERENTRY'),
+              trigger: 'change',
+            },
+          ],
+        },
+      };
+    },
+    mounted() {
+      this.getSupplierNameList();
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6001Store/getcooperinterviewApplyOne', {'cooperinterview_id': this.$route.params._id})
+          .then(response => {
+            this.form = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      }
+    },
+    created() {
+      this.disabled = this.$route.params.disabled;
+      if (this.disabled) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    methods: {
+      getInterviewDep(val) {
+        this.form.interviewdep = val;
+        if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
+          this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+        } else {
+          this.errorinterviewdep = '';
+        }
+      },
+      getSuppliername(val) {
+        this.form.suppliername = val;
+        if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
+          this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+        } else {
+          this.errorsuppliername = '';
+        }
+      },
+      changesex(val) {
+        this.form.sex = val;
+      },
+      changeeducation(val) {
+        this.form.education = val;
+      },
+      changeresult(val) {
+        this.form.result = val;
+      },
+      changetechnology(val) {
+        this.form.technology = val;
+      },
+      changern(val) {
+        this.form.rn = val;
+      },
+      changewhetherentry(val) {
+        this.form.whetherentry = val;
+      },
+      handleCurrentChange(val) {
+        this.currentRow = val;
+      },
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 3) {
+          return [1, 2];
+        }
+      },
+      getAge() {
+        let birthdays = new Date(this.form.birth);
+        let d = new Date();
+        let ageD =
+          d.getFullYear() -
+          birthdays.getFullYear();
+        this.form.age = ageD;
+      },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.suppliername = val;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.suppliername;
+      },
+      getSupplierNameList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6001Store/getSupplierNameList', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.suppliername = response[i].supchinese;
+              vote.userid = response[i].prochinese;
+              vote.contactinformation = response[i].protelephone;
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      buttonClick(val) {
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            this.form.cooperinterview_id = this.$route.params._id;
+            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+            this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+            this.loading = true;
+            if (this.$route.params._id) {
+              this.$store
+                .dispatch('PFANS6001Store/updatecooperinterviewApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            } else {
+              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+              this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS6001Store/createcooperinterviewApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }
+          }
+        });
+      },
+    },
+  };
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

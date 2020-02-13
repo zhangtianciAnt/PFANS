@@ -157,7 +157,7 @@
               <!--           卒业年-->
               <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
                 <el-date-picker
-                  :disabled="!disabled"
+                  :disabled="true"
                   style="width:20vw"
                   type="year"
                   v-model="form.graduation_year">
@@ -551,6 +551,7 @@
               trigger: 'change',
             },
           ],
+          //毕业年
           graduation_year: [
             {
               required: true,
@@ -799,6 +800,7 @@
         let lst12 = this.currentRow13;
         let lst13 = this.currentRow14;
         let lst14 = this.currentRow15;
+        let lst15 = this.currentRow16;
         this.dialogTableVisible1 = false;
         this.form.expname = lst;
         this.form.sex = lst1;
@@ -808,13 +810,14 @@
         this.form.suppliername = lst5;
         this.form.graduateschool = lst6;
         this.form.education = lst7;
-        this.form.speciality = lst8;
-        this.form.interview_date = lst9;
-        this.form.result = lst10;
-        this.form.technology = lst11;
-        this.form.rn = lst12;
-        this.form.whetherentry = lst13;
-        this.form.remarks = lst14;
+        this.form.graduation_year = lst8;
+        this.form.speciality = lst9;
+        this.form.interview_date = lst10;
+        this.form.result = lst11;
+        this.form.technology = lst12;
+        this.form.rn = lst13;
+        this.form.whetherentry = lst14;
+        this.form.remarks = lst15;
       },
       handleClickChange1(val) {
         this.currentRow = val.expname;
@@ -825,12 +828,13 @@
         this.currentRow6 = val.suppliername;
         this.currentRow7 = val.graduateschool;
         this.currentRow8 = val.education;
-        this.currentRow9 = val.speciality;
-        this.currentRow10 = val.interview_date;
-        this.currentRow11 = val.result;
-        this.currentRow12 = val.technology;
-        this.currentRow13 = val.rn;
-        this.currentRow14 = val.whetherentry;
+        this.currentRow9 = val.graduation_year;
+        this.currentRow10 = val.speciality;
+        this.currentRow11 = val.interview_date;
+        this.currentRow12 = val.result;
+        this.currentRow13 = val.technology;
+        this.currentRow14 = val.rn;
+        this.currentRow15 = val.whetherentry;
         this.currentRow15 = val.remarks;
       },
       submit() {
@@ -857,6 +861,7 @@
               vote.suppliername = response[i].suppliername;
               vote.graduateschool = response[i].graduateschool;
               vote.education = getDictionaryInfo(response[i].education).value1;
+              vote.graduation_year = response[i].graduation_year;
               vote.speciality = response[i].speciality;
               vote.interview_date = moment(response[i].interview_date).format('YYYY-MM-DD');
               vote.result = getDictionaryInfo(response[i].result).value1;
