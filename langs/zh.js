@@ -323,6 +323,7 @@ module.exports = {
     PFANS6007VIEW: '各種経費',
     PFANS6007VIEW_TITLE: '外注社への各種経費',
     PFANS6008VIEW: '費用集計',
+    PFANS6008VIEW_TITLE: '費用集計',
     PFANS8001VIEW: '修改密码',
     PFANS8002VIEW: '待办事项',
     PFANS8007VIEW: '工作日设置',

@@ -4,6 +4,7 @@ import {
   insert,
   update,
 } from './PFANS5004Api'
+import {getFpans5001List} from "../PFANS5001/PFANS5001Api";
 
 const PFANS5004Store = {
   namespaced: true,
@@ -15,6 +16,19 @@ const PFANS5004Store = {
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getFpans5001List({commit},data) {
+      return new Promise((resolve, reject) => {
+        getFpans5001List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
