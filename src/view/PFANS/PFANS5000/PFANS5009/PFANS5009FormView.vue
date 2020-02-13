@@ -328,7 +328,6 @@
         tabIndex: 0,
         multiple1: false,
         form: {
-          projectinformationid: '',
           center_id: '',
           group_id: '',
           team_id: '',
@@ -345,8 +344,8 @@
           deadline: moment(new Date()).format('YYYY-MM-DD'),
         },
         tableP: [{
-          projectinformationid: '',
-          stageinformationid: '',
+          companyprojects_id: '',
+          stageinformation_id: '',
           phase: '',
           stageproduct: '',
           productstatus: '',
@@ -464,24 +463,17 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getRecruitOne', {'projectinformationid': this.$route.params._id})
+          .dispatch('PFANS5009Store/selectById', {'companyprojects_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
+            this.form = response.companyprojects;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            this.baseInfo.projectinformation = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableP));
-            //this.form.recruitmentroute = this.form.recruitmentroute.split(',');
             if (response.stageinformation.length > 0) {
               this.tableP = response.stageinformation;
             }
-            // if (this.form.recruitmentroute === 'PR027004') {
-            //   this.show1 = true;
-            // }
-            // if (this.form.requirements === 'PR032005') {
-            //   this.show2 = true;
-            // }
             this.loading = false;
           })
           .catch(error => {
@@ -585,7 +577,41 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
-            if (this.$route.params._id) {
+            this.loading = true;
+            this.baseInfo = {};
+            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.stageInformation = [];
+            for (let i = 0; i < this.tableP.length; i++) {
+              if (
+                this.tableP[i].phase !== "" ||
+                this.tableP[i].stageproduct !== "" ||
+                this.tableP[i].productstatus !== "" ||
+                this.tableP[i].estimatedwork !== ""||
+                this.tableP[i].actualwork !== "" ||
+                this.tableP[i].estimatedstarttime !== "" ||
+                this.tableP[i].estimatedendtime !== "" ||
+                this.tableP[i].remarks !== "" ||
+                this.tableP[i].actualstarttime !== "" ||
+                this.tableP[i].actualendtime !== "" ||
+                this.tableP[i].product !== ""
+              ) {
+                this.baseInfo.stageInformation.push({
+                  stageInformation_id: this.tableP[i].stageInformation_id,
+                  companyprojects_id: this.tableP[i].companyprojects_id,
+                  phase: this.tableP[i].phase,
+                  stageproduct: this.tableP[i].stageproduct,
+                  productstatus: this.tableP[i].productstatus,
+                  estimatedwork: this.tableP[i].estimatedwork,
+                  actualwork: this.tableP[i].actualwork,
+                  estimatedstarttime: this.tableP[i].estimatedstarttime,
+                  estimatedendtime: this.tableP[i].estimatedendtime,
+                  remarks: this.tableP[i].remarks,
+                  actualstarttime: this.tableP[i].actualstarttime,
+                  actualendtime: this.tableP[i].actualendtime,
+                  product: this.tableP[i].product
+                });
+              }
+            }if (this.$route.params._id) {
               this.form.projectinformation = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;

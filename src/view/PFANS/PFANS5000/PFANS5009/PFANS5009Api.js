@@ -1,8 +1,8 @@
 import request from '../../../../utils/request'
 
-export function selectById() {
+export function selectById(data) {
   return request({
-    url: 'recruit/selectById',
+    url: 'companyprojects/selectById',
     method: 'get',
     params: data
   })
@@ -10,7 +10,7 @@ export function selectById() {
 
 export function update(data) {
   return request({
-    url: 'recruit/update',
+    url: 'companyprojects/update',
     method: 'post',
     data: data
   })
@@ -18,9 +18,18 @@ export function update(data) {
 
 export function insert(data) {
   return request({
-    url: 'recruit/insert',
+    url: 'companyprojects/insert',
     method: 'post',
     data: data
   })
 }
+
+export function getFpans5001List(data) {
+  return request({
+    url: 'companyprojects/list',
+    method: 'post',
+    data: data
+  })
+}
+
 

@@ -2,9 +2,7 @@ import {
   selectById,
   update,
   insert,
-  createRecruit,
-  getForSelect,
-  getCompanyProjectList,
+  getFpans5001List,
   } from './PFANS5009Api'
 
   const PFANS5009Store = {
@@ -12,9 +10,9 @@ import {
     state: {},
     mutations: {},
     actions: {
-      getRecruit() {
+      selectById({ commit },data) {
         return new Promise((resolve, reject) => {
-          getRecruit().then(response => {
+          selectById(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -25,9 +23,9 @@ import {
           })
         })
       },
-      getRecruitOne({ commit },data) {
+      getFpans5001List({commit},data) {
         return new Promise((resolve, reject) => {
-          getRecruitOne(data).then(response => {
+          getFpans5001List(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -38,9 +36,9 @@ import {
           })
         })
       },
-      updateRecruit({ commit },data) {
+      update({commit}, data) {
         return new Promise((resolve, reject) => {
-          updateRecruit(data).then(response => {
+          update(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -51,22 +49,9 @@ import {
           })
         })
       },
-      createRecruit({ commit },data) {
+      insert({commit}, data) {
         return new Promise((resolve, reject) => {
-          createRecruit(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data);
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error);
-          })
-        })
-      },
-      getCompanyProjectList({ commit }, data) {
-        return new Promise((resolve, reject) => {
-          getCompanyProjectList(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
