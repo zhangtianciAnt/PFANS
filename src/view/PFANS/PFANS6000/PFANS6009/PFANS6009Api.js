@@ -2,7 +2,7 @@ import request from '../../../../utils/request'
 
 export function getCostList(data) {
   return request({
-    url: 'coststatistics/getCostList',
+    url: '',
     method: 'get',
     params: data
   })

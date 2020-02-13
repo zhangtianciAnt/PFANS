@@ -340,11 +340,11 @@
       EasyNormalContainer,
       dicselect
     },
-    data(){
-      return{
+    data() {
+      return {
         title: "title.PFANS5004VIEW",
         loading: false,
-        activeName:'first',
+        activeName: 'first',
         disabled: false,
         buttonList: [
           {
@@ -355,46 +355,46 @@
           }
         ],
         baseInfo: {},
-        form:{
-          projectnumber:'',
-          projectname:'',
-          projectstype:'',
-          startdate:'',
-          secret:'',
-          datetime:'',
-          manager:'',
-          predictdate:'',
-          realdate:'',
-          testdate:'',
-          realpeopel:'',
-          reportnumber:'',
-          assetaddress:'',
-          explan:'',
-          exprence:'',
-          advise:'',
-          note:'',
-          message:'',
-          uploadfile:'',
+        form: {
+          projectnumber: '',
+          projectname: '',
+          projectstype: '',
+          startdate: '',
+          secret: '',
+          datetime: '',
+          manager: '',
+          predictdate: '',
+          realdate: '',
+          testdate: '',
+          realpeopel: '',
+          reportnumber: '',
+          assetaddress: '',
+          explan: '',
+          exprence: '',
+          advise: '',
+          note: '',
+          message: '',
+          uploadfile: '',
 
         },
-        source:[{
-          projectsecoreid:'',
-          closeapplicatid:'',
-          number:'',
-          name:'',
-          commune:'',
-          croprate:'',
-          pjcroprate:'',
-          dicroprate:'',
+        source: [{
+          projectsecoreid: '',
+          closeapplicatid: '',
+          number: '',
+          name: '',
+          commune: '',
+          croprate: '',
+          pjcroprate: '',
+          dicroprate: '',
           rowindex: "",
         }],
-        stage:[{
+        stage: [{
           projectresources_id: "",
           companyprojects_id: "",
           numbers: "",
           user_id: "",
-          admissiontime:"",
-          exittime:"",
+          admissiontime: "",
+          exittime: "",
           role: ""
         }],
         rules: {
@@ -403,37 +403,38 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
             trigger: 'blur',
           },
-          ]},
+          ]
+        },
         fileList: [],
         upload: uploadUrl(),
-        code1:'PP012',
+        code1: 'PP012',
         code2: 'PP013',
         code3: 'PP014',
         code4: 'PP015',
-        multiple:false,
+        multiple: false,
         showrow1: true,
         showrow2: false,
         showrow3: false,
         canStart: false
       }
     },
-    mounted(){
-      if(this.$route.params._id){
+    mounted() {
+      if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS5004Store/getFpans5001List', {})
           // .dispatch('PFANS5004Store/selectById', {'companyprojectsid': this.$route.params._id})
           .then(response => {
             debugger
-            this.form=response.closeApplicat;
-            if(response.projectSecore.length>0){
-              this.source=response.projectSecore;
+            this.form = response.closeApplicat;
+            if (response.projectSecore.length > 0) {
+              this.source = response.projectSecore;
             }
             if (response.projectresources.length > 0) {
               this.stage = response.projectresources;
             }
 
-            if(this.form.uploadfile != null){
+            if (this.form.uploadfile != null) {
               if (this.form.uploadfile != "") {
                 let uploadfile = this.form.uploadfile.split(";");
                 for (var i = 0; i < uploadfile.length; i++) {
@@ -446,11 +447,11 @@
                 }
               }
             }
-            this.baseInfo.closeApplicat=JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectSecore=JSON.parse(JSON.stringify(this.source));
-            this.baseInfo.stageNews=JSON.parse(JSON.stringify(this.stage));
+            this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.projectSecore = JSON.parse(JSON.stringify(this.source));
+            this.baseInfo.stageNews = JSON.parse(JSON.stringify(this.stage));
           })
-          .catch(error=>{
+          .catch(error => {
             Message({
               message: error,
               type: 'error',
@@ -542,79 +543,80 @@
           this.form.uploadfile += o.name + "," + o.url + ";"
         }
       },
-      buttonClick(val) {
-        this.$refs["reff"].validate(valid => {
-          if (valid) {
-            this.baseInfo = {};
-            this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectSecore = [];
-            this.baseInfo.stageNews = [];
-            for (let i = 0; i < this.source.length; i++) {
-              if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
-                || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
-                this.baseInfo.projectSecore.push(
-                  {
-                    projectsecoreid: this.source[i].projectsecoreid,
-                    closeapplicatid: this.source[i].closeapplicatid,
-                    number: this.source[i].number,
-                    name: this.source[i].name,
-                    commune: this.source[i].commune,
-                    croprate: this.source[i].croprate,
-                    pjcroprate: this.source[i].pjcroprate,
-                    dicroprate: this.source[i].dicroprate,
-                  }
-                );
-              }
-            }
-            for (let i = 0; i < this.stage.length; i++) {
-              if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
-                || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
-                this.baseInfo.stageNews.push(
-                  {
-                    stagenews_id: this.stage[i].stagenews_id,
-                    closeapplicatid: this.stage[i].closeapplicatid,
-                    workstage: this.stage[i].workstage,
-                    stagething: this.stage[i].stagething,
-                    predictnukmber: this.stage[i].predictnukmber,
-                    projectnumber: this.stage[i].projectnumber,
-                    stdatetime: this.stage[i].stdatetime,
-                    note1: this.stage[i].note1,
-                    finshtime: this.stage[i].finshtime,
-                  }
-                );
-              }
-            }
-            if (this.$route.params._id) {
-              //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS5004Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
+    buttonClick(val) {
+      this.$refs["reff"].validate(valid => {
+        if (valid) {
+          this.baseInfo = {};
+          this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.projectSecore = [];
+          this.baseInfo.stageNews = [];
+          for (let i = 0; i < this.source.length; i++) {
+            if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+              || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
+              this.baseInfo.projectSecore.push(
+                {
+                  projectsecoreid: this.source[i].projectsecoreid,
+                  closeapplicatid: this.source[i].closeapplicatid,
+                  number: this.source[i].number,
+                  name: this.source[i].name,
+                  commune: this.source[i].commune,
+                  croprate: this.source[i].croprate,
+                  pjcroprate: this.source[i].pjcroprate,
+                  dicroprate: this.source[i].dicroprate,
+                }
+              );
             }
           }
-        })
-      }
+          for (let i = 0; i < this.stage.length; i++) {
+            if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
+              || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
+              this.baseInfo.stageNews.push(
+                {
+                  stagenews_id: this.stage[i].stagenews_id,
+                  closeapplicatid: this.stage[i].closeapplicatid,
+                  workstage: this.stage[i].workstage,
+                  stagething: this.stage[i].stagething,
+                  predictnukmber: this.stage[i].predictnukmber,
+                  projectnumber: this.stage[i].projectnumber,
+                  stdatetime: this.stage[i].stdatetime,
+                  note1: this.stage[i].note1,
+                  finshtime: this.stage[i].finshtime,
+                }
+              );
+            }
+          }
+          if (this.$route.params._id) {
+            //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
+            this.$store
+              .dispatch('PFANS5004Store/update', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== "update") {
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          }
+        }
+      })
     }
+
+  }
   }
 </script>
 

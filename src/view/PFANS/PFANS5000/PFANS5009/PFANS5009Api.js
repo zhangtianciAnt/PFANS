@@ -1,41 +1,35 @@
 import request from '../../../../utils/request'
 
-export function getRecruit() {
+export function selectById(data) {
   return request({
-    url: 'recruit/get',
-    method: 'get'
+    url: 'companyprojects/selectById',
+    method: 'get',
+    params: data
   })
 }
 
-export function getCompanyProjectList(data) {
+export function update(data) {
   return request({
-    url: 'logmanagement/getCompanyProjectList',
-    method: 'POST',
-    data: data
-  })
-}
-
-export function getRecruitOne(data) {
-  return request({
-    url: 'recruit/one',
+    url: 'companyprojects/update',
     method: 'post',
     data: data
   })
 }
 
-export function updateRecruit(data) {
+export function insert(data) {
   return request({
-    url: 'recruit/update',
+    url: 'companyprojects/insert',
     method: 'post',
     data: data
   })
 }
 
-export function createRecruit(data) {
+export function getFpans5001List(data) {
   return request({
-    url: 'recruit/create',
+    url: 'companyprojects/list',
     method: 'post',
     data: data
   })
 }
+
 
