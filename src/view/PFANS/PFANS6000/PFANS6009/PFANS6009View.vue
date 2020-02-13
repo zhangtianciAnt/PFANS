@@ -29,7 +29,6 @@
   export default {
     name: 'PFANS6009View',
     components: {
-      ElTable,
       EasyNormalTable
     },
     data() {
