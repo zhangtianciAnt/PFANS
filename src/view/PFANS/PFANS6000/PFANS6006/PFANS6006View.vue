@@ -107,7 +107,7 @@
                 <el-table-column
                   :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')"
                   align="center"
-                  width="120">
+                  width="180">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -121,7 +121,7 @@
                 <el-table-column
                   :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')"
                   align="center"
-                  width="120">
+                  width="150">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -140,7 +140,7 @@
                     <el-input
                       :no="scope.row"
                       :disabled="!disabled"
-                      v-model="scope.row.distributionobj"
+                      v-model="scope.row.distriobjects"
                       style="width: 100%">
                     </el-input>
                   </template>
@@ -514,7 +514,7 @@
           exitime: '',
           operationform: '',
           jobclassification: '',
-          distributionobj: '',
+          distriobjects: '',
           venuetarget: '',
           january: '',
           february: '',
@@ -589,7 +589,7 @@
             });
             this.data = response;
             this.loading = false;
-            this.getexpatriatesinfor();
+
           })
           .catch(error => {
             Message({
@@ -713,7 +713,8 @@
       }
     },
     mounted() {
-      this.setexpatriatesinforApply();
+      // this.setexpatriatesinforApply();
+      this.getexpatriatesinfor();
     },
   }
 </script>

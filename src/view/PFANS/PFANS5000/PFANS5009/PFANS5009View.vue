@@ -87,6 +87,7 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
@@ -111,6 +112,12 @@
             }
             if(team){
               response[j].team_id = team.departmentname;
+            }
+            if (response[j].requirements !== null && response[j].requirements !== "") {
+              let letRequirements = getDictionaryInfo(response[j].requirements);
+              if (letRequirements != null) {
+                response[j].requirements = letRequirements.value1;
+              }
             }
             if (response[j].requirements !== null && response[j].requirements !== "") {
               let letRequirements = getDictionaryInfo(response[j].requirements);
@@ -171,6 +178,15 @@
             params: {
               _id: this.rowid,
               disabled: false
+            }
+          })
+        }
+        if (val === 'insert') {
+          this.$router.push({
+            name: 'PFANS5009FormView',
+            params: {
+              _id: '',
+              disabled: true
             }
           })
         }
