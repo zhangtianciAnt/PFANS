@@ -28,3 +28,4 @@ export function insert(data) {
     data: data
   })
 }
+
