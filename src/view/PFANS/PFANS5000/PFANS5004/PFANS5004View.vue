@@ -22,13 +22,6 @@
             data:[],
             columns:[
               {
-                code: 'projectnumber',
-                label: 'label.PFANS5004VIEW_PROJECTNUMBER',
-                width: 120,
-                fix: false,
-                filter: true
-              },
-              {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
@@ -36,33 +29,27 @@
                 filter: true
               },
               {
-                code: 'projectstype',
-                label: 'label.PFANS5004VIEW_STAGETHING',
+                code: 'productstatus',
+                label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
-                code: 'stagething',
+                code: 'estimatedwork',
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
               {
-                code: 'realday',
+                code: 'actualwork',
                 label: 'label.PFANS5009VIEW_ACTUALWORK',
                 width: 120,
                 fix: false,
                 filter: true
               },
-              {
-                code: 'predict',
-                label: 'label.PFANS5009VIEW_SITUATION',
-                width: 150,
-                fix: false,
-                filter: true,
-              },
+              /*合同状态*/
               {
                 code: 'status',
                 label: 'label.PFANS5009VIEW_STATUS',
@@ -82,7 +69,7 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5004Store/getFpans5001List', {})
+          .dispatch('PFANS5001Store/getFpans5001List', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== "") {
