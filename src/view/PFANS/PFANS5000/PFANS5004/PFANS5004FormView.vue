@@ -17,7 +17,7 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" >
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.projectnamw"></el-input>
+                          <el-input :disabled="!disable" style="width:20vw" v-model="form.project_name"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -27,26 +27,35 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_FIELD')">
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.projectnumber"></el-input>
+                          <el-input :disabled="!disable" style="width:20vw" v-model="form.field"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANAGERID')" >
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.mananger"></el-input>
+                          <el-input :disabled="!disable" style="width:20vw" v-model="form.managerid"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_DATETIME')" >
-                          <el-date-picker unlink-panels
-                                          v-model="form.datetime"
-                                          type="daterange"
-                                          :end-placeholder="$t('label.enddate')"
-                                          :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                                          :start-placeholder="$t('label.startdate')"
-                          ></el-date-picker>
-                        </el-form-item>
+                          <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
+                            <el-date-picker
+                              :disabled="!disable"
+                              style="width: 20vw"
+                              type="date"
+                              v-model="form.startdate"
+                            ></el-date-picker>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                          <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
+                            <el-date-picker
+                              :disabled="!disable"
+                              style="width: 20vw"
+                              type="date"
+                              v-model="form.enddate"
+                            ></el-date-picker>
+                          </el-form-item>
                       </el-col>
                     </el-row>
                   </el-collapse-item>
@@ -239,7 +248,7 @@
                         <template slot-scope="scope">
                           <dicselect
                             :code="code1"
-                            :data="scope.row.role"
+                            :data="scope.row.phase"
                             :disabled="!disable"
                             :multiple="multiple"
                             :no="scope.row"
@@ -253,7 +262,7 @@
                         <template slot-scope="scope">
                           <dicselect
                             :code="code2"
-                            :data="scope.row.role"
+                            :data="scope.row.stageproduct"
                             :disabled="!disable"
                             :multiple="multiple"
                             :no="scope.row"
@@ -267,7 +276,7 @@
                           <el-input
                             :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.technology"
+                            v-model="scope.row.estimatedwork"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -279,7 +288,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.admissiontime"
+                            v-model="scope.row.estimatedstarttime"
                             :disabled="!disable"
                             type="date"
                             style="width: 100%"
@@ -294,7 +303,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.exittime"
+                            v-model="scope.row.estimatedendtime"
                             :disabled="!disable"
                             type="date"
                             style="width: 100%"
@@ -309,7 +318,7 @@
                           <el-input
                             :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.technology"
+                            v-model="scope.row.remarks"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -330,10 +339,9 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {getToken} from '@/utils/auth'
   import {Message} from 'element-ui';
-  import moment from "moment";
   import dicselect from "../../../components/dicselect";
   import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
-  import {getDictionaryInfo} from "../../../../utils/customize";
+
   export default {
     name: "PFANS5004FormView",
     components: {
@@ -356,18 +364,12 @@
         ],
         baseInfo: {},
         form: {
-          projectnumber: '',
-          projectname: '',
-          projectstype: '',
-          startdate: '',
-          secret: '',
-          datetime: '',
-          manager: '',
-          predictdate: '',
-          realdate: '',
-          testdate: '',
-          realpeopel: '',
-          reportnumber: '',
+          project_name: "",
+          managerid: "",
+          projecttype: "",
+          field: "",
+          startdate: "",
+          enddate: "",
           assetaddress: '',
           explan: '',
           exprence: '',
@@ -375,7 +377,6 @@
           note: '',
           message: '',
           uploadfile: '',
-
         },
         source: [{
           projectsecoreid: '',
@@ -422,18 +423,16 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5004Store/getFpans5001List', {})
-          // .dispatch('PFANS5004Store/selectById', {'companyprojectsid': this.$route.params._id})
+          .dispatch('PFANS5001Store/selectById', {'companyprojects_id': this.$route.params._id})
           .then(response => {
             debugger
-            this.form = response.closeApplicat;
+            this.form = response.companyprojects;
             if (response.projectSecore.length > 0) {
               this.source = response.projectSecore;
             }
             if (response.projectresources.length > 0) {
               this.stage = response.projectresources;
             }
-
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != "") {
                 let uploadfile = this.form.uploadfile.split(";");

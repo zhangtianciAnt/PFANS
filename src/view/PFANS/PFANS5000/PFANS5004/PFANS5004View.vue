@@ -72,16 +72,9 @@
           .dispatch('PFANS5001Store/getFpans5001List', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].user_id !== null && response[j].user_id !== "") {
-
                 if (response[j].status !== null && response[j].status !== "") {
                   response[j].status = getStatus(response[j].status);
                 }
-
-                if (response[j].startdate !== null && response[j].startdate !== "") {
-                  response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
-                }
-              }
             }
             this.data = response;
             this.loading = false;
