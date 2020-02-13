@@ -73,7 +73,6 @@
             ],
             buttonList: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-              {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
             ],
             rowid: '',
@@ -115,15 +114,7 @@
         },
         buttonClick(val) {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          if (val === 'insert') {
-            this.$router.push({
-              name: 'PFANS5004FormView',
-              params: {
-                _id: this.rowid,
-                disabled: true
-              }
-            })
-          }
+
           if (val === 'update') {
             if (this.rowid === '') {
               Message({
@@ -161,8 +152,6 @@
 
         }
       }
-
-
     }
 </script>
 
