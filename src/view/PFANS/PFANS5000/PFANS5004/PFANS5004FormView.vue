@@ -128,7 +128,7 @@
             <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second"  >
               <el-table :data="source"
                         header-cell-class-name="sub_bg_color_blue"
-                        show-summary stripe border >
+                        stripe border >
                 <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.number"></el-input>
