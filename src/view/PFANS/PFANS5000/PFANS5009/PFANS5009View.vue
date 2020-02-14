@@ -22,56 +22,56 @@
         data: [],
         columns: [
           {
-            code: 'center_id',
+            code: 'numbers',
             label: 'label.PFANS5009VIEW_PROJECTNO',
             width: 110,
             fix: false,
             filter: true,
           },
           {
-            code: 'group_id',
+            code: 'PROJECT_NAME',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
             width: 110,
             fix: false,
             filter: true,
           },
           {
-            code: 'team_id',
+            code: 'phase',
             label: 'label.PFANS5009VIEW_PHASE',
             width: 110,
             fix: false,
             filter: true,
           },
           {
-            code: 'postname',
+            code: 'productstatus',
             label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
             width: 150,
             fix: false,
             filter: true,
           },
           {
-            code: 'peoplerequired',
+            code: 'phasestatus',
             label: 'label.PFANS5009VIEW_STAGESTATUS',
             width: 150,
             fix: false,
             filter: true,
           },
           {
-            code: 'workplace',
+            code: 'estimatedwork',
             label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
             width: 150,
             fix: false,
             filter: true,
           },
           {
-            code: 'requirements',
+            code: 'actualwork',
             label: 'label.PFANS5009VIEW_ACTUALWORK',
             width: 150,
             fix: false,
             filter: true,
           },
           {
-            code: 'applicationtime',
+            code: 'situation',
             label: 'label.PFANS5009VIEW_SITUATION',
             width: 150,
             fix: false,
@@ -91,16 +91,15 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
-        row : 'recruitid'
+        row : 'companyprojects_id'
       };
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS5009Store/getRecruit')
+        .dispatch('PFANS5009Store/getFpans5001List')
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-            response[j].status = getStatus(response[j].status);
             let center = getOrgInfo(response[j].center_id);
             let group = getOrgInfo(response[j].group_id);
             let team = getOrgInfo(response[j].team_id);
