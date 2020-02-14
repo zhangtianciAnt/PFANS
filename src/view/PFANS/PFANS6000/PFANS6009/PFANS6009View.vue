@@ -1,49 +1,78 @@
 <template>
-  <EasyNormalTable
-  :buttonList="buttonList"
-  :rowid="row"
-  :title="title"
-  @buttonClick="buttonClick"
-  v-loading="loading">
+  <EasyNormalContainer
+    :buttonList="buttonList"
+    v-loading="loading"
+    :title="title"
+    @buttonClick="buttonClick"
+    ref="container"
+  >
+    <div slot="customize">
     <el-tabs v-model="activeName" type="border-card">
       <el-tab-pane :label="$t('label.PFANS6009TAB1')" name="first">
-        <el-table :data="this.tableA" stripe>
-          <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columns"
+        <el-table :data="this.tableA" stripe header-cell-class-name="sub_bg_color_blue" :span-method="arraySpanMethod">
+          <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columns" align="center" :min-width="item.width"
                            v-if="item.child && item.child.length > 0">
-            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width" :prop="o.code">
             </el-table-column>
           </el-table-column>
+          <el-table-column :column-key="item.code" :key="item.code" :label="$t(item.label)" :min-width="item.width"
+                           :prop="item.code" v-else/>
         </el-table>
       </el-tab-pane>
-      <el-tab-pane :label="$t('label.PFANS6009TAB2')" name="second"></el-tab-pane>
-      <el-tab-pane :label="$t('label.PFANS6009TAB3')" name="third"></el-tab-pane>
+      <el-tab-pane :label="$t('label.PFANS6009TAB2')" name="second">
+        <el-table :data="this.tableB" stripe header-cell-class-name="sub_bg_color_blue" show-summary>
+          <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columnsB" align="center" :min-width="item.width"
+                           v-if="item.child && item.child.length > 0">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width">
+            </el-table-column>
+          </el-table-column>
+          <el-table-column :column-key="item.code" :key="item.code" :label="$t(item.label)" :min-width="item.width"
+                           :prop="item.code" v-else/>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane :label="$t('label.PFANS6009TAB3')" name="third">
+        <el-table :data="this.tableC" stripe header-cell-class-name="sub_bg_color_blue" show-summary>
+          <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columnsC" align="center" :min-width="item.width"
+                           v-if="item.child && item.child.length > 0">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width">
+            </el-table-column>
+          </el-table-column>
+          <el-table-column :column-key="item.code" :key="item.code" :label="$t(item.label)" :min-width="item.width"
+                           :prop="item.code" v-else/>
+        </el-table>
+      </el-tab-pane>
     </el-tabs>
-  </EasyNormalTable>
+    </div>
+  </EasyNormalContainer>
 </template>
 
 <script>
-  import EasyNormalTable from "@/components/EasyNormalTable";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import moment from "moment";
   import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
   export default {
     name: 'PFANS6009View',
     components: {
-      EasyNormalTable
+      EasyNormalContainer
     },
     data() {
       return {
         loading: false,
-        title: "title.PFANS6009VIEW_TITLE",
+        title: 'title.PFANS6009VIEW',
         activeName: 'first',
-        tableA: [],
+        tableA: [{
+          bpcompany: 'AAA',
+          manhour4: '1',
+          cost4: '1'
+        }],
         tableB: [],
         tableC: [],
         columns: [
           {
             code: 'bpcompany',
             label: 'label.PFANS6009VIEW_BPCOMPANY',
-            width: 120,
+            width: 160,
             fix: false,
           },
           {
@@ -54,14 +83,14 @@
                 code: 'manhour4',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost4',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -76,14 +105,14 @@
                 code: 'manhour5',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost5',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -98,14 +127,14 @@
                 code: 'manhour6',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost6',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -120,14 +149,14 @@
                 code: 'manhour7',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost7',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -142,14 +171,14 @@
                 code: 'manhour8',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost8',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -164,14 +193,14 @@
                 code: 'manhour9',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost9',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -186,14 +215,14 @@
                 code: 'manhour10',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost10',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -208,14 +237,14 @@
                 code: 'manhour11',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost11',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -230,14 +259,14 @@
                 code: 'manhour12',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost12',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -252,14 +281,14 @@
                 code: 'manhour1',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost1',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -274,14 +303,14 @@
                 code: 'manhour2',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost2',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -296,14 +325,14 @@
                 code: 'manhour3',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'cost3',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -318,14 +347,14 @@
                 code: 'totalmanhours',
                 label: 'label.PFANS6009VIEW_MANHOUR',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               },
               {
                 code: 'totalcost',
                 label: 'label.PFANS6009VIEW_COST',
                 labelClass: 'pfans2013view_column_5',
-                width: 90,
+                width: 50,
                 fix: false,
               }
             ],
@@ -341,32 +370,98 @@
         row: 'variousfunds_id',
         array: [
           '2019年4月','2019年5月','2019年6月','2019年7月','2019年8月','2019年9月','2019年10月','2019年11月','2019年12月','2019年1月','2019年2月','2019年3月'
+        ],
+        array1: [
+          '2019/4/1','2019/5/1','2019/6/1','2019/7/1','2019年8月','2019年9月','2019年10月','2019年11月','2019年12月','2019年1月','2019年2月','2019年3月'
+        ],
+        arrayB: [
+          this.$t('label.PFANS6009VIEW_MANHOUR2'),this.$t('label.PFANS6009VIEW_COST2')
+        ],
+        columnsB: [],
+        columnsC: [],
+        number: this.$t('label.PFANS6009VIEW_MANHOUR3'),
+        arryaLabels:[
+          this.$t('label.PFANS6009VIEW_TOTAL'),
+          this.$t('label.PFANS6009VIEW_AVERAGEUNITPRICE'),
+          this.$t('label.PFANS6009VIEW_TRAVELEXPENSES'),
+          this.$t('label.PFANS6009VIEW_EQUIPMENTFUNDS'),
+          this.$t('label.PFANS6009VIEW_TOTALEXPENDITURE')
         ]
       };
     },
     mounted() {
       this.loading = true;
-
-      for (var i = 1; i < this.array.length; i++) {
-        this.columns[i].label = this.array[i];
+      // TAB1
+      for (var i = 0; i < this.array.length; i++) {
+        this.columns[i + 1].label = this.array[i];
+      }
+      // TAB2
+      this.columnsB = JSON.parse(JSON.stringify(this.columns));
+      for (var i = 0; i < this.array1.length; i++) {
+        this.columnsB[i + 1].label = this.array1[i];
+        for (var j = 0; j < this.arrayB.length; j++) {
+          this.columnsB[i + 1].child[j].label = this.arrayB[j];
+        }
       }
 
-      this.$store
-        .dispatch('PFANS6009Store/getCostList')
-        .then(response => {
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false
-        })
+      this.columnsB[13].child[0].label = this.arrayB[0];
+      this.columnsB[13].child[1].label = this.arrayB[1];
+
+      // TAB3
+      this.columnsC = JSON.parse(JSON.stringify(this.columns));
+      for (var i = 0; i < this.array1.length; i++) {
+        this.columnsC[i + 1].label = this.array1[i];
+        this.columnsC[i + 1].child.splice(1, 1);
+        this.columnsC[i + 1].child[0].label = this.number;
+      }
+
+      this.columnsC[13].child.splice(1, 1);
+      this.columnsC[13].child[0].label = this.number;
+
+      // 赋值
+      for(var p = 0; p < 4; p++) {
+        this.tableA.push(
+          {
+            bpcompany: this.arryaLabels[p],
+            manhour4: '',
+            cost4: '',
+            manhour5: '',
+            cost5: '',
+            manhour6: '',
+            cost6: '',
+            manhour7: '',
+            cost7: ''
+          })
+      }
+
+      //      this.$store
+//        .dispatch('PFANS6009Store/getCostList')
+//        .then(response => {
+//          this.data = response;
+//          this.loading = false;
+//        })
+//        .catch(error => {
+//          Message({
+//            message: error,
+//            type: 'error',
+//            duration: 5 * 1000
+//          });
+//          this.loading = false
+//        })
+
+      this.loading = false
     },
     methods: {
+      // rowspan
+      arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+        for(var i = this.tableA.length - 4; i < this.tableA.length; i++) {
+          if(rowIndex === i) {
+            if(columnIndex !== 0) {
+              return [1, 2];
+            }
+          }
+        }
+      },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
 
