@@ -29,7 +29,7 @@
             filter: true,
           },
           {
-            code: 'PROJECT_NAME',
+            code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
             width: 110,
             fix: false,
@@ -71,19 +71,19 @@
             filter: true,
           },
           {
-            code: 'situation',
+            code: 'zpqk',
             label: 'label.PFANS5009VIEW_SITUATION',
             width: 150,
             fix: false,
             filter: true,
           },
-          {
-            code: 'status',
-            label: 'label.PFANS5009VIEW_STATUS',
-            width: 150,
-            fix: false,
-            filter: true,
-          }
+          // {
+          //   code: 'status',
+          //   label: 'label.PFANS5009VIEW_STATUS',
+          //   width: 150,
+          //   fix: false,
+          //   filter: true,
+          // }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -142,7 +142,7 @@
     },
     methods: {
         rowClick(row) {
-          this.rowid = row.recruitid
+          this.rowid = row.companyprojects_id
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
