@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" :noback = "true">
       <div slot="customize">
         <el-form  label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>

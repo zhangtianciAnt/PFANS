@@ -251,6 +251,7 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
+                    <!--   納期-->
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
@@ -265,6 +266,7 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!-- 其他管理工具 -->
                   <el-row>
                     <el-col :span="8">
                       <template>
