@@ -97,7 +97,7 @@
     mounted: function() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS5009Store/getFpans5001List')
+        .dispatch('PFANS5009Store/getFpans5001List',{})
         .then(response => {
           // for (let j = 0; j < response.length; j++) {
           //   let center = getOrgInfo(response[j].center_id);

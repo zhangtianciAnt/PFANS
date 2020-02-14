@@ -7,7 +7,6 @@ export function selectById(data) {
     params: data
   })
 }
-
 export function update(data) {
   return request({
     url: 'companyprojects/update',
