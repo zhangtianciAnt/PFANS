@@ -16,7 +16,8 @@
               :data="form.claimtype"
               :multiple="multiple"
               @change="getnumber"
-              style="width: 20vw">
+              style="width: 20vw"
+              :disabled="!disabled2">
             </dicselect>
           </el-form-item>
           <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
@@ -30,23 +31,26 @@
             <dicselect :code="code2"
                        :data="form.contracttype"
                        @change="getcontracttype"
-                       style="width: 20vw">
+                       style="width: 20vw"
+                       :disabled="!disabled2">
             </dicselect>
           </el-form-item>
           <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
             <dicselect :code="code3"
                        :data="form.applicationdate"
-                       @change="getcareeryear"
-                       style="width: 20vw">
+                       @change="getcareeryear1"
+                       style="width: 20vw"
+                       :disabled="!disabled2">
             </dicselect>
             <dicselect :code="code4"
-                       :data="form.applicationdate"
-                       @change="getcareeryear"
-                       style="width: 20vw">
+                       :data="form.entrycondition"
+                       @change="getcareeryear2"
+                       style="width: 20vw"
+                       :disabled="!disabled2">
             </dicselect>
           </el-form-item>
-          <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id"  :label-width="formLabelWidth">
-            <org  :orglist="grouporglist" orgtype="2"  :error="errorgroup" style="width: 20vw" @getOrgids="getGroupId"></org>
+          <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
+            <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
           </el-form-item>
           <div  class="dialog-footer" align="center">
             <el-button @click="dialogFormVisible = false" v-if="show1">
@@ -66,17 +70,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -87,13 +91,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -168,7 +172,7 @@
               </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                    <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -351,7 +355,7 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.該非判定（契約番号申請後、実施）')" align="center">
+              <el-table-column :label="$t('label.PFANS1026VIEW_DETERMINATION')" align="center">
               <el-table-column :label="$t('label.PFANS1024VIEW_DECIDE')" align="center" prop="decide"  width="200">
                 <template slot-scope="scope">
                   <dicselect
@@ -421,17 +425,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.application')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -442,13 +446,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -499,7 +503,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -752,17 +756,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -773,13 +777,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -830,7 +834,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1027,17 +1031,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -1048,13 +1052,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1105,7 +1109,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1302,17 +1306,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -1323,13 +1327,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1380,7 +1384,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1577,7 +1581,7 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.開発部署')" align="center" prop="deployment" width="200">
@@ -1598,13 +1602,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1655,7 +1659,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1852,7 +1856,7 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.開発部署')" align="center" prop="deployment" width="200">
@@ -1873,13 +1877,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -1930,7 +1934,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -2127,17 +2131,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -2148,13 +2152,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -2205,7 +2209,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -2402,17 +2406,17 @@
                                type="index" width="50"></el-table-column>
               <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
@@ -2423,13 +2427,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">
                   </el-input>
                 </template>
               </el-table-column>
@@ -2480,7 +2484,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled"    v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </template>
               </el-table-column>
@@ -2696,15 +2700,6 @@
       org
     },
     data() {
-        var checkgroup = (rule, value, callback) => {
-            if(!value || value === ''){
-                this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-            }else{
-                this.errorgroup = "";
-                return callback();
-            }
-        };
       return {
         checked1: false,
         index: "",
@@ -2725,17 +2720,11 @@
         errormanager: "",
         disabled: true,
         disabled1: false,
+        disabled2: true,
+        disabled3: false,
         multiple: false,
         rowindex: '',
-        rules: {
-              // group_id: [
-              //     {
-              //         required: true,
-              //         validator: checkgroup,
-              //         trigger: 'change'
-              //     },
-              // ]
-        },
+        rules: {},
           buttonList:[
               {
                   key: 'application',
@@ -2774,335 +2763,13 @@
         formLabelWidth: '120px',
           tablefirst: [],
           tablesecond: [],
-          tablethird: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tablefourth: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tablefifth: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tablesixth: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tableseventh: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tableeighth: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
-          tableninth: [
-              {
-                  contractapplication_id: '',
-                  group_id: '',
-                  deployment: '',
-                  applicationdate: moment(new Date()).format("YYYY-MM-DD"),
-                  user_id: '',
-                  contracttype: '',
-                  contractnumber: '',
-                  entrycondition: '',
-                  entrypayment: '',
-                  deliverycondition: '',
-                  delivery: '',
-                  claimcondition: '',
-                  claim: '',
-                  claimtype: '',
-                  deliverydate: '',
-                  completiondate: '',
-                  deliveryfinshdate: '',
-                  loadingjudge: '',
-                  claimdate: '',
-                  claimamount: '',
-                  currencyposition: '',
-                  supportdate: '',
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  businesscode: '',
-                  claimdatetime: [],
-                  varto: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
-                  conjapanese: '',
-                  conenglish: '',
-                  conchinese: '',
-                  remarks: '',
-                  state: '',
-                  tape: '',
-                  maketype: '',
-              },
-          ],
+          tablethird: [],
+          tablefourth: [],
+          tablefifth: [],
+          tablesixth: [],
+          tableseventh: [],
+          tableeighth: [],
+          tableninth: [],
           code:'HT001',
           code1: 'PJ028',
           code2: 'HT008',
@@ -3117,69 +2784,64 @@
       };
     },
     mounted() {
-        // this.loading = true;
-        // if (this.$route.params._id) {
-        // this.$store
-        //   .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
-        //   .then(response => {
-        //         if (response.length > 0) {
-        //             for(let i = 0;i<response.length;i++){
-        //                 if(response[i].type === '1'){
-        //                     this.tablefirst = response[i];
-        //                 }
-        //                 else if(response[i].type === '2'){
-        //                     this.tablesecond = response[i];
-        //                 }
-        //                 else if(response[i].type === '3'){
-        //                     this.tablethird = response[i];
-        //                 }
-        //                 else if(response[i].type === '4'){
-        //                     this.tablefourth = response[i];
-        //                 }
-        //                 else if(response[i].type === '5'){
-        //                     this.tablefifth = response[i];
-        //                 }
-        //                 else if(response[i].type === '6'){
-        //                     this.tablesixth = response[i];
-        //                 }
-        //                 else if(response[i].type === '7'){
-        //                     this.tableseventh = response[i];
-        //                 }
-        //                 else if(response[i].type === '8'){
-        //                     this.tableeighth = response[i];
-        //                 }
-        //                 else if(response[i].type === '9'){
-        //                     this.tableninth = response[i];
-        //                 }
-        //             }
-        //         }
-        //     this.form = response;
-        //     this.loading = false;
-        //   })
-        //   .catch(error => {
-        //     Message({
-        //       message: error,
-        //       type: 'error',
-        //       duration: 5 * 1000
-        //     });
-        //     this.loading = false
-        //   })
-        // } else {
-        //     this.userlist = this.$store.getters.userinfo.userid;
-        //     if (this.userlist !== null && this.userlist !== '') {
-        //         this.form.user_id = this.$store.getters.userinfo.userid;
-        //     }
-        //     this.loading = false;
-        // }
+        this.loading = true;
+        if (this.$route.params._id) {
+        this.$store
+          .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
+          .then(response => {
+                if (response.length > 0) {
+                    for(let i = 0;i<response.length;i++){
+                        if(response[i].type === '1'){
+                            this.tablefirst = response[i];
+                        }
+                        else if(response[i].type === '2'){
+                            this.tablesecond = response[i];
+                        }
+                        else if(response[i].type === '3'){
+                            this.tablethird = response[i];
+                        }
+                        else if(response[i].type === '4'){
+                            this.tablefourth = response[i];
+                        }
+                        else if(response[i].type === '5'){
+                            this.tablefifth = response[i];
+                        }
+                        else if(response[i].type === '6'){
+                            this.tablesixth = response[i];
+                        }
+                        else if(response[i].type === '7'){
+                            this.tableseventh = response[i];
+                        }
+                        else if(response[i].type === '8'){
+                            this.tableeighth = response[i];
+                        }
+                        else if(response[i].type === '9'){
+                            this.tableninth = response[i];
+                        }
+                    }
+                }
+            this.form = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false
+          })
+        } else {
+            this.userlist = this.$store.getters.userinfo.userid;
+            if (this.userlist !== null && this.userlist !== '') {
+                this.form.user_id = this.$store.getters.userinfo.userid;
+            }
+            this.loading = false;
+        }
     },
     methods: {
         getGroupId(val) {
             this.grouporglist = val;
-            if (!this.form.group_id || this.form.group_id === '' || val === "undefined") {
-                this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-            } else {
-                this.errorgroup = "";
-            }
         },
         getUserids(val,row) {
             row.user_id = val;
@@ -3212,16 +2874,21 @@
             this.checked1 = val;
             if(val === true){
                 this.disabled1 = true;
+                this.disabled2 = false;
             }else{
                 this.disabled1 = false;
+                this.disabled2 = true;
                 this.form.contractnumber = '';
             }
         },
         getcontracttype(val){
             this.form.contracttype = val;
         },
-        getcareeryear(val){
+        getcareeryear1(val){
             this.form.applicationdate = val;
+        },
+        getcareeryear2(val){
+            this.form.entrycondition = val;
         },
         getVarto(val, row){
             row.varto = val;
@@ -3914,6 +3581,10 @@
             });
         },
         addRowthird() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tablethird.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -3961,6 +3632,11 @@
             });
         },
         addRowfourth() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
+
             this.tablefourth.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4008,6 +3684,10 @@
             });
         },
         addRowfifth() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tablefifth.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4055,6 +3735,10 @@
             });
         },
         addRowsixth() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tablesixth.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4102,6 +3786,10 @@
             });
         },
         addRowseventh() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tableseventh.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4149,6 +3837,10 @@
             });
         },
         addRoweighth() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tableeighth.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4196,6 +3888,10 @@
             });
         },
         addRowninth() {
+            let letcontractnumber = '';
+            if(this.form.contractnumber != ''){
+                letcontractnumber = this.form.contractnumber;
+            }
             this.tableninth.push({
                 contractapplication_id: '',
                 group_id: '',
@@ -4243,8 +3939,15 @@
             });
         },
         click1() {//111
-          this.tablefirst = [];
-          this.tablesecond = [];
+            this.tablefirst = [];
+            this.tablesecond = [];
+            this.tablethird = [];
+            this.tablefourth = [];
+            this.tablefifth = [];
+            this.tablesixth = [];
+            this.tableseventh = [];
+            this.tableeighth = [];
+            this.tableninth = [];
           //請求方式
             let letclaimtype = '';
             if(this.form.contractnumber != ''){
@@ -4254,7 +3957,6 @@
             let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
             let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
             let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-            debugger;
           //海外受託 技術開発
           if(this.form.contracttype === 'HT008001'){
 
@@ -4290,7 +3992,7 @@
           }
           //海外複合受託 技術開発
           else if(this.form.contracttype === 'HT008002'){
-              alert(1);
+
               if(this.form.claimtype === "HT001001"){
                   this.addRowsecond();
                   this.tablesecond[0].claimtype = letclaimtypeone;
@@ -4324,30 +4026,233 @@
           //海外受託 役務
           else if(this.form.contracttype === 'HT008003'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowthird();
+                  this.tablethird[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.tablethird[0].claimtype = letclaimtypeone;
+                  this.tablethird[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.tablethird[0].claimtype = letclaimtypeone;
+                  this.tablethird[1].claimtype = letclaimtypetwo;
+                  this.tablethird[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.addRowthird();
+                  this.tablethird[0].claimtype = letclaimtypeone;
+                  this.tablethird[1].claimtype = letclaimtypetwo;
+                  this.tablethird[2].claimtype = letclaimtypethree;
+                  this.tablethird[3].claimtype = letclaimtypefour;
+              }
           }
           //海外複合受託 役務
           else if(this.form.contracttype === 'HT008004'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowfourth();
+                  this.tablefourth[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.tablefourth[0].claimtype = letclaimtypeone;
+                  this.tablefourth[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.tablefourth[0].claimtype = letclaimtypeone;
+                  this.tablefourth[1].claimtype = letclaimtypetwo;
+                  this.tablefourth[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.addRowfourth();
+                  this.tablefourth[0].claimtype = letclaimtypeone;
+                  this.tablefourth[1].claimtype = letclaimtypetwo;
+                  this.tablefourth[2].claimtype = letclaimtypethree;
+                  this.tablefourth[3].claimtype = letclaimtypefour;
+              }
           }
           //国内受託 技術開発
           else if(this.form.contracttype === 'HT008005'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowfifth();
+                  this.tablefifth[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.tablefifth[0].claimtype = letclaimtypeone;
+                  this.tablefifth[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.tablefifth[0].claimtype = letclaimtypeone;
+                  this.tablefifth[1].claimtype = letclaimtypetwo;
+                  this.tablefifth[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.addRowfifth();
+                  this.tablefifth[0].claimtype = letclaimtypeone;
+                  this.tablefifth[1].claimtype = letclaimtypetwo;
+                  this.tablefifth[2].claimtype = letclaimtypethree;
+                  this.tablefifth[3].claimtype = letclaimtypefour;
+              }
           }
           //国内複合受託 技術開発
           else if(this.form.contracttype === 'HT008006'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowsixth();
+                  this.tablesixth[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.tablesixth[0].claimtype = letclaimtypeone;
+                  this.tablesixth[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.tablesixth[0].claimtype = letclaimtypeone;
+                  this.tablesixth[1].claimtype = letclaimtypetwo;
+                  this.tablesixth[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.addRowsixth();
+                  this.tablesixth[0].claimtype = letclaimtypeone;
+                  this.tablesixth[1].claimtype = letclaimtypetwo;
+                  this.tablesixth[2].claimtype = letclaimtypethree;
+                  this.tablesixth[3].claimtype = letclaimtypefour;
+              }
           }
           //国内受託 役務
           else if(this.form.contracttype === 'HT008007'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowseventh();
+                  this.tableseventh[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.tableseventh[0].claimtype = letclaimtypeone;
+                  this.tableseventh[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.tableseventh[0].claimtype = letclaimtypeone;
+                  this.tableseventh[1].claimtype = letclaimtypetwo;
+                  this.tableseventh[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.addRowseventh();
+                  this.tableseventh[0].claimtype = letclaimtypeone;
+                  this.tableseventh[1].claimtype = letclaimtypetwo;
+                  this.tableseventh[2].claimtype = letclaimtypethree;
+                  this.tableseventh[3].claimtype = letclaimtypefour;
+              }
           }
           //国内複合受託 役務
           else if(this.form.contracttype === 'HT008008'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRoweighth();
+                  this.tableeighth[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.tableeighth[0].claimtype = letclaimtypeone;
+                  this.tableeighth[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.tableeighth[0].claimtype = letclaimtypeone;
+                  this.tableeighth[1].claimtype = letclaimtypetwo;
+                  this.tableeighth[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.addRoweighth();
+                  this.tableeighth[0].claimtype = letclaimtypeone;
+                  this.tableeighth[1].claimtype = letclaimtypetwo;
+                  this.tableeighth[2].claimtype = letclaimtypethree;
+                  this.tableeighth[3].claimtype = letclaimtypefour;
+              }
           }
           //販売
           else if(this.form.contracttype === 'HT008009'){
 
+              if(this.form.claimtype === "HT001001"){
+                  this.addRowninth();
+                  this.tableninth[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.tableninth[0].claimtype = letclaimtypeone;
+                  this.tableninth[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.tableninth[0].claimtype = letclaimtypeone;
+                  this.tableninth[1].claimtype = letclaimtypetwo;
+                  this.tableninth[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.addRowninth();
+                  this.tableninth[0].claimtype = letclaimtypeone;
+                  this.tableninth[1].claimtype = letclaimtypetwo;
+                  this.tableninth[2].claimtype = letclaimtypethree;
+                  this.tableninth[3].claimtype = letclaimtypefour;
+              }
           }
         },
         click1X(val) {
@@ -4420,7 +4325,6 @@
                 this.show2=true;
             }
             if (val === "save") {
-                debugger;
                 let tabledata = [];
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
@@ -4473,9 +4377,9 @@
                                     type: 'success',
                                     duration: 5 * 1000
                                 });
-                                if (this.$store.getters.historyUrl) {
-                                    this.$router.push(this.$store.getters.historyUrl);
-                                }
+                                // if (this.$store.getters.historyUrl) {
+                                //     this.$router.push(this.$store.getters.historyUrl);
+                                // }
                             })
                             .catch(error => {
                                 Message({
