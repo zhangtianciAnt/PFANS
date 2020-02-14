@@ -26,7 +26,7 @@
                             :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                             @row-click="handleClickChange1">
-                            <el-table-column property="expname" :label="$t('label.user_name')"
+                            <el-table-column property="expname" fixed :label="$t('label.user_name')"
                                              width="100"></el-table-column>
                             <el-table-column property="sex" :label="$t('label.sex')"
                                              width="100"></el-table-column>
