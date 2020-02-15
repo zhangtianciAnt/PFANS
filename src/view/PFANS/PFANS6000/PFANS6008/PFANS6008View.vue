@@ -724,7 +724,20 @@
     },
     methods: {
       buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        debugger
+        // todo 先用查看按钮做生成数据，之后再删除
+        if(val === 'view') {
+          debugger;
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6008Store/insertCoststatistics')
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              this.loading = false
+            })
+        }
 
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
