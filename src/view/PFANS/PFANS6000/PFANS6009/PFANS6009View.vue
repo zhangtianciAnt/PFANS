@@ -61,11 +61,7 @@
         loading: false,
         title: 'title.PFANS6009VIEW',
         activeName: 'first',
-        tableA: [{
-          bpcompany: 'AAA',
-          manhour4: '1',
-          cost4: '1'
-        }],
+        tableA: [],
         tableB: [],
         tableC: [],
         columns: [
@@ -382,10 +378,10 @@
         number: this.$t('label.PFANS6009VIEW_MANHOUR3'),
         arryaLabels:[
           this.$t('label.PFANS6009VIEW_TOTAL'),
-          this.$t('label.PFANS6009VIEW_AVERAGEUNITPRICE'),
-          this.$t('label.PFANS6009VIEW_TRAVELEXPENSES'),
+          this.$t('label.PFANS6009VIEW_TOTALEXPENDITURE'),
           this.$t('label.PFANS6009VIEW_EQUIPMENTFUNDS'),
-          this.$t('label.PFANS6009VIEW_TOTALEXPENDITURE')
+          this.$t('label.PFANS6009VIEW_TRAVELEXPENSES'),
+          this.$t('label.PFANS6009VIEW_AVERAGEUNITPRICE'),
         ]
       };
     },
@@ -418,21 +414,68 @@
       this.columnsC[13].child.splice(1, 1);
       this.columnsC[13].child[0].label = this.number;
 
-      // 赋值
-      for(var p = 0; p < 4; p++) {
-        this.tableA.push(
-          {
-            bpcompany: this.arryaLabels[p],
-            manhour4: '',
-            cost4: '',
-            manhour5: '',
-            cost5: '',
-            manhour6: '',
-            cost6: '',
-            manhour7: '',
-            cost7: ''
-          })
-      }
+      this.$store
+        .dispatch('PFANS6009Store/getCostList')
+        .then(response => {
+
+          var tableData = response.company;
+          var tripData = response.trip;
+          var assetData = response.asset;
+          let arrayAdate = [];
+          let addLine1 = {}, addLine2 = {},  addLine5 = {};
+          for (var i =1; i<=13; i++) {
+            var total_manhour = 0, total_cost = 0;
+            var key_hour = "manhour" + i;
+            var key_cost  = "cost" + i;
+            if ( i > 12 ) {
+              key_cost  = "totalcost";
+              key_hour  = "totalmanhours";
+            }
+            for (var j = 0; j<tableData.length; j++) {
+              total_manhour += parseFloat(tableData[j][key_hour]).toFixed(1);
+              total_cost += parseFloat(tableData[j][key_cost]).toFixed(1);
+            }
+            addLine1[key_hour] = parseFloat(total_manhour).toFixed(1);
+            addLine1[key_cost] = parseFloat(total_cost).toFixed(1);
+            if ( total_manhour == 0 ) {
+              addLine2[key_cost] = "0.0";
+            } else {
+              addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(1);
+            }
+
+            tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(1);
+            assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(1);
+
+            addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(1);
+          }
+          arrayAdate.push(addLine1);
+          arrayAdate.push(addLine2);
+          arrayAdate.push(tripData);
+          arrayAdate.push(assetData);
+          arrayAdate.push(addLine5);
+          // 赋值
+          for(var p = 0; p <= 4; p++) {
+            tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
+          };
+
+          var year = response.year;
+          for (var i = 0; i < this.array.length; i++) {
+            this.columns[i + 1].label = this.array[i].replace("2019", year);
+          }
+
+          this.tableA = tableData;
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false
+        })
+
+
 
       //      this.$store
 //        .dispatch('PFANS6009Store/getCostList')
@@ -454,13 +497,30 @@
     methods: {
       // rowspan
       arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-        for(var i = this.tableA.length - 4; i < this.tableA.length; i++) {
-          if(rowIndex === i) {
-            if(columnIndex !== 0) {
-              return [1, 2];
+        if ( columnIndex == 0 ) {
+          return [1,1];
+        }
+        if ( rowIndex > this.tableA.length -5 ) {
+          if ( (columnIndex)%2 ==0 ) {
+            return {
+              rowspan: 1,
+              colspan: 2
+            }
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
             }
           }
         }
+
+//        for(var i = this.tableA.length - 4; i < this.tableA.length; i++) {
+//          if(rowIndex === i) {
+//            if(columnIndex !== 0) {
+//              return [1, 2];
+//            }
+//          }
+//        }
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
