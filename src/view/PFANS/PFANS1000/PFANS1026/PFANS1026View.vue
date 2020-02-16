@@ -2793,30 +2793,94 @@
                     for(let i = 0;i<response.length;i++){
                         if(response[i].type === '1'){
                             this.tablefirst = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '2'){
                             this.tablesecond = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '3'){
                             this.tablethird = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '4'){
                             this.tablefourth = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '5'){
                             this.tablefifth = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '6'){
                             this.tablesixth = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '7'){
                             this.tableseventh = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                         else if(response[i].type === '8'){
                             this.tableeighth = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
+
                         }
                         else if(response[i].type === '9'){
                             this.tableninth = response[i];
+                            if (response.claimdatetime !== '' && response.claimdatetime !== null) {
+                                let claimdatetime = response.claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.claimdatetime = [claimdatetim, claimdatetime1];
+
+                            }
                         }
                     }
                 }
@@ -3492,7 +3556,6 @@
                 custoabbreviation: '',
                 custochinese: '',
                 businesscode: '',
-
                 varto: '',
                 placejapanese: '',
                 placeenglish: '',
