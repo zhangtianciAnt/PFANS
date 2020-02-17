@@ -1,8 +1,10 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end"
-                         @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                         ref="container" v-loading="loading">
+<!--                         @end="end"-->
+<!--                         @start="start" @workflowState="workflowState" -->
+
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2rem">
@@ -463,12 +465,13 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/selectById', {'companyprojects_id': this.$route.params._id})
+          .dispatch('PFANS5009Store/selectById', {companyprojectsid: this.$route.params._id})
           .then(response => {
+            debugger
             this.form = response.companyprojects;
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
+            // this.centerorglist = this.form.center_id;
+            // this.grouporglist = this.form.group_id;
+            // this.teamorglist = this.form.team_id;
             this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableP));
             if (response.stageinformation.length > 0) {

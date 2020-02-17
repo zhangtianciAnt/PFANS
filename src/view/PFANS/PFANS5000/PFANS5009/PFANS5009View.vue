@@ -162,7 +162,8 @@
               disabled: false
             }
           })
-        }if (val === 'update') {
+        }
+        if (val === 'update') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
