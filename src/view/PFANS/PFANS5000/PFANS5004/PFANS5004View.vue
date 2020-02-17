@@ -70,7 +70,7 @@
               {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
             ],
             rowid: '',
-            row_id: 'closeapplicatid'
+            row_id: 'companyprojects_id'
           }
       },
       mounted() {
@@ -97,7 +97,7 @@
       },
       methods: {
         rowClick(row) {
-          this.rowid = row.closeapplicatid;
+          this.rowid = row.companyprojects_id;
         },
         buttonClick(val) {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);

@@ -1,9 +1,5 @@
-import {
-  get,
-  selectById,
-  update,
-} from './PFANS5004Api'
-import {getFpans5001List} from "../PFANS5001/PFANS5001Api";
+
+import {getFpans5001List, update,selectById} from "../PFANS5001/PFANS5001Api";
 
 const PFANS5004Store = {
   namespaced: true,
@@ -28,19 +24,6 @@ const PFANS5004Store = {
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    get() {
-      return new Promise((resolve, reject) => {
-        get().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
