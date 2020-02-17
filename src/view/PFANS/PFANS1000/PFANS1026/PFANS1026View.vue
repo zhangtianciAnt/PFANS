@@ -310,19 +310,19 @@
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish">
+                <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone">
+                <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responphone">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail">
+                <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.responemail">
                     </el-input>
@@ -2746,11 +2746,6 @@
                   name: 'button.makeinto',
                   disabled: false,
               },
-              // {
-              //     key: 'insert',
-              //     name: 'label.PFANS1026FORMVIEW_CONTRACTNUMBER',
-              //     disabled: false,
-              // },
           ],
         form:{
             contractnumber: '',
@@ -3556,6 +3551,7 @@
                 custoabbreviation: '',
                 custochinese: '',
                 businesscode: '',
+                claimdatetime: [],
                 varto: '',
                 placejapanese: '',
                 placeenglish: '',
@@ -3617,7 +3613,7 @@
                 custoabbreviation: '',
                 custochinese: '',
                 businesscode: '',
-
+                claimdatetime: [],
                 varto: '',
                 placejapanese: '',
                 placeenglish: '',
