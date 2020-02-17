@@ -8,4 +8,20 @@ export function getCostList(data) {
   })
 }
 
+export function getWorktimes(data) {
+  return request({
+    url: '/companystatistics/getCompanyReport2',
+    method: 'get',
+    params: data
+  })
+}
+
+export function getWorkers(data) {
+  return request({
+    url: '/companystatistics/getCompanyReport3',
+    method: 'get',
+    params: data
+  })
+}
+
 

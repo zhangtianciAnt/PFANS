@@ -1,4 +1,4 @@
-import {getCostList} from './PFANS6009Api'
+import {getCostList, getWorktimes, getWorkers} from './PFANS6009Api'
 const PFANS6009Store = {
   namespaced: true,
   state: {},
@@ -16,7 +16,33 @@ const PFANS6009Store = {
           reject(error);
         })
       })
-    }
+    },
+    getWorktimes() {
+      return new Promise((resolve, reject) => {
+        getWorktimes().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getWorkers() {
+      return new Promise((resolve, reject) => {
+        getWorkers().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 

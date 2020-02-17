@@ -7,9 +7,9 @@
     ref="container"
   >
     <div slot="customize">
-    <el-tabs v-model="activeName" type="border-card">
+    <el-tabs v-model="activeName" type="border-card" @tab-click="handleTabClick">
       <el-tab-pane :label="$t('label.PFANS6009TAB1')" name="first">
-        <el-table :data="this.tableA" stripe header-cell-class-name="sub_bg_color_blue" :span-method="arraySpanMethod">
+        <el-table :data="this.tableA" stripe header-cell-class-name="sub_bg_color_blue" :span-method="arraySpanMethod" v-loading="tableALoading">
           <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columns" align="center" :min-width="item.width"
                            v-if="item.child && item.child.length > 0">
             <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width" :prop="o.code">
@@ -20,10 +20,10 @@
         </el-table>
       </el-tab-pane>
       <el-tab-pane :label="$t('label.PFANS6009TAB2')" name="second">
-        <el-table :data="this.tableB" stripe header-cell-class-name="sub_bg_color_blue" show-summary>
+        <el-table :data="this.tableB" stripe header-cell-class-name="sub_bg_color_blue" show-summary v-loading="tableBLoading">
           <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columnsB" align="center" :min-width="item.width"
                            v-if="item.child && item.child.length > 0">
-            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width" :prop="o.code">
             </el-table-column>
           </el-table-column>
           <el-table-column :column-key="item.code" :key="item.code" :label="$t(item.label)" :min-width="item.width"
@@ -31,10 +31,10 @@
         </el-table>
       </el-tab-pane>
       <el-tab-pane :label="$t('label.PFANS6009TAB3')" name="third">
-        <el-table :data="this.tableC" stripe header-cell-class-name="sub_bg_color_blue" show-summary>
+        <el-table :data="this.tableC" stripe header-cell-class-name="sub_bg_color_blue" show-summary v-loading="tableCLoading">
           <el-table-column :key="item.code" :label="$t(item.label)" v-for="item in this.columnsC" align="center" :min-width="item.width"
                            v-if="item.child && item.child.length > 0">
-            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width">
+            <el-table-column :key="o.code" :label="$t(o.label)" v-for="o in item.child" :min-width="o.width" :prop="o.code">
             </el-table-column>
           </el-table-column>
           <el-table-column :column-key="item.code" :key="item.code" :label="$t(item.label)" :min-width="item.width"
@@ -64,6 +64,9 @@
         tableA: [],
         tableB: [],
         tableC: [],
+        tableALoading: true,
+        tableBLoading: true,
+        tableCLoading: true,
         columns: [
           {
             code: 'bpcompany',
@@ -368,7 +371,7 @@
           '2019年4月','2019年5月','2019年6月','2019年7月','2019年8月','2019年9月','2019年10月','2019年11月','2019年12月','2019年1月','2019年2月','2019年3月'
         ],
         array1: [
-          '2019/4/1','2019/5/1','2019/6/1','2019/7/1','2019年8月','2019年9月','2019年10月','2019年11月','2019年12月','2019年1月','2019年2月','2019年3月'
+          '2019/4/1','2019/5/1','2019/6/1','2019/7/1','2019/8/1','2019/9/1','2019/10/1','2019/11/1','2019/12/1','2019/1/1','2019/2/1','2019/3/1'
         ],
         arrayB: [
           this.$t('label.PFANS6009VIEW_MANHOUR2'),this.$t('label.PFANS6009VIEW_COST2')
@@ -414,84 +417,7 @@
       this.columnsC[13].child.splice(1, 1);
       this.columnsC[13].child[0].label = this.number;
 
-      this.$store
-        .dispatch('PFANS6009Store/getCostList')
-        .then(response => {
-
-          var tableData = response.company;
-          var tripData = response.trip;
-          var assetData = response.asset;
-          let arrayAdate = [];
-          let addLine1 = {}, addLine2 = {},  addLine5 = {};
-          for (var i =1; i<=13; i++) {
-            var total_manhour = 0, total_cost = 0;
-            var key_hour = "manhour" + i;
-            var key_cost  = "cost" + i;
-            if ( i > 12 ) {
-              key_cost  = "totalcost";
-              key_hour  = "totalmanhours";
-            }
-            for (var j = 0; j<tableData.length; j++) {
-              total_manhour += parseFloat(tableData[j][key_hour]).toFixed(1);
-              total_cost += parseFloat(tableData[j][key_cost]).toFixed(1);
-            }
-            addLine1[key_hour] = parseFloat(total_manhour).toFixed(1);
-            addLine1[key_cost] = parseFloat(total_cost).toFixed(1);
-            if ( total_manhour == 0 ) {
-              addLine2[key_cost] = "0.0";
-            } else {
-              addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(1);
-            }
-
-            tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(1);
-            assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(1);
-
-            addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(1);
-          }
-          arrayAdate.push(addLine1);
-          arrayAdate.push(addLine2);
-          arrayAdate.push(tripData);
-          arrayAdate.push(assetData);
-          arrayAdate.push(addLine5);
-          // 赋值
-          for(var p = 0; p <= 4; p++) {
-            tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
-          };
-
-          var year = response.year;
-          for (var i = 0; i < this.array.length; i++) {
-            this.columns[i + 1].label = this.array[i].replace("2019", year);
-          }
-
-          this.tableA = tableData;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false
-        })
-
-
-
-      //      this.$store
-//        .dispatch('PFANS6009Store/getCostList')
-//        .then(response => {
-//          this.data = response;
-//          this.loading = false;
-//        })
-//        .catch(error => {
-//          Message({
-//            message: error,
-//            type: 'error',
-//            duration: 5 * 1000
-//          });
-//          this.loading = false
-//        })
-
+      this.loadTableA();
       this.loading = false
     },
     methods: {
@@ -513,14 +439,169 @@
             }
           }
         }
+      },
+      loadTableA() {
+        if ( this.tableALoading == false ) {
+          return ;
+        }
+        this.$store
+          .dispatch('PFANS6009Store/getCostList')
+          .then(response => {
 
-//        for(var i = this.tableA.length - 4; i < this.tableA.length; i++) {
-//          if(rowIndex === i) {
-//            if(columnIndex !== 0) {
-//              return [1, 2];
-//            }
-//          }
-//        }
+            var tableData = response.company;
+            var tripData = response.trip;
+            var assetData = response.asset;
+            let arrayAdate = [];
+            let addLine1 = {}, addLine2 = {},  addLine5 = {};
+            for (var i =1; i<=13; i++) {
+              var total_manhour = 0, total_cost = 0;
+              var key_hour = "manhour" + i;
+              var key_cost  = "cost" + i;
+              if ( i > 12 ) {
+                key_cost  = "totalcost";
+                key_hour  = "totalmanhours";
+              }
+              for (var j = 0; j<tableData.length; j++) {
+                total_manhour += parseFloat(tableData[j][key_hour]).toFixed(1);
+                total_cost += parseFloat(tableData[j][key_cost]).toFixed(1);
+              }
+              addLine1[key_hour] = parseFloat(total_manhour).toFixed(1);
+              addLine1[key_cost] = parseFloat(total_cost).toFixed(1);
+              if ( total_manhour == 0 ) {
+                addLine2[key_cost] = "0.0";
+              } else {
+                addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(1);
+              }
+
+              tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(1);
+              assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(1);
+
+              addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(1);
+            }
+            arrayAdate.push(addLine1);
+            arrayAdate.push(addLine2);
+            arrayAdate.push(tripData);
+            arrayAdate.push(assetData);
+            arrayAdate.push(addLine5);
+            // 赋值
+            for(var p = 0; p <= 4; p++) {
+              tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
+            };
+
+            var year = response.year;
+            for (var i = 0; i < this.array.length; i++) {
+              this.columns[i + 1].label = this.array[i].replace("2019", year);
+            }
+
+            this.tableA = tableData;
+            this.loading = false;
+            this.tableALoading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+            this.tableALoading = false;
+          });
+      },
+      loadTableB() {
+        if ( this.tableBLoading == false ) {
+          return ;
+        }
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6009Store/getWorktimes')
+          .then(response => {
+            var tableData = response.worktimes;
+            var year = response.year;
+
+            tableData.forEach(data => {
+              var totalManhour = 0, totalCost = 0;
+              for (var i=1; i<=12; i++) {
+                var m = parseFloat(data["manhour"+i]);
+                var c = parseFloat(data["cost"+i]);
+                totalManhour += m;
+                totalCost += c;
+                data["manhour"+i] = m.toFixed(1);
+                data["cost"+i] = c.toFixed(1);
+              }
+              data["totalmanhours"] = parseFloat(totalManhour).toFixed(1);
+              data["totalcost"] = parseFloat(totalCost).toFixed(1);
+            });
+
+
+            for (var i = 1; i <= 12; i++) {
+              this.columnsB[i].label = this.array1[i-1].replace("2019", year);
+            }
+
+            this.tableB = tableData;
+            this.loading = false;
+            this.tableBLoading = false;
+            console.log("loadTableB", this.tableB);
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+            this.tableBLoading = false;
+          });
+      },
+      loadTableC() {
+        console.log("loadTableC");
+        if ( this.tableCLoading == false ) {
+          return ;
+        }
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6009Store/getWorkers')
+          .then(response => {
+            var tableC = response.workers;
+            var year = response.year;
+
+            tableC.forEach(data => {
+              var totalManhour = 0;
+              for (var i=1; i<=12; i++) {
+                var m = parseFloat(data["manhour"+i]);
+                totalManhour += m;
+                data["manhour"+i] = m.toFixed(1);
+              }
+              data["totalmanhours"] = parseFloat(totalManhour).toFixed(1);
+            });
+
+            for (var i = 1; i <= 12; i++) {
+              this.columnsC[i].label = this.array1[i-1].replace("2019", year);
+            }
+
+            this.tableC = tableC;
+            this.loading = false;
+            this.tableCLoading = false;
+            console.log("loadTableB", this.tableC);
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+            this.tableCLoading = false;
+          });
+      },
+      handleTabClick(tab, event) {
+        switch (tab.name) {
+          case 'first': this.loadTableA(); break;
+          case 'second': this.loadTableB(); break;
+          case 'third': this.loadTableC(); break;
+          default:
+            console.log('unknown tab ', tab.name);
+            break;
+        }
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
