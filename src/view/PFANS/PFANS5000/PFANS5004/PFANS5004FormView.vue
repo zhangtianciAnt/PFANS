@@ -5,57 +5,69 @@
                          @end="end" @start="start" @workflowState="workflowState" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs type="border-card" v-model="activeName">
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_CLOSEAPPLICAT')" name="first"  >
+            <el-tab-pane :label="$t('label.PFANS5004VIEW_CLOSEAPPLICAT')" name="first">
               <div>
                 <el-collapse>
                   <el-collapse-item>
                     <template slot="title">
-                      <span  class="collapse_Title">{{$t('label.PFANS5004VIEW_CLOSEAPPLICAT')}}</span>
+                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_CLOSEAPPLICAT')}}</span>
                     </template>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" >
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.project_name"></el-input>
+                        <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                          <el-input :disabled="true" style="width:20vw" v-model="form.project_name"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')">
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.projecttype"></el-input>
+                          <dicselect
+                            :code="code2"
+                            :data="form.projecttype"
+                            :disabled="true"
+                            :multiple="multiple"
+                            style="width: 20vw"
+                          ></dicselect>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_FIELD')">
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.field"></el-input>
+                          <dicselect
+                            :code="code3"
+                            :data="form.field"
+                            :disabled="true"
+                            :multiple="multiple"
+                            style="width: 20vw"
+                          ></dicselect>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANAGERID')" >
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.managerid"></el-input>
+                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANAGERID')">
+                          <el-input :disabled="true" style="width:20vw" v-model="form.managerid"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                          <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
-                            <el-date-picker
-                              :disabled="!disable"
-                              style="width: 20vw"
-                              type="date"
-                              v-model="form.startdate"
-                            ></el-date-picker>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                          <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
-                            <el-date-picker
-                              :disabled="!disable"
-                              style="width: 20vw"
-                              type="date"
-                              v-model="form.enddate"
-                            ></el-date-picker>
-                          </el-form-item>
+                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
+                          <el-date-picker
+                            :disabled="true"
+                            style="width: 20vw"
+                            type="date"
+                            v-model="form.startdate"
+                          ></el-date-picker>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
+                          <el-date-picker
+                            :disabled="true"
+                            style="width: 20vw"
+                            type="date"
+                            v-model="form.enddate"
+                          ></el-date-picker>
+                        </el-form-item>
                       </el-col>
                     </el-row>
                   </el-collapse-item>
@@ -63,59 +75,74 @@
                 <el-collapse>
                   <el-collapse-item>
                     <template slot="title">
-                      <span  class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>
+                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>
                     </template>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_ASSETADDRESS')" prop="assetaddress">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.assetaddress"></el-input>
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.assetaddress"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')" >
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.explan"></el-input>
+                        <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.instructions"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_ADVISE')" >
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.advise"></el-input>
+                        <el-form-item :label="$t('label.PFANS5004VIEW_EXPRENCE')">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.exprence"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS5004VIEW_ADVISE')">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.advise"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.remarks')" >
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.note"></el-input>
+                        <el-form-item :label="$t('label.remarks')">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.note"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_MESSAGE')" >
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.message"></el-input>
+                        <el-form-item :label="$t('label.PFANS5004VIEW_MESSAGE')">
+                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                                    v-model="form.message"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')" >
+                        <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">
                           <el-upload
-                            v-model="form.uploadfile"
                             :action="upload"
                             :file-list="fileList"
-                            :on-remove="fileRemove"
-                            :on-preview="fileDownload"
-                            :on-success="fileSuccess"
                             :on-error="fileError"
+                            :on-preview="fileDownload"
+                            :on-remove="fileRemove"
+                            :on-success="fileSuccess"
                             class="upload-demo"
                             drag
-                            ref="upload">
+                            ref="upload"
+                            v-model="form.uploadfile">
                             <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                            <div class="el-upload__text">
+                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
                           </el-upload>
                         </el-form-item>
                       </el-col>
@@ -125,47 +152,47 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second"  >
+            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">
               <el-table :data="source"
-                        header-cell-class-name="sub_bg_color_blue"
-                        stripe border >
+                        border
+                        header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.number"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.number"></el-input>
                   </template>
                 </el-table-column>
                 <!--姓名-->
                 <el-table-column :label="$t('label.user_name')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.name"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.name"></el-input>
                   </template>
                 </el-table-column>
                 <!--社员外协-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.commune"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.commune"></el-input>
                   </template>
                   <!--稼働率-->
-                </el-table-column> <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="100">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.croprate"></el-input>
-                </template>
-              </el-table-column>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="100">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.croprate"></el-input>
+                  </template>
+                </el-table-column>
                 <!--PJ稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.pjcroprate"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.pjcroprate"></el-input>
                   </template>
                 </el-table-column>
                 <!--直接稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20"  v-model="scope.row.dicroprate"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.dicroprate"></el-input>
                   </template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-
 
 
             <!--<el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third"  >-->
@@ -240,10 +267,11 @@
 
             <!--</el-tab-pane>-->
             <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">
-              <el-form-item >
-                <el-row >
+              <el-form-item>
+                <el-row>
                   <el-col :span="24">
-                    <el-table :data="stage" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 70vw">
+                    <el-table :data="stage" border header-cell-class-name="sub_bg_color_blue" stripe
+                              style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
                           <dicselect
@@ -261,7 +289,7 @@
                       >
                         <template slot-scope="scope">
                           <dicselect
-                            :code="code2"
+                            :code="code5"
                             :data="scope.row.stageproduct"
                             :disabled="!disable"
                             :multiple="multiple"
@@ -274,10 +302,10 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.estimatedwork"
-                            style="width: 100%">
+                            :no="scope.row"
+                            style="width: 100%"
+                            v-model="scope.row.estimatedwork">
                           </el-input>
                         </template>
                       </el-table-column>
@@ -288,10 +316,10 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.estimatedstarttime"
                             :disabled="!disable"
-                            type="date"
                             style="width: 100%"
+                            type="date"
+                            v-model="scope.row.estimatedstarttime"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -303,10 +331,10 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.estimatedendtime"
                             :disabled="!disable"
-                            type="date"
                             style="width: 100%"
+                            type="date"
+                            v-model="scope.row.estimatedendtime"
                           >
                           </el-date-picker>
                         </template>
@@ -316,10 +344,10 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.remarks"
-                            style="width: 100%">
+                            :no="scope.row"
+                            style="width: 100%"
+                            v-model="scope.row.remarks">
                           </el-input>
                         </template>
                       </el-table-column>
@@ -340,7 +368,7 @@
   import {getToken} from '@/utils/auth'
   import {Message} from 'element-ui';
   import dicselect from "../../../components/dicselect";
-  import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
+  import {downLoadUrl, getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
 
   export default {
     name: "PFANS5004FormView",
@@ -362,7 +390,6 @@
             icon: 'el-icon-check',
           }
         ],
-        baseInfo: {},
         form: {
           project_name: "",
           managerid: "",
@@ -371,7 +398,7 @@
           startdate: "",
           enddate: "",
           assetaddress: '',
-          explan: '',
+          instructions: '',
           exprence: '',
           advise: '',
           note: '',
@@ -390,13 +417,14 @@
           rowindex: "",
         }],
         stage: [{
-          projectresources_id: "",
+          stageinformation_id: "",
           companyprojects_id: "",
-          numbers: "",
-          user_id: "",
-          admissiontime: "",
-          exittime: "",
-          role: ""
+          phase: "",
+          stageproduct: "",
+          estimatedwork: "",
+          estimatedstarttime: "",
+          estimatedendtime: "",
+          remarks: ''
         }],
         rules: {
           assetaddress: [{
@@ -409,8 +437,10 @@
         fileList: [],
         upload: uploadUrl(),
         code1: 'PP012',
-        code2: 'PP013',
-        code3: 'PP014',
+        code2: "PP001",
+        code3: "PP002",
+        code5: 'PP013',
+        code6: 'PP014',
         code4: 'PP015',
         multiple: false,
         showrow1: true,
@@ -423,16 +453,17 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/selectById', {'companyprojects_id': this.$route.params._id})
+          .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
           .then(response => {
+            debugger;
             this.form = response.companyprojects;
             /*项目资源*/
             if (response.projectSecore.length > 0) {
               this.source = response.projectSecore;
             }
             /*阶段信息*/
-            if (response.projectresources.length > 0) {
-              this.stage = response.projectresources;
+            if (response.stageinformation.length > 0) {
+              this.stage = response.stageinformation;
             }
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != "") {
@@ -447,9 +478,6 @@
                 }
               }
             }
-            this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectSecore = JSON.parse(JSON.stringify(this.source));
-            this.baseInfo.stageNews = JSON.parse(JSON.stringify(this.stage));
           })
           .catch(error => {
             Message({
@@ -542,79 +570,80 @@
           this.form.uploadfile += o.name + "," + o.url + ";"
         }
       },
-    buttonClick(val) {
-      this.$refs["reff"].validate(valid => {
-        if (valid) {
-          this.baseInfo = {};
-          // this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
-          // this.baseInfo.projectSecore = [];
-          // this.baseInfo.stageNews = [];
-          // for (let i = 0; i < this.source.length; i++) {
-          //   if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
-          //     || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
-          //     this.baseInfo.projectSecore.push(
-          //       {
-          //         projectsecoreid: this.source[i].projectsecoreid,
-          //         closeapplicatid: this.source[i].closeapplicatid,
-          //         number: this.source[i].number,
-          //         name: this.source[i].name,
-          //         commune: this.source[i].commune,
-          //         croprate: this.source[i].croprate,
-          //         pjcroprate: this.source[i].pjcroprate,
-          //         dicroprate: this.source[i].dicroprate,
-          //       }
-          //     );
-          //   }
-          // }
-          // for (let i = 0; i < this.stage.length; i++) {
-          //   if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
-          //     || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
-          //     this.baseInfo.stageNews.push(
-          //       {
-          //         stagenews_id: this.stage[i].stagenews_id,
-          //         closeapplicatid: this.stage[i].closeapplicatid,
-          //         workstage: this.stage[i].workstage,
-          //         stagething: this.stage[i].stagething,
-          //         predictnukmber: this.stage[i].predictnukmber,
-          //         projectnumber: this.stage[i].projectnumber,
-          //         stdatetime: this.stage[i].stdatetime,
-          //         note1: this.stage[i].note1,
-          //         finshtime: this.stage[i].finshtime,
-          //       }
-          //     );
-          //   }
-          // }
-          if (this.$route.params._id) {
-            this.$store
-              .dispatch('PFANS5004Store/update', this.baseInfo)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                if (val !== "update") {
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
+      buttonClick(val) {
+        this.$refs["reff"].validate(valid => {
+          if (valid) {
+            debugger;
+            // this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
+            // this.baseInfo.projectSecore = [];
+            // this.baseInfo.stageNews = [];
+            // for (let i = 0; i < this.source.length; i++) {
+            //   if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+            //     || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
+            //     this.baseInfo.projectSecore.push(
+            //       {
+            //         projectsecoreid: this.source[i].projectsecoreid,
+            //         closeapplicatid: this.source[i].closeapplicatid,
+            //         number: this.source[i].number,
+            //         name: this.source[i].name,
+            //         commune: this.source[i].commune,
+            //         croprate: this.source[i].croprate,
+            //         pjcroprate: this.source[i].pjcroprate,
+            //         dicroprate: this.source[i].dicroprate,
+            //       }
+            //     );
+            //   }
+            // }
+            // for (let i = 0; i < this.stageinformation.length; i++) {
+//   if (this.stage[i].phase !== "" || this.stage[i].stageproduct !== "" || this.stage[i].estimatedwork !== "" || this.stage[i].estimatedstarttime !== ""
+//     || this.stage[i].estimatedendtime !== "" || this.stage[i].remarks !== "" ) {
+//     this.baseInfo.stageNews.push(
+//       {
+//           stageinformation_id: this.stage[i].  stageinformation_id,
+//        companyprojects_id: this.stage[i].companyprojects_id,
+//         phase: this.stage[i].phase,
+//         stageproduct: this.stage[i].stageproduct,
+//         estimatedwork: this.stage[i].estimatedwork,
+//         estimatedstarttime: this.stage[i].estimatedstarttime,
+//         remarks: this.stage[i].remarks,
+//       }
+//     );
+//   }
+// }
+            if (this.$route.params._id) {
+              debugger
+              this.$store
+                .dispatch('PFANS5001Store/update', this.baseInfo)
+                .then(response => {
+                  denugger;
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== "update") {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
                   }
-                }
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false;
-              })
-          }
-        }
-      })
-    }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            }
 
-  }
+          }
+        })
+      }
+
+    }
   }
 </script>
 
