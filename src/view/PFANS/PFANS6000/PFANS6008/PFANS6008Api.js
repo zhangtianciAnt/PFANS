@@ -8,4 +8,11 @@ export function getCostList(data) {
   })
 }
 
+export function insertCoststatistics() {
+  return request({
+    url: 'coststatistics/insertCoststatistics',
+    method: 'post'
+  })
+}
+
 

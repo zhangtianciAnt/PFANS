@@ -1,4 +1,4 @@
-import {getCostList} from './PFANS6008Api'
+import {getCostList, insertCoststatistics} from './PFANS6008Api'
 const PFANS6008Store = {
   namespaced: true,
   state: {},
@@ -16,7 +16,20 @@ const PFANS6008Store = {
           reject(error);
         })
       })
-    }
+    },
+    insertCoststatistics() {
+      return new Promise((resolve, reject) => {
+        insertCoststatistics().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 
