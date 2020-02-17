@@ -3979,7 +3979,7 @@
                 maketype: '',
             });
         },
-        click1() {//111
+        click1() {
             this.tablefirst = [];
             this.tablesecond = [];
             this.tablethird = [];
@@ -4368,7 +4368,13 @@
             if (val === "save") {
                 let tabledata = [];
                 //海外受託 技術開発
-                if(this.form.contracttype === 'HT008001'){
+                if(this.form.contracttype === 'HT008001'){//11
+                    for (let i = 0; i < this.tablefirst.length; i++) {
+                        if(this.tablefirst[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablefirst[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefirst[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablefirst[i].claimdatetime = varstartdate;
+                        }
+                    }
                     tabledata = this.tablefirst;
                 }
                 //海外複合受託 技術開発
