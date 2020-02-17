@@ -90,9 +90,9 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_LANGUAGE')" prop="language">
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_LANGUAGE')" prop="languages">
                         <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
-                                  v-model="form.language"></el-input>
+                                  v-model="form.languages"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -339,7 +339,7 @@
           managerid: '',
           projecttype: '',
           field: '',
-          language: '',
+          languages: '',
           startdate: moment(new Date()).format('YYYY-MM-DD'),
           enddate: '',
           work: '',
@@ -422,7 +422,7 @@
               trigger: 'change',
             },
           ],
-          language: [
+          languages: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_LANGUAGE'),
@@ -467,13 +467,10 @@
         this.$store
           .dispatch('PFANS5009Store/selectById', {companyprojectsid: this.$route.params._id})
           .then(response => {
-            debugger
             this.form = response.companyprojects;
-            // this.centerorglist = this.form.center_id;
-            // this.grouporglist = this.form.group_id;
-            // this.teamorglist = this.form.team_id;
-            this.baseInfo.companyprojects=JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableP));
+            this.centerorglist = this.form.center_id;
+            this.grouporglist = this.form.group_id;
+            this.teamorglist = this.form.team_id;
             if (response.stageinformation.length > 0) {
               this.tableP = response.stageinformation;
             }
