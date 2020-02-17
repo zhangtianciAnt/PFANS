@@ -462,21 +462,21 @@
                 key_hour  = "totalmanhours";
               }
               for (var j = 0; j<tableData.length; j++) {
-                total_manhour += parseFloat(tableData[j][key_hour]).toFixed(1);
-                total_cost += parseFloat(tableData[j][key_cost]).toFixed(1);
+                total_manhour += parseFloat(tableData[j][key_hour]).toFixed(2);
+                total_cost += parseFloat(tableData[j][key_cost]).toFixed(2);
               }
-              addLine1[key_hour] = parseFloat(total_manhour).toFixed(1);
-              addLine1[key_cost] = parseFloat(total_cost).toFixed(1);
+              addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
+              addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
               if ( total_manhour == 0 ) {
                 addLine2[key_cost] = "0.0";
               } else {
-                addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(1);
+                addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(2);
               }
 
-              tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(1);
-              assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(1);
+              tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
+              assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
 
-              addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(1);
+              addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(2);
             }
             arrayAdate.push(addLine1);
             arrayAdate.push(addLine2);
@@ -525,11 +525,11 @@
                 var c = parseFloat(data["cost"+i]);
                 totalManhour += m;
                 totalCost += c;
-                data["manhour"+i] = m.toFixed(1);
-                data["cost"+i] = c.toFixed(1);
+                data["manhour"+i] = m.toFixed(2);
+                data["cost"+i] = c.toFixed(2);
               }
-              data["totalmanhours"] = parseFloat(totalManhour).toFixed(1);
-              data["totalcost"] = parseFloat(totalCost).toFixed(1);
+              data["totalmanhours"] = parseFloat(totalManhour).toFixed(2);
+              data["totalcost"] = parseFloat(totalCost).toFixed(2);
             });
 
 
@@ -569,9 +569,9 @@
               for (var i=1; i<=12; i++) {
                 var m = parseFloat(data["manhour"+i]);
                 totalManhour += m;
-                data["manhour"+i] = m.toFixed(1);
+                data["manhour"+i] = m;
               }
-              data["totalmanhours"] = parseFloat(totalManhour).toFixed(1);
+              data["totalmanhours"] = parseFloat(totalManhour);
             });
 
             for (var i = 1; i <= 12; i++) {
