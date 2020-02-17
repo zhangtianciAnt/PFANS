@@ -1,7 +1,6 @@
 import {
   get,
   selectById,
-  insert,
   update,
 } from './PFANS5004Api'
 import {getFpans5001List} from "../PFANS5001/PFANS5001Api";
@@ -13,19 +12,6 @@ const PFANS5004Store = {
   mutations: {
   },
   actions: {
-    update({commit}, data) {
-      return new Promise((resolve, reject) => {
-        update(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
     getFpans5001List({commit},data) {
       return new Promise((resolve, reject) => {
         getFpans5001List(data).then(response => {
@@ -65,9 +51,9 @@ const PFANS5004Store = {
         })
       })
     },
-    insert({commit}, data) {
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
-        insert(data).then(response => {
+        update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

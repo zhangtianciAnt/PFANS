@@ -14,18 +14,11 @@ export function selectById(data) {
     data: data
   })
 }
+
 export function update(data) {
   return request({
-    url: 'closeapplicat/update',
+    url: 'companyprojects/update',
     method: 'post',
     data: data
   })
 }
-export function insert(data) {
-  return request({
-    url: 'closeapplicat/insert',
-    method: 'post',
-    data: data
-  })
-}
-

@@ -265,9 +265,9 @@
                   </template>
                 </el-table-column>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode">
+              <el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" v-model="scope.row.businesscode">
+                  <el-input :disabled="!disabled"   style="width: 11rem" v-model="scope.row.businesscode">
                   </el-input>
                 </template>
               </el-table-column>

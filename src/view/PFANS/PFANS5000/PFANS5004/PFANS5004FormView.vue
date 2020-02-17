@@ -469,7 +469,6 @@
     },
     methods: {
       getworkstage(val, row) {
-        debugger;
         row.workstage = val;
         if (val === 'PP012001') {
           row.showrow1 = true;
@@ -547,46 +546,45 @@
       this.$refs["reff"].validate(valid => {
         if (valid) {
           this.baseInfo = {};
-          this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
-          this.baseInfo.projectSecore = [];
-          this.baseInfo.stageNews = [];
-          for (let i = 0; i < this.source.length; i++) {
-            if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
-              || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
-              this.baseInfo.projectSecore.push(
-                {
-                  projectsecoreid: this.source[i].projectsecoreid,
-                  closeapplicatid: this.source[i].closeapplicatid,
-                  number: this.source[i].number,
-                  name: this.source[i].name,
-                  commune: this.source[i].commune,
-                  croprate: this.source[i].croprate,
-                  pjcroprate: this.source[i].pjcroprate,
-                  dicroprate: this.source[i].dicroprate,
-                }
-              );
-            }
-          }
-          for (let i = 0; i < this.stage.length; i++) {
-            if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
-              || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
-              this.baseInfo.stageNews.push(
-                {
-                  stagenews_id: this.stage[i].stagenews_id,
-                  closeapplicatid: this.stage[i].closeapplicatid,
-                  workstage: this.stage[i].workstage,
-                  stagething: this.stage[i].stagething,
-                  predictnukmber: this.stage[i].predictnukmber,
-                  projectnumber: this.stage[i].projectnumber,
-                  stdatetime: this.stage[i].stdatetime,
-                  note1: this.stage[i].note1,
-                  finshtime: this.stage[i].finshtime,
-                }
-              );
-            }
-          }
+          // this.baseInfo.closeApplicat = JSON.parse(JSON.stringify(this.form));
+          // this.baseInfo.projectSecore = [];
+          // this.baseInfo.stageNews = [];
+          // for (let i = 0; i < this.source.length; i++) {
+          //   if (this.source[i].number !== "" || this.source[i].name !== "" || this.source[i].commune !== "" || this.source[i].croprate !== ""
+          //     || this.source[i].pjcroprate !== "" || this.source[i].dicroprate !== "") {
+          //     this.baseInfo.projectSecore.push(
+          //       {
+          //         projectsecoreid: this.source[i].projectsecoreid,
+          //         closeapplicatid: this.source[i].closeapplicatid,
+          //         number: this.source[i].number,
+          //         name: this.source[i].name,
+          //         commune: this.source[i].commune,
+          //         croprate: this.source[i].croprate,
+          //         pjcroprate: this.source[i].pjcroprate,
+          //         dicroprate: this.source[i].dicroprate,
+          //       }
+          //     );
+          //   }
+          // }
+          // for (let i = 0; i < this.stage.length; i++) {
+          //   if (this.stage[i].workstage !== "" || this.stage[i].stagething !== "" || this.stage[i].predictnukmber !== "" || this.stage[i].projectnumber !== ""
+          //     || this.stage[i].stdatetime !== "" || this.stage[i].note1 !== "" || this.stage[i].finshtime !== "") {
+          //     this.baseInfo.stageNews.push(
+          //       {
+          //         stagenews_id: this.stage[i].stagenews_id,
+          //         closeapplicatid: this.stage[i].closeapplicatid,
+          //         workstage: this.stage[i].workstage,
+          //         stagething: this.stage[i].stagething,
+          //         predictnukmber: this.stage[i].predictnukmber,
+          //         projectnumber: this.stage[i].projectnumber,
+          //         stdatetime: this.stage[i].stdatetime,
+          //         note1: this.stage[i].note1,
+          //         finshtime: this.stage[i].finshtime,
+          //       }
+          //     );
+          //   }
+          // }
           if (this.$route.params._id) {
-            //this.baseInfo.closeApplicat.closeApplicatid = this.$route.params._id;
             this.$store
               .dispatch('PFANS5004Store/update', this.baseInfo)
               .then(response => {
