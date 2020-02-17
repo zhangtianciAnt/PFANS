@@ -425,11 +425,12 @@
         this.$store
           .dispatch('PFANS5001Store/selectById', {'companyprojects_id': this.$route.params._id})
           .then(response => {
-            debugger
             this.form = response.companyprojects;
+            /*项目资源*/
             if (response.projectSecore.length > 0) {
               this.source = response.projectSecore;
             }
+            /*阶段信息*/
             if (response.projectresources.length > 0) {
               this.stage = response.projectresources;
             }
