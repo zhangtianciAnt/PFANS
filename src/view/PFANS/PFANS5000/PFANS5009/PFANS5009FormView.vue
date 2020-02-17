@@ -52,9 +52,11 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
+                      <el-form-item :error="error" :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
                         <el-input :disabled="!disabled" maxlength='50' style="width:20vw"
                                   v-model="form.leaderid"></el-input>
+                        <user :disabled="!disabled" :error="error" selectType="Single" :userlist="userlist"
+                              @getUserids="getUserids" style="width:20vw" v-model="form.leaderid"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -286,6 +288,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import {getUserInfo} from '@/utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -321,7 +324,9 @@
         centerorglist: '',
         grouporglist: '',
         teamorglist: '',
+        userlist: '',
         loading: false,
+        error: '',
         errorcenter: '',
         errorgroup: '',
         activeName: 'first',
@@ -471,6 +476,7 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
+            let lst = getUserInfo(this.$store.getters.userinfo.userid);
             if (response.stageinformation.length > 0) {
               this.tableP = response.stageinformation;
             }
@@ -500,6 +506,16 @@
       }
     },
     methods: {
+      getUserids(val) {
+        this.userlist = val;
+        this.form.user_id = val;
+        let lst = getUserInfo(val);
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
+          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+        } else {
+          this.error = '';
+        }
+      },
       getCenterId(val) {
         this.form.center_id = val;
         this.centerorglist = val;
