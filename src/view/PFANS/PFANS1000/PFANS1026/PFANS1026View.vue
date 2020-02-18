@@ -75,7 +75,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -104,7 +104,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                       <dicselect
-                        :code="code1"
+                        :code="code5"
                         :data="scope.row.entrycondition"
                         :multiple="multiple"
                         @change="getEntrycondition"
@@ -122,7 +122,7 @@
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code2"
+                      :code="code6"
                       :data="scope.row.deliverycondition"
                       :multiple="multiple"
                       @change="getDeliverycondition"
@@ -134,7 +134,7 @@
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code3"
+                      :code="code7"
                       :data="scope.row.delivery"
                       :multiple="multiple"
                       @change="getDelivery"
@@ -148,7 +148,7 @@
                   <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                     <template slot-scope="scope">
                       <dicselect
-                        :code="code4"
+                        :code="code8"
                         :data="scope.row.claimcondition"
                         :multiple="multiple"
                         @change="getClaimcondition"
@@ -160,7 +160,7 @@
                   <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                     <template slot-scope="scope">
                       <dicselect
-                        :code="code5"
+                        :code="code7"
                         :data="scope.row.claim"
                         :multiple="multiple"
                         @change="getClaim"
@@ -210,7 +210,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code6"
+                      :code="code9"
                       :data="scope.row.currencyposition"
                       :multiple="multiple"
                       @change="getCurrencyposition"
@@ -273,7 +273,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code7"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -358,7 +358,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DECIDE')" align="center" prop="decide"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code8"
+                    :code="code11"
                     :data="scope.row.decide"
                     :multiple="multiple"
                     @change="getDecide"
@@ -458,7 +458,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -475,28 +475,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                    :code="code7"
+                    :data="scope.row.delivery"
+                    :multiple="multiple"
+                    @change="getDelivery"
+                    style="width: 11rem"
+                    :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -540,7 +564,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -603,7 +627,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -688,7 +712,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_DECIDE')" align="center" prop="decide"  width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code3"
+                      :code="code11"
                       :data="scope.row.decide"
                       :multiple="multiple"
                       @change="getDecide"
@@ -788,7 +812,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -805,28 +829,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -870,7 +918,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -933,7 +981,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -1062,7 +1110,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -1079,28 +1127,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1144,7 +1216,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -1207,7 +1279,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -1336,7 +1408,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -1353,28 +1425,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1481,7 +1577,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -1610,7 +1706,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -1627,28 +1723,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1692,7 +1812,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -1755,7 +1875,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -1884,7 +2004,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -1901,28 +2021,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1966,7 +2110,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -2029,7 +2173,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -2158,7 +2302,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -2175,28 +2319,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -2240,7 +2408,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -2303,7 +2471,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -2432,7 +2600,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code"
+                    :code="code5"
                     :data="form.entrycondition"
                     :multiple="multiple"
                     @change="getEntrycondition"
@@ -2449,28 +2617,52 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.deliverycondition">
-                    </el-input>
+                    <dicselect
+                      :code="code6"
+                      :data="scope.row.deliverycondition"
+                      :multiple="multiple"
+                      @change="getDeliverycondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.delivery">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.delivery"
+                      :multiple="multiple"
+                      @change="getDelivery"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                 <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"    v-model="scope.row.claimcondition">
-                    </el-input>
+                    <dicselect
+                      :code="code8"
+                      :data="scope.row.claimcondition"
+                      :multiple="multiple"
+                      @change="getClaimcondition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled"   v-model="scope.row.claim">
-                    </el-input>
+                    <dicselect
+                      :code="code7"
+                      :data="scope.row.claim"
+                      :multiple="multiple"
+                      @change="getClaim"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -2514,7 +2706,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code1"
+                    :code="code9"
                     :data="scope.row.currencyposition"
                     :multiple="multiple"
                     @change="getCurrencyposition"
@@ -2577,7 +2769,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
+                    :code="code10"
                     :data="scope.row.varto"
                     :multiple="multiple"
                     @change="getVarto"
@@ -2761,10 +2953,13 @@
           code2: 'HT008',
           code3: 'HT007',
           code4: 'HT003',
-          code5: 'PJ028',
-          code6: 'PJ028',
-          code7: 'PJ028',
-          code8: 'PJ028',
+          code5: 'HT004',
+          code6: 'HT009',
+          code7: 'HT010',
+          code8: 'HT011',
+          code9: 'HT006',
+          code10: 'HT012',
+          code11: 'HT013',
           show1: true,
           show2: false,
       };
@@ -3512,6 +3707,11 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
             //部门
             let letgrouporg = this.grouporglist;
             this.tablefirst.push({
@@ -3520,7 +3720,7 @@
                 deployment: '',
                 applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
+                contracttype: letcontracttype,
                 contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
@@ -4366,6 +4566,7 @@
                 this.show2=true;
             }
             if (val === "save") {
+                debugger;
                 let tabledata = [];
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){//11
@@ -4374,39 +4575,114 @@
                             var varstartdate = moment(this.tablefirst[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefirst[i].claimdatetime[1]).format('YYYY-MM-DD');
                             this.tablefirst[i].claimdatetime = varstartdate;
                         }
+                        else{
+                            this.tablefirst[i].claimdatetime = '';
+                        }
                     }
                     tabledata = this.tablefirst;
                 }
                 //海外複合受託 技術開発
                 else if(this.form.contracttype === 'HT008002'){
+                    for (let i = 0; i < this.tablesecond.length; i++) {
+                        if(this.tablesecond[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablesecond[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesecond[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablesecond[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tablesecond[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tablesecond;
                 }
                 //海外受託 役務
                 else if(this.form.contracttype === 'HT008003'){
+                    for (let i = 0; i < this.tablethird.length; i++) {
+                        if(this.tablethird[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablethird[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablethird[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablethird[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tablethird[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tablethird;
                 }
                 //海外複合受託 役務
                 else if(this.form.contracttype === 'HT008004'){
+                    for (let i = 0; i < this.tablefourth.length; i++) {
+                        if(this.tablefourth[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablefourth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefourth[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablefourth[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tablefourth[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tablefourth;
                 }
                 //国内受託 技術開発
                 else if(this.form.contracttype === 'HT008005'){
+                    for (let i = 0; i < this.tablefifth.length; i++) {
+                        if(this.tablefifth[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablefifth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefifth[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablefifth[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tablefifth[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tablefifth;
                 }
                 //国内複合受託 技術開発
                 else if(this.form.contracttype === 'HT008006'){
+                    for (let i = 0; i < this.tablesixth.length; i++) {
+                        if(this.tablesixth[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tablesixth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesixth[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tablesixth[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tablesixth[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tablesixth;
                 }
                 //国内受託 役務
                 else if(this.form.contracttype === 'HT008007'){
+                    for (let i = 0; i < this.tableseventh.length; i++) {
+                        if(this.tableseventh[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tableseventh[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableseventh[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tableseventh[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tableseventh[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tableseventh;
                 }
                 //国内複合受託 役務
                 else if(this.form.contracttype === 'HT008008'){
+                    for (let i = 0; i < this.tableeighth.length; i++) {
+                        if(this.tableeighth[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tableeighth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableeighth[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tableeighth[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tableeighth[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tableeighth;
                 }
                 //販売
                 else if(this.form.contracttype === 'HT008009'){
+                    for (let i = 0; i < this.tableninth.length; i++) {
+                        if(this.tableninth[i].claimdatetime.length > 0){
+                            var varstartdate = moment(this.tableninth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableninth[i].claimdatetime[1]).format('YYYY-MM-DD');
+                            this.tableninth[i].claimdatetime = varstartdate;
+                        }
+                        else{
+                            this.tableninth[i].claimdatetime = '';
+                        }
+                    }
                     tabledata = this.tableninth;
                 }
                 this.$refs["refform"].validate(valid => {
