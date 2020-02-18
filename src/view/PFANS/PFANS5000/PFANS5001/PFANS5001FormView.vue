@@ -642,7 +642,7 @@
                               <el-col :span="8">
                                   <div class="dpSupIndex" style="width:10vw" prop="expname">
                                     <el-container>
-                                      <input class="content bg" v-model="tableT2.expname" :error="errorexpname"
+                                      <input class="content bg" v-model="scope.row.expname" :error="errorexpname"
                                              :disabled="true"></input>
                                       <el-button :disabled="!disabled" icon="el-icon-search"
                                                  @click="dialogTableVisible1 = true"
@@ -681,8 +681,8 @@
                                             </el-table>
                                           </el-row>
                                           <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
-                        </span>
+                                            <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
+                                          </span>
                                         </div>
                                       </el-dialog>
                                     </el-container>
