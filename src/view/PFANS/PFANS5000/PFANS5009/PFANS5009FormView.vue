@@ -52,17 +52,27 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :error="error" :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
-                        <el-input :disabled="!disabled" maxlength='50' style="width:20vw"
-                                  v-model="form.leaderid"></el-input>
-                        <user :disabled="!disabled" :error="error" selectType="Single" :userlist="userlist"
-                              @getUserids="getUserids" style="width:20vw" v-model="form.leaderid"></user>
+                      <el-form-item :error="errorLeader" :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
+                        <user
+                          :disabled="!disabled"
+                          :error="errorLeader"
+                          :selectType="selectType"
+                          :userlist="userlist"
+                          @getUserids="getUserids"
+                          style="width: 20vw"
+                        ></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
-                        <el-input :disabled="!disabled" maxlength='50' style="width:20vw"
-                                  v-model="form.managerid"></el-input>
+                      <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
+                        <user
+                          :disabled="!disable"
+                          :error="errorManager"
+                          :selectType="selectType"
+                          :userlist="userlist1"
+                          @getUserids="getUserids1"
+                          style="width: 20vw"
+                        ></user>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -153,7 +163,10 @@
             </el-tab-pane>
 
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_STAGEINFORMATION')" name="second">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border>
+              <el-form-item>
+                <el-row>
+                  <el-col :span="24">
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center" width="100">
                   <template slot-scope="scope">
                     <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
@@ -266,6 +279,9 @@
 <!--                  </template>-->
 <!--                </el-table-column>-->
               </el-table>
+                  </el-col>
+                </el-row>
+              </el-form-item>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTSYSTEM')" name="third">
             </el-tab-pane>
@@ -284,11 +300,12 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
   import PFANS5009View from '../PFANS5009/PFANS5009View.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId} from '@/utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -296,10 +313,44 @@
     components: {
       EasyNormalContainer,
       PFANS5009View,
+      getOrgInfoByUserId,
+      user,
       dicselect,
       org,
     },
     data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(
+            new Error(
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_LEADERID'),
+            ),
+          );
+          this.errorLeader =
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_LEADERID');
+        } else {
+          callback();
+          this.errorLeader = '';
+        }
+      };
+      var validateUserid1 = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(
+            new Error(
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
+            ),
+          );
+          this.errorManager =
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+        } else {
+          callback();
+          this.errorManager = '';
+        }
+      };
       var checkcenter = (rule, value, callback) => {
         if (!value || value === '') {
           this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
@@ -325,10 +376,13 @@
         grouporglist: '',
         teamorglist: '',
         userlist: '',
+        userlist1: '',
         loading: false,
-        error: '',
+        errorLeader: '',
+        errorManager: '',
         errorcenter: '',
         errorgroup: '',
+        selectType: 'Single',
         activeName: 'first',
         title: 'title.PFANS5009VIEW',
         buttonList: [],
@@ -402,15 +456,15 @@
           leaderid: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_PL'),
-              trigger: 'blur',
+              validator: validateUserid,
+              trigger: 'change',
             },
           ],
           managerid: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5009FORMVIEW_TL'),
-              trigger: 'blur',
+              validator: validateUserid1,
+              trigger: 'change',
             },
           ],
           projecttype: [
@@ -473,6 +527,8 @@
           .dispatch('PFANS5009Store/selectById', {companyprojectsid: this.$route.params._id})
           .then(response => {
             this.form = response.companyprojects;
+            this.userlist = this.form.leaderid;
+            this.userlist1 = this.form.managerid;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
@@ -491,6 +547,10 @@
             this.loading = false;
           });
       }
+      else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        this.userlist1 = this.$store.getters.userinfo.userid;
+      }
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -508,12 +568,33 @@
     methods: {
       getUserids(val) {
         this.userlist = val;
-        this.form.user_id = val;
-        let lst = getUserInfo(val);
-        if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
-          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+        this.form.leaderid = val;
+        let lst = getOrgInfoByUserId(val);
+        if (
+          !this.form.leaderid ||
+          this.form.leaderid === '' ||
+          val === 'undefined'
+        ) {
+          this.errorLeader =
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_LEADERID');
         } else {
-          this.error = '';
+          this.errorLeader = '';
+        }
+      },
+      getUserids1(val) {
+        this.userlist1 = val;
+        this.form.managerid = val;
+        if (
+          !this.form.managerid ||
+          this.form.managerid === '' ||
+          val === 'undefined'
+        ) {
+          this.errorManager =
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+        } else {
+          this.errorManager = '';
         }
       },
       getCenterId(val) {
@@ -591,6 +672,8 @@
       //     });
       // },
       buttonClick(val) {
+        this.form.leaderid = this.userlist;
+        this.form.managerid = this.userlist1;
         this.$refs['refform'].validate(valid => {
           if (valid) {
             this.loading = true;
