@@ -28,6 +28,14 @@
                 fix: false,
                 filter: true
               },
+              /*阶段信息*/
+              {
+                code: 'phase',
+                label: 'label.PFANS5009VIEW_PHASE',
+                width: 120,
+                fix: false,
+                filter: true
+              },
               {
                 code: 'productstatus',
                 label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
@@ -93,7 +101,7 @@
               duration: 5 * 1000
             });
             this.loading = false;
-          })
+          });
       },
       methods: {
         rowClick(row) {
