@@ -394,7 +394,7 @@
   import org from "../../../components/org";
 
   export default {
-    name: "PFANS5004FormView",
+    name: "PFANS5005FormView",
     components: {
       dicselect,
       EasyNormalContainer,
@@ -435,7 +435,7 @@
         }],
         data: [],
         loading: false,
-        title: "title.PFANS5004VIEW",
+        title: "title.PFANS5005VIEW",
         rules: {
           assetaddress: [{
             required: true,

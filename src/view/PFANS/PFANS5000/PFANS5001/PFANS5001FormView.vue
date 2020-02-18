@@ -523,13 +523,21 @@
                             <template slot-scope="scope">
                               <user
                                 :disabled="!disable"
-                                :error="errorLeader"
-                                :selectType="selectType"
-                                :userlist="userlist"
+                                :no="scope.row"
+                                :userlist="scope.row.userlist"
+                                @getUserids="getCitationUserid"
                                 :multiple="multiple"
-                                @getUserids="getUserids"
                                 style="width: 18vw"
                               ></user>
+                              <!--<user-->
+                                <!--:disabled="!disable"-->
+                                <!--:error="errorLeader"-->
+                                <!--:selectType="selectType"-->
+                                <!--:userlist="userlist"-->
+                                <!--:multiple="multiple"-->
+                                <!--@getUserids="getUserids"-->
+                                <!--style="width: 18vw"-->
+                              <!--&gt;</user>-->
                             </template>
                           </el-table-column>
                           <!--                    職務-->
@@ -642,7 +650,7 @@
                               <el-col :span="8">
                                   <div class="dpSupIndex" style="width:10vw" prop="expname">
                                     <el-container>
-                                      <input class="content bg" v-model="tableT2.expname" :error="errorexpname"
+                                      <input class="content bg" v-model="scope.row.expname" :error="errorexpname"
                                              :disabled="true"></input>
                                       <el-button :disabled="!disabled" icon="el-icon-search"
                                                  @click="dialogTableVisible1 = true"
@@ -681,8 +689,8 @@
                                             </el-table>
                                           </el-row>
                                           <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
-                        </span>
+                                            <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
+                                          </span>
                                         </div>
                                       </el-dialog>
                                     </el-container>
@@ -1264,6 +1272,9 @@
         } else {
           this.errorLeader = '';
         }
+      },
+      getCitationUserid(userlist, row) {
+        row.userlist = userlist;
       },
       getUserids1(val) {
         this.userlist1 = val;
