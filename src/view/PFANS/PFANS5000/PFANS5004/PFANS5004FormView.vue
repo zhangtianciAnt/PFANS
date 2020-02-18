@@ -59,7 +59,14 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANAGERID')">
-                          <el-input :disabled="true" style="width:20vw" v-model="form.managerid"></el-input>
+                          <!--<el-input :disabled="true" style="width:20vw" v-model="form.managerid"></el-input>-->
+                          <user
+                            :disabled="true"
+                            :error="errorManager"
+                            :userlist="userlist"
+                            @getUserids="getUserids"
+                            style="width: 20vw"
+                          ></user>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -378,12 +385,11 @@
 </template>
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import user from "../../../components/user.vue";
   import dicselect from "../../../components/dicselect.vue";
   import { uploadUrl } from "@/utils/customize";
   import {getUserInfo} from '@/utils/customize'
   import { Message } from "element-ui";
-  import moment from 'moment';
+  import user from "../../../components/user.vue";
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
 
@@ -400,6 +406,8 @@
       return {
         disabled: true,
         activeName: "first",
+        errorManager: "",
+        userlist:"",
         buttonList: [  {
           key: "save",
           name: "button.save"
@@ -452,7 +460,6 @@
           uploadfile: '',
 
         },
-        multiple: false,
         code1: 'PP012',
         code2: "PP001",
         code3: "PP002",
@@ -475,10 +482,10 @@
           .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
           .then(response => {
             this.form = response.companyprojects;
-            this.userlist = this.form.leaderid;
+            this.userlist = this.form.managerid;
             /*项目资源*/
-            if (response.projectSecore.length > 0) {
-              this.source = response.projectSecore;
+            if (response.projectsystem.length > 0) {
+              this.source = response.projectsystem;
             }
             /*阶段信息*/
             if (response.stageinformation.length > 0) {
@@ -517,6 +524,21 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getUserids(val) {
+        this.userlist = val;
+        this.form.managerid = val;
+        if (
+          !this.form.managerid ||
+          this.form.managerid === "" ||
+          val === "undefined"
+        ) {
+          this.errorManager =
+            this.$t("normal.error_08") +
+            this.$t("label.PFANS5001FORMVIEW_MANAGERID");
+        } else {
+          this.errorManager = "";
+        }
+      },
       workflowState(val) {
         if (val.state === "1") {
           this.form.status = "3";
