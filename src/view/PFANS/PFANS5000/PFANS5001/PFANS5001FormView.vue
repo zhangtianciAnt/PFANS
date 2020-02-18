@@ -603,6 +603,160 @@
 
                       <!--                社外-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY')" name="second">
+                        <el-table :data="tableT2" stripe border header-cell-class-name="sub_bg_color_blue"
+                                  style="width: 80vw">
+                          <!--                      编号-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                            align="center"
+                            width="110">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.number"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--                      协力公司-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.suppliername"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--                    姓名-->
+                          <el-table-column
+                            :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                            align="center"
+                            width="200">
+                            <template slot-scope="scope">
+                              <el-col :span="8">
+                                  <div class="dpSupIndex" style="width:10vw" prop="expname">
+                                    <el-container>
+                                      <input class="content bg" v-model="tableT2.expname" :error="errorexpname"
+                                             :disabled="true"></input>
+                                      <el-button :disabled="!disabled" icon="el-icon-search"
+                                                 @click="dialogTableVisible1 = true"
+                                                 size="small"></el-button>
+                                      <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
+                                                 :visible.sync="dialogTableVisible1"
+                                                 center size="50%"
+                                                 top="8vh" lock-scroll
+                                                 append-to-body>
+                                        <div style="text-align: center">
+                                          <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                            <el-table
+                                              :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
+                                              height="500px" highlight-current-row style="width: 100%"
+                                              tooltip-effect="dark"
+                                              @row-click="handleClickChange1">
+                                              <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                                                               width="100"></el-table-column>
+                                              <el-table-column property="expname" fixed
+                                                               :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                               width="100"></el-table-column>
+                                              <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                                               width="100"></el-table-column>
+                                              <el-table-column property="post"
+                                                               :label="$t('label.PFANSUSERVIEW_POST')"
+                                                               width="150"></el-table-column>
+                                              <el-table-column
+                                                align="right" width="180">
+                                                <template slot="header" slot-scope="scope">
+                                                  <el-input
+                                                    v-model="search"
+                                                    size="mini"
+                                                    placeholder="请输入姓名关键字搜索"/>
+                                                </template>
+                                              </el-table-column>
+                                            </el-table>
+                                          </el-row>
+                                          <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
+                        </span>
+                                        </div>
+                                      </el-dialog>
+                                    </el-container>
+                                  </div>
+                              </el-col>
+                            </template>
+                          </el-table-column>
+                          <!--                    職務-->
+                          <el-table-column
+                            :label="$t('label.PFANSUSERVIEW_POST')"
+                            align="center"
+                            width="120">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.post"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--                入场时间-->
+                          <el-table-column
+                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            align="center"
+                            prop="admissiontime"
+                            width="180">
+                            <template slot-scope="scope">
+                              <el-date-picker
+                                :disabled="!disable"
+                                type="date"
+                                :no="scope.row"
+                                v-model="scope.row.admissiontime"
+                                style="width: 9rem">
+                              </el-date-picker>
+                            </template>
+                          </el-table-column>
+                          <!--                退场时间-->
+                          <el-table-column
+                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            align="center"
+                            prop="exitime"
+                            width="180">
+                            <template slot-scope="scope">
+                              <el-date-picker
+                                :disabled="!disable"
+                                type="date"
+                                :no="scope.row"
+                                v-model="scope.row.exitime"
+                                style="width: 9rem">
+                              </el-date-picker>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.operation')" align="center" width="200">
+                            <template slot-scope="scope">
+                              <el-button
+                                :disabled="!disable"
+                                @click.native.prevent="deleteRow4(scope.$index, tableT2)"
+                                plain
+                                size="small"
+                                type="danger"
+                              >{{$t('button.delete')}}
+                              </el-button>
+                              <el-button
+                                :disabled="!disable"
+                                @click="addRow4()"
+                                plain
+                                size="small"
+                                type="primary"
+                              >{{$t('button.insert')}}
+                              </el-button>
+                            </template>
+                          </el-table-column>
+                        </el-table>
                       </el-tab-pane>
                     </el-tabs>
                   </el-col>
@@ -716,7 +870,9 @@
         teamorglist: '',
         errorcenter: '',
         errorgroup: '',
-
+        errorexpname: '',
+        search: '',
+        gridData1: [],
         disable: false,
         customerinfor: [],
         checkList: [],
@@ -774,8 +930,20 @@
             exitime: '',
           },
         ],
+        // 体制-社内
+        tableT2: [
+          {
+            number: '',
+            expname: '',
+            suppliername: '',
+            post: '',
+            admissiontime: '',
+            exitime: '',
+          },
+        ],
         data: [],
         loading: false,
+        dialogTableVisible1: false,
         title: 'label.PFANS5001VIEW1',
         rules: {
           leaderid: [
@@ -909,6 +1077,14 @@
               trigger: 'blur',
             },
           ],
+          // 姓名
+          expname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
         },
         baseInfo: {},
         form: {
@@ -962,6 +1138,7 @@
       };
     },
     mounted() {
+      this.getexpatriatesinfor();
       if (this.$route.params._id) {
         debugger;
         this.loading = true;
@@ -1072,7 +1249,10 @@
       },
       getUserids(val) {
         this.userlist = val;
-        this.form.leaderid = val;797
+        this.form.leaderid = val;
+        let lst = getOrgInfoByUserId(val);
+        this.tableT1.number = lst.number;
+        this.tableT1.post = lst.post;
         if (
           !this.form.leaderid ||
           this.form.leaderid === '' ||
@@ -1099,6 +1279,23 @@
         } else {
           this.errorManager = '';
         }
+      },
+      submit1() {
+        let lst = this.currentRow;
+        let lst1 = this.currentRow1;
+        let lst2 = this.currentRow2;
+        let lst3 = this.currentRow3;
+        this.dialogTableVisible1 = false;
+        this.tableT2.number = lst;
+        this.tableT2.expname = lst1;
+        this.tableT2.suppliername = lst2;
+        this.tableT2.post = lst3;
+      },
+      handleClickChange1(val) {
+        this.currentRow = val.number;
+        this.currentRow1 = val.expname;
+        this.currentRow2 = val.suppliername;
+        this.currentRow3 = val.post;
       },
       getCitationUserid(userlist, row) {
         row.user_id = userlist;
@@ -1265,6 +1462,21 @@
           }];
         }
       },
+      // 体制-社外
+      deleteRow4(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableT2 = [{
+            number: '',
+            expname: '',
+            suppliername: '',
+            post: '',
+            admissiontime: '',
+            exitime: '',
+          }];
+        }
+      },
 
       addRow() {
         this.tableD.push({
@@ -1276,7 +1488,6 @@
           endtime: '',
         });
       },
-      // 体制-社内
       addRow1() {
         this.tableE.push({
           projectresources_id: '',
@@ -1301,6 +1512,7 @@
           rowindex: '',
         });
       },
+      // 体制-社内
       addRow3() {
         this.tableT1.push({
           number: '',
@@ -1309,6 +1521,42 @@
           admissiontime: '',
           exitime: '',
         });
+      },
+      // 体制-社外
+      addRow4() {
+        this.tableT2.push({
+          number: '',
+          expname: '',
+          suppliername: '',
+          post: '',
+          admissiontime: '',
+          exitime: '',
+        });
+      },
+      getexpatriatesinfor() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+          .then(response => {
+            this.gridData1 = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote1 = {};
+              vote1.number = response[i].number;
+              vote1.expname = response[i].expname;
+              vote1.suppliername =  response[i].suppliername;
+              vote1.post = response[i].post;
+              this.gridData1.push(vote1);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
       },
       buttonClick(val) {
         this.form.leaderid = this.userlist;
@@ -1433,4 +1681,19 @@
   };
 </script>
 <style lang="scss" rel="stylesheet/scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 </style>
