@@ -19,6 +19,8 @@
                 style="width: 100%" v-loading='loading' :cell-class-name = "rowheight">
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
         </el-table-column>
+        <el-table-column type="index" v-if="showIndex" width="55" label="NO">
+        </el-table-column>
         <el-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
                          v-for="item in this.columns" v-if="item.child && item.child.length > 0">
           <el-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
@@ -142,6 +144,11 @@
       buttonShow:{
         type:Boolean,
         default:true
+      },
+      // 是否显示index
+      showIndex: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
