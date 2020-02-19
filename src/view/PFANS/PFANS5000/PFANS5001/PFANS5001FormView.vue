@@ -1635,7 +1635,6 @@
                 });
               }
             }
-
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.$store

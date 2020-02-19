@@ -1,6 +1,7 @@
 import {
   getexpatriatesinfor,
   getexpatriatesinforApplyOne,
+  getexpatriatesinforthisyear,
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
   setexpatriatesinforApply,
@@ -29,6 +30,19 @@ const PFANS6004Store = {
         })
       })
     },
+    getexpatriatesinforthisyear() {
+      return new Promise((resolve, reject) => {
+        getexpatriatesinforthisyear().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     getexpatriatesinforApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getexpatriatesinforApplyOne(data).then(response => {
@@ -37,7 +51,6 @@ const PFANS6004Store = {
           } else {
             reject(response.message)
           }
-          exitreason
         }).catch(error => {
           reject(error);
         })
