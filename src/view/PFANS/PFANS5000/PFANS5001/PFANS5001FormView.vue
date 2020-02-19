@@ -28,7 +28,7 @@
                   label-position="top"
                   label-width="8vw"
                   ref="from1"
-                >
+                   >
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
@@ -257,13 +257,12 @@
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
                         prop="deadline"
-                      >
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="20"
-                          style="width: 20vw"
-                          v-model="form.deadline"
-                        ></el-input>
+                      ><el-date-picker
+                        :disabled="!disable"
+                        style="width: 20vw"
+                        type="date"
+                        v-model="form.deadline"
+                      ></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -356,7 +355,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_BEHALF')" prop="behalf">
-                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                    <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                               v-model="form.behalf"></el-input>
                   </el-form-item>
                 </el-col>
@@ -381,15 +380,14 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableF" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
                           <dicselect
                             :code="code"
-                            :data="scope.row.role"
+                            :data="scope.row.phase"
                             :disabled="!disable"
-                            :multiple="multiple"
                             :no="scope.row"
                             @change="getrole"
                           ></dicselect>
@@ -403,11 +401,10 @@
                         <template slot-scope="scope">
                           <dicselect
                             :code="code1"
-                            :data="scope.row.role"
+                            :data="scope.row.stageproduct"
                             :disabled="!disable"
-                            :multiple="multiple"
                             :no="scope.row"
-                            @change="getrole"
+                            @change="getrole1"
                           ></dicselect>
                         </template>
                       </el-table-column>
@@ -418,7 +415,7 @@
                           <el-input
                             :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.technology"
+                            v-model="scope.row.estimatedwork"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -430,7 +427,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.admissiontime"
+                            v-model="scope.row.estimatedstarttime"
                             :disabled="!disable"
                             type="date"
                             style="width: 100%"
@@ -445,7 +442,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row.exittime"
+                            v-model="scope.row.estimatedendtime"
                             :disabled="!disable"
                             type="date"
                             style="width: 100%"
@@ -460,7 +457,7 @@
                           <el-input
                             :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.technology"
+                            v-model="scope.row.remarks"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -469,7 +466,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow1(scope.$index, tableE)"
+                            @click.native.prevent="deleteRow5(scope.$index, tableF)"
                             plain
                             size="small"
                             type="danger"
@@ -477,7 +474,7 @@
                           </el-button>
                           <el-button
                             :disabled="!disable"
-                            @click="addRow1()"
+                            @click="addRow5()"
                             plain
                             size="small"
                             type="primary"
@@ -895,6 +892,25 @@
         activeName: 'first',
         activeName2: 'first',
         buttonList: [],
+        tableF: [
+          {
+            stageinformation_id: '',
+            companyprojects_id: '',
+            phase: '',
+            stageproduct: '',
+            productstatus: '',
+            estimatedwork: '',
+            actualwork: '',
+            estimatedstarttime: '',
+            estimatedendtime: '',
+            remarks: '',
+            actualstarttime: '',
+            actualendtime: '',
+            product: '',
+            phasestatus: '',
+            rowindex: '',
+          },
+        ],
         tableD: [
           {
             projectplan_id: '',
@@ -1148,7 +1164,6 @@
     mounted() {
       this.getexpatriatesinfor();
       if (this.$route.params._id) {
-        debugger;
         this.loading = true;
         this.$store
           .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
@@ -1166,10 +1181,14 @@
             if (response.projectresources.length > 0) {
               this.tableE = response.projectresources;
             }
+            if (response.stageinformation.length > 0) {
+              this.tableF = response.stageinformation;
+            }
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.projectplan = JSON.parse(JSON.stringify(this.tableD));
             this.baseInfo.outSources = JSON.parse(JSON.stringify(this.tableR));
             this.baseInfo.projectresources = JSON.parse(JSON.stringify(this.tableE));
+            this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableF));
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != '') {
                 let uploadfile = this.form.uploadfile.split(';');
@@ -1315,42 +1334,45 @@
           row.role = lst.userinfo.rank;
         }
       },
-      getdepartmentid(val1) {
-        this.form.departmentid = val1;
-      },
+      // getdepartmentid(val1) {
+      //   this.form.departmentid = val1;
+      // },
       getprojecttype(val1) {
         this.form.projecttype = val1;
       },
       getfield(val1) {
         this.form.field = val1;
       },
-      gettechnological(val1) {
-        this.form.technological = val1;
-      },
-      getsituation(val1) {
-        this.form.situation = val1;
-      },
-      getconfidential(val1) {
-        this.form.confidential = val1;
-      },
-      getmanagementtool(val1) {
-        this.form.managementtool = val1;
-      },
+      // gettechnological(val1) {
+      //   this.form.technological = val1;
+      // },
+      // getsituation(val1) {
+      //   this.form.situation = val1;
+      // },
+      // getconfidential(val1) {
+      //   this.form.confidential = val1;
+      // },
+      // getmanagementtool(val1) {
+      //   this.form.managementtool = val1;
+      // },
 
-      getplantype(val1, row) {
-        row.plantype = val1;
-      },
+      // getplantype(val1, row) {
+      //   row.plantype = val1;
+      // },
       getrole(val1, row) {
-        row.role = val1;
+        row.phase = val1;
       },
-      getchange(row) {
-        this.result.forEach(res => {
-          if (res.expatriatesinfor_id === row.bpname) {
-            row.bpcompany = res.suppliername;
-            row.rn = res.rn;
-          }
-        });
+      getrole1(val1, row) {
+        row.stageproduct = val1;
       },
+      // getchange(row) {
+      //   this.result.forEach(res => {
+      //     if (res.expatriatesinfor_id === row.bpname) {
+      //       row.bpcompany = res.suppliername;
+      //       row.rn = res.rn;
+      //     }
+      //   });
+      // },
       getcustomer(val) {
         this.result1.forEach(res => {
           if (res.customerinfor_id === val) {
@@ -1488,6 +1510,30 @@
           }];
         }
       },
+      // 开发计划
+      deleteRow5(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableF = [{
+            stageinformation_id: '',
+            companyprojects_id: '',
+            phase: '',
+            stageproduct: '',
+            productstatus: '',
+            estimatedwork: '',
+            actualwork: '',
+            estimatedstarttime: '',
+            estimatedendtime: '',
+            remarks: '',
+            actualstarttime: '',
+            actualendtime: '',
+            product: '',
+            phasestatus: '',
+            rowindex: '',
+          }];
+        }
+      },
 
       addRow() {
         this.tableD.push({
@@ -1544,6 +1590,26 @@
           exitime: '',
         });
       },
+      //开发计划
+      addRow5() {
+        this.tableF.push({
+          stageinformation_id: '',
+          companyprojects_id: '',
+          phase: '',
+          stageproduct: '',
+          productstatus: '',
+          estimatedwork: '',
+          actualwork: '',
+          estimatedstarttime: '',
+          estimatedendtime: '',
+          remarks: '',
+          actualstarttime: '',
+          actualendtime: '',
+          product: '',
+          phasestatus: '',
+          rowindex: '',
+        });
+      },
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -1580,6 +1646,7 @@
             this.baseInfo.projectplan = [];
             this.baseInfo.projectresources = [];
             this.baseInfo.outSources = [];
+            this.baseInfo.stageinformation = [];
             for (let i = 0; i < this.tableD.length; i++) {
               if (
                 this.tableD[i].plantype !== '' ||
@@ -1635,6 +1702,34 @@
                 });
               }
             }
+            for (let i = 0; i < this.tableF.length; i++) {
+              if (
+                this.tableF[i].phase !== '' ||
+                this.tableF[i].stageproduct !== '' ||
+                // this.tableF[i].productstatus !== '' ||
+                this.tableF[i].estimatedwork !== '' ||
+                // this.tableF[i].actualwork !== '' ||
+                this.tableF[i].estimatedstarttime !== '' ||
+                this.tableF[i].estimatedendtime !== '' ||
+                this.tableF[i].remarks !== ''
+                // this.tableF[i].actualstarttime !== '' ||
+                // this.tableF[i].actualendtime !== '' ||
+                // this.tableF[i].product !== '' ||
+                // this.tableF[i].phasestatus !== ''
+              ) {
+                this.baseInfo.stageinformation.push({
+                  stageinformation_id: this.tableF[i].stageinformation_id,
+                  companyprojects_id: this.tableF[i].companyprojects_id,
+                  phase: this.this.tableF[i].phase,
+                  stageproduct: this.tableF[i].stageproduct,
+                  estimatedwork: this.tableF[i].estimatedwork,
+                  estimatedstarttime: this.tableF[i].estimatedstarttime,
+                  estimatedendtime: this.tableF[i].estimatedendtime,
+                  remarks: this.tableF[i].remarks,
+                });
+              }
+            }
+
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.$store
@@ -1665,6 +1760,7 @@
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
+                  console.log("VVVAAAAA" + response);
                   this.data = response;
                   this.loading = false;
                   this.$message({
