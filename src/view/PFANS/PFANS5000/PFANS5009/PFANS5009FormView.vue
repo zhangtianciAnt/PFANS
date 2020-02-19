@@ -532,10 +532,11 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            let lst = getUserInfo(this.$store.getters.userinfo.userid);
-            if (response.stageinformation.length > 0) {
-              this.tableP = response.stageinformation;
+            if (response.stageInformation.length > 0) {
+              this.tableP = response.stageInformation;
             }
+            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
             this.loading = false;
           })
           .catch(error => {
