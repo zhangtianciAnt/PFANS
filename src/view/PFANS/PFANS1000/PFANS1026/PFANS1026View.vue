@@ -43,7 +43,6 @@
                        :disabled="!disabled2">
             </dicselect>
             <dicselect :code="code4"
-                       :data="form.entrycondition"
                        @change="getcareeryear2"
                        style="width: 20vw"
                        :disabled="!disabled2">
@@ -104,6 +103,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                 <template slot-scope="scope">
                       <dicselect
+                        :no="scope.row"
                         :code="code5"
                         :data="scope.row.entrycondition"
                         :multiple="multiple"
@@ -429,7 +429,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.application')" align="center" prop="applicationdate"  width="200">
@@ -783,7 +783,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1081,7 +1081,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1379,7 +1379,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1975,7 +1975,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -2273,7 +2273,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -2571,7 +2571,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -3722,7 +3722,7 @@
                 user_id: '',
                 contracttype: letcontracttype,
                 contractnumber: letcontractnumber,
-                entrycondition: '',
+                entrycondition: ' ',
                 entrypayment: '',
                 deliverycondition: '',
                 delivery: '',
@@ -3773,15 +3773,20 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
             //部门
             let letgrouporg = this.grouporglist;
             this.tablesecond.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
+                contracttype: letcontracttype,
                 contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
@@ -3833,14 +3838,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tablethird.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -3883,15 +3895,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
-
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tablefourth.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -3934,14 +3952,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tablefifth.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -3984,14 +4009,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tablesixth.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -4034,14 +4066,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tableseventh.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -4084,14 +4123,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tableeighth.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -4134,14 +4180,21 @@
             if(this.form.contractnumber != ''){
                 letcontractnumber = this.form.contractnumber;
             }
+            //契約种类
+            let letcontracttype = '';
+            if(this.form.contracttype != ''){
+                letcontracttype = this.form.contracttype;
+            }
+            //部门
+            let letgrouporg = this.grouporglist;
             this.tableninth.push({
                 contractapplication_id: '',
-                group_id: '',
+                group_id: letgrouporg,
                 deployment: '',
-                applicationdate: '',
+                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                 user_id: '',
-                contracttype: '',
-                contractnumber: '',
+                contracttype: letcontracttype,
+                contractnumber: letcontractnumber,
                 entrycondition: '',
                 entrypayment: '',
                 deliverycondition: '',
@@ -4497,7 +4550,6 @@
           }
         },
         click1X(val) {
-            alert(val);
                if(val === "insert") {
                    this.$refs["refform"].validate(valid => {
                        if (valid) {
@@ -4566,7 +4618,6 @@
                 this.show2=true;
             }
             if (val === "save") {
-                debugger;
                 let tabledata = [];
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){//11
