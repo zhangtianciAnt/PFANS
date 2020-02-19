@@ -1090,8 +1090,8 @@ export function menu() {
               ]
             },
             {
-              '_id': 'APPROVAL',
-              'name': 'menu.APPROVAL',
+              '_id': 'PJCASE',
+              'name': 'menu.PJCASE',
               'menuvisible': true,
               'menuurl': '',
               'menuicon': '',
