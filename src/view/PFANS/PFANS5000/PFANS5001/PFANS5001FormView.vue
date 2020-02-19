@@ -1296,9 +1296,6 @@ phase<template>
           this.errorLeader = '';
         }
       },
-      getCitationUserid(name, row) {
-        row.name = name;
-      },
       getUserids1(val) {
         this.userlist1 = val;
         this.form.managerid = val;
@@ -1327,13 +1324,14 @@ phase<template>
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
       },
-      // getCitationUserid(userlist, row) {
-      //   row.user_id = userlist;
-      //   if (row.user_id != null && row.user_id !== '') {
-      //     let lst = getUserInfo(row.user_id);
-      //     row.role = lst.userinfo.rank;
-      //   }
-      // },
+      getCitationUserid(userlist, row) {
+        row.name = userlist;
+        if (row.name != null && row.name !== '') {
+          let lst = getUserInfo(row.name);
+          row.position = lst.userinfo.post;
+          row.number = lst.userinfo.jobnumber;
+        }
+      },
       // getdepartmentid(val1) {
       //   this.form.departmentid = val1;
       // },
