@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestExcel'
 
 export function getCostList(data) {
   return request({
@@ -15,4 +16,12 @@ export function insertCoststatistics() {
   })
 }
 
+
+export function downloadExcel(data) {
+  return requestDownload({
+    url: 'coststatistics/downloadExcel',
+    method: 'post',
+    data: data
+  })
+}
 
