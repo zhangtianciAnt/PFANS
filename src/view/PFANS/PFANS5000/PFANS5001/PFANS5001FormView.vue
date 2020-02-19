@@ -1,4 +1,4 @@
-<template>
+phase<template>
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
@@ -380,7 +380,7 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableF" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -466,7 +466,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow5(scope.$index, tableF)"
+                            @click.native.prevent="deleteRow(scope.$index, tableA)"
                             plain
                             size="small"
                             type="danger"
@@ -474,7 +474,7 @@
                           </el-button>
                           <el-button
                             :disabled="!disable"
-                            @click="addRow5()"
+                            @click="addRow()"
                             plain
                             size="small"
                             type="primary"
@@ -496,7 +496,7 @@
                     <el-tabs v-model="activeName2" type="border-card">
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
-                        <el-table :data="tableT1" stripe border header-cell-class-name="sub_bg_color_blue"
+                        <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
                                   style="width: 80vw">
                           <!--                      编号-->
                           <el-table-column
@@ -521,7 +521,7 @@
                               <user
                                 :disabled="!disable"
                                 :no="scope.row"
-                                :userlist="scope.row.userlist"
+                                :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
                                 :multiple="multiple"
                                 style="width: 18vw"
@@ -546,7 +546,7 @@
                               <el-input
                                 :no="scope.row"
                                 :disabled="true"
-                                v-model="scope.row.post"
+                                v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -571,14 +571,14 @@
                           <el-table-column
                             :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
                             align="center"
-                            prop="exitime"
+                            prop="exittime"
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
                                 :disabled="!disable"
                                 type="date"
                                 :no="scope.row"
-                                v-model="scope.row.exitime"
+                                v-model="scope.row.exittime"
                                 style="width: 9rem">
                               </el-date-picker>
                             </template>
@@ -587,7 +587,7 @@
                             <template slot-scope="scope">
                               <el-button
                                 :disabled="!disable"
-                                @click.native.prevent="deleteRow3(scope.$index, tableT1)"
+                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
                                 plain
                                 size="small"
                                 type="danger"
@@ -595,7 +595,7 @@
                               </el-button>
                               <el-button
                                 :disabled="!disable"
-                                @click="addRow3()"
+                                @click="addRow1()"
                                 plain
                                 size="small"
                                 type="primary"
@@ -608,7 +608,7 @@
 
                       <!--                社外-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY')" name="second">
-                        <el-table :data="tableT2" stripe border header-cell-class-name="sub_bg_color_blue"
+                        <el-table :data="tableC" stripe border header-cell-class-name="sub_bg_color_blue"
                                   style="width: 80vw">
                           <!--                      编号-->
                           <el-table-column
@@ -633,7 +633,7 @@
                               <el-input
                                 :no="scope.row"
                                 :disabled="true"
-                                v-model="scope.row.suppliername"
+                                v-model="scope.row.company"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -647,7 +647,7 @@
                               <el-col :span="8">
                                   <div class="dpSupIndex" style="width:10vw" prop="expname">
                                     <el-container>
-                                      <input class="content bg" v-model="scope.row.expname" :error="errorexpname"
+                                      <input class="content bg" v-model="scope.row.name" :error="errorexpname"
                                              :disabled="true"></input>
                                       <el-button :disabled="!disabled" icon="el-icon-search"
                                                  @click="dialogTableVisible1 = true"
@@ -663,7 +663,7 @@
                                               :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                                               height="500px" highlight-current-row style="width: 100%"
                                               tooltip-effect="dark"
-                                              @row-click="handleClickChange1">
+                                              @row-click="handleClickChange">
                                               <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                                                                width="100"></el-table-column>
                                               <el-table-column property="expname" fixed
@@ -686,7 +686,7 @@
                                             </el-table>
                                           </el-row>
                                           <span slot="footer" class="dialog-footer">
-                                            <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
+                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
                                           </span>
                                         </div>
                                       </el-dialog>
@@ -704,7 +704,7 @@
                               <el-input
                                 :no="scope.row"
                                 :disabled="true"
-                                v-model="scope.row.post"
+                                v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -729,14 +729,14 @@
                           <el-table-column
                             :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
                             align="center"
-                            prop="exitime"
+                            prop="exittime"
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
                                 :disabled="!disable"
                                 type="date"
                                 :no="scope.row"
-                                v-model="scope.row.exitime"
+                                v-model="scope.row.exittime"
                                 style="width: 9rem">
                               </el-date-picker>
                             </template>
@@ -745,7 +745,7 @@
                             <template slot-scope="scope">
                               <el-button
                                 :disabled="!disable"
-                                @click.native.prevent="deleteRow4(scope.$index, tableT2)"
+                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
                                 plain
                                 size="small"
                                 type="danger"
@@ -753,7 +753,7 @@
                               </el-button>
                               <el-button
                                 :disabled="!disable"
-                                @click="addRow4()"
+                                @click="addRow2()"
                                 plain
                                 size="small"
                                 type="primary"
@@ -892,7 +892,12 @@
         activeName: 'first',
         activeName2: 'first',
         buttonList: [],
-        tableF: [
+        currentRow : '',
+        currentRow1 : '',
+        currentRow2 : '',
+        currentRow3 : '',
+        //项目计划
+        tableA: [
           {
             stageinformation_id: '',
             companyprojects_id: '',
@@ -911,59 +916,35 @@
             rowindex: '',
           },
         ],
-        tableD: [
+        //项目体制(本社)
+        tableB: [
           {
-            projectplan_id: '',
+            projectsystem_id: '',
             companyprojects_id: '',
-            plantype: '',
-            numbers: '',
-            starttime: '',
-            endtime: '',
-          },
-        ],
-        tableE: [
-          {
-            projectresources_id: '',
-            companyprojects_id: '',
-            numbers: '',
-            user_id: '',
+            type: '0',
+            number: '',
+            company: '',
+            name: '',
+            position:'',
             admissiontime: '',
             exittime: '',
-            role: '',
-          },
-        ],
-        tableR: [
-          {
-            outsource_id: '',
-            companyprojects_id: '',
-            bpcompany: '',
-            bpname: '',
-            admissiontime: '',
-            exittime: '',
-            rn: '',
             rowindex: '',
           },
         ],
-        // 体制-社内
-        tableT1: [
-          {
-            number: '',
-            customername: '',
-            post: '',
-            admissiontime: '',
-            exitime: '',
-          },
-        ],
-        // 体制-社内
-        tableT2: [
-          {
-            number: '',
-            expname: '',
-            suppliername: '',
-            post: '',
-            admissiontime: '',
-            exitime: '',
-          },
+        //项目体制(外协)
+        tableC: [
+            {
+                projectsystem_id: '',
+                companyprojects_id: '',
+                type: '1',
+                number: '',
+                company: '',
+                name: '',
+                position:'',
+                admissiontime: '',
+                exittime: '',
+                rowindex: '',
+            },
         ],
         data: [],
         loading: false,
@@ -1002,7 +983,7 @@
               trigger: 'blur',
             },
           ],
-          numbers: [
+          number: [
             {
               required: true,
               message:
@@ -1128,7 +1109,6 @@
           requirement: '',
           behalf: '',
           intelligence: '',
-
           numbers: '',
           departmentid: '',
           technological: '',
@@ -1171,24 +1151,48 @@
             this.form = response.companyprojects;
             this.userlist = this.form.leaderid;
             this.userlist1 = this.form.managerid;
-
-            if (response.projectplan.length > 0) {
-              this.tableD = response.projectplan;
-            }
-            if (response.outSources.length > 0) {
-              this.tableR = response.outSources;
-            }
-            if (response.projectresources.length > 0) {
-              this.tableE = response.projectresources;
-            }
+            //项目计划111
             if (response.stageinformation.length > 0) {
-              this.tableF = response.stageinformation;
+                this.tableA = response.stageinformation;
             }
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectplan = JSON.parse(JSON.stringify(this.tableD));
-            this.baseInfo.outSources = JSON.parse(JSON.stringify(this.tableR));
-            this.baseInfo.projectresources = JSON.parse(JSON.stringify(this.tableE));
-            this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableF));
+            //项目体制
+            if (response.projectsystem.length > 0) {
+                for (var i = 0; i < response.projectsystem.length; i++) {
+                    if(response.projectsystem[i].type === '0'){
+                        this.tableB = [];
+                        let o = {};
+                        o.name = response.projectsystem[i].projectsystem_id;
+                        o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                        o.type = response.projectsystem[i].type;
+                        o.number = response.projectsystem[i].number;
+                        o.company = response.projectsystem[i].company;
+                        o.name = response.projectsystem[i].name;
+                        o.position = response.projectsystem[i].position;
+                        o.admissiontime = response.projectsystem[i].admissiontime;
+                        o.exittime = response.projectsystem[i].exittime;
+                        o.rowindex = response.projectsystem[i].rowindex;
+                        this.tableB.push(o);
+
+                    }
+                    else{
+                        this.tableC = [];
+                        let o = {};
+                        o.name = response.projectsystem[i].projectsystem_id;
+                        o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                        o.type = response.projectsystem[i].type;
+                        o.number = response.projectsystem[i].number;
+                        o.company = response.projectsystem[i].company;
+                        o.name = response.projectsystem[i].name;
+                        o.position = response.projectsystem[i].position;
+                        o.admissiontime = response.projectsystem[i].admissiontime;
+                        o.exittime = response.projectsystem[i].exittime;
+                        o.rowindex = response.projectsystem[i].rowindex;
+                        this.tableC.push(o);
+                    }
+                }
+            }
+            // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != '') {
                 let uploadfile = this.form.uploadfile.split(';');
@@ -1278,8 +1282,8 @@
         this.userlist = val;
         this.form.leaderid = val;
         let lst = getOrgInfoByUserId(val);
-        this.tableT1.number = lst.number;
-        this.tableT1.post = lst.post;
+        this.tableB.number = lst.number;
+        this.tableB.position = lst.post;
         if (
           !this.form.leaderid ||
           this.form.leaderid === '' ||
@@ -1292,8 +1296,8 @@
           this.errorLeader = '';
         }
       },
-      getCitationUserid(userlist, row) {
-        row.userlist = userlist;
+      getCitationUserid(name, row) {
+        row.name = name;
       },
       getUserids1(val) {
         this.userlist1 = val;
@@ -1310,30 +1314,26 @@
           this.errorManager = '';
         }
       },
-      submit1() {
-        let lst = this.currentRow;
-        let lst1 = this.currentRow1;
-        let lst2 = this.currentRow2;
-        let lst3 = this.currentRow3;
+      submit(row) {
+        row.number = this.currentRow;
+        row.name = this.currentRow1;
+        row.company = this.currentRow2;
+        row.position = this.currentRow3;
         this.dialogTableVisible1 = false;
-        this.tableT2.number = lst;
-        this.tableT2.expname = lst1;
-        this.tableT2.suppliername = lst2;
-        this.tableT2.post = lst3;
       },
-      handleClickChange1(val) {
+      handleClickChange(val) {
         this.currentRow = val.number;
         this.currentRow1 = val.expname;
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
       },
-      getCitationUserid(userlist, row) {
-        row.user_id = userlist;
-        if (row.user_id != null && row.user_id !== '') {
-          let lst = getUserInfo(row.user_id);
-          row.role = lst.userinfo.rank;
-        }
-      },
+      // getCitationUserid(userlist, row) {
+      //   row.user_id = userlist;
+      //   if (row.user_id != null && row.user_id !== '') {
+      //     let lst = getUserInfo(row.user_id);
+      //     row.role = lst.userinfo.rank;
+      //   }
+      // },
       // getdepartmentid(val1) {
       //   this.form.departmentid = val1;
       // },
@@ -1365,14 +1365,6 @@
       getrole1(val1, row) {
         row.stageproduct = val1;
       },
-      // getchange(row) {
-      //   this.result.forEach(res => {
-      //     if (res.expatriatesinfor_id === row.bpname) {
-      //       row.bpcompany = res.suppliername;
-      //       row.rn = res.rn;
-      //     }
-      //   });
-      // },
       getcustomer(val) {
         this.result1.forEach(res => {
           if (res.customerinfor_id === val) {
@@ -1435,180 +1427,116 @@
           this.form.uploadfile += o.name + ',' + o.url + ';';
         }
       },
+      //开发计划
+      addRow() {
+          this.tableA.push({
+              stageinformation_id: '',
+              companyprojects_id: '',
+              phase: '',
+              stageproduct: '',
+              productstatus: '',
+              estimatedwork: '',
+              actualwork: '',
+              estimatedstarttime: '',
+              estimatedendtime: '',
+              remarks: '',
+              actualstarttime: '',
+              actualendtime: '',
+              product: '',
+              phasestatus: '',
+              rowindex: '',
+          });
+      },
+      // 开发计划
       deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableD = [{
-            projectplan_id: '',
-            companyprojects_id: '',
-            plantype: ' ',
-            numbers: '',
-            starttime: '',
-            endtime: '',
-          }];
-        }
+          if (rows.length > 1) {
+              rows.splice(index, 1);
+          } else {
+              this.tableA = [{
+                  stageinformation_id: '',
+                  companyprojects_id: '',
+                  phase: '',
+                  stageproduct: '',
+                  productstatus: '',
+                  estimatedwork: '',
+                  actualwork: '',
+                  estimatedstarttime: '',
+                  estimatedendtime: '',
+                  remarks: '',
+                  actualstarttime: '',
+                  actualendtime: '',
+                  product: '',
+                  phasestatus: '',
+                  rowindex: '',
+              }];
+          }
+      },
+      //项目体制(本社)
+      addRow1() {
+          this.tableB.push({
+              projectsystem_id: '',
+              companyprojects_id: '',
+              type: '0',
+              number: '',
+              company: '',
+              name: '',
+              position:'',
+              admissiontime: '',
+              exittime: '',
+              rowindex: '',
+          });
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          this.tableE = [{
-            projectresources_id: '',
-            companyprojects_id: '',
-            numbers: '',
-            user_id: '',
-            admissiontime: '',
-            exittime: '',
-            role: ' ',
+          this.tableB = [{
+              projectsystem_id: '',
+              companyprojects_id: '',
+              type: '0',
+              number: '',
+              company: '',
+              name: '',
+              position:'',
+              admissiontime: '',
+              exittime: '',
+              rowindex: '',
           }];
         }
       },
+      //项目体制(外协)
+      addRow2() {
+          this.tableC.push({
+              projectsystem_id: '',
+              companyprojects_id: '',
+              type: '1',
+              number: '',
+              company: '',
+              name: '',
+              position:'',
+              admissiontime: '',
+              exittime: '',
+              rowindex: '',
+          });
+      },
+      // 体制-社内
       deleteRow2(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-          this.tableR = [{
-            outsource_id: '',
-            companyprojects_id: '',
-            bpcompany: '',
-            bpname: ' ',
-            admissiontime: '',
-            exittime: '',
-            rn: ' ',
-            rowindex: '',
+          this.tableC = [{
+              projectsystem_id: '',
+              companyprojects_id: '',
+              type: '1',
+              number: '',
+              company: '',
+              name: '',
+              position:'',
+              admissiontime: '',
+              exittime: '',
+              rowindex: '',
           }];
         }
-      },
-
-      // 体制-社内
-      deleteRow3(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableT1 = [{
-            number: '',
-            customername: '',
-            post: '',
-            admissiontime: '',
-            exitime: '',
-          }];
-        }
-      },
-      // 体制-社外
-      deleteRow4(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableT2 = [{
-            number: '',
-            expname: '',
-            suppliername: '',
-            post: '',
-            admissiontime: '',
-            exitime: '',
-          }];
-        }
-      },
-      // 开发计划
-      deleteRow5(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableF = [{
-            stageinformation_id: '',
-            companyprojects_id: '',
-            phase: '',
-            stageproduct: '',
-            productstatus: '',
-            estimatedwork: '',
-            actualwork: '',
-            estimatedstarttime: '',
-            estimatedendtime: '',
-            remarks: '',
-            actualstarttime: '',
-            actualendtime: '',
-            product: '',
-            phasestatus: '',
-            rowindex: '',
-          }];
-        }
-      },
-
-      addRow() {
-        this.tableD.push({
-          projectplan_id: '',
-          companyprojects_id: '',
-          plantype: '',
-          numbers: '',
-          starttime: '',
-          endtime: '',
-        });
-      },
-      addRow1() {
-        this.tableE.push({
-          projectresources_id: '',
-          companyprojects_id: '',
-          numbers: '',
-          user_id: '',
-          admissiontime: '',
-          exittime: '',
-          role: '',
-        });
-
-      },
-      addRow2() {
-        this.tableR.push({
-          outsource_id: '',
-          companyprojects_id: '',
-          bpcompany: '',
-          bpname: '',
-          admissiontime: '',
-          exittime: '',
-          rn: '',
-          rowindex: '',
-        });
-      },
-      // 体制-社内
-      addRow3() {
-        this.tableT1.push({
-          number: '',
-          customername: '',
-          post: '',
-          admissiontime: '',
-          exitime: '',
-        });
-      },
-      // 体制-社外
-      addRow4() {
-        this.tableT2.push({
-          number: '',
-          expname: '',
-          suppliername: '',
-          post: '',
-          admissiontime: '',
-          exitime: '',
-        });
-      },
-      //开发计划
-      addRow5() {
-        this.tableF.push({
-          stageinformation_id: '',
-          companyprojects_id: '',
-          phase: '',
-          stageproduct: '',
-          productstatus: '',
-          estimatedwork: '',
-          actualwork: '',
-          estimatedstarttime: '',
-          estimatedendtime: '',
-          remarks: '',
-          actualstarttime: '',
-          actualendtime: '',
-          product: '',
-          phasestatus: '',
-          rowindex: '',
-        });
       },
       getexpatriatesinfor() {
         this.loading = true;
@@ -1643,93 +1571,63 @@
             this.loading = true;
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.projectplan = [];
-            this.baseInfo.projectresources = [];
-            this.baseInfo.outSources = [];
             this.baseInfo.stageinformation = [];
-            for (let i = 0; i < this.tableD.length; i++) {
+            this.baseInfo.projectsystem = [];
+            //项目计划
+            for (let i = 0; i < this.tableA.length; i++) {
+                if (
+                    this.tableA[i].phase !== '' ||
+                    this.tableA[i].stageproduct !== '' ||
+                    this.tableA[i].estimatedwork !== '' ||
+                    this.tableA[i].estimatedstarttime !== '' ||
+                    this.tableA[i].estimatedendtime !== '' ||
+                    this.tableA[i].remarks !== ''
+                ) {
+                    this.baseInfo.stageinformation.push({
+                        phase: this.tableA[i].phase,
+                        stageproduct: this.tableA[i].stageproduct,
+                        estimatedwork: this.tableA[i].estimatedwork,
+                        estimatedstarttime: this.tableA[i].estimatedstarttime,
+                        estimatedendtime: this.tableA[i].estimatedendtime,
+                        remarks: this.tableA[i].remarks,
+                    });
+                }
+            }
+            for (let i = 0; i < this.tableB.length; i++) {
               if (
-                this.tableD[i].plantype !== '' ||
-                this.tableD[i].numbers !== '' ||
-                this.tableD[i].starttime !== '' ||
-                this.tableD[i].endtime !== ''
+                this.tableB[i].number !== '' ||
+                this.tableB[i].name !== '' ||
+                this.tableB[i].admissiontime !== '' ||
+                this.tableB[i].exittime !== ''
               ) {
-                this.baseInfo.projectplan.push({
-                  projectplan_id: this.tableD[i].projectplan_id,
-                  companyprojects_id: this.tableD[i].companyprojects_id,
-                  plantype: this.tableD[i].plantype,
-                  numbers: this.tableD[i].numbers,
-                  starttime: this.tableD[i].starttime,
-                  endtime: this.tableD[i].endtime,
+                this.baseInfo.projectsystem.push({
+                  number: this.tableB[i].number,
+                  name: this.tableB[i].name,
+                  type: this.tableB[i].type,
+                  position: this.tableB[i].position,
+                  admissiontime: this.tableB[i].admissiontime,
+                  exittime: this.tableB[i].exittime,
                 });
               }
             }
-            for (let i = 0; i < this.tableE.length; i++) {
-              if (
-                this.tableE[i].numbers !== '' ||
-                this.tableE[i].user_id !== '' ||
-                this.tableE[i].admissiontime !== '' ||
-                this.tableE[i].exittime !== '' ||
-                this.tableE[i].role !== ''
-              ) {
-                this.baseInfo.projectresources.push({
-                  projectresources_id: this.tableE[i].projectresources_id,
-                  companyprojects_id: this.tableE[i].companyprojects_id,
-                  numbers: this.tableE[i].numbers,
-                  user_id: this.tableE[i].user_id,
-                  admissiontime: this.tableE[i].admissiontime,
-                  exittime: this.tableE[i].exittime,
-                  role: this.tableE[i].role,
-                });
-              }
+            for (let i = 0; i < this.tableC.length; i++) {
+                if (
+                    this.tableC[i].number !== '' ||
+                    this.tableC[i].name !== '' ||
+                    this.tableC[i].admissiontime !== '' ||
+                    this.tableC[i].exittime !== ''
+                ) {
+                    this.baseInfo.projectsystem.push({
+                        number: this.tableC[i].number,
+                        name: this.tableC[i].name,
+                        type: this.tableC[i].type,
+                        company: this.tableC[i].company,
+                        admissiontime: this.tableC[i].admissiontime,
+                        exittime: this.tableC[i].exittime,
+                        position: this.tableC[i].position
+                    });
+                }
             }
-            for (let i = 0; i < this.tableR.length; i++) {
-              if (
-                this.tableR[i].bpcompany !== '' ||
-                this.tableR[i].bpname !== '' ||
-                this.tableR[i].admissiontime !== '' ||
-                this.tableR[i].exittime !== '' ||
-                this.tableR[i].rn !== ''
-              ) {
-                this.baseInfo.outSources.push({
-                  outsource_id: this.tableR[i].outsource_id,
-                  companyprojects_id: this.tableR[i].companyprojects_id,
-                  bpcompany: this.tableR[i].bpcompany,
-                  bpname: this.tableR[i].bpname,
-                  admissiontime: this.tableR[i].admissiontime,
-                  exittime: this.tableR[i].exittime,
-                  rn: this.tableR[i].rn,
-                });
-              }
-            }
-            for (let i = 0; i < this.tableF.length; i++) {
-              if (
-                this.tableF[i].phase !== '' ||
-                this.tableF[i].stageproduct !== '' ||
-                // this.tableF[i].productstatus !== '' ||
-                this.tableF[i].estimatedwork !== '' ||
-                // this.tableF[i].actualwork !== '' ||
-                this.tableF[i].estimatedstarttime !== '' ||
-                this.tableF[i].estimatedendtime !== '' ||
-                this.tableF[i].remarks !== ''
-                // this.tableF[i].actualstarttime !== '' ||
-                // this.tableF[i].actualendtime !== '' ||
-                // this.tableF[i].product !== '' ||
-                // this.tableF[i].phasestatus !== ''
-              ) {
-                this.baseInfo.stageinformation.push({
-                  stageinformation_id: this.tableF[i].stageinformation_id,
-                  companyprojects_id: this.tableF[i].companyprojects_id,
-                  phase: this.this.tableF[i].phase,
-                  stageproduct: this.tableF[i].stageproduct,
-                  estimatedwork: this.tableF[i].estimatedwork,
-                  estimatedstarttime: this.tableF[i].estimatedstarttime,
-                  estimatedendtime: this.tableF[i].estimatedendtime,
-                  remarks: this.tableF[i].remarks,
-                });
-              }
-            }
-
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.$store
