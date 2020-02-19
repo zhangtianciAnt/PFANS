@@ -835,7 +835,7 @@
         this.currentRow13 = val.technology;
         this.currentRow14 = val.rn;
         this.currentRow15 = val.whetherentry;
-        this.currentRow15 = val.remarks;
+        this.currentRow16 = val.remarks;
       },
       submit() {
         let val = this.currentRow;

@@ -9,9 +9,25 @@ export function getexpatriatesinfor(data) {
   })
 }
 
+export function getexpatriatesinforthisyear(data) {
+  return request({
+    url: 'expatriatesinfor/getexpatriatesinforthisyear',
+    method: 'get',
+    params: data
+  })
+}
+
 export function getexpatriatesinforApplyOne(data) {
   return request({
     url: 'expatriatesinfor/one',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getusinginformation(data) {
+  return request({
+    url: 'expatriatesinfor/getusinginformation',
     method: 'post',
     data: data
   })

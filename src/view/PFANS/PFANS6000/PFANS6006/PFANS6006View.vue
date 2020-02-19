@@ -65,7 +65,7 @@
                 <el-table-column
                   :label="$t('label.PFANS5001FORMVIEW_BPNAME')"
                   align="center"
-                  width="150">
+                  width="180">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -604,7 +604,7 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-            this.getexpatriatesinfor();
+            this.getexpatriatesinforthisyear();
           });
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
@@ -639,10 +639,10 @@
           };
         }
       },
-      getexpatriatesinfor() {
+      getexpatriatesinforthisyear() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+          .dispatch('PFANS6004Store/getexpatriatesinforthisyear', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].expname !== null && response[j].expname !== "") {
@@ -720,7 +720,7 @@
       }
     },
     mounted() {
-      this.getexpatriatesinfor();
+      this.getexpatriatesinforthisyear();
     },
   }
 </script>

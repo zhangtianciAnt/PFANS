@@ -190,7 +190,7 @@
                 <!--社员外协-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.commune"></el-input>
+                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.type"></el-input>
                   </template>
                   <!--稼働率-->
                 </el-table-column>
@@ -413,15 +413,16 @@
           name: "button.save"
         }],
         source: [{
-          projectsecoreid: '',
-          closeapplicatid: '',
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '',
           number: '',
+          company: '',
           name: '',
-          commune: '',
-          croprate: '',
-          pjcroprate: '',
-          dicroprate: '',
-          rowindex: "",
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
         }],
         stage: [{
           stageinformation_id: "",
@@ -431,7 +432,8 @@
           estimatedwork: "",
           estimatedstarttime: "",
           estimatedendtime: "",
-          remarks: ''
+          remarks: '',
+          rowindex: '',
         }],
         data: [],
         loading: false,
@@ -483,9 +485,17 @@
           .then(response => {
             this.form = response.companyprojects;
             this.userlist = this.form.managerid;
-            /*项目资源*/
+            /*项目资源*///项目体制
             if (response.projectsystem.length > 0) {
               this.source = response.projectsystem;
+                for (var i = 0; i < this.source.length; i++) {
+                    if(this.source[i].type === '0'){
+                        this.source[i].type = '员工';
+                    }
+                    else{
+                        this.source[i].type = '外协';
+                    }
+                }
             }
             /*阶段信息*/
             if (response.stageinformation.length > 0) {
