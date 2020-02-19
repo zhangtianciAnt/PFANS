@@ -103,27 +103,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            供应商名称-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" prop="suppliername">
-                <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--            第二行-->
-          <el-row>
-            <!--            出生日期-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
-                <el-date-picker
-                  :disabled="true"
-                  @change="getAge"
-                  style="width:20vw"
-                  type="date"
-                  v-model="form.birth">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
             <!--            年龄-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
@@ -131,7 +110,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--            第三行-->
+          <!--            第二行-->
           <el-row>
             <!--            毕业院校-->
             <el-col :span="8">
@@ -139,8 +118,8 @@
                 <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool"></el-input>
               </el-form-item>
             </el-col>
+            <!--            学历-->
             <el-col :span="8">
-              <!--            学历-->
               <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')" prop="education">
                 <dicselect
                   :code="code2"
@@ -153,8 +132,8 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--           卒业年-->
             <el-col :span="8">
-              <!--           卒业年-->
               <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
                 <el-date-picker
                   :disabled="true"
@@ -162,6 +141,35 @@
                   type="year"
                   v-model="form.graduation_year">
                 </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            第三行-->
+          <el-row>
+            <!--            供应商名称-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" prop="suppliername">
+                <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
+              </el-form-item>
+            </el-col>
+            <!--            编号-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number">
+                </el-input>
+              </el-form-item>
+            </el-col>
+            <!--            職務-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.post">
+                </el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -447,8 +455,9 @@
           expatriatesinfor_id: '',
           expname: '',
           sex: '',
+          number: '',
+          post: '',
           contactinformation: '',
-          birth: moment(new Date()).format('YYYY-MM-DD'),
           age: '',
           suppliername: '',
           graduateschool: '',
@@ -512,6 +521,13 @@
               message: this.$t('normal.error_08') + this.$t('label.user_name'),
               trigger: 'blur',
             }],
+          // 職務
+          post: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERVIEW_POST'),
+              trigger: 'blur',
+            }],
           // 性别
           sex: [
             {
@@ -520,11 +536,11 @@
               trigger: 'change',
             },
           ],
-          // 出生日期
-          birth: [
+          // 编号
+          number: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_BIRTH'),
+              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
               trigger: 'change',
             },
           ],
@@ -755,15 +771,6 @@
       handleCurrentChange1(val) {
         this.currentRow1 = val;
       },
-
-      getAge() {
-        let birthdays = new Date(this.form.birth);
-        let d = new Date();
-        let ageD =
-          d.getFullYear() -
-          birthdays.getFullYear();
-        this.form.age = ageD;
-      },
       changeexits(val) {
         this.form.exits = val;
         if (val === '1') {
@@ -788,7 +795,6 @@
         let lst = this.currentRow;
         let lst1 = this.currentRow2;
         let lst2 = this.currentRow3;
-        let lst3 = this.currentRow4;
         let lst4 = this.currentRow5;
         let lst5 = this.currentRow6;
         let lst6 = this.currentRow7;
@@ -805,7 +811,6 @@
         this.form.expname = lst;
         this.form.sex = lst1;
         this.form.contactinformation = lst2;
-        this.form.birth = lst3;
         this.form.age = lst4;
         this.form.suppliername = lst5;
         this.form.graduateschool = lst6;
@@ -823,7 +828,6 @@
         this.currentRow = val.expname;
         this.currentRow2 = val.sex;
         this.currentRow3 = val.contactinformation;
-        this.currentRow4 = val.birth;
         this.currentRow5 = val.age;
         this.currentRow6 = val.suppliername;
         this.currentRow7 = val.graduateschool;
@@ -856,7 +860,6 @@
               vote.expname = response[i].coopername;
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               vote.contactinformation = response[i].contactinformation;
-              vote.birth = moment(response[i].birth).format('YYYY-MM-DD');
               vote.age = response[i].age;
               vote.suppliername = response[i].suppliername;
               vote.graduateschool = response[i].graduateschool;
@@ -941,7 +944,6 @@
         this.$refs['refform'].validate(valid => {
           if (valid) {
             this.form.expatriatesinfor_id = this.$route.params._id;
-            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
             this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
             this.loading = true;
             if (this.form.exits === '1') {
@@ -984,7 +986,6 @@
                   this.loading = false;
                 });
             } else {
-              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
               this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
               this.loading = true;
               this.$store
