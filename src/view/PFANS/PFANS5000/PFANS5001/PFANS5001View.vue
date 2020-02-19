@@ -24,13 +24,6 @@
                 // 列属性
                 columns: [
                     {
-                        code: 'numbers',
-                        label: 'label.PFANS5001FORMVIEW_NUMBERS',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
                         code: 'project_name',
                         label: 'label.PFANS5001FORMVIEW_PROJECT_NAME',
                         width: 150,
