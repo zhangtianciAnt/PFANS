@@ -32,20 +32,20 @@ phase<template>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
-                        <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist"
+                        <org :disabled="!disable" :error="errorcenter" :orglist="centerorglist"
                              @getOrgids="getCenterId"
                              orgtype="1" style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                        <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                        <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
                              orgtype="2" style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
+                        <org :disabled="!disable" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
                              style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
@@ -1093,6 +1093,9 @@ phase<template>
         },
         baseInfo: {},
         form: {
+          center_id: '',
+          group_id: '',
+          team_id: '',
           project_name: '',
           project_namejp: '',
           leaderid: '',
@@ -1151,6 +1154,9 @@ phase<template>
             this.form = response.companyprojects;
             this.userlist = this.form.leaderid;
             this.userlist1 = this.form.managerid;
+            this.centerorglist = this.form.center_id;
+            this.grouporglist = this.form.group_id;
+            this.teamorglist = this.form.team_id;
             //项目计划111
             if (response.stageinformation.length > 0) {
                 this.tableA = response.stageinformation;
@@ -1550,6 +1556,9 @@ phase<template>
               vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
+            this.centerorglist = this.form.center_id;
+            this.grouporglist = this.form.group_id;
+            this.teamorglist = this.form.team_id;
             this.loading = false;
           })
           .catch(error => {
@@ -1564,6 +1573,7 @@ phase<template>
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
+
         this.$refs['from1'].validate(valid => {
           if (valid) {
             this.loading = true;
@@ -1628,6 +1638,9 @@ phase<template>
             }
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+              this.form.center_id = this.centerorglist;
+              this.form.group_id = this.grouporglist;
+              this.form.team_id = this.teamorglist;
               this.$store
                 .dispatch('PFANS5001Store/update', this.baseInfo)
                 .then(response => {
