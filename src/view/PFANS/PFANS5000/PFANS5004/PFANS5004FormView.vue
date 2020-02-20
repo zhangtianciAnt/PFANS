@@ -150,19 +150,18 @@
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">
                           <el-upload
+                            v-model="form.uploadfile"
                             :action="upload"
                             :file-list="fileList"
-                            :on-error="fileError"
-                            :on-preview="fileDownload"
                             :on-remove="fileRemove"
+                            :on-preview="fileDownload"
                             :on-success="fileSuccess"
+                            :on-error="fileError"
                             class="upload-demo"
                             drag
-                            ref="upload"
-                            v-model="form.uploadfile">
+                            ref="upload">
                             <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">
-                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                            <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
                           </el-upload>
                         </el-form-item>
                       </el-col>
@@ -397,9 +396,6 @@
         code6: 'PP014',
         code4: 'PP015',
         multiple: false,
-        showrow1: true,
-        showrow2: false,
-        showrow3: false,
         canStart: false,
         fileList: [],
         upload: uploadUrl()
@@ -411,7 +407,6 @@
         this.$store
           .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
           .then(response => {
-            debugger
             this.form = response.companyprojects;
             this.userlist = this.form.managerid;
             /*阶段信息*/
@@ -422,10 +417,10 @@
             if (response.projectsystem.length > 0) {
               this.source = response.projectsystem;
                 for (var i = 0; i < this.source.length; i++) {
-                    let lst = getUserInfo(this.source[i].name);
-                    this.source[i].name = lst.userinfo.customername;
                     if(this.source[i].type === '0'){
                         this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
+                      let lst = getUserInfo(this.source[i].name);
+                      this.source[i].name = lst.userinfo.customername;
                     }
                     else{
                         this.source[i].type = this.$t('label._PFANS5004VIEW_ASSIST');
