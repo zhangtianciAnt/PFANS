@@ -178,37 +178,37 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.number"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.number"></el-input>
                   </template>
                 </el-table-column>
                 <!--姓名-->
                 <el-table-column :label="$t('label.user_name')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.name"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.name"></el-input>
                   </template>
                 </el-table-column>
                 <!--社员外协-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.type"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.type"></el-input>
                   </template>
                   <!--稼働率-->
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.croprate"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.croprate"></el-input>
                   </template>
                 </el-table-column>
                 <!--PJ稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.pjcroprate"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.pjcroprate"></el-input>
                   </template>
                 </el-table-column>
                 <!--直接稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" v-model="scope.row.dicroprate"></el-input>
+                    <el-input :disabled="true" maxlength="20" v-model="scope.row.dicroprate"></el-input>
                   </template>
                 </el-table-column>
               </el-table>
@@ -298,7 +298,7 @@
                           <dicselect
                             :code="code1"
                             :data="scope.row.phase"
-                            :disabled="!disable"
+                            :disabled="true"
                             :multiple="multiple"
                             :no="scope.row"
                           ></dicselect>
@@ -312,7 +312,7 @@
                           <dicselect
                             :code="code5"
                             :data="scope.row.stageproduct"
-                            :disabled="!disable"
+                            :disabled="true"
                             :multiple="multiple"
                             :no="scope.row"
                           ></dicselect>
@@ -323,7 +323,7 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :disabled="!disable"
+                            :disabled="true"
                             :no="scope.row"
                             style="width: 100%"
                             v-model="scope.row.estimatedwork">
@@ -337,7 +337,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            :disabled="!disable"
+                            :disabled="true"
                             style="width: 100%"
                             type="date"
                             v-model="scope.row.estimatedstarttime"
@@ -352,7 +352,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            :disabled="!disable"
+                            :disabled="true"
                             style="width: 100%"
                             type="date"
                             v-model="scope.row.estimatedendtime"
@@ -365,7 +365,7 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :disabled="!disable"
+                            :disabled="true"
                             :no="scope.row"
                             style="width: 100%"
                             v-model="scope.row.remarks">
@@ -489,11 +489,13 @@
             if (response.projectsystem.length > 0) {
               this.source = response.projectsystem;
                 for (var i = 0; i < this.source.length; i++) {
+                    let lst = getUserInfo(this.source[i].name);
+                    this.source[i].name = lst.userinfo.customername;
                     if(this.source[i].type === '0'){
-                        this.source[i].type = '员工';
+                        this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
                     }
                     else{
-                        this.source[i].type = '外协';
+                        this.source[i].type = this.$t('label._PFANS5004VIEW_ASSIST');
                     }
                 }
             }
