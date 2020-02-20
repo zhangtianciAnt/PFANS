@@ -266,24 +266,6 @@ phase<template>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <!-- 其他管理工具 -->
-                  <el-row>
-                    <el-col :span="8">
-                      <template>
-                        <el-form-item
-                          :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
-                          prop="tools"
-                        >
-                          <el-checkbox-group v-model="checkList">
-                            <el-checkbox label="SVN"></el-checkbox>
-                            <el-checkbox label="redmine"></el-checkbox>
-                            <el-checkbox label="gitlab"></el-checkbox>
-                            <el-checkbox label="其他"></el-checkbox>
-                          </el-checkbox-group>
-                        </el-form-item>
-                      </template>
-                    </el-col>
-                  </el-row>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item
@@ -778,12 +760,39 @@ phase<template>
                 </el-row>
               </el-form-item>
             </el-tab-pane>
-
-            <!--            文件上传-->
-            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_FILEUPLOAD')" name="sixth">
+            <!--            其他管理工具-->
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_TOOLS')" name="sixth">
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
+                    <!-- 其他管理工具 -->
+                    <el-row>
+                      <el-col :span="8">
+                        <template>
+                          <el-form-item
+                            :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
+                            prop="tools"
+                          >
+                            <el-checkbox-group v-model="checkList">
+                              <el-checkbox label="SVN"></el-checkbox>
+                              <el-checkbox label="redmine"></el-checkbox>
+                              <el-checkbox label="gitlab"></el-checkbox>
+                              <el-checkbox label="其他"></el-checkbox>
+                            </el-checkbox-group>
+                          </el-form-item>
+                        </template>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+            </el-tab-pane>
+            <!--            文件上传-->
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_FILEUPLOAD')" name="seventh">
+              <el-form-item>
+                <el-row>
+                  <el-col :span="24">
+
                   </el-col>
                 </el-row>
               </el-form-item>
