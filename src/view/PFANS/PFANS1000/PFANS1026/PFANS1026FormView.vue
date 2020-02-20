@@ -2933,7 +2933,7 @@
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import { Message } from 'element-ui'
     import dicselect from "../../../components/dicselect";
-    import {getOrgInfoByUserId,getUserInfo,getStatus,getOrgInfo} from '@/utils/customize';
+    import {getOrgInfo} from '@/utils/customize';
     import user from '../../../components/user.vue';
     import org from "../../../components/org";
     import moment from "moment";
@@ -3037,17 +3037,22 @@
                     .then(response => {
                         if (response.length > 0) {
                             for(let i = 0;i<response.length;i++){
-                                if(response[i].type === '1'){
-                                    this.tablefirst = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
+                                let group = getOrgInfo(response[i].group_id);
+                                if(group){
+                                    response[i].group_id = group.companyname;
                                 }
-                                else if(response[i].type === '2'){
+                                if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
+                                    let claimdatetime = response[i].claimdatetime;
+                                    let claimdatetim = claimdatetime.slice(0, 10);
+                                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                    response[i].claimdatetime = [claimdatetim, claimdatetime1];
+                                }
+                                if(response[i].maketype === '1'){
+                                    let o = {};
+                                    Object.assign(o, response[i]);
+                                    this.tablefirst.push(o);
+                                }
+                                else if(response[i].maketype === '2'){
                                     this.tablesecond = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3057,7 +3062,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '3'){
+                                else if(response[i].maketype === '3'){
                                     this.tablethird = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3067,7 +3072,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '4'){
+                                else if(response[i].maketype === '4'){
                                     this.tablefourth = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3077,7 +3082,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '5'){
+                                else if(response[i].maketype === '5'){
                                     this.tablefifth = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3087,7 +3092,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '6'){
+                                else if(response[i].maketype === '6'){
                                     this.tablesixth = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3097,7 +3102,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '7'){
+                                else if(response[i].maketype === '7'){
                                     this.tableseventh = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3107,7 +3112,7 @@
 
                                     }
                                 }
-                                else if(response[i].type === '8'){
+                                else if(response[i].maketype === '8'){
                                     this.tableeighth = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3118,7 +3123,7 @@
                                     }
 
                                 }
-                                else if(response[i].type === '9'){
+                                else if(response[i].maketype === '9'){
                                     this.tableninth = response[i];
                                     if (response.claimdatetime !== '' && response.claimdatetime !== null) {
                                         let claimdatetime = response.claimdatetime;
@@ -3846,8 +3851,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tablesecond.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -3912,8 +3915,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tablethird.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -3970,8 +3971,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tablefourth.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -4028,8 +4027,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tablefifth.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -4086,8 +4083,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tablesixth.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -4144,8 +4139,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tableseventh.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -4202,8 +4195,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tableeighth.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
@@ -4260,8 +4251,6 @@
                 if(this.form.contracttype != ''){
                     letcontracttype = this.form.contracttype;
                 }
-                //部门
-                let letgrouporg = this.grouporglist;
                 this.tableninth.push({
                     contractapplication_id: '',
                     group_id: this.groupname,
