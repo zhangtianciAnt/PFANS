@@ -381,13 +381,32 @@ phase<template>
                         align="center"
                       >
                         <template slot-scope="scope">
-                          <dicselect
-                            :code="code1"
-                            :data="scope.row.stageproduct"
-                            :disabled="!disable"
-                            :no="scope.row"
-                            @change="getrole1"
-                          ></dicselect>
+                          <el-input :disabled="!disable" style="width: 100%"
+                                    maxlength="20"
+                                    v-model="scope.row.stageproduct"
+                                    v-show="scope.row.showrow">
+                          </el-input>
+                          <dicselect :code="code1"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disable"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow1">
+                          </dicselect>
+                          <dicselect :code="code4"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disable"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow2">
+                          </dicselect>
+                          <dicselect :code="code5"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disable"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow3">
+                          </dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column
@@ -923,6 +942,10 @@ phase<template>
             product: '',
             phasestatus: '',
             rowindex: '',
+            showrow: true,
+            showrow1: false,
+            showrow2: false,
+            showrow3: false,
           },
         ],
         //项目体制(本社)
@@ -1141,9 +1164,12 @@ phase<template>
         code1: 'PP013',
         code2: 'PP001',
         code3: 'PP002',
-        // code4: "PP004",
-        // code5: "PP005",
-        // code6: "PP007",
+        code4: "PP014",
+        code5: "PP015",
+        showrow: true,
+        showrow1: false,
+        showrow2: false,
+        showrow3: false,
         // code7: "PP014",
         // code8: "PP015",
         // code9:"PR021",
@@ -1372,11 +1398,33 @@ phase<template>
       // getplantype(val1, row) {
       //   row.plantype = val1;
       // },
-      getrole(val1, row) {
-        row.phase = val1;
+      getrole(val, row) {
+        row.phase = val;
+        row.stageproduct = ' ';
+        if (val === '') {
+          row.showrow = true;
+          row.showrow1 = false;
+          row.showrow2 = false;
+          row.showrow3 = false;
+        } else if (val === 'PP012001') {
+          row.showrow = false;
+          row.showrow1 = true;
+          row.showrow2 = false;
+          row.showrow3 = false;
+        } else if (val === 'PP012002') {
+          row.showrow = false;
+          row.showrow1 = false;
+          row.showrow2 = true;
+          row.showrow3 = false;
+        } else if (val === 'PP012003') {
+          row.showrow = false;
+          row.showrow1 = false;
+          row.showrow2 = false;
+          row.showrow3 = true;
+        }
       },
-      getrole1(val1, row) {
-        row.stageproduct = val1;
+      getrole1(val, row) {
+        row.stageproduct = val;
       },
       getcustomer(val) {
         this.result1.forEach(res => {
@@ -1458,6 +1506,10 @@ phase<template>
               product: '',
               phasestatus: '',
               rowindex: '',
+            showrow: true,
+            showrow1: false,
+            showrow2: false,
+            showrow3: false,
           });
       },
       // 开发计划
