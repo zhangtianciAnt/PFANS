@@ -1,9 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
-<!--                         @end="end"-->
-<!--                         @start="start" @workflowState="workflowState" -->
+                         ref="container" v-loading="loading"
+                         @end="end"
+                         @start="start" @workflowState="workflowState" >
 
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -66,7 +66,7 @@
                     <el-col :span="8">
                       <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
                         <user
-                          :disabled="!disable"
+                          :disabled="!disabled"
                           :error="errorManager"
                           :selectType="selectType"
                           :userlist="userlist1"
@@ -531,8 +531,8 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            if (response.stageInformation.length > 0) {
-              this.tableP = response.stageInformation;
+            if (response.stageinformation.length > 0) {
+              this.tableP = response.stageinformation;
             }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
@@ -632,22 +632,22 @@
       getType(val) {
         this.form.projecttype = val;
       },
-      // workflowState(val) {
-      //   if (val.state === '1') {
-      //     this.form.status = '3';
-      //   } else if (val.state === '2') {
-      //     this.form.status = '4';
-      //   }
-      //   this.buttonClick('update');
-      // },
-      // start() {
-      //   this.form.status = '2';
-      //   this.buttonClick('update');
-      // },
-      // end() {
-      //   this.form.status = '0';
-      //   this.buttonClick('update');
-      // },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      start() {
+        this.form.status = '2';
+        this.buttonClick('update');
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick('update');
+      },
       // getCompanyProjectList() {
       //   this.loading = true;
       //   this.$store
@@ -679,7 +679,7 @@
             this.loading = true;
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageInformation = [];
+            this.baseInfo.stageinformation = [];
             for (let i = 0; i < this.tableP.length; i++) {
               if (
                 this.tableP[i].phase !== "" ||
@@ -694,7 +694,7 @@
                 this.tableP[i].actualendtime !== "" ||
                 this.tableP[i].product !== ""
               ) {
-                this.baseInfo.stageInformation.push({
+                this.baseInfo.stageinformation.push({
                   phase: this.tableP[i].phase,
                   stageproduct: this.tableP[i].stageproduct,
                   productstatus: this.tableP[i].productstatus,
