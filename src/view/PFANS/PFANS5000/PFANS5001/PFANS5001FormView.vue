@@ -1105,7 +1105,28 @@ phase<template>
               trigger: 'change',
             },
           ],
-          briefintroduction: [
+          // 开发语言
+          languages: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+              trigger: 'blur',
+            },
+          ],
+          // 受託工数
+          work: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+              trigger: 'blur',
+            },
+          ],
+          //纳期
+          deadline: [
             {
               required: true,
               message:
@@ -1116,6 +1137,14 @@ phase<template>
           ],
           // 姓名
           expname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
+          // 委托元部署
+          deployment: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.user_name'),
@@ -1192,7 +1221,10 @@ phase<template>
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            //项目计划111
+            if(this.form.tools != ''){
+                this.checkList = JSON.parse(this.form.tools);
+            }
+            //项目计划
             if (response.stageinformation.length > 0) {
                 this.tableA = response.stageinformation;
             }
@@ -1639,6 +1671,11 @@ phase<template>
           if (valid) {
             this.loading = true;
             this.baseInfo = {};
+            if(JSON.stringify(this.checkList) !== '[]'){
+                this.form.tools = JSON.stringify(this.checkList);
+            }else{
+                this.form.tools = '';
+            }
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
