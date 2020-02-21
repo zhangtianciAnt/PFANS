@@ -39,7 +39,7 @@
           {
             code: 'productstatus',
             label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-            width: 120,
+            width: 130,
             fix: false,
             filter: true
           },
