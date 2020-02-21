@@ -12,6 +12,7 @@ const getters = {
   days: state => state.global.days,
   orgs: state => state.usersStore.orgs,
   fileToken: state => state.global.fileToken,
+  cooperinterviewList: state => state.global.cooperinterviewList,
 }
 
 export default getters

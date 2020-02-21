@@ -1,3 +1,5 @@
+import store from "./index";
+
 const global = {
   namespaced: true,
   state: {
@@ -11,7 +13,8 @@ const global = {
     orgList:[],
     dictionaryList:[],
     days:[],
-    fileToken:""
+    fileToken:"",
+    cooperinterviewList:[],
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -46,7 +49,10 @@ const global = {
     },
     SET_FILETOKEN(state, fileToken) {
       state.fileToken = fileToken
-    }
+    },
+    SET_COOPERINTERVIEWLIST(state, infos) {
+      state.cooperinterviewList = infos
+    },
   }
 }
 

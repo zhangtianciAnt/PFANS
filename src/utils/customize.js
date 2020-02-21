@@ -264,6 +264,19 @@ export function getDictionaryInfode(value1,value2,value3) {
   }
   return info
 }
+export function getCooperinterviewList(cooperuserid) {
+  let info = null;
+  if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
+    debugger;
+    for (let cooperinterview of store.getters.cooperinterviewList) {
+      if (cooperinterview.cooperuserid === cooperuserid) {
+        info = cooperinterview;
+        break
+      }
+    }
+  }
+  return info
+}
 
 //获取数据状态
 export function getStatus(status) {
