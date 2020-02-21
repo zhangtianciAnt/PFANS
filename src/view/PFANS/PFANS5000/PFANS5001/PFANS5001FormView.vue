@@ -1221,7 +1221,10 @@ phase<template>
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            //项目计划111
+            if(this.form.tools != ''){
+                this.checkList = JSON.parse(this.form.tools);
+            }
+            //项目计划
             if (response.stageinformation.length > 0) {
                 this.tableA = response.stageinformation;
             }
@@ -1668,6 +1671,11 @@ phase<template>
           if (valid) {
             this.loading = true;
             this.baseInfo = {};
+            if(JSON.stringify(this.checkList) !== '[]'){
+                this.form.tools = JSON.stringify(this.checkList);
+            }else{
+                this.form.tools = '';
+            }
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
