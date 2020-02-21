@@ -55,13 +55,13 @@ export function createexpatriatesinforApply(data) {
     data: data
   })
 }
-export function setexpatriatesinforApply(data) {
-  return request({
-    url: 'expatriatesinfor/setexpatriatesinforApply',
-    method: 'post',
-    data: data
-  })
-}
+// export function setexpatriatesinforApply(data) {
+//   return request({
+//     url: 'expatriatesinfor/setexpatriatesinforApply',
+//     method: 'post',
+//     data: data
+//   })
+// }
 
 export function getSupplierNameList(data) {
   return request({

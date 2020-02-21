@@ -559,7 +559,7 @@
           this.updateexpatriatesinfor();
         }
         if (val === 'generate') {
-          this.setexpatriatesinforApply();
+          this.getexpatriatesinforthisyear();
         }
       },
 
@@ -585,28 +585,28 @@
             this.loading = false;
           });
       },
-      setexpatriatesinforApply() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/setexpatriatesinforApply', this.tableData)
-          .then(response => {
-            Message({
-              message: this.$t("normal.success_02"),
-              type: "success",
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-            this.getexpatriatesinforthisyear();
-          });
-      },
+      // setexpatriatesinforApply() {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS6004Store/setexpatriatesinforApply', this.tableData)
+      //     .then(response => {
+      //       Message({
+      //         message: this.$t("normal.success_02"),
+      //         type: "success",
+      //         duration: 5 * 1000
+      //       });
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       this.loading = false;
+      //       this.getexpatriatesinforthisyear();
+      //     });
+      // },
       getRowClass({row, column, rowIndex, columnIndex}) {
         if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
           return {

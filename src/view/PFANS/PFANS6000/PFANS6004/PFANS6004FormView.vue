@@ -541,7 +541,7 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
-              trigger: 'change',
+              trigger: 'blur',
             },
           ],
           // 供应商名称
