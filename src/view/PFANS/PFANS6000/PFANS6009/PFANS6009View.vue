@@ -697,36 +697,41 @@
             break;
         }
       },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => {
-          if (j === 'timestamp') {
-            return parseTime(v[j])
-          } else {
-            return v[j]
-          }
-        }))
-      },
       buttonClick(val) {
         if (val === 'export') {
-          this.export(this.tableA);
+          this.export(this.tableA, this.tableB, this.tableC);
         }
       },
-      export(selectedList){
-        console.log(selectedList);
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [this.$t('label.PFANS6009VIEW_BPCOMPANY'), this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'), this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST'),
-            this.$t('label.PFANS6009VIEW_MANHOUR'), this.$t('label.PFANS6009VIEW_COST')];
-          const filterVal = ['bpcompany', 'manhour4', 'cost4', 'manhour5', 'cost5', 'manhour6', 'cost6', 'manhour7', 'cost7', 'manhour8', 'cost8', 'manhour9', 'cost9',
-            'manhour10', 'cost10', 'manhour11', 'cost11', 'manhour12', 'cost12', 'manhour1', 'cost1', 'manhour2', 'cost2', 'manhour3', 'cost3','totalmanhours','totalcost'];
-          const list = selectedList;
-          const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6009'));
-        })
+      export(listA, listB, listC){
+        console.log(listA);
+        console.log(listB);
+        console.log(listC);
+        this.$store
+          .dispatch("PFANS6009Store/downloadExcel")
+          .then(response => {
+            this.download(response, "BP社集計一览")
+          })
+          .catch(() => {
+            console.log("no");
+          });
+      },
+      download(data, filename) {
+        if("msSaveOrOpenBlob" in navigator){
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
+            decodeURI(filename) + ".xlsx"
+          );
+        }else {
+          var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
       },
     }
   }

@@ -49,7 +49,7 @@
             label: 'label.PFANS6008VIEW_FOUR',
             child: [
               {
-                code: 'unitprice',
+                code: 'price4',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -86,7 +86,7 @@
             label: 'label.PFANS6008VIEW_FIVE',
             child: [
               {
-                code: 'unitprice',
+                code: 'price5',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -123,7 +123,7 @@
             label: 'label.PFANS6008VIEW_SIX',
             child: [
               {
-                code: 'unitprice',
+                code: 'price6',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -197,7 +197,7 @@
             label: 'label.PFANS6008VIEW_SEVEN',
             child: [
               {
-                code: 'unitprice',
+                code: 'price7',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -234,7 +234,7 @@
             label: 'label.PFANS6008VIEW_EIGHT',
             child: [
               {
-                code: 'unitprice',
+                code: 'price8',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -271,7 +271,7 @@
             label: 'label.PFANS6008VIEW_NINE',
             child: [
               {
-                code: 'unitprice',
+                code: 'price9',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -345,7 +345,7 @@
             label: 'label.PFANS6008VIEW_TEN',
             child: [
               {
-                code: 'unitprice',
+                code: 'price10',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -382,7 +382,7 @@
             label: 'label.PFANS6008VIEW_ELEVEN',
             child: [
               {
-                code: 'unitprice',
+                code: 'price11',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -419,7 +419,7 @@
             label: 'label.PFANS6008VIEW_TWELVE',
             child: [
               {
-                code: 'unitprice',
+                code: 'price12',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -493,7 +493,7 @@
             label: 'label.PFANS6008VIEW_ONE',
             child: [
               {
-                code: 'unitprice',
+                code: 'price1',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -530,7 +530,7 @@
             label: 'label.PFANS6008VIEW_TWO',
             child: [
               {
-                code: 'unitprice',
+                code: 'price2',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
@@ -567,7 +567,7 @@
             label: 'label.PFANS6008VIEW_THREE',
             child: [
               {
-                code: 'unitprice',
+                code: 'price3',
                 label: 'label.PFANS6008VIEW_UNITPRICE',
                 width: 90,
                 fix: false,
