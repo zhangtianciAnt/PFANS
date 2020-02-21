@@ -18,7 +18,7 @@
         data() {
             return {
                 loading: false,
-                title: "title.PFANS5001VIEW",
+                title: "menu.PFANS5001",
                 // 表格数据源
                 data: [],
                 // 列属性
