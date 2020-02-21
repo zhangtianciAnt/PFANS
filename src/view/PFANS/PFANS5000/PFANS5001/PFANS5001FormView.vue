@@ -1105,7 +1105,28 @@ phase<template>
               trigger: 'change',
             },
           ],
-          briefintroduction: [
+          // 开发语言
+          languages: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+              trigger: 'blur',
+            },
+          ],
+          // 受託工数
+          work: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+              trigger: 'blur',
+            },
+          ],
+          //纳期
+          deadline: [
             {
               required: true,
               message:
@@ -1116,6 +1137,14 @@ phase<template>
           ],
           // 姓名
           expname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
+          // 委托元部署
+          deployment: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.user_name'),
