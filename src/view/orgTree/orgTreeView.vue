@@ -16,7 +16,7 @@
               <el-tab-pane label="基本信息" name="first">
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="companyForm"
                          label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
-                         v-show="currentNode.type === '1'" :disabled="formDisabled">
+                         v-show="currentNode.type === '1'||currentNode.type === '2'" :disabled="formDisabled">
                   <el-form-item prop="name" label="简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
                     <el-input v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.companyshortname}}</span>
@@ -28,6 +28,10 @@
                   <el-form-item prop="engname" label="英文缩写" @mouseover.native="changeflag('nameengflag',true)" @mouseout.native="changeflag('nameengflag',false)">
                     <el-input v-model="currentNode.companyen" v-show="nameengflag"></el-input>
                     <span v-show="!nameengflag">{{currentNode.companyen}}</span>
+                  </el-form-item>
+                  <el-form-item  label="组织番号" @mouseover.native="changeflag('orgnameflag',true)" @mouseout.native="changeflag('orgnameflag',false)">
+                    <el-input v-model="currentNode.orgname" v-show="orgnameflag"></el-input>
+                    <span v-show="!orgnameflag">{{currentNode.orgname}}</span>
                   </el-form-item>
                   <!--<el-form-item prop="address" label="公司地址" @mouseover.native="changeflag('addressflag',true)" @mouseout.native="changeflag('addressflag',false)">-->
                   <!--<el-input v-show="addressflag" v-model="currentNode.companyaddress"></el-input>-->
@@ -52,7 +56,7 @@
                 </el-form>
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="departmentForm"
                          label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
-                         v-show="currentNode.type !== '1'" :disabled="formDisabled">
+                         v-show="currentNode.type !== '1'&& currentNode.type !== '2'" :disabled="formDisabled">
                   <el-form-item prop="departmentname" label="名称"
                                 @mouseover.native="changeflag('nameflag',true)"
                                 @mouseout.native="changeflag('nameflag',false)"
@@ -120,6 +124,7 @@
         addressflag: false,
         ownerflag: false,
         timeflag: false,
+        orgnameflag:false,
         exrinfolist: {
           banlist: [],
           invlist: []
@@ -161,6 +166,7 @@
           })
       },
       handleNodeClick (data) {
+        debugger;
         let temp = []
         this.companyFormcheck = Object.assign(
           {},
@@ -253,6 +259,9 @@
             break
           case 'ownerflag':
             this.ownerflag = type
+            break
+          case 'orgnameflag':
+            this.orgnameflag = type
             break
           default:
             this.timeflag = type
