@@ -1539,7 +1539,7 @@
                     <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount">
+                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount"  width="200">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                   </template>
@@ -1547,7 +1547,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code1"
+                      :code="code9"
                       :data="scope.row.currencyposition"
                       :no="scope.row"
                       :multiple="multiple"
