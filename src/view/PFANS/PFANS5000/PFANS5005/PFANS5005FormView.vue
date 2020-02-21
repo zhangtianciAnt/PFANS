@@ -422,7 +422,7 @@
                   this.source[i].name = lst.userinfo.customername;
                 }
                 else{
-                  this.source[i].type = this.$t('label._PFANS5004VIEW_ASSIST');
+                  this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
                 }
               }
             }
