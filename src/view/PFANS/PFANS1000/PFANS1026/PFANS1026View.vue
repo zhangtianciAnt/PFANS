@@ -29,7 +29,7 @@
                         filter: true,
                     },
                     {
-                        code: 'group_id',
+                        code: 'deployment',
                         label: 'label.group',
                         width: 120,
                         fix: false,
@@ -85,10 +85,6 @@
                             if (letContracttype != null) {
                                 response[j].contracttype = letContracttype.value1;
                             }
-                        }
-                        let group = getOrgInfo(response[j].group_id);
-                        if(group){
-                            this.groupname = group.companyname;
                         }
                     }
                     this.data = response;
