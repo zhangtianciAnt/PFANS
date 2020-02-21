@@ -1,5 +1,5 @@
 
-import {getFpans5001List, update,selectById} from "../PFANS5001/PFANS5001Api";
+import {getstage} from "../PFANS5004/PFANS5004Api";
 
 const PFANS5004Store = {
   namespaced: true,
@@ -8,35 +8,9 @@ const PFANS5004Store = {
   mutations: {
   },
   actions: {
-    getFpans5001List({commit},data) {
+    getstage({commit}, data) {
       return new Promise((resolve, reject) => {
-        getFpans5001List(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    selectById({commit}, data) {
-      return new Promise((resolve, reject) => {
-        selectById(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    update({commit}, data) {
-      return new Promise((resolve, reject) => {
-        update(data).then(response => {
+        getstage(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

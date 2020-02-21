@@ -39,7 +39,7 @@
               {
                 code: 'productstatus',
                 label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-                width: 120,
+                width: 130,
                 fix: false,
                 filter: true
               },
@@ -102,7 +102,29 @@
             });
             this.loading = false;
           });
+        this.$store
+          .dispatch('PFANS5004Store/getstage', {})
+          .then(response => {
+            debugger
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].phase !== null && response[i].phase !== "") {
+                response[i].phase = response[i].phase;
+              }
+
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
       },
+
+
       methods: {
         rowClick(row) {
           this.rowid = row.companyprojects_id;
