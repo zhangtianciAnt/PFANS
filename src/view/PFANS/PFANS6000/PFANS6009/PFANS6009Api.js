@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestExcel'
 
 export function getCostList(data) {
   return request({
@@ -21,6 +22,14 @@ export function getWorkers(data) {
     url: '/companystatistics/getCompanyReport3',
     method: 'get',
     params: data
+  })
+}
+
+export function downloadExcel(data) {
+  return requestDownload({
+    url: '/companystatistics/downloadExcel',
+    method: 'post',
+    data: data
   })
 }
 
