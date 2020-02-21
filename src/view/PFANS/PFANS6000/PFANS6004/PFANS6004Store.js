@@ -4,7 +4,6 @@ import {
   getexpatriatesinforthisyear,
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
-  setexpatriatesinforApply,
   updateexpatriatesinfor,
   getSupplierNameList,
   download
@@ -98,19 +97,19 @@ const PFANS6004Store = {
       })
     },
 
-    setexpatriatesinforApply({commit}, data) {
-      return new Promise((resolve, reject) => {
-        setexpatriatesinforApply(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
+    // setexpatriatesinforApply({commit}, data) {
+    //   return new Promise((resolve, reject) => {
+    //     setexpatriatesinforApply(data).then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
 
     getSupplierNameList({commit}, data) {
       return new Promise((resolve, reject) => {

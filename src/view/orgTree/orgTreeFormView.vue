@@ -19,6 +19,9 @@
               { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
             <el-input auto-complete="off" placeholder="" v-model="companyform.companyen" style="width:20vw"></el-input>
           </el-form-item>
+          <el-form-item label="组织番号">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.orgname" style="width:20vw"></el-input>
+          </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{currentNode.companyshortname}}</span>
           </el-form-item>
@@ -38,6 +41,9 @@
                { required: true, message: '请输入英文缩写', trigger: 'blur' },
                { validator: engnameCheck, trigger: 'blur' }]" label="英文缩写" prop="companyen">
             <el-input auto-complete="off" placeholder="英文缩写" v-model="companyform.companyen" style="width:20vw"></el-input>
+          </el-form-item>
+          <el-form-item label="组织番号" v-show="type === '2'">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.orgname" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{upcompany}}</span>
