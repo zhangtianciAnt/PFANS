@@ -21,13 +21,13 @@
         title: "title.PFANS5009VIEW",
         data: [],
         columns: [
-          {
-            code: 'numbers',
-            label: 'label.PFANS5009VIEW_PROJECTNO',
-            width: 110,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   code: 'numbers',
+          //   label: 'label.PFANS5009VIEW_PROJECTNO',
+          //   width: 110,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
             code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
@@ -35,41 +35,41 @@
             fix: false,
             filter: true,
           },
-          // {
-          //   code: 'phase',
-          //   label: 'label.PFANS5009VIEW_PHASE',
-          //   width: 110,
-          //   fix: false,
-          //   filter: true,
-          // },
-          // {
-          //   code: 'productstatus',
-          //   label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // },
-          // {
-          //   code: 'phasestatus',
-          //   label: 'label.PFANS5009VIEW_STAGESTATUS',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // },
-          // {
-          //   code: 'estimatedwork',
-          //   label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // },
-          // {
-          //   code: 'actualwork',
-          //   label: 'label.PFANS5009VIEW_ACTUALWORK',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // },
+          {
+            code: 'phase',
+            label: 'label.PFANS5009VIEW_PHASE',
+            width: 110,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'productstatus',
+            label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'phasestatus',
+            label: 'label.PFANS5009VIEW_STAGESTATUS',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'estimatedwork',
+            label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'actualwork',
+            label: 'label.PFANS5009VIEW_ACTUALWORK',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
           // {
           //   code: 'zpqk',
           //   label: 'label.PFANS5009VIEW_SITUATION',
@@ -77,13 +77,20 @@
           //   fix: false,
           //   filter: true,
           // },
-          // {
-          //   code: 'status',
-          //   label: 'label.PFANS5009VIEW_STATUS',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // }
+          {
+            code: 'status2',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 150,
+            fix: false,
+            filter: true,
+          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -99,6 +106,11 @@
       this.$store
         .dispatch('PFANS5009Store/getFpans5001List',{})
         .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].status !== null && response[j].status !== "") {
+              response[j].status = getStatus(response[j].status);
+            }
+          }
           // for (let j = 0; j < response.length; j++) {
           //   let center = getOrgInfo(response[j].center_id);
           //   let group = getOrgInfo(response[j].group_id);

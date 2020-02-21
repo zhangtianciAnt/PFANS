@@ -1,9 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
-<!--                         @end="end"-->
-<!--                         @start="start" @workflowState="workflowState" -->
+                         ref="container" v-loading="loading"
+                         @end="end"
+                         @start="start" @workflowState="workflowState" >
 
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -66,7 +66,7 @@
                     <el-col :span="8">
                       <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
                         <user
-                          :disabled="!disable"
+                          :disabled="!disabled"
                           :error="errorManager"
                           :selectType="selectType"
                           :userlist="userlist1"
@@ -498,7 +498,7 @@
           enddate: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_ENDTIME'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_TIME'),
               trigger: 'change',
             },
           ],
@@ -532,11 +532,9 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            if (response.stageInformation.length > 0) {
-              this.tableP = response.stageInformation;
+            if (response.stageinformation.length > 0) {
+              this.tableP = response.stageinformation;
             }
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
             this.loading = false;
           })
           .catch(error => {
@@ -645,7 +643,7 @@
       //   this.form.status = '2';
       //   this.buttonClick('update');
       // },
-      // end() {
+      // () {
       //   this.form.status = '0';
       //   this.buttonClick('update');
       // },
@@ -672,6 +670,24 @@
       //       this.loading = false;
       //     });
       // },
+
+      workflowState(val) {
+        if (val.state === "1") {
+          this.form.status = "3";
+        } else if (val.state === "2") {
+          this.form.status = "4";
+        }
+        this.buttonClick("update");
+      },
+      start() {
+        this.form.status = "2";
+        this.buttonClick("update");
+      },
+      end() {
+        this.form.status = "0";
+        this.buttonClick("update");
+      },
+
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
@@ -680,7 +696,7 @@
             this.loading = true;
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageInformation = [];
+            this.baseInfo.stageinformation = [];
             for (let i = 0; i < this.tableP.length; i++) {
               if (
                 this.tableP[i].phase !== "" ||
@@ -689,7 +705,7 @@
                 this.tableP[i].estimatedwork !== ""||
                 this.tableP[i].actualwork !== "" ||
                 this.tableP[i].estimatedstarttime !== "" ||
-                this.tableP[i].estimatedendtime !== "" ||
+                this.tableP[i].estimatedtime !== "" ||
                 this.tableP[i].remarks !== "" ||
                 this.tableP[i].actualstarttime !== "" ||
                 this.tableP[i].actualendtime !== "" ||
@@ -719,9 +735,8 @@
               this.form.startdate = moment(this.form.startdate).format('YYYY-MM-DD');
               this.form.enddate = moment(this.form.enddate).format('YYYY-MM-DD');
               this.form.deadline = moment(this.form.deadline).format('YYYY-MM-DD');
-              this.loading = true;
               this.$store
-                .dispatch('PFANS5009Store/update', this.baseInfo)
+                .dispatch("PFANS5001Store/update", this.baseInfo)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
