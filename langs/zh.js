@@ -313,7 +313,7 @@ module.exports = {
     PFANS3007VIEW: '日本出張のマンション予約',
     PFANS4001VIEW: '印章申请',
     PFANS4001FORMVIEW: '印章使用申请',
-    PFANS5001VIEW: '立项审批',
+    PFANS5001VIEW: 'PJ起案审批',
     PFANS5004VIEW: '尚未结束项目列表',
     PFANS5005VIEW: 'PJ完了审批',
     PFANS5009VIEW: '现场管理',

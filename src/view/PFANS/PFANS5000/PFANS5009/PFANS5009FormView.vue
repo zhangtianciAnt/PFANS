@@ -301,7 +301,6 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
-  import PFANS5009View from '../PFANS5009/PFANS5009View.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -312,7 +311,6 @@
     name: 'PFANS5009FormView',
     components: {
       EasyNormalContainer,
-      PFANS5009View,
       getOrgInfoByUserId,
       user,
       dicselect,
@@ -369,7 +367,6 @@
           this.errorgroup = '';
           return callback();
         }
-
       };
       return {
         centerorglist: '',
@@ -420,10 +417,12 @@
           product: '',
           rowindex: '',
         }],
+        data: [],
         code: 'PP001',
         code1: 'PP002',
         disabled: true,
         menuList: [],
+        baseInfo: {},
         rules: {
           center_id: [
             {
@@ -535,9 +534,9 @@
             if (response.stageInformation.length > 0) {
               this.tableP = response.stageInformation;
             }
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
-            this.loading = false;
+            // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
+           this.loading = false;
           })
           .catch(error => {
             Message({
@@ -696,8 +695,6 @@
                 this.tableP[i].product !== ""
               ) {
                 this.baseInfo.stageInformation.push({
-                  stageInformation_id: this.tableP[i].stageInformation_id,
-                  companyprojects_id: this.tableP[i].companyprojects_id,
                   phase: this.tableP[i].phase,
                   stageproduct: this.tableP[i].stageproduct,
                   productstatus: this.tableP[i].productstatus,
@@ -744,35 +741,7 @@
                   });
                   this.loading = false;
                 });
-
             }
-            // else {
-            //   this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-            //   this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
-            //   this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
-            //   this.$store
-            //     .dispatch('PFANS5009Store/createRecruit', this.form)
-            //     .then(response => {
-            //       this.data = response;
-            //       this.loading = false;
-            //       Message({
-            //         message: this.$t('normal.success_01'),
-            //         type: 'success',
-            //         duration: 5 * 1000,
-            //       });
-            //       if (this.$store.getters.historyUrl) {
-            //         this.$router.push(this.$store.getters.historyUrl);
-            //       }
-            //     })
-            //     .catch(error => {
-            //       Message({
-            //         message: error,
-            //         type: 'error',
-            //         duration: 5 * 1000,
-            //       });
-            //       this.loading = false;
-            //     });
-            // }
           }
         });
       },
