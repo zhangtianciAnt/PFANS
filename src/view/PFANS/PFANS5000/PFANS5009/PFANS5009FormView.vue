@@ -217,14 +217,26 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.estimatedstarttime"></el-input>
+                    <el-date-picker
+                      maxlength="20"
+                      v-model="scope.row.estimatedstarttime"
+                      :no="scope.row"
+                      :disabled="true"
+                      type="date"
+                      style="width: 100%"
+                    ></el-date-picker>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.estimatedendtime"></el-input>
+                    <el-date-picker
+                      maxlength="20"
+                      v-model="scope.row.estimatedendtime"
+                      :no="scope.row"
+                      :disabled="true"
+                      type="date"
+                      style="width: 100%"
+                    ></el-date-picker>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_REMARKS')" align="center" width="100">
@@ -235,14 +247,26 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALSTARTTIME')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" :no="scope.row" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.actualstarttime"></el-input>
+                    <el-date-picker
+                      maxlength="20"
+                      v-model="scope.row.actualstarttime"
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      type="date"
+                      style="width: 100%"
+                    ></el-date-picker>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" :no="scope.row" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.actualendtime"></el-input>
+                    <el-date-picker
+                      maxlength="20"
+                      v-model="scope.row.actualendtime"
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      type="date"
+                      style="width: 100%"
+                    ></el-date-picker>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCT')" align="center" width="100">
