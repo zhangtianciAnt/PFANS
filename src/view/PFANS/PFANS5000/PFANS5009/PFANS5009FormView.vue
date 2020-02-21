@@ -325,18 +325,9 @@
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
-                                :multiple="multiple"
+                                :multiple="multiple1"
                                 style="width: 18vw"
                               ></user>
-                              <!--<user-->
-                              <!--:disabled="!disable"-->
-                              <!--:error="errorLeader"-->
-                              <!--:selectType="selectType"-->
-                              <!--:userlist="userlist"-->
-                              <!--:multiple="multiple"-->
-                              <!--@getUserids="getUserids"-->
-                              <!--style="width: 18vw"-->
-                              <!--&gt;</user>-->
                             </template>
                           </el-table-column>
                           <!--                    職務-->
@@ -749,6 +740,7 @@
         disabled: true,
         menuList: [],
         baseInfo: {},
+        dialogTableVisible1: false,
         rules: {
           center_id: [
             {
@@ -846,7 +838,7 @@
       };
     },
     mounted() {
-      this.getexpatriatesinfor();
+      // this.getexpatriatesinfor();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -921,17 +913,17 @@
             this.customerinfor.push(vote);
           }
         });
-      this.$store
-        .dispatch('PFANS5001Store/getexpat', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result = response;
-            vote.value = response[i].expatriatesinfor_id;
-            vote.label = response[i].expname;
-            this.expatriates.push(vote);
-          }
-        });
+      // this.$store
+      //   .dispatch('PFANS5001Store/getexpatriatesinfor', {})
+      //   .then(response => {
+      //     for (let i = 0; i < response.length; i++) {
+      //       var vote = {};
+      //       this.result = response;
+      //       vote.value = response[i].expatriatesinfor_id;
+      //       vote.label = response[i].expname;
+      //       this.expatriates.push(vote);
+      //     }
+      //   });
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -1030,34 +1022,34 @@
           }
         });
       },
-      getexpatriatesinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor', {})
-          .then(response => {
-            this.gridData1 = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote1 = {};
-              vote1.number = response[i].number;
-              vote1.expname = response[i].expname;
-              vote1.suppliername =  response[i].suppliername;
-              vote1.post = response[i].post;
-              this.gridData1.push(vote1);
-            }
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+      // getexpatriatesinfor() {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+      //     .then(response => {
+      //       this.gridData1 = [];
+      //       for (let i = 0; i < response.length; i++) {
+      //         var vote1 = {};
+      //         vote1.number = response[i].number;
+      //         vote1.expname = response[i].expname;
+      //         vote1.suppliername =  response[i].suppliername;
+      //         vote1.post = response[i].post;
+      //         this.gridData1.push(vote1);
+      //       }
+      //       this.centerorglist = this.form.center_id;
+      //       this.grouporglist = this.form.group_id;
+      //       this.teamorglist = this.form.team_id;
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       this.loading = false;
+      //     });
+      // },
       getProduct(row) {
         if (row.product === '1') {
           row.productstatus = this.$t('label.PFANS5009FORMVIEW_SUBMITTED');
