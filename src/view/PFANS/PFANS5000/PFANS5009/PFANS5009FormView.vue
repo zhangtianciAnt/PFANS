@@ -1,9 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading"
-                         @end="end"
-                         @start="start" @workflowState="workflowState" >
+                         ref="container" v-loading="loading">
+<!--                         @end="end"-->
+<!--                         @start="start" @workflowState="workflowState" -->
 
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -66,7 +66,7 @@
                     <el-col :span="8">
                       <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
                         <user
-                          :disabled="!disabled"
+                          :disabled="!disable"
                           :error="errorManager"
                           :selectType="selectType"
                           :userlist="userlist1"
@@ -301,7 +301,6 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
-  import PFANS5009View from '../PFANS5009/PFANS5009View.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -312,7 +311,6 @@
     name: 'PFANS5009FormView',
     components: {
       EasyNormalContainer,
-      PFANS5009View,
       getOrgInfoByUserId,
       user,
       dicselect,
@@ -369,7 +367,6 @@
           this.errorgroup = '';
           return callback();
         }
-
       };
       return {
         centerorglist: '',
@@ -420,10 +417,12 @@
           product: '',
           rowindex: '',
         }],
+        data: [],
         code: 'PP001',
         code1: 'PP002',
         disabled: true,
         menuList: [],
+        baseInfo: {},
         rules: {
           center_id: [
             {
@@ -498,7 +497,7 @@
           enddate: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_TIME'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_ENDTIME'),
               trigger: 'change',
             },
           ],
@@ -532,10 +531,12 @@
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            if (response.stageinformation.length > 0) {
-              this.tableP = response.stageinformation;
+            if (response.stageInformation.length > 0) {
+              this.tableP = response.stageInformation;
             }
-            this.loading = false;
+            // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
+           this.loading = false;
           })
           .catch(error => {
             Message({
@@ -643,7 +644,7 @@
       //   this.form.status = '2';
       //   this.buttonClick('update');
       // },
-      // () {
+      // end() {
       //   this.form.status = '0';
       //   this.buttonClick('update');
       // },
@@ -670,24 +671,6 @@
       //       this.loading = false;
       //     });
       // },
-
-      workflowState(val) {
-        if (val.state === "1") {
-          this.form.status = "3";
-        } else if (val.state === "2") {
-          this.form.status = "4";
-        }
-        this.buttonClick("update");
-      },
-      start() {
-        this.form.status = "2";
-        this.buttonClick("update");
-      },
-      end() {
-        this.form.status = "0";
-        this.buttonClick("update");
-      },
-
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
@@ -696,7 +679,7 @@
             this.loading = true;
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageinformation = [];
+            this.baseInfo.stageInformation = [];
             for (let i = 0; i < this.tableP.length; i++) {
               if (
                 this.tableP[i].phase !== "" ||
@@ -705,15 +688,13 @@
                 this.tableP[i].estimatedwork !== ""||
                 this.tableP[i].actualwork !== "" ||
                 this.tableP[i].estimatedstarttime !== "" ||
-                this.tableP[i].estimatedtime !== "" ||
+                this.tableP[i].estimatedendtime !== "" ||
                 this.tableP[i].remarks !== "" ||
                 this.tableP[i].actualstarttime !== "" ||
                 this.tableP[i].actualendtime !== "" ||
                 this.tableP[i].product !== ""
               ) {
                 this.baseInfo.stageInformation.push({
-                  stageInformation_id: this.tableP[i].stageInformation_id,
-                  companyprojects_id: this.tableP[i].companyprojects_id,
                   phase: this.tableP[i].phase,
                   stageproduct: this.tableP[i].stageproduct,
                   productstatus: this.tableP[i].productstatus,
@@ -735,8 +716,9 @@
               this.form.startdate = moment(this.form.startdate).format('YYYY-MM-DD');
               this.form.enddate = moment(this.form.enddate).format('YYYY-MM-DD');
               this.form.deadline = moment(this.form.deadline).format('YYYY-MM-DD');
+              this.loading = true;
               this.$store
-                .dispatch("PFANS5001Store/update", this.baseInfo)
+                .dispatch('PFANS5009Store/update', this.baseInfo)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
@@ -759,35 +741,7 @@
                   });
                   this.loading = false;
                 });
-
             }
-            // else {
-            //   this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-            //   this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
-            //   this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
-            //   this.$store
-            //     .dispatch('PFANS5009Store/createRecruit', this.form)
-            //     .then(response => {
-            //       this.data = response;
-            //       this.loading = false;
-            //       Message({
-            //         message: this.$t('normal.success_01'),
-            //         type: 'success',
-            //         duration: 5 * 1000,
-            //       });
-            //       if (this.$store.getters.historyUrl) {
-            //         this.$router.push(this.$store.getters.historyUrl);
-            //       }
-            //     })
-            //     .catch(error => {
-            //       Message({
-            //         message: error,
-            //         type: 'error',
-            //         duration: 5 * 1000,
-            //       });
-            //       this.loading = false;
-            //     });
-            // }
           }
         });
       },

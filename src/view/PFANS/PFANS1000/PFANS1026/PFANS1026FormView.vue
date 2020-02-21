@@ -4,8 +4,7 @@
                          :title="title"
                          @buttonClick="buttonClick"
                          v-loading="loading"
-                         :buttonList="buttonList"
-                         :noback = "true">
+                         :buttonList="buttonList">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
@@ -69,12 +68,12 @@
                                  type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -429,14 +428,14 @@
               <el-table :data="tablesecond" stripe header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.application')" align="center" prop="applicationdate"  width="200">
@@ -791,14 +790,14 @@
               <el-table :data="tablethird" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1096,14 +1095,14 @@
               <el-table :data="tablefourth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1401,14 +1400,14 @@
               <el-table :data="tablefifth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -1706,9 +1705,9 @@
               <el-table :data="tablesixth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
@@ -2011,14 +2010,14 @@
               <el-table :data="tableseventh" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -2316,14 +2315,14 @@
               <el-table :data="tableeighth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -2621,14 +2620,14 @@
               <el-table :data="tableninth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.department')" align="center" prop="group_id" width="200">
+                <el-table-column :label="$t('label.department')" align="center" prop="department" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.group_id" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                    <el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
@@ -2952,7 +2951,7 @@
                 index: "",
                 dialogFormVisible: false,
                 grouporglist: '',
-                groupname:'',
+                groupinfo:[],
                 errorgroup: '',
                 loading: false,
                 selectType: "Single",
@@ -2975,16 +2974,6 @@
                 rules: {},
                 buttonList:[
                     {
-                        key: 'application',
-                        name: 'button.application',
-                        disabled: false,
-                    },
-                    {
-                        key: 'cancellation',
-                        name: 'button.cancellation',
-                        disabled: false,
-                    },
-                    {
                         key: 'save',
                         name: 'button.save',
                         disabled: false,
@@ -2993,7 +2982,7 @@
                         key: 'makeinto',
                         name: 'button.makeinto',
                         disabled: false,
-                    },
+                    }
                 ],
                 form:{
                     contractnumber: '',
@@ -3031,16 +3020,12 @@
         },
         mounted() {
             this.loading = true;
-            if (this.$route.params._id) {
+            if (this.$route.params._id) {//111
                 this.$store
                     .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
                     .then(response => {
                         if (response.length > 0) {
                             for(let i = 0;i<response.length;i++){
-                                let group = getOrgInfo(response[i].group_id);
-                                if(group){
-                                    response[i].group_id = group.companyname;
-                                }
                                 if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
                                     let claimdatetime = response[i].claimdatetime;
                                     let claimdatetim = claimdatetime.slice(0, 10);
@@ -3152,6 +3137,46 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.loading = false;
+                this.dialogFormVisible = true;
+            }
+        },
+        created() {
+            this.disabled = this.$route.params.disabled;
+            if (!this.disabled) {
+                this.buttonList = [];
+            }
+            if (this.$route.params._id) {
+                this.buttonList = [
+                    {
+                        key: 'cancellation',
+                        name: 'button.cancellation',
+                        disabled: false,
+                    },
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                    },
+                    {
+                        key: 'makeinto',
+                        name: 'button.makeinto',
+                        disabled: false,
+                    },
+                ]
+            }
+            else{
+                this.buttonList = [
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                    },
+                    {
+                        key: 'makeinto',
+                        name: 'button.makeinto',
+                        disabled: false,
+                    },
+                ]
             }
         },
         methods: {
@@ -3159,7 +3184,7 @@
                 this.grouporglist = val;
                 let group = getOrgInfo(val);
                 if(group){
-                    this.groupname = group.companyname;
+                    this.groupinfo = [val,group.companyen,group.orgname,group.companyname];
                 }
             },
             getUserids(val,row) {
@@ -3788,8 +3813,10 @@
                 }
                 this.tablefirst.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4614,63 +4641,6 @@
                     }
                 }
             },
-            click1X(val) {
-                if(val === "insert") {
-                    this.$refs["refform"].validate(valid => {
-                        if (valid) {
-                            if (this.$route.params._id) {
-                                this.$store
-                                    .dispatch('PFANS1026Store/update', this.contractapplication)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if (val !== "update") {
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            if (this.$store.getters.historyUrl) {
-                                                this.$router.push(this.$store.getters.historyUrl);
-                                            }
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-                            } else {
-                                this.$store
-                                    .dispatch('PFANS1026Store/insert', this.contractapplication)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        Message({
-                                            message: this.$t("normal.success_01"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-                            }
-                        }
-                    });
-                }
-            },
             buttonClick(val) {
                 if (val === "application") {
                     this.dialogFormVisible = true;
@@ -4683,11 +4653,11 @@
                     this.show2=true;
                 }
                 if (val === "save") {//222
+                    //.dispatch('PFANS1026Store/update', this.contractapplication)
                     let tabledata = [];
                     //海外受託 技術開発
                     if(this.form.contracttype === 'HT008001'){//11
                         for (let i = 0; i < this.tablefirst.length; i++) {
-                            this.tablefirst[i].group_id = this.grouporglist;
                             if(this.tablefirst[i].claimdatetime.length > 0){
                                 var varstartdate = moment(this.tablefirst[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefirst[i].claimdatetime[1]).format('YYYY-MM-DD');
                                 this.tablefirst[i].claimdatetime = varstartdate;
@@ -4701,7 +4671,6 @@
                     //海外複合受託 技術開発
                     else if(this.form.contracttype === 'HT008002'){
                         for (let i = 0; i < this.tablesecond.length; i++) {
-                            this.tablesecond[i].group_id = this.grouporglist;
                             if(this.tablesecond[i].claimdatetime.length > 0){
                                 var varstartdate = moment(this.tablesecond[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesecond[i].claimdatetime[1]).format('YYYY-MM-DD');
                                 this.tablesecond[i].claimdatetime = varstartdate;
@@ -4715,7 +4684,6 @@
                     //海外受託 役務
                     else if(this.form.contracttype === 'HT008003'){
                         for (let i = 0; i < this.tablethird.length; i++) {
-                            this.tablesecond[i].group_id = this.grouporglist;
                             if(this.tablethird[i].claimdatetime.length > 0){
                                 var varstartdate = moment(this.tablethird[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablethird[i].claimdatetime[1]).format('YYYY-MM-DD');
                                 this.tablethird[i].claimdatetime = varstartdate;
