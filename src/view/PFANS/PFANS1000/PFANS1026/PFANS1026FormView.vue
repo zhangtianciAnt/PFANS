@@ -42,6 +42,7 @@ first<template>
                          :disabled="!disabled2">
               </dicselect>
               <dicselect :code="code4"
+                         :data="form.entrycondition"
                          @change="getcareeryear2"
                          style="width: 20vw"
                          :disabled="!disabled2">
@@ -2932,7 +2933,7 @@ first<template>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import { Message } from 'element-ui'
     import dicselect from "../../../components/dicselect";
-    import {getOrgInfo} from '@/utils/customize';
+    import {getOrgInfo,getDictionaryInfo} from '@/utils/customize';
     import user from '../../../components/user.vue';
     import org from "../../../components/org";
     import moment from "moment";
@@ -2954,6 +2955,8 @@ first<template>
                 groupinfo:[],
                 errorgroup: '',
                 maketype: '',
+                letcontractnumber: '',
+                letcontracttype: '',
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS1026VIEW",
@@ -2990,6 +2993,7 @@ first<template>
                     claimtype: '',
                     contracttype: '',
                     applicationdate: '',
+                    entrycondition: '',
                     group_id: '',
                     maketype: '',
                 },
@@ -3026,9 +3030,14 @@ first<template>
                     .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
                     .then(response => {
                         if (response.length > 0) {
-                            for (let i = 0; i < response.length; i++) {//111
+                            for (let i = 0; i < response.length; i++) {
                                 this.maketype = response[i].maketype;
                                 this.form.contracttype = response[i].contracttype;
+                                //契約種類
+                                let letabbreviation = getDictionaryInfo(response[i].contracttype);
+                                if (letabbreviation != null) {
+                                    response[i].contracttype = letabbreviation.value1;
+                                }
                                 if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
                                     let claimdatetime = response[i].claimdatetime;
                                     let claimdatetim = claimdatetime.slice(0, 10);
@@ -3752,16 +3761,6 @@ first<template>
             },
             //海外受託 技術開発
             addRowfirst() {
-                //契約書番号
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
                 this.tablefirst.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3770,8 +3769,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3837,8 +3836,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3903,8 +3902,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3961,8 +3960,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4019,8 +4018,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4077,8 +4076,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4135,8 +4134,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4193,8 +4192,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4251,8 +4250,8 @@ first<template>
                     deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4291,6 +4290,7 @@ first<template>
                     maketype: '9',
                 });
             },
+            //契約番号做成
             click() {
                 this.tablefirst = [];
                 this.tablesecond = [];
@@ -4301,6 +4301,7 @@ first<template>
                 this.tableseventh = [];
                 this.tableeighth = [];
                 this.tableninth = [];
+                //contractnumber
                 //請求方式
                 let letclaimtype = '';
                 //覚書
@@ -4311,6 +4312,32 @@ first<template>
                 let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
                 let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
                 let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+                debugger;
+                //契約書番号
+                this.letcontractnumber = this.form.contractnumber;
+                //契約種類简称
+                let abbreviation = '';
+                let letabbreviation = getDictionaryInfo(this.form.contracttype);
+                if (letabbreviation != null) {
+                    //契約種類
+                    this.contracttype = letabbreviation.value1;
+                    abbreviation = letabbreviation.value2;
+                }
+                //事業年度
+                let applicationdate = '';
+                let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+                if (letapplicationdate != null) {
+                    applicationdate = letapplicationdate.value2;
+                }
+                //上下期
+                let entrycondition = '';
+                let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+                if (letentrycondition != null) {
+                    entrycondition = letentrycondition.value2;
+                }
+                if(this.letcontractnumber === ""){
+                    this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1];
+                }
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
                     this.activeName = 'first';
@@ -4616,6 +4643,14 @@ first<template>
                     }
                 }
             },
+            paramsTitle(){
+                this.$router.push({
+                    name: 'PFANS1026View',
+                    params: {
+                        title: 10,
+                    },
+                });
+            },
             buttonClick(val) {
                 if (val === "application") {
                     this.dialogFormVisible = true;
@@ -4627,71 +4662,48 @@ first<template>
                     this.show1=false;
                     this.show2=true;
                 }
-                if (val === "save") {//222
+                if (val === "save") {//111
                     let tabledata = [];
                     this.form.maketype = "1";
                     //海外受託 技術開発
                     if(this.form.contracttype === 'HT008001'){
-                        for (let i = 0; i < this.tablefirst.length; i++) {
-                            this.tablefirst[i].claimdatetime = this.getclaimdatetime(this.tablefirst[i].claimdatetime);
-                        }
                         tabledata = this.tablefirst;
                     }
                     //海外複合受託 技術開発
                     else if(this.form.contracttype === 'HT008002'){
-                        for (let i = 0; i < this.tablesecond.length; i++) {
-                            this.tablesecond[i].claimdatetime = this.getclaimdatetime(this.tablesecond[i].claimdatetime);
-                        }
                         tabledata = this.tablesecond;
                     }
                     //海外受託 役務
                     else if(this.form.contracttype === 'HT008003'){
-                        for (let i = 0; i < this.tablethird.length; i++) {
-                            this.tablethird[i].claimdatetime = this.getclaimdatetime(this.tablethird[i].claimdatetime);
-                        }
                         tabledata = this.tablethird;
                     }
                     //海外複合受託 役務
                     else if(this.form.contracttype === 'HT008004'){
-                        for (let i = 0; i < this.tablefourth.length; i++) {
-                            this.tablefourth[i].claimdatetime = this.getclaimdatetime(this.tablefourth[i].claimdatetime);
-                        }
                         tabledata = this.tablefourth;
                     }
                     //国内受託 技術開発
                     else if(this.form.contracttype === 'HT008005'){
-                        for (let i = 0; i < this.tablefifth.length; i++) {
-                            this.tablefifth[i].claimdatetime = this.getclaimdatetime(this.tablefifth[i].claimdatetime);
-                        }
                         tabledata = this.tablefifth;
                     }
                     //国内複合受託 技術開発
                     else if(this.form.contracttype === 'HT008006'){
-                        for (let i = 0; i < this.tablesixth.length; i++) {
-                            this.tablesixth[i].claimdatetime = this.getclaimdatetime(this.tablesixth[i].claimdatetime);
-                        }
                         tabledata = this.tablesixth;
                     }
                     //国内受託 役務
                     else if(this.form.contracttype === 'HT008007'){
-                        for (let i = 0; i < this.tableseventh.length; i++) {
-                            this.tableseventh[i].claimdatetime = this.getclaimdatetime(this.tableseventh[i].claimdatetime);
-                        }
                         tabledata = this.tableseventh;
                     }
                     //国内複合受託 役務
                     else if(this.form.contracttype === 'HT008008'){
-                        for (let i = 0; i < this.tableeighth.length; i++) {
-                            this.tableeighth[i].claimdatetime = this.getclaimdatetime(this.tableeighth[i].claimdatetime);
-                        }
                         tabledata = this.tableeighth;
                     }
                     //販売
                     else if(this.form.contracttype === 'HT008009'){
-                        for (let i = 0; i < this.tableninth.length; i++) {
-                            this.tableninth[i].claimdatetime = this.getclaimdatetime(this.tableninth[i].claimdatetime);
-                        }
                         tabledata = this.tableninth;
+                    }
+                    for (let i = 0; i < tabledata.length; i++) {
+                        tabledata[i].claimdatetime = this.getclaimdatetime(tabledata[i].claimdatetime);
+                        tabledata[i].contracttype = this.form.contracttype
                     }
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
@@ -4702,10 +4714,11 @@ first<template>
                                         this.data = response;
                                         this.loading = false;
                                         Message({
-                                            message: this.$t("normal.success_01"),
+                                            message: this.$t("normal.success_02"),
                                             type: 'success',
                                             duration: 5 * 1000
                                         });
+                                        this.paramsTitle();
                                     })
                                     .catch(error => {
                                         Message({
@@ -4726,6 +4739,7 @@ first<template>
                                             type: 'success',
                                             duration: 5 * 1000
                                         });
+                                        this.paramsTitle();
                                     })
                                     .catch(error => {
                                         Message({
