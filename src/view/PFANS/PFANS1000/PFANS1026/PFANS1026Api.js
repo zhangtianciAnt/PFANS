@@ -1,9 +1,10 @@
 import request from '../../../../utils/request'
 
-export function get() {
+export function get(data) {
   return request({
     url: 'contractapplication/get',
     method: 'get',
+    params: data
   })
 }
 

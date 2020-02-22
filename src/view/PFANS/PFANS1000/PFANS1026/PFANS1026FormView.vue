@@ -1,4 +1,4 @@
-<template>
+first<template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container"
                          :title="title"
@@ -8,7 +8,7 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
-          <el-dialog :visible.sync="dialogFormVisible">
+          <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
                 :code="code"
@@ -52,7 +52,7 @@
             </el-form-item>
             <div  class="dialog-footer" align="center">
               <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;" @click="click1">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
               <el-button  @click="dialogFormVisible = false" v-if="show2">
@@ -2957,7 +2957,7 @@
                 selectType: "Single",
                 title: "title.PFANS1026VIEW",
                 contractapplication: {},
-                activeName: 'first',
+                activeName: '',
                 erroruser: "",
                 errorjudge: "",
                 errorcusto: "",
@@ -3019,108 +3019,51 @@
             };
         },
         mounted() {
-            this.loading = true;
-            if (this.$route.params._id) {//111
+            if (this.$route.params._id) {
+                this.loading = true;
                 this.$store
                     .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
                     .then(response => {
                         if (response.length > 0) {
-                            for(let i = 0;i<response.length;i++){
+                            for (let i = 0; i < response.length; i++) {
                                 if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
                                     let claimdatetime = response[i].claimdatetime;
                                     let claimdatetim = claimdatetime.slice(0, 10);
                                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                                     response[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
-                                if(response[i].maketype === '1'){
-                                    let o = {};
-                                    Object.assign(o, response[i]);
+                                let o = Object.assign({}, response[i]);
+                                let maketype = response[i].maketype;
+                                if (maketype === '1') {
+                                    this.activeName = 'first';
                                     this.tablefirst.push(o);
-                                }
-                                else if(response[i].maketype === '2'){
-                                    this.tablesecond = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '3'){
-                                    this.tablethird = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '4'){
-                                    this.tablefourth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '5'){
-                                    this.tablefifth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '6'){
-                                    this.tablesixth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '7'){
-                                    this.tableseventh = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '8'){
-                                    this.tableeighth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-
-                                }
-                                else if(response[i].maketype === '9'){
-                                    this.tableninth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
+                                } else if (maketype === '2') {
+                                    this.activeName = 'second';
+                                    this.tablesecond.push(o);
+                                } else if (maketype === '3') {
+                                    this.activeName = 'third';
+                                    this.tablethird.push(o);
+                                } else if (maketype === '4') {
+                                    this.activeName = 'fourth';
+                                    this.tablefourth.push(o);
+                                } else if (maketype === '5') {
+                                    this.activeName = 'fifth';
+                                    this.tablefifth.push(o);
+                                } else if (maketype === '6') {
+                                    this.activeName = 'sixth';
+                                    this.tablesixth.push(o);
+                                } else if (maketype === '7') {
+                                    this.activeName = 'seventh';
+                                    this.tableseventh.push(o);
+                                } else if (maketype === '8') {
+                                    this.activeName = 'seventh';
+                                    this.tableeighth.push(o);
+                                } else if (maketype === '9') {
+                                    this.activeName = 'ninth';
+                                    this.tableninth.push(o);
                                 }
                             }
                         }
-                        this.form = response;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -3132,11 +3075,7 @@
                         this.loading = false
                     })
             } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                }
-                this.loading = false;
+                this.activeName = 'first';
                 this.dialogFormVisible = true;
             }
         },
@@ -3214,6 +3153,7 @@
             getnumber(val){
                 this.form.claimtype = val;
             },
+            //本来契約
             getChecked(val){
                 this.checked1 = val;
                 if(val === true){
@@ -3269,6 +3209,15 @@
             },
             getClaim(val,row){
                 row.claim = val;
+            },
+            //日期区组件处理
+            getclaimdatetime(claimdatetime){
+                if(claimdatetime.length > 0){
+                    return moment(claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(claimdatetime[1]).format('YYYY-MM-DD');
+                }
+                else{
+                    return '';
+                }
             },
             getRowClass1({row, column, rowIndex, columnIndex}) {
 
@@ -3863,7 +3812,7 @@
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '1',
                 });
             },
@@ -3928,7 +3877,7 @@
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '2',
                 });
             },
@@ -3984,7 +3933,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '3',
                 });
             },
@@ -4040,7 +3989,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '4',
                 });
             },
@@ -4096,7 +4045,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '5',
                 });
             },
@@ -4152,7 +4101,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '6',
                 });
             },
@@ -4208,7 +4157,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '7',
                 });
             },
@@ -4264,7 +4213,7 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '8',
                 });
             },
@@ -4320,11 +4269,11 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    tape: '1',
                     maketype: '9',
                 });
             },
-            click1() {
+            click() {
                 this.tablefirst = [];
                 this.tablesecond = [];
                 this.tablethird = [];
@@ -4336,6 +4285,7 @@
                 this.tableninth = [];
                 //請求方式
                 let letclaimtype = '';
+                //覚書
                 if(this.form.contractnumber != ''){
                     letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
                 }
@@ -4345,7 +4295,7 @@
                 let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
-
+                    this.activeName = 'first';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfirst();
                         this.tablefirst[0].claimtype = letclaimtypeone;
@@ -4378,7 +4328,7 @@
                 }
                 //海外複合受託 技術開発
                 else if(this.form.contracttype === 'HT008002'){
-
+                    this.activeName = 'second';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsecond();
                         this.tablesecond[0].claimtype = letclaimtypeone;
@@ -4411,6 +4361,7 @@
                 }
                 //海外受託 役務
                 else if(this.form.contracttype === 'HT008003'){
+                    this.activeName = 'third';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowthird();
@@ -4444,6 +4395,7 @@
                 }
                 //海外複合受託 役務
                 else if(this.form.contracttype === 'HT008004'){
+                    this.activeName = 'fourth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfourth();
@@ -4477,6 +4429,7 @@
                 }
                 //国内受託 技術開発
                 else if(this.form.contracttype === 'HT008005'){
+                    this.activeName = 'fifth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfifth();
@@ -4510,6 +4463,7 @@
                 }
                 //国内複合受託 技術開発
                 else if(this.form.contracttype === 'HT008006'){
+                    this.activeName = 'sixth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsixth();
@@ -4543,6 +4497,7 @@
                 }
                 //国内受託 役務
                 else if(this.form.contracttype === 'HT008007'){
+                    this.activeName = 'seventh';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowseventh();
@@ -4576,6 +4531,7 @@
                 }
                 //国内複合受託 役務
                 else if(this.form.contracttype === 'HT008008'){
+                    this.activeName = 'eighth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRoweighth();
@@ -4609,6 +4565,7 @@
                 }
                 //販売
                 else if(this.form.contracttype === 'HT008009'){
+                    this.activeName = 'ninth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowninth();
@@ -4653,149 +4610,115 @@
                     this.show2=true;
                 }
                 if (val === "save") {//222
-                    //.dispatch('PFANS1026Store/update', this.contractapplication)
                     let tabledata = [];
+                    this.form.maketype = "1";
                     //海外受託 技術開発
-                    if(this.form.contracttype === 'HT008001'){//11
+                    if(this.form.contracttype === 'HT008001'){
                         for (let i = 0; i < this.tablefirst.length; i++) {
-                            if(this.tablefirst[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefirst[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefirst[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefirst[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefirst[i].claimdatetime = '';
-                            }
+                            this.tablefirst[i].claimdatetime = this.getclaimdatetime(this.tablefirst[i].claimdatetime);
                         }
                         tabledata = this.tablefirst;
                     }
                     //海外複合受託 技術開発
                     else if(this.form.contracttype === 'HT008002'){
                         for (let i = 0; i < this.tablesecond.length; i++) {
-                            if(this.tablesecond[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablesecond[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesecond[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablesecond[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablesecond[i].claimdatetime = '';
-                            }
+                            this.tablesecond[i].claimdatetime = this.getclaimdatetime(this.tablesecond[i].claimdatetime);
                         }
                         tabledata = this.tablesecond;
                     }
                     //海外受託 役務
                     else if(this.form.contracttype === 'HT008003'){
                         for (let i = 0; i < this.tablethird.length; i++) {
-                            if(this.tablethird[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablethird[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablethird[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablethird[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablethird[i].claimdatetime = '';
-                            }
+                            this.tablethird[i].claimdatetime = this.getclaimdatetime(this.tablethird[i].claimdatetime);
                         }
                         tabledata = this.tablethird;
                     }
                     //海外複合受託 役務
                     else if(this.form.contracttype === 'HT008004'){
                         for (let i = 0; i < this.tablefourth.length; i++) {
-                            if(this.tablefourth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefourth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefourth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefourth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefourth[i].claimdatetime = '';
-                            }
+                            this.tablefourth[i].claimdatetime = this.getclaimdatetime(this.tablefourth[i].claimdatetime);
                         }
                         tabledata = this.tablefourth;
                     }
                     //国内受託 技術開発
                     else if(this.form.contracttype === 'HT008005'){
                         for (let i = 0; i < this.tablefifth.length; i++) {
-                            if(this.tablefifth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefifth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefifth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefifth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefifth[i].claimdatetime = '';
-                            }
+                            this.tablefifth[i].claimdatetime = this.getclaimdatetime(this.tablefifth[i].claimdatetime);
                         }
                         tabledata = this.tablefifth;
                     }
                     //国内複合受託 技術開発
                     else if(this.form.contracttype === 'HT008006'){
                         for (let i = 0; i < this.tablesixth.length; i++) {
-                            if(this.tablesixth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablesixth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesixth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablesixth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablesixth[i].claimdatetime = '';
-                            }
+                            this.tablesixth[i].claimdatetime = this.getclaimdatetime(this.tablesixth[i].claimdatetime);
                         }
                         tabledata = this.tablesixth;
                     }
                     //国内受託 役務
                     else if(this.form.contracttype === 'HT008007'){
                         for (let i = 0; i < this.tableseventh.length; i++) {
-                            if(this.tableseventh[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableseventh[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableseventh[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableseventh[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableseventh[i].claimdatetime = '';
-                            }
+                            this.tableseventh[i].claimdatetime = this.getclaimdatetime(this.tableseventh[i].claimdatetime);
                         }
                         tabledata = this.tableseventh;
                     }
                     //国内複合受託 役務
                     else if(this.form.contracttype === 'HT008008'){
                         for (let i = 0; i < this.tableeighth.length; i++) {
-                            if(this.tableeighth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableeighth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableeighth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableeighth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableeighth[i].claimdatetime = '';
-                            }
+                            this.tableeighth[i].claimdatetime = this.getclaimdatetime(this.tableeighth[i].claimdatetime);
                         }
                         tabledata = this.tableeighth;
                     }
                     //販売
                     else if(this.form.contracttype === 'HT008009'){
                         for (let i = 0; i < this.tableninth.length; i++) {
-                            if(this.tableninth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableninth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableninth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableninth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableninth[i].claimdatetime = '';
-                            }
+                            this.tableninth[i].claimdatetime = this.getclaimdatetime(this.tableninth[i].claimdatetime);
                         }
                         tabledata = this.tableninth;
                     }
+
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
                             this.loading = true;
-                            this.contractapplication = {};
-                            this.form.maketype = "1";
-                            this.$store
-                                .dispatch('PFANS1026Store/insert', tabledata)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
+                            if (this.$route.params._id) {
+                                this.$store.dispatch('PFANS1026Store/update', tabledata)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_01"),
+                                            type: 'success',
+                                            duration: 5 * 1000
+                                        });
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
+                            else{
+                                this.$store.dispatch('PFANS1026Store/insert', tabledata)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_01"),
+                                            type: 'success',
+                                            duration: 5 * 1000
+                                        });
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
                         }
                     });
                 }

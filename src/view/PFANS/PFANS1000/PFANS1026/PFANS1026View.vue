@@ -69,7 +69,7 @@
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS1026Store/get',{'maketype': '1'})
+                .dispatch('PFANS1026Store/get',{'type': '1'})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
                         response[j].status = getStatus(response[j].status);
