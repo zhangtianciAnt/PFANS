@@ -2953,6 +2953,7 @@ first<template>
                 grouporglist: '',
                 groupinfo:[],
                 errorgroup: '',
+                maketype: '',
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS1026VIEW",
@@ -3025,7 +3026,9 @@ first<template>
                     .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
                     .then(response => {
                         if (response.length > 0) {
-                            for (let i = 0; i < response.length; i++) {
+                            for (let i = 0; i < response.length; i++) {//111
+                                this.maketype = response[i].maketype;
+                                this.form.contracttype = response[i].contracttype;
                                 if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
                                     let claimdatetime = response[i].claimdatetime;
                                     let claimdatetim = claimdatetime.slice(0, 10);
@@ -3033,32 +3036,31 @@ first<template>
                                     response[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
                                 let o = Object.assign({}, response[i]);
-                                let maketype = response[i].maketype;
-                                if (maketype === '1') {
+                                if (this.maketype === '1') {
                                     this.activeName = 'first';
                                     this.tablefirst.push(o);
-                                } else if (maketype === '2') {
+                                } else if (this.maketype === '2') {
                                     this.activeName = 'second';
                                     this.tablesecond.push(o);
-                                } else if (maketype === '3') {
+                                } else if (this.maketype === '3') {
                                     this.activeName = 'third';
                                     this.tablethird.push(o);
-                                } else if (maketype === '4') {
+                                } else if (this.maketype === '4') {
                                     this.activeName = 'fourth';
                                     this.tablefourth.push(o);
-                                } else if (maketype === '5') {
+                                } else if (this.maketype === '5') {
                                     this.activeName = 'fifth';
                                     this.tablefifth.push(o);
-                                } else if (maketype === '6') {
+                                } else if (this.maketype === '6') {
                                     this.activeName = 'sixth';
                                     this.tablesixth.push(o);
-                                } else if (maketype === '7') {
+                                } else if (this.maketype === '7') {
                                     this.activeName = 'seventh';
                                     this.tableseventh.push(o);
-                                } else if (maketype === '8') {
-                                    this.activeName = 'seventh';
+                                } else if (this.maketype === '8') {
+                                    this.activeName = 'eighth';
                                     this.tableeighth.push(o);
-                                } else if (maketype === '9') {
+                                } else if (this.maketype === '9') {
                                     this.activeName = 'ninth';
                                     this.tableninth.push(o);
                                 }
@@ -3812,7 +3814,7 @@ first<template>
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '1',
                 });
             },
@@ -3829,8 +3831,10 @@ first<template>
                 }
                 this.tablesecond.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -3877,7 +3881,7 @@ first<template>
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '2',
                 });
             },
@@ -3893,8 +3897,10 @@ first<template>
                 }
                 this.tablethird.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -3933,7 +3939,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '3',
                 });
             },
@@ -3949,8 +3955,10 @@ first<template>
                 }
                 this.tablefourth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -3989,7 +3997,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '4',
                 });
             },
@@ -4005,8 +4013,10 @@ first<template>
                 }
                 this.tablefifth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4045,7 +4055,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '5',
                 });
             },
@@ -4061,8 +4071,10 @@ first<template>
                 }
                 this.tablesixth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4101,7 +4113,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '6',
                 });
             },
@@ -4117,8 +4129,10 @@ first<template>
                 }
                 this.tableseventh.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4157,7 +4171,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '7',
                 });
             },
@@ -4173,8 +4187,10 @@ first<template>
                 }
                 this.tableeighth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4213,7 +4229,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '8',
                 });
             },
@@ -4229,8 +4245,10 @@ first<template>
                 }
                 this.tableninth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: letcontracttype,
@@ -4269,7 +4287,7 @@ first<template>
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '1',
+                    type: '1',
                     maketype: '9',
                 });
             },
@@ -4675,7 +4693,6 @@ first<template>
                         }
                         tabledata = this.tableninth;
                     }
-
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
                             this.loading = true;
