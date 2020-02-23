@@ -3760,7 +3760,9 @@ first<template>
                 }
             },
             //海外受託 技術開発
-            addRowfirst() {
+            addRowfirst() {//222
+                // alert(this.letcontractnumber + '000' + (this.tablefirst.length + 1).toString());
+                // alert(this.form.contractnumber != '' ? this.$t("label.PFANS1024VIEW_LETTERS") + (this.tablefirst.length + 1).toString():(this.tablefirst.length + 1).toString());
                 this.tablefirst.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3770,7 +3772,7 @@ first<template>
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + '000' + (this.tablefirst.length + 1).toString() + '-' + this.form.contractnumber != '' ? this.$t("label.PFANS1024VIEW_LETTERS") + (this.tablefirst.length + 1).toString():(this.tablefirst.length + 1).toString(),
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4312,7 +4314,6 @@ first<template>
                 let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
                 let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
                 let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-                debugger;
                 //契約書番号
                 this.letcontractnumber = this.form.contractnumber;
                 //契約種類简称
@@ -4338,6 +4339,7 @@ first<template>
                 if(this.letcontractnumber === ""){
                     this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1];
                 }
+                debugger;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
                     this.activeName = 'first';
