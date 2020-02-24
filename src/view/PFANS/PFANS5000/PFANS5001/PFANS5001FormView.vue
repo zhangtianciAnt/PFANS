@@ -650,7 +650,7 @@ phase<template>
                                     <el-container>
                                       <input class="content bg" v-model="scope.row.name" :error="errorexpname"
                                              :disabled="true"></input>
-                                      <el-button :disabled="!disabled" icon="el-icon-search"
+                                      <el-button :disabled="!disable" icon="el-icon-search"
                                                  @click="dialogTableVisible1 = true"
                                                  size="small"></el-button>
                                       <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
