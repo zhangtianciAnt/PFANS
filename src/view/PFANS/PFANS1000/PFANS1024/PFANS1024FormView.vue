@@ -3,11 +3,10 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
-                         :noback = "true"
-                        ref="container"
+                         ref="container"
                          v-loading="loading">
       <div slot="customize" >
-        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="reff" style="padding: 2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
           <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
@@ -1710,21 +1709,19 @@
             }
             if (val === "cancellation") {
                 this.dialogFormVisible = true;
-                this.show1=false;
-                this.show2=true;
+                this.show1 = false;
+                this.show2 = true;
             }
+            if (val === "save") {
                 let tabledata = [];
                 this.form.maketype = "0";
-                if(this.form.contracttype === 'HT014001'){
+                if (this.form.contracttype === 'HT014001') {
                     tabledata = this.tablefirst;
-                }
-                else if(this.form.contracttype === 'HT014002'){
+                } else if (this.form.contracttype === 'HT014002') {
                     tabledata = this.tablesecond;
-                }
-                else if(this.form.contracttype === 'HT014003'){
+                } else if (this.form.contracttype === 'HT014003') {
                     tabledata = this.tablethird;
-                }
-                else if(this.form.contracttype === 'HT014004'){
+                } else if (this.form.contracttype === 'HT014004') {
                     tabledata = this.tablefourth;
                 }
                 for (let i = 0; i < tabledata.length; i++) {
@@ -1754,8 +1751,7 @@
                                     });
                                     this.loading = false;
                                 })
-                        }
-                        else{
+                        } else {
                             this.$store.dispatch('PFANS1026Store/insert', tabledata)
                                 .then(response => {
                                     this.data = response;
@@ -1779,6 +1775,7 @@
                     }
                 });
             }
+          }
         }
     }
 </script>
