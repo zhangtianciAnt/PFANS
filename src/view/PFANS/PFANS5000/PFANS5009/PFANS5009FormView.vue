@@ -604,7 +604,7 @@
                           </el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
@@ -614,7 +614,7 @@
                           </el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALWORK')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALWORK')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
