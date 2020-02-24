@@ -1,4 +1,9 @@
-import {get, one, update} from './PFANS1031Api'
+import {
+  get,
+  one,
+  update
+} from './PFANS1031Api'
+
 const PFANS1031Store = {
   namespaced: true,
   state: {},
