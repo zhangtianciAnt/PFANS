@@ -2956,6 +2956,7 @@ first<template>
                 errorgroup: '',
                 maketype: '',
                 letcontractnumber: '',
+                contractnumbercount: '',
                 letcontracttype: '',
                 loading: false,
                 selectType: "Single",
@@ -3024,10 +3025,11 @@ first<template>
             };
         },
         mounted() {
+            this.contractnumbercount = this.$route.params.contractnumbercount;
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
+                    .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params.contractnumber})
                     .then(response => {
                         if (response.length > 0) {
                             for (let i = 0; i < response.length; i++) {
@@ -3760,9 +3762,9 @@ first<template>
                 }
             },
             //海外受託 技術開発
-            addRowfirst() {//222
-                // alert(this.letcontractnumber + '000' + (this.tablefirst.length + 1).toString());
-                // alert(this.form.contractnumber != '' ? this.$t("label.PFANS1024VIEW_LETTERS") + (this.tablefirst.length + 1).toString():(this.tablefirst.length + 1).toString());
+            addRowfirst() {
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefirst.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3772,7 +3774,7 @@ first<template>
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + '000' + (this.tablefirst.length + 1).toString() + '-' + this.form.contractnumber != '' ? this.$t("label.PFANS1024VIEW_LETTERS") + (this.tablefirst.length + 1).toString():(this.tablefirst.length + 1).toString(),
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3820,16 +3822,8 @@ first<template>
                 });
             },
             addRowsecond() {
-                //契約書番号
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablesecond.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3839,7 +3833,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3887,15 +3881,8 @@ first<template>
                 });
             },
             addRowthird() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablethird.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3905,7 +3892,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3945,15 +3932,8 @@ first<template>
                 });
             },
             addRowfourth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefourth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3963,7 +3943,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4003,15 +3983,8 @@ first<template>
                 });
             },
             addRowfifth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefifth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4021,7 +3994,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4061,15 +4034,8 @@ first<template>
                 });
             },
             addRowsixth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablesixth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4079,7 +4045,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4119,15 +4085,8 @@ first<template>
                 });
             },
             addRowseventh() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableseventh.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4137,7 +4096,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4177,15 +4136,8 @@ first<template>
                 });
             },
             addRoweighth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableeighth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4195,7 +4147,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4235,15 +4187,8 @@ first<template>
                 });
             },
             addRowninth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableninth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4253,7 +4198,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4303,7 +4248,6 @@ first<template>
                 this.tableseventh = [];
                 this.tableeighth = [];
                 this.tableninth = [];
-                //contractnumber
                 //請求方式
                 let letclaimtype = '';
                 //覚書
@@ -4314,8 +4258,6 @@ first<template>
                 let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
                 let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
                 let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-                //契約書番号
-                this.letcontractnumber = this.form.contractnumber;
                 //契約種類简称
                 let abbreviation = '';
                 let letabbreviation = getDictionaryInfo(this.form.contracttype);
@@ -4336,9 +4278,19 @@ first<template>
                 if (letentrycondition != null) {
                     entrycondition = letentrycondition.value2;
                 }
-                if(this.letcontractnumber === ""){
-                    this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1];
+                //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
+                //通し番号
+                let number = '0001';
+                if(this.contractnumbercount.toString().length === 1){
+                    number = '000' + this.contractnumbercount
                 }
+                else if(this.contractnumbercount.toString().length === 2){
+                    number = '00' + this.contractnumbercount
+                }
+                else if(this.contractnumbercount.toString().length === 3){
+                    number = '0' + this.contractnumbercount
+                }
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number;
                 debugger;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
