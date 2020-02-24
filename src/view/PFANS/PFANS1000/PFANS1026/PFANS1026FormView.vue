@@ -1,4 +1,4 @@
-<template>
+first<template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container"
                          :title="title"
@@ -8,7 +8,7 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
-          <el-dialog :visible.sync="dialogFormVisible">
+          <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
                 :code="code"
@@ -42,6 +42,7 @@
                          :disabled="!disabled2">
               </dicselect>
               <dicselect :code="code4"
+                         :data="form.entrycondition"
                          @change="getcareeryear2"
                          style="width: 20vw"
                          :disabled="!disabled2">
@@ -52,7 +53,7 @@
             </el-form-item>
             <div  class="dialog-footer" align="center">
               <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;" @click="click1">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
               <el-button  @click="dialogFormVisible = false" v-if="show2">
@@ -1539,7 +1540,7 @@
                     <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount">
+                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount"  width="200">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                   </template>
@@ -1547,7 +1548,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code1"
+                      :code="code9"
                       :data="scope.row.currencyposition"
                       :no="scope.row"
                       :multiple="multiple"
@@ -2932,7 +2933,7 @@
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import { Message } from 'element-ui'
     import dicselect from "../../../components/dicselect";
-    import {getOrgInfo} from '@/utils/customize';
+    import {getOrgInfo,getDictionaryInfo} from '@/utils/customize';
     import user from '../../../components/user.vue';
     import org from "../../../components/org";
     import moment from "moment";
@@ -2953,11 +2954,15 @@
                 grouporglist: '',
                 groupinfo:[],
                 errorgroup: '',
+                maketype: '',
+                letcontractnumber: '',
+                contractnumbercount: '',
+                letcontracttype: '',
                 loading: false,
                 selectType: "Single",
                 title: "title.PFANS1026VIEW",
                 contractapplication: {},
-                activeName: 'first',
+                activeName: '',
                 erroruser: "",
                 errorjudge: "",
                 errorcusto: "",
@@ -2989,6 +2994,7 @@
                     claimtype: '',
                     contracttype: '',
                     applicationdate: '',
+                    entrycondition: '',
                     group_id: '',
                     maketype: '',
                 },
@@ -3019,108 +3025,58 @@
             };
         },
         mounted() {
-            this.loading = true;
-            if (this.$route.params._id) {//111
+            this.contractnumbercount = this.$route.params.contractnumbercount;
+            if (this.$route.params._id) {
+                this.loading = true;
                 this.$store
-                    .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
+                    .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params.contractnumber})
                     .then(response => {
                         if (response.length > 0) {
-                            for(let i = 0;i<response.length;i++){
+                            for (let i = 0; i < response.length; i++) {
+                                this.maketype = response[i].maketype;
+                                this.form.contracttype = response[i].contracttype;
+                                //契約種類
+                                let letabbreviation = getDictionaryInfo(response[i].contracttype);
+                                if (letabbreviation != null) {
+                                    response[i].contracttype = letabbreviation.value1;
+                                }
                                 if (response[i].claimdatetime !== '' && response[i].claimdatetime !== null) {
                                     let claimdatetime = response[i].claimdatetime;
                                     let claimdatetim = claimdatetime.slice(0, 10);
                                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                                     response[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
-                                if(response[i].maketype === '1'){
-                                    let o = {};
-                                    Object.assign(o, response[i]);
+                                let o = Object.assign({}, response[i]);
+                                if (this.maketype === '1') {
+                                    this.activeName = 'first';
                                     this.tablefirst.push(o);
-                                }
-                                else if(response[i].maketype === '2'){
-                                    this.tablesecond = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '3'){
-                                    this.tablethird = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '4'){
-                                    this.tablefourth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '5'){
-                                    this.tablefifth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '6'){
-                                    this.tablesixth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '7'){
-                                    this.tableseventh = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-                                }
-                                else if(response[i].maketype === '8'){
-                                    this.tableeighth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
-
-                                }
-                                else if(response[i].maketype === '9'){
-                                    this.tableninth = response[i];
-                                    if (response.claimdatetime !== '' && response.claimdatetime !== null) {
-                                        let claimdatetime = response.claimdatetime;
-                                        let claimdatetim = claimdatetime.slice(0, 10);
-                                        let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                        response.claimdatetime = [claimdatetim, claimdatetime1];
-
-                                    }
+                                } else if (this.maketype === '2') {
+                                    this.activeName = 'second';
+                                    this.tablesecond.push(o);
+                                } else if (this.maketype === '3') {
+                                    this.activeName = 'third';
+                                    this.tablethird.push(o);
+                                } else if (this.maketype === '4') {
+                                    this.activeName = 'fourth';
+                                    this.tablefourth.push(o);
+                                } else if (this.maketype === '5') {
+                                    this.activeName = 'fifth';
+                                    this.tablefifth.push(o);
+                                } else if (this.maketype === '6') {
+                                    this.activeName = 'sixth';
+                                    this.tablesixth.push(o);
+                                } else if (this.maketype === '7') {
+                                    this.activeName = 'seventh';
+                                    this.tableseventh.push(o);
+                                } else if (this.maketype === '8') {
+                                    this.activeName = 'eighth';
+                                    this.tableeighth.push(o);
+                                } else if (this.maketype === '9') {
+                                    this.activeName = 'ninth';
+                                    this.tableninth.push(o);
                                 }
                             }
                         }
-                        this.form = response;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -3132,11 +3088,7 @@
                         this.loading = false
                     })
             } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                }
-                this.loading = false;
+                this.activeName = 'first';
                 this.dialogFormVisible = true;
             }
         },
@@ -3214,6 +3166,7 @@
             getnumber(val){
                 this.form.claimtype = val;
             },
+            //本来契約
             getChecked(val){
                 this.checked1 = val;
                 if(val === true){
@@ -3269,6 +3222,15 @@
             },
             getClaim(val,row){
                 row.claim = val;
+            },
+            //日期区组件处理
+            getclaimdatetime(claimdatetime){
+                if(claimdatetime.length > 0){
+                    return moment(claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(claimdatetime[1]).format('YYYY-MM-DD');
+                }
+                else{
+                    return '';
+                }
             },
             getRowClass1({row, column, rowIndex, columnIndex}) {
 
@@ -3801,16 +3763,8 @@
             },
             //海外受託 技術開発
             addRowfirst() {
-                //契約書番号
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefirst.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3819,8 +3773,8 @@
                     deployment: this.groupinfo[3],
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3863,29 +3817,23 @@
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '1',
                 });
             },
             addRowsecond() {
-                //契約書番号
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablesecond.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3928,28 +3876,23 @@
                     decisionnumber: '',
                     outnumber: '',
                     productnumber: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '2',
                 });
             },
             addRowthird() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablethird.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3984,28 +3927,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '3',
                 });
             },
             addRowfourth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefourth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4040,28 +3978,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '4',
                 });
             },
             addRowfifth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefifth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4096,28 +4029,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '5',
                 });
             },
             addRowsixth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablesixth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4152,28 +4080,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '6',
                 });
             },
             addRowseventh() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableseventh.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4208,28 +4131,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '7',
                 });
             },
             addRoweighth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableeighth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4264,28 +4182,23 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '8',
                 });
             },
             addRowninth() {
-                let letcontractnumber = '';
-                if(this.form.contractnumber != ''){
-                    letcontractnumber = this.form.contractnumber;
-                }
-                //契約种类
-                let letcontracttype = '';
-                if(this.form.contracttype != ''){
-                    letcontracttype = this.form.contracttype;
-                }
+                //覚書
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tableninth.push({
                     contractapplication_id: '',
-                    group_id: this.groupname,
-                    deployment: '',
+                    group_id: this.groupinfo[0],
+                    department: this.groupinfo[1],
+                    orgnumber: this.groupinfo[2],
+                    deployment: this.groupinfo[3],
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
-                    contracttype: letcontracttype,
-                    contractnumber: letcontractnumber,
+                    contracttype: this.contracttype,
+                    contractnumber: this.letcontractnumber + contractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4320,11 +4233,12 @@
                     conchinese: '',
                     remarks: '',
                     state: '',
-                    tape: '0',
+                    type: '1',
                     maketype: '9',
                 });
             },
-            click1() {
+            //契約番号做成
+            click() {
                 this.tablefirst = [];
                 this.tablesecond = [];
                 this.tablethird = [];
@@ -4336,6 +4250,7 @@
                 this.tableninth = [];
                 //請求方式
                 let letclaimtype = '';
+                //覚書
                 if(this.form.contractnumber != ''){
                     letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
                 }
@@ -4343,9 +4258,43 @@
                 let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
                 let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
                 let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+                //契約種類简称
+                let abbreviation = '';
+                let letabbreviation = getDictionaryInfo(this.form.contracttype);
+                if (letabbreviation != null) {
+                    //契約種類
+                    this.contracttype = letabbreviation.value1;
+                    abbreviation = letabbreviation.value2;
+                }
+                //事業年度
+                let applicationdate = '';
+                let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+                if (letapplicationdate != null) {
+                    applicationdate = letapplicationdate.value2;
+                }
+                //上下期
+                let entrycondition = '';
+                let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+                if (letentrycondition != null) {
+                    entrycondition = letentrycondition.value2;
+                }
+                //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
+                //通し番号
+                let number = '0001';
+                if(this.contractnumbercount.toString().length === 1){
+                    number = '000' + this.contractnumbercount
+                }
+                else if(this.contractnumbercount.toString().length === 2){
+                    number = '00' + this.contractnumbercount
+                }
+                else if(this.contractnumbercount.toString().length === 3){
+                    number = '0' + this.contractnumbercount
+                }
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number;
+                debugger;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
-
+                    this.activeName = 'first';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfirst();
                         this.tablefirst[0].claimtype = letclaimtypeone;
@@ -4378,7 +4327,7 @@
                 }
                 //海外複合受託 技術開発
                 else if(this.form.contracttype === 'HT008002'){
-
+                    this.activeName = 'second';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsecond();
                         this.tablesecond[0].claimtype = letclaimtypeone;
@@ -4411,6 +4360,7 @@
                 }
                 //海外受託 役務
                 else if(this.form.contracttype === 'HT008003'){
+                    this.activeName = 'third';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowthird();
@@ -4444,6 +4394,7 @@
                 }
                 //海外複合受託 役務
                 else if(this.form.contracttype === 'HT008004'){
+                    this.activeName = 'fourth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfourth();
@@ -4477,6 +4428,7 @@
                 }
                 //国内受託 技術開発
                 else if(this.form.contracttype === 'HT008005'){
+                    this.activeName = 'fifth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfifth();
@@ -4510,6 +4462,7 @@
                 }
                 //国内複合受託 技術開発
                 else if(this.form.contracttype === 'HT008006'){
+                    this.activeName = 'sixth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsixth();
@@ -4543,6 +4496,7 @@
                 }
                 //国内受託 役務
                 else if(this.form.contracttype === 'HT008007'){
+                    this.activeName = 'seventh';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowseventh();
@@ -4576,6 +4530,7 @@
                 }
                 //国内複合受託 役務
                 else if(this.form.contracttype === 'HT008008'){
+                    this.activeName = 'eighth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRoweighth();
@@ -4609,6 +4564,7 @@
                 }
                 //販売
                 else if(this.form.contracttype === 'HT008009'){
+                    this.activeName = 'ninth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowninth();
@@ -4641,6 +4597,14 @@
                     }
                 }
             },
+            paramsTitle(){
+                this.$router.push({
+                    name: 'PFANS1026View',
+                    params: {
+                        title: 10,
+                    },
+                });
+            },
             buttonClick(val) {
                 if (val === "application") {
                     this.dialogFormVisible = true;
@@ -4652,150 +4616,94 @@
                     this.show1=false;
                     this.show2=true;
                 }
-                if (val === "save") {//222
-                    //.dispatch('PFANS1026Store/update', this.contractapplication)
+                if (val === "save") {//111
                     let tabledata = [];
+                    this.form.maketype = "1";
                     //海外受託 技術開発
-                    if(this.form.contracttype === 'HT008001'){//11
-                        for (let i = 0; i < this.tablefirst.length; i++) {
-                            if(this.tablefirst[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefirst[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefirst[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefirst[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefirst[i].claimdatetime = '';
-                            }
-                        }
+                    if(this.form.contracttype === 'HT008001'){
                         tabledata = this.tablefirst;
                     }
                     //海外複合受託 技術開発
                     else if(this.form.contracttype === 'HT008002'){
-                        for (let i = 0; i < this.tablesecond.length; i++) {
-                            if(this.tablesecond[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablesecond[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesecond[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablesecond[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablesecond[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tablesecond;
                     }
                     //海外受託 役務
                     else if(this.form.contracttype === 'HT008003'){
-                        for (let i = 0; i < this.tablethird.length; i++) {
-                            if(this.tablethird[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablethird[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablethird[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablethird[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablethird[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tablethird;
                     }
                     //海外複合受託 役務
                     else if(this.form.contracttype === 'HT008004'){
-                        for (let i = 0; i < this.tablefourth.length; i++) {
-                            if(this.tablefourth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefourth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefourth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefourth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefourth[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tablefourth;
                     }
                     //国内受託 技術開発
                     else if(this.form.contracttype === 'HT008005'){
-                        for (let i = 0; i < this.tablefifth.length; i++) {
-                            if(this.tablefifth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablefifth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablefifth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablefifth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablefifth[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tablefifth;
                     }
                     //国内複合受託 技術開発
                     else if(this.form.contracttype === 'HT008006'){
-                        for (let i = 0; i < this.tablesixth.length; i++) {
-                            if(this.tablesixth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tablesixth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tablesixth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tablesixth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tablesixth[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tablesixth;
                     }
                     //国内受託 役務
                     else if(this.form.contracttype === 'HT008007'){
-                        for (let i = 0; i < this.tableseventh.length; i++) {
-                            if(this.tableseventh[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableseventh[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableseventh[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableseventh[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableseventh[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tableseventh;
                     }
                     //国内複合受託 役務
                     else if(this.form.contracttype === 'HT008008'){
-                        for (let i = 0; i < this.tableeighth.length; i++) {
-                            if(this.tableeighth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableeighth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableeighth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableeighth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableeighth[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tableeighth;
                     }
                     //販売
                     else if(this.form.contracttype === 'HT008009'){
-                        for (let i = 0; i < this.tableninth.length; i++) {
-                            if(this.tableninth[i].claimdatetime.length > 0){
-                                var varstartdate = moment(this.tableninth[i].claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(this.tableninth[i].claimdatetime[1]).format('YYYY-MM-DD');
-                                this.tableninth[i].claimdatetime = varstartdate;
-                            }
-                            else{
-                                this.tableninth[i].claimdatetime = '';
-                            }
-                        }
                         tabledata = this.tableninth;
+                    }
+                    for (let i = 0; i < tabledata.length; i++) {
+                        tabledata[i].claimdatetime = this.getclaimdatetime(tabledata[i].claimdatetime);
+                        tabledata[i].contracttype = this.form.contracttype
                     }
                     this.$refs["refform"].validate(valid => {
                         if (valid) {
                             this.loading = true;
-                            this.contractapplication = {};
-                            this.form.maketype = "1";
-                            this.$store
-                                .dispatch('PFANS1026Store/insert', tabledata)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
+                            if (this.$route.params._id) {
+                                this.$store.dispatch('PFANS1026Store/update', tabledata)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_02"),
+                                            type: 'success',
+                                            duration: 5 * 1000
+                                        });
+                                        this.paramsTitle();
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
+                            else{
+                                this.$store.dispatch('PFANS1026Store/insert', tabledata)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_01"),
+                                            type: 'success',
+                                            duration: 5 * 1000
+                                        });
+                                        this.paramsTitle();
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
                         }
                     });
                 }

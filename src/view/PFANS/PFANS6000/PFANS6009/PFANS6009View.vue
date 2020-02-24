@@ -531,13 +531,13 @@
               if ( total_manhour == 0 ) {
                 addLine2[key_cost] = "0.0";
               } else {
-                addLine2[key_cost] = parseFloat(total_cost/total_manhour).toFixed(2);
+                addLine2[key_cost] = (parseFloat(total_cost)/parseFloat(total_manhour)).toFixed(2);
               }
 
               tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
               assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
 
-              addLine5[key_cost] = parseFloat(total_cost + tripData[key_cost] + assetData[key_cost]).toFixed(2);
+              addLine5[key_cost] = (parseFloat(total_cost) + parseFloat(tripData[key_cost]) + parseFloat(assetData[key_cost])).toFixed(2);
             }
             arrayAdate.push(addLine1);
             arrayAdate.push(addLine2);
@@ -603,8 +603,8 @@
                 key_hour  = "totalmanhours";
               }
               for (var j = 0; j<tableData.length; j++) {
-                total_manhour += parseFloat(tableData[j][key_hour]).toFixed(2);
-                total_cost += parseFloat(tableData[j][key_cost]).toFixed(2);
+                total_manhour = (parseFloat(total_manhour) + parseFloat(tableData[j][key_hour])).toFixed(2);
+                total_cost = (parseFloat(total_cost) + parseFloat(tableData[j][key_cost])).toFixed(2);
               }
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);

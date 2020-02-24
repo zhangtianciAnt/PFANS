@@ -29,35 +29,42 @@
             label: 'label.ASSETS1001VIEW_FILENAME',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'typeassets',
             label: 'label.ASSETS1001VIEW_TYPEASSETS',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'principal',
             label: 'label.ASSETS1001VIEW_PRINCIPAL',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'barcode',
             label: 'label.ASSETS1001VIEW_BARCODE',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
+          },
+          {
+            code: 'usedepartment',
+            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
+            width: 120,
+            fix: false,
+            filter: false,
           },
           {
             code: 'result',
             label: 'label.ASSETS1001VIEW_RESULT',
             width: 100,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         buttonList: [
@@ -81,7 +88,7 @@
               let user = getUserInfo(response[j].principal);
               if (user) {
                 response[j].principal = user.userinfo.customername;
-                response[j].usedepartment = user.userinfo.centername;
+//                response[j].usedepartment = user.userinfo.centername;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
@@ -137,8 +144,8 @@
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'), this.$t('label.ASSETS1001VIEW_TYPEASSETS'), this.$t('label.ASSETS1001VIEW_PRINCIPAL'),
-              this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_RESULT')];
-            const filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'result'];
+              this.$t('label.ASSETS1001VIEW_BARCODE'), this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'), this.$t('label.ASSETS1001VIEW_RESULT')];
+            const filterVal = ['filename', 'typeassets', 'principal', 'barcode','usedepartment','result'];
             const list = this.selectedlist;
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('title.ASSETS1002EXPORTFORMVIEW'));

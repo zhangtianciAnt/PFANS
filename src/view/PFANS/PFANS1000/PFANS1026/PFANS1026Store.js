@@ -3,15 +3,16 @@ import {
   update,
   insert,
   } from './PFANS1026Api'
+import {selectById} from "../PFANS1020/PFANS1020Api";
 
   const PFANS1026Store = {
     namespaced: true,
     state: {},
     mutations: {},
     actions: {
-      get() {
+      get({ commit },data) {
         return new Promise((resolve, reject) => {
-          get().then(response => {
+          get(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
