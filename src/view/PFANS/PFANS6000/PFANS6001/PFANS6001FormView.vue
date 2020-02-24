@@ -80,7 +80,6 @@
                             :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                             :span-method="arraySpanMethod" @row-click="handleClickChange">
-                            :span-method="arraySpanMethod" @row-click="handleClickChange">
                             <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                              width="150"></el-table-column>
                             <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"

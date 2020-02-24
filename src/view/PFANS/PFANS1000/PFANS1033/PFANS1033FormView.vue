@@ -3,11 +3,10 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
-                         :noback = "true"
                         ref="container"
                          v-loading="loading">
       <div slot="customize" >
-        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="reff" style="padding: 2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
           <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
@@ -51,9 +50,9 @@
             <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
-              <org  :orglist="grouporglist1" orgtype="2" style="width: 20vw" @getOrgids="getGroupId1" :disabled="!disabled2"></org>
-            </el-form-item>
+<!--            <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">-->
+<!--              <org  :orglist="grouporglist1" orgtype="2" style="width: 20vw" @getOrgids="getGroupId1" :disabled="!disabled2"></org>-->
+<!--            </el-form-item>-->
             <div  class="dialog-footer" align="center">
               <el-button @click="dialogFormVisible = false" v-if="show1">
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
@@ -66,7 +65,7 @@
             </div>
           </el-dialog>
           <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNTECHNOLOGY')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1033VIEW_VERIFICATION')" name="first">
                 <el-table :data="tablefirst" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
                   <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                   <el-table-column :label="$t('label.department')" align="center" width="200">
@@ -267,7 +266,7 @@
                   </el-table-column>
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1024VIEW_INTERNSERVITUDE')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1033VIEW_KEEPITSECRET')" name="second">
               <el-table :data="tablesecond" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="200">
@@ -468,7 +467,7 @@
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1024VIEW_OVERSEASTECHNOLOGY')" name="third">
+            <el-tab-pane :label="$t('label.PFANS1033VIEW_INDENTURE')" name="third">
               <el-table :data="tablethird" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="200">
@@ -693,7 +692,7 @@
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1024VIEW_OVERSEASSERVITUDE')" name="fourth">
+            <el-tab-pane :label="$t('label.PFANS1033VIEW_SETUPINDENTURE')" name="fourth">
               <el-table :data="tablefourth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="200">
@@ -954,7 +953,7 @@
           multiple: false,
           index: "",
           grouporglist: '',
-          grouporglist1: '',
+          // grouporglist1: '',
           groupinfo:[],
           errorgroup: '',
           errorcusto: "",
@@ -967,8 +966,6 @@
           disabled1: false,
           disabled2: true,
           disabled3: false,
-          tableInt:[],
-          tableOut:[],
           rules: {},
           buttonList:[
             {
@@ -1160,13 +1157,13 @@
             }
         },
 
-          getGroupId1(val) {
-              this.grouporglist1 = val;
+          // getGroupId1(val) {
+          //     this.grouporglist1 = val;
               // let group = getOrgInfo(val);
               // if(group){
               //     this.groupinfo = [val,group.companyen,group.orgname,group.companyname];
               // }----------
-          },
+          // },
           //日期区组件处理
           getcontractdate(contractdate){
               if(contractdate.length > 0){

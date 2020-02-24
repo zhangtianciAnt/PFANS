@@ -303,36 +303,67 @@ phase<template>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" name="second">
               <el-row>
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item-->
+<!--                    :error="errorLeader"-->
+<!--                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+<!--                    prop="leaderid"-->
+<!--                  >-->
+<!--                    <user-->
+<!--                      :disabled="!disable"-->
+<!--                      :error="errorLeader"-->
+<!--                      :selectType="selectType"-->
+<!--                      :userlist="userlist"-->
+<!--                      @getUserids="getUserids"-->
+<!--                      style="width: 20vw"-->
+<!--                    ></user>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
                 <el-col :span="8">
-                  <el-form-item
-                    :error="errorLeader"
-                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                    prop="leaderid"
-                  >
-                    <user
-                      :disabled="!disable"
-                      :error="errorLeader"
-                      :selectType="selectType"
-                      :userlist="userlist"
-                      @getUserids="getUserids"
-                      style="width: 20vw"
-                    ></user>
+                  <el-form-item :error="errorLeader" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                                prop="errorLeader">
+                    <div class="dpSupIndex" style="width: 20vw" prop="errorLeader">
+                      <el-container>
+                        <input class="content bg" v-model="form.entrust" :error="errorLeader"
+                               :disabled="true"></input>
+                        <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"
+                                   size="small"></el-button>
+                        <el-dialog :title="$t('label.PFANS5001FORMVIEW_ENTRUST')" :visible.sync="dialogTableVisible2" center size="50%"
+                                   top="8vh" lock-scroll
+                                   append-to-body>
+                          <div style="text-align: center">
+                            <el-row style="text-align: center;height: 90%;overflow: hidden">
+                              <el-table
+                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase()))"
+                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                @row-click="handleClickChange1">
+                                <el-table-column property="entrust" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                                                 width="240"></el-table-column>
+                                <el-table-column property="deployment" :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')"
+                                                 width="240"></el-table-column>
+                                <el-table-column
+                                  align="right" width="230">
+                                  <template slot="header" slot-scope="scope">
+                                    <el-input
+                                      v-model="search"
+                                      size="mini"
+                                      placeholder="请输入供应商关键字搜索"/>
+                                  </template>
+                                </el-table-column>
+                              </el-table>
+                            </el-row>
+                            <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
+                        </span>
+                          </div>
+                        </el-dialog>
+                      </el-container>
+                    </div>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item
-                    :error="errorManager"
-                    :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')"
-                    prop="deployment"
-                  >
-                    <user
-                      :disabled="!disable"
-                      :error="errorManager"
-                      :selectType="selectType"
-                      :userlist="userlist1"
-                      @getUserids="getUserids1"
-                      style="width: 20vw"
-                    ></user>
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')">
+                    <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -669,7 +700,7 @@ phase<template>
                                                                width="100"></el-table-column>
                                               <el-table-column property="expname" fixed
                                                                :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                                               width="100"></el-table-column>
+                                                               width="180"></el-table-column>
                                               <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                                width="100"></el-table-column>
                                               <el-table-column property="post"
@@ -906,6 +937,7 @@ phase<template>
         errorexpname: '',
         search: '',
         gridData1: [],
+        gridData2: [],
         disable: false,
         customerinfor: [],
         checkList: [],
@@ -981,6 +1013,7 @@ phase<template>
         data: [],
         loading: false,
         dialogTableVisible1: false,
+        dialogTableVisible2: false,
         title: 'label.PFANS5001VIEW1',
         rules: {
           leaderid: [
@@ -1165,6 +1198,8 @@ phase<template>
           field: '',
           languages: '',
           startdate: '',
+          // 委托元
+          entrust: '',
           enddate: '',
           work: '',
           deadline: '',
@@ -1210,6 +1245,7 @@ phase<template>
     },
     mounted() {
       this.getexpatriatesinfor();
+      this.getcustomerinfor();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1329,6 +1365,31 @@ phase<template>
       }
     },
     methods: {
+
+      getcustomerinfor() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6002Store/getcustomerinfor', {})
+          .then(response => {
+            this.gridData2 = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.entrust = response[i].custchinese;
+              vote.deployment = response[i].prochinese;
+              this.gridData2.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+
       getCenterId(val) {
         this.form.center_id = val;
         this.centerorglist = val;
@@ -1384,6 +1445,12 @@ phase<template>
           this.errorManager = '';
         }
       },
+      handleClickChange(val) {
+        this.currentRow = val.number;
+        this.currentRow1 = val.expname;
+        this.currentRow2 = val.suppliername;
+        this.currentRow3 = val.post;
+      },
       submit(row) {
         row.number = this.currentRow;
         row.name = this.currentRow1;
@@ -1391,11 +1458,14 @@ phase<template>
         row.position = this.currentRow3;
         this.dialogTableVisible1 = false;
       },
-      handleClickChange(val) {
-        this.currentRow = val.number;
-        this.currentRow1 = val.expname;
-        this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.post;
+      handleClickChange1(val) {
+        this.currentRow = val.entrust;
+        this.currentRow1 = val.deployment;
+      },
+      submit1(row) {
+        this.form.entrust = this.currentRow;
+        this.form.deployment = this.currentRow1;
+        this.dialogTableVisible2 = false;
       },
       getCitationUserid(userlist, row) {
         row.name = userlist;
@@ -1640,7 +1710,6 @@ phase<template>
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor', {})
           .then(response => {
-            console.log(response);
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
@@ -1805,6 +1874,7 @@ phase<template>
       line-height: 34px;
       padding: 0.1rem 0.5rem 0.2rem 0.5rem;
     }
+
     .bg {
       background: white;
       border-width: 1px;
