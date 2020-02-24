@@ -114,8 +114,7 @@
 
               <el-row >
                 <el-col :span="24">
-                  <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue"
-                            show-summary  stripe border style="width: 70vw">
+                  <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                     <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
