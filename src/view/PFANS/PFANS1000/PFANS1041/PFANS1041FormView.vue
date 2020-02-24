@@ -10,7 +10,7 @@
   import {getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
 
   export default {
-    name: 'PFANS1001FormView',
+    name: 'PFANS1041FormView',
     components: {
       EasyNormalTable,
     },

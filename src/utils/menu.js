@@ -74,6 +74,29 @@ export function menu() {
               ]
             },
             {
+              '_id': 'SALESTHEME',
+              'name': 'menu.SALESTHEME',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1036',
+                  'name': 'menu.PFANS1041',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1041View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1041_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1041_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                }
+              ]
+            },
+            {
               '_id': 'JUDGEMENT',
               'name': 'menu.JUDGEMENT',
               'menuvisible': true,
