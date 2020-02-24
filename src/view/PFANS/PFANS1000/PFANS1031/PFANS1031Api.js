@@ -1,9 +1,10 @@
 import request from '../../../../utils/request'
 
-export function get() {
+export function get(data) {
   return request({
     url: 'napalm/get',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 
@@ -11,7 +12,7 @@ export function one(data) {
   return request({
     url: 'napalm/one',
     method: 'post',
-    data: datae
+    data: data
   })
 }
 

@@ -1,5 +1,9 @@
-import {get, one, update} from './PFANS1031Api'
-getNapalm
+import {
+  get,
+  one,
+  update
+} from './PFANS1031Api'
+
 const PFANS1031Store = {
   namespaced: true,
   state: {},
@@ -47,6 +51,5 @@ const PFANS1031Store = {
       })
     },
   }
-};
-
+}
 export default PFANS1031Store;
