@@ -444,7 +444,7 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'COMMISSIONCONTRACT',
+                  '_id': 'PFANS1024',
                   'name': 'menu.PFANS1024',
                   'menuvisible': true,
                   'menuurl': '',
