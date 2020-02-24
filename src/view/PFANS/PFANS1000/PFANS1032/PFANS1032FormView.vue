@@ -195,8 +195,13 @@
                   this.form.placeenglish= response[i].placeenglish;
                   this.form.placechinese= response[i].placechinese;
                   this.form.businesscode= response[i].businesscode;
-                  this.form.contractdate= response[i].contractdate;
-                  this.form.deliveryfinshdate= moment(response[i].deliveryfinshdate).format('YYYY-DD');
+                  if(this.form.contractdate!=="" && this.form.contractdate!==null){
+                    this.form.contractdate= response[i].contractdate;
+                  }
+
+                  if(response[i].deliveryfinshdate !== null && response[i].deliveryfinshdate !== ""){
+                    this.form.deliveryfinshdate= moment(response[i].deliveryfinshdate).format('YYYY-DD');
+                  }
                     this.form.claimamount= response[i].claimamount;
                     this.form.responphone= response[i].responphone;
                     this.form.claimnumber= response[i].claimnumber;
