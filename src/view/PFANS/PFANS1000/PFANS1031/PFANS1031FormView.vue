@@ -304,7 +304,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1031Store/getNapalmOne', {'napalm_id': this.$route.params._id})
+          .dispatch('PFANS1031Store/get', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.loadingjudge;
@@ -385,7 +385,7 @@
             if (this.$route.params._id) {
               this.form.napalm_id = this.$route.params._id;
               this.$store
-                .dispatch('PFANS1031Store/updateNapalm', this.form)
+                .dispatch('PFANS1031Store/update', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
@@ -410,7 +410,7 @@
                 });
             } else {
               this.$store
-                .dispatch('PFANS1031Store/createNapalm', this.form)
+                .dispatch('PFANS1031Store/one', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;

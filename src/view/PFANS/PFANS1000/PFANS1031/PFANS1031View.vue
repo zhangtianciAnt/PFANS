@@ -1,6 +1,13 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable
+    :buttonList="buttonList"
+    :columns="columns"
+    :data="data"
+    :rowid="row"
+    :title="title"
+    @buttonClick="buttonClick"
+    @rowClick="rowClick"
+    v-loading="loading">
   </EasyNormalTable>
 </template>
 <script>
@@ -123,8 +130,9 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1031Store/getNapalm')
+        .dispatch('PFANS1031Store/get',{})
         .then(response => {
+            console.log(response);
           this.data = response;
           this.loading = false
         })
