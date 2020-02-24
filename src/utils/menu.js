@@ -472,6 +472,30 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'COMMISSIONCONTRACT',
+                  'name': 'menu.COMMISSIONCONTRACT',
+                  'menuvisible': true,
+                  'menuurl': '',
+                  'menuicon': '',
+                  'children': [
+                    {
+                      '_id': 'PFANS1025',
+                      'name': 'menu.PFANS1025',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1025View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1025_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1025_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1025_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1025_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
+                  ]
+                },
+
+                {
                   '_id': 'BROKERAGECONTRACT',
                   'name': 'menu.BROKERAGECONTRACT',
                   'menuvisible': true,
@@ -491,20 +515,6 @@ export function menu() {
                         {"_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                         {"_id": "PFANS1032_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                         {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1025',
-                      'name': 'menu.PFANS1025',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1025View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1025_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1025_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1025_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1025_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                       ]
                     },
                   ]

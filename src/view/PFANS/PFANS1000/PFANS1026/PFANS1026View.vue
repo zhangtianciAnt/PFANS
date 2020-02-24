@@ -19,6 +19,7 @@
             return {
                 loading: false,
                 title: "title.PFANS1026VIEW",
+                contractnumbercount: '',
                 data: [],
                 columns: [
                     {
@@ -63,6 +64,7 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
+                contractnumber: '',
                 row : 'contractapplication_id '
             };
         },
@@ -71,23 +73,34 @@
             this.$store
                 .dispatch('PFANS1026Store/get',{'type': '1'})
                 .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        response[j].status = getStatus(response[j].status);
-                        let user = getUserInfo(response[j].user_id);
+                    let letcontractnumber = [];
+                    for (let i = 0; i < response.length; i++) {
+                        response[i].status = getStatus(response[i].status);
+                        let user = getUserInfo(response[i].user_id);
                         if (user) {
-                            response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                            response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
                         }
-                        if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
-                            response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
+                        if (response[i].applicationdate !== null && response[i].applicationdate !== "") {
+                            response[i].applicationdate = moment(response[i].applicationdate).format("YYYY-MM-DD");
                         }
-                        if (response[j].contracttype !== null && response[j].contracttype !== "") {
-                            let letContracttype = getDictionaryInfo(response[j].contracttype);
+                        if (response[i].contracttype !== null && response[i].contracttype !== "") {
+                            let letContracttype = getDictionaryInfo(response[i].contracttype);
                             if (letContracttype != null) {
-                                response[j].contracttype = letContracttype.value1;
+                                response[i].contracttype = letContracttype.value1;
                             }
+                        }
+                        if(response[i].contractnumber != ""){
+                            letcontractnumber.push(response[i].contractnumber);
                         }
                     }
                     this.data = response;
+                    var arr= new Array();
+                    for(var i = 0; i < letcontractnumber.length; i++){
+                        if(arr.indexOf(letcontractnumber[i]) == -1){
+                            arr.push(letcontractnumber[i]);
+                        }
+                    }
+                    this.contractnumbercount = (letcontractnumber.length + 1);
                     this.loading = false;
                 })
                 .catch(error => {
@@ -102,6 +115,7 @@
         methods: {
             rowClick(row) {
                 this.rowid = row.contractapplication_id;
+                this.contractnumber = row.contractnumber;
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -117,7 +131,8 @@
                     this.$router.push({
                         name: 'PFANS1026FormView',
                         params: {
-                            _id: this.rowid,
+                            _id: this.contractnumber,
+                            contractnumbercount: this.contractnumbercount,
                             disabled: true
                         }
                     })
@@ -144,6 +159,7 @@
                         name: 'PFANS1026FormView',
                         params: {
                             _id: '',
+                            contractnumbercount: this.contractnumbercount,
                             disabled: true
                         }
                     })
