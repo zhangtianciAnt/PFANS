@@ -1,37 +1,38 @@
 <template>
-  <EasyNormalTable
-    :buttonList="buttonList"
-    :columns="columns"
-    :data="data"
-    :rowid="row_id"
-    :title="title"
-    @buttonClick="buttonClick"
-    @rowClick="rowClick"
-    v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList"
+                     :columns="columns"
+                     :data="data"
+                     :title="title"
+                     :rowid="row_id"
+                     @buttonClick="buttonClick"
+                     @rowClick="rowClick"
+                     v-loading="loading">
+    </EasyNormalTable>
+  </div>
 </template>
 
 <script>
-  import EasyNormalTable from "@/components/EasyNormalTable";
-  import {Message} from "element-ui";
+  import EasyNormalTable from '@/components/EasyNormalTable';
+  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {Message} from 'element-ui';
   import moment from "moment";
-  import {getUserInfo} from '@/utils/customize';
 
   export default {
-    name: "PFANS1032View",
+    name: "PFANS1029View",
     components: {
-      EasyNormalTable
+      EasyNormalTable,
     },
     data(){
-      return {
+      return{
         loading: false,
-        title: "title.PFANS1032VIEW",
+        title: "title.PFANS1029VIEW",
         data: [],
-        columns: [
+        columns:[
           {
             code: 'contractnumber',
-            label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
-            width: 120,
+            label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
+            width: 150,
             fix: false,
             filter: true
           },
@@ -45,49 +46,57 @@
           {
             code: 'custochinese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
-            width: 130,
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'businesscode',
-            label: 'label.PFANS1024VIEW_BUSINESSCODE',
-            width: 140,
+            code: 'placechinese',
+            label: 'label.PFANS1029FORMVIEW_PRINCIPALPLAC',
+            width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'pjnamechinese',
-            label: 'label.PFANS1032FORMVIEW_PJNAME',
-            width: 100,
+            code: 'deployment',
+            label: 'label.PFANS1024VIEW_DEPLOYMENT',
+            width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'claimnumber',
-            label: 'label.PFANS1032FORMVIEW_CLAIMNUMBER',
-            width: 130,
+            code: 'pjnamejapanese',
+            label: 'label.PFANS1025VIEW_PJNAME',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'claimtype',
-            label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 130,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'claimdatetime',
+            code: 'developdate',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 170,
+            width: 200,
+            fix: false,
+            filter: true
+          },
+
+          {
+            code: 'currencyposition',
+            label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'deliverydate',
-            label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
-            width: 130,
+            code: 'claimamount',
+            label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
+            width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
             fix: false,
             filter: true
           }
@@ -105,12 +114,14 @@
       this.$store
         .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
-          debugger
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
+              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
                 response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+              }
+              if (response[j].status !== null && response[j].status !== "") {
+                response[j].status = getStatus(response[j].status);
               }
             }
           }
@@ -132,7 +143,7 @@
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === "view") {
+        if (val === 'update') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -142,32 +153,34 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1032FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        }else if (val === "update") {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS1032FormView',
+            name: 'PFANS1025FormView',
             params: {
               _id: this.rowid,
               disabled: true
             }
           })
         }
+        if (val === 'view') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS1025FormView',
+            params: {
+              _id: this.rowid,
+              disabled: false
+            }
+          })
+        }
+
       }
     }
-    }
+  }
 </script>
 
 <style scoped>

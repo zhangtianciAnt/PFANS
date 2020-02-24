@@ -84,9 +84,9 @@
       };
       var validateDate = (rule, value, callback) => {
         if (value && this.form) {
-          if (this.form.status !== '0') {
-            callback();
-          }
+//          if (this.form.status !== '0') {
+//            callback();
+//          }
           this.$store
             .dispatch('ASSETS1002Store/check', {
               'inventorycycle': moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD'),
