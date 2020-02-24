@@ -829,7 +829,7 @@ phase<template>
                                       :data="gridData3.filter(data => !search || data.contract.toLowerCase().includes(search.toLowerCase()))"
                                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                       @row-click="handleClickChange2">
-                                      <el-table-column property="contract" fixed :label="$t('label.applicant')"
+                                      <el-table-column property="contractnumber" fixed :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
                                                        width="100"></el-table-column>
                                       <el-table-column property="deployment" :label="$t('label.group')"
                                                        width="100"></el-table-column>
@@ -1514,7 +1514,7 @@ phase<template>
             this.gridData3 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              vote.contract = response[i].user_id;
+              vote.contractnumber = response[i].contractnumber;
               vote.deployment = response[i].deployment;
               vote.contracttype = response[i].contracttype;
               vote.applicationdate = response[i].applicationdate;
@@ -1634,7 +1634,7 @@ phase<template>
         this.dialogTableVisible2 = false;
       },
       handleClickChange2(val) {
-        this.currentRow = val.user_id;
+        this.currentRow = val.contractnumber;
         this.currentRow1 = val.deployment;
         this.currentRow2 = val.contracttype;
         this.currentRow3 = val.applicationdate;
@@ -1642,9 +1642,9 @@ phase<template>
       },
       submit2() {
         this.dialogTableVisible3 = false;
-        // this.tableD.user_id = this.currentRow;
-        this.tableD.contract = this.currentRow1;
-        // this.tableD.contracttype = this.currentRow2;
+        // this.tableD.contract = this.currentRow;
+        // this.tableD.contract = this.currentRow1;
+        this.tableD.contract = this.currentRow2;
         // this.tableD.applicationdate = this.currentRow3;
         // this.tableD.state = this.currentRow4;
       },
