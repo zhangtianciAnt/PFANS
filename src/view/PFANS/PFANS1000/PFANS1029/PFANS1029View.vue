@@ -153,7 +153,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1025FormView',
+            name: 'PFANS1029FormView',
             params: {
               _id: this.rowid,
               disabled: true
@@ -170,7 +170,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1025FormView',
+            name: 'PFANS1029FormView',
             params: {
               _id: this.rowid,
               disabled: false
