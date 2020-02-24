@@ -966,8 +966,6 @@
           disabled1: false,
           disabled2: true,
           disabled3: false,
-          tableInt:[],
-          tableOut:[],
           rules: {},
           buttonList:[
             {
@@ -1379,7 +1377,7 @@
                   entrustednumber: '',
                   papercontract: '',
                   state: '',
-                  type: '0',
+                  type: '2',
                   maketype: '1',
               });
           },
@@ -1427,7 +1425,7 @@
                   entrustednumber: '',
                   papercontract: '',
                   state: '',
-                  type: '0',
+                  type: '2',
                   maketype: '2',
               });
           },
@@ -1478,7 +1476,7 @@
                   entrustednumber: '',
                   papercontract: '',
                   state: '',
-                  type: '0',
+                  type: '2',
                   maketype: '3',
               });
           },
@@ -1529,7 +1527,7 @@
                   entrustednumber: '',
                   papercontract: '',
                   state: '',
-                  type: '0',
+                  type: '2',
                   maketype: '4',
               });
           },
@@ -1574,7 +1572,7 @@
               if(this.letcontractnumber === ""){
                   this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1];
               }
-              if(this.form.contracttype === 'HT014001'){
+              if(this.form.contracttype === 'HT015001'){
                   this.activeName = 'first';
                   if(this.form.claimtype === "HT001001"){
                       this.addRowfirst();
@@ -1606,7 +1604,7 @@
                       this.tablefirst[3].claimtype = letclaimtypefour;
                   }
               }
-              else if(this.form.contracttype === 'HT014002'){
+              else if(this.form.contracttype === 'HT015002'){
                   this.activeName = 'second';
                   if(this.form.claimtype === "HT001001"){
                       this.addRowsecond();
@@ -1638,7 +1636,7 @@
                       this.tablesecond[3].claimtype = letclaimtypefour;
                   }
               }
-              else if(this.form.contracttype === 'HT014003'){
+              else if(this.form.contracttype === 'HT015003'){
                   this.activeName = 'third';
 
                   if(this.form.claimtype === "HT001001"){
@@ -1671,7 +1669,7 @@
                       this.tablethird[3].claimtype = letclaimtypefour;
                   }
               }
-              else if(this.form.contracttype === 'HT014004'){
+              else if(this.form.contracttype === 'HT015004'){
                   this.activeName = 'fourth';
 
                   if(this.form.claimtype === "HT001001"){
@@ -1727,16 +1725,16 @@
             if (val === "save") {
                 let tabledata = [];
                 this.form.maketype = "2";
-                if(this.form.contracttype === 'HT014001'){
+                if(this.form.contracttype === 'HT015001'){
                     tabledata = this.tablefirst;
                 }
-                else if(this.form.contracttype === 'HT014002'){
+                else if(this.form.contracttype === 'HT015002'){
                     tabledata = this.tablesecond;
                 }
-                else if(this.form.contracttype === 'HT014003'){
+                else if(this.form.contracttype === 'HT015003'){
                     tabledata = this.tablethird;
                 }
-                else if(this.form.contracttype === 'HT014004'){
+                else if(this.form.contracttype === 'HT015004'){
                     tabledata = this.tablefourth;
                 }
                 for (let i = 0; i < tabledata.length; i++) {
