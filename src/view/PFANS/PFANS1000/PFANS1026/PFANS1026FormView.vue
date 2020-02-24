@@ -3044,10 +3044,15 @@ first<template>
                 this.$store
                     .dispatch('PFANS1026Store/get',{'contractnumber': this.$route.params._id})
                     .then(response => {
-                        if (response.length > 0) {
+                        if (response.length > 0) {//444
                             for (let i = 0; i < response.length; i++) {
                                 this.maketype = response[i].maketype;
+                                //契約種類
                                 this.form.contracttype = response[i].contracttype;
+                                //事業年度
+                                this.form.applicationdate = response[i].careeryear;
+                                //上下期
+                                this.form.entrycondition = response[i].periods;
                                 //契約種類
                                 let letabbreviation = getDictionaryInfo(response[i].contracttype);
                                 if (letabbreviation != null) {
@@ -3746,6 +3751,8 @@ first<template>
                 var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefirst.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -4635,20 +4642,80 @@ first<template>
                 });
             },
             buttonClick(val) {
-                if (val === "application") {
+                if (val === "application") {//xxx
                     this.display = true;
                     this.checkeddisplay = true;
                     this.dialogFormVisible = true;
                     this.show1 = true;
                     this.show2 = false;
+                    if(!this.$route.params._id){
+                        this.form.claimtype = 'HT001001';
+                        this.form.contracttype = 'HT008001';
+                        this.form.applicationdate = 'HT007001';
+                        this.form.entrycondition = 'HT003001';
+                    }
+                    else{
+                        // this.form.claimtype = 'HT001001';
+                        // this.form.contracttype = 'HT008001';
+                        // this.form.applicationdate = 'HT007001';
+                        // this.form.entrycondition = 'HT003001';
+                        // this.disabled1 = false;
+                        // this.disabled2 = true;
+                        // this.form.contractnumber = '';
+                    }
                 }
                 if (val === "cancellation") {//333
-                    this.display = false;
-                    this.checkeddisplay = false;
-                    this.dialogFormVisible = true;
-                    this.show1=false;
-                    this.show2=true;
-                    this.form.contractnumber = this.$route.params._id;
+                    if(this.form.contracttype === 'HT008001'){
+                        for (let i = 0; i < this.tablefirst.length; i++) {
+                            this.tablefirst[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008002'){
+                        for (let i = 0; i < this.tablesecond.length; i++) {
+                            this.tablesecond[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008003'){
+                        for (let i = 0; i < this.tablethird.length; i++) {
+                            this.tablethird[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008004'){
+                        for (let i = 0; i < this.tablefourth.length; i++) {
+                            this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008005'){
+                        for (let i = 0; i < this.tablefifth.length; i++) {
+                            this.tablefifth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008006'){
+                        for (let i = 0; i < this.tablesixth.length; i++) {
+                            this.tablesixth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008007'){
+                        for (let i = 0; i < this.tableseventh.length; i++) {
+                            this.tableseventh[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008008'){
+                        for (let i = 0; i < this.tableeighth.length; i++) {
+                            this.tableeighth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008009'){
+                        for (let i = 0; i < this.tableninth.length; i++) {
+                            this.tableninth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    // this.display = false;
+                    // this.checkeddisplay = false;
+                    // this.dialogFormVisible = true;
+                    // this.show1=false;
+                    // this.show2=true;
+                    // this.form.contractnumber = this.$route.params._id;
                 }
                 if (val === "save") {//111
                     let tabledata = [];
