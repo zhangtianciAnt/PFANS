@@ -31,24 +31,24 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTJAPANESE')">
+                    <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.custojapanese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTCHINESE')">
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')">
                       <el-input  :disabled="!disable"style="width:20vw" v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACEJAPANESE')">
+                    <el-form-item :label="$t('label.PFANS1029FORMVIEW_PRINCIPALPLAC')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACECHINESE')">
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.placechinese"></el-input>
                     </el-form-item>
                   </el-col>
@@ -93,7 +93,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                       <dicselect :code="code2"
-                                 :data="form.currencyformat"
+                                 :data="form.currencyposition"
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getcurrencyformat"
@@ -258,28 +258,201 @@
                   </el-col>
                 </el-row>
               </div>
-              <el-row >
+              <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
+                        show-summary  stripe border style="width: 70vw">
+                <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" prop="depart">
+                  <template slot-scope="scope">
+                    <org  :orglist="scope.row.depart"
+                          orgtype="2"
+                          :disabled="!disable"
+                          :error="errorgroup"
+                          style="width:90%"
+                          :no="scope.row"
+                          @getOrgids="getGroupId"></org>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.member"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.community"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"  width="150"  prop="outsource">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.outsource"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center"  width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.outcommunity"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.worknumber"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.awardmoney"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="!disable"
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="!disable"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+
+            </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS1029FORMVIEW_DETAIL')" name="third">
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FORMVIEW_TOTAL')">
+                    <el-input-number
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:20vw"
+                      v-model="form.total"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FORMVIEW_NUMBER')">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:20vw"
+                      v-model="form.number"
+                      @change="gettotal"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FORMVIEW_PRICE')">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:20vw"
+                      v-model="form.price"
+                      @change="gettotal"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
+                  <el-form-item :label="$t('label.PFANS1029FORMVIEW_RATE')">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:20vw"
+                      v-model="form.rate"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row >
+                  <el-table :data="tableD" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
                             show-summary  stripe border style="width: 70vw">
-                    <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
+                    <el-table-column :label="$t('label.PFANS1029FORMVIEW_ATTF')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
+                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.attf">
                         </el-input>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" prop="depart">
-                      <template slot-scope="scope">
-                        <org  :orglist="scope.row.depart"
-                              orgtype="2"
-                              :disabled="!disable"
-                              :error="errorgroup"
-                              style="width:90%"
-                              :no="scope.row"
-                              @getOrgids="getGroupId"></org>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
+                    <el-table-column :label="$t('label.PFANS1029FORMVIEW_ATTFMOTH')" align="center" width="170" prop="attfmoth">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
@@ -289,24 +462,11 @@
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
-                          v-model="scope.row.member"
+                          v-model="scope.row.attfmoth"
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"width="150">
-                      <template slot-scope="scope">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :no="scope.row"
-                          controls-position="right"
-                          style="width: 100%"
-                          v-model="scope.row.community"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"  width="150"  prop="outsource">
+                    <el-table-column :label="$t('label.PFANS1029FORMVIEW_ATTFNUMBER')" align="center" width="150" prop="attfnumber">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
@@ -316,73 +476,11 @@
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
-                          v-model="scope.row.outsource"
+                          v-model="scope.row.attfnumber"
                         ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center"  width="150">
-                      <template slot-scope="scope">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :no="scope.row"
-                          controls-position="right"
-                          style="width: 100%"
-                          v-model="scope.row.outcommunity"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
-                      <template slot-scope="scope">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :no="scope.row"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 100%"
-                          v-model="scope.row.worknumber"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
-                      <template slot-scope="scope">
-                        <el-input-number
-                          :disabled="!disable"
-                          :max="1000000000"
-                          :min="0"
-                          :no="scope.row"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 100%"
-                          v-model="scope.row.awardmoney"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.operation')" align="center" width="200">
-                      <template slot-scope="scope">
-                        <el-button
-                          :disabled="!disable"
-                          @click.native.prevent="deleteRow(scope.$index, tableT)"
-                          plain
-                          size="small"
-                          type="danger"
-                        >{{$t('button.delete')}}
-                        </el-button>
-                        <el-button
-                          :disabled="!disable"
-                          @click="addRow()"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.insert')}}
-                        </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
-                </el-col>
               </el-row>
             </el-tab-pane>
           </el-tabs>
@@ -399,6 +497,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
+  import {getDictionaryInfo} from '@/utils/customize';
 
 
   export default {
@@ -434,6 +533,7 @@
       return {
         activeName: 'first',
         disabled: true,
+        tableAValue:'',
         error: '',
         userlist: '',
         code1: 'PJ010',
@@ -455,6 +555,8 @@
           currencyposition:'',
           custojapanese: '',
           custochinese: '',
+
+
           placejapanese: '',
           placechinese: '',
 
@@ -478,14 +580,22 @@
           plannumber: '',
           valuationnumber: '',
           remarks: '',
+
+
+
+            /*third*/
+          total: '',
+          number: '',
+          price: '',
+          rate: ''
         },
         tableS:[{
-        claimtype: '',
-       deliverydate: '',
-       completiondate: '',
-        claimdate: '',
-        supportdate: '',
-       claimamount: '',
+          claimtype: '',
+          deliverydate: '',
+          completiondate: '',
+          claimdate: '',
+          supportdate: '',
+          claimamount: '',
         }],
         tableT: [{
           awarddetail_id: '',
@@ -500,6 +610,75 @@
           awardmoney: '',
           rowindex: '',
         }],
+
+        tableD:[{
+          attf: 'R11B',
+          attfmoth: '',
+          attfnumber: ''
+        },
+          {
+            attf: 'R11A',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R10',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R9B',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R9A',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R8C',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R8B',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R8A',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R7',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R6',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R5',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R4',
+            attfmoth: '',
+            attfnumber: ''
+          },
+          {
+            attf: 'R3',
+            attfmoth: '',
+            attfnumber: ''
+          },
+
+        ],
+
         rules: {
           user_id: [{
             required: true,
@@ -544,12 +723,12 @@
 
               }
             }
-            if (response.awardDetail.length > 0) {
-              this.tableT = response.awardDetail
-              for (var i = 0; i < this.tableT.length; i++) {
-                this.orglist=this.tableT[i].depart;
-              }
-            }
+            // if (response.awardDetail.length > 0) {
+            //   this.tableT = response.awardDetail
+            //   for (var i = 0; i < this.tableT.length; i++) {
+            //     this.orglist=this.tableT[i].depart;
+            //   }
+            // }
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -661,6 +840,7 @@
           rowindex: '',
         })
       },
+
       getTsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -697,6 +877,13 @@
         });
         return sums;
       },
+
+      gettotal(val){
+        this.form.total= this.form.number*this.form.price;
+      },
+
+
+
       buttonClick(val) {
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
@@ -729,7 +916,7 @@
               if(this.$route.params._id){     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1025Store/update',this.baseInfo)
+                  .dispatch('PFANSStore/update',this.baseInfo)
                   .then(response =>{
                     this.data=response;
                     this.loading=false;
@@ -780,3 +967,4 @@
     overflow: visible;
   }
 </style>
+
