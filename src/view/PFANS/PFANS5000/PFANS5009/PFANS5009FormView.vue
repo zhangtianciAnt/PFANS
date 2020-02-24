@@ -166,19 +166,46 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border
-                              style="width: 70vw">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.phase"></el-input>
+                          <dicselect
+                            :code="code5"
+                            :data="scope.row.phase"
+                            :disabled="true"
+                            :no="scope.row"
+                            @change="getrole"
+                          ></dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.stageproduct"></el-input>
-                        </template>
+                          <el-input :disabled="!disabled" style="width: 100%"
+                                    maxlength="20"
+                                    v-model="scope.row.stageproduct"
+                                    v-show="scope.row.showrow">
+                          </el-input>
+                          <dicselect :code="code2"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disabled"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow1">
+                          </dicselect>
+                          <dicselect :code="code3"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disabled"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow2">
+                          </dicselect>
+                          <dicselect :code="code4"
+                                     :data="scope.row.stageproduct"
+                                     :disabled="!disabled"
+                                     :no="scope.row"
+                                     @change="getrole1"
+                                     style="width: 100%" v-show="scope.row.showrow3">
+                          </dicselect></template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCTSTATUS')" align="center" width="100">
                         <template slot-scope="scope">
@@ -217,7 +244,7 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')" align="center"
-                                       width="100">
+                                       width="200">
                         <template slot-scope="scope">
                           <el-date-picker
                             maxlength="20"
@@ -230,7 +257,7 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')" align="center"
-                                       width="100">
+                                       width="200">
                         <template slot-scope="scope">
                           <el-date-picker
                             maxlength="20"
@@ -261,7 +288,7 @@
                           ></el-date-picker>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-date-picker
                             maxlength="20"
@@ -273,7 +300,7 @@
                           ></el-date-picker>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCT')" align="center" width="100">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCT')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-switch
                             :disabled="!disabled"
@@ -457,14 +484,12 @@
                                             height="500px" highlight-current-row style="width: 100%"
                                             tooltip-effect="dark"
                                             @row-click="handleClickChange">
-                                            <el-table-column property="number" fixed
-                                                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                                            <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                                                              width="100"></el-table-column>
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="100"></el-table-column>
-                                            <el-table-column property="suppliername"
-                                                             :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                            <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                              width="100"></el-table-column>
                                             <el-table-column property="post"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
@@ -490,6 +515,7 @@
                               </el-col>
                             </template>
                           </el-table-column>
+
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -564,6 +590,66 @@
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')" name="forth">
+              <el-form-item>
+                <el-row>
+                  <el-col :span="24">
+                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue" stripe border>
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_MONTH')" align="center" width="100">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="!disabled"
+                            v-model="scope.row.month"
+                            style="width: 100%">
+                          </el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="!disabled"
+                            v-model="scope.row.estimatedwork"
+                            style="width: 100%">
+                          </el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALWORK')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="!disabled"
+                            v-model="scope.row.actualwork"
+                            style="width: 100%">
+                          </el-input>
+                        </template>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disabled"
+                            @click.native.prevent="deleteRow(scope.$index, tableA)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disabled"
+                            @click="addRow()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
+                      </el-table-column>
+
+                    </el-table>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTANALYSIS')" name="fifth">
             </el-tab-pane>
@@ -695,7 +781,7 @@
           stageinformation_id: '',
           phase: '',
           stageproduct: '',
-          productstatus: '',
+          productstatus: this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED'),
           estimatedwork: '',
           actualwork: '',
           estimatedstarttime: '',
@@ -705,6 +791,10 @@
           actualendtime: '',
           product: '',
           rowindex: '',
+          showrow: true,
+          showrow1: false,
+          showrow2: false,
+          showrow3: false,
         }],
         tableB: [
           {
@@ -734,9 +824,28 @@
             rowindex: '',
           },
         ],
+        tableA: [
+          {
+            stageinformation_id: '',
+            companyprojects_id: '',
+            month: '',
+            estimatedwork: '',
+            actualwork: '',
+            rowindex: '',
+          },
+        ],
+
         data: [],
         code: 'PP001',
         code1: 'PP002',
+        code2: 'PP013',
+        code3: 'PP014',
+        code4: 'PP015',
+        code5: 'PP012',
+        showrow: true,
+        showrow1: false,
+        showrow2: false,
+        showrow3: false,
         disabled: true,
         menuList: [],
         baseInfo: {},
@@ -1007,6 +1116,30 @@
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
       },
+      addRow() {
+        this.tableA.push({
+          stageinformation_id: '',
+          companyprojects_id: '',
+          month: '',
+          estimatedwork: '',
+          actualwork: '',
+          rowindex: '',
+        });
+      },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableA = [{
+            stageinformation_id: '',
+            companyprojects_id: '',
+            month: '',
+            estimatedwork: '',
+            actualwork: '',
+            rowindex: '',
+          }];
+        }
+      },
       getCitationUserid(userlist, row) {
         row.name = userlist;
         if (row.name != null && row.name !== '') {
@@ -1050,6 +1183,34 @@
       //       this.loading = false;
       //     });
       // },
+      getrole(val, row) {
+        row.phase = val;
+        row.stageproduct = ' ';
+        if (val === '') {
+          row.showrow = true;
+          row.showrow1 = false;
+          row.showrow2 = false;
+          row.showrow3 = false;
+        } else if (val === 'PP012001') {
+          row.showrow = false;
+          row.showrow1 = true;
+          row.showrow2 = false;
+          row.showrow3 = false;
+        } else if (val === 'PP012002') {
+          row.showrow = false;
+          row.showrow1 = false;
+          row.showrow2 = true;
+          row.showrow3 = false;
+        } else if (val === 'PP012003') {
+          row.showrow = false;
+          row.showrow1 = false;
+          row.showrow2 = false;
+          row.showrow3 = true;
+        }
+      },
+      getrole1(val, row) {
+        row.stageproduct = val;
+      },
       getProduct(row) {
         if (row.product === '1') {
           row.productstatus = this.$t('label.PFANS5009FORMVIEW_SUBMITTED');

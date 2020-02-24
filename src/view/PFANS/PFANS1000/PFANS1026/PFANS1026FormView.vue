@@ -9,7 +9,7 @@ first<template>
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
           <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
-            <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
+            <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display">
               <dicselect
                 :code="code"
                 :data="form.claimtype"
@@ -22,7 +22,8 @@ first<template>
             <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
               <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
-                v-model="checked1"
+                v-if="checkeddisplay"
+                v-model="checked"
                 @change="getChecked"
               >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
             </el-form-item>
@@ -57,7 +58,7 @@ first<template>
                   </span>
               </el-button>
               <el-button  @click="dialogFormVisible = false" v-if="show2">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+                  <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
             </div>
@@ -419,7 +420,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -781,7 +782,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -1086,7 +1087,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -1391,7 +1392,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -1696,7 +1697,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -2001,7 +2002,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -2306,7 +2307,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -2611,7 +2612,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -2916,7 +2917,7 @@ first<template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.state">
+                    <el-input :disabled="true" v-model="scope.row.state">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -2948,9 +2949,11 @@ first<template>
         },
         data() {
             return {
-                checked1: false,
+                checked: false,
+                checkeddisplay: true,
                 index: "",
                 dialogFormVisible: false,
+                display:true,
                 grouporglist: '',
                 groupinfo:[],
                 errorgroup: '',
@@ -2979,6 +2982,16 @@ first<template>
                 rules: {},
                 buttonList:[
                     {
+                        key: 'application',
+                        name: 'button.application',
+                        disabled: false,
+                    },
+                    {
+                        key: 'cancellation',
+                        name: 'button.cancellation',
+                        disabled: false,
+                    },
+                    {
                         key: 'save',
                         name: 'button.save',
                         disabled: false,
@@ -2987,7 +3000,7 @@ first<template>
                         key: 'makeinto',
                         name: 'button.makeinto',
                         disabled: false,
-                    }
+                    },
                 ],
                 form:{
                     contractnumber: '',
@@ -3029,7 +3042,7 @@ first<template>
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params.contractnumber})
+                    .dispatch('PFANS1026Store/get',{'contractnumber': this.$route.params._id})
                     .then(response => {
                         if (response.length > 0) {
                             for (let i = 0; i < response.length; i++) {
@@ -3089,46 +3102,12 @@ first<template>
                     })
             } else {
                 this.activeName = 'first';
-                this.dialogFormVisible = true;
             }
         },
         created() {
             this.disabled = this.$route.params.disabled;
             if (!this.disabled) {
                 this.buttonList = [];
-            }
-            if (this.$route.params._id) {
-                this.buttonList = [
-                    {
-                        key: 'cancellation',
-                        name: 'button.cancellation',
-                        disabled: false,
-                    },
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                    },
-                    {
-                        key: 'makeinto',
-                        name: 'button.makeinto',
-                        disabled: false,
-                    },
-                ]
-            }
-            else{
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                    },
-                    {
-                        key: 'makeinto',
-                        name: 'button.makeinto',
-                        disabled: false,
-                    },
-                ]
             }
         },
         methods: {
@@ -3168,7 +3147,7 @@ first<template>
             },
             //本来契約
             getChecked(val){
-                this.checked1 = val;
+                this.checked = val;
                 if(val === true){
                     this.disabled1 = true;
                     this.disabled2 = false;
@@ -3808,7 +3787,7 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     decide: '',
                     firstjudge: '',
                     secondjudge: '',
@@ -3823,7 +3802,7 @@ first<template>
             },
             addRowsecond() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablesecond.length + 1).toString(): '';
                 this.tablesecond.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3882,7 +3861,7 @@ first<template>
             },
             addRowthird() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablethird.length + 1).toString(): '';
                 this.tablethird.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3933,7 +3912,7 @@ first<template>
             },
             addRowfourth() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefourth.length + 1).toString(): '';
                 this.tablefourth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -3984,7 +3963,7 @@ first<template>
             },
             addRowfifth() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefifth.length + 1).toString(): '';
                 this.tablefifth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4035,7 +4014,7 @@ first<template>
             },
             addRowsixth() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablesixth.length + 1).toString(): '';
                 this.tablesixth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4086,7 +4065,7 @@ first<template>
             },
             addRowseventh() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableseventh.length + 1).toString(): '';
                 this.tableseventh.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4137,7 +4116,7 @@ first<template>
             },
             addRoweighth() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableeighth.length + 1).toString(): '';
                 this.tableeighth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4188,7 +4167,7 @@ first<template>
             },
             addRowninth() {
                 //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
+                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableninth.length + 1).toString(): '';
                 this.tableninth.push({
                     contractapplication_id: '',
                     group_id: this.groupinfo[0],
@@ -4232,7 +4211,7 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '9',
                 });
@@ -4597,6 +4576,56 @@ first<template>
                     }
                 }
             },
+            //契約番号廃棄
+            clickDiscard(){
+                if(!this.show1){
+                    if(this.form.contracttype === 'HT008001'){
+                        for (let i = 0; i < this.tablefirst.length; i++) {
+                            this.tablefirst[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008002'){
+                        for (let i = 0; i < this.tablesecond.length; i++) {
+                            this.tablesecond[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008003'){
+                        for (let i = 0; i < this.tablethird.length; i++) {
+                            this.tablethird[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008004'){
+                        for (let i = 0; i < this.tablefourth.length; i++) {
+                            this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008005'){
+                        for (let i = 0; i < this.tablefifth.length; i++) {
+                            this.tablefifth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008006'){
+                        for (let i = 0; i < this.tablesixth.length; i++) {
+                            this.tablesixth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008007'){
+                        for (let i = 0; i < this.tableseventh.length; i++) {
+                            this.tableseventh[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008008'){
+                        for (let i = 0; i < this.tableeighth.length; i++) {
+                            this.tableeighth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                    else if(this.form.contracttype === 'HT008009'){
+                        for (let i = 0; i < this.tableninth.length; i++) {
+                            this.tableninth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        }
+                    }
+                }
+            },
             paramsTitle(){
                 this.$router.push({
                     name: 'PFANS1026View',
@@ -4607,14 +4636,19 @@ first<template>
             },
             buttonClick(val) {
                 if (val === "application") {
+                    this.display = true;
+                    this.checkeddisplay = true;
                     this.dialogFormVisible = true;
                     this.show1 = true;
                     this.show2 = false;
                 }
-                if (val === "cancellation") {
+                if (val === "cancellation") {//333
+                    this.display = false;
+                    this.checkeddisplay = false;
                     this.dialogFormVisible = true;
                     this.show1=false;
                     this.show2=true;
+                    this.form.contractnumber = this.$route.params._id;
                 }
                 if (val === "save") {//111
                     let tabledata = [];

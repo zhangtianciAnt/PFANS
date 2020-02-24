@@ -32,24 +32,24 @@
                  </el-col>
                  <el-col :span="8">
                    <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTJAPANESE')">
-                     <el-input  :disabled="!disable" style="width:20vw" v-model="form.entrustjapanese"></el-input>
+                     <el-input  :disabled="!disable" style="width:20vw" v-model="form.custojapanese"></el-input>
                    </el-form-item>
                  </el-col>
                </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTCHINESE')">
-                      <el-input  :disabled="!disable"style="width:20vw" v-model="form.entrustchinese"></el-input>
+                      <el-input  :disabled="!disable"style="width:20vw" v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACEJAPANESE')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.enplacejapanese"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACECHINESE')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.enplacechinese"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.placechinese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -74,7 +74,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
-                        v-model="form.developdate"
+                        v-model="form.contractdate"
                         :disabled="!disable"
                         type="daterange"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -84,8 +84,6 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.deliverydate">
@@ -103,6 +101,8 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.claimamount"></el-input>
@@ -404,21 +404,26 @@
           orglist:'',
           baseInfo: {},
           form: {
-            contractnumber: '',
-            contracttype: '',
-            entrustjapanese: '',
-            entrustchinese: '',
-            enplacejapanese: '',
-            enplacechinese: '',
-            deployment: '',
+
+            contractnumber:'',
+            contracttype:'',
+            deployment:'',
+            contractdate:[],
+            claimamount:'',
+            currencyposition:'',
+            custojapanese: '',
+            custochinese: '',
+            placejapanese: '',
+            placechinese: '',
+
+
             pjnamejapanese: '',
             pjnamechinese: '',
-            developdate:[],
             enddate: '',
             firstdetails: '',
             deliverydate: '',
             currencyformat: '',
-            claimamount: '',
+
             user_id: '',
             extrinsic: '',
             equipment: '',
@@ -466,11 +471,28 @@
             .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
             .then(response => {
               this.form = response.award;
-              this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              if(this.form.developdate!=="" && this.form.developdate!==null){
-                let sertdate=this.form.developdate.slice(0,10);
-                let enddate =this.form.developdate.slice(this.form.developdate.length-10);
-                this.form.developdate=[sertdate,enddate];
+              if (response.award.length > 0) {
+                for (let i = 0; i < response.length; i++) {
+                  if(response[i].contracttype !== null && response[i].contracttype !== ""){
+                    this.form.contracttype = getDictionaryInfo(response[i].contracttype).value1;
+                  }
+                  this.form.contractnumber= response[i].contractnumber;
+                  this.form.deployment= response[i].deployment;
+                  this.form.claimamount= response[i].claimamount;
+                  this.form.currencyposition= response[i].currencyposition;
+                  this.form.custojapanese= response[i].custojapanese;
+                  this.form.placejapanese= response[i].placejapanese;
+                  this.form.placechinese= response[i].placechinese;
+                  if(response[i].currencyposition !== null && response[i].currencyposition !== ""){
+                    this.form.currencyposition= getDictionaryInfo(response[i].currencyposition).value1;
+                  }
+
+                  if(this.form.contractdate!=="" && this.form.contractdate!==null){
+                    this.form.contractdate=response[i].contractdate;
+                  }
+
+
+                }
               }
               if (response.awardDetail.length > 0) {
                 this.tableT = response.awardDetail
