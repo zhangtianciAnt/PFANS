@@ -966,8 +966,6 @@
           disabled1: false,
           disabled2: true,
           disabled3: false,
-          tableInt:[],
-          tableOut:[],
           rules: {},
           buttonList:[
             {
