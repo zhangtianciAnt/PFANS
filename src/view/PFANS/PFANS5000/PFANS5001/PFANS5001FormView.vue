@@ -1642,11 +1642,7 @@ phase<template>
       },
       submit2() {
         this.dialogTableVisible3 = false;
-        // this.tableD.contract = this.currentRow;
-        // this.tableD.contract = this.currentRow1;
         this.tableD.contract = this.currentRow2;
-        // this.tableD.applicationdate = this.currentRow3;
-        // this.tableD.state = this.currentRow4;
       },
       getCitationUserid(userlist, row) {
         row.name = userlist;
