@@ -804,8 +804,6 @@ phase<template>
             <!--            合同-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
-                <el-row>
-                  <el-col :span="24">
                     <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 90vw">
                       <el-table-column
@@ -829,7 +827,7 @@ phase<template>
                                       :data="gridData3.filter(data => !search || data.contract.toLowerCase().includes(search.toLowerCase()))"
                                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                       @row-click="handleClickChange2">
-                                      <el-table-column property="contractnumber" fixed :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
+                                      <el-table-column property="contract" fixed :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
                                                        width="100"></el-table-column>
                                       <el-table-column property="deployment" :label="$t('label.group')"
                                                        width="100"></el-table-column>
@@ -881,7 +879,7 @@ phase<template>
                           <el-input
                             :no="scope.row"
                             :disabled="!disable"
-                            v-model="scope.row.remarks"
+                            v-model="scope.row.workinghours"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -907,8 +905,6 @@ phase<template>
                         </template>
                       </el-table-column>
                     </el-table>
-                  </el-col>
-                </el-row>
               </el-form-item>
             </el-tab-pane>
             <!--            其他管理工具-->
@@ -1514,7 +1510,7 @@ phase<template>
             this.gridData3 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              vote.contractnumber = response[i].contractnumber;
+              vote.contract = response[i].contractnumber;
               vote.deployment = response[i].deployment;
               vote.contracttype = response[i].contracttype;
               vote.applicationdate = response[i].applicationdate;
@@ -1640,9 +1636,9 @@ phase<template>
         this.currentRow3 = val.applicationdate;
         this.currentRow4 = val.state;
       },
-      submit2() {
-        this.dialogTableVisible3 = false;
+      submit2(row) {
         this.tableD.contract = this.currentRow2;
+        this.dialogTableVisible3 = false;
       },
       getCitationUserid(userlist, row) {
         row.name = userlist;
