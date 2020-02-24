@@ -451,7 +451,7 @@ export function menu() {
                   'menuicon': '',
                   'children': [
                     {
-                      '_id': 'PFANS1024',
+                      '_id': 'COMMISSIONCONTRACTyouwenti',
                       'name': 'menu.COMMISSIONCONTRACT',
                       'menuvisible': true,
                       'menuurl': '/PFANS1024View',
@@ -517,7 +517,6 @@ export function menu() {
                     },
                   ]
                 },
-
                 {
                   '_id': 'BROKERAGECONTRACT',
                   'name': 'menu.BROKERAGECONTRACT',
@@ -639,7 +638,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'COMMISSIONCONTRACT',
+                  '_id': 'SOFTASSETMANAG',
                   'name': 'menu.SOFTASSETMANAG',
                   'menuvisible': true,
                   'menuurl': '',
