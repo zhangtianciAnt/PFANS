@@ -25,7 +25,7 @@
             //査定時間
             code: 'assesstime',
             label: 'label.PFANS6005VIEW_CHECKTIME',
-            width: 90,
+            width: 120,
             fix: false,
             filter: true,
           },
@@ -181,6 +181,9 @@
                 response[j].staffpsdcdrank = staffpsdcdrank.value1;
               }
             }
+            if (response[j].graduation !== null && response[j].graduation !== "") {
+              response[j].graduation = moment(response[j].graduation).format("YYYY");
+            }
             // 貢献評価
             if (response[j].butionevaluation !== null && response[j].butionevaluation !== "") {
               let butionevaluation = getDictionaryInfo(response[j].butionevaluation);
@@ -195,10 +198,6 @@
                 response[j].psdcdrank = psdcdrank.value1;
               }
             }
-
-              console.log("FFFFFFFF"+response[j].graduation);
-              console.log("FFFFFFFF"+response[j].company);
-
               response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
           }
           this.data=response;

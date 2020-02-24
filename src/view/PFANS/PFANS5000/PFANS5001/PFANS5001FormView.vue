@@ -1640,6 +1640,7 @@ phase<template>
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor', {})
           .then(response => {
+            console.log(response);
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
