@@ -72,7 +72,7 @@
                 .dispatch('PFANS1026Store/get',{'type': '2'})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        response[j].status = getStatus(response[j].status);
+                        //response[j].status = getStatus(response[j].status);
                         let user = getUserInfo(response[j].user_id);
                         if (user) {
                             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;

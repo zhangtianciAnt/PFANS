@@ -1128,7 +1128,7 @@
           getcareeryear2(val){
               this.form.entrycondition = val;
           },
-          getCurrencyposition(val, row){
+        getCurrencyposition(val, row){
               row.currencyposition = val;
           },
         getcareeryear(val) {

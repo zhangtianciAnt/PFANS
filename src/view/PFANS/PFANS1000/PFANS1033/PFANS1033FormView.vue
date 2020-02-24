@@ -1728,19 +1728,15 @@
             if (val === "save") {
                 let tabledata = [];
                 this.form.maketype = "2";
-                //海外受託 技術開発
                 if(this.form.contracttype === 'HT014001'){
                     tabledata = this.tablefirst;
                 }
-                //海外複合受託 技術開発
                 else if(this.form.contracttype === 'HT014002'){
                     tabledata = this.tablesecond;
                 }
-                //海外受託 役務
                 else if(this.form.contracttype === 'HT014003'){
                     tabledata = this.tablethird;
                 }
-                //海外複合受託 役務
                 else if(this.form.contracttype === 'HT014004'){
                     tabledata = this.tablefourth;
                 }
