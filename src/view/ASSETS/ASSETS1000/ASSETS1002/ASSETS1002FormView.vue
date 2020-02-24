@@ -165,6 +165,13 @@
             width: 120,
             fix: false,
             filter: false,
+          },
+          {
+            code: 'usedepartment',
+            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
+            width: 120,
+            fix: false,
+            filter: false,
           }
         ],
         buttonList:[],
@@ -251,7 +258,7 @@
                 let user = getUserInfo(response.inventoryRange[j].principal);
                 if (user) {
                   response.inventoryRange[j].principal = user.userinfo.customername;
-                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
+//                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
                 }
                 if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
                   response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
@@ -291,7 +298,7 @@
               let user = getUserInfo(response[j].principal);
               if (user) {
                 response[j].principal = user.userinfo.customername;
-                response[j].usedepartment = user.userinfo.centername;
+//                response[j].usedepartment = user.userinfo.centername;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
