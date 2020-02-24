@@ -37,6 +37,13 @@
                         filter: true,
                     },
                     {
+                        code: 'contractnumber',
+                        label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
+                        width: 120,
+                        fix: false,
+                        filter: true,
+                    },
+                    {
                         code: 'contracttype',
                         label: 'label.PFANS1024VIEW_CONTRACTTYPE',
                         width: 120,

@@ -15,8 +15,7 @@ first<template>
                 :data="form.claimtype"
                 :multiple="multiple"
                 @change="getnumber"
-                style="width: 20vw"
-                :disabled="!disabled2">
+                style="width: 20vw">
               </dicselect>
             </el-form-item>
             <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
@@ -57,10 +56,14 @@ first<template>
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <el-button  @click="dialogFormVisible = false" v-if="show2">
+              <template>
+              <el-popconfirm title="这是一段内容确定删除吗？">
+              <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
                   <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
+              </el-popconfirm>
+              </template>
             </div>
           </el-dialog>
           <el-tabs v-model="activeName" type="border-card">
@@ -3004,7 +3007,7 @@ first<template>
                 ],
                 form:{
                     contractnumber: '',
-                    claimtype: '',
+                    claimtype: 'HT001001',
                     contracttype: '',
                     applicationdate: '',
                     entrycondition: '',
@@ -3044,15 +3047,19 @@ first<template>
                 this.$store
                     .dispatch('PFANS1026Store/get',{'contractnumber': this.$route.params._id})
                     .then(response => {
-                        if (response.length > 0) {//444
+                        if (response.length > 0) {
                             for (let i = 0; i < response.length; i++) {
                                 this.maketype = response[i].maketype;
+                                //契約書番号
+                                this.letcontractnumber = response[i].contractnumber;
                                 //契約種類
                                 this.form.contracttype = response[i].contracttype;
                                 //事業年度
                                 this.form.applicationdate = response[i].careeryear;
                                 //上下期
                                 this.form.entrycondition = response[i].periods;
+                                //グループ
+                                this.getGroupId(response[i].group_id);
                                 //契約種類
                                 let letabbreviation = getDictionaryInfo(response[i].contracttype);
                                 if (letabbreviation != null) {
@@ -3154,6 +3161,7 @@ first<template>
             getChecked(val){
                 this.checked = val;
                 if(val === true){
+                    this.form.contractnumber = this.letcontractnumber
                     this.disabled1 = true;
                     this.disabled2 = false;
                 }else{
@@ -3747,8 +3755,6 @@ first<template>
             },
             //海外受託 技術開発
             addRowfirst() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefirst.length + 1).toString(): '';
                 this.tablefirst.push({
                     contractapplication_id: '',
                     careeryear: this.form.applicationdate,
@@ -3760,7 +3766,7 @@ first<template>
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3808,10 +3814,10 @@ first<template>
                 });
             },
             addRowsecond() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablesecond.length + 1).toString(): '';
                 this.tablesecond.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -3819,7 +3825,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3853,7 +3859,7 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     decide: '',
                     firstjudge: '',
                     secondjudge: '',
@@ -3867,10 +3873,10 @@ first<template>
                 });
             },
             addRowthird() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablethird.length + 1).toString(): '';
                 this.tablethird.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -3878,7 +3884,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3912,16 +3918,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '3',
                 });
             },
             addRowfourth() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefourth.length + 1).toString(): '';
                 this.tablefourth.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -3929,7 +3935,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -3963,16 +3969,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '4',
                 });
             },
             addRowfifth() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablefifth.length + 1).toString(): '';
                 this.tablefifth.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -3980,7 +3986,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4014,16 +4020,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '5',
                 });
             },
             addRowsixth() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tablesixth.length + 1).toString(): '';
                 this.tablesixth.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -4031,7 +4037,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4065,16 +4071,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '6',
                 });
             },
             addRowseventh() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableseventh.length + 1).toString(): '';
                 this.tableseventh.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -4082,7 +4088,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4116,16 +4122,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '7',
                 });
             },
             addRoweighth() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableeighth.length + 1).toString(): '';
                 this.tableeighth.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -4133,7 +4139,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4167,16 +4173,16 @@ first<template>
                     conenglish: '',
                     conchinese: '',
                     remarks: '',
-                    state: '',
+                    state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
                     type: '1',
                     maketype: '8',
                 });
             },
             addRowninth() {
-                //覚書
-                var contractnumber = this.form.contractnumber != '' ? '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (this.tableninth.length + 1).toString(): '';
                 this.tableninth.push({
                     contractapplication_id: '',
+                    careeryear: this.form.applicationdate,
+                    periods: this.form.entrycondition,
                     group_id: this.groupinfo[0],
                     department: this.groupinfo[1],
                     orgnumber: this.groupinfo[2],
@@ -4184,7 +4190,7 @@ first<template>
                     applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
                     user_id: this.$store.getters.userinfo.userid,
                     contracttype: this.contracttype,
-                    contractnumber: this.letcontractnumber + contractnumber,
+                    contractnumber: this.letcontractnumber,
                     entrycondition: '',
                     entrypayment: '',
                     deliverycondition: '',
@@ -4225,20 +4231,20 @@ first<template>
             },
             //契約番号做成
             click() {
-                this.tablefirst = [];
-                this.tablesecond = [];
-                this.tablethird = [];
-                this.tablefourth = [];
-                this.tablefifth = [];
-                this.tablesixth = [];
-                this.tableseventh = [];
-                this.tableeighth = [];
-                this.tableninth = [];
                 //請求方式
                 let letclaimtype = '';
+                let letbook = '';
                 //覚書
-                if(this.form.contractnumber != ''){
+                if(this.checked){
                     letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
+                    let letcontractnumber = this.form.contractnumber.split("-");
+                    if(letcontractnumber.length > 1){
+                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
+                    }
+                    else{
+                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
+                    }
+                    this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
                 }
                 let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
                 let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
@@ -4276,28 +4282,34 @@ first<template>
                 else if(this.contractnumbercount.toString().length === 3){
                     number = '0' + this.contractnumbercount
                 }
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number;
-                debugger;
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number + letbook;
+                let datacount = 0;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablefirst.length; i++) {
+                            this.tablefirst[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'first';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfirst();
-                        this.tablefirst[0].claimtype = letclaimtypeone;
+                        this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowfirst();
                         this.addRowfirst();
-                        this.tablefirst[0].claimtype = letclaimtypeone;
-                        this.tablefirst[1].claimtype = letclaimtypetwo;
+                        this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowfirst();
                         this.addRowfirst();
                         this.addRowfirst();
-                        this.tablefirst[0].claimtype = letclaimtypeone;
-                        this.tablefirst[1].claimtype = letclaimtypetwo;
-                        this.tablefirst[2].claimtype = letclaimtypethree;
+                        this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefirst[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4305,32 +4317,38 @@ first<template>
                         this.addRowfirst();
                         this.addRowfirst();
                         this.addRowfirst();
-                        this.tablefirst[0].claimtype = letclaimtypeone;
-                        this.tablefirst[1].claimtype = letclaimtypetwo;
-                        this.tablefirst[2].claimtype = letclaimtypethree;
-                        this.tablefirst[3].claimtype = letclaimtypefour;
+                        this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefirst[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablefirst[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //海外複合受託 技術開発
                 else if(this.form.contracttype === 'HT008002'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablesecond.length; i++) {
+                            this.tablesecond[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'second';
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsecond();
-                        this.tablesecond[0].claimtype = letclaimtypeone;
+                        this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowsecond();
                         this.addRowsecond();
-                        this.tablesecond[0].claimtype = letclaimtypeone;
-                        this.tablesecond[1].claimtype = letclaimtypetwo;
+                        this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowsecond();
                         this.addRowsecond();
                         this.addRowsecond();
-                        this.tablesecond[0].claimtype = letclaimtypeone;
-                        this.tablesecond[1].claimtype = letclaimtypetwo;
-                        this.tablesecond[2].claimtype = letclaimtypethree;
+                        this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablesecond[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4338,33 +4356,39 @@ first<template>
                         this.addRowsecond();
                         this.addRowsecond();
                         this.addRowsecond();
-                        this.tablesecond[0].claimtype = letclaimtypeone;
-                        this.tablesecond[1].claimtype = letclaimtypetwo;
-                        this.tablesecond[2].claimtype = letclaimtypethree;
-                        this.tablesecond[3].claimtype = letclaimtypefour;
+                        this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablesecond[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablesecond[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //海外受託 役務
                 else if(this.form.contracttype === 'HT008003'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablethird.length; i++) {
+                            this.tablethird[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'third';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowthird();
-                        this.tablethird[0].claimtype = letclaimtypeone;
+                        this.tablethird[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowthird();
                         this.addRowthird();
-                        this.tablethird[0].claimtype = letclaimtypeone;
-                        this.tablethird[1].claimtype = letclaimtypetwo;
+                        this.tablethird[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowthird();
                         this.addRowthird();
                         this.addRowthird();
-                        this.tablethird[0].claimtype = letclaimtypeone;
-                        this.tablethird[1].claimtype = letclaimtypetwo;
-                        this.tablethird[2].claimtype = letclaimtypethree;
+                        this.tablethird[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablethird[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4372,33 +4396,39 @@ first<template>
                         this.addRowthird();
                         this.addRowthird();
                         this.addRowthird();
-                        this.tablethird[0].claimtype = letclaimtypeone;
-                        this.tablethird[1].claimtype = letclaimtypetwo;
-                        this.tablethird[2].claimtype = letclaimtypethree;
-                        this.tablethird[3].claimtype = letclaimtypefour;
+                        this.tablethird[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablethird[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablethird[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //海外複合受託 役務
                 else if(this.form.contracttype === 'HT008004'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablefourth.length; i++) {
+                            this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'fourth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfourth();
-                        this.tablefourth[0].claimtype = letclaimtypeone;
+                        this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowfourth();
                         this.addRowfourth();
-                        this.tablefourth[0].claimtype = letclaimtypeone;
-                        this.tablefourth[1].claimtype = letclaimtypetwo;
+                        this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowfourth();
                         this.addRowfourth();
                         this.addRowfourth();
-                        this.tablefourth[0].claimtype = letclaimtypeone;
-                        this.tablefourth[1].claimtype = letclaimtypetwo;
-                        this.tablefourth[2].claimtype = letclaimtypethree;
+                        this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefourth[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4406,33 +4436,39 @@ first<template>
                         this.addRowfourth();
                         this.addRowfourth();
                         this.addRowfourth();
-                        this.tablefourth[0].claimtype = letclaimtypeone;
-                        this.tablefourth[1].claimtype = letclaimtypetwo;
-                        this.tablefourth[2].claimtype = letclaimtypethree;
-                        this.tablefourth[3].claimtype = letclaimtypefour;
+                        this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefourth[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablefourth[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //国内受託 技術開発
                 else if(this.form.contracttype === 'HT008005'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablefifth.length; i++) {
+                            this.tablefifth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'fifth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowfifth();
-                        this.tablefifth[0].claimtype = letclaimtypeone;
+                        this.tablefifth[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowfifth();
                         this.addRowfifth();
-                        this.tablefifth[0].claimtype = letclaimtypeone;
-                        this.tablefifth[1].claimtype = letclaimtypetwo;
+                        this.tablefifth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefifth[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowfifth();
                         this.addRowfifth();
                         this.addRowfifth();
-                        this.tablefifth[0].claimtype = letclaimtypeone;
-                        this.tablefifth[1].claimtype = letclaimtypetwo;
-                        this.tablefifth[2].claimtype = letclaimtypethree;
+                        this.tablefifth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefifth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefifth[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4440,33 +4476,39 @@ first<template>
                         this.addRowfifth();
                         this.addRowfifth();
                         this.addRowfifth();
-                        this.tablefifth[0].claimtype = letclaimtypeone;
-                        this.tablefifth[1].claimtype = letclaimtypetwo;
-                        this.tablefifth[2].claimtype = letclaimtypethree;
-                        this.tablefifth[3].claimtype = letclaimtypefour;
+                        this.tablefifth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablefifth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablefifth[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablefifth[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //国内複合受託 技術開発
                 else if(this.form.contracttype === 'HT008006'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tablesixth.length; i++) {
+                            this.tablesixth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'sixth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowsixth();
-                        this.tablesixth[0].claimtype = letclaimtypeone;
+                        this.tablesixth[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowsixth();
                         this.addRowsixth();
-                        this.tablesixth[0].claimtype = letclaimtypeone;
-                        this.tablesixth[1].claimtype = letclaimtypetwo;
+                        this.tablesixth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesixth[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowsixth();
                         this.addRowsixth();
                         this.addRowsixth();
-                        this.tablesixth[0].claimtype = letclaimtypeone;
-                        this.tablesixth[1].claimtype = letclaimtypetwo;
-                        this.tablesixth[2].claimtype = letclaimtypethree;
+                        this.tablesixth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesixth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablesixth[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4474,33 +4516,39 @@ first<template>
                         this.addRowsixth();
                         this.addRowsixth();
                         this.addRowsixth();
-                        this.tablesixth[0].claimtype = letclaimtypeone;
-                        this.tablesixth[1].claimtype = letclaimtypetwo;
-                        this.tablesixth[2].claimtype = letclaimtypethree;
-                        this.tablesixth[3].claimtype = letclaimtypefour;
+                        this.tablesixth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tablesixth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tablesixth[2 + datacount].claimtype = letclaimtypethree;
+                        this.tablesixth[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //国内受託 役務
                 else if(this.form.contracttype === 'HT008007'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tableseventh.length; i++) {
+                            this.tableseventh[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'seventh';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowseventh();
-                        this.tableseventh[0].claimtype = letclaimtypeone;
+                        this.tableseventh[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowseventh();
                         this.addRowseventh();
-                        this.tableseventh[0].claimtype = letclaimtypeone;
-                        this.tableseventh[1].claimtype = letclaimtypetwo;
+                        this.tableseventh[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableseventh[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowseventh();
                         this.addRowseventh();
                         this.addRowseventh();
-                        this.tableseventh[0].claimtype = letclaimtypeone;
-                        this.tableseventh[1].claimtype = letclaimtypetwo;
-                        this.tableseventh[2].claimtype = letclaimtypethree;
+                        this.tableseventh[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableseventh[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableseventh[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4508,33 +4556,39 @@ first<template>
                         this.addRowseventh();
                         this.addRowseventh();
                         this.addRowseventh();
-                        this.tableseventh[0].claimtype = letclaimtypeone;
-                        this.tableseventh[1].claimtype = letclaimtypetwo;
-                        this.tableseventh[2].claimtype = letclaimtypethree;
-                        this.tableseventh[3].claimtype = letclaimtypefour;
+                        this.tableseventh[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableseventh[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableseventh[2 + datacount].claimtype = letclaimtypethree;
+                        this.tableseventh[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //国内複合受託 役務
                 else if(this.form.contracttype === 'HT008008'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tableeighth.length; i++) {
+                            this.tableeighth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'eighth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRoweighth();
-                        this.tableeighth[0].claimtype = letclaimtypeone;
+                        this.tableeighth[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRoweighth();
                         this.addRoweighth();
-                        this.tableeighth[0].claimtype = letclaimtypeone;
-                        this.tableeighth[1].claimtype = letclaimtypetwo;
+                        this.tableeighth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableeighth[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRoweighth();
                         this.addRoweighth();
                         this.addRoweighth();
-                        this.tableeighth[0].claimtype = letclaimtypeone;
-                        this.tableeighth[1].claimtype = letclaimtypetwo;
-                        this.tableeighth[2].claimtype = letclaimtypethree;
+                        this.tableeighth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableeighth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableeighth[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4542,33 +4596,39 @@ first<template>
                         this.addRoweighth();
                         this.addRoweighth();
                         this.addRoweighth();
-                        this.tableeighth[0].claimtype = letclaimtypeone;
-                        this.tableeighth[1].claimtype = letclaimtypetwo;
-                        this.tableeighth[2].claimtype = letclaimtypethree;
-                        this.tableeighth[3].claimtype = letclaimtypefour;
+                        this.tableeighth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableeighth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableeighth[2 + datacount].claimtype = letclaimtypethree;
+                        this.tableeighth[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
                 //販売
                 else if(this.form.contracttype === 'HT008009'){
+                    if(this.checked){
+                        for (let i = 0; i < this.tableninth.length; i++) {
+                            this.tableninth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                            datacount = datacount + 1;
+                        }
+                    }
                     this.activeName = 'ninth';
 
                     if(this.form.claimtype === "HT001001"){
                         this.addRowninth();
-                        this.tableninth[0].claimtype = letclaimtypeone;
+                        this.tableninth[0 + datacount].claimtype = letclaimtypeone;
                     }
                     else if(this.form.claimtype === "HT001002"){
                         this.addRowninth();
                         this.addRowninth();
-                        this.tableninth[0].claimtype = letclaimtypeone;
-                        this.tableninth[1].claimtype = letclaimtypetwo;
+                        this.tableninth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableninth[1 + datacount].claimtype = letclaimtypetwo;
                     }
                     else if(this.form.claimtype === "HT001003"){
                         this.addRowninth();
                         this.addRowninth();
                         this.addRowninth();
-                        this.tableninth[0].claimtype = letclaimtypeone;
-                        this.tableninth[1].claimtype = letclaimtypetwo;
-                        this.tableninth[2].claimtype = letclaimtypethree;
+                        this.tableninth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableninth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableninth[2 + datacount].claimtype = letclaimtypethree;
 
                     }
                     else if(this.form.claimtype === "HT001004"){
@@ -4576,12 +4636,13 @@ first<template>
                         this.addRowninth();
                         this.addRowninth();
                         this.addRowninth();
-                        this.tableninth[0].claimtype = letclaimtypeone;
-                        this.tableninth[1].claimtype = letclaimtypetwo;
-                        this.tableninth[2].claimtype = letclaimtypethree;
-                        this.tableninth[3].claimtype = letclaimtypefour;
+                        this.tableninth[0 + datacount].claimtype = letclaimtypeone;
+                        this.tableninth[1 + datacount].claimtype = letclaimtypetwo;
+                        this.tableninth[2 + datacount].claimtype = letclaimtypethree;
+                        this.tableninth[3 + datacount].claimtype = letclaimtypefour;
                     }
                 }
+                this.getChecked(false);
             },
             //契約番号廃棄
             clickDiscard(){
@@ -4642,7 +4703,7 @@ first<template>
                 });
             },
             buttonClick(val) {
-                if (val === "application") {//xxx
+                if (val === "application") {
                     this.display = true;
                     this.checkeddisplay = true;
                     this.dialogFormVisible = true;
@@ -4654,17 +4715,8 @@ first<template>
                         this.form.applicationdate = 'HT007001';
                         this.form.entrycondition = 'HT003001';
                     }
-                    else{
-                        // this.form.claimtype = 'HT001001';
-                        // this.form.contracttype = 'HT008001';
-                        // this.form.applicationdate = 'HT007001';
-                        // this.form.entrycondition = 'HT003001';
-                        // this.disabled1 = false;
-                        // this.disabled2 = true;
-                        // this.form.contractnumber = '';
-                    }
                 }
-                if (val === "cancellation") {//333
+                if (val === "cancellation") {
                     if(this.form.contracttype === 'HT008001'){
                         for (let i = 0; i < this.tablefirst.length; i++) {
                             this.tablefirst[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
