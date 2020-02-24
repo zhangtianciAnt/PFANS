@@ -43,7 +43,7 @@
             filter: true
           },
           {
-            code: 'depositchinese',
+            code: 'custochinese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 130,
             fix: false,
@@ -73,21 +73,21 @@
           {
             code: 'claimtype',
             label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 150,
+            width: 130,
             fix: false,
             filter: true
           },
           {
-            code: 'developdate',
+            code: 'claimdatetime',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 150,
+            width: 170,
             fix: false,
             filter: true
           },
           {
             code: 'deliverydate',
             label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
-            width: 150,
+            width: 130,
             fix: false,
             filter: true
           }
@@ -97,14 +97,15 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'petition_id'
+        row_id: 'contractapplication_id'
       }
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1032Store/get', {})
+        .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
+          debugger
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
@@ -127,7 +128,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.petition_id;
+        this.rowid = row.contractapplication_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
