@@ -304,7 +304,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1031Store/get', {'napalm_id': this.$route.params._id})
+          .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.loadingjudge;

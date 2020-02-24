@@ -502,7 +502,20 @@ export function menu() {
                   'menuurl': '',
                   'menuicon': '',
                   'children': [
-
+                    {
+                      '_id': 'PFANS1031',
+                      'name': 'menu.PFANS1031',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1031View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1031_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1031_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1031_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1031_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
                     {
                       '_id': 'PFANS1032',
                       'name': 'menu.PFANS1032',
@@ -517,6 +530,7 @@ export function menu() {
                         {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                       ]
                     },
+
                   ]
                 },
               ]
