@@ -1,4 +1,5 @@
-phase<template>
+phase
+<template>
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
@@ -28,7 +29,7 @@ phase<template>
                   label-position="top"
                   label-width="8vw"
                   ref="from1"
-                   >
+                >
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
@@ -257,12 +258,13 @@ phase<template>
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
                         prop="deadline"
-                      ><el-date-picker
-                        :disabled="!disable"
-                        style="width: 20vw"
-                        type="date"
-                        v-model="form.deadline"
-                      ></el-date-picker>
+                      >
+                        <el-date-picker
+                          :disabled="!disable"
+                          style="width: 20vw"
+                          type="date"
+                          v-model="form.deadline"
+                        ></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -303,22 +305,22 @@ phase<template>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" name="second">
               <el-row>
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item-->
-<!--                    :error="errorLeader"-->
-<!--                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-<!--                    prop="leaderid"-->
-<!--                  >-->
-<!--                    <user-->
-<!--                      :disabled="!disable"-->
-<!--                      :error="errorLeader"-->
-<!--                      :selectType="selectType"-->
-<!--                      :userlist="userlist"-->
-<!--                      @getUserids="getUserids"-->
-<!--                      style="width: 20vw"-->
-<!--                    ></user>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
+                <!--                <el-col :span="8">-->
+                <!--                  <el-form-item-->
+                <!--                    :error="errorLeader"-->
+                <!--                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+                <!--                    prop="leaderid"-->
+                <!--                  >-->
+                <!--                    <user-->
+                <!--                      :disabled="!disable"-->
+                <!--                      :error="errorLeader"-->
+                <!--                      :selectType="selectType"-->
+                <!--                      :userlist="userlist"-->
+                <!--                      @getUserids="getUserids"-->
+                <!--                      style="width: 20vw"-->
+                <!--                    ></user>-->
+                <!--                  </el-form-item>-->
+                <!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :error="errorLeader" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                                 prop="errorLeader">
@@ -328,7 +330,8 @@ phase<template>
                                :disabled="true"></input>
                         <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"
                                    size="small"></el-button>
-                        <el-dialog :title="$t('label.PFANS5001FORMVIEW_ENTRUST')" :visible.sync="dialogTableVisible2" center size="50%"
+                        <el-dialog :title="$t('label.PFANS5001FORMVIEW_ENTRUST')" :visible.sync="dialogTableVisible2"
+                                   center size="50%"
                                    top="8vh" lock-scroll
                                    append-to-body>
                           <div style="text-align: center">
@@ -363,7 +366,7 @@ phase<template>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')">
-                    <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -559,13 +562,13 @@ phase<template>
                                 style="width: 18vw"
                               ></user>
                               <!--<user-->
-                                <!--:disabled="!disable"-->
-                                <!--:error="errorLeader"-->
-                                <!--:selectType="selectType"-->
-                                <!--:userlist="userlist"-->
-                                <!--:multiple="multiple"-->
-                                <!--@getUserids="getUserids"-->
-                                <!--style="width: 18vw"-->
+                              <!--:disabled="!disable"-->
+                              <!--:error="errorLeader"-->
+                              <!--:selectType="selectType"-->
+                              <!--:userlist="userlist"-->
+                              <!--:multiple="multiple"-->
+                              <!--@getUserids="getUserids"-->
+                              <!--style="width: 18vw"-->
                               <!--&gt;</user>-->
                             </template>
                           </el-table-column>
@@ -677,53 +680,55 @@ phase<template>
                             width="200">
                             <template slot-scope="scope">
                               <el-col :span="8">
-                                  <div class="dpSupIndex" style="width:10vw" prop="expname">
-                                    <el-container>
-                                      <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                             :disabled="true"></input>
-                                      <el-button :disabled="!disable" icon="el-icon-search"
-                                                 @click="dialogTableVisible1 = true"
-                                                 size="small"></el-button>
-                                      <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
-                                                 :visible.sync="dialogTableVisible1"
-                                                 center size="50%"
-                                                 top="8vh" lock-scroll
-                                                 append-to-body>
-                                        <div style="text-align: center">
-                                          <el-row style="text-align: center;height: 90%;overflow: hidden">
-                                            <el-table
-                                              :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
-                                              height="500px" highlight-current-row style="width: 100%"
-                                              tooltip-effect="dark"
-                                              @row-click="handleClickChange">
-                                              <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                                                               width="100"></el-table-column>
-                                              <el-table-column property="expname" fixed
-                                                               :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                                               width="180"></el-table-column>
-                                              <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
-                                                               width="100"></el-table-column>
-                                              <el-table-column property="post"
-                                                               :label="$t('label.PFANSUSERVIEW_POST')"
-                                                               width="150"></el-table-column>
-                                              <el-table-column
-                                                align="right" width="180">
-                                                <template slot="header" slot-scope="scope">
-                                                  <el-input
-                                                    v-model="search"
-                                                    size="mini"
-                                                    placeholder="请输入姓名关键字搜索"/>
-                                                </template>
-                                              </el-table-column>
-                                            </el-table>
-                                          </el-row>
-                                          <span slot="footer" class="dialog-footer">
+                                <div class="dpSupIndex" style="width:10vw" prop="expname">
+                                  <el-container>
+                                    <input class="content bg" v-model="scope.row.name" :error="errorexpname"
+                                           :disabled="true"></input>
+                                    <el-button :disabled="!disable" icon="el-icon-search"
+                                               @click="dialogTableVisible1 = true"
+                                               size="small"></el-button>
+                                    <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
+                                               :visible.sync="dialogTableVisible1"
+                                               center size="50%"
+                                               top="8vh" lock-scroll
+                                               append-to-body>
+                                      <div style="text-align: center">
+                                        <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                          <el-table
+                                            :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
+                                            height="500px" highlight-current-row style="width: 100%"
+                                            tooltip-effect="dark"
+                                            @row-click="handleClickChange">
+                                            <el-table-column property="number" fixed
+                                                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                                                             width="100"></el-table-column>
+                                            <el-table-column property="expname" fixed
+                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             width="180"></el-table-column>
+                                            <el-table-column property="suppliername"
+                                                             :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                                             width="100"></el-table-column>
+                                            <el-table-column property="post"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
+                                            <el-table-column
+                                              align="right" width="180">
+                                              <template slot="header" slot-scope="scope">
+                                                <el-input
+                                                  v-model="search"
+                                                  size="mini"
+                                                  placeholder="请输入姓名关键字搜索"/>
+                                              </template>
+                                            </el-table-column>
+                                          </el-table>
+                                        </el-row>
+                                        <span slot="footer" class="dialog-footer">
                                             <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
                                           </span>
-                                        </div>
-                                      </el-dialog>
-                                    </el-container>
-                                  </div>
+                                      </div>
+                                    </el-dialog>
+                                  </el-container>
+                                </div>
                               </el-col>
                             </template>
                           </el-table-column>
@@ -804,10 +809,109 @@ phase<template>
             <!--            合同-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
-                <el-row>
-                  <el-col :span="24">
-                  </el-col>
-                </el-row>
+                <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="width: 90vw">
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-col :span="8">
+                        <div class="dpSupIndex" style="width:20vw" prop="contract">
+                          <el-container>
+                            <input class="content bg" v-model="scope.row.contract"
+                                   :disabled="true"></input>
+                            <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible3 = true"
+                                       size="small"></el-button>
+                            <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
+                                       size="50%"
+                                       top="8vh" lock-scroll
+                                       append-to-body>
+                              <div style="text-align: center">
+                                <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                  <el-table
+                                    :data="gridData3.filter(data => !search || data.contract.toLowerCase().includes(search.toLowerCase()))"
+                                    height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                    @row-click="handleClickChange2">
+                                    <el-table-column property="contract"
+                                                     :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="deployment" :label="$t('label.group')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="contracttype"
+                                                     :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
+                                                     width="150"></el-table-column>
+                                    <el-table-column property="applicationdate"
+                                                     :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="state"
+                                                     :label="$t('label.approval_status')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column
+                                      align="right" width="230">
+                                      <template slot="header" slot-scope="scope">
+                                        <el-input
+                                          v-model="search"
+                                          size="mini"
+                                          placeholder="请输入姓名关键字搜索"/>
+                                      </template>
+                                    </el-table-column>
+                                  </el-table>
+                                </el-row>
+                                <span slot="footer" class="dialog-footer">
+                                  <el-button type="primary"  @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
+                                </span>
+                              </div>
+                            </el-dialog>
+                          </el-container>
+                        </div>
+                      </el-col>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_THEME')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="!disable"
+                        v-model="scope.row.theme"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="!disable"
+                        v-model="scope.row.workinghours"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="!disable"
+                        @click.native.prevent="deleteRow3(scope.$index, tableD)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}
+                      </el-button>
+                      <el-button
+                        :disabled="!disable"
+                        @click="addRow3()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-form-item>
             </el-tab-pane>
             <!--            其他管理工具-->
@@ -938,6 +1042,7 @@ phase<template>
         search: '',
         gridData1: [],
         gridData2: [],
+        gridData3: [],
         disable: false,
         customerinfor: [],
         checkList: [],
@@ -952,10 +1057,11 @@ phase<template>
         activeName: 'first',
         activeName2: 'first',
         buttonList: [],
-        currentRow : '',
-        currentRow1 : '',
-        currentRow2 : '',
-        currentRow3 : '',
+        currentRow: '',
+        currentRow1: '',
+        currentRow2: '',
+        currentRow3: '',
+        currentRow4: '',
         //项目计划
         tableA: [
           {
@@ -989,7 +1095,7 @@ phase<template>
             number: '',
             company: '',
             name: '',
-            position:'',
+            position: '',
             admissiontime: '',
             exittime: '',
             rowindex: '',
@@ -997,23 +1103,35 @@ phase<template>
         ],
         //项目体制(外协)
         tableC: [
-            {
-                projectsystem_id: '',
-                companyprojects_id: '',
-                type: '1',
-                number: '',
-                company: '',
-                name: '',
-                position:'',
-                admissiontime: '',
-                exittime: '',
-                rowindex: '',
-            },
+          {
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '1',
+            number: '',
+            company: '',
+            name: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
+          },
+        ],
+        //合同
+        tableD: [
+          {
+            projectsystem_id: '',
+            companyprojects_id: '',
+            contract: '',
+            theme: '',
+            workinghours: '',
+            rowindex: '',
+          },
         ],
         data: [],
         loading: false,
         dialogTableVisible1: false,
         dialogTableVisible2: false,
+        dialogTableVisible3: false,
         title: 'label.PFANS5001VIEW1',
         rules: {
           leaderid: [
@@ -1222,14 +1340,19 @@ phase<template>
           representative: '',
           basicsituation: '',
           uploadfile: '',
+          //合同
+          // contract: '',
+          // theme: '',
+          // workinghours: '',
+          // rowindex: '',
         },
         multiple: false,
         code: 'PP012',
         code1: 'PP013',
         code2: 'PP001',
         code3: 'PP002',
-        code4: "PP014",
-        code5: "PP015",
+        code4: 'PP014',
+        code5: 'PP015',
         showrow: true,
         showrow1: false,
         showrow2: false,
@@ -1246,6 +1369,7 @@ phase<template>
     mounted() {
       this.getexpatriatesinfor();
       this.getcustomerinfor();
+      this.getcontract();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1257,48 +1381,67 @@ phase<template>
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            if(this.form.tools != ''){
-                this.checkList = JSON.parse(this.form.tools);
+            if (this.form.tools != '') {
+              this.checkList = JSON.parse(this.form.tools);
             }
             //项目计划
             if (response.stageinformation.length > 0) {
-                this.tableA = response.stageinformation;
+              this.tableA = response.stageinformation;
+              for (var i = 0; i < this.tableA.length; i++) {
+                if (this.tableA[i].phase === 'PP012001') {
+                  this.tableA[i].showrow = false;
+                  this.tableA[i].showrow1 = true;
+                  this.tableA[i].showrow2 = false;
+                  this.tableA[i].showrow3 = false;
+                } else if (this.tableA[i].phase === 'PP012002') {
+                  this.tableA[i].showrow = false;
+                  this.tableA[i].showrow1 = false;
+                  this.tableA[i].showrow2 = true;
+                  this.tableA[i].showrow3 = false;
+                } else if (this.tableA[i].phase === 'PP012003') {
+                  this.tableA[i].showrow = false;
+                  this.tableA[i].showrow1 = false;
+                  this.tableA[i].showrow2 = false;
+                  this.tableA[i].showrow3 = true;
+                } else if (this.tableA[i].phase === ' ') {
+                  this.tableA[i].showrow = true;
+                }
+              }
             }
             //项目体制
             if (response.projectsystem.length > 0) {
-                for (var i = 0; i < response.projectsystem.length; i++) {
-                    if(response.projectsystem[i].type === '0'){
-                        this.tableB = [];
-                        let o = {};
-                        o.name = response.projectsystem[i].projectsystem_id;
-                        o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                        o.type = response.projectsystem[i].type;
-                        o.number = response.projectsystem[i].number;
-                        o.company = response.projectsystem[i].company;
-                        o.name = response.projectsystem[i].name;
-                        o.position = response.projectsystem[i].position;
-                        o.admissiontime = response.projectsystem[i].admissiontime;
-                        o.exittime = response.projectsystem[i].exittime;
-                        o.rowindex = response.projectsystem[i].rowindex;
-                        this.tableB.push(o);
+              for (var i = 0; i < response.projectsystem.length; i++) {
+                if (response.projectsystem[i].type === '0') {
+                  this.tableB = [];
+                  let o = {};
+                  o.name = response.projectsystem[i].projectsystem_id;
+                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                  o.type = response.projectsystem[i].type;
+                  o.number = response.projectsystem[i].number;
+                  o.company = response.projectsystem[i].company;
+                  o.name = response.projectsystem[i].name;
+                  o.position = response.projectsystem[i].position;
+                  o.admissiontime = response.projectsystem[i].admissiontime;
+                  o.exittime = response.projectsystem[i].exittime;
+                  o.rowindex = response.projectsystem[i].rowindex;
+                  this.tableB.push(o);
 
-                    }
-                    else{
-                        this.tableC = [];
-                        let o = {};
-                        o.name = response.projectsystem[i].projectsystem_id;
-                        o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                        o.type = response.projectsystem[i].type;
-                        o.number = response.projectsystem[i].number;
-                        o.company = response.projectsystem[i].company;
-                        o.name = response.projectsystem[i].name;
-                        o.position = response.projectsystem[i].position;
-                        o.admissiontime = response.projectsystem[i].admissiontime;
-                        o.exittime = response.projectsystem[i].exittime;
-                        o.rowindex = response.projectsystem[i].rowindex;
-                        this.tableC.push(o);
-                    }
+                } else {
+                  this.tableC = [];
+                  let o = {};
+                  o.name = response.projectsystem[i].projectsystem_id;
+                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                  o.type = response.projectsystem[i].type;
+                  o.number = response.projectsystem[i].number;
+                  o.company = response.projectsystem[i].company;
+                  o.name = response.projectsystem[i].name;
+                  o.position = response.projectsystem[i].position;
+                  o.admissiontime = response.projectsystem[i].admissiontime;
+                  o.exittime = response.projectsystem[i].exittime;
+                  o.rowindex = response.projectsystem[i].rowindex;
+                  this.tableC.push(o);
                 }
+              }
             }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
@@ -1365,7 +1508,32 @@ phase<template>
       }
     },
     methods: {
-
+      getcontract() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/get', {})
+          .then(response => {
+            this.gridData3 = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote2 = {};
+              vote2.contract = response[i].contractnumber;
+              vote2.deployment = response[i].deployment;
+              vote2.contracttype = response[i].contracttype;
+              vote2.applicationdate = response[i].applicationdate;
+              vote2.state = response[i].state;
+              this.gridData3.push(vote2);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       getcustomerinfor() {
         this.loading = true;
         this.$store
@@ -1462,10 +1630,18 @@ phase<template>
         this.currentRow = val.entrust;
         this.currentRow1 = val.deployment;
       },
-      submit1(row) {
+      submit1() {
         this.form.entrust = this.currentRow;
         this.form.deployment = this.currentRow1;
         this.dialogTableVisible2 = false;
+      },
+      //合同
+      handleClickChange2(val) {
+        this.currentRow = val.contracttype;
+      },
+      submit2(row) {
+        row.contract = this.currentRow;
+        this.dialogTableVisible3 = false;
       },
       getCitationUserid(userlist, row) {
         row.name = userlist;
@@ -1592,99 +1768,99 @@ phase<template>
       },
       //开发计划
       addRow() {
-          this.tableA.push({
-              stageinformation_id: '',
-              companyprojects_id: '',
-              phase: '',
-              stageproduct: '',
-              productstatus: '',
-              estimatedwork: '',
-              actualwork: '',
-              estimatedstarttime: '',
-              estimatedendtime: '',
-              remarks: '',
-              actualstarttime: '',
-              actualendtime: '',
-              product: '',
-              phasestatus: '',
-              rowindex: '',
-            showrow: true,
-            showrow1: false,
-            showrow2: false,
-            showrow3: false,
-          });
+        this.tableA.push({
+          stageinformation_id: '',
+          companyprojects_id: '',
+          phase: '',
+          stageproduct: '',
+          productstatus: '',
+          estimatedwork: '',
+          actualwork: '',
+          estimatedstarttime: '',
+          estimatedendtime: '',
+          remarks: '',
+          actualstarttime: '',
+          actualendtime: '',
+          product: '',
+          phasestatus: '',
+          rowindex: '',
+          showrow: true,
+          showrow1: false,
+          showrow2: false,
+          showrow3: false,
+        });
       },
       // 开发计划
       deleteRow(index, rows) {
-          if (rows.length > 1) {
-              rows.splice(index, 1);
-          } else {
-              this.tableA = [{
-                  stageinformation_id: '',
-                  companyprojects_id: '',
-                  phase: '',
-                  stageproduct: '',
-                  productstatus: '',
-                  estimatedwork: '',
-                  actualwork: '',
-                  estimatedstarttime: '',
-                  estimatedendtime: '',
-                  remarks: '',
-                  actualstarttime: '',
-                  actualendtime: '',
-                  product: '',
-                  phasestatus: '',
-                  rowindex: '',
-              }];
-          }
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableA = [{
+            stageinformation_id: '',
+            companyprojects_id: '',
+            phase: '',
+            stageproduct: '',
+            productstatus: '',
+            estimatedwork: '',
+            actualwork: '',
+            estimatedstarttime: '',
+            estimatedendtime: '',
+            remarks: '',
+            actualstarttime: '',
+            actualendtime: '',
+            product: '',
+            phasestatus: '',
+            rowindex: '',
+          }];
+        }
       },
       //项目体制(本社)
       addRow1() {
-          this.tableB.push({
-              projectsystem_id: '',
-              companyprojects_id: '',
-              type: '0',
-              number: '',
-              company: '',
-              name: '',
-              position:'',
-              admissiontime: '',
-              exittime: '',
-              rowindex: '',
-          });
+        this.tableB.push({
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '0',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+        });
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
           this.tableB = [{
-              projectsystem_id: '',
-              companyprojects_id: '',
-              type: '0',
-              number: '',
-              company: '',
-              name: '',
-              position:'',
-              admissiontime: '',
-              exittime: '',
-              rowindex: '',
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '0',
+            number: '',
+            company: '',
+            name: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
           }];
         }
       },
       //项目体制(外协)
       addRow2() {
-          this.tableC.push({
-              projectsystem_id: '',
-              companyprojects_id: '',
-              type: '1',
-              number: '',
-              company: '',
-              name: '',
-              position:'',
-              admissiontime: '',
-              exittime: '',
-              rowindex: '',
-          });
+        this.tableC.push({
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '1',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+        });
       },
       // 体制-社内
       deleteRow2(index, rows) {
@@ -1692,16 +1868,42 @@ phase<template>
           rows.splice(index, 1);
         } else {
           this.tableC = [{
-              projectsystem_id: '',
-              companyprojects_id: '',
-              type: '1',
-              number: '',
-              company: '',
-              name: '',
-              position:'',
-              admissiontime: '',
-              exittime: '',
-              rowindex: '',
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '1',
+            number: '',
+            company: '',
+            name: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
+          }];
+        }
+      },
+      //合同
+      addRow3() {
+        this.tableD.push({
+          projectsystem_id: '',
+          companyprojects_id: '',
+          contract: '',
+          theme: '',
+          workinghours: '',
+          rowindex: '',
+        });
+      },
+      //合同
+      deleteRow3(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableD = [{
+            projectsystem_id: '',
+            companyprojects_id: '',
+            contract: '',
+            theme: '',
+            workinghours: '',
+            rowindex: '',
           }];
         }
       },
@@ -1715,7 +1917,7 @@ phase<template>
               var vote1 = {};
               vote1.number = response[i].number;
               vote1.expname = response[i].expname;
-              vote1.suppliername =  response[i].suppliername;
+              vote1.suppliername = response[i].suppliername;
               vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
@@ -1741,33 +1943,33 @@ phase<template>
           if (valid) {
             this.loading = true;
             this.baseInfo = {};
-            if(JSON.stringify(this.checkList) !== '[]'){
-                this.form.tools = JSON.stringify(this.checkList);
-            }else{
-                this.form.tools = '';
+            if (JSON.stringify(this.checkList) !== '[]') {
+              this.form.tools = JSON.stringify(this.checkList);
+            } else {
+              this.form.tools = '';
             }
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
             //项目计划
             for (let i = 0; i < this.tableA.length; i++) {
-                if (
-                    this.tableA[i].phase !== '' ||
-                    this.tableA[i].stageproduct !== '' ||
-                    this.tableA[i].estimatedwork !== '' ||
-                    this.tableA[i].estimatedstarttime !== '' ||
-                    this.tableA[i].estimatedendtime !== '' ||
-                    this.tableA[i].remarks !== ''
-                ) {
-                    this.baseInfo.stageinformation.push({
-                        phase: this.tableA[i].phase,
-                        stageproduct: this.tableA[i].stageproduct,
-                        estimatedwork: this.tableA[i].estimatedwork,
-                        estimatedstarttime: this.tableA[i].estimatedstarttime,
-                        estimatedendtime: this.tableA[i].estimatedendtime,
-                        remarks: this.tableA[i].remarks,
-                    });
-                }
+              if (
+                this.tableA[i].phase !== '' ||
+                this.tableA[i].stageproduct !== '' ||
+                this.tableA[i].estimatedwork !== '' ||
+                this.tableA[i].estimatedstarttime !== '' ||
+                this.tableA[i].estimatedendtime !== '' ||
+                this.tableA[i].remarks !== ''
+              ) {
+                this.baseInfo.stageinformation.push({
+                  phase: this.tableA[i].phase,
+                  stageproduct: this.tableA[i].stageproduct,
+                  estimatedwork: this.tableA[i].estimatedwork,
+                  estimatedstarttime: this.tableA[i].estimatedstarttime,
+                  estimatedendtime: this.tableA[i].estimatedendtime,
+                  remarks: this.tableA[i].remarks,
+                });
+              }
             }
             for (let i = 0; i < this.tableB.length; i++) {
               if (
@@ -1787,22 +1989,22 @@ phase<template>
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
-                if (
-                    this.tableC[i].number !== '' ||
-                    this.tableC[i].name !== '' ||
-                    this.tableC[i].admissiontime !== '' ||
-                    this.tableC[i].exittime !== ''
-                ) {
-                    this.baseInfo.projectsystem.push({
-                        number: this.tableC[i].number,
-                        name: this.tableC[i].name,
-                        type: this.tableC[i].type,
-                        company: this.tableC[i].company,
-                        admissiontime: this.tableC[i].admissiontime,
-                        exittime: this.tableC[i].exittime,
-                        position: this.tableC[i].position
-                    });
-                }
+              if (
+                this.tableC[i].number !== '' ||
+                this.tableC[i].name !== '' ||
+                this.tableC[i].admissiontime !== '' ||
+                this.tableC[i].exittime !== ''
+              ) {
+                this.baseInfo.projectsystem.push({
+                  number: this.tableC[i].number,
+                  name: this.tableC[i].name,
+                  type: this.tableC[i].type,
+                  company: this.tableC[i].company,
+                  admissiontime: this.tableC[i].admissiontime,
+                  exittime: this.tableC[i].exittime,
+                  position: this.tableC[i].position,
+                });
+              }
             }
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
@@ -1837,7 +2039,7 @@ phase<template>
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
-                  console.log("VVVAAAAA" + response);
+                  console.log('VVVAAAAA' + response);
                   this.data = response;
                   this.loading = false;
                   this.$message({

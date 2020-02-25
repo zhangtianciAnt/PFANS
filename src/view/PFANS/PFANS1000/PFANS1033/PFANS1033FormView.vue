@@ -50,9 +50,9 @@
             <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
-<!--            <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">-->
-<!--              <org  :orglist="grouporglist1" orgtype="2" style="width: 20vw" @getOrgids="getGroupId1" :disabled="!disabled2"></org>-->
-<!--            </el-form-item>-->
+            <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
+              <org  :orglist="grouporglist1" orgtype="2" style="width: 20vw" @getOrgids="getGroupId1" :disabled="!disabled2"></org>
+            </el-form-item>
             <div  class="dialog-footer" align="center">
               <el-button @click="dialogFormVisible = false" v-if="show1">
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
@@ -246,9 +246,9 @@
                       </template>
                     </el-table-column>
                 </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="contractnumber" width="200" :error="errorcontractnumber">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber" width="200" :error="errorcontractnumber">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.contractnumber"
+                      <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"
                             @getUserids="getContractnumber" style="width: 10.15rem"></user>
                     </template>
                   </el-table-column>
@@ -447,9 +447,9 @@
                     </template>
                   </el-table-column>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="contractnumber" width="200" :error="errorcontractnumber">
+                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber" width="200" :error="errorcontractnumber">
                   <template slot-scope="scope">
-                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.contractnumber"
+                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"
                           @getUserids="getContractnumber" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
@@ -672,9 +672,9 @@
                     </template>
                   </el-table-column>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="contractnumber" width="200" :error="errorcontractnumber">
+                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber" width="200" :error="errorcontractnumber">
                   <template slot-scope="scope">
-                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.contractnumber"
+                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"
                           @getUserids="getContractnumber" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
@@ -897,9 +897,9 @@
                     </template>
                   </el-table-column>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="contractnumber" width="200" :error="errorcontractnumber">
+                <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber" width="200" :error="errorcontractnumber">
                   <template slot-scope="scope">
-                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.contractnumber"
+                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"
                           @getUserids="getContractnumber" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
@@ -953,7 +953,7 @@
           multiple: false,
           index: "",
           grouporglist: '',
-          // grouporglist1: '',
+          grouporglist1: '',
           groupinfo:[],
           errorgroup: '',
           errorcusto: "",
@@ -1115,7 +1115,7 @@
               }
           },
           getContractnumber(val,row){
-              row.contractnumber = val;
+              row.entrustednumber = val;
           },
         getcontracttype(val){
           this.form.contracttype=val;
@@ -1157,13 +1157,13 @@
             }
         },
 
-          // getGroupId1(val) {
-          //     this.grouporglist1 = val;
+          getGroupId1(val) {
+              this.grouporglist1 = val;
               // let group = getOrgInfo(val);
               // if(group){
               //     this.groupinfo = [val,group.companyen,group.orgname,group.companyname];
               // }----------
-          // },
+          },
           //日期区组件处理
           getcontractdate(contractdate){
               if(contractdate.length > 0){

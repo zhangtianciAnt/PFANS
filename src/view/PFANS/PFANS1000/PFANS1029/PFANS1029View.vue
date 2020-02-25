@@ -30,7 +30,7 @@
         data: [],
         columns:[
           {
-            code: 'contractnumber',
+            code: 'contract_id',
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 150,
             fix: false,
@@ -44,58 +44,58 @@
             filter: true
           },
           {
-            code: 'custochinese',
-            label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
+            code: 'depositjapanese',
+            label: 'label.PFANS1029VIEW_DEPOSITJAPANESE',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'placechinese',
-            label: 'label.PFANS1029FORMVIEW_PRINCIPALPLAC',
+            code: 'prplacejapanese',
+            label: 'label.PFANS1029VIEW_PRPLACEJAPANESE',
             width: 150,
             fix: false,
             filter: true
           },
           {
             code: 'deployment',
-            label: 'label.PFANS1024VIEW_DEPLOYMENT',
+            label: 'label.PFANS1029VIEW_DEPLOYMENT',
             width: 150,
             fix: false,
             filter: true
           },
           {
             code: 'pjnamejapanese',
-            label: 'label.PFANS1025VIEW_PJNAME',
+            label: 'label.PFANS1029VIEW_PJNAMEJAPANESE',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'developdate',
-            label: 'label.PFANS1025VIEW_DEVELOPDATE',
+            code: 'openingdate',
+            label: 'label.PFANS1029VIEW_OPENINGDATE',
             width: 200,
             fix: false,
             filter: true
           },
 
           {
-            code: 'currencyposition',
-            label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
+            code: 'enddate',
+            label: 'label.PFANS1029VIEW_ENDDATE',
+            width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'currencyformat',
+            label: 'label.PFANS1029VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'claimamount',
-            label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
+            label: 'label.PFANS1029VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
             filter: true
