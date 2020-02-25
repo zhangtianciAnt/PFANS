@@ -65,7 +65,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                 <el-date-picker
-                  v-model.trim="form.contractdate"
+                  v-model.trim="form.claimdatetime"
                   type="daterange"
                   :disabled="!disable"
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -157,7 +157,7 @@
               pjnamechinese:'',
 
 
-              contractdate:[],
+              claimdatetime:[],
               businesscode:'',
 
               /*纳品左成日*/
@@ -189,14 +189,15 @@
                   if(response[i].contracttype !== null && response[i].contracttype !== ""){
                     this.form.contracttype = getDictionaryInfo(response[i].contracttype).value1;
                   }
+                  this.form.contractnumber= response[i].contractnumber;
                   this.form.custoenglish= response[i].custoenglish;
                   this.form.custochinese= response[i].custochinese;
                   this.form.responerglish= response[i].responerglish;
                   this.form.placeenglish= response[i].placeenglish;
                   this.form.placechinese= response[i].placechinese;
                   this.form.businesscode= response[i].businesscode;
-                  if(this.form.contractdate!=="" && this.form.contractdate!==null){
-                    this.form.contractdate= response[i].contractdate;
+                  if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
+                    this.form.claimdatetime= response[i].claimdatetime;
                   }
 
                   if(response[i].deliveryfinshdate !== null && response[i].deliveryfinshdate !== ""){
@@ -251,8 +252,6 @@
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
               if(this.$route.params._id){     //编辑
                 this.$store
                   .dispatch('PFANS1032Store/update',this.form)
