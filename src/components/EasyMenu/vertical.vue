@@ -131,5 +131,7 @@ export default {
 /deep/ .el-submenu__title{
   height: 30px;
   line-height: 30px;
+  background-color:#7ACAFF;
+  border: black 1px solid;
 }
 </style>
