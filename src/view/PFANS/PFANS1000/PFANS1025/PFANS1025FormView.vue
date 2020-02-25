@@ -110,6 +110,44 @@
                   </el-col>
                 </el-row>
               </div>
+              <el-row >
+                <el-col :span="24">
+                  <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                    <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="170">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.deliverydate"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="150" prop="member">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.completiondate"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimdate"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  width="150"  prop="outsource">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.supportdate"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimamount"></el-input>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
+
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
               <div>
@@ -437,6 +475,14 @@
             valuationnumber: '',
             remarks: '',
           },
+          tableS:[{
+            claimtype: '',
+            deliverydate: '',
+            completiondate: '',
+            claimdate: '',
+            supportdate: '',
+            claimamount: '',
+          }],
           tableT: [{
             awarddetail_id: '',
             award_id: '',
