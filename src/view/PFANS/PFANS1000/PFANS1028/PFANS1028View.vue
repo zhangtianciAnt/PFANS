@@ -1,93 +1,102 @@
 <template>
-  <EasyNormalTable
-    :buttonList="buttonList"
-    :columns="columns"
-    :data="data"
-    :rowid="row_id"
-    :title="title"
-    @buttonClick="buttonClick"
-    @rowClick="rowClick"
-    v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList"
+                     :columns="columns"
+                     :data="data"
+                     :title="title"
+                     :rowid="row_id"
+                     @buttonClick="buttonClick"
+                     @rowClick="rowClick"
+                     v-loading="loading">
+    </EasyNormalTable>
+  </div>
 </template>
 
 <script>
-  import EasyNormalTable from "@/components/EasyNormalTable";
-  import {Message} from "element-ui";
-  import moment from "moment";
+  import EasyNormalTable from '@/components/EasyNormalTable';
   import {getDictionaryInfo} from '@/utils/customize';
+  import {Message} from 'element-ui';
+
 
   export default {
-    name: "PFANS1032View",
+    name: "PFANS1028View",
     components: {
-      EasyNormalTable
+      EasyNormalTable,
     },
     data(){
-      return {
+      return{
         loading: false,
-        title: "title.PFANS1032VIEW",
+        title: "title.PFANS1028VIEW",
         data: [],
-        columns: [
+        columns:[
           {
-            code: 'contractnumber',
-            label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
+            code: 'no',
+            label: 'label.PFANS1028VIEW_NO',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'career',
+            label: 'label.PFANS1028VIEW_CAREER',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'contracttype',
-            label: 'label.PFANS1024VIEW_CONTRACTTYPE',
+            code: 'organization',
+            label: 'label.PFANS1028VIEW_ORGANIZATION',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'custochinese',
+            code: 'name',
+            label: 'label.PFANS1028VIEW_NAME',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'depositary',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
-            width: 130,
+            width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'businesscode',
-            label: 'label.PFANS1024VIEW_BUSINESSCODE',
-            width: 140,
+            code: 'country',
+            label: 'label.PFANS1028VIEW_COUNTRY',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'pjnamechinese',
-            label: 'label.PFANS1032FORMVIEW_PJNAME',
-            width: 100,
+            code: 'review',
+            label: 'label.PFANS1028VIEW_REVIEW',
+            width: 200,
+            fix: false,
+            filter: true
+          },
+
+          {
+            code: 'requirements',
+            label: 'label.PFANS1028VIEW_REQUIREMENTS',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'claimnumber',
-            label: 'label.PFANS1032FORMVIEW_CLAIMNUMBER',
-            width: 130,
+            code: 'period',
+            label: 'label.PFANS1028VIEW_PERIOD',
+            width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'claimtype',
-            label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 130,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'claimdatetime',
-            label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 170,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'deliverydate',
-            label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
-            width: 130,
+            code: 'technical',
+            label: 'label.PFANS1028VIEW_TECHNICAL',
+            width: 150,
             fix: false,
             filter: true
           }
@@ -97,7 +106,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'petition_id'
+        row_id: 'contractapplication_id'
       }
     },
     mounted() {
@@ -106,11 +115,13 @@
         .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-
             if(response[j].contracttype !== null && response[j].contracttype !== ""){
               response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
             }
 
+            if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
+              response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
+            }
           }
           this.data = response;
           this.loading = false;
@@ -126,11 +137,11 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.petition_id;
+        this.rowid = row.contractapplication_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === "view") {
+        if (val === 'update') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -140,32 +151,34 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1032FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        }else if (val === "update") {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS1032FormView',
+            name: 'PFANS1028FormView',
             params: {
               _id: this.rowid,
               disabled: true
             }
           })
         }
+        if (val === 'view') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS1028FormView',
+            params: {
+              _id: this.rowid,
+              disabled: false
+            }
+          })
+        }
+
       }
     }
-    }
+  }
 </script>
 
 <style scoped>
