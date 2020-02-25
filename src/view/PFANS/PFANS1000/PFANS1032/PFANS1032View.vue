@@ -15,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getUserInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -43,7 +43,7 @@
             filter: true
           },
           {
-            code: 'custochinese',
+            code: 'depositchinese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 130,
             fix: false,
@@ -73,21 +73,21 @@
           {
             code: 'claimtype',
             label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 130,
+            width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'claimdatetime',
+            code: 'developdate',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 170,
+            width: 150,
             fix: false,
             filter: true
           },
           {
             code: 'deliverydate',
             label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
-            width: 130,
+            width: 150,
             fix: false,
             filter: true
           }
@@ -103,14 +103,15 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get',{'type': '1'})
+        .dispatch('PFANS1032Store/get', {})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
+            if (response[j].user_id !== null && response[j].user_id !== "") {
 
-            if(response[j].contracttype !== null && response[j].contracttype !== ""){
-              response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
+              if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
+                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+              }
             }
-
           }
           this.data = response;
           this.loading = false;
@@ -165,7 +166,7 @@
         }
       }
     }
-    }
+  }
 </script>
 
 <style scoped>
