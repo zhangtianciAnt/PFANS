@@ -87,7 +87,7 @@
                filter: true
              },
              {
-               code: 'currencyformat',
+               code: 'currencyposition',
                label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
                width: 120,
                fix: false,
@@ -119,7 +119,7 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1025Store/get', {})
+          .dispatch('PFANS1026Store/get',{'type': '0'})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== "") {
