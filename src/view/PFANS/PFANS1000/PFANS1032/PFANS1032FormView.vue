@@ -197,7 +197,10 @@
                   this.form.placechinese= response[i].placechinese;
                   this.form.businesscode= response[i].businesscode;
                   if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-                    this.form.claimdatetime= response[i].claimdatetime;
+                    let repair = response[i].claimdatetime;
+                    let serdate = repair.slice(0, 10);
+                    let serdate1 = repair.slice(repair.length - 10);
+                    this.form.claimdatetime = [serdate, serdate1];
                   }
 
                   if(response[i].deliveryfinshdate !== null && response[i].deliveryfinshdate !== ""){

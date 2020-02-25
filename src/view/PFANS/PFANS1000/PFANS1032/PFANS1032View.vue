@@ -111,9 +111,6 @@
             if(response[j].contracttype !== null && response[j].contracttype !== ""){
               response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
             }
-            if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
-              response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
-            }
 
           }
           this.data = response;
