@@ -17,6 +17,13 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" name="first">
               <div>
+                <el-date-picker
+                  v-model="month"
+                  type="month"
+                  align="right"
+                  :picker-options="pickerOptions"
+                  placeholder="选择月">
+                </el-date-picker>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
@@ -5754,6 +5761,15 @@
         }
       };
       return {
+        month:"",
+        pickerOptions: {
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', ["社外"]);
+            }
+          }]
+        },
         options1: [{
           value: '1',
           label: '1年'
