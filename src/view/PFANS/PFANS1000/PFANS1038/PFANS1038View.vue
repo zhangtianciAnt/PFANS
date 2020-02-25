@@ -42,7 +42,6 @@
     name: 'PFANS1037View',
     components: {
       EasyNormalTable,
-
     },
     data() {
       return {

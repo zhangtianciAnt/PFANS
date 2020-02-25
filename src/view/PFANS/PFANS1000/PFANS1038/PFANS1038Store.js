@@ -9,49 +9,49 @@ const PFANS1037Store = {
   actions: {
 
     //获取列变
-    getAssetinformation() {
-      return new Promise((resolve, reject) => {
-        getAssetinformation().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //获取列变
-    getSoftwaretransfer() {
-      return new Promise((resolve, reject) => {
-        getSoftwaretransfer().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //获取列变
-    getFixedassets() {
-      return new Promise((resolve, reject) => {
-        getFixedassets().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
+    // getAssetinformation() {
+    //   return new Promise((resolve, reject) => {
+    //     getAssetinformation().then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
+    //
+    // //获取列变
+    // getSoftwaretransfer() {
+    //   return new Promise((resolve, reject) => {
+    //     getSoftwaretransfer().then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
+    //
+    // //获取列变
+    // getFixedassets() {
+    //   return new Promise((resolve, reject) => {
+    //     getFixedassets().then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
   }
 }
 

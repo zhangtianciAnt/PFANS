@@ -579,7 +579,9 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110">
                           <template slot-scope="scope">
                             <el-input :disabled="true" maxlength="20" size="mini"
-                                      v-model.trim="scope.row.place"></el-input>
+                                      v-model.trim="scope.row.place">
+
+                            </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110">

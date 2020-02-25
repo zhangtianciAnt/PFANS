@@ -31,6 +31,7 @@
                 width="180"
                 v-show="this.$route.params.type === 0 ? false : true">
               </el-table-column>
+
               <el-table-column
                 prop="name"
                 label="社员名前"
