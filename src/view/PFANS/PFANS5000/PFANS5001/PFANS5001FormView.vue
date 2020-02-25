@@ -968,6 +968,7 @@ phase
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from '../../../components/org';
+  import {getDictionaryInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS5001FormView',
@@ -1119,7 +1120,7 @@ phase
         //合同
         tableD: [
           {
-            projectsystem_id: '',
+            projectcontract_id: '',
             companyprojects_id: '',
             contract: '',
             theme: '',
@@ -1443,6 +1444,24 @@ phase
                 }
               }
             }
+            //项目合同
+            if (response.projectcontract.length > 0) {
+              this.tableD = response.projectcontract;
+              for (var i = 0; i < response.projectcontract.length; i++) {
+                if (response.projectcontract[i].type === '0') {
+                  this.tableB = [];
+                  let o = {};
+                  o.name = response.projectcontract[i].projectcontract_id;
+                  o.companyprojects_id = response.projectcontract[i].companyprojects_id;
+                  o.contract = response.projectcontract[i].contract;
+                  o.theme = response.projectcontract[i].theme;
+                  o.workinghours = response.projectcontract[i].workinghours;
+                  o.rowindex = response.projectcontract[i].rowindex;
+                  this.tableD.push(o);
+
+                }
+              }
+            }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
             if (this.form.uploadfile != null) {
@@ -1518,8 +1537,8 @@ phase
               var vote2 = {};
               vote2.contract = response[i].contractnumber;
               vote2.deployment = response[i].deployment;
-              vote2.contracttype = response[i].contracttype;
-              vote2.applicationdate = response[i].applicationdate;
+              vote2.contracttype = getDictionaryInfo(response[i].contracttype).value1;
+              vote2.applicationdate = moment(response[i].applicationdate).format('YYYY-MM-DD');
               vote2.state = response[i].state;
               this.gridData3.push(vote2);
             }
@@ -1884,7 +1903,7 @@ phase
       //合同
       addRow3() {
         this.tableD.push({
-          projectsystem_id: '',
+          projectcontract_id: '',
           companyprojects_id: '',
           contract: '',
           theme: '',
@@ -1898,7 +1917,7 @@ phase
           rows.splice(index, 1);
         } else {
           this.tableD = [{
-            projectsystem_id: '',
+            projectcontract_id: '',
             companyprojects_id: '',
             contract: '',
             theme: '',
@@ -1951,6 +1970,7 @@ phase
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
+            this.baseInfo.projectcontract = [];
             //项目计划
             for (let i = 0; i < this.tableA.length; i++) {
               if (
@@ -2003,6 +2023,19 @@ phase
                   admissiontime: this.tableC[i].admissiontime,
                   exittime: this.tableC[i].exittime,
                   position: this.tableC[i].position,
+                });
+              }
+            }
+            for (let i = 0; i < this.tableD.length; i++) {
+              if (
+                this.tableD[i].contract !== '' ||
+                this.tableD[i].theme !== '' ||
+                this.tableD[i].workinghours !== ''
+              ) {
+                this.baseInfo.projectcontract.push({
+                  contract: this.tableD[i].contract,
+                  theme: this.tableD[i].theme,
+                  workinghours: this.tableD[i].workinghours,
                 });
               }
             }
