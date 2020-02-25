@@ -15,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -107,12 +107,11 @@
         .then(response => {
           debugger
           for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
-              }
+            if(response[j].contracttype !== null && response[j].contracttype !== ""){
+              response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
             }
+
           }
           this.data = response;
           this.loading = false;

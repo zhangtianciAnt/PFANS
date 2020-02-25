@@ -74,7 +74,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
-                        v-model="form.contractdate"
+                        v-model="form.claimdatetime"
                         :disabled="!disable"
                         type="daterange"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -550,7 +550,7 @@
           contractnumber:'',
           contracttype:'',
           deployment:'',
-          contractdate:[],
+          claimdatetime:[],
           claimamount:'',
           currencyposition:'',
           custojapanese: '',
@@ -716,10 +716,12 @@
                   this.form.currencyposition= getDictionaryInfo(response[i].currencyposition).value1;
                 }
 
-                if(this.form.contractdate!=="" && this.form.contractdate!==null){
-                  this.form.contractdate=response[i].contractdate;
+                if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
+                  let repair = response[i].claimdatetime;
+                  let serdate = repair.slice(0, 10);
+                  let serdate1 = repair.slice(repair.length - 10);
+                  this.form.claimdatetime = [serdate, serdate1];
                 }
-
 
               }
             }

@@ -74,7 +74,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
-                        v-model="form.contractdate"
+                        v-model="form.claimdatetime"
                         :disabled="!disable"
                         type="daterange"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -93,7 +93,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                       <dicselect :code="code2"
-                                 :data="form.currencyformat"
+                                 :data="form.currencyposition"
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getcurrencyformat"
@@ -446,7 +446,7 @@
             contractnumber:'',
             contracttype:'',
             deployment:'',
-            contractdate:[],
+            claimdatetime:[],
             claimamount:'',
             currencyposition:'',
             custojapanese: '',
@@ -516,8 +516,8 @@
           this.$store
             .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
             .then(response => {
-              this.form = response.award;
-              if (response.award.length > 0) {
+              this.form = response;
+              if (response.length > 0) {
                 for (let i = 0; i < response.length; i++) {
                   if(response[i].contracttype !== null && response[i].contracttype !== ""){
                     this.form.contracttype = getDictionaryInfo(response[i].contracttype).value1;
@@ -525,7 +525,7 @@
                   this.form.contractnumber= response[i].contractnumber;
                   this.form.deployment= response[i].deployment;
                   this.form.claimamount= response[i].claimamount;
-                  this.form.currencyposition= response[i].currencyposition;
+
                   this.form.custojapanese= response[i].custojapanese;
                   this.form.placejapanese= response[i].placejapanese;
                   this.form.placechinese= response[i].placechinese;
@@ -533,19 +533,21 @@
                     this.form.currencyposition= getDictionaryInfo(response[i].currencyposition).value1;
                   }
 
-                  if(this.form.contractdate!=="" && this.form.contractdate!==null){
-                    this.form.contractdate=response[i].contractdate;
+                  if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
+                    let repair = response[i].claimdatetime;
+                    let serdate = repair.slice(0, 10);
+                    let serdate1 = repair.slice(repair.length - 10);
+                    this.form.claimdatetime = [serdate, serdate1];
                   }
 
-
                 }
               }
-              if (response.awardDetail.length > 0) {
-                this.tableT = response.awardDetail
-                for (var i = 0; i < this.tableT.length; i++) {
-                  this.orglist=this.tableT[i].depart;
-                }
-              }
+              // if (response.awardDetail.length > 0) {
+              //   this.tableT = response.awardDetail
+              //   for (var i = 0; i < this.tableT.length; i++) {
+              //     this.orglist=this.tableT[i].depart;
+              //   }
+              // }
               this.userlist = this.form.user_id;
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));

@@ -14,7 +14,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {getDictionaryInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from "moment";
 
@@ -72,7 +72,7 @@
             filter: true
           },
           {
-            code: 'developdate',
+            code: 'claimdatetime',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
             width: 200,
             fix: false,
@@ -92,13 +92,6 @@
             width: 120,
             fix: false,
             filter: true
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true
           }
         ],
         buttonList: [
@@ -115,14 +108,12 @@
         .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== "") {
+            if(response[j].contracttype !== null && response[j].contracttype !== ""){
+              response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
+            }
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
-              }
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
+            if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
+              response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
             }
           }
           this.data = response;
@@ -153,7 +144,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1029FormView',
+            name: 'PFANS1030FormView',
             params: {
               _id: this.rowid,
               disabled: true
