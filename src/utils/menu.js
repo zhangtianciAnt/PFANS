@@ -74,6 +74,29 @@ export function menu() {
               ]
             },
             {
+              '_id': 'SALESTHEME',
+              'name': 'menu.SALESTHEME',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1036',
+                  'name': 'menu.PFANS1041',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1041View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1041_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1041_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                }
+              ]
+            },
+            {
               '_id': 'JUDGEMENT',
               'name': 'menu.JUDGEMENT',
               'menuvisible': true,
@@ -421,14 +444,14 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'COMMISSIONCONTRACT',
+                  '_id': 'PFANS1024',
                   'name': 'menu.PFANS1024',
                   'menuvisible': true,
                   'menuurl': '',
                   'menuicon': '',
                   'children': [
                     {
-                      '_id': 'PFANS1024',
+                      '_id': 'COMMISSIONCONTRACTyouwenti',
                       'name': 'menu.COMMISSIONCONTRACT',
                       'menuvisible': true,
                       'menuurl': '/PFANS1024View',
@@ -472,27 +495,12 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'BROKERAGECONTRACT',
-                  'name': 'menu.BROKERAGECONTRACT',
+                  '_id': 'COMMISSIONCONTRACT',
+                  'name': 'menu.COMMISSIONCONTRACT',
                   'menuvisible': true,
                   'menuurl': '',
                   'menuicon': '',
                   'children': [
-
-                    {
-                      '_id': 'PFANS1032',
-                      'name': 'menu.PFANS1032',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1032View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1032_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1032_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
                     {
                       '_id': 'PFANS1025',
                       'name': 'menu.PFANS1025',
@@ -505,6 +513,43 @@ export function menu() {
                         {"_id": "PFANS1025_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                         {"_id": "PFANS1025_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                         {"_id": "PFANS1025_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
+                  ]
+                },
+                {
+                  '_id': 'BROKERAGECONTRACT',
+                  'name': 'menu.BROKERAGECONTRACT',
+                  'menuvisible': true,
+                  'menuurl': '',
+                  'menuicon': '',
+                  'children': [
+                    {
+                      '_id': 'PFANS1029',
+                      'name': 'menu.PFANS1029',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1029View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1029_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1029_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1029_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1029_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
+                    {
+                      '_id': 'PFANS1032',
+                      'name': 'menu.PFANS1032',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1032View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1032_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1032_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                       ]
                     },
                   ]
@@ -593,7 +638,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'COMMISSIONCONTRACT',
+                  '_id': 'SOFTASSETMANAG',
                   'name': 'menu.SOFTASSETMANAG',
                   'menuvisible': true,
                   'menuurl': '',
@@ -1096,6 +1141,20 @@ export function menu() {
               'menuurl': '',
               'menuicon': '',
               'children': [
+                {
+                  '_id': 'PFANS5002',
+                  'name': 'menu.PFANS5002',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS5002View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS5002_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS5002_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS5002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS5002_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
                 {
                   '_id': 'PFANS5001',
                   'name': 'menu.PFANS5001',

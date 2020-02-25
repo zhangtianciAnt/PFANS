@@ -84,9 +84,9 @@
       };
       var validateDate = (rule, value, callback) => {
         if (value && this.form) {
-          if (this.form.status !== '0') {
-            callback();
-          }
+//          if (this.form.status !== '0') {
+//            callback();
+//          }
           this.$store
             .dispatch('ASSETS1002Store/check', {
               'inventorycycle': moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD'),
@@ -162,6 +162,13 @@
           {
             code: 'barcode',
             label: 'label.ASSETS1001VIEW_BARCODE',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'usedepartment',
+            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
             width: 120,
             fix: false,
             filter: false,
@@ -251,7 +258,7 @@
                 let user = getUserInfo(response.inventoryRange[j].principal);
                 if (user) {
                   response.inventoryRange[j].principal = user.userinfo.customername;
-                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
+//                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
                 }
                 if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
                   response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
@@ -291,7 +298,7 @@
               let user = getUserInfo(response[j].principal);
               if (user) {
                 response[j].principal = user.userinfo.customername;
-                response[j].usedepartment = user.userinfo.centername;
+//                response[j].usedepartment = user.userinfo.centername;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');

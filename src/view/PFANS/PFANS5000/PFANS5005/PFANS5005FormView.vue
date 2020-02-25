@@ -150,19 +150,18 @@
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">
                           <el-upload
+                            v-model="form.uploadfile"
                             :action="upload"
                             :file-list="fileList"
-                            :on-error="fileError"
-                            :on-preview="fileDownload"
                             :on-remove="fileRemove"
+                            :on-preview="fileDownload"
                             :on-success="fileSuccess"
+                            :on-error="fileError"
                             class="upload-demo"
                             drag
-                            ref="upload"
-                            v-model="form.uploadfile">
+                            ref="upload">
                             <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">
-                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                            <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
                           </el-upload>
                         </el-form-item>
                       </el-col>
@@ -322,7 +321,7 @@
   import org from "../../../components/org";
 
   export default {
-    name: "PFANS5005FormView",
+    name: "PFANS5004FormView",
     components: {
       dicselect,
       EasyNormalContainer,
@@ -341,15 +340,16 @@
           name: "button.save"
         }],
         source: [{
-          projectsecoreid: '',
-          closeapplicatid: '',
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '',
           number: '',
+          company: '',
           name: '',
-          commune: '',
-          croprate: '',
-          pjcroprate: '',
-          dicroprate: '',
-          rowindex: "",
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
         }],
         stage: [{
           stageinformation_id: "",
@@ -359,11 +359,12 @@
           estimatedwork: "",
           estimatedstarttime: "",
           estimatedendtime: "",
-          remarks: ''
+          remarks: '',
+          rowindex: '',
         }],
         data: [],
         loading: false,
-        title: "title.PFANS5005VIEW",
+        title: "title.PFANS5004VIEW",
         rules: {
           assetaddress: [{
             required: true,
@@ -422,7 +423,7 @@
                   this.source[i].name = lst.userinfo.customername;
                 }
                 else{
-                  this.source[i].type = this.$t('label._PFANS5004VIEW_ASSIST');
+                  this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
                 }
               }
             }
@@ -536,6 +537,45 @@
             this.loading = true;
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.stageinformation = [];
+            this.baseInfo.projectsystem = [];
+            //项目计划
+            for (let i = 0; i < this.stage.length; i++) {
+              if (
+                this.stage[i].phase !== '' ||
+                this.stage[i].stageproduct !== '' ||
+                this.stage[i].estimatedwork !== '' ||
+                this.stage[i].estimatedstarttime !== '' ||
+                this.stage[i].estimatedendtime !== '' ||
+                this.stage[i].remarks !== ''
+              ) {
+                this.baseInfo.stageinformation.push({
+                  phase: this.stage[i].phase,
+                  stageproduct: this.stage[i].stageproduct,
+                  estimatedwork: this.stage[i].estimatedwork,
+                  estimatedstarttime: this.stage[i].estimatedstarttime,
+                  estimatedendtime: this.stage[i].estimatedendtime,
+                  remarks: this.stage[i].remarks,
+                });
+              }
+            }
+            for (let i = 0; i < this.source.length; i++) {
+              if (
+                this.source[i].number !== '' ||
+                this.source[i].name !== '' ||
+                this.source[i].admissiontime !== '' ||
+                this.source[i].exittime !== ''
+              ) {
+                this.baseInfo.projectsystem.push({
+                  number: this.source[i].number,
+                  name: this.source[i].name,
+                  type: this.source[i].type,
+                  position: this.source[i].position,
+                  admissiontime: this.source[i].admissiontime,
+                  exittime: this.source[i].exittime,
+                });
+              }
+            }
             if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.$store

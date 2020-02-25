@@ -1,36 +1,38 @@
 <template>
-  <EasyNormalTable
-    :buttonList="buttonList"
-    :columns="columns"
-    :data="data"
-    :rowid="row"
-    :title="title"
-    @buttonClick="buttonClick"
-    @rowClick="rowClick"
-    v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList"
+                     :columns="columns"
+                     :data="data"
+                     :title="title"
+                     :rowid="row_id"
+                     @buttonClick="buttonClick"
+                     @rowClick="rowClick"
+                     v-loading="loading">
+    </EasyNormalTable>
+  </div>
 </template>
+
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable'
-  import {Message} from 'element-ui'
-  import moment from 'moment'
-  import {getStatus, getUserInfo} from '@/utils/customize'
+  import EasyNormalTable from '@/components/EasyNormalTable';
+  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {Message} from 'element-ui';
+  import moment from "moment";
 
   export default {
-    name: 'PFANS1031View',
+    name: "PFANS1029View",
     components: {
       EasyNormalTable,
     },
-    data() {
-      return {
+    data(){
+      return{
         loading: false,
-        title: 'title.PFANS1031VIEW',
+        title: "title.PFANS1029VIEW",
         data: [],
-        columns: [
+        columns:[
           {
             code: 'contractnumber',
-            label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
-            width: 120,
+            label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
+            width: 150,
             fix: false,
             filter: true
           },
@@ -42,99 +44,89 @@
             filter: true
           },
           {
-            code: 'depositchinese',
+            code: 'custochinese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
-            width: 130,
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'entrustment',
-            label: 'label.PFANS1031FORMVIEW_ENTRUSTMENT',
-            width: 140,
+            code: 'placechinese',
+            label: 'label.PFANS1029FORMVIEW_PRINCIPALPLAC',
+            width: 150,
             fix: false,
             filter: true
           },
           {
             code: 'deployment',
             label: 'label.PFANS1024VIEW_DEPLOYMENT',
-            width: 140,
+            width: 150,
             fix: false,
             filter: true
           },
           {
             code: 'pjnamejapanese',
             label: 'label.PFANS1025VIEW_PJNAME',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'openingdate',
-            label: 'label.PFANS1025VIEW_OPENINGDATE',
-            width: 140,
+            code: 'developdate',
+            label: 'label.PFANS1025VIEW_DEVELOPDATE',
+            width: 200,
             fix: false,
             filter: true
           },
+
           {
-            code: 'enddate',
-            label: 'label.PFANS1025VIEW_ENDDATE',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'deliveryfinshdate',
-            label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
-            width: 140,
+            code: 'currencyposition',
+            label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'claimamount',
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'claimnumber',
-            label: 'label.PFANS1032FORMVIEW_CLAIMNUMBER',
-            width: 140,
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
             fix: false,
             filter: true
-          },
-          {
-            code: 'claimtype',
-            label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'toto',
-            label: 'label.PFANS1031FORMVIEW_TOTO',
-            width: 100,
-            fix: false,
-            filter: true
-          },
+          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row: 'napalm_id',
+        row_id: 'contractapplication_id'
       }
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1031Store/get',{})
+        .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
-            console.log(response);
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].user_id !== null && response[j].user_id !== "") {
+
+              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
+                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+              }
+              if (response[j].status !== null && response[j].status !== "") {
+                response[j].status = getStatus(response[j].status);
+              }
+            }
+          }
           this.data = response;
-          this.loading = false
+          this.loading = false;
         })
         .catch(error => {
           Message({
@@ -142,54 +134,55 @@
             type: 'error',
             duration: 5 * 1000
           });
-          this.loading = false
+          this.loading = false;
         })
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.napalm_id
+        this.rowid = row.contractapplication_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'view') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'error',
-              duration: 2 * 1000
-            });
-            return
-          }
-          this.$router.push({
-            name: 'PFANS1031FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        }
         if (val === 'update') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'error',
+              type: 'info',
               duration: 2 * 1000
             });
-            return
+            return;
           }
           this.$router.push({
-            name: 'PFANS1031FormView',
+            name: 'PFANS1029FormView',
             params: {
               _id: this.rowid,
               disabled: true
             }
           })
         }
-      },
+        if (val === 'view') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS1029FormView',
+            params: {
+              _id: this.rowid,
+              disabled: false
+            }
+          })
+        }
+
+      }
     }
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style scoped>
 
 </style>

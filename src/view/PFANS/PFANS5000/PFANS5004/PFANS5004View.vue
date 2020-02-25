@@ -84,7 +84,7 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .dispatch('PFANS5001Store/getFpans5001List', {status:2})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
                 if (response[j].status !== null && response[j].status !== "") {

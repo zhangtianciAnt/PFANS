@@ -8,7 +8,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
     import moment from "moment";
-    import {getUserInfo, getDictionaryInfo, getDepartmentById} from '@/utils/customize';
+    import {getUserInfo, getDictionaryInfo, getDepartmentById,getCooperinterviewList} from '@/utils/customize';
 
     export default {
         name: 'PFANS6001View',
@@ -98,10 +98,10 @@
                 .dispatch('PFANS6001Store/getcooperinterview')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        if (response[j].coopername !== null && response[j].coopername !== "") {
-                            let coopername = getUserInfo(response[j].coopername);
+                        if (response[j].cooperuserid !== null && response[j].cooperuserid !== "") {
+                            let coopername = getCooperinterviewList(response[j].cooperuserid);
                             if (coopername) {
-                                response[j].coopername = user.userinfo.customername;
+                                response[j].coopername = coopername.coopername;
                             }
                         }
                         if (response[j].graduateschool !== null && response[j].graduateschool !== "") {

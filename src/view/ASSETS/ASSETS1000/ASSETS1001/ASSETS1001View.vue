@@ -215,6 +215,13 @@
             fix: false,
             filter: false,
           },
+          {
+            code: 'usedepartment',
+            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
         ],
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -330,7 +337,7 @@
               if (user) {
                 response[j].principal = user.userinfo.customername;
                 response[j].jobnumber = user.userinfo.jobnumber;
-                response[j].usedepartment = user.userinfo.centername;
+//                response[j].usedepartment = user.userinfo.centername;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
