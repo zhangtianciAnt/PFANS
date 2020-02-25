@@ -23,11 +23,11 @@ export function insert(data) {
   })
 }
 
-export function getFpans5001List(data) {
+export function getSiteList(data) {
   return request({
-    url: 'companyprojects/list',
-    method: 'post',
-    data: data
+    url: 'companyprojects/getSiteList',
+    method: 'get',
+    params: data
   })
 }
 

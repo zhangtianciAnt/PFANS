@@ -20,14 +20,21 @@
         loading: false,
         title: "title.PFANS5009VIEW",
         data: [],
+        submitted: this.$t('label.PFANS5009FORMVIEW_SUBMITTED'),
+        notsubmitted: this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED'),
+        phasestatus0: this.$t('label.PFANS5009FORMVIEW_PHASESTATUS0'),
+        phasestatus1: this.$t('label.PFANS5009FORMVIEW_PHASESTATUS1'),
+        contractstatus0: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS0'),
+        contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
+        contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
         columns: [
-          // {
-          //   code: 'numbers',
-          //   label: 'label.PFANS5009VIEW_PROJECTNO',
-          //   width: 110,
-          //   fix: false,
-          //   filter: true,
-          // },
+           {
+             code: 'numbers',
+             label: 'label.PFANS5009VIEW_PROJECTNO',
+             width: 110,
+             fix: false,
+             filter: true,
+           },
           {
             code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
@@ -78,7 +85,7 @@
           //   filter: true,
           // },
           {
-            code: 'status2',
+            code: 'contractstatus',
             label: 'label.PFANS5009VIEW_STATUS',
             width: 150,
             fix: false,
@@ -104,42 +111,40 @@
     mounted: function() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS5009Store/getFpans5001List',{})
+        .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].status !== null && response[j].status !== "") {
-              response[j].status = getStatus(response[j].status);
-            }
-          }
-          // for (let j = 0; j < response.length; j++) {
-          //   let center = getOrgInfo(response[j].center_id);
-          //   let group = getOrgInfo(response[j].group_id);
-          //   let team = getOrgInfo(response[j].team_id);
-          //   if(center){
-          //     response[j].center_id = center.companyname;
-          //   }
-          //   if(group){
-          //     response[j].group_id = group.companyname;
-          //   }
-          //   if(team){
-          //     response[j].team_id = team.departmentname;
-          //   }
-          //   if (response[j].requirements !== null && response[j].requirements !== "") {
-          //     let letRequirements = getDictionaryInfo(response[j].requirements);
-          //     if (letRequirements != null) {
-          //       response[j].requirements = letRequirements.value1;
-          //     }
-          //   }
-          //   if (response[j].requirements !== null && response[j].requirements !== "") {
-          //     let letRequirements = getDictionaryInfo(response[j].requirements);
-          //     if (letRequirements != null) {
-          //       response[j].requirements = letRequirements.value1;
-          //     }
-          //   }
-          //   if (response[j].application_date !== null && response[j].application_date !== "") {
-          //     response[j].application_date = moment(response[j].application_date).format("YYYY-MM-DD");
-          //   }
-          // }
+           for (let j = 0; j < response.length; j++) {
+             if (response[j].phase !== null && response[j].phase !== "") {
+               let letPhase = getDictionaryInfo(response[j].phase);
+               if (letPhase != null) {
+                 response[j].phase = letPhase.value1;
+               }
+             }
+             if (response[j].productstatus !== null && response[j].productstatus !== "") {
+               if(response[j].productstatus === "0") {
+                 response[j].productstatus = this.submitted
+               }else {
+                 response[j].productstatus = this.notsubmitted
+               }
+             }
+             if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
+               if(response[j].phasestatus === "0") {
+                 response[j].phasestatus = this.phasestatus0
+               }else {
+                 response[j].phasestatus = this.phasestatus1
+               }
+             }
+             if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+               if(response[j].contractstatus === "0") {
+                 response[j].contractstatus = this.contractstatus0
+               }else if(response[j].contractstatus === "1"){
+                 response[j].contractstatus = this.contractstatus1
+               }else {
+                 response[j].contractstatus = this.contractstatus2
+               }
+             }
+             response[j] .status = getStatus(response[j] .status);
+           }
           this.data = response;
           this.loading = false;
         })
