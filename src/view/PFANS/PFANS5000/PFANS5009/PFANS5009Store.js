@@ -2,7 +2,7 @@ import {
   selectById,
   update,
   insert,
-  getFpans5001List,
+  getSiteList,
   } from './PFANS5009Api'
 
   const PFANS5009Store = {
@@ -23,9 +23,9 @@ import {
           })
         })
       },
-      getFpans5001List({commit},data) {
+      getSiteList({commit},data) {
         return new Promise((resolve, reject) => {
-          getFpans5001List(data).then(response => {
+          getSiteList().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
