@@ -364,7 +364,7 @@
               >
 <!--                部门-->
                 <el-table-column
-                  prop="departmentid"
+                  prop="entrust"
                   :label="$t('label.department')"
                   width="150"
                 >
@@ -378,7 +378,7 @@
                 </el-table-column>
 <!--                客户-->
                 <el-table-column
-                  prop="customername"
+                  prop="deployment"
                   :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                   width="150"
                 >
@@ -478,9 +478,9 @@
           exits: '1',
         },
         tableData: [{
-          departmentid: '',
+          entrust: '',
           project_name: '',
-          customername: '',
+          deployment: '',
           projecttype: '',
           startdate: '',
           endtime: '',
@@ -891,10 +891,10 @@
           .dispatch('PFANS5001Store/getFpans5001List', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].departmentid !== null && response[j].departmentid !== "") {
-                let departmentid = getDictionaryInfo(response[j].departmentid);
-                if (departmentid != null) {
-                  response[j].departmentid = departmentid.value1;
+              if (response[j].entrust !== null && response[j].entrust !== "") {
+                let entrust = getUserInfo(response[j].entrust);
+                if (entrust != null) {
+                  response[j].entrust = user.userinfo.entrust;
                 }
               }
               if (response[j].project_name !== null && response[j].project_name !== "") {
@@ -903,10 +903,10 @@
                   response[j].project_name = user.userinfo.customername;
                 }
               }
-              if (response[j].customername !== null && response[j].customername !== "") {
-                let customername = getUserInfo(response[j].customername);
-                if (customername) {
-                  response[j].customername = user.userinfo.customername;
+              if (response[j].deployment !== null && response[j].deployment !== "") {
+                let deployment = getUserInfo(response[j].deployment);
+                if (deployment) {
+                  response[j].deployment = user.userinfo.deployment;
                 }
               }
               if (response[j].startdate !== null && response[j].startdate !== "") {
@@ -929,6 +929,7 @@
               }
             }
             this.tableData = response;
+            console.log(this.tableData);
             this.loading = false;
           })
           .catch(error => {
