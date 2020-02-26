@@ -428,7 +428,7 @@ phase
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA" :summary-method="getTsummaries" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA"  stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -845,8 +845,10 @@ phase
             <!--            合同-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
-                <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
-                          style="width: 90vw">
+                <el-table :data="tableD" :summary-method="getTsummaries"
+                          show-summary
+                          border
+                          header-cell-class-name="sub_bg_color_blue" stripe>
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center">
@@ -917,7 +919,7 @@ phase
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')"
-                    align="center">
+                    align="center" prop="workinghours">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -1070,6 +1072,7 @@ phase
         }
       };
       return {
+        tableDValue:'',
         centerorglist: '',
         grouporglist: '',
         teamorglist: '',
@@ -1993,6 +1996,7 @@ phase
         }
       },
       //计划合计
+
       getTsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -2012,9 +2016,10 @@ phase
               }
             }, 0);
           } else {
-            sums[index] = '0.00';
+            sums[index] = '--'
           }
         });
+        this.tableDValue=sums;
         return sums;
       },
       getexpatriatesinfor() {
@@ -2046,10 +2051,9 @@ phase
           });
       },
       buttonClick(val) {
-        alert(this.form.plannedwh);
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
-
+        this.form.plannedwh=this.tableDValue[2];
         this.$refs['from1'].validate(valid => {
           if (valid) {
             this.loading = true;
