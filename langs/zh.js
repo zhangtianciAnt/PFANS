@@ -439,7 +439,7 @@ module.exports = {
     judgement: '決裁号',
     enclosurecontent: '将文件拖到此处，或',
     INDEX_NY: '您有',
-    INDEX_DSPSX: '条待审批事项',
+    INDEX_DSPSX: '条待办事项',
     INDEX_YSPSX: '已审批事项',
     INDEX_YBHSX: '已驳回事项',
     INDEX_DBSX: '待办事项',
