@@ -396,7 +396,7 @@ phase
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" :summary-method="getTsummaries" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -447,12 +447,16 @@ phase
                         :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
                         align="center">
                         <template slot-scope="scope">
-                          <el-input
-                            :no="scope.row"
+                          <el-input-number
                             :disabled="!disable"
+                            :max="1000000000"
+                            :min="0"
+                            :no="scope.row"
+                            :precision="2"
+                            controls-position="right"
+                            style="width: 100%"
                             v-model="scope.row.estimatedwork"
-                            style="width: 100%">
-                          </el-input>
+                          ></el-input-number>
                         </template>
                       </el-table-column>
                       <el-table-column
@@ -1324,6 +1328,8 @@ phase
           deadline: '',
           tools: '',
           briefintroduction: '',
+          //計画工数
+          plannedwh:'',
           requirement: '',
           behalf: '',
           intelligence: '',
@@ -1926,6 +1932,31 @@ phase
           }];
         }
       },
+      //计划合计
+      getTsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '0.00';
+          }
+        });
+        return sums;
+      },
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -1955,6 +1986,7 @@ phase
           });
       },
       buttonClick(val) {
+        alert(this.form.plannedwh);
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
 
