@@ -525,6 +525,20 @@ export function menu() {
                   'menuicon': '',
                   'children': [
                     {
+                      '_id': 'PFANS1028',
+                      'name': 'menu.PFANS1028',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1028View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1028_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1028_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1028_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1028_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
+                    {
                       '_id': 'PFANS1030',
                       'name': 'menu.PFANS1030',
                       'menuvisible': true,
