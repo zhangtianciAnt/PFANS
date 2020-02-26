@@ -550,6 +550,16 @@ const routes = [
         component: PFANS1038FormView,
       },
       {
+        path: '/PFANS1039View',
+        name: 'PFANS1039View',
+        component: PFANS1039View,
+      },
+      {
+        path: '/PFANS1040View',
+        name: 'PFANS1040View',
+        component: PFANS1040View,
+      },
+      {
         path: '/PFANS1041View',
         name: 'PFANS1041View',
         component: PFANS1041View,

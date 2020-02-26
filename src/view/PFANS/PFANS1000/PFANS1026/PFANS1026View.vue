@@ -72,6 +72,7 @@
                 ],
                 rowid: '',
                 contractnumber: '',
+                state: '',
                 row : 'contractapplication_id '
             };
         },
@@ -100,11 +101,13 @@
                             letcontractnumber.push(response[i].contractnumber);
                         }
                     }
-                    this.data = response;
                     var arr= new Array();
+                    let o;
                     for(var i = 0; i < letcontractnumber.length; i++){
                         if(arr.indexOf(letcontractnumber[i]) == -1){
                             arr.push(letcontractnumber[i]);
+                            o = Object.assign([], response[i]);
+                            this.data.push(o);
                         }
                     }
                     this.contractnumbercount = (letcontractnumber.length + 1);
@@ -123,6 +126,7 @@
             rowClick(row) {
                 this.rowid = row.contractapplication_id;
                 this.contractnumber = row.contractnumber;
+                this.state = row.state;
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -140,6 +144,7 @@
                         params: {
                             _id: this.contractnumber,
                             contractnumbercount: this.contractnumbercount,
+                            state: this.state,
                             disabled: true
                         }
                     })
