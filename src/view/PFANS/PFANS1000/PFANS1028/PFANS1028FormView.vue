@@ -176,7 +176,7 @@
                 <el-row>
                   <!--取契约书番号-->
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" :error="error" prop="user_id">
+                    <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" :error="error" >
                       <el-select :disabled="!disable" style="width:20vw" v-model="form.contractnumber">
                         <el-option
                           :key="item.value"
@@ -391,7 +391,7 @@
                   <el-row>
                     <!--取契约书番号-->
                     <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" :error="error" prop="user_id">
+                      <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" :error="error" >
                         <el-select :disabled="!disable" style="width:20vw" v-model="form.contractnumber">
                           <el-option
                             :key="item.value"
@@ -422,8 +422,6 @@
                         <el-input  :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="12">
                       <el-form-item  :label="$t('label.PFANS1028VIEW_EXPORT')" >
                         <el-input  :disabled="!disable" style="width:20vw" v-model="form.export"></el-input>
@@ -513,6 +511,7 @@
       return {
         activeName: 'first',
         activeName2: 'first',
+        activeName3: 'first',
         disabled: true,
 
         errorgroup: '',
