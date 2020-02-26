@@ -76,40 +76,14 @@
       getCompanyProjectList(val) {
         if (val === 1) {
           this.row = 'businessid';
-          this.title = 'title.PFANS1002VIEW';
+          this.title = 'title.PFANS1039VIEW';
           let businesstype = {'businesstype': '0'};
           this.dispatchparameter('PFANS1041Store/getBusiness',businesstype);
         } else if (val === 2) {
             this.row = 'businessid';
-            this.title = 'title.PFANS1035VIEW';
+            this.title = 'title.PFANS1040VIEW';
             let businesstype = {'businesstype': '1'};
             this.dispatchparameter('PFANS1041Store/getBusiness',businesstype);
-        } else if (val === 3) {
-          this.row = 'judgementid';
-            this.title = 'title.PFANS1003VIEW';
-          let letequipment = {'equipment': '1'};
-          this.dispatchparameter('PFANS1041Store/getJudgement', letequipment);
-        } else if (val === 4) {
-          this.row = 'judgementid';
-          this.title = 'title.PFANS1004VIEW';
-          let letequipment = {'equipment': '0'};
-          this.dispatchparameter('PFANS1041Store/getJudgement', letequipment);
-        } else if (val === 5) {
-          this.row = 'purchaseapply_id';
-          this.title = 'title.PFANS1005VIEW';
-          this.dispatch('PFANS1041Store/getpurchaseApply');
-        } else if (val === 6) {
-          this.row = 'loanapplication_id';
-          this.title = 'title.PFANS1006VIEW';
-          this.dispatch('PFANS1041Store/getLoanapplication');
-        } else if (val === 10) {
-          this.row = 'communication_id';
-          this.title = 'title.PFANS1010VIEW';
-          this.dispatch('PFANS1041Store/getCommunication');
-        } else if (val === 11) {
-          this.row = 'offshore_id';
-          this.title = 'title.PFANS1011VIEW';
-          this.dispatch('PFANS1041Store/getOffshore');
         }
       },
       dispatch(val) {
@@ -150,38 +124,14 @@
           this.rowid = row.businessid;
         } else if (this.$route.params.title === 2) {
             this.rowid = row.businessid;
-        } else if (this.$route.params.title === 3) {
-          this.rowid = row.judgementid;
-        } else if (this.$route.params.title === 4) {
-          this.rowid = row.judgementid;
-        } else if (this.$route.params.title === 5) {
-          this.rowid = row.purchaseapply_id;
-        } else if (this.$route.params.title === 6) {
-          this.rowid = row.loanapplication_id;
-        } else if (this.$route.params.title === 10) {
-          this.rowid = row.communication_id;
-        } else if (this.$route.params.title === 11) {
-          this.rowid = row.offshore_id;
         }
       },
       buttonClick(val) {
         let letname;
         if (this.$route.params.title === 1) {
-          letname = 'PFANS1002FormView';
+          letname = 'PFANS1039View';
         } else if (this.$route.params.title === 2) {
-            letname = 'PFANS1035FormView';
-        } else if (this.$route.params.title === 3) {
-          letname = 'PFANS1003FormView';
-        } else if (this.$route.params.title === 4) {
-          letname = 'PFANS1004FormView';
-        } else if (this.$route.params.title === 5) {
-          letname = 'PFANS1005FormView';
-        } else if (this.$route.params.title === 6) {
-          letname = 'PFANS1006FormView';
-        } else if (this.$route.params.title === 10) {
-          letname = 'PFANS1010FormView';
-        } else if (this.$route.params.title === 11) {
-          letname = 'PFANS1011FormView';
+            letname = 'PFANS1040View';
         }
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {
