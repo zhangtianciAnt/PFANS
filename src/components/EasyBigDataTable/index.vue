@@ -12,42 +12,44 @@
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
         </el-input>
       </div>
-      <el-table :data="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
+      <div style="height: 400px;width: 100%">
+      <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
-                header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="400"
-                highlight-current-row max-height="400" ref="eltable" stripe border
-                style="width: 100%" v-loading='loading' :cell-class-name = "rowheight">
-        <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
-        </el-table-column>
-        <el-table-column type="index" v-if="showIndex" width="55" label="NO">
-        </el-table-column>
-        <el-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
+                header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" :pagination-show="paginationShow" :height-change="paginationShow"
+                highlight-current-row ref="eltable" stripe border use-virtual big-data-checkbox
+                style="width: 100%" v-loading='loading' cell-class-name = "row_height_left" :row-height="rowheight">
+        <pl-table-column reserve-selection type="selection" v-if="showSelection" width="55">
+        </pl-table-column>
+        <pl-table-column type="index" v-if="showIndex" width="55" label="NO">
+        </pl-table-column>
+        <pl-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
                          v-for="item in this.columns" v-if="item.child && item.child.length > 0">
-          <el-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
+          <pl-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
                            v-for="o in item.child" v-if="o.child && o.child.length > 0">
-            <el-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix" :formatter="formatter"
+            <pl-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix" :formatter="formatter"
                              :key="oo.code"
                              :label="$t(oo.label)" :label-class-name="oo.labelClass" :min-width="oo.width" :prop="oo.code"
                              align="left" show-overflow-tooltip sortable="custom"
                              v-for="oo in o.child"/>
-          </el-table-column>
-          <el-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix" :formatter="formatter" :key="o.code"
+          </pl-table-column>
+          <pl-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix" :formatter="formatter" :key="o.code"
                            :label="$t(o.label)" :label-class-name="o.labelClass" :min-width="o.width" :prop="o.code"
                            align="left" show-overflow-tooltip sortable="custom"
                            v-else/>
-        </el-table-column>
-        <el-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null" :fixed="item.fix" :formatter="formatter"
+        </pl-table-column>
+        <pl-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null" :fixed="item.fix" :formatter="formatter"
                          :key="item.code"
                          :label="$t(item.label)" :label-class-name="item.labelClass" :min-width="item.width" :prop="item.code"
                          align="left" show-overflow-tooltip sortable="custom"
                          v-else/>
-      </el-table>
+      </pl-table>
+      </div>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
                        :page-sizes="[10,20,30,50,10000]" :total="total" @current-change="handleCurrentChange"
                        @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
           <!--<slot><span class="front Content_front"-->
-          <!--style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
+                      <!--style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
         </el-pagination>
       </div>
     </el-card>
@@ -68,10 +70,12 @@
     data () {
       return {
         total: 0,
+        rowheight:40,
         listQuery: {
           page: 1,
           limit: 10
         },
+        paginationShow:false,
         fit:false,
         pagedate: [],
         searchValue: '',
@@ -152,10 +156,10 @@
       }
     },
     methods: {
-      rowheight({row, column, rowIndex, columnIndex}){
-        let val = row[column.columnKey];
-        return 'row_height_left';
-      },
+      // rowheight({row, column, rowIndex, columnIndex}){
+      //   let val = row[column.columnKey];
+      //   return 'row_height_left';
+      // },
       buttonClick (val) {
         this.$emit('buttonClick', val)
       },
@@ -368,7 +372,6 @@
 <style lang="scss">
   .EasyNormalTable {
     .row_height_left {
-      height: 40px;
       font-size: 0.75rem;
       padding: 0px;
       text-align: left;
@@ -382,10 +385,10 @@
     }
   }
   /*.el-table__body-wrapper{*/
-  /*overflow-x: scroll;*/
-  /*height: 359px !important*/
+    /*overflow-x: scroll;*/
+    /*height: 359px !important*/
   /*}*/
   .el-table /deep/ .current-row{
-    background-color: #7ACAFF !important;
+    background-color: #7ACAFF;
   }
 </style>
