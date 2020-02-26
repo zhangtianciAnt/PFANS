@@ -164,7 +164,7 @@ phase
                         prop="country"
                       >
                         <dicselect
-                          :code="code2"
+                          :code="code7"
                           :data="form.country"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -179,7 +179,7 @@ phase
                         prop="caron"
                       >
                         <dicselect
-                          :code="code3"
+                          :code="code6"
                           :data="form.caron"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -1406,6 +1406,8 @@ phase
         code3: 'PP002',
         code4: 'PP014',
         code5: 'PP015',
+        code6: 'PP016',
+        code7: 'PP017',
         showrow: true,
         showrow1: false,
         showrow2: false,
