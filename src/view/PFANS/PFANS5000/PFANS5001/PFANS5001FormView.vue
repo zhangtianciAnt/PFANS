@@ -169,7 +169,7 @@ phase
                           :disabled="!disable"
                           :multiple="multiple"
                           style="width: 20vw"
-                          @change="getprojecttype"
+                          @change="getcountry"
                         ></dicselect>
                       </el-form-item>
                     </el-col>
@@ -184,7 +184,7 @@ phase
                           :disabled="!disable"
                           :multiple="multiple"
                           style="width: 20vw"
-                          @change="getfield"
+                          @change="getcaron"
                         ></dicselect>
                       </el-form-item>
                     </el-col>
@@ -1732,6 +1732,12 @@ phase
       },
       getfield(val1) {
         this.form.field = val1;
+      },
+      getcountry(val1) {
+        this.form.getcountry = val1;
+      },
+      getcaron(val1) {
+        this.form.getcaron = val1;
       },
       // gettechnological(val1) {
       //   this.form.technological = val1;
