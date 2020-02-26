@@ -10,13 +10,13 @@
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs v-model="activeName1" type="border-card">
             <!--技術契約書(受託)-->
             <el-tab-pane :label="$t('label.PFANS1029FROM_technical')" name="first">
               <div>
-                <el-tabs v-model="activeName" type="border-card">
+                <el-tabs v-model="activeName2" type="border-card">
                   <!--info1-->
-                  <el-tab-pane :label="$t('label.PFANS1029FROM_INFO1')" name="first">
+                  <el-tab-pane :label="$t('label.PFANS1029FROM_INFO1')" name="third">
                     <!--1-->
                     <el-row>
                       <el-col :span="8">
@@ -126,7 +126,7 @@
                   </el-tab-pane>
 
                   <!--info2-->
-                  <el-tab-pane :label="$t('label.PFANS1029FROM_technical')" name="first">
+                  <el-tab-pane :label="$t('label.PFANS1029FROM_technical')" name="fourth">
                     <!--1-->
                     <el-row>
                       <el-col :span="8">
@@ -332,6 +332,7 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
+
           </el-tabs>
         </el-form>
       </div>
@@ -380,13 +381,15 @@
         }
       };
       return {
-        activeName: 'first',
+        activeName1: 'first',
+        activeName2: 'third',
         disabled: true,
         tableAValue:'',
         error: '',
         userlist: '',
         code1: 'PJ010',
         code2: 'HT005',
+        code3:'',
         errorgroup:'',
         selectType: "Single",
         loading: false,
@@ -437,6 +440,7 @@
       }
     },
     mounted() {
+      console.log("fffffffffffffff");
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
@@ -444,6 +448,7 @@
           .then(response => {
             this.form = response;
             this.loading = false;
+            console.log(response);
            /* if (response.length > 0) {
               for (let i = 0; i < response.length; i++) {
                 if(response[i].contracttype !== null && response[i].contracttype !== ""){
