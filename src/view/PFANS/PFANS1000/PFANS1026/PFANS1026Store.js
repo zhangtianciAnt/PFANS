@@ -2,6 +2,7 @@ import {
   get,
   update,
   insert,
+  insertBook,
   } from './PFANS1026Api'
 import {selectById} from "../PFANS1020/PFANS1020Api";
 
@@ -39,6 +40,19 @@ import {selectById} from "../PFANS1020/PFANS1020Api";
       insert({ commit },data) {
         return new Promise((resolve, reject) => {
           insert(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      insertBook({ commit },data) {
+        return new Promise((resolve, reject) => {
+          insertBook(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
