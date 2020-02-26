@@ -55,7 +55,7 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import EasyNormalTable from '@/components/EasyNormalTable';
+  import EasyNormalTable from '@/components/EasyBigDataTable';
   import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
