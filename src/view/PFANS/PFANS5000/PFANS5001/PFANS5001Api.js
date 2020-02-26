@@ -49,3 +49,11 @@ export function getexpat(data) {
     data: data
   })
 }
+
+export function getPjList() {
+  return request({
+    url: 'companyprojects/getPjList',
+    method: 'get'
+  })
+}
+
