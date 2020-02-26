@@ -22,53 +22,79 @@
         data:[],
         columns:[
           {
+            code: 'numbers',
+            label: 'label.PFANS5005VIEW_PROJECTNO',
+            width: 120,
+            fix: false,
+            filter: true
+          },
+          {
             code: 'project_name',
-            label: 'label.PFANS5004VIEW_PROJECTNAMW',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          /*阶段信息*/
-          {
-            code: 'phase',
-            label: 'label.PFANS5009VIEW_PHASE',
+            label: 'label.PFANS5005VIEW_PROJECTNAMW',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'productstatus',
-            label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-            width: 130,
+            code: 'contractnumber',
+            label: 'label.PFANS5005VIEW_CONTRACTID',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'estimatedwork',
-            label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
+            code: 'leaderid',
+            label: 'PL',
+            width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'field',
+            label: 'label.PFANS5005VIEW_FIELD',
             width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'actualwork',
-            label: 'label.PFANS5009VIEW_ACTUALWORK',
+            label: 'label.PFANS5005VIEW_CONTRACTFORM',
             width: 120,
             fix: false,
             filter: true
           },
-          /*合同状态*/
           {
-            code: 'status2',
-            label: 'label.PFANS5009VIEW_STATUS',
-            width: 150,
+            code: 'entrust',
+            label: 'label.PFANS5005VIEW_DEPOSITARY',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'work',
+            label: 'label.PFANS5005VIEW_WORK',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'actualstarttime',
+            label: 'label.PFANS5005VIEW_STARTTIME',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'actualendtime',
+            label: 'label.PFANS5005VIEW_ENDTIME',
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'status',
             label: 'label.approval_status',
-            width: 150,
+            width: 120,
             fix: false,
             filter: true,
           },
@@ -84,9 +110,32 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS5001Store/getFpans5001List', {})
+        .dispatch('PFANS5001Store/getPjList')
         .then(response => {
           for (let j = 0; j < response.length; j++) {
+            // todo status 未定 ,同 PFANS5009
+            if(response[j].leaderid !== null && response[j].leaderid !== "") {
+              let user = getUserInfo(response[j].leaderid);
+              if (user) {
+                response[j].leaderid = user.userinfo.customername;
+              }
+            }
+            if (response[j].field !== null && response[j].field !== "") {
+              let letField = getDictionaryInfo(response[j].field);
+              if (letField != null) {
+                response[j].field = letField.value1;
+              }
+            }
+            if (response[j].actualstarttime !== null && response[j].actualstarttime !== "") {
+              var d = new Date(response[j].actualstarttime);
+              var times=d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+              response[j].actualstarttime = times;
+            }
+            if (response[j].actualendtime !== null && response[j].actualendtime !== "") {
+              var d = new Date(response[j].actualendtime);
+              var times=d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+              response[j].actualendtime = times;
+            }
             if (response[j].status !== null && response[j].status !== "") {
               response[j].status = getStatus(response[j].status);
             }
@@ -145,8 +194,11 @@
           })
         }
 
+      },
+      addZero(num) {
+        return num < 10 ? '0' + num : num;
       }
-    }
+  }
   }
 </script>
 

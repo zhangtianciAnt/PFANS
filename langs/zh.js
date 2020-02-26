@@ -439,7 +439,7 @@ module.exports = {
     judgement: '決裁号',
     enclosurecontent: '将文件拖到此处，或',
     INDEX_NY: '您有',
-    INDEX_DSPSX: '条待审批事项',
+    INDEX_DSPSX: '条待办事项',
     INDEX_YSPSX: '已审批事项',
     INDEX_YBHSX: '已驳回事项',
     INDEX_DBSX: '待办事项',
@@ -1899,6 +1899,20 @@ module.exports = {
     PFANS5004VIEW_FINSHTIME: '完成时间',
     PFANS5004VIEW_STAFF: '员工',
     PFANS5004VIEW_ASSIST: '外协',
+
+    //todo
+    PFANS5005VIEW_PROJECTNO: '项目编号',
+    PFANS5005VIEW_PROJECTNAMW: '项目名称',
+    PFANS5005VIEW_CONTRACTID: '契約番号',
+    PFANS5005VIEW_FIELD: '项目分野',
+    PFANS5005VIEW_CONTRACTFORM: '契約形式',
+    PFANS5005VIEW_DEPOSITARY: '委託元',
+    PFANS5005VIEW_WORK: '受託工数',
+    PFANS5005VIEW_STARTTIME: '开始日期',
+    PFANS5005VIEW_ENDTIME: '结束时间',
+    PFANS5005VIEW_STATUS: '审批状态',
+
+
     PFANS5008VIEW_RIQI: '日志日期',
     PFANS5008VIEW_JOBS: '工作描述',
     PFANS5008VIEW_PROGRAM: '项目',

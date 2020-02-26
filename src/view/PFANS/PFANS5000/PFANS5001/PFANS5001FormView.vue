@@ -1,4 +1,3 @@
-phase
 <template>
   <div>
     <EasyNormalContainer
@@ -164,7 +163,7 @@ phase
                         prop="country"
                       >
                         <dicselect
-                          :code="code7"
+                          :code="code6"
                           :data="form.country"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -179,7 +178,7 @@ phase
                         prop="caron"
                       >
                         <dicselect
-                          :code="code6"
+                          :code="code7"
                           :data="form.caron"
                           :disabled="!disable"
                           :multiple="multiple"
@@ -1339,7 +1338,7 @@ phase
               trigger: 'blur',
             },
           ],
-          // 车载
+          // 事业国别
           country: [
             {
               required: true,
@@ -1347,7 +1346,7 @@ phase
               trigger: 'blur',
             },
           ],
-          // 事业国别
+          // 车载
           caron: [
             {
               required: true,
@@ -1371,7 +1370,7 @@ phase
           startdate: '',
           // 事业国别
           country: '',
-          // 车载
+          //车载
           caron: '',
           // 委托元
           entrust: '',
@@ -1412,8 +1411,8 @@ phase
         code3: 'PP002',
         code4: 'PP014',
         code5: 'PP015',
-        code6: 'PP016',
-        code7: 'PP017',
+        code6: 'PP017',
+        code7: 'PP016',
         showrow: true,
         showrow1: false,
         showrow2: false,
@@ -1740,10 +1739,10 @@ phase
         this.form.field = val1;
       },
       getcountry(val1) {
-        this.form.getcountry = val1;
+        this.form.country = val1;
       },
       getcaron(val1) {
-        this.form.getcaron = val1;
+        this.form.caron = val1;
       },
       // gettechnological(val1) {
       //   this.form.technological = val1;
@@ -2011,6 +2010,9 @@ phase
                 return prev;
               }
             }, 0);
+            if (index == 2) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '0.00';
           }
@@ -2046,7 +2048,6 @@ phase
           });
       },
       buttonClick(val) {
-        alert(this.form.plannedwh);
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
 
