@@ -156,38 +156,6 @@ phase
                         ></dicselect>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_COUNTRY')"
-                        prop="country"
-                      >
-                        <dicselect
-                          :code="code7"
-                          :data="form.country"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getcountry"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_CARON')"
-                        prop="caron"
-                      >
-                        <dicselect
-                          :code="code6"
-                          :data="form.caron"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getcaron"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
                         <el-input
@@ -428,7 +396,7 @@ phase
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA"  stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" :summary-method="getTsummaries" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -845,10 +813,8 @@ phase
             <!--            合同-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
-                <el-table :data="tableD" :summary-method="getTsummaries"
-                          show-summary
-                          border
-                          header-cell-class-name="sub_bg_color_blue" stripe>
+                <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="width: 90vw">
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center">
@@ -919,7 +885,7 @@ phase
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')"
-                    align="center" prop="workinghours">
+                    align="center">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -1072,7 +1038,6 @@ phase
         }
       };
       return {
-        tableDValue:'',
         centerorglist: '',
         grouporglist: '',
         teamorglist: '',
@@ -1342,22 +1307,6 @@ phase
               trigger: 'blur',
             },
           ],
-          // 车载
-          country: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_name'),
-              trigger: 'blur',
-            },
-          ],
-          // 事业国别
-          caron: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_name'),
-              trigger: 'blur',
-            },
-          ],
         },
         baseInfo: {},
         form: {
@@ -1372,10 +1321,6 @@ phase
           field: '',
           languages: '',
           startdate: '',
-          // 事业国别
-          country: '',
-          // 车载
-          caron: '',
           // 委托元
           entrust: '',
           enddate: '',
@@ -1415,8 +1360,6 @@ phase
         code3: 'PP002',
         code4: 'PP014',
         code5: 'PP015',
-        code6: 'PP016',
-        code7: 'PP017',
         showrow: true,
         showrow1: false,
         showrow2: false,
@@ -1742,12 +1685,6 @@ phase
       getfield(val1) {
         this.form.field = val1;
       },
-      getcountry(val1) {
-        this.form.getcountry = val1;
-      },
-      getcaron(val1) {
-        this.form.getcaron = val1;
-      },
       // gettechnological(val1) {
       //   this.form.technological = val1;
       // },
@@ -1996,7 +1933,6 @@ phase
         }
       },
       //计划合计
-
       getTsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -2015,11 +1951,13 @@ phase
                 return prev;
               }
             }, 0);
+            if (index == 2) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
-            sums[index] = '--'
+            sums[index] = '0.00';
           }
         });
-        this.tableDValue=sums;
         return sums;
       },
       getexpatriatesinfor() {
@@ -2051,9 +1989,10 @@ phase
           });
       },
       buttonClick(val) {
+        alert(this.form.plannedwh);
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
-        this.form.plannedwh=this.tableDValue[2];
+
         this.$refs['from1'].validate(valid => {
           if (valid) {
             this.loading = true;
