@@ -413,7 +413,7 @@
       };
     },
     mounted() {
-      this.loading = true;
+
       // TAB1
       for (var i = 0; i < this.array.length; i++) {
         this.columns[i + 1].label = this.array[i];
@@ -446,7 +446,6 @@
       this.loadTableB();
       this.loadTableC();
 
-      this.loading = false
     },
     methods: {
       // rowspan
@@ -553,6 +552,7 @@
         if (this.tableALoading == false) {
           return;
         }
+        this.loading = true;
         this.$store
           .dispatch('PFANS6009Store/getCostList')
           .then(response => {
