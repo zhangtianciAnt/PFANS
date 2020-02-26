@@ -53,15 +53,21 @@
       submitForm(val) {
         if (val === 1) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1039FormView");
+          this.$router.push({
+            name: 'PFANS1039View',
+            params: {
+              title: val,
+            },
+          });
         }else if (val === 2) {
             this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1040FormView");
+          this.$router.push({
+            name: 'PFANS1040View',
+            params: {
+              title: val,
+            },
+          });
         }
-        this.$router.push({
-          name: 'PFANS1041FormView',
-          params: {
-            title: val,
-          },
-        });
       },
     },
   };
