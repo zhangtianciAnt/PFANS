@@ -56,14 +56,38 @@ first<template>
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <template>
-              <el-popconfirm title="这是一段内容确定删除吗？">
               <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
                   <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
-              </el-popconfirm>
-              </template>
+            </div>
+          </el-dialog>
+          <el-dialog :visible.sync="dialogBook" width="30%">
+            <div  class="dialog-footer" align="center">
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+<!--              <el-button @click="dialogBook = false">-->
+<!--                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}-->
+<!--                  </span>-->
+<!--              </el-button>-->
+<!--              <el-button  slot="reference" @click="dialogBook = false">-->
+<!--                  <span style="margin-right: 86%;" @click="clickData(2)">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}-->
+<!--                  </span>-->
+<!--              </el-button>-->
             </div>
           </el-dialog>
           <el-tabs v-model="activeName" type="border-card">
@@ -2956,6 +2980,7 @@ first<template>
                 checkeddisplay: true,
                 index: "",
                 dialogFormVisible: false,
+                dialogBook: false,
                 display:true,
                 grouporglist: '',
                 groupinfo:[],
@@ -3118,7 +3143,7 @@ first<template>
         },
         created() {
             this.disabled = this.$route.params.disabled;
-            if (!this.disabled) {
+            if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
                 this.buttonList = [];
             }
         },
@@ -4282,7 +4307,7 @@ first<template>
                 else if(this.contractnumbercount.toString().length === 3){
                     number = '0' + this.contractnumbercount
                 }
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number + letbook;
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
                 let datacount = 0;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
@@ -4694,6 +4719,10 @@ first<template>
                     }
                 }
             },
+            //書類作成
+            clickData(val){
+              alert(val);
+            },
             paramsTitle(){
                 this.$router.push({
                     name: 'PFANS1026View',
@@ -4859,6 +4888,9 @@ first<template>
                             }
                         }
                     });
+                }
+                if (val === "makeinto") {
+                    this.dialogBook = true;
                 }
             }
         }

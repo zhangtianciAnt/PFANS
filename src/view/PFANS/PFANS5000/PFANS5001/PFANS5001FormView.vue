@@ -156,6 +156,38 @@ phase
                         ></dicselect>
                       </el-form-item>
                     </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS5001FORMVIEW_COUNTRY')"
+                        prop="country"
+                      >
+                        <dicselect
+                          :code="code7"
+                          :data="form.country"
+                          :disabled="!disable"
+                          :multiple="multiple"
+                          style="width: 20vw"
+                          @change="getcountry"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS5001FORMVIEW_CARON')"
+                        prop="caron"
+                      >
+                        <dicselect
+                          :code="code6"
+                          :data="form.caron"
+                          :disabled="!disable"
+                          :multiple="multiple"
+                          style="width: 20vw"
+                          @change="getcaron"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
                         <el-input
@@ -1307,6 +1339,22 @@ phase
               trigger: 'blur',
             },
           ],
+          // 车载
+          country: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
+          // 事业国别
+          caron: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
         },
         baseInfo: {},
         form: {
@@ -1321,6 +1369,10 @@ phase
           field: '',
           languages: '',
           startdate: '',
+          // 事业国别
+          country: '',
+          // 车载
+          caron: '',
           // 委托元
           entrust: '',
           enddate: '',
@@ -1360,6 +1412,8 @@ phase
         code3: 'PP002',
         code4: 'PP014',
         code5: 'PP015',
+        code6: 'PP016',
+        code7: 'PP017',
         showrow: true,
         showrow1: false,
         showrow2: false,
@@ -1684,6 +1738,12 @@ phase
       },
       getfield(val1) {
         this.form.field = val1;
+      },
+      getcountry(val1) {
+        this.form.getcountry = val1;
+      },
+      getcaron(val1) {
+        this.form.getcaron = val1;
       },
       // gettechnological(val1) {
       //   this.form.technological = val1;
