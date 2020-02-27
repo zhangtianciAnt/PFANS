@@ -982,8 +982,21 @@
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_FILEUPLOAD')" name="seventh">
               <el-form-item>
                 <el-row>
-                  <el-col :span="24">
-
+                  <el-col :span="8">
+                      <el-upload
+                        :disabled="!disable"
+                        :action="upload"
+                        :file-list="fileList"
+                        :on-remove="fileRemove"
+                        :on-preview="fileDownload"
+                        :on-success="fileSuccess"
+                        :on-error="fileError"
+                        class="upload-demo"
+                        drag
+                        ref="upload">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                      </el-upload>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -999,13 +1012,12 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect.vue';
-  import {uploadUrl} from '@/utils/customize';
   import {getUserInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from '../../../components/org';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo,uploadUrl} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS5001FormView',
@@ -2051,6 +2063,47 @@
             this.loading = false;
           });
       },
+      //上传附件
+      fileError(err, file, fileList){
+        Message({
+          message: this.$t("normal.error_04"),
+          type: 'error',
+          duration: 5 * 1000
+        });
+      },
+      fileRemove(file, fileList){
+        this.fileList = [];
+        this.form.uploadfile = "";
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + "," + item.url + ";"
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = "";
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + "," + o.url + ";"
+        }
+      },
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
@@ -2063,6 +2116,14 @@
             } else {
               this.form.tools = '';
             }
+            var manMonth = 0;
+            for (let i = 0; i < this.tableA.length; i++) {
+              debugger;
+              if(this.tableA.estimatedwork !== ''){
+                manMonth = Math.round((manMonth + this.tableA[i].estimatedwork)*100)/100;
+              }
+            }
+            this.form.manmonth = manMonth;
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
@@ -2087,16 +2148,6 @@
                 });
               }
             }
-            for (let i = 0; i < this.tableA.length; i++) {
-              let manMonth = 0;
-              if(this.tableA.estimatedwork !== ''){
-                manMonth = manMonth +this.tableA[i].estimatedwork;
-                this.baseInfo.stageinformation.push({
-                  manmonth: manMonth,
-                });
-              }
-            }
-            alert("aaa" + this.tableA.manmonth);
             for (let i = 0; i < this.tableB.length; i++) {
               if (
                 this.tableB[i].number !== '' ||
@@ -2178,7 +2229,6 @@
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
-                  console.log('VVVAAAAA' + response);
                   this.data = response;
                   this.loading = false;
                   this.$message({

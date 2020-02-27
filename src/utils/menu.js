@@ -1267,6 +1267,40 @@ export function menu() {
                     }
                   ]
                 },
+                {
+                  '_id': 'PFANS5012',
+                  'name': 'menu.PFANS5012',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS5012View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {
+                      "_id": "PFANS5012_read",
+                      "actiontype": "0",
+                      "name": 'button.view',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5012_new",
+                      "actiontype": "new",
+                      "name": 'button.insert',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5012_edit",
+                      "actiontype": "edit",
+                      "name": 'button.update',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5012_del",
+                      "actiontype": "del",
+                      "name": 'button.delete',
+                      "auth": 4
+                    }
+                  ]
+                },
               ]
             },
             {
