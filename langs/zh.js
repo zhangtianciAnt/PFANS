@@ -61,6 +61,7 @@ module.exports = {
     application: '契約番号申請',
     cancellation: '契約番号廃棄',
     makeinto: '書類作成',
+    handle: '处理',
   },
   table: {
     detail: '一览',
@@ -2047,6 +2048,7 @@ module.exports = {
     PFANS5009FORMVIEW_CONTRACTSTATUS1: '已关联',
     PFANS5009FORMVIEW_CONTRACTSTATUS2: '未关联',
     PFANS5009FORMVIEW_MONTH: '月份',
+    PFANS5009VIEW_PLANNEDWH: '計画工数',
     PFANS5012VIEW_CENTER: 'Center',
     PFANS5012VIEW_GROUP: 'Group ',
     PFANS6001VIEW_GRADUATESCHOOL: '毕业院校',
