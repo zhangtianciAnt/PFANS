@@ -13,6 +13,7 @@ const getters = {
   orgs: state => state.usersStore.orgs,
   fileToken: state => state.global.fileToken,
   cooperinterviewList: state => state.global.cooperinterviewList,
+  supplierinforList: state => state.global.supplierinforList,
 }
 
 export default getters

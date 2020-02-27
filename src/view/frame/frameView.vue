@@ -463,6 +463,18 @@
               })
           })
       },
+      //获取供应商列表
+      getSupplierinfor() {
+        this.$store.dispatch('PFANS1038Store/getSupplierinfor').then(response => {
+          this.$store.commit("global/SET_SUPPLIERINFOR", response);
+        }).catch(err => {
+          Message({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000
+          })
+        })
+      },
     },
     mounted() {
       this.handleSelect("homePage");
@@ -477,6 +489,7 @@
       this.getDay();
       this.getFileToken();
       this.getCooperinterviewList();
+      this.getSupplierinfor();
     },
     created() {
       this.messageconnect();
