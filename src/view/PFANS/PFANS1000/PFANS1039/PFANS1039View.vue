@@ -352,7 +352,7 @@
             <el-table-column :label="$t('label.operation')" align="center" width="200">
               <template slot-scope="scope">
                 <el-button
-                  :disabled="!disabled"
+                  :disabled="disabled"
                   @click.native.prevent="deleteRowF(scope.$index, tableF)"
                   plain
                   size="small"
@@ -360,7 +360,7 @@
                 >{{$t('button.delete')}}
                 </el-button>
                 <el-button
-                  :disabled="!disabled"
+                  :disabled="disabled"
                   @click="addRowF()"
                   plain
                   size="small"
