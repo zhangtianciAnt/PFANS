@@ -491,7 +491,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo,getCooperinterviewList} from '@/utils/customize';
   export default {
     name: "PFANS6006View",
     components: {
@@ -646,9 +646,9 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].expname !== null && response[j].expname !== "") {
-                let expname = getUserInfo(response[j].expname);
+                let expname = getCooperinterviewList(response[j].expname);
                 if (expname) {
-                  response[j].expname = user.userinfo.customername;
+                  response[j].expname = coopername.coopername;;
                 }
               }
               if (response[j].suppliername !== null && response[j].suppliername !== "") {

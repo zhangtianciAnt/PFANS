@@ -268,8 +268,22 @@ export function getCooperinterviewList(cooperuserid) {
   let info = null;
   if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
     debugger;
+    console.log(store.getters);
     for (let cooperinterview of store.getters.cooperinterviewList) {
       if (cooperinterview.cooperuserid === cooperuserid) {
+        info = cooperinterview;
+        break
+      }
+    }
+  }
+  return info
+}
+
+export function getSupplierinfor(id) {
+  let info = null;
+  if (store.getters.supplierinforList && store.getters.supplierinforList.length > 0) {
+    for (let cooperinterview of store.getters.supplierinforList) {
+      if (cooperinterview.supplierinfor_id === id) {
         info = cooperinterview;
         break
       }

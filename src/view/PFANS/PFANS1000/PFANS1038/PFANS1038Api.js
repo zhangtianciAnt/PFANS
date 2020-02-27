@@ -9,3 +9,43 @@ export function getCustomerInfo(id) {
     }
   })
 }
+
+export function getExpatriatesinfor() {
+  return request({
+    url: 'personnelplan/getexpatriatesinfor',
+    method: 'get'
+  })
+}
+
+export function getExternal() {
+  return request({
+    url: 'personnelplan/getsupplierinfor',
+    method: 'get'
+  })
+}
+
+export function insert(data) {
+  return request({
+    url: 'personnelplan/insert',
+    method: 'post',
+    data: data
+  })
+}
+
+export function update(data) {
+  return request({
+    url: 'personnelplan/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getOne(data) {
+  return request({
+    url: 'personnelplan/getone',
+    method: 'get',
+    params: {
+      id:data
+    }
+  })
+}
