@@ -466,7 +466,6 @@
       //获取供应商列表
       getSupplierinfor() {
         this.$store.dispatch('PFANS1038Store/getSupplierinfor').then(response => {
-          debugger;
           this.$store.commit("global/SET_SUPPLIERINFOR", response);
         }).catch(err => {
           Message({

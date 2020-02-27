@@ -737,6 +737,44 @@
                       </el-table>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')" name="sixth">
+                      <el-row >
+                        <el-table :data="tableCommun6"
+                                  border
+                                  header-cell-class-name="sub_bg_color_blue" stripe>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_DETERMINER')" align="center" width="150">
+                            <template slot-scope="scope">
+                              <!--判定者-->
+                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.determiner">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--氏　名-->
+                          <el-table-column :label="$t('label.PFANS1028VIEW_SURNAME')" align="center" width="170">
+                            <template slot-scope="scope">
+                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.surname"></el-input>
+                            </template>
+                          </el-table-column>
+                          <!--印-->
+                          <el-table-column :label="$t('label.PFANS1028VIEW_PRINT2')" align="center" width="170">
+                            <template slot-scope="scope">
+                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.print2"></el-input>
+                            </template>
+                          </el-table-column>
+                          <!--日付-->
+                          <el-table-column :label="$t('label.PFANS2010VIEW_APPLICATION')" align="center" width="150">
+                            <template slot-scope="scope">
+                              <el-date-picker
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 100%"
+                                v-model="scope.row.application"
+                              ></el-date-picker>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-row>
+
+
                     </el-tab-pane>
 
                   </el-tabs>
@@ -1132,7 +1170,6 @@
           points: '規制要点',
          judgment2: '判定対象②',
         },],
-
         tableIndustrial: [{
           japno: '4',
           tradename: this.$t('label.PFANS1028VIEW_TRADENAME4'),
@@ -1460,7 +1497,25 @@
             remarks: '',
           },
         ],
-
+        tableCommun6:[{
+          determiner:this.$t('label.PFANS1024VIEW_FIRSTJUDGE'),
+          surname: '',
+          print2: '',
+          application: '',
+        },
+          {
+            determiner:this.$t('label.PFANS1024VIEW_SECONDJUDGE'),
+            surname: '',
+            print2: '',
+            application: '',
+          },
+          {
+            determiner: this.$t('label.PFANS1024VIEW_OUTPUTMANAGER'),
+            surname: '',
+            print2: '',
+            application: '',
+          }
+        ],
         rules: {
           user_id: [{
             required: true,

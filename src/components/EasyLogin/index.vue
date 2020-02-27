@@ -10,6 +10,7 @@
       label-position="left"
       class="sub_login_color_blue"
       style="height: 100%;background:rgba(0,91,170,0.4)"
+
     >
       <div>
         <el-row :gutter="24" style="text-align: center">
@@ -26,6 +27,7 @@
           type="text"
           v-model="loginForm.account"
           autocomplete="off"
+          @keyup.enter.native="handleLogin"
           :placeholder="$t('login.name')"
         ></el-input>
       </el-form-item>
@@ -36,6 +38,7 @@
           :type="passwordType"
           v-model="loginForm.password"
           autocomplete="off"
+          @keyup.enter.native="handleLogin"
           :placeholder="$t('login.password')"
           show-password
         ></el-input>
@@ -53,6 +56,7 @@
         style="width:80%;margin-top:40px;font-size:18px"
         :loading="loading"
         @click="handleLogin"
+        @keyup.enter.native="handleLogin"
       >{{$t('login.confirmbutton')}}</el-button>
     </el-form>
   </div>
