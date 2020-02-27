@@ -14,6 +14,9 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
+          <el-tabs v-model="activeName" type="border-card">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" name="first">
+              <div>
           <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe border>
             <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
               <template slot-scope="scope">
@@ -367,6 +370,9 @@
               </template>
             </el-table-column>
           </el-table>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -387,10 +393,10 @@
     data() {
       return {
         title: 'title.PFANS1039VIEW',
+        activeName: 'first',
         loading: false,
         disabled: false,
         buttonList: [],
-        disablecurr: false,
         arrays: [
           {disabled: true},
           {disabled: true},
@@ -523,8 +529,8 @@
       }
     },
     created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
+      this.disabled = this.$route.params.disabled;
+      if (this.disabled) {
         this.buttonList = [
           {
             key: "save",
