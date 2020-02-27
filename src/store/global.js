@@ -15,6 +15,7 @@ const global = {
     days:[],
     fileToken:"",
     cooperinterviewList:[],
+    supplierinforList:[],
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -52,6 +53,9 @@ const global = {
     },
     SET_COOPERINTERVIEWLIST(state, infos) {
       state.cooperinterviewList = infos
+    },
+    SET_SUPPLIERINFOR(state, infos) {
+      state.supplierinforList = infos
     },
   }
 }
