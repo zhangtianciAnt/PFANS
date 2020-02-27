@@ -655,6 +655,14 @@
         this.$store
           .dispatch('PFANS6008Store/getCostList')
           .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if(response[j].bpname !== null && response[j].bpname !== "") {
+                let user = getUserInfo(response[j].bpname);
+                if (user) {
+                  response[j].bpname = user.userinfo.customername;
+                }
+              }
+            }
             this.data = response;
             this.loading = false;
           })
