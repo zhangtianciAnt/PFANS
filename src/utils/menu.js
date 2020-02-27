@@ -642,7 +642,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'ASSETS',
+                  '_id': 'ASSETS1',
                   'name': 'menu.ASSETS',
                   'menuvisible': true,
                   'menuurl': '',

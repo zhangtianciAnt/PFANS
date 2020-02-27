@@ -53,7 +53,7 @@
     import {getToken} from '@/utils/auth'
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import {getUserInfo, getDictionaryInfo,getCooperinterviewList} from '@/utils/customize';
     import moment from 'moment';
 
     export default {
@@ -182,9 +182,9 @@
                                 }
                             }
                             if (response[j].expname !== null && response[j].expname !== "") {
-                                let expname = getUserInfo(response[j].expname);
+                                let expname = getCooperinterviewList(response[j].expname);
                                 if (expname) {
-                                    response[j].expname = user.userinfo.customername;
+                                    response[j].expname = expname.coopername;
                                 }
                             }
                             if (response[j].sex !== null && response[j].sex !== "") {
