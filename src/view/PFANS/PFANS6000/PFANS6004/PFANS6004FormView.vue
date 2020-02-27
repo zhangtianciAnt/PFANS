@@ -419,7 +419,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo,getUserInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo,getUserInfo,getCooperinterviewList} from '../../../../utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -861,7 +861,7 @@
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               vote.contactinformation = response[i].contactinformation;
               vote.age = response[i].age;
-              vote.suppliername = response[i].suppliername;
+              vote.suppliername = response[i].supchineseid;
               vote.graduateschool = response[i].graduateschool;
               vote.education = getDictionaryInfo(response[i].education).value1;
               vote.graduation_year = response[i].graduation_year;
