@@ -106,23 +106,25 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'contractapplication_id'
+        row_id: 'contract_id'
       }
     },
     mounted() {
+        console.log("mounted........");
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get',{'type': '1'})
+        .dispatch('PFANS1029Store/get',{})
         .then(response => {
+            console.log(response);
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+              if (response[j].openingdate !== null && response[j].openingdate !== ""){
+                response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
               }
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
+              if (response[j].enddate !== null && response[j].enddate !== ""){
+                    response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+                }
             }
           }
           this.data = response;
@@ -139,7 +141,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.contractapplication_id;
+        this.rowid = row.contract_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);

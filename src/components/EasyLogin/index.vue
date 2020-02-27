@@ -14,10 +14,12 @@
       <div>
         <el-row :gutter="24" style="text-align: center">
           <el-col :span="24" style="margin: 0 auto"><img :src="logo" style="height: 60px;width: auto;padding-top: 30px"/></el-col>
-
+        </el-row>
+        <el-row :gutter="24" style="text-align: center">
+          <el-col :span="24" style="margin: 0 auto"><img :src="pfans" style="height: 30px;width: 80%"/></el-col>
         </el-row>
       </div>
-      <el-form-item prop="account" style="padding-top: 30px;width: 80%;margin: 0 auto">
+      <el-form-item prop="account" style="padding-top: 15px;width: 80%;margin: 0 auto">
         <el-input
           name="account"
           prefix-icon="el-icon-edit"
@@ -58,6 +60,7 @@
 
 <script>
 import basselogo from "@/assets/png/panasonic_logo.png";
+import pfans from "@/assets/svg/pfans.svg";
 import ConfirmSlider from "@/components/EasySliderConfirm";
 import { Message } from "element-ui";
 import { setToken } from "@/utils/auth.js";
@@ -108,6 +111,7 @@ export default {
     };
 
     return {
+      pfans: pfans,
       loginForm: {
         account: "",
         password: ""

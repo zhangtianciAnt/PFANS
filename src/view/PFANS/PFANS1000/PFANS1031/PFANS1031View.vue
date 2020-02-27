@@ -132,7 +132,6 @@
       this.$store
         .dispatch('PFANS1031Store/get',{})
         .then(response => {
-            console.log(response);
           this.data = response;
           this.loading = false
         })

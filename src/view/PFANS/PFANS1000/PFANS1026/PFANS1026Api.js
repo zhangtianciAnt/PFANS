@@ -23,3 +23,11 @@ export function insert(data) {
     data: data
   })
 }
+
+export function insertBook(data) {
+  return request({
+    url: 'contractapplication/insertBook',
+    method: 'post',
+    data: data
+  })
+}

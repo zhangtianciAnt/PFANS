@@ -14,96 +14,89 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {getDictionaryInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
-  import moment from "moment";
+
 
   export default {
-    name: "PFANS1025View",
+    name: "PFANS1028View",
     components: {
       EasyNormalTable,
     },
     data(){
       return{
         loading: false,
-        title: "title.PFANS1025VIEW",
+        title: "title.PFANS1028VIEW",
         data: [],
         columns:[
           {
-            code: 'contractnumber',
-            label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
+            code: 'no',
+            label: 'label.PFANS1028VIEW_NO',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'contracttype',
-            label: 'label.PFANS1024VIEW_CONTRACTTYPE',
+            code: 'career',
+            label: 'label.PFANS1028VIEW_CAREER',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'entrustjapanese',
-            label: 'label.PFANS1025VIEW_ENTRUST',
+            code: 'organization',
+            label: 'label.PFANS1028VIEW_ORGANIZATION',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'enplacechinese',
-            label: 'label.PFANS1025VIEW_ENTRUSTPLACE',
+            code: 'name',
+            label: 'label.PFANS1028VIEW_NAME',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'deployment',
-            label: 'label.PFANS1024VIEW_DEPLOYMENT',
+            code: 'depositary',
+            label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'pjnamejapanese',
-            label: 'label.PFANS1025VIEW_PJNAME',
+            code: 'country',
+            label: 'label.PFANS1028VIEW_COUNTRY',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'developdate',
-            label: 'label.PFANS1025VIEW_DEVELOPDATE',
+            code: 'review',
+            label: 'label.PFANS1028VIEW_REVIEW',
             width: 200,
             fix: false,
             filter: true
           },
 
           {
-            code: 'deliverydate',
-            label: 'label.PFANS1024VIEW_DELIVERYDATE',
+            code: 'requirements',
+            label: 'label.PFANS1028VIEW_REQUIREMENTS',
+            width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'period',
+            label: 'label.PFANS1028VIEW_PERIOD',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'currencyformat',
-            label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'claimamount',
-            label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
+            code: 'technical',
+            label: 'label.PFANS1028VIEW_TECHNICAL',
+            width: 150,
             fix: false,
             filter: true
           }
@@ -113,23 +106,21 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'award_id'
+        row_id: 'contractapplication_id'
       }
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1025Store/get', {})
+        .dispatch('PFANS1026Store/get',{'type': '1'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== "") {
+            if(response[j].contracttype !== null && response[j].contracttype !== ""){
+              response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
+            }
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
-              }
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
+            if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
+              response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
             }
           }
           this.data = response;
@@ -146,7 +137,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.award_id;
+        this.rowid = row.contractapplication_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -160,7 +151,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1025FormView',
+            name: 'PFANS1028FormView',
             params: {
               _id: this.rowid,
               disabled: true
@@ -177,7 +168,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1025FormView',
+            name: 'PFANS1028FormView',
             params: {
               _id: this.rowid,
               disabled: false

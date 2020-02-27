@@ -2,10 +2,10 @@
   <div>
     <el-container>
       <el-header class="main_bg_color" style="padding: 0">
-        <el-col :span="6">
+        <el-col :span="4">
           <EasyLogo :logo="basselogo" maxheight="4rem" title></EasyLogo>
         </el-col>
-        <el-col :span="18">
+        <el-col :span="20">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
               <el-col :span="24" style="text-align: right;padding-right: 20px">
@@ -23,10 +23,10 @@
       </el-header>
 
       <el-container>
-        <el-col :span="3">
-          <el-aside style="width:auto">
+        <el-col :span="3" class="main_bg_color">
+          <el-aside style="width:auto;height: 100%" class="main_bg_color">
             <EasySider element-loading-spinner="el-icon-loading" siderHeight="6rem"
-                       siderWidth="100%" v-loading="menuLoading">
+                       siderWidth="100%" v-loading="menuLoading" class="main_bg_color">
               <!--<EasyAvatar slot="avatar" :mainPage="userPage" :avatarDep="avatarDep"></EasyAvatar>-->
               <vertical
                 :activeIndex="vactiveIndex"
@@ -55,6 +55,7 @@
   import EasyHeader from "@/components/EasyHeader";
   import EasySider from "@/components/EasySider/index";
   import basselogo from "@/assets/png/panasonic_logo.png";
+  import pfans from "@/assets/svg/pfans.svg";
   import EasyLogo from "@/components/EasyLogo";
   import EasyNotice from "@/components/EasyNotice";
   import EasyHelp from "@/components/EasyHelp";
@@ -122,6 +123,7 @@
         activeIndex: "1",
         activeIndex2: "1",
         basselogo: basselogo,
+        pfans: pfans,
         appdata: [],
         menudata: [],
         avatarDep: "",

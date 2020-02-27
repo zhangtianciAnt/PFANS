@@ -56,14 +56,62 @@ first<template>
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <template>
-              <el-popconfirm title="这是一段内容确定删除吗？">
               <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
                   <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
-              </el-popconfirm>
-              </template>
+            </div>
+          </el-dialog>
+          <el-dialog :visible.sync="dialogBook" width="30%">
+            <div  class="dialog-footer" align="center">
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(2)">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(3)">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(4)">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(5)">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="dialogBook = false">
+                  <span style="margin-right: 86%;" @click="clickData(6)">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
             </div>
           </el-dialog>
           <el-tabs v-model="activeName" type="border-card">
@@ -2956,6 +3004,7 @@ first<template>
                 checkeddisplay: true,
                 index: "",
                 dialogFormVisible: false,
+                dialogBook: false,
                 display:true,
                 grouporglist: '',
                 groupinfo:[],
@@ -3041,6 +3090,7 @@ first<template>
             };
         },
         mounted() {
+
             this.contractnumbercount = this.$route.params.contractnumbercount;
             if (this.$route.params._id) {
                 this.loading = true;
@@ -3118,8 +3168,11 @@ first<template>
         },
         created() {
             this.disabled = this.$route.params.disabled;
-            if (!this.disabled) {
+            if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
                 this.buttonList = [];
+            }
+            if(this.$route.params._id === ''){
+              this.buttonList.splice(3, 1);
             }
         },
         methods: {
@@ -4282,7 +4335,7 @@ first<template>
                 else if(this.contractnumbercount.toString().length === 3){
                     number = '0' + this.contractnumbercount
                 }
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[1] + number + letbook;
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
                 let datacount = 0;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
@@ -4694,6 +4747,34 @@ first<template>
                     }
                 }
             },
+            //書類作成
+            clickData(val){//111
+                var tabledata = {'contractnumber': this.$route.params._id,'rowindex': '6'};
+                this.$refs["refform"].validate(valid => {
+                  if (valid) {
+                    this.loading = true;
+                    this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                          message: this.$t("normal.success_02"),
+                          type: 'success',
+                          duration: 5 * 1000
+                        });
+                        this.paramsTitle();
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000
+                        });
+                        this.loading = false;
+                      })
+                  }
+                });
+            },
             paramsTitle(){
                 this.$router.push({
                     name: 'PFANS1026View',
@@ -4859,6 +4940,9 @@ first<template>
                             }
                         }
                     });
+                }
+                if (val === "makeinto") {
+                    this.dialogBook = true;
                 }
             }
         }
