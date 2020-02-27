@@ -14,8 +14,7 @@
                 :data="form.claimtype"
                 :multiple="multiple"
                 @change="getnumber"
-                style="width: 20vw"
-                :disabled="!disabled2">
+                style="width: 20vw">
               </dicselect>
             </el-form-item>
             <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
@@ -981,7 +980,7 @@
           errorcontractnumber: "",
           loading: false,
           title: "title.PFANS1024VIEW",
-          activeName: 'first',
+          activeName: '',
           disabled: true,
           disabled1: false,
           disabled2: true,
@@ -1043,9 +1042,8 @@
           if (this.$route.params._id) {
               this.loading = true;
               this.$store
-                  .dispatch('PFANS1026Store/get', {"contractapplication_id": this.$route.params._id})
+                  .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params._id})
                   .then(response => {
-                    debugger;
                       if (response.length > 0) {
                           for (let i = 0; i < response.length; i++) {
                               this.maketype = response[i].maketype;
@@ -1579,7 +1577,12 @@
               else if(this.contractnumbercount.toString().length === 2){
                 number = this.contractnumbercount
               }
-              this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+              if(this.checked){
+                  this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
+              }
+              else{
+                  this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+              }
               let datacount = 0;
               if(this.form.contracttype === 'HT014001'){
                   if(this.checked){

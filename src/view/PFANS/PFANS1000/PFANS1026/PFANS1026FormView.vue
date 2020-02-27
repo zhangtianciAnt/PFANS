@@ -4334,7 +4334,12 @@ first<template>
                 else if(this.contractnumbercount.toString().length === 3){
                     number = '0' + this.contractnumbercount
                 }
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
+                if(this.checked){
+                    this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
+                }
+                else{
+                    this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
+                }
                 let datacount = 0;
                 //海外受託 技術開発
                 if(this.form.contracttype === 'HT008001'){
