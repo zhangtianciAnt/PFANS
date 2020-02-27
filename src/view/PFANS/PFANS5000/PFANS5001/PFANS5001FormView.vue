@@ -427,7 +427,7 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA" :summary-method="getTsummaries" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -474,6 +474,7 @@
                           </dicselect>
                         </template>
                       </el-table-column>
+                      <!--                      预计人月-->
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
                         align="center">
@@ -893,7 +894,8 @@
                                   </el-table>
                                 </el-row>
                                 <span slot="footer" class="dialog-footer">
-                                  <el-button type="primary"  @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
+                                  <el-button type="primary"
+                                             @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
                                 </span>
                               </div>
                             </el-dialog>
@@ -1003,7 +1005,7 @@
   import moment from 'moment';
   import {getOrgInfoByUserId} from '@/utils/customize';
   import org from '../../../components/org';
-  import {getDictionaryInfo} from "../../../../utils/customize";
+  import {getDictionaryInfo} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS5001FormView',
@@ -1108,6 +1110,7 @@
             productstatus: '',
             estimatedwork: '',
             actualwork: '',
+            manmonth: '',
             estimatedstarttime: '',
             estimatedendtime: '',
             remarks: '',
@@ -1380,7 +1383,7 @@
           tools: '',
           briefintroduction: '',
           //計画工数
-          plannedwh:'',
+          estimatedwork: '',
           requirement: '',
           behalf: '',
           intelligence: '',
@@ -1991,34 +1994,35 @@
           }];
         }
       },
-      //计划合计
-      getTsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index == 2) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '0.00';
-          }
-        });
-        return sums;
-      },
+      // //计划合计
+      // getTsummaries(param) {
+      //   const {columns, data} = param;
+      //   const sums = [];
+      //   columns.forEach((column, index) => {
+      //     if (index === 0) {
+      //       sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+      //       return;
+      //     }
+      //     const values = data.map(item => Number(item[column.property]));
+      //     if (!values.every(value => isNaN(value))) {
+      //       sums[index] = values.reduce((prev, curr) => {
+      //         const value = Number(curr);
+      //         if (!isNaN(value)) {
+      //           return prev + curr;
+      //         } else {
+      //           return prev;
+      //         }
+      //       }, 0);
+      //       if (index == 2) {
+      //         sums[index] = Math.round((sums[index]) * 100) / 100;
+      //       }
+      //     } else {
+      //       sums[index] = '0.00';
+      //     }
+      //   });
+      //   this.form.estimatedwork = sums;
+      //   return sums;
+      // },
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -2050,7 +2054,6 @@
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
-
         this.$refs['from1'].validate(valid => {
           if (valid) {
             this.loading = true;
@@ -2084,6 +2087,16 @@
                 });
               }
             }
+            for (let i = 0; i < this.tableA.length; i++) {
+              let manMonth = 0;
+              if(this.tableA.estimatedwork !== ''){
+                manMonth = manMonth +this.tableA[i].estimatedwork;
+                this.baseInfo.stageinformation.push({
+                  manmonth: manMonth,
+                });
+              }
+            }
+            alert("aaa" + this.tableA.manmonth);
             for (let i = 0; i < this.tableB.length; i++) {
               if (
                 this.tableB[i].number !== '' ||
