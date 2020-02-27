@@ -1,6 +1,10 @@
 <template>
   <div>
-    <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router :active-text-color="activeTextColor" :collapse="isCollapse">
+    <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
+             :active-text-color="activeTextColor" :collapse="isCollapse"
+             background-color="#005BAA"
+             text-color="#fff"
+             active-text-color="#ffd04b">
       <el-submenu v-for="ob in data" v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0" :index="ob._id" :key="ob._id" v-show="ob.menuvisible">
         <template slot="title">
           <i :class="ob.menuicon" v-if="ob.menuicon"></i>
@@ -129,7 +133,9 @@
     border: black 1px solid;
   }
   /deep/ .el-submenu__title{
-    background-image: linear-gradient(to right, #005BAA , white);
+    /*background-image: linear-gradient(to right, #005BAA , white);*/
+    /*background-color: #005BAA;*/
+    /*color: white;*/
     height: 38px;
     line-height: 38px;
     border: black 1px solid;
