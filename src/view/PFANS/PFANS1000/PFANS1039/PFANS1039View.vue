@@ -14,359 +14,359 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-                    <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe border>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.theme"></el-input>
-                          </template>
-                        </el-table-column>
+          <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe border>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
+              <template slot-scope="scope">
+                <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                          v-model.trim="scope.row.theme"></el-input>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code1"
-                            :data="scope.row.center"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getcenter"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code1"
+                  :data="scope.row.center"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getcenter"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code2"
-                            :data="scope.row.group"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getgroup"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code2"
+                  :data="scope.row.group"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getgroup"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code3"
-                            :data="scope.row.team"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getteam"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code3"
+                  :data="scope.row.team"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getteam"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_KIND')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code4"
-                            :data="scope.row.kind"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getkind"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_KIND')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code4"
+                  :data="scope.row.kind"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getkind"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_CONTRACTFORM')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code5"
-                            :data="scope.row.contractform"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getcontractform"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_CONTRACTFORM')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code5"
+                  :data="scope.row.contractform"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getcontractform"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code6"
-                            :data="scope.row.currencytype"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getcurrencytype"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code6"
+                  :data="scope.row.currencytype"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getcurrencytype"
+                ></dicselect>
+              </template>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="110">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code7"
-                            :data="scope.row.commission"
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            @change="getcommission"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_19January')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel191"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount191" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_19February')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel192"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount192" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_19March')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel193"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount193" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">
+              <template slot-scope="scope">
+                <dicselect
+                  :code="code7"
+                  :data="scope.row.commission"
+                  :disabled="!disabled"
+                  :no="scope.row"
+                  @change="getcommission"
+                ></dicselect>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_19January')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel191"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount191" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_19February')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel192"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount192" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1039FORMVIEW_19March')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel193"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount193" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
 
-                      <el-table-column :label="$t('label.April')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel4"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount4" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.May')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel5"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount5" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.June')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel6"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <<el-input-number v-model="scope.row.amount6" controls-position="right"
-                                              style="width: 11rem" :disabled="!disabled"
-                                              :min="0" :max="1000000000" :precision="2">
-                          </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.July')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel7"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount7" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.August')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel8"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount8" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.September')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel9"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount9" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.October')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel10"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount10" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.November')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel11"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount11" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.December')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel12"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount12" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.January')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel1"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount1" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.February')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel2"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount2" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.March')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.personnel3"></el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input-number v-model="scope.row.amount3" controls-position="right"
-                                             style="width: 11rem" :disabled="!disabled"
-                                             :min="0" :max="1000000000" :precision="2">
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRowF(scope.$index, tableF)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}
-                          </el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRowF()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}
-                          </el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+            <el-table-column :label="$t('label.April')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel4"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount4" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.May')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel5"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount5" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.June')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel6"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount6" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.July')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel7"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount7" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.August')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel8"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount8" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.September')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel9"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount9" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.October')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel10"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount10" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.November')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel11"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount11" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.December')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel12"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount12" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.January')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel1"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount1" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.February')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel2"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount2" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.March')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" maxlength="20" style="width: 100%"
+                            v-model.trim="scope.row.personnel3"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.amount3" controls-position="right"
+                                   style="width: 100%" :disabled="!disabled"
+                                   :min="0" :max="1000000000" :precision="2">
+                  </el-input-number>
+                </template>
+              </el-table-column>
+            </el-table-column>
+            <el-table-column :label="$t('label.operation')" align="center" width="200">
+              <template slot-scope="scope">
+                <el-button
+                  :disabled="!disabled"
+                  @click.native.prevent="deleteRowF(scope.$index, tableF)"
+                  plain
+                  size="small"
+                  type="danger"
+                >{{$t('button.delete')}}
+                </el-button>
+                <el-button
+                  :disabled="!disabled"
+                  @click="addRowF()"
+                  plain
+                  size="small"
+                  type="primary"
+                >{{$t('button.insert')}}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -375,10 +375,7 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import {telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
 
   export default {
@@ -386,47 +383,13 @@
     components: {
       dicselect,
       EasyNormalContainer,
-      user,
     },
     data() {
-      var checkuser = (rule, value, callback) => {
-        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-        } else {
-          this.error = '';
-          return callback();
-        }
-      };
-      var checktele = (rule, value, callback) => {
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1036VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
-        month:"",
-        error: '',
-        options: [],
-        selectType: 'Single',
-        title: 'title.PFANS1036VIEW',
-        userlist: '',
+        title: 'title.PFANS1039VIEW',
         loading: false,
         disabled: false,
-        disablecurr: false,
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        buttonList: [],
         tableF: [
           {
             theme: '',
@@ -467,7 +430,7 @@
             amount2: '',
             personnel3: '',
             amount3: '',
-          }
+          },
         ],
         baseInfo: {},
         code1: 'PJ061',
@@ -485,7 +448,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
+          .dispatch('PFANS1039Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response.businessplan;
             if (response.totalplan.length > 0) {
@@ -520,10 +483,17 @@
       }
     },
     created() {
-      if (!this.$route.params.disabled) {
-        this.buttonList = [];
-      }
       this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            disabled: false,
+            icon: "el-icon-check"
+          }
+        ];
+      }
     },
     methods: {
       getcenter(val, row) {
@@ -551,37 +521,37 @@
         let totalExpect = {};
         let totalActual = {};
         table.forEach(
-          row =>{
+          row => {
             debugger
             let sum = 0;
-            for (let i = 1;i <= 12; i++){
-              if(row.assetstype1 === "1"){
-                sum =  Math.round((row["money" + i]||0) / 12 * 100000) / 100000;
-              }else if(row.assetstype1 === "2"){
-                sum =  Math.round((row["money" + i]||0) / 36 * 100000) / 100000;
-              }else if(row.assetstype1 === "3"){
-                sum =  Math.round((row["money" + i]||0) / 60 * 100000) / 100000;
+            for (let i = 1; i <= 12; i++) {
+              if (row.assetstype1 === '1') {
+                sum = Math.round((row['money' + i] || 0) / 12 * 100000) / 100000;
+              } else if (row.assetstype1 === '2') {
+                sum = Math.round((row['money' + i] || 0) / 36 * 100000) / 100000;
+              } else if (row.assetstype1 === '3') {
+                sum = Math.round((row['money' + i] || 0) / 60 * 100000) / 100000;
               }
-              if(row.assetstype === "0" ){
-                totalExpect["money" + i] =  sum + (totalExpect["money" + i]||0);
-              }else{
-                totalActual["money" + i] =  sum + (totalActual["money" + i]||0);
+              if (row.assetstype === '0') {
+                totalExpect['money' + i] = sum + (totalExpect['money' + i] || 0);
+              } else {
+                totalActual['money' + i] = sum + (totalActual['money' + i] || 0);
               }
             }
-            if(row.assetstype1 === "0" ){
-              totalExpect.numberfirsthalf+= row.numberfirsthalf;
-              totalExpect.numbersecondhalf+= row.numbersecondhalf;
-              totalExpect.numberAnnual+= row.numberAnnual;
-            }else{
+            if (row.assetstype1 === '0') {
+              totalExpect.numberfirsthalf += row.numberfirsthalf;
+              totalExpect.numbersecondhalf += row.numbersecondhalf;
+              totalExpect.numberAnnual += row.numberAnnual;
+            } else {
               totalActual.numberfirsthalf += row.numberfirsthalf;
               totalActual.numbersecondhalf += row.numbersecondhalf;
               totalActual.numberAnnual += row.numberAnnual;
             }
-          }
-        )
-        for(let i = 4;i <= 12; i++){
-          totalActual["money"+ i] += totalActual["money"+ (i - 1)];
-          totalExpect["money"+ i] += totalExpect["money"+ (i - 1)];
+          },
+        );
+        for (let i = 4; i <= 12; i++) {
+          totalActual['money' + i] += totalActual['money' + (i - 1)];
+          totalExpect['money' + i] += totalExpect['money' + (i - 1)];
         }
         totalActual.money1 += totalActual.money12;
         totalExpect.money1 += totalExpect.money12;
@@ -597,74 +567,75 @@
         totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
         totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf)).toFixed(5);
         debugger
-        this.tableG2 = [totalExpect,totalActual];
+        this.tableG2 = [totalExpect, totalActual];
       },
-      handleChange(scope,index){
+      handleChange(scope, index) {
         debugger
-        if(scope.prices > 0 ){
-          scope["money" + index] = scope.prices * scope["number" + index];
-          if(index >= 4 && index <= 9){
-            scope.numberfirsthalf = (scope.number4||0) + (scope.number5||0) + (scope.number6||0) + (scope.number7||0) + (scope.number8||0) + (scope.number9||0);
-            scope.moneyfirsthalf = (scope.money4||0) + (scope.money5||0) + (scope.money6||0) + (scope.money7||0) + (scope.money8||0) + (scope.money9||0);
-          } if((index >= 9 && index <= 12) || (index >= 1 && index <= 3)){
-            scope.numbersecondhalf = (scope.number10||0) + (scope.number1||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
-            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+        if (scope.prices > 0) {
+          scope['money' + index] = scope.prices * scope['number' + index];
+          if (index >= 4 && index <= 9) {
+            scope.numberfirsthalf = (scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0);
+            scope.moneyfirsthalf = (scope.money4 || 0) + (scope.money5 || 0) + (scope.money6 || 0) + (scope.money7 || 0) + (scope.money8 || 0) + (scope.money9 || 0);
           }
-          scope.numberAnnual = scope.numberfirsthalf +  scope.numbersecondhalf;
-          scope.moneyAnnual = scope.moneyfirsthalf +  scope.moneysecondhalf;
+          if ((index >= 9 && index <= 12) || (index >= 1 && index <= 3)) {
+            scope.numbersecondhalf = (scope.number10 || 0) + (scope.number1 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0);
+            scope.moneysecondhalf = (scope.money10 || 0) + (scope.money11 || 0) + (scope.money12 || 0) + (scope.money1 || 0) + (scope.money2 || 0) + (scope.money3 || 0);
+          }
+          scope.numberAnnual = scope.numberfirsthalf + scope.numbersecondhalf;
+          scope.moneyAnnual = scope.moneyfirsthalf + scope.moneysecondhalf;
         }
         this.getSummaries(this.tableF2);
       },
-      objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      objectSpanMethod({row, column, rowIndex, columnIndex}) {
         if (columnIndex === 34) {
           if (rowIndex % 2 === 0) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
       },
-      formatterColumn(row,column,cellValue, index){
+      formatterColumn(row, column, cellValue, index) {
         debugger
-        if(column.property === "type"){
-          if(index === 0){
+        if (column.property === 'type') {
+          if (index === 0) {
             return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
-          }else if(index === 2){
+          } else if (index === 2) {
             return this.$t('label.PFANSUSERVIEW_MEMBERS');
           }
-        }else if(column.property === "level"){
-          if(index === 0){
-            return "参事以上";
-          }else if(index === 1){
-            return "主事以下";
-          }else if(index === 2){
-            return "R10";
-          }else if(index === 3){
-            return "R9A";
-          }else if(index === 4){
-            return "R9B";
-          }else if(index === 5){
-            return "R8A";
-          }else if(index === 6){
-            return "R8B";
-          }else if(index === 7){
-            return "R8C";
-          }else if(index === 8){
-            return "R7";
-          }else if(index === 9){
-            return "R6";
-          }else if(index === 10){
-            return "R5";
-          }else if(index === 11){
-            return "R4";
-          }else if(index === 12){
-            return "R3";
+        } else if (column.property === 'level') {
+          if (index === 0) {
+            return '参事以上';
+          } else if (index === 1) {
+            return '主事以下';
+          } else if (index === 2) {
+            return 'R10';
+          } else if (index === 3) {
+            return 'R9A';
+          } else if (index === 4) {
+            return 'R9B';
+          } else if (index === 5) {
+            return 'R8A';
+          } else if (index === 6) {
+            return 'R8B';
+          } else if (index === 7) {
+            return 'R8C';
+          } else if (index === 8) {
+            return 'R7';
+          } else if (index === 9) {
+            return 'R6';
+          } else if (index === 10) {
+            return 'R5';
+          } else if (index === 11) {
+            return 'R4';
+          } else if (index === 12) {
+            return 'R3';
           }
         }
       },
@@ -673,7 +644,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -699,7 +670,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -725,7 +696,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -751,7 +722,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -777,7 +748,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -803,7 +774,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -829,7 +800,7 @@
         const sums = [];
         columns.forEach((column, index) => {
           if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            sums[index] = this.$t('label.PFANS1039FORMVIEW_TOTAL');
             return;
           }
           const values = data.map(item => Number(item[column.property]));
@@ -893,8 +864,8 @@
         }
       },
       addRowF2() {
-        this.tableF2.push({assetstype:"0"});
-        this.tableF2.push({assetstype:"1"});
+        this.tableF2.push({assetstype: '0'});
+        this.tableF2.push({assetstype: '1'});
       },
       deleteRowL(index, rows) {
         if (rows.length > 1) {
@@ -947,7 +918,7 @@
       buttonClick(val) {
         if (val === 'back') {
           this.$router.push({
-            name: 'PFANS1036View',
+            name: 'PFANS1039View',
             params: {},
           });
         }
@@ -1017,7 +988,7 @@
               if (this.$route.params._id) {
                 this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
+                  .dispatch('PFANS1039Store/updateBusinessplan', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -1028,7 +999,7 @@
                         duration: 5 * 1000,
                       });
                       this.$router.push({
-                        name: 'PFANS1036View',
+                        name: 'PFANS1039View',
                       });
                     }
                   })
@@ -1042,7 +1013,7 @@
                   });
               } else {
                 this.$store
-                  .dispatch('PFANS1036Store/createBusinessplan', this.baseInfo)
+                  .dispatch('PFANS1039Store/createBusinessplan', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -1052,7 +1023,7 @@
                       duration: 5 * 1000,
                     });
                     this.$router.push({
-                      name: 'PFANS1036View',
+                      name: 'PFANS1039View',
                     });
                   })
                   .catch(error => {
@@ -1102,7 +1073,7 @@
   /*  background-color: #fafafa;*/
   /*}*/
 
-  .el-table__body .el-table__row.hover-row td{
+  .el-table__body .el-table__row.hover-row td {
     background-color: #fafafa;
   }
 </style>
