@@ -9,3 +9,9 @@ export function getCustomerInfo(id) {
     }
   })
 }
+export function getSupplierinfor() {
+  return request({
+    url: 'personnelplan/getsupplierinfor',
+    method: 'get',
+  })
+}

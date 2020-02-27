@@ -1,4 +1,4 @@
-import {getCustomerInfo} from '../PFANS1038/PFANS1038Api';
+import {getCustomerInfo,getSupplierinfor} from '../PFANS1038/PFANS1038Api';
 
 const PFANS1038Store = {
   namespaced: true,
@@ -8,6 +8,19 @@ const PFANS1038Store = {
     getCustomerInfo({ commit },id) {
       return new Promise((resolve, reject) => {
         getCustomerInfo(id).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getSupplierinfor({ commit }) {
+      return new Promise((resolve, reject) => {
+        getSupplierinfor().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
