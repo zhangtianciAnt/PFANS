@@ -22,61 +22,87 @@
                           </template>
                         </el-table-column>
 
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.center"></el-input>
-                          </template>
-                          <template slot-scope="scope">
-                            <dicselect
-                              :code="code"
-                              :data="scope.row.phase"
-                              :disabled="!disable"
-                              :no="scope.row"
-                              @change="getrole"
-                            ></dicselect>
-                          </template>
-                        </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="110">
+                        <template slot-scope="scope">
+                          <dicselect
+                            :code="code1"
+                            :data="scope.row.center"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getcenter"
+                          ></dicselect>
+                        </template>
+                      </el-table-column>
 
-                        <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="110">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                  v-model.trim="scope.row.group"></el-input>
-                      </template>
-                    </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="110">
+                        <template slot-scope="scope">
+                          <dicselect
+                            :code="code2"
+                            :data="scope.row.group"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getgroup"
+                          ></dicselect>
+                        </template>
+                      </el-table-column>
 
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="110">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.team"></el-input>
+                          <dicselect
+                            :code="code3"
+                            :data="scope.row.team"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getteam"
+                          ></dicselect>
                         </template>
                       </el-table-column>
 
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_KIND')" align="center" width="110">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.kind"></el-input>
+                          <dicselect
+                            :code="code4"
+                            :data="scope.row.kind"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getkind"
+                          ></dicselect>
                         </template>
                       </el-table-column>
 
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_CONTRACTFORM')" align="center" width="110">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.contractform"></el-input>
+                          <dicselect
+                            :code="code5"
+                            :data="scope.row.contractform"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getcontractform"
+                          ></dicselect>
                         </template>
                       </el-table-column>
 
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="110">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.currencytype"></el-input>
+                          <dicselect
+                            :code="code6"
+                            :data="scope.row.currencytype"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getcurrencytype"
+                          ></dicselect>
                         </template>
                       </el-table-column>
 
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="110">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.commission"></el-input>
+                          <dicselect
+                            :code="code7"
+                            :data="scope.row.commission"
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            @change="getcommission"
+                          ></dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1039FORMVIEW_19January')" align="center" width="110">
@@ -88,8 +114,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount191"></el-input>
+                            <el-input-number v-model="scope.row.amount191" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -102,8 +130,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount192"></el-input>
+                            <el-input-number v-model="scope.row.amount192" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -116,8 +146,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount193"></el-input>
+                            <el-input-number v-model="scope.row.amount193" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -131,8 +163,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount4"></el-input>
+                            <el-input-number v-model="scope.row.amount4" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -470,6 +504,27 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getcenter(val, row) {
+        row.center = val;
+      },
+      getgroup(val, row) {
+        row.group = val;
+      },
+      getteam(val, row) {
+        row.team = val;
+      },
+      getkind(val, row) {
+        row.kind = val;
+      },
+      getcontractform(val, row) {
+        row.contractform = val;
+      },
+      getcurrencytype(val, row) {
+        row.currencytype = val;
+      },
+      getcommission(val, row) {
+        row.commission = val;
+      },
       getSummaries(table) {
         let totalExpect = {};
         let totalActual = {};
