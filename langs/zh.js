@@ -62,6 +62,7 @@ module.exports = {
     cancellation: '契約番号廃棄',
     makeinto: '書類作成',
     handle: '处理',
+    refuse:'拒绝',
   },
   table: {
     detail: '一览',

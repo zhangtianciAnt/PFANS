@@ -179,8 +179,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount5"></el-input>
+                            <el-input-number v-model="scope.row.amount5" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -193,8 +195,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount6"></el-input>
+                            <<el-input-number v-model="scope.row.amount6" controls-position="right"
+                                              style="width: 11rem" :disabled="!disabled"
+                                              :min="0" :max="1000000000" :precision="2">
+                          </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -207,8 +211,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount7"></el-input>
+                            <el-input-number v-model="scope.row.amount7" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -221,8 +227,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount8"></el-input>
+                            <el-input-number v-model="scope.row.amount8" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -235,8 +243,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount9"></el-input>
+                            <el-input-number v-model="scope.row.amount9" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -249,8 +259,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount10"></el-input>
+                            <el-input-number v-model="scope.row.amount10" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -263,8 +275,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount11"></el-input>
+                            <el-input-number v-model="scope.row.amount11" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -277,8 +291,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount12"></el-input>
+                            <el-input-number v-model="scope.row.amount12" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -291,8 +307,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount1"></el-input>
+                            <el-input-number v-model="scope.row.amount1" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -305,8 +323,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount2"></el-input>
+                            <el-input-number v-model="scope.row.amount2" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -319,8 +339,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="110">
                           <template slot-scope="scope">
-                            <el-input :disabled="!disabled"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.amount3"></el-input>
+                            <el-input-number v-model="scope.row.amount3" controls-position="right"
+                                             style="width: 11rem" :disabled="!disabled"
+                                             :min="0" :max="1000000000" :precision="2">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                       </el-table-column>
@@ -395,7 +417,7 @@
         title: 'title.PFANS1036VIEW',
         userlist: '',
         loading: false,
-        disable: false,
+        disabled: false,
         disablecurr: false,
         buttonList: [
           {
