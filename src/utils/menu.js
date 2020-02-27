@@ -525,6 +525,20 @@ export function menu() {
                   'menuicon': '',
                   'children': [
                     {
+                      '_id': 'PFANS1029',
+                      'name': 'menu.PFANS1029',
+                      'menuvisible': true,
+                      'menuurl': '/PFANS1029View',
+                      'menuicon': '',
+                      'children': [],
+                      'actions': [
+                        {"_id": "PFANS1029_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                        {"_id": "PFANS1029_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                        {"_id": "PFANS1029_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                        {"_id": "PFANS1029_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                      ]
+                    },
+                    {
                       '_id': 'PFANS1028',
                       'name': 'menu.PFANS1028',
                       'menuvisible': true,
@@ -642,7 +656,7 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'ASSETS',
+                  '_id': 'ASSETS1',
                   'name': 'menu.ASSETS',
                   'menuvisible': true,
                   'menuurl': '',
@@ -1261,6 +1275,40 @@ export function menu() {
                     },
                     {
                       "_id": "PFANS5009_del",
+                      "actiontype": "del",
+                      "name": 'button.delete',
+                      "auth": 4
+                    }
+                  ]
+                },
+                {
+                  '_id': 'PFANS5011',
+                  'name': 'menu.PFANS5011',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS5011View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {
+                      "_id": "PFANS5011_read",
+                      "actiontype": "0",
+                      "name": 'button.view',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5011_new",
+                      "actiontype": "new",
+                      "name": 'button.insert',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5011_edit",
+                      "actiontype": "edit",
+                      "name": 'button.update',
+                      "auth": 4
+                    },
+                    {
+                      "_id": "PFANS5011_del",
                       "actiontype": "del",
                       "name": 'button.delete',
                       "auth": 4

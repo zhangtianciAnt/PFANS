@@ -1,44 +1,69 @@
-import { getActionsAuth, getNewActionAuth}
-  from '@/components/EasyNormalTable/tableApi'
+import {
+  insert,
+  get,
+  One,
+  update
+}
+  from './PFANS1039Api'
 
-const tableStore = {
+const PFANS1039Store = {
   namespaced: true,
-  state: {
-  },
-
-  mutations: {
-  },
-
+  state: {},
+  mutations: {},
   actions: {
-    // 获取按钮权限
-    getActionsAuth({commit}, data) {
+    get() {
       return new Promise((resolve, reject) => {
-        getActionsAuth(data).then(response => {
+        get().then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
             reject(response.message)
           }
         }).catch(error => {
-          reject(response.message)
+          reject(error);
         })
       })
     },
-    // 获取新建按钮权限
-    getNewActionAuth({commit}) {
+    One({commit}, data) {
       return new Promise((resolve, reject) => {
-        getNewActionAuth().then(response => {
+        getOne(data).then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
             reject(response.message)
           }
         }).catch(error => {
-          reject(response.message)
+          reject(error);
         })
       })
     },
+    update({commit}, data) {
+      return new Promise((resolve, reject) => {
+        update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    insert({commit}, data) {
+      return new Promise((resolve, reject) => {
+        insert(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 }
 
-export default tableStore
+export default PFANS1039Store;

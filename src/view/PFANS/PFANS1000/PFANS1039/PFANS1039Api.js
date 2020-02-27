@@ -1,19 +1,38 @@
-import request from '@/utils/request'
+import request from '../../../../utils/request'
 
-export function getActionsAuth (data) {
+export function get() {
   return request({
-    url: '/auth/getActionsAuth',
-    method: 'get',
-    params: {
-      ownerid: data
-    }
+    url: 'contracttheme/get',
+    method: 'get'
   })
 }
 
-export function getNewActionAuth () {
+export function One(data) {
   return request({
-    url: '/auth/getNewActionAuth',
-    method: 'get',
+    url: 'contracttheme/one',
+    method: 'post',
+    data: data
   })
 }
+
+export function update(data) {
+  return request({
+    url: 'contracttheme/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function insert(data) {
+  return request({
+    url: 'contracttheme/create',
+    method: 'post',
+    data: data
+  })
+}
+
+
+
+
+
 

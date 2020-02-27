@@ -60,6 +60,8 @@ import PFANS1025View from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025View.vue'
 import PFANS1025FormView from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025FormView.vue'
 import PFANS1026View from '@/view/PFANS/PFANS1000/PFANS1026/PFANS1026View.vue'
 import PFANS1026FormView from '@/view/PFANS/PFANS1000/PFANS1026/PFANS1026FormView.vue'
+import PFANS1027View from '@/view/PFANS/PFANS1000/PFANS1027/PFANS1027View.vue'
+import PFANS1027FormView from '@/view/PFANS/PFANS1000/PFANS1027/PFANS1027FormView.vue'
 import PFANS1028View from '@/view/PFANS/PFANS1000/PFANS1028/PFANS1028View.vue'
 import PFANS1028FormView from '@/view/PFANS/PFANS1000/PFANS1028/PFANS1028FormView.vue'
 import PFANS1029View from '@/view/PFANS/PFANS1000/PFANS1029/PFANS1029View.vue'
@@ -145,6 +147,8 @@ import PFANS5005FormView from '@/view/PFANS/PFANS5000/PFANS5005/PFANS5005FormVie
 import PFANS5008View from '@/view/PFANS/PFANS5000/PFANS5008/PFANS5008View.vue'
 import PFANS5008FormView from '@/view/PFANS/PFANS5000/PFANS5008/PFANS5008FormView.vue'
 import PFANS5009View from '@/view/PFANS/PFANS5000/PFANS5009/PFANS5009View.vue'
+import PFANS5011FormView from '@/view/PFANS/PFANS5000/PFANS5011/PFANS5011FormView.vue'
+import PFANS5011View from '@/view/PFANS/PFANS5000/PFANS5011/PFANS5011View.vue'
 import PFANS5009FormView from '@/view/PFANS/PFANS5000/PFANS5009/PFANS5009FormView.vue'
 import PFANS5012View from '@/view/PFANS/PFANS5000/PFANS5012/PFANS5012View.vue'
 import PFANS5012FormView from '@/view/PFANS/PFANS5000/PFANS5012/PFANS5012FormView.vue'
@@ -468,6 +472,16 @@ const routes = [
         path: '/PFANS1026FormView',
         name: 'PFANS1026FormView',
         component: PFANS1026FormView,
+      },
+      {
+        path: '/PFANS1027View',
+        name: 'PFANS1027View',
+        component: PFANS1027View,
+      },
+      {
+        path: '/PFANS1027FormView',
+        name: 'PFANS1027FormView',
+        component: PFANS1027FormView,
       },
       {
         path: '/PFANS1028View',
@@ -897,6 +911,16 @@ const routes = [
         path: '/PFANS5009FormView',
         name: 'PFANS5009FormView',
         component: PFANS5009FormView
+      },
+      {
+        path: '/PFANS5011View',
+        name: 'PFANS5011View',
+        component: PFANS5011View
+      },
+      {
+        path: '/PFANS5011FormView',
+        name: 'PFANS5011FormView',
+        component: PFANS5011FormView
       },
       {
         path: '/PFANS5012View',
