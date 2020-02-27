@@ -21,7 +21,7 @@
           <EasyNormalTable
             :buttonList="buttonList"
             :columns="columns"
-            :data="data"
+            :data="outdata"
             :rowid="rowid"
             :title="titleOut"
             @buttonClick="buttonClick"
@@ -35,6 +35,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from "element-ui";
+  import {getDictionaryInfo, getOrgInfo, getUserInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS1037View',
@@ -44,6 +45,7 @@
     data() {
       return {
         data:[],
+        outdata:[],
         loading:false,
         rowid:"personnelplanid",
         buttonList: [
@@ -109,11 +111,45 @@
       }
     },
     mounted() {
-
+      this.loading = true;
+      this.$store
+        .dispatch("PFANS2002Store/get")
+        .then(response => {
+          this.loading = false;
+          let userinfo = "";
+          let data = [];
+          let outdata = [];
+          if(response.length > 0){
+            response.forEach(
+              res => {
+                userinfo = getUserInfo(res.createby).userinfo;
+                res.createby  = userinfo.customername;
+                res.center = userinfo.centername;
+                res.department = userinfo.groupname||"";
+                res.createon =  moment(res.createon).format("YYYY-MM-DD");
+                if(res.type === 0){
+                  data.push(res);
+                }else{
+                  outdata.push(res);
+                }
+              }
+            )
+            this.data = data;
+            this.outdata = outdata;
+          }
+        })
+        .catch(err => {
+          this.loading = false;
+          Message({
+            message: err,
+            type: "error",
+            duration: 5 * 1000
+          });
+        });
     },
     methods: {
       rowClick(row) {
-        this.id = row.recruitjudgement_id;
+        this.id = row.personnelplanid;
       },
       buttonClick(val) {
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);

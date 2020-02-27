@@ -1,4 +1,4 @@
-import {getCustomerInfo,getSupplierinfor} from '../PFANS1038/PFANS1038Api';
+import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne} from '../PFANS1038/PFANS1038Api';
 
 const PFANS1038Store = {
   namespaced: true,
@@ -18,15 +18,70 @@ const PFANS1038Store = {
         })
       })
     },
-    getSupplierinfor({ commit }) {
+    getExpatriatesinfor() {
       return new Promise((resolve, reject) => {
-        getSupplierinfor().then(response => {
+        getExpatriatesinfor().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
             reject(response.message)
           }
         }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getExternal() {
+      return new Promise((resolve, reject) => {
+        getExternal().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    insert({ commit },data) {
+      return new Promise((resolve, reject) => {
+        insert(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error);
+        })
+      })
+    },
+    update({ commit },data) {
+      return new Promise((resolve, reject) => {
+        update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error);
+        })
+      })
+    },
+    getOne({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getOne(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          console.log(error)
           reject(error);
         })
       })

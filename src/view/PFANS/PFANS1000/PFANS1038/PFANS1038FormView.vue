@@ -25,7 +25,7 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="expatriate"
+                prop="supchinese"
                 label="外驻先"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
@@ -83,11 +83,19 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="expatriate"
+                prop="supchinese"
                 label="外驻先"
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
+                <el-select size="small" v-model="scope.row.supchinese" placeholder="请选择">
+                  <el-option
+                    v-for="item in externalOption"
+                    :key="item.supplierinfor_id"
+                    :label="item.supchinese"
+                    :value="item.supplierinfor_id">
+                  </el-option>
+                </el-select>
               </el-table-column>
               <el-table-column
                 prop="name"
@@ -247,9 +255,11 @@
           label: this.$t("label.PFANS1036FORMVIEW_CHANCELLORDOWN")
         }],
         loading:false,
+        externalOption:"",
         newTableData:[{name:"123",isoutside:false}],
-        tableData:"",
+        tableData:[],
         activeName:"first",
+        buttonList:[],
         titles: this.$route.params.type === 0 ? "社员计划" : "外驻计划",
         form:{
           year:""
@@ -261,15 +271,22 @@
            if(this.form.year){
              return this.form.year + "";
            }else{
-            return (moment().format('YYYY')) + "";
+             this.form.year = moment().subtract(3,'M').format('YYYY');
+            return this.form.year + "";
            }
       },
-      getNextYearLevel:function () {
-           if(this.form.year){
-             return (parseInt(this.form.year) + 1) + "";
-           }else{
-            return (parseInt(moment().format('YYYY')) + 1) + "";
-           }
+      getNextYearLevel:(parseInt(this.getThisYearLevel) + 1) + ""
+    },
+    created() {
+      this.disabled = this.$route.params.disabled;
+      if (!this.disabled) {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            icon: "el-icon-check"
+          }
+        ];
       }
     },
     mounted() {
@@ -279,7 +296,7 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.$route.params.type === 0?this.getCustomerInfo(rst.groupId):this.getExternal();
+          this.$route.params.type === 0?this.getCustomerInfo(rst.groupId||""):this.getExpatriatesinfor();
         }
       }
     },
@@ -289,10 +306,10 @@
           .dispatch('PFANS1038Store/getCustomerInfo', id)
           .then(response => {
             debugger
-            if(response.length > 0){
-            this.tableData = response.map(
+            if (response.length > 0) {
+              this.tableData = response.map(
                 res => {
-                  return { name:res.userinfo.customername,userid:res.userid,thisyear:res.userinfo.rank};
+                  return {name: res.userinfo.customername, userid: res.userid, thisyear: res.userinfo.rank};
                 }
               )
               console.log(this.tableData);
@@ -306,22 +323,69 @@
             });
           })
       },
-      getExternal(){
-
+      getExpatriatesinfor() {
+        this.$store
+          .dispatch('PFANS1038Store/getExpatriatesinfor')
+          .then(response => {
+            debugger
+            if (response.length > 0) {
+              this.newTableData = response;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+          })
       },
-      getOne(){
-
+      getExternal() {
+        this.$store
+          .dispatch('PFANS1038Store/getExternal')
+          .then(response => {
+            debugger
+            if (response.length > 0) {
+              this.externalOption = response;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+          })
       },
-      formatterDic(row,column){
-        if(column.property === "thisyear"){
-          if(row[column.property]){
+      getOne(id) {
+        this.loading = true;
+        this.$store
+          .dispatch("PFANS1038Store/getOne", id)
+          .then(response => {
+              this.loading = false;
+              this.form = response;
+              this.form.employed = JSON.parse(this.form.employed);
+              this.form.employed = JSON.parse(this.form.employed);
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
+      },
+      formatterDic(row, column) {
+        if (column.property === "thisyear") {
+          if (row[column.property]) {
             debugger
             let dic = getDictionaryInfo(row[column.property]);
-            return dic === null ?"-":dic.value1;
-          }else{
+            return dic === null ? "-" : dic.value1;
+          } else {
             return "-";
           }
-        }else if(column.property === "entermouth"){
+        } else if (column.property === "entermouth") {
           return "-";
         }
       },
@@ -330,17 +394,66 @@
           rows.splice(index, 1);
         }
       },
-      addRow(){
+      addRow() {
         this.newTableData.push({});
       },
-      changeOption(val,row){
-        if(val){
+      changeOption(val, row) {
+        if (val) {
           row.entermouth = "社外";
         }
+      },
+      buttonClick(val) {
+        this.form.employed = JSON.stringify(this.tableData);
+        this.form.newentry = JSON.stringify(this.newTableData);
+        if (!this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch("PFANS1038Store/insert", this.form)
+            .then(response => {
+              this.loading = false;
+              this.$message({
+                message: this.$t("normal.success_01"),
+                type: "success"
+              });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
+            })
+            .catch(err => {
+              this.loading = false;
+              Message({
+                message: err,
+                type: "error",
+                duration: 5 * 1000
+              });
+            });
+        } else {
+          this.loading = true;
+          this.form.type = this.$route.params.type;
+          this.$store
+            .dispatch("PFANS1038Store/update", this.form)
+            .then(response => {
+              this.loading = false;
+              this.$message({
+                message: this.$t("normal.success_02"),
+                type: "success"
+              });
+              if (val !== "update") {
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              }
+            })
+            .catch(err => {
+              this.loading = false;
+              Message({
+                message: err,
+                type: "error",
+                duration: 5 * 1000
+              });
+            });
+        }
       }
-    },
-    buttonClick(){
-
     }
   };
 </script>
