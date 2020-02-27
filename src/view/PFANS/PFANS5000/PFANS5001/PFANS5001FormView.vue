@@ -2063,6 +2063,15 @@
             } else {
               this.form.tools = '';
             }
+            var manMonth = 0;
+            for (let i = 0; i < this.tableA.length; i++) {
+              debugger;
+              if(this.tableA.estimatedwork !== ''){
+                manMonth = Math.round((manMonth + this.tableA[i].estimatedwork)*100)/100;
+              }
+            }
+            this.form.manmonth = manMonth;
+            alert(this.form.manmonth);
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
@@ -2087,16 +2096,6 @@
                 });
               }
             }
-            for (let i = 0; i < this.tableA.length; i++) {
-              let manMonth = 0;
-              if(this.tableA.estimatedwork !== ''){
-                manMonth = manMonth +this.tableA[i].estimatedwork;
-                this.baseInfo.stageinformation.push({
-                  manmonth: manMonth,
-                });
-              }
-            }
-            alert("aaa" + this.tableA.manmonth);
             for (let i = 0; i < this.tableB.length; i++) {
               if (
                 this.tableB[i].number !== '' ||
@@ -2178,7 +2177,6 @@
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
-                  console.log('VVVAAAAA' + response);
                   this.data = response;
                   this.loading = false;
                   this.$message({
