@@ -1,6 +1,5 @@
 <template>
   <div style="min-height: 100%">
-    <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
       <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane
           label="社员计划"
@@ -18,7 +17,7 @@
             v-loading="loading"
           ></EasyNormalTable>
         </el-tab-pane>
-        <el-tab-pane :label="外住计划" name="second">
+        <el-tab-pane label="外住计划" name="second" style="padding-top:1%">
           <EasyNormalTable
             :buttonList="buttonList"
             :columns="columns"
@@ -31,7 +30,6 @@
           ></EasyNormalTable>
         </el-tab-pane>
       </el-tabs>
-    </el-form>
   </div>
 </template>
 <script>
@@ -45,20 +43,36 @@
     },
     data() {
       return {
-        activeName:"frist",
+        data:[],
+        loading:false,
+        rowid:"personnelplanid",
+        buttonList: [
+          {
+            key: "view",
+            name: "button.view",
+            disabled: false,
+            icon: "el-icon-search"
+          },
+          {
+            key: "new",
+            name: "button.insert",
+            disabled: false,
+            icon: "el-icon-plus"
+          },
+          {
+            key: "update",
+            name: "button.update",
+            disabled: false,
+            icon: "el-icon-edit"
+          }
+        ],
+        activeName:"first",
         titleIn:"社员计划",
         titleOut:"外驻计划",
         columns: [
           {
-            code: "name",
-            label: "label.PFANS2002VIEW_NAME",
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "education1",
-            label: "label.PFANS2002VIEW_EDUCATION",
+            code: "year",
+            label: "label.PFANS2023VIEW_YEARS",
             width: 150,
             fix: false,
             filter: true
@@ -71,54 +85,36 @@
             filter: true
           },
           {
-            code: "group",
-            label: "label.group",
-            width: 200,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "team",
-            label: "label.team",
-            width: 200,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "birthday",
-            label: "label.PFANS2002VIEW_BIRTHDAY",
+            code: "department",
+            label: "label.ASSETS1001VIEW_USEDEPARTMENT",
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: "_interview",
-            label: "label.PFANS2002VIEW_INTERVIEW",
-            width: 150,
+            code: "createby",
+            label: "label.PFANS8008VIEW_CREATEBY",
+            width: 200,
             fix: false,
             filter: true
           },
           {
             code: "createon",
-            label: "label.PFANS2002VIEW_CREATEON",
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "status",
-            label: "label.PFANS2001VIEW_ADOPTIONDECISION",
-            width: 150,
+            label: "label.information_start",
+            width: 200,
             fix: false,
             filter: true
           }
-        ],
+        ]
       }
     },
     mounted() {
 
     },
     methods: {
+      rowClick(row) {
+        this.id = row.recruitjudgement_id;
+      },
       buttonClick(val) {
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);
         if ("update" === val) {
@@ -135,7 +131,7 @@
             params: {
               _id: this.id,
               disabled: false,
-              type: this.activeName === "frist" ? 0 : 1
+              type: this.activeName === "first" ? 0 : 1
             }
           });
         } else if ("view" === val) {
@@ -152,7 +148,7 @@
             params: {
               _id: this.id,
               disabled: true,
-              type: this.activeName === "frist" ? 0 : 1
+              type: this.activeName === "first" ? 0 : 1
             }
           });
         } else if ("new" === val) {
@@ -161,7 +157,7 @@
             params: {
               _id: "",
               disabled: false,
-              type: this.activeName === "frist" ? 0 : 1
+              type: this.activeName === "first" ? 0 : 1
             }
           });
         }
