@@ -1,600 +1,1233 @@
 <template>
-  <div class="EasyNormalTable" style="min-height: 100%">
-    <el-card class="box-card">
-      <div class="clearfix" slot="header" style="height: 20px">
-        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+  <div style="min-height: 100%">
+    <EasyNormalContainer
+      :buttonList="buttonList"
+      :canStart="canStart"
+      v-loading="loading"
+      :title="title"
+      @buttonClick="buttonClick"
+      @end="end"
+      @start="start"
+      @workflowState="workflowState"
+      ref="container"
+    >
+      <div slot="customize">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 2vw">
+                    <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETTYPE')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
+                                         width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.April')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.May')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.June')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.July')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.August')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.September')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.October')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.November')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.December')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.January')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.February')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.March')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true"  maxlength="20" style="width: 100%;"
+                                      v-model.trim="scope.row.place"></el-input>
+                          </template>
+                        </el-table-column>
+                      </el-table-column>
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disable"
+                            @click.native.prevent="deleteRowF(scope.$index, tableF)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disable"
+                            @click="addRowF()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
+                      </el-table-column>
+
+                    </el-table>
+        </el-form>
       </div>
-      <div align="right" class="filter-container" style="padding-bottom: 10px">
-        <span class="Title_front main_color"
-              style="float:left">{{$t('title.PFANS1034VIEW')}}{{$t('table.detail')}}</span>
-        <slot name="customize"></slot>
-        <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
-                  style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
-        </el-input>
-      </div>
-      <el-table :data="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')"
-                :row-key="rowid"
-                @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick"
-                @selection-change="handleSelectionChange" @sort-change="sortChange"
-                header-cell-class-name="sub_bg_color_grey height" header-row-class-name="height" height="400"
-                highlight-current-row max-height="400" ref="eltable"
-                style="width: 100%" v-loading='loading' border default-expand-all stripe
-                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">>
-        <el-table-column reserve-selection type="selection" v-if="showSelection" width="55">
-        </el-table-column>
-        <el-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
-                         v-for="item in this.columns" v-if="item.child && item.child.length > 0">
-          <el-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
-                           v-for="o in item.child" v-if="o.child && o.child.length > 0">
-            <el-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix"
-                             :formatter="formatter"
-                             :key="oo.code"
-                             :label="$t(oo.label)" :label-class-name="oo.labelClass" :min-width="oo.width"
-                             :prop="oo.code"
-                             align="left" show-overflow-tooltip sortable="custom"
-                             v-for="oo in o.child"/>
-          </el-table-column>
-          <el-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix"
-                           :formatter="formatter" :key="o.code"
-                           :label="$t(o.label)" :label-class-name="o.labelClass" :min-width="o.width" :prop="o.code"
-                           align="left" show-overflow-tooltip sortable="custom"
-                           v-else/>
-        </el-table-column>
-        <el-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null"
-                         :fixed="item.fix" :formatter="formatter"
-                         :key="item.code"
-                         :label="$t(item.label)" :label-class-name="item.labelClass" :min-width="item.width"
-                         :prop="item.code"
-                         align="left" show-overflow-tooltip sortable="custom"
-                         v-else/>
-      </el-table>
-      <div class="pagination-container" style="padding-top: 20px">
-        <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
-                       :page-sizes="[10,20,30,50]" :total="total" @current-change="handleCurrentChange"
-                       @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
-          <slot><span class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
-        </el-pagination>
-      </div>
-      <div style="display:none;">
-        <el-upload
-          :action="upload"
-          :file-list="fileList"
-          :on-remove="fileRemove"
-          :on-preview="fileDownload"
-          :on-success="fileSuccess"
-          :on-error="fileError"
-          class="upload-demo"
-          drag
-          ref="upload">
-          <i class="el-icon-upload"></i>
-          <el-button id="upload" size="small" type="primary">点击上传</el-button>
-          <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
-        </el-upload>
-      </div>
-    </el-card>
+    </EasyNormalContainer>
   </div>
 </template>
 
 <script>
-    import EasyButtonBar from '@/components/EasyButtonBar'
-    import {orderBy,uploadUrl,downLoadUrl} from '@/utils/customize'
-    import moment from 'moment';
-    import {Message} from 'element-ui';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {telephoneNumber} from '@/utils/validate';
+  import dicselect from '../../../components/dicselect';
 
-    export default {
-        name: 'PFANS1034View',
-        components: {
-            EasyButtonBar
-        },
-        data() {
-            return {
-                total: 0,
-                listQuery: {
-                    page: 1,
-                    limit: 10
-                },
-                pagedate: [],
-                searchValue: '',
-                totaldata: [],
-                changeIcon: 'el-icon-search',
-                loading: false,
-                filterlist: [],
-                systembutton: [false, false, false],
-                selectedList: [],
-                folderid:'',
-                url: '',
-                uploadfile:'',
-                fileList: [],
-                upload: uploadUrl(),
-                username: '',
-                maxfolderid: 0,
-                // 行id
-                rowid: 'folderid',
-                // 列属性
-                columns: [
-                    {
-                        code: 'filename',
-                        label: 'label.PFANS1034VIEW_FILENAME',
-                        width: 120,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'filesize',
-                        label: 'label.PFANS1034VIEW_FILESIZE',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'updatedate',
-                        label: 'label.PFANS1034VIEW_UPDATEDATE',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'updateperson',
-                        label: 'label.PFANS1034VIEW_UPDATEPERSON',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                ],
-                tableData: [],
-                tableData1: [{
-                    folderid: 1,
-                    filename: '文件夹1',
-                    filesize: '31MB',
-                    updatedate: '2019-10-27',
-                    updateperson: '大一',
-                    url: '',
-                    children: []
-                }, {
-                    folderid: 2,
-                    filename: '文件夹2',
-                    filesize: '99MB',
-                    updatedate: '2019-10-27',
-                    updateperson: '大二',
-                    url: '',
-                    children: []
-                }, {
-                    folderid: 3,
-                    filename: '文件夹3',
-                    filesize: '109MB',
-                    updatedate: '2019-10-27',
-                    updateperson: '大三',
-                    url: '',
-                    children: [{
-                        folderid: 4,
-                        filename: '文件夹31',
-                        filesize: '109MB',
-                        updatedate: '2019-10-27',
-                        updateperson: '大三',
-                        url: '1',
-                    }, {
-                        folderid: 5,
-                        filename: '文件夹32',
-                        filesize: '109MB',
-                        updatedate: '2019-10-27',
-                        updateperson: '大三',
-                        url: '1',
-                    }]
-                }],
-            }
-        },
-        props: {
-            // 详情画面标题
-            title: {
-                type: String,
-                default: ''
-            },
-            // 表格数据源
-            data: {
-                type: Array,
-                default: function () {
-                    return []
-                }
-            },
-            // 默认排序
-            defaultSort: {
-                type: Object
-            },
-            // 行内容格式化
-            formatter: {
-                type: Function
-            },
-            // 是否显示checkbox
-            showSelection: {
-                type: Boolean,
-                default: false
-            },
-            hasEditBtn: {
-                type: Boolean,
-                default: true
-            },
-            defaultSerchTooltip: {
-                type: String
-            },
-            buttonList: {
-                type: Array,
-                default: function () {
-                    return [
-                        {'key': 'folder', 'name': 'button.folder', 'disabled': false, 'icon': 'el-icon-folder-add'},
-                        {'key': 'upload', 'name': 'button.upload', 'disabled': false, 'icon': 'el-icon-upload2'},
-                        {'key': 'download', 'name': 'button.download', 'disabled': false, 'icon': 'el-icon-download'},
-                        {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
-                    ]
-                }
-            },
-            selectList: {
-                type: Array,
-                default: function () {
-                    return []
-                }
-            }
-        },
-        methods: {
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t("normal.error_04"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.uploadfile += item.name + "," + item.url + ";"
-                }
-            },
-            fileDownload(varurl) {
-                if (varurl) {
-                    var url = downLoadUrl(varurl);
-                    window.open(url);
-                }
-
-            },
-            fileSuccess(response, file, fileList) {
-                let url;
-                if (!file.url) {
-                    url = file.response.info;
-                } else {
-                    url = file.url;
-                }
-                for(let i = 0;i < this.tableData.length;i++){
-                    if(this.tableData[i].folderid === this.folderid){
-                        let childrenfolderid = Number(this.folderid + "0001");
-                        if(this.tableData[i].children.length > 0){
-                            childrenfolderid = this.tableData[i].children[this.tableData[i].children.length - 1].folderid + 1;
-                        }
-                        this.tableData[i].children.push({
-                            folderid: childrenfolderid,
-                            filename: file.name,
-                            filesize: Math.round(file.size / 1024) + "KB",
-                            updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                            updateperson: this.username,
-                            url: url,
-                            children: []
-                        });
-                        // let letfilesizef = Number(this.tableData[i].filesize.replace('MB',''));
-                        // this.tableData[i].filesize = Math.round((letfilesizef + file.size / 1024 /1024) * 100) /100 + 'MB';
-                        let letfilesizef = 0;
-                        for (let j = 0; j< this.tableData[i].children.length;j++){
-                            letfilesizef = letfilesizef + Number(this.tableData[i].children[j].filesize.replace('KB',''));
-
-                        }
-                        this.tableData[i].filesize = Math.round((letfilesizef /1024) * 100) /100 + 'MB';
-                    }
-                }
-                this.totaldata = this.tableData
-                this.getList()
-            },
-            buttonClick(val) {
-                this.$emit("buttonClick", val);
-                if(val == 'folder'){
-                    let maxfolderid = 1;
-                    if(this.tableData.length > 0){
-                        maxfolderid = this.tableData[this.tableData.length - 1].folderid + 1;
-                    }
-                    this.tableData.push({
-                        folderid: maxfolderid,
-                        filename: '文件夹' + moment(new Date()).format('YYYY-MM-DD'),
-                        filesize: '',
-                        updatedate: moment(new Date()).format('YYYY-MM-DD'),
-                        updateperson: this.username,
-                        url: '',
-                        children: []
-                    });
-                    this.totaldata = this.tableData
-                    this.getList()
-                }
-                else if(val == 'upload'){
-                    if (this.folderid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    if (this.url != '') {
-                        Message({
-                            message: this.$t('normal.info_12'),
-                            type: 'error',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    document.getElementById("upload").click();
-                }
-                else if(val == 'download'){
-                    if (this.url === '') {
-                        Message({
-                            message: this.$t('normal.info_13'),
-                            type: 'error',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.fileDownload(this.url);
-                }
-                else if(val == 'delete'){
-                  if (this.folderid === '') {
-                      Message({
-                          message: this.$t('normal.info_12'),
-                          type: 'error',
-                          duration: 2 * 1000
-                      });
-                      return;
-                  }
-                    this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
-                        confirmButtonText: this.$t('button.confirm'),
-                        cancelButtonText: this.$t('button.cancel'),
-                        type: 'warning'
-                    }).then(() => {
-                        for(let i = 0;i < this.tableData.length;i++){
-                            if(this.url === ''){
-                                if(this.tableData[i].folderid === this.folderid){
-                                    this.tableData.splice(i,1);
-                                }
-                            }
-                            else{
-                                let letfilesizef = 0;
-                                let letchildren = this.tableData[i].children;
-                                for(let j = 0;j < letchildren.length;j++){
-                                    if(letchildren[j].folderid === this.folderid){
-                                          this.tableData[i].children.splice(j,1);
-                                        j = j - 1
-                                    }
-                                    else{
-                                        letfilesizef = letfilesizef + Number(letchildren[j].filesize.replace('KB',''));
-                                    }
-                                }
-                                this.tableData[i].filesize = Math.round((letfilesizef /1024) * 100) /100 + 'MB';
-                            }
-                        }
-                        this.totaldata = this.tableData
-                        this.getList();
-                        this.$message({
-                            type: 'success',
-                            message: this.$t('normal.info_03')
-                        });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: this.$t('normal.info_04')
-                        });
-                    });
-                }
-                //this.$emit('buttonClick', val)
-            },
-            // 表格排序
-            sortChange(column, prop, order) {
-                this.totaldata = orderBy(this.totaldata, column.prop, column.order)
-
-                // 调用分页
-                this.getList()
-            },
-            // 表格筛选
-            tableFilter(filters) {
-                this.loading = true
-                this.listQuery.page = 1
-                Object.assign(this.filterlist, filters)
-                this.totaldata = this.data.filter(item => {
-                    let has = 0
-                    Object.keys(this.filterlist).map(key => {
-                        if (this.filterlist[key].length > 0) {
-                            this.filterlist[key].map(filter => {
-                                if (item[key] === filter) {
-                                    has++
-                                }
-                            })
-                        } else {
-                            has++
-                        }
-                    })
-                    if (has === Object.keys(this.filterlist).length) {
-                        return true
-                    } else {
-                        return false
-                    }
-                })
-                if (this.searchValue !== '') {
-                    this.inputChange()
-                }
-                this.getList()
-            },
-            // 取分页数据
-            getList() {
-                this.loading = true
-                let start = (this.listQuery.page - 1) * this.listQuery.limit
-                let end = this.listQuery.page * this.listQuery.limit
-                if (this.totaldata) {
-                    let pList = this.totaldata.slice(start, end)
-                    this.pagedate = pList
-                    this.total = this.totaldata.length
-                }
-
-                this.loading = false
-            },
-            // 每页最大数据变更
-            handleSizeChange(val) {
-                this.listQuery.limit = val
-                this.getList()
-            },
-            // 当前页变更
-            handleCurrentChange(val) {
-                this.listQuery.page = val
-                this.getList()
-            },
-            // 输入框筛选
-            inputChange() {
-                this.loading = true
-                this.listQuery.page = 1
-                let td = []
-                let len = this.totaldata.length
-
-                for (let i = 0; i < len; i++) {
-                    let has = false
-                    for (let j = 0; j < this.columns.length; j++) {
-                        let name = this.totaldata[i][this.columns[j].code]
-                        if (name != null && name.toString().search(this.searchValue) !== -1) {
-                            has = true
-                        }
-                    }
-                    if (has) {
-                        td.push(this.totaldata[i])
-                    }
-                }
-
-                // 如果清空搜索信息，则回复到未搜索之前的TableData数据
-                if (this.searchValue !== '' && td.length > 0) {
-                    this.totaldata = td
-                } else if (this.searchValue === '') {
-                    if (Object.keys(this.filterlist).length > 0) {
-                        this.tableFilter(this.filterlist)
-                    } else {
-                        this.totaldata = this.tableData
-                    }
-                } else {
-                    this.totaldata = []
-                }
-
-                this.getList()
-            },
-            // 初始化筛选条件
-            filtersdata(column) {
-                let len = this.tableData.length
-                let filters = new Set()
-                for (let i = 0; i < len; i++) {
-                    filters.add({
-                        text: this.tableData[i][column.code],
-                        value: this.tableData[i][column.code]
-                    })
-                }
-                let filtersrst = [...new Set(filters)]
-                var hash = {}
-                filtersrst = filtersrst.reduce(function (item, next) {
-                    if (hash[next.text]) {
-                        ''
-                    } else {
-                        hash[next.text] = true && item.push(next)
-                    }
-                    return item
-                }, [])
-                return filtersrst
-            },
-            // 行点击
-            rowClick(row) {
-                this.folderid = row.folderid;
-                this.url = row.url;
-                this.$store.commit('global/SET_OPERATEID', row[this.rowid])
-                this.$store
-                    .dispatch('tableStore/getActionsAuth', row.owner)
-                    .then(response => {
-                        this.systembutton = response
-                    })
-                    .catch(error => {
-                        this.systembutton = [false, false, false]
-                    })
-                this.$emit('rowClick', row)
-            },
-            // checkbox选中状态变更
-            handleSelectionChange(val) {
-                //alert(val[0].folderid)
-                this.selectedList = val
-                this.$emit('handleSelectionChange', this.selectedList)
-            },
-            setCurrentRow(row) {
-                this.$refs.eltable.setCurrentRow(row)
-            },
-            getNewActionAuth() {
-                this.$store
-                    .dispatch('tableStore/getNewActionAuth')
-                    .then(response => {
-                        this.systembutton = [response, false, false]
-                    })
-                    .catch(error => {
-                        this.systembutton = [false, false, false]
-                    })
-            }
-        },
-        mounted() {
-            if(this.$store.getters.userinfo){
-                this.username = this.$store.getters.userinfo.userinfo.customername;
-            }
-            this.totaldata = this.tableData
-            this.getList()
-            this.getNewActionAuth()
-            if (this.showSelection) {
-                for (let value of this.selectList) {
-                    this.$refs['eltable'].toggleRowSelection(value, true)
-                }
-            } else {
-                for (let value of this.selectList) {
-                    this.$refs['eltable'].setCurrentRow(value)
-                }
-
-            }
-        },
-        watch: {
-            data(value) {
-                this.totaldata = this.tableData
-                this.getList()
-                this.tableFilter([])
-                this.inputChange()
-            },
-            hasEditBtn(val) {
-                this.hasEditButtonIn = val
-            },
-            selectList(val) {
-                if (this.showSelection) {
-                    for (let value of val) {
-                        this.$refs['eltable'].toggleRowSelection(value, true)
-                    }
-                } else {
-                    for (let value of val) {
-                        this.$refs['eltable'].setCurrentRow(value)
-                    }
-
-                }
-
-            }
+  export default {
+    name: 'PFANS1012FormView',
+    components: {
+      dicselect,
+      EasyNormalContainer,
+      user,
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+        } else {
+          this.error = '';
+          return callback();
         }
-    }
+      };
+      var checktele = (rule, value, callback) => {
+        if (this.form.telephone !== null && this.form.telephone !== '') {
+          if (telephoneNumber(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1036VIEW_TELEPHONE')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      return {
+        month:"",
+        pickerOptions: {
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', ["社外"]);
+            }
+          }]
+        },
+        options1: [{
+          value: '1',
+          label: '1年'
+        }, {
+          value: '2',
+          label: '3年'
+        }, {
+          value: '3',
+          label: '5年'
+        }],
+        tableTValue: '',
+        tablePValue: '',
+        tableZValue: '',
+        tableYValue: '',
+        error: '',
+        options: [],
+        selectType: 'Single',
+        title: 'title.PFANS1036VIEW',
+        userlist: '',
+        activeName: 'first',
+        activeName2: 'first',
+        activeName3: 'first',
+        activeName4: 'first',
+        activeName5: 'first',
+        activeName6: 'first',
+        activeName7: 'first',
+        activeName8: 'first',
+        loading: false,
+        disable: false,
+        disablecurr: false,
+        buttonList: [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ],
+        tableA: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_TOTALPLAN'),
+            totalplan_id: '',
+            businessplanid: '',
+            number4: '',
+            workinghours4: '',
+            number5: '',
+            workinghours5: '',
+            number6: '',
+            workinghours6: '',
+            number7: '',
+            workinghours7: '',
+            number8: '',
+            workinghours8: '',
+            number9: '',
+            workinghours9: '',
+            number10: '',
+            workinghours10: '',
+            number11: '',
+            workinghours11: '',
+            number12: '',
+            workinghours12: '',
+            number1: '',
+            workinghours1: '',
+            number2: '',
+            workinghours2: '',
+            number3: '',
+            workinghours3: '',
+            numberfirsthalf: '',
+            workinghoursfirsthalf: '',
+            numbersecondhalf: '',
+            workinghourssecondhalf: '',
+            numberannual: '',
+            workinghoursannual: '',
+            rowindex: '',
+
+          },
+        ],
+        tableB: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_TOTALPLAN'),
+            pay4: '',
+            overtimepay4: '',
+            pay5: '',
+            overtimepay5: '',
+            pay6: '',
+            overtimepay6: '',
+            pay7: '',
+            overtimepay7: '',
+            pay8: '',
+            overtimepay8: '',
+            pay9: '',
+            overtimepay9: '',
+            pay10: '',
+            overtimepay10: '',
+            pay11: '',
+            overtimepay11: '',
+            pay12: '',
+            overtimepay12: '',
+            pay1: '',
+            overtimepay1: '',
+            pay2: '',
+            overtimepay2: '',
+            pay3: '',
+            overtimepay3: '',
+            payupper: '',
+            overtimepayupper: '',
+            paylower: '',
+            overtimelower: '',
+            payyear: '',
+            overtimepayyear: '',
+            rowindex: '',
+          },
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTAL'),
+          },
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALTHOUSAND'),
+          },
+        ],
+        tableC: [
+          {},{},{},{},{},{},{},{},{},{},{},{},{}
+        ],
+        tableD: [
+        ],
+        tableE: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableE2: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableF: [
+
+        ],
+        tableF2: [
+          {assetstype:"0"},
+          {assetstype:"1"}
+        ],
+        tableG: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableG2: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableH: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableH2: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableI: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableI2: [
+          {
+            aaa: this.$t('label.PFANS1036FORMVIEW_SUBTOTALDEPRECIATION'),
+            bbb: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            bbb: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableJ: [
+          {
+            jjj: this.$t('label.PFANS1036FORMVIEW_DOMESTICTRAVEL'),
+            jjj2: '3.15',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            jjj: '',
+            jjj2: '',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+          {
+            jjj: this.$t('label.PFANS1036FORMVIEW_JAPANBUSINESSTRAVEL'),
+            jjj2: '11.1',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            jjj: '',
+            jjj2: '',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+          {
+            jjj: this.$t('label.PFANS1036FORMVIEW_BUSINESSTRAVEL'),
+            jjj2: '18.9',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            jjj: '',
+            jjj2: '',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+          {
+            jjj: this.$t('label.PFANS1036FORMVIEW_TOTAL'),
+            jjj2: '',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_PLAN'),
+          },
+          {
+            jjj: '',
+            jjj2: '',
+            jjj3: this.$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS'),
+          },
+        ],
+        tableK: [
+          {
+            kkk: this.$t('label.PFANS1036FORMVIEW_B1'),
+          },
+          {
+            kkk: this.$t('label.PFANS1036FORMVIEW_B2'),
+          },
+          {
+            kkk: this.$t('label.PFANS1036FORMVIEW_B3'),
+          },
+        ],
+        tableL: [
+          {},
+        ],
+        tableM: [
+          {},
+        ],
+        tableN: [
+          {},
+        ],
+        tableO: [
+          {},
+        ],
+        tableP: [
+        ],
+        tableQ: [
+        ],
+        tableR: [
+          {},
+          {},
+          {},
+        ],
+        baseInfo: {},
+        form: {
+          centerid: '',
+          groupid: '',
+          teamid: '',
+          user_id: '',
+        },
+        rules: {
+          user_id: [{
+            required: true,
+            validator: checkuser,
+            trigger: 'change',
+          }],
+        },
+        code1: '',
+        code2: '',
+        code3: '',
+        code4: '',
+        code5: '',
+        code6: '',
+        code7: '',
+        code8: '',
+        multiple: false,
+        canStart: false,
+      };
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
+          .then(response => {
+            this.form = response.businessplan;
+            if (response.totalplan.length > 0) {
+              this.tableA = response.totalplan;
+            }
+            if (response.pieceworktotal.length > 0) {
+              this.tableB = response.pieceworktotal;
+            }
+            this.userlist = this.form.user_id;
+            this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.totalplan = JSON.parse(JSON.stringify(this.tableA));
+            this.baseInfo.pieceworktotal = JSON.parse(JSON.stringify(this.tableB));
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.centerid = rst.centerNmae;
+          this.form.groupid = rst.groupNmae;
+          this.form.teamid = rst.teamNmae;
+          this.form.user_id = this.$store.getters.userinfo.userid;
+        }
+      }
+    },
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [];
+      }
+      this.disable = this.$route.params.disabled;
+    },
+    methods: {
+      getSummaries(table) {
+        let totalExpect = {};
+        let totalActual = {};
+        table.forEach(
+          row =>{
+            debugger
+            let sum = 0;
+            for (let i = 1;i <= 12; i++){
+              if(row.assetstype1 === "1"){
+                sum =  Math.round((row["money" + i]||0) / 12 * 100000) / 100000;
+              }else if(row.assetstype1 === "2"){
+                sum =  Math.round((row["money" + i]||0) / 36 * 100000) / 100000;
+              }else if(row.assetstype1 === "3"){
+                sum =  Math.round((row["money" + i]||0) / 60 * 100000) / 100000;
+              }
+              if(row.assetstype === "0" ){
+                totalExpect["money" + i] =  sum + (totalExpect["money" + i]||0);
+              }else{
+                totalActual["money" + i] =  sum + (totalActual["money" + i]||0);
+              }
+            }
+            if(row.assetstype1 === "0" ){
+              totalExpect.numberfirsthalf+= row.numberfirsthalf;
+              totalExpect.numbersecondhalf+= row.numbersecondhalf;
+              totalExpect.numberAnnual+= row.numberAnnual;
+            }else{
+              totalActual.numberfirsthalf += row.numberfirsthalf;
+              totalActual.numbersecondhalf += row.numbersecondhalf;
+              totalActual.numberAnnual += row.numberAnnual;
+            }
+          }
+        )
+        for(let i = 4;i <= 12; i++){
+          totalActual["money"+ i] += totalActual["money"+ (i - 1)];
+          totalExpect["money"+ i] += totalExpect["money"+ (i - 1)];
+        }
+        totalActual.money1 += totalActual.money12;
+        totalExpect.money1 += totalExpect.money12;
+        totalActual.money2 += totalActual.money1;
+        totalExpect.money2 += totalExpect.money1;
+        totalActual.money3 += totalActual.money2;
+        totalExpect.money3 += totalExpect.money2;
+
+        totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(5);
+        totalActual.moneyfirsthalf = (totalActual.money4 + totalActual.money5 + totalActual.money6 + totalActual.money7 + totalActual.money8 + totalActual.money9).toFixed(5);
+        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(5);
+        totalActual.moneysecondhalf = (totalActual.money10 + totalActual.money11 + totalActual.money12 + totalActual.money1 + totalActual.money2 + totalActual.money3).toFixed(5);
+        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
+        totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf)).toFixed(5);
+        debugger
+        this.tableG2 = [totalExpect,totalActual];
+      },
+      handleChange(scope,index){
+        debugger
+        if(scope.prices > 0 ){
+          scope["money" + index] = scope.prices * scope["number" + index];
+          if(index >= 4 && index <= 9){
+            scope.numberfirsthalf = (scope.number4||0) + (scope.number5||0) + (scope.number6||0) + (scope.number7||0) + (scope.number8||0) + (scope.number9||0);
+            scope.moneyfirsthalf = (scope.money4||0) + (scope.money5||0) + (scope.money6||0) + (scope.money7||0) + (scope.money8||0) + (scope.money9||0);
+          } if((index >= 9 && index <= 12) || (index >= 1 && index <= 3)){
+            scope.numbersecondhalf = (scope.number10||0) + (scope.number1||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
+            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+          }
+          scope.numberAnnual = scope.numberfirsthalf +  scope.numbersecondhalf;
+          scope.moneyAnnual = scope.moneyfirsthalf +  scope.moneysecondhalf;
+        }
+        this.getSummaries(this.tableF2);
+      },
+      objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex === 34) {
+          if (rowIndex % 2 === 0) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      formatterColumn(row,column,cellValue, index){
+        debugger
+        if(column.property === "type"){
+          if(index === 0){
+            return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
+          }else if(index === 2){
+            return this.$t('label.PFANSUSERVIEW_MEMBERS');
+          }
+        }else if(column.property === "level"){
+          if(index === 0){
+            return "参事以上";
+          }else if(index === 1){
+            return "主事以下";
+          }else if(index === 2){
+            return "R10";
+          }else if(index === 3){
+            return "R9A";
+          }else if(index === 4){
+            return "R9B";
+          }else if(index === 5){
+            return "R8A";
+          }else if(index === 6){
+            return "R8B";
+          }else if(index === 7){
+            return "R8C";
+          }else if(index === 8){
+            return "R7";
+          }else if(index === 9){
+            return "R6";
+          }else if(index === 10){
+            return "R5";
+          }else if(index === 11){
+            return "R4";
+          }else if(index === 12){
+            return "R3";
+          }
+        }
+      },
+      getCSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getDSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getLSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getMSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getNSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getOSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getQSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] += ' 元';
+          } else {
+            sums[index] = '';
+          }
+        });
+
+        return sums;
+      },
+      getUserids(val) {
+        this.userlist = val;
+        this.form.user_id = val;
+        let rst = getOrgInfoByUserId(val);
+        this.form.centerid = rst.centerNmae;
+        this.form.groupid = rst.groupNmae;
+        this.form.teamid = rst.teamNmae;
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('save');
+      },
+      start() {
+        this.form.status = '2';
+        this.buttonClick('save');
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick('save');
+      },
+      deleteRowF(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowF() {
+        this.tableF.push({});
+      },
+      deleteRowF2(index, rows) {
+        if (rows.length > 2) {
+          rows.splice(index, 2);
+        }
+      },
+      addRowF2() {
+        this.tableF2.push({assetstype:"0"});
+        this.tableF2.push({assetstype:"1"});
+      },
+      deleteRowL(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowL() {
+        this.tableL.push({});
+      },
+      deleteRowM(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowM() {
+        this.tableM.push({});
+      },
+      deleteRowN(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowN() {
+        this.tableN.push({});
+      },
+      deleteRowO(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowO() {
+        this.tableO.push({});
+      },
+      deleteRowP(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowP() {
+        this.tableP.push({});
+      },
+      deleteRowQ(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+      },
+      addRowQ() {
+        this.tableQ.push({});
+      },
+      buttonClick(val) {
+        if (val === 'back') {
+          this.$router.push({
+            name: 'PFANS1036View',
+            params: {},
+          });
+        }
+        if (val === 'save') {
+          this.$refs['refform'].validate(valid => {
+            if (valid) {
+              this.baseInfo = {};
+              this.form.user_id = this.userlist;
+              this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.totalplan = [];
+              this.baseInfo.pieceworktotal = [];
+              // for (let i = 0; i < this.tableT.length; i++) {
+              //   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+              //     || this.tableT[i].rmb !== '' || this.tableT[i].foreigncurrency !== '' || this.tableT[i].annexno !== '') {
+              //     this.baseInfo.trafficdetails.push(
+              //       {
+              //         trafficdetails_id: this.tableT[i].trafficdetails_id,
+              //         publicexpenseid: this.tableT[i].publicexpenseid,
+              //         trafficdate: this.tableT[i].trafficdate,
+              //         region: this.tableT[i].region,
+              //         vehicle: this.tableT[i].vehicle,
+              //         startingpoint: this.tableT[i].startingpoint,
+              //         rmb: this.tableT[i].rmb,
+              //         foreigncurrency: this.tableT[i].foreigncurrency,
+              //         annexno: this.tableT[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
+              // for (let i = 0; i < this.tableP.length; i++) {
+              //   if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].procurementproject !== ''
+              //     || this.tableP[i].rmb !== '' || this.tableP[i].foreigncurrency !== '' || this.tableP[i].annexno !== '') {
+              //     if (this.tableP[i].procurementdetails === ' ') {
+              //       this.tableP[i].procurementdetails = '';
+              //     }
+              //     this.baseInfo.purchasedetails.push(
+              //       {
+              //         purchasedetails_id: this.tableP[i].purchasedetails_id,
+              //         publicexpenseid: this.tableP[i].publicexpenseid,
+              //         purchasedetailsdate: this.tableP[i].purchasedetailsdate,
+              //         procurementdetails: this.tableP[i].procurementdetails,
+              //         procurementproject: this.tableP[i].procurementproject,
+              //         rmb: this.tableP[i].rmb,
+              //         foreigncurrency: this.tableP[i].foreigncurrency,
+              //         annexno: this.tableP[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
+              // for (let i = 0; i < this.tableR.length; i++) {
+              //   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+              //     || this.tableR[i].rmb !== '' || this.tableR[i].foreigncurrency !== '' || this.tableR[i].annexno !== '') {
+              //     this.baseInfo.otherdetails.push(
+              //       {
+              //         otherdetails_id: this.tableR[i].otherdetails_id,
+              //         publicexpenseid: this.tableR[i].publicexpenseid,
+              //         otherdetailsdate: this.tableR[i].otherdetailsdate,
+              //         costitem: this.tableR[i].costitem,
+              //         remarks: this.tableR[i].remarks,
+              //         rmb: this.tableR[i].rmb,
+              //         foreigncurrency: this.tableR[i].foreigncurrency,
+              //         annexno: this.tableR[i].annexno,
+              //       },
+              //     );
+              //   }
+              // }
+              if (this.$route.params._id) {
+                this.baseInfo.businessplan.businessplanid = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.$router.push({
+                        name: 'PFANS1036View',
+                      });
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              } else {
+                this.$store
+                  .dispatch('PFANS1036Store/createBusinessplan', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.$router.push({
+                      name: 'PFANS1036View',
+                    });
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            }
+          });
+        }
+      },
+    },
+  };
 </script>
-<style lang="scss">
-  .EasyNormalTable {
-    .height {
-      height: 40px;
-      padding: 0px;
+<style rel="stylesheet/scss" lang="scss">
+  .el-table {
+    overflow-x: auto;
+  }
+
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+
+  }
+
+  .el-table::after {
+    position: relative;
+  }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+
+  }
+
+  .tableClass {
+    .el-table__fixed-right {
+      height: 100% !important;
     }
+  }
+
+  /*.el-table tbody tr:hover>td { background-color: #fafafa }*/
+
+  /*.el-table__fixed-right tbody tr:hover>td {*/
+  /*  background-color: #fafafa;*/
+  /*}*/
+
+  .el-table__body .el-table__row.hover-row td{
+    background-color: #fafafa;
   }
 </style>
