@@ -328,18 +328,22 @@
   }
 
   .fc-row.fc-widget-header {
-    background-color: rgb(255, 204, 102);
+    /*background-color: rgb(255, 204, 102);*/
+    background-color: #005BAA;
+    color: white;
   }
 
   .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1.5em;
-    background-color: rgb(153, 0, 0);
+    /*background-color: rgb(153, 0, 0);*/
+    background-color: #005BAA;
   }
 
   .fc-scroller > .fc-day-grid, .fc-scroller > .fc-time-grid {
     position: relative;
     width: 100%;
-    background-color: rgb(255, 255, 204);
+    /*background-color: rgb(255, 255, 204);*/
+    background-color: white;
   }
 
   .fc-dayGrid-view .fc-body .fc-row {
@@ -348,7 +352,8 @@
 
   .fc-toolbar.fc-header-toolbar {
     margin-bottom: 0.2em;
-    background-color: rgb(153, 0, 0);
+    /*background-color: rgb(153, 0, 0);*/
+    background-color: #005BAA;
   }
 
   body .fc {

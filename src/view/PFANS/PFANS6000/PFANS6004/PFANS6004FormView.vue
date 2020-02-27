@@ -857,7 +857,7 @@
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              vote.expname = response[i].coopername;
+              vote.expname = response[i].cooperuserid;
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               vote.contactinformation = response[i].contactinformation;
               vote.age = response[i].age;
