@@ -1,6 +1,6 @@
 <template>
 
-  <div element-loading-spinner="el-icon-loading" style="min-height: 100%">
+  <div element-loading-spinner="el-icon-loading" style="min-height: 100%;max-height: 600px">
     <el-card class="box-card">
       <!--<el-card class="box-card">-->
       <div element-loading-spinner="el-icon-loading" slot="header" style="height: 100%" v-loading="vloading">
@@ -33,6 +33,7 @@
           UP
         </div>
       </el-backtop>
+
     </el-card>
   </div>
 
