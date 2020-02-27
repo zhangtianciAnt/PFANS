@@ -427,7 +427,7 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA" :summary-method="getTsummaries" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -474,6 +474,7 @@
                           </dicselect>
                         </template>
                       </el-table-column>
+                      <!--                      预计人月-->
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
                         align="center">
@@ -893,7 +894,8 @@
                                   </el-table>
                                 </el-row>
                                 <span slot="footer" class="dialog-footer">
-                                  <el-button type="primary"  @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
+                                  <el-button type="primary"
+                                             @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
                                 </span>
                               </div>
                             </el-dialog>
@@ -999,6 +1001,7 @@
                 </el-row>
               </el-form-item>
             </el-tab-pane>
+
           </el-tabs>
         </el-form>
       </div>
@@ -1119,6 +1122,7 @@
             productstatus: '',
             estimatedwork: '',
             actualwork: '',
+            manmonth: '',
             estimatedstarttime: '',
             estimatedendtime: '',
             remarks: '',
@@ -1391,7 +1395,7 @@
           tools: '',
           briefintroduction: '',
           //計画工数
-          plannedwh:'',
+          estimatedwork: '',
           requirement: '',
           behalf: '',
           intelligence: '',
@@ -2002,34 +2006,35 @@
           }];
         }
       },
-      //计划合计
-      getTsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index == 2) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '0.00';
-          }
-        });
-        return sums;
-      },
+      // //计划合计
+      // getTsummaries(param) {
+      //   const {columns, data} = param;
+      //   const sums = [];
+      //   columns.forEach((column, index) => {
+      //     if (index === 0) {
+      //       sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+      //       return;
+      //     }
+      //     const values = data.map(item => Number(item[column.property]));
+      //     if (!values.every(value => isNaN(value))) {
+      //       sums[index] = values.reduce((prev, curr) => {
+      //         const value = Number(curr);
+      //         if (!isNaN(value)) {
+      //           return prev + curr;
+      //         } else {
+      //           return prev;
+      //         }
+      //       }, 0);
+      //       if (index == 2) {
+      //         sums[index] = Math.round((sums[index]) * 100) / 100;
+      //       }
+      //     } else {
+      //       sums[index] = '0.00';
+      //     }
+      //   });
+      //   this.form.estimatedwork = sums;
+      //   return sums;
+      // },
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -2102,7 +2107,6 @@
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
-
         this.$refs['from1'].validate(valid => {
           if (valid) {
             this.loading = true;
@@ -2112,9 +2116,16 @@
             } else {
               this.form.tools = '';
             }
+            var manMonth = 0;
+            for (let i = 0; i < this.tableA.length; i++) {
+              debugger;
+              if(this.tableA.estimatedwork !== ''){
+                manMonth = Math.round((manMonth + this.tableA[i].estimatedwork)*100)/100;
+              }
+            }
+            this.form.manmonth = manMonth;
+            alert(this.form.manmonth);
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            debugger
-            console.log("aaa",this.baseInfo.companyprojects)
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
             this.baseInfo.projectcontract = [];
@@ -2216,12 +2227,9 @@
                   this.loading = false;
                 });
             } else {
-              debugger;
-              console.log("bbb",this.baseInfo)
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
-                  console.log('VVVAAAAA' + response);
                   this.data = response;
                   this.loading = false;
                   this.$message({
