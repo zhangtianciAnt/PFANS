@@ -2124,7 +2124,6 @@
               }
             }
             this.form.manmonth = manMonth;
-            alert(this.form.manmonth);
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
