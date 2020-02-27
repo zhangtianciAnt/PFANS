@@ -3090,7 +3090,6 @@ first<template>
             };
         },
         mounted() {
-
             this.contractnumbercount = this.$route.params.contractnumbercount;
             if (this.$route.params._id) {
                 this.loading = true;
@@ -4748,8 +4747,8 @@ first<template>
                 }
             },
             //書類作成
-            clickData(val){//111
-                var tabledata = {'contractnumber': this.$route.params._id,'rowindex': '6'};
+            clickData(val){
+                var tabledata = {'contractnumber': this.$route.params._id,'rowindex': val};
                 this.$refs["refform"].validate(valid => {
                   if (valid) {
                     this.loading = true;
@@ -4850,7 +4849,7 @@ first<template>
                     // this.show2=true;
                     // this.form.contractnumber = this.$route.params._id;
                 }
-                if (val === "save") {//111
+                if (val === "save") {
                     let tabledata = [];
                     this.form.maketype = "1";
                     //海外受託 技術開発
