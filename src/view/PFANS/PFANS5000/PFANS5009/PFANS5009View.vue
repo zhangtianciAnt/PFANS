@@ -113,6 +113,7 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
+          // todo status 未定
            for (let j = 0; j < response.length; j++) {
              if (response[j].phase !== null && response[j].phase !== "") {
                let letPhase = getDictionaryInfo(response[j].phase);

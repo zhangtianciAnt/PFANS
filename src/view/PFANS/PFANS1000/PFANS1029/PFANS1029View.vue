@@ -106,14 +106,16 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'contractapplication_id'
+        row_id: 'contract_id'
       }
     },
     mounted() {
+        console.log("mounted........");
       this.loading = true;
       this.$store
         .dispatch('PFANS1029Store/get',{})
         .then(response => {
+            console.log(response);
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
@@ -139,7 +141,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.contractapplication_id;
+        this.rowid = row.contract_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);

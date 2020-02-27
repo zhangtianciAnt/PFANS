@@ -20,7 +20,19 @@
             loading:false,
             title:"title.PFANS5004VIEW",
             data:[],
+            submitted: this.$t('label.PFANS5009FORMVIEW_SUBMITTED'),
+            notsubmitted: this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED'),
+            contractstatus0: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS0'),
+            contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
+            contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
             columns:[
+              {
+                code: 'numbers',
+                label: 'label.PFANS5009VIEW_PROJECTNO',
+                width: 120,
+                fix: false,
+                filter: true,
+              },
               {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
@@ -59,7 +71,7 @@
               },
               /*合同状态*/
               {
-                code: 'status2',
+                code: 'contractstatus',
                 label: 'label.PFANS5009VIEW_STATUS',
                 width: 150,
                 fix: false,
@@ -84,13 +96,40 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {status:2})
+          .dispatch('PFANS5009Store/getSiteList')
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-                if (response[j].status !== null && response[j].status !== "") {
-                  response[j].status = getStatus(response[j].status);
+            if(response.length > 0) {
+              // todo status 未定
+              var response = response.filter(item => {
+                return item.status === "0" || item.status === "4"
+              })
+              for (let j = 0; j < response.length; j++) {
+                if (response[j].phase !== null && response[j].phase !== "") {
+                  let letPhase = getDictionaryInfo(response[j].phase);
+                  if (letPhase != null) {
+                    response[j].phase = letPhase.value1;
+                  }
                 }
+                if (response[j].productstatus !== null && response[j].productstatus !== "") {
+                  if(response[j].productstatus === "0") {
+                    response[j].productstatus = this.submitted
+                  }else {
+                    response[j].productstatus = this.notsubmitted
+                  }
+                }
+                if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+                  if(response[j].contractstatus === "0") {
+                    response[j].contractstatus = this.contractstatus0
+                  }else if(response[j].contractstatus === "1"){
+                    response[j].contractstatus = this.contractstatus1
+                  }else {
+                    response[j].contractstatus = this.contractstatus2
+                  }
+                }
+                response[j] .status = getStatus(response[j] .status);
+              }
             }
+
             this.data = response;
             this.loading = false;
           })
@@ -102,36 +141,13 @@
             });
             this.loading = false;
           });
-        this.$store
-          .dispatch('PFANS5004Store/getstage', {})
-          .then(response => {
-            debugger
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].phase !== null && response[i].phase !== "") {
-                response[i].phase = response[i].phase;
-              }
-
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          });
       },
-
-
       methods: {
         rowClick(row) {
           this.rowid = row.companyprojects_id;
         },
         buttonClick(val) {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-
           if (val === 'update') {
             if (this.rowid === '') {
               Message({
