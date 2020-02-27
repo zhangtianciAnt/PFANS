@@ -7,6 +7,7 @@
       :showIndex="showIndex"
       :title="title"
       @buttonClick="buttonClick"
+      :span-method="this.arraySpanMethod"
       ref="container1"
       v-loading="loading"
       v-show="region === '1'"
@@ -65,6 +66,7 @@
       :showIndex="showIndex"
       :title="title"
       @buttonClick="buttonClick"
+      :span-method="this.arraySpanMethod2"
       ref="container2"
       v-loading="loading"
       v-show="region === '2'"
@@ -82,6 +84,7 @@
       :showIndex="showIndex"
       :title="title"
       @buttonClick="buttonClick"
+      :span-method="this.arraySpanMethod3"
       ref="container3"
       v-loading="loading"
       v-show="region === '3'"
@@ -391,11 +394,13 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
+        yearLabel: this.$t('label.PFANS6009VIEW_YEARLABEL'),
+        monthLabel: this.$t('label.PFANS6009VIEW_MONTHLABEL'),
         array: [
-          '2019年4月', '2019年5月', '2019年6月', '2019年7月', '2019年8月', '2019年9月', '2019年10月', '2019年11月', '2019年12月', '2020年1月', '2020年2月', '2020年3月'
+          '0000Y4M', '0000Y5M', '0000Y6M', '0000Y7M', '0000Y8M', '0000Y9M', '0000Y10M', '0000Y11M', '0000Y12M', '0000Y1M', '0000Y2M', '0000Y3M'
         ],
         array1: [
-          '2019/4/1', '2019/5/1', '2019/6/1', '2019/7/1', '2019/8/1', '2019/9/1', '2019/10/1', '2019/11/1', '2019/12/1', '2020/1/1', '2020/2/1', '2020/3/1'
+          '0000/4/1', '0000/5/1', '0000/6/1', '0000/7/1', '0000/8/1', '0000/9/1', '0000/10/1', '0000/11/1', '0000/12/1', '0000/1/1', '0000/2/1', '0000/3/1'
         ],
         arrayB: [
           this.$t('label.PFANS6009VIEW_MANHOUR2'), this.$t('label.PFANS6009VIEW_COST2')
@@ -413,7 +418,6 @@
       };
     },
     mounted() {
-
       // TAB1
       for (var i = 0; i < this.array.length; i++) {
         this.columns[i + 1].label = this.array[i];
@@ -598,7 +602,11 @@
             }
             var year = response.year;
             for (var i = 0; i < this.array.length; i++) {
-              this.columns[i + 1].label = this.array[i].replace("2019", year);
+              if(i <=8) {
+                this.columns[i + 1].label = this.array[i].replace("0000", year[0]).replace("Y", this.yearLabel).replace("M", this.monthLabel);
+              }else{
+                this.columns[i + 1].label = this.array[i].replace("0000", year[1]).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
+              }
             }
 
             this.tableA = tableData;
@@ -660,7 +668,11 @@
             tableData.push(Object.assign(arrayAdate[0], {bpcompany: this.arryaLabels[0]}));
 
             for (var i = 1; i <= 12; i++) {
-              this.columnsB[i].label = this.array1[i - 1].replace("2019", year);
+              if(i <=9) {
+                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[0]);
+              }else {
+                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[1]);
+              }
             }
 
             this.tableB = tableData;
@@ -719,7 +731,11 @@
             });
 
             for (var i = 1; i <= 12; i++) {
-              this.columnsC[i].label = this.array1[i - 1].replace("2019", year);
+              if(i <= 9) {
+                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[0]);
+              }else {
+                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[1]);
+              }
             }
 
             this.tableC = tableC;
