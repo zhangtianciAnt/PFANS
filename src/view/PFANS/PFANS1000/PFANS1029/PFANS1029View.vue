@@ -124,7 +124,10 @@
               }
               if (response[j].enddate !== null && response[j].enddate !== ""){
                     response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
-                }
+              }
+              if (response[j].signingdate !== null && response[j].signingdate !== ""){
+                  response[j].signingdate = moment(response[j].signingdate).format("YYYY-MM-DD");
+              }
             }
           }
           this.data = response;
