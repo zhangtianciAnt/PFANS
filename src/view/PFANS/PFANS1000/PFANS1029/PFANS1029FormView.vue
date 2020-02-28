@@ -21,7 +21,7 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_CONTRACTID')">
-                          <el-input  :disabled="true" style="width:20vw" v-model="form.contract_id"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -99,7 +99,7 @@
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
                           <dicselect :code="code2"
-                                     :data="form.currencyformat"
+                                     :data="form.currencyposition"
                                      :disabled="!disable"
                                      :multiple="multiple"
                                      @change="getcurrencyformat"
@@ -247,7 +247,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CONTRACTID')">
-                    <el-input  :disabled="true" style="width:20vw" v-model="form2.contract_id"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.contractnumber"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -325,7 +325,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
                     <dicselect :code="code2"
-                               :data="form2.currencyformat"
+                               :data="form2.currencyposition"
                                :disabled="!disable"
                                :multiple="multiple"
                                @change="getcurrencyformat"
@@ -490,6 +490,7 @@
           ],
         form: {
             contract_id:'',
+            contractnumber:'',
             contracttype:'',
             depositjapanese:'',
             depositchinese:'',
@@ -501,6 +502,7 @@
             openingdate:'',
             enddate:'',
             currencyformat:'',
+            currencyposition:'',
             claimamount:'',
             prplacepositionjapanese:'',
             prplacepositionchinese:'',
@@ -516,6 +518,7 @@
         },
         form2: {
               contract_id:'',
+              contractnumber:'',
               contracttype:'',
               depositjapanese:'',
               depositchinese:'',
@@ -526,7 +529,7 @@
               pjnamechinese:'',
               openingdate:'',
               enddate:'',
-              currencyformat:'',
+            currencyposition:'',
               claimamount:'',
               prplacepositionjapanese:'',
               prplacepositionchinese:'',
@@ -626,9 +629,9 @@
       },
       getcurrencyformat(val) {
           if(this.flag === 0){
-              this.form.currencyformat = val;
+              this.form.currencyposition = val;
           }else{
-              this.form2.currencyformat = val;
+              this.form2.currencyposition = val;
           }
       },
         getredelegate(val){
