@@ -12,7 +12,7 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form label-position="top" label-width="8vw" ref="refform"
+        <el-form label-position="top" label-width="8vw" ref="refform" :model="refform"
                  style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1039FORMVIEW_PLAN')" name="first">
@@ -895,6 +895,7 @@
         activeName: 'first',
         loading: false,
         disabled: false,
+        refform: {},
         arrays: [
           {disabled: true},
           {disabled: true},
@@ -1166,6 +1167,7 @@
           });
         }
         if (val === 'save') {
+          debugger;
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.baseInfo = {};
@@ -1198,8 +1200,8 @@
                   });
               } else {
                 this.$store
-                  .dispatch('PFANS1039Store/insert', this.baseInfo)
-                  .then(response => {
+                  .dispatch('PFANS1039Store/insert', this.baseInfo).then(response => {
+                    debugger;
                     this.data = response;
                     this.loading = false;
                     Message({
