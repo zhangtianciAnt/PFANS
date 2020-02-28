@@ -502,6 +502,7 @@
                       <el-row >
                         <el-table :data="tableCommun"
                                   border
+                                  :span-method="CommunSpanMethod"
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center" width="150">
                             <template slot-scope="scope">
@@ -1255,8 +1256,7 @@
           sujudegresult: '',
           lijudegresult: '',
         },
-        tableGatetechnology: [{}],
-        tableJasoftware: [{}],
+
         tableComputers: [{}],
         tableDelivery: [{}],
         tableGatetechnology: [{}],
@@ -1753,6 +1753,22 @@
           this.disabled2 = false;
         }
       },
+      /*合并单元格*/
+      CommunSpanMethod({ row, column, rowIndex, columnIndex }) {
+    if (columnIndex === 0) {
+      if (rowIndex % 2 === 0) {
+        return {
+          rowspan: 2,
+          colspan: 1
+        };
+      } else {
+        return {
+          rowspan: 0,
+          colspan: 0
+        };
+      }
+    }
+  },
       getGroupId(val) {
         this.form.group_id = val;
         this.grouporglist = val;
