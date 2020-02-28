@@ -1,12 +1,10 @@
 import {
-  insert,
   get,
-  One,
+  one,
   update
-}
-  from './PFANS1039Api'
+} from './PFANS1028Api'
 
-const PFANS1039Store = {
+const PFANS1028Store = {
   namespaced: true,
   state: {},
   mutations: {},
@@ -14,19 +12,6 @@ const PFANS1039Store = {
     get() {
       return new Promise((resolve, reject) => {
         get().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    One({commit}, data) {
-      return new Promise((resolve, reject) => {
-        One(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -50,9 +35,9 @@ const PFANS1039Store = {
         })
       })
     },
-    insert({commit}, data) {
+    one({commit}, data) {
       return new Promise((resolve, reject) => {
-        insert(data).then(response => {
+        one(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -62,8 +47,16 @@ const PFANS1039Store = {
           reject(error);
         })
       })
-    }
+    },
   }
 }
+export default PFANS1028Store;
 
-export default PFANS1039Store;
+
+
+
+
+
+
+
+

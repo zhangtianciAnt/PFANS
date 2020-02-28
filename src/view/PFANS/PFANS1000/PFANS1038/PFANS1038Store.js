@@ -1,4 +1,4 @@
-import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne} from '../PFANS1038/PFANS1038Api';
+import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne,getAll} from '../PFANS1038/PFANS1038Api';
 
 const PFANS1038Store = {
   namespaced: true,
@@ -75,6 +75,19 @@ const PFANS1038Store = {
     getOne({ commit },data) {
       return new Promise((resolve, reject) => {
         getOne(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error);
+        })
+      })
+    },getAll() {
+      return new Promise((resolve, reject) => {
+        getAll().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -574,6 +574,11 @@
                     ></dicselect>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" >
+                    <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw"></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col>
@@ -1500,6 +1505,7 @@
           teamid: "",
           userid: "",
           jobnumber: "",
+          personalcode:"",
           budgetunit: "",
           difference: "1",
           post: "",

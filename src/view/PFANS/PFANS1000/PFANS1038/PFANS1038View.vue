@@ -113,7 +113,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch("PFANS2002Store/get")
+        .dispatch("PFANS2002Store/getAll")
         .then(response => {
           this.loading = false;
           let userinfo = "";
