@@ -99,7 +99,6 @@
                     for (let i = 0; i < this.transferData.length; i++) {
                       if (this.transferData[i].key === response[j].project_id) {
                         response[j].project_id = this.transferData[i].label;
-                        console.log("asdasd   " + response[j].project_id);
                       }
                     }
                     let lst = getOrgInfoByUserId(response[j].createby);
