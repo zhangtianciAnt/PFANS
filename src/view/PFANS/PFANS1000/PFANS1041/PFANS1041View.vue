@@ -60,9 +60,9 @@
             },
           });
         }else if (val === 2) {
-            this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1040FormView");
+            this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1039FormView");
           this.$router.push({
-            name: 'PFANS1040View',
+            name: 'PFANS1039View',
             params: {
               title: val,
             },
