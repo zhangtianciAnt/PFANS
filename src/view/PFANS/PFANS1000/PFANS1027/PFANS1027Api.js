@@ -20,10 +20,3 @@ export function update(data) {
     data: data
   })
 }
-export function insert(data) {
-  return request({
-    url: 'quotation/insert',
-    method: 'post',
-    data: data
-  })
-}
