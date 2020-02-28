@@ -17,6 +17,14 @@ export function createNewUser(data) {
       data: data
     })
   }
+
+  export function gettlist(data) {
+    return request({
+      url: 'logmanagement/gettlist',
+      method: 'post',
+      data: data
+    })
+  }
 export function getCompanyProjectList(data) {
   return request({
     url: 'logmanagement/getCompanyProjectList',
