@@ -1,12 +1,11 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" >
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" >
     </EasyNormalTable>
   </div>
 </template>
 <script>
-  import {getToken} from '@/utils/auth'
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
@@ -78,8 +77,8 @@
         buttonList: [
           {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
         ],
-        row: '',
-        rowid: 'logmanagement_id',
+        rowid: '',
+        row_id: 'logmanagement_id'
       };
     },
     mounted() {
@@ -87,24 +86,18 @@
     },
     methods: {
       rowClick(row) {
-        this.row = row.logmanagement_id;
+        this.rowid = row.logmanagement_id;
       },
       getProjectList() {
         this.loading = true;
             this.$store
               .dispatch('PFANS5008Store/gettlist', {})
               .then(response => {
-                  let datalist = [];
                   for (let j = 0; j < response.length; j++) {
-                    for (let i = 0; i < this.transferData.length; i++) {
-                      if (this.transferData[i].key === response[j].project_id) {
-                        response[j].project_id = this.transferData[i].label;
-                      }
-                    }
                     let lst = getOrgInfoByUserId(response[j].createby);
                     let user = getUserInfo(response[j].createby)
                     if (user) {
-                      response[j].username = user.userinfo.customername;
+                       response[j].username = user.userinfo.customername;
                     }
                     response[j].center_name = lst.centerNmae;
                     response[j].group_name = lst.groupNmae;
@@ -123,15 +116,15 @@
                 this.loading = false;
               })
       },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => {
-          if (j === 'timestamp') {
-            return parseTime(v[j])
-          } else {
-            return v[j]
-          }
-        }))
-      },
+      // formatJson(filterVal, jsonData) {
+      //   return jsonData.map(v => filterVal.map(j => {
+      //     if (j === 'timestamp') {
+      //       return parseTime(v[j])
+      //     } else {
+      //       return v[j]
+      //     }
+      //   }))
+      // },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'handle') {
