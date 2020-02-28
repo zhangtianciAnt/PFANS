@@ -101,7 +101,7 @@
                     }
                     response[j].center_name = lst.centerNmae;
                     response[j].group_name = lst.groupNmae;
-                    response[j].log_date = moment(response[j].log_date).format("YYYY-MM-DD");
+                    response[j].log_date = moment(response[j].log_date).format("MM")+"月";
                   }
                   this.data = response;
                   this.loading = false;
