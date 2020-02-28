@@ -102,7 +102,7 @@
   // import EasyNormalContainer from '@/components/EasyNormalContainer';
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import {getSupplierinfor} from '@/utils/customize';
 
   export default {
     name: 'PFANS6009View',
@@ -564,6 +564,16 @@
             var tableData = response.company;
             var tripData = response.trip;
             var assetData = response.asset;
+
+            for (let j = 0; j < tableData.length; j++) {
+              if(tableData[j].bpcompany !== null && tableData[j].bpcompany !== "") {
+                let supplierInfor = getSupplierinfor(tableData[j].bpcompany);
+                if (supplierInfor) {
+                  tableData[j].bpcompany = supplierInfor.supchinese;
+                }
+              }
+            }
+
             let arrayAdate = [];
             let addLine1 = {}, addLine2 = {}, addLine5 = {};
             for (var i = 1; i <= 13; i++) {
@@ -633,6 +643,16 @@
           .then(response => {
             var tableData = response.worktimes;
             var year = response.year;
+
+            for (let j = 0; j < tableData.length; j++) {
+              if(tableData[j].bpcompany !== null && tableData[j].bpcompany !== "") {
+                let supplierInfor = getSupplierinfor(tableData[j].bpcompany);
+                if (supplierInfor) {
+                  tableData[j].bpcompany = supplierInfor.supchinese;
+                }
+              }
+            }
+
             tableData.forEach(data => {
               var totalManhour = 0, totalCost = 0;
               for (var i = 1; i <= 12; i++) {
@@ -699,6 +719,15 @@
           .then(response => {
             var tableC = response.workers;
             var year = response.year;
+
+            for (let j = 0; j < tableC.length; j++) {
+              if(tableC[j].bpcompany !== null && tableC[j].bpcompany !== "") {
+                let supplierInfor = getSupplierinfor(tableC[j].bpcompany);
+                if (supplierInfor) {
+                  tableC[j].bpcompany = supplierInfor.supchinese;
+                }
+              }
+            }
 
             let arrayAdate = [];
             let addLine1 = {};

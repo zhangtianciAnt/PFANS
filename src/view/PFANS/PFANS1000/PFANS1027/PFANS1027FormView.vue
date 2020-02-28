@@ -33,7 +33,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACEJAPANESE')" prop="entrustedjapanese">
+                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_JAPANESE')" prop="entrustedjapanese">
                     <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                               v-model="form.entrustedjapanese"></el-input>
                   </el-form-item>
@@ -64,12 +64,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" prop="startdate">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="form.startdate" style="width: 11rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.startdate" style="width: 18rem" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" prop="enddate">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="form.enddate" style="width: 11rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled" type="date" v-model="form.enddate" style="width: 18rem" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -185,7 +185,14 @@
              </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1027VIEW_DETAILS')" name="third">
+              <el-tabs v-model="activeName2" type="border-card">
+                <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_PERSON')" name="third1">
 
+                </el-tab-pane>
+                <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_OTHER')" name="third2">
+
+                </el-tab-pane>
+              </el-tabs>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1027VIEW_SYSTEM')" name="fourth">
               <el-row>
@@ -232,12 +239,36 @@
                   <template slot="title">
                     <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_FRUIT')}}</span>
                   </template>
-              <el-row>
-                <el-col :span="8">
-                  <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
-                            v-model="form.fruit"></el-input>
-                </el-col>
-              </el-row>
+                  <el-table :data="tablefifth" stripe header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
+                                     type="index" width="50"></el-table-column>
+                    <el-table-column :label="$t('label.PFANS1027FORMVIEW_FRUITNAME')" align="center"  prop="delivery" width="200">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disabled" v-model="scope.row.fruition">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="180">
+                      <template slot-scope="scope">
+                        <el-button
+                          :disabled="!disabled"
+                          @click.native.prevent="deleteRow(scope.$index, tablefifth)"
+                          plain
+                          size="small"
+                          type="danger"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          :disabled="!disabled"
+                          @click="addRow()"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
                 </el-collapse-item>
                   </el-collapse>
             </el-tab-pane>
@@ -272,6 +303,7 @@
                 index: "",
                 baseInfo: {},
                 activeName: 'first',
+                activeName2: 'third1',
                 loading: false,
                 selectType: "Single",
                 nomineeslist: "",
@@ -322,6 +354,11 @@
                   amount: '',
                 },
               ],
+              tablefifth:[
+                {
+                  fruition: '',
+                }
+              ],
                 disabled: true,
                 menuList: [],
                 rules: {},
@@ -359,30 +396,59 @@
                 this.loading = false;
             }
         },
-        created(){
-            if(!this.$route.params.disabled){
-                this.buttonList=[
-                    {
-                        key: 'generate',
-                        name: 'button.generate',
-                        disabled: false,
-                    }
-                ]
-            }else {
-                this.buttonList=[
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ]
+      created() {
+        this.disable = this.$route.params.disabled;
+        if (this.disabled) {
+          this.buttonList = [
+            {
+              key: "save",
+              name: "button.save",
+              disabled: false,
+              icon: "el-icon-check"
             }
-            this.disabled = this.$route.params.disabled;
-        },
+          ];
+        }
+      },
+        // created(){
+        //     if(!this.$route.params.disabled){
+        //         this.buttonList=[
+        //             {
+        //                 key: 'generate',
+        //                 name: 'button.generate',
+        //                 disabled: false,
+        //             }
+        //         ]
+        //     }else {
+        //         this.buttonList=[
+        //             {
+        //                 key: 'save',
+        //                 name: 'button.save',
+        //                 disabled: false,
+        //                 icon: 'el-icon-check',
+        //             },
+        //         ]
+        //     }
+        //     this.disable = this.$route.params.disabled;
+        // },
         methods: {
           getUserids(val) {
             this.form.deployment = val;
+          },
+          deleteRow(index, rows) {
+            if (rows.length > 1) {
+              rows.splice(index, 1);
+            }else{
+              this.tablefifth = [{
+                fruition: '',
+              }]
+            }
+          },
+          addRow() {
+            this.tablefifth.push({
+              fruitid: '',
+              quotationid: '',
+              fruition: '',
+            });
           },
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
@@ -391,6 +457,7 @@
                       this.baseInfo = {};
                       this.baseInfo.quotation = JSON.parse(JSON.stringify(this.form));
                       this.baseInfo.basicinformation = [];
+                      this.baseInfo.fruit = [];
                       for (let i = 0; i < this.tablefirst.length; i++) {
                         if (this.tablefirst[i].delivery !== '' || this.tablefirst[i].deliveryaate !== '' || this.tablefirst[i].finishedday !== '' ||
                           this.tablefirst[i].requestday !== '' || this.tablefirst[i].supportday !== '' || this.tablefirst[i].amount !== ''
@@ -408,6 +475,17 @@
                             },
                           );
                         }
+                      for (let i = 0; i < this.tablefifth.length; i++) {
+                        if (this.tablefifth[i].fruition !== ''
+                        )
+                          this.baseInfo.fruit.push(
+                            {
+                              fruitid: this.tablefifth[i].fruitid,
+                              quotationid: this.tablefifth[i].quotationid,
+                              fruition: this.tablefifth[i].fruition,
+                            },
+                          );
+                      }
                         if (this.$route.params._id) {
                           this.form.quotationid = this.$route.params._id;
                           this.loading = true;

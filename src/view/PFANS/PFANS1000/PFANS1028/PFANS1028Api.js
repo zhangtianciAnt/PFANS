@@ -1,21 +1,22 @@
 import request from '../../../../utils/request'
 
+
 export function get() {
   return request({
-    url: 'quotation/get',
+    url: 'nonjudgment/get',
     method: 'get'
   })
 }
-export function selectById(data) {
+export function one(data) {
   return request({
-    url: 'quotation/selectById',
-    method: 'get',
-    params: data
+    url: 'nonjudgment/one',
+    method: 'post',
+    data: data
   })
 }
 export function update(data) {
   return request({
-    url: 'quotation/update',
+    url: 'nonjudgment/update',
     method: 'post',
     data: data
   })

@@ -8,8 +8,8 @@
       @start="start"
       @workflowState="workflowState"
       ref="container"
-      v-loading="loading"
-    >
+      v-loading="loading">
+
       <div slot="customize">
         <el-form
           :model="form"
@@ -583,6 +583,20 @@
                               </el-input>
                             </template>
                           </el-table-column>
+<!--                          &lt;!&ndash;             センター         &ndash;&gt;-->
+<!--                          <el-table-column-->
+<!--                            :label="$t('label.center')"-->
+<!--                            align="center"-->
+<!--                            width="180">-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <el-input-->
+<!--                                :no="scope.row"-->
+<!--                                :disabled="true"-->
+<!--                                v-model="scope.row.company"-->
+<!--                                style="width: 100%">-->
+<!--                              </el-input>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
                           <!--                    姓名-->
                           <el-table-column
                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
@@ -597,15 +611,6 @@
                                 :multiple="multiple"
                                 style="width: 18vw"
                               ></user>
-                              <!--<user-->
-                              <!--:disabled="!disable"-->
-                              <!--:error="errorLeader"-->
-                              <!--:selectType="selectType"-->
-                              <!--:userlist="userlist"-->
-                              <!--:multiple="multiple"-->
-                              <!--@getUserids="getUserids"-->
-                              <!--style="width: 18vw"-->
-                              <!--&gt;</user>-->
                             </template>
                           </el-table-column>
                           <!--                    職務-->
@@ -1742,6 +1747,8 @@
           let lst = getUserInfo(row.name);
           row.position = lst.userinfo.post;
           row.number = lst.userinfo.jobnumber;
+          let lst1 = getOrgInfoByUserId(row.name);
+          row.company = lst1.groupNmae;
         }
       },
       // getdepartmentid(val1) {
@@ -2159,6 +2166,7 @@
                   number: this.tableB[i].number,
                   name: this.tableB[i].name,
                   type: this.tableB[i].type,
+                  company: this.tableB[i].company,
                   position: this.tableB[i].position,
                   admissiontime: this.tableB[i].admissiontime,
                   exittime: this.tableB[i].exittime,
