@@ -15,6 +15,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {getDictionaryInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from "moment";
 
@@ -30,7 +31,7 @@
         data: [],
         columns:[
           {
-            code: 'contract_id',
+            code: 'contractnumber',
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 150,
             fix: false,
@@ -87,7 +88,7 @@
             filter: true
           },
           {
-            code: 'currencyformat',
+            code: 'currencyposition',
             label: 'label.PFANS1029VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
@@ -110,7 +111,6 @@
       }
     },
     mounted() {
-        console.log("mounted........");
       this.loading = true;
       this.$store
         .dispatch('PFANS1029Store/get',{})
@@ -128,6 +128,18 @@
               if (response[j].signingdate !== null && response[j].signingdate !== ""){
                   response[j].signingdate = moment(response[j].signingdate).format("YYYY-MM-DD");
               }
+                if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].contracttype);
+                    if (letContracttype != null) {
+                        response[j].contracttype = letContracttype.value1;
+                    }
+                }
+                if (response[j].currencyposition !== null && response[j].currencyposition !== "") {
+                    let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
+                    if (letCurrencyposition != null) {
+                        response[j].currencyposition = letCurrencyposition.value1;
+                    }
+                }
             }
           }
           this.data = response;
