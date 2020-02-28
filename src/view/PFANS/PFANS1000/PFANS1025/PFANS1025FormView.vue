@@ -33,24 +33,24 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTJAPANESE')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.entrustjapanese"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.custojapanese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTCHINESE')">
-                      <el-input  :disabled="!disable"style="width:20vw"v-model="form.entrustchinese"></el-input>
+                      <el-input  :disabled="!disable"style="width:20vw"v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACEJAPANESE')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.enplacejapanese"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_ENPLACECHINESE')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.enplacechinese"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.placechinese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -75,7 +75,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
                       <el-date-picker
-                        v-model="form.developdate"
+                        v-model="form.claimdatetime"
                         :disabled="!disable"
                         type="daterange"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -94,7 +94,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                       <dicselect :code="code2"
-                                 :data="form.currencyformat"
+                                 :data="form.currencyposition"
                                  :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getcurrencyformat"
@@ -184,7 +184,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_COMMDEPARTMENT')">
-                      <el-input  :disabled="!disable" style="width:20vw"" v-model="form.commdepartment"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.commdepartment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -444,18 +444,16 @@
         form: {
           contractnumber: '',
           contracttype: '',
-          entrustjapanese: '',
-          entrustchinese: '',
-          enplacejapanese: '',
-          enplacechinese: '',
+          custojapanese: '',
+          custochinese: '',
+          placejapanese: '',
+          placechinese: '',
           deployment: '',
           pjnamejapanese: '',
           pjnamechinese: '',
-          developdate:[],
-          enddate: '',
-          firstdetails: '',
+          claimdatetime:[],
           deliverydate: '',
-          currencyformat: '',
+          currencyposition: '',
           claimamount: '',
           user_id: '',
           extrinsic: '',
@@ -469,7 +467,7 @@
           plannumber: '',
           valuationnumber: '',
           remarks: '',
-          awardtype: '',
+          maketype: '',
         },
         tableS:[{
           claimtype: '',
@@ -514,10 +512,10 @@
           .then(response => {
             this.form = response.award;
             this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-            if(this.form.deliverydate!=="" && this.form.deliverydate!==null){
-              let sertdate=this.form.developdate.slice(0,10);
-              let enddate =this.form.developdate.slice(this.form.developdate.length-10);
-              this.form.developdate=[sertdate,enddate];
+            if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
+              let sertdate=this.form.claimdatetime.slice(0,10);
+              let enddate =this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
+              this.form.claimdatetime=[sertdate,enddate];
             }
             if (response.awardDetail.length > 0) {
               this.tableT = response.awardDetail
@@ -544,14 +542,6 @@
       if(!this.$route.params.disabled){
         this.buttonList=[
           {
-            key: 'generate',
-            name: 'button.generate',
-            disabled: false,
-          }
-        ]
-      }else {
-        this.buttonList=[
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -575,7 +565,7 @@
         this.form.contracttype=val;
       },
       getcurrencyformat(val) {
-        this.form.currencyformat = val;
+        this.form.currencyposition = val;
       },
       getextrinsic(val) {
         this.form.extrinsic = val;
@@ -677,11 +667,11 @@
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.awardtype='0',
+              this.form.maketype='0',
               this.baseInfo={};
               this.form.user_id=this.userlist;
               this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              this.form.developdate=moment(this.form.developdate[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.developdate[1]).format('YYYY-MM-DD');
+              this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
               this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail=[];
               for(let i=0;i<this.tableT.length;i++){

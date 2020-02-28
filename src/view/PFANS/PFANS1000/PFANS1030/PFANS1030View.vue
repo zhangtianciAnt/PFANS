@@ -44,14 +44,14 @@
             filter: true
           },
           {
-            code: 'entrustjapanese',
+            code: 'custochinese',
             label: 'label.PFANS1025VIEW_ENTRUST',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'enplacechinese',
+            code: 'placechinese',
             label: 'label.PFANS1025VIEW_ENTRUSTPLACE',
             width: 150,
             fix: false,
@@ -72,22 +72,14 @@
             filter: true
           },
           {
-            code: 'developdate',
-            label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 200,
-            fix: false,
-            filter: true
-          },
-
-          {
-            code: 'deliverydate',
+            code: 'claimdatetime',
             label: 'label.PFANS1024VIEW_DELIVERYDATE',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'currencyformat',
+            code: 'currencyposition',
             label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
@@ -119,14 +111,11 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1025Store/get', {})
+        .dispatch('PFANS1025Store/get', {maketype:'1'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== ""){
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
-              }
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
               }
