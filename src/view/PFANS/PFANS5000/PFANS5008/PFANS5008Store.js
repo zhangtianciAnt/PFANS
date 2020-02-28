@@ -6,7 +6,8 @@ import {
   updateNewUser,
   getDataOne,
   createProject,
-  deletePersonal
+  deletePersonal,
+  gettlist
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -58,6 +59,19 @@ const PFANS5008Store = {
     getDataList({ commit }, data) {
       return new Promise((resolve, reject) => {
         getDataList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    gettlist({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        gettlist(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -25,7 +25,7 @@ export function update(data) {
 
 export function insert(data) {
   return request({
-    url: 'contracttheme/create',
+    url: 'contracttheme/insert',
     method: 'post',
     data: data
   })
