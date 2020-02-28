@@ -43,13 +43,13 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'project_id',
-            label: 'label.PFANS5008VIEW_PROGRAM',
-            width: 120,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'project_id',
+          //   label: 'label.PFANS5008VIEW_PROGRAM',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'log_date',
             label: 'label.PFANS5008VIEW_RIQI',
