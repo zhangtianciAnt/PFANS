@@ -12,7 +12,7 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+        <el-form label-position="top" label-width="8vw" ref="refform" :model="refform"
                  style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1039FORMVIEW_PLAN')" name="first">
@@ -373,6 +373,15 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1039FORMVIEW_PROSPECTS')" name="second">
+              <el-row style="padding-top: 2%;padding-bottom: 2%">
+                <el-col :span="8">
+                  <el-date-picker
+                    v-model="value2"
+                    type="month"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </el-col>
+              </el-row>
               <div>
                 <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe border>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
@@ -891,11 +900,12 @@
     },
     data() {
       return {
+        value2: '',
         title: 'title.PFANS1039VIEW',
         activeName: 'first',
         loading: false,
         disabled: false,
-        buttonList: [],
+        refform: {},
         arrays: [
           {disabled: true},
           {disabled: true},
@@ -1091,17 +1101,10 @@
         this.$store
           .dispatch('PFANS1039Store/One', {'contractthemeid': this.$route.params._id})
           .then(response => {
-            this.form = response.contracttheme;
-            if (response.totalplan.length > 0) {
-              this.tableA = response.totalplan;
+            if (response.contracttheme.length > 0) {
+              this.tableF = response.contracttheme;
             }
-            if (response.pieceworktotal.length > 0) {
-              this.tableB = response.pieceworktotal;
-            }
-            this.userlist = this.form.user_id;
-            this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.totalplan = JSON.parse(JSON.stringify(this.tableA));
-            this.baseInfo.pieceworktotal = JSON.parse(JSON.stringify(this.tableB));
+            this.baseInfo.contracttheme = JSON.parse(JSON.stringify(this.tableF));
             this.loading = false;
           })
           .catch(error => {
@@ -1112,28 +1115,12 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centerid = rst.centerNmae;
-          this.form.groupid = rst.groupNmae;
-          this.form.teamid = rst.teamNmae;
-          this.form.user_id = this.$store.getters.userinfo.userid;
-        }
       }
     },
     created() {
       this.disabled = this.$route.params.disabled;
       if (this.disabled) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        this.buttonList = [];
       }
     },
     methods: {
@@ -1158,338 +1145,21 @@
       getcommission(val, row) {
         row.commission = val;
       },
-      getSummaries(table) {
-        let totalExpect = {};
-        let totalActual = {};
-        table.forEach(
-          row => {
-            debugger
-            let sum = 0;
-            for (let i = 1; i <= 12; i++) {
-              if (row.assetstype1 === '1') {
-                sum = Math.round((row['money' + i] || 0) / 12 * 100000) / 100000;
-              } else if (row.assetstype1 === '2') {
-                sum = Math.round((row['money' + i] || 0) / 36 * 100000) / 100000;
-              } else if (row.assetstype1 === '3') {
-                sum = Math.round((row['money' + i] || 0) / 60 * 100000) / 100000;
-              }
-              if (row.assetstype === '0') {
-                totalExpect['money' + i] = sum + (totalExpect['money' + i] || 0);
-              } else {
-                totalActual['money' + i] = sum + (totalActual['money' + i] || 0);
-              }
-            }
-            if (row.assetstype1 === '0') {
-              totalExpect.numberfirsthalf += row.numberfirsthalf;
-              totalExpect.numbersecondhalf += row.numbersecondhalf;
-              totalExpect.numberAnnual += row.numberAnnual;
-            } else {
-              totalActual.numberfirsthalf += row.numberfirsthalf;
-              totalActual.numbersecondhalf += row.numbersecondhalf;
-              totalActual.numberAnnual += row.numberAnnual;
-            }
-          },
-        );
-        for (let i = 4; i <= 12; i++) {
-          totalActual['money' + i] += totalActual['money' + (i - 1)];
-          totalExpect['money' + i] += totalExpect['money' + (i - 1)];
-        }
-        totalActual.money1 += totalActual.money12;
-        totalExpect.money1 += totalExpect.money12;
-        totalActual.money2 += totalActual.money1;
-        totalExpect.money2 += totalExpect.money1;
-        totalActual.money3 += totalActual.money2;
-        totalExpect.money3 += totalExpect.money2;
-
-        totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(5);
-        totalActual.moneyfirsthalf = (totalActual.money4 + totalActual.money5 + totalActual.money6 + totalActual.money7 + totalActual.money8 + totalActual.money9).toFixed(5);
-        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(5);
-        totalActual.moneysecondhalf = (totalActual.money10 + totalActual.money11 + totalActual.money12 + totalActual.money1 + totalActual.money2 + totalActual.money3).toFixed(5);
-        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
-        totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf)).toFixed(5);
-        debugger
-        this.tableG2 = [totalExpect, totalActual];
-      },
-      handleChange(scope, index) {
-        debugger
-        if (scope.prices > 0) {
-          scope['money' + index] = scope.prices * scope['number' + index];
-          if (index >= 4 && index <= 9) {
-            scope.numberfirsthalf = (scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0);
-            scope.moneyfirsthalf = (scope.money4 || 0) + (scope.money5 || 0) + (scope.money6 || 0) + (scope.money7 || 0) + (scope.money8 || 0) + (scope.money9 || 0);
-          }
-          if ((index >= 9 && index <= 12) || (index >= 1 && index <= 3)) {
-            scope.numbersecondhalf = (scope.number10 || 0) + (scope.number1 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0);
-            scope.moneysecondhalf = (scope.money10 || 0) + (scope.money11 || 0) + (scope.money12 || 0) + (scope.money1 || 0) + (scope.money2 || 0) + (scope.money3 || 0);
-          }
-          scope.numberAnnual = scope.numberfirsthalf + scope.numbersecondhalf;
-          scope.moneyAnnual = scope.moneyfirsthalf + scope.moneysecondhalf;
-        }
-        this.getSummaries(this.tableF2);
-      },
-      objectSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 34) {
-          if (rowIndex % 2 === 0) {
-            return {
-              rowspan: 2,
-              colspan: 1,
-            };
-          } else {
-            return {
-              rowspan: 0,
-              colspan: 0,
-            };
-          }
-        }
-      },
-      formatterColumn(row, column, cellValue, index) {
-        debugger
-        if (column.property === 'type') {
-          if (index === 0) {
-            return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
-          } else if (index === 2) {
-            return this.$t('label.PFANSUSERVIEW_MEMBERS');
-          }
-        } else if (column.property === 'level') {
-          if (index === 0) {
-            return '参事以上';
-          } else if (index === 1) {
-            return '主事以下';
-          } else if (index === 2) {
-            return 'R10';
-          } else if (index === 3) {
-            return 'R9A';
-          } else if (index === 4) {
-            return 'R9B';
-          } else if (index === 5) {
-            return 'R8A';
-          } else if (index === 6) {
-            return 'R8B';
-          } else if (index === 7) {
-            return 'R8C';
-          } else if (index === 8) {
-            return 'R7';
-          } else if (index === 9) {
-            return 'R6';
-          } else if (index === 10) {
-            return 'R5';
-          } else if (index === 11) {
-            return 'R4';
-          } else if (index === 12) {
-            return 'R3';
-          }
-        }
-      },
-      getCSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getDSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getLSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getMSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getNSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getOSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getQSummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            sums[index] += ' 元';
-          } else {
-            sums[index] = '';
-          }
-        });
-
-        return sums;
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.user_id = val;
-        let rst = getOrgInfoByUserId(val);
-        this.form.centerid = rst.centerNmae;
-        this.form.groupid = rst.groupNmae;
-        this.form.teamid = rst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
-        }
-      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        this.buttonClick('update');
       },
       start() {
         this.form.status = '2';
-        this.buttonClick('save');
+        this.buttonClick('update');
       },
       end() {
         this.form.status = '0';
-        this.buttonClick('save');
+        this.buttonClick('update');
       },
       deleteRowF(index, rows) {
         if (rows.length > 1) {
@@ -1497,69 +1167,51 @@
         }
       },
       addRowF() {
-        this.tableF.push({});
-      },
-      deleteRowF2(index, rows) {
-        if (rows.length > 2) {
-          rows.splice(index, 2);
-        }
-      },
-      addRowF2() {
-        this.tableF2.push({assetstype: '0'});
-        this.tableF2.push({assetstype: '1'});
-      },
-      deleteRowL(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowL() {
-        this.tableL.push({});
-      },
-      deleteRowM(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowM() {
-        this.tableM.push({});
-      },
-      deleteRowN(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowN() {
-        this.tableN.push({});
-      },
-      deleteRowO(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowO() {
-        this.tableO.push({});
-      },
-      deleteRowP(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowP() {
-        this.tableP.push({});
-      },
-      deleteRowQ(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        }
-      },
-      addRowQ() {
-        this.tableQ.push({});
+        this.tableF.push({
+          theme: '',
+          center: '',
+          group: '',
+          team: '',
+          kind: '',
+          contractform: '',
+          currencytype: '',
+          commission: '',
+          personnel191: '',
+          amount191: '',
+          personnel192: '',
+          amount192: '',
+          personnel193: '',
+          amount193: '',
+          personnel4: '',
+          amount4: '',
+          personnel5: '',
+          amount5: '',
+          personnel6: '',
+          amount6: '',
+          personnel7: '',
+          amount7: '',
+          personnel8: '',
+          amount8: '',
+          personnel9: '',
+          amount9: '',
+          personnel10: '',
+          amount10: '',
+          personnel11: '',
+          amount11: '',
+          personnel12: '',
+          amount12: '',
+          personnel1: '',
+          amount1: '',
+          personnel2: '',
+          amount2: '',
+          personnel3: '',
+          amount3: '',
+        });
       },
       buttonClick(val) {
         if (val === 'back') {
           this.$router.push({
-            name: 'PFANS1036View',
+            name: 'PFANS1041View',
             params: {},
           });
         }
@@ -1567,69 +1219,11 @@
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.baseInfo = {};
-              this.form.user_id = this.userlist;
-              this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.totalplan = [];
-              this.baseInfo.pieceworktotal = [];
-              // for (let i = 0; i < this.tableT.length; i++) {
-              //   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-              //     || this.tableT[i].rmb !== '' || this.tableT[i].foreigncurrency !== '' || this.tableT[i].annexno !== '') {
-              //     this.baseInfo.trafficdetails.push(
-              //       {
-              //         trafficdetails_id: this.tableT[i].trafficdetails_id,
-              //         publicexpenseid: this.tableT[i].publicexpenseid,
-              //         trafficdate: this.tableT[i].trafficdate,
-              //         region: this.tableT[i].region,
-              //         vehicle: this.tableT[i].vehicle,
-              //         startingpoint: this.tableT[i].startingpoint,
-              //         rmb: this.tableT[i].rmb,
-              //         foreigncurrency: this.tableT[i].foreigncurrency,
-              //         annexno: this.tableT[i].annexno,
-              //       },
-              //     );
-              //   }
-              // }
-              // for (let i = 0; i < this.tableP.length; i++) {
-              //   if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].procurementproject !== ''
-              //     || this.tableP[i].rmb !== '' || this.tableP[i].foreigncurrency !== '' || this.tableP[i].annexno !== '') {
-              //     if (this.tableP[i].procurementdetails === ' ') {
-              //       this.tableP[i].procurementdetails = '';
-              //     }
-              //     this.baseInfo.purchasedetails.push(
-              //       {
-              //         purchasedetails_id: this.tableP[i].purchasedetails_id,
-              //         publicexpenseid: this.tableP[i].publicexpenseid,
-              //         purchasedetailsdate: this.tableP[i].purchasedetailsdate,
-              //         procurementdetails: this.tableP[i].procurementdetails,
-              //         procurementproject: this.tableP[i].procurementproject,
-              //         rmb: this.tableP[i].rmb,
-              //         foreigncurrency: this.tableP[i].foreigncurrency,
-              //         annexno: this.tableP[i].annexno,
-              //       },
-              //     );
-              //   }
-              // }
-              // for (let i = 0; i < this.tableR.length; i++) {
-              //   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-              //     || this.tableR[i].rmb !== '' || this.tableR[i].foreigncurrency !== '' || this.tableR[i].annexno !== '') {
-              //     this.baseInfo.otherdetails.push(
-              //       {
-              //         otherdetails_id: this.tableR[i].otherdetails_id,
-              //         publicexpenseid: this.tableR[i].publicexpenseid,
-              //         otherdetailsdate: this.tableR[i].otherdetailsdate,
-              //         costitem: this.tableR[i].costitem,
-              //         remarks: this.tableR[i].remarks,
-              //         rmb: this.tableR[i].rmb,
-              //         foreigncurrency: this.tableR[i].foreigncurrency,
-              //         annexno: this.tableR[i].annexno,
-              //       },
-              //     );
-              //   }
-              // }
+              this.baseInfo.contracttheme = JSON.parse(JSON.stringify(this.tableF));
               if (this.$route.params._id) {
-                this.baseInfo.businessplan.businessplanid = this.$route.params._id;
+                this.baseInfo.contracttheme.contractthemeid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
+                  .dispatch('PFANS1039Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -1640,7 +1234,7 @@
                         duration: 5 * 1000,
                       });
                       this.$router.push({
-                        name: 'PFANS1036View',
+                        name: 'PFANS1039View',
                       });
                     }
                   })
@@ -1654,19 +1248,18 @@
                   });
               } else {
                 this.$store
-                  .dispatch('PFANS1036Store/createBusinessplan', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.$router.push({
-                      name: 'PFANS1036View',
-                    });
-                  })
+                  .dispatch('PFANS1039Store/insert', this.baseInfo).then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  this.$router.push({
+                    name: 'PFANS1039View',
+                  });
+                })
                   .catch(error => {
                     Message({
                       message: error,

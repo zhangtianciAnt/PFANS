@@ -43,7 +43,7 @@
             filter: true
           },
           {
-            code: 'depositchinese',
+            code: 'custochinese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 130,
             fix: false,
@@ -78,14 +78,14 @@
             filter: true
           },
           {
-            code: 'developdate',
+            code: 'claimdatetime',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'deliverydate',
+            code: 'deliveryfinshdate',
             label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
             width: 150,
             fix: false,
@@ -108,8 +108,8 @@
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              if (response[j].deliverydate !== null && response[j].deliverydate !== "") {
-                response[j].deliverydate = moment(response[j].deliverydate).format("YYYY-MM-DD");
+              if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== "") {
+                response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
               }
             }
           }
