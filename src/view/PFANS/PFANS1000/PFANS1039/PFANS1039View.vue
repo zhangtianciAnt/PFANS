@@ -373,6 +373,15 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1039FORMVIEW_PROSPECTS')" name="second">
+              <el-row style="padding-top: 2%;padding-bottom: 2%">
+                <el-col :span="8">
+                  <el-date-picker
+                    v-model="value2"
+                    type="month"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </el-col>
+              </el-row>
               <div>
                 <el-table :data="tableF" header-cell-class-name="sub_bg_color_blue" stripe border>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
@@ -891,6 +900,7 @@
     },
     data() {
       return {
+        value2: '',
         title: 'title.PFANS1039VIEW',
         activeName: 'first',
         loading: false,
@@ -1157,17 +1167,55 @@
         }
       },
       addRowF() {
-        this.tableF.push({});
+        this.tableF.push({
+          theme: '',
+          center: '',
+          group: '',
+          team: '',
+          kind: '',
+          contractform: '',
+          currencytype: '',
+          commission: '',
+          personnel191: '',
+          amount191: '',
+          personnel192: '',
+          amount192: '',
+          personnel193: '',
+          amount193: '',
+          personnel4: '',
+          amount4: '',
+          personnel5: '',
+          amount5: '',
+          personnel6: '',
+          amount6: '',
+          personnel7: '',
+          amount7: '',
+          personnel8: '',
+          amount8: '',
+          personnel9: '',
+          amount9: '',
+          personnel10: '',
+          amount10: '',
+          personnel11: '',
+          amount11: '',
+          personnel12: '',
+          amount12: '',
+          personnel1: '',
+          amount1: '',
+          personnel2: '',
+          amount2: '',
+          personnel3: '',
+          amount3: '',
+        });
       },
       buttonClick(val) {
         if (val === 'back') {
           this.$router.push({
-            name: 'PFANS1039View',
+            name: 'PFANS1041View',
             params: {},
           });
         }
         if (val === 'save') {
-          debugger;
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.baseInfo = {};
@@ -1201,18 +1249,17 @@
               } else {
                 this.$store
                   .dispatch('PFANS1039Store/insert', this.baseInfo).then(response => {
-                    debugger;
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.$router.push({
-                      name: 'PFANS1039View',
-                    });
-                  })
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  this.$router.push({
+                    name: 'PFANS1039View',
+                  });
+                })
                   .catch(error => {
                     Message({
                       message: error,
