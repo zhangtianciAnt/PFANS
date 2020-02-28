@@ -26,7 +26,7 @@ const PFANS1039Store = {
     },
     One({commit}, data) {
       return new Promise((resolve, reject) => {
-        getOne(data).then(response => {
+        One(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
