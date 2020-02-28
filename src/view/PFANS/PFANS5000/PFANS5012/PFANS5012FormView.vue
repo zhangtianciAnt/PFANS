@@ -1,25 +1,85 @@
 <template>
   <div>
-    <EasyNormalTable :title="title" :columns="columns" :no-back="true" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" :showSelection="isShow">
-    </EasyNormalTable>
+    <EasyNormalContainer
+      :buttonList="buttonList"
+      :title="title"
+      :noback="false"
+      @buttonClick="buttonClick"
+      @rowClick="rowClick"
+      v-loading="loading">
+
+      <div slot="customize">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+          <el-form-item>
+            <el-table
+              :data="tableDataA" border stripe style="width: 100%" ref="multipleTable"
+              tooltip-effect="dark" @selection-change="handleSelectionChange" :header-cell-style="{background:'#005BAA',color:'white'}">
+
+              <!-- 姓名-->
+              <el-table-column
+                :label="$t('label.user_name')"
+                align="center"
+                width="180">
+                <template slot-scope="scope">
+                  <el-input
+                    :no="scope.row"
+                    :disabled="!disabled"
+                    v-model="scope.row.name"
+                    style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+
+              <!-- 所属部门-->
+              <el-table-column
+                :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
+                align="center"
+                width="180">
+                <template slot-scope="scope">
+                  <el-input
+                    :no="scope.row"
+                    :disabled="!disabled"
+                    v-model="scope.row.company"
+                    style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+
+              <!-- 员工类型-->
+              <el-table-column
+                :label="$t('label.PFANS6001VIEW_EMPLOYEETYPE')"
+                align="center"
+                width="180">
+                <template slot-scope="scope">
+                  <el-input
+                    :no="scope.row"
+                    :disabled="!disabled"
+                    v-model="scope.row.employeetype"
+                    style="width: 100%">
+                  </el-input>
+                </template>
+              </el-table-column>
+
+            </el-table>
+          </el-form-item>
+        </el-form>
+      </div>
+    </EasyNormalContainer>
   </div>
 </template>
 <script>
-  import {getToken} from '@/utils/auth'
-  import EasyNormalTable from "@/components/EasyNormalTable";
+  import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
-  let moment = require("moment");
+  import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+
   export default {
-    name: 'PFANS5012FormView',
+    name: 'PFANS5011FormView',
     components: {
-      EasyNormalTable
+      EasyNormalContainer,
     },
     data() {
       return {
         totaldata: [],
-
         total: 0,
         message: [{hang: '', error: '',}],
         Message1: true,
@@ -40,67 +100,11 @@
         transferData: [],
         selectedlist: [],
         isShow:true,
-        columns: [
-          {
-            code: 'username',
-            label: 'label.user_name',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'center_name',
-            label: 'label.center',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'group_name',
-            label: 'label.group',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'team_name',
-            label: 'label.team',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'project_id',
-            label: 'label.PFANS5008VIEW_PROGRAM',
-            width: 120,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'log_date',
-            label: 'label.PFANS5008VIEW_RIQI',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'time_start',
-            label: 'label.PFANS5008FORMVIEW_SC',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-
-          {
-            code: 'work_memo',
-            label: 'label.PFANS5008VIEW_GZBZ',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-        ],
         buttonList: [
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          //承认
+          {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-plus'},
+          // 拒绝
+          {'key': 'refuse', 'name': 'button.refuse', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         row: '',
         rowid: '',
