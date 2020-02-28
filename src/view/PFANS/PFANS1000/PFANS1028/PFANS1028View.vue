@@ -30,7 +30,7 @@
         data: [],
         columns:[
           {
-            code: 'no',
+            code: 'decisionnumber',
             label: 'label.PFANS1028VIEW_NO',
             width: 150,
             fix: false,
@@ -44,7 +44,7 @@
             filter: true
           },
           {
-            code: 'organization',
+            code: 'deployment',
             label: 'label.PFANS1028VIEW_ORGANIZATION',
             width: 120,
             fix: false,
@@ -58,14 +58,14 @@
             filter: true
           },
           {
-            code: 'depositary',
+            code: 'custoenglish',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'country',
+            code: 'varto',
             label: 'label.PFANS1028VIEW_COUNTRY',
             width: 120,
             fix: false,
@@ -87,7 +87,7 @@
             filter: true
           },
           {
-            code: 'period',
+            code: 'claimdatetime',
             label: 'label.PFANS1028VIEW_PERIOD',
             width: 150,
             fix: false,
@@ -106,23 +106,23 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'contractapplication_id'
+        row_id: 'nonjudgment_id'
       }
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get',{'type': '1'})
+        .dispatch('PFANS1028Store/get',{})
         .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if(response[j].contracttype !== null && response[j].contracttype !== ""){
-              response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
-            }
-
-            if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
-              response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
-            }
-          }
+          // for (let j = 0; j < response.length; j++) {
+          //   if(response[j].contracttype !== null && response[j].contracttype !== ""){
+          //     response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
+          //   }
+          //
+          //   if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
+          //     response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
+          //   }
+          // }
           this.data = response;
           this.loading = false;
         })
@@ -137,7 +137,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.contractapplication_id;
+        this.rowid = row.nonjudgment_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
