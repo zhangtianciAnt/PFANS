@@ -80,11 +80,30 @@
                   <el-col :span="24">
                       <el-form-item
                         :label="$t('label.PFANS1028VIEW_REVIEW')">
-                        <el-checkbox-group v-model="checkList">
-                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS1')"></el-checkbox>
-                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS3')"></el-checkbox>
-                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS2')"></el-checkbox>
-                        </el-checkbox-group>
+<!--                        <el-checkbox-group v-model="checkList">-->
+<!--                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS1')"></el-checkbox>-->
+<!--                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS3')"></el-checkbox>-->
+<!--                          <el-checkbox  :label="$t('label.PFANS1028VIEW_REQUIREMENTS2')"></el-checkbox>-->
+<!--                        </el-checkbox-group>-->
+                        <el-row>
+                          <el-col :span="4">
+                            <el-checkbox v-model="checked1" @change="getChecked1" :disabled="disabled1" style="margin-left: 50px">
+                              <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS1')}}</p>
+                            </el-checkbox>
+                          </el-col>
+                          <el-col :span="20">
+                            <el-checkbox v-model="checked2" :disabled="disabled2">
+                              <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS3')}}</p>
+                            </el-checkbox>
+                          </el-col>
+                        </el-row>
+                        <el-row>
+                          <el-col :span="8">
+                            <el-checkbox v-model="checked3" @change="getChecked3" :disabled="disabled3" style="margin-left: 50px">
+                              <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS2')}}</p>
+                            </el-checkbox>
+                          </el-col>
+                        </el-row>
                       </el-form-item>
                   </el-col>
                 </el-row>
@@ -1095,6 +1114,12 @@
         }
       };
       return {
+        checked1: false,
+        checked2: false,
+        checked3: false,
+        disabled1: false,
+        disabled2: false,
+        disabled3: false,
         activeName: 'first',
         activeName2: 'first',
         activeName3: 'first',
@@ -1606,6 +1631,27 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getChecked1(val) {
+        this.checked3 = val;
+        if (val === true) {
+          this.disabled2 = false;
+          this.checked3 = false;
+        } else {
+          this.checked1 = false;
+          this.checked2 = false;
+          this.checked3 = false;
+        }
+      },
+      getChecked3(val) {
+        this.checked3 = val;
+        if (val === true) {
+          this.disabled2 = true;
+          this.checked1 = false;
+          this.checked2 = false;
+        } else {
+          this.disabled2 = false;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;

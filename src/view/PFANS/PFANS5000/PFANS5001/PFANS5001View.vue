@@ -91,7 +91,6 @@
         },
         mounted() {
             this.loading = true;
-
             this.$store
                 .dispatch('PFANS5001Store/getFpans5001List', {})
                 //根据user_id取组织架构和user_name

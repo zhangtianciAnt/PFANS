@@ -89,7 +89,7 @@
     mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2022Store/get')
+          .dispatch('PFANS1027Store/get')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].contracttype !== null && response[j].contracttype !== "") {

@@ -15,6 +15,13 @@ export function selectById(data) {
     params: data
   })
 }
+export function select(data) {
+  return request({
+    url: 'companyprojects/select',
+    method: 'get',
+    params: data
+  })
+}
 
 //更新流程
 export function update(data) {
