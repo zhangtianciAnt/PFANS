@@ -22,6 +22,9 @@
           <el-form-item label="组织番号">
             <el-input auto-complete="off" placeholder="" v-model="companyform.orgname" style="width:20vw"></el-input>
           </el-form-item>
+          <el-form-item label="预算编码">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.encoding" style="width:20vw"></el-input>
+          </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{currentNode.companyshortname}}</span>
           </el-form-item>
@@ -44,6 +47,9 @@
           </el-form-item>
           <el-form-item label="组织番号" v-show="type === '2'">
             <el-input auto-complete="off" placeholder="" v-model="companyform.orgname" style="width:20vw"></el-input>
+          </el-form-item>
+          <el-form-item label="预算编码">
+            <el-input auto-complete="off" placeholder="" v-model="companyform.encoding" style="width:20vw"></el-input>
           </el-form-item>
           <el-form-item label="上级组织" prop="upcompany">
             <span>{{upcompany}}</span>

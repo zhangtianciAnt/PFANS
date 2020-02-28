@@ -33,19 +33,10 @@
                     <el-input v-model="currentNode.orgname" v-show="orgnameflag"></el-input>
                     <span v-show="!orgnameflag">{{currentNode.orgname}}</span>
                   </el-form-item>
-                  <!--<el-form-item prop="address" label="公司地址" @mouseover.native="changeflag('addressflag',true)" @mouseout.native="changeflag('addressflag',false)">-->
-                  <!--<el-input v-show="addressflag" v-model="currentNode.companyaddress"></el-input>-->
-                  <!--<span v-show="!addressflag">{{currentNode.companyaddress}}</span>-->
-                  <!--</el-form-item>-->
-                  <!--<el-form-item prop="owner" label="公司法人" @mouseover.native="changeflag('ownerflag',true)" @mouseout.native="changeflag('ownerflag',false)">-->
-                  <!--<el-input v-model="currentNode.companycorporation" v-show="ownerflag"></el-input>-->
-                  <!--<span v-show="!ownerflag">{{currentNode.companycorporation}}</span>-->
-                  <!--</el-form-item>-->
-                  <!--<el-form-item prop="time" label="成立时间" @mouseover.native="changeflag('timeflag',true)" @mouseout.native="changeflag('timeflag',false)">-->
-                  <!--<el-date-picker v-model="currentNode.establish" type="date" placeholder="选择日期" v-show="timeflag">-->
-                  <!--</el-date-picker>-->
-                  <!--<span v-show="!timeflag">{{currentNode.establish == null ? '' : formattime(currentNode.establish)}}</span>-->
-                  <!--</el-form-item>-->
+                  <el-form-item  label="预算编码" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
+                    <el-input v-model="currentNode.encoding" v-show="encodingflag"></el-input>
+                    <span v-show="!encodingflag">{{currentNode.encoding}}</span>
+                  </el-form-item>
                   <el-form-item prop="user" label="组织负责人">
                     <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
                   </el-form-item>
@@ -66,6 +57,10 @@
                   </el-form-item>
                   <el-form-item label="上级组织" prop="cname">
                     <span >{{currentNode.upcompany}}</span>
+                  </el-form-item>
+                  <el-form-item  label="预算编码" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
+                    <el-input v-model="currentNode.encoding" v-show="encodingflag"></el-input>
+                    <span v-show="!encodingflag">{{currentNode.encoding}}</span>
                   </el-form-item>
                   <el-form-item prop="user" label="组织负责人">
                     <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
@@ -125,6 +120,7 @@
         ownerflag: false,
         timeflag: false,
         orgnameflag:false,
+        encodingflag:false,
         exrinfolist: {
           banlist: [],
           invlist: []
@@ -262,6 +258,9 @@
             break
           case 'orgnameflag':
             this.orgnameflag = type
+            break
+          case 'encodingflag':
+            this.encodingflag = type
             break
           default:
             this.timeflag = type
