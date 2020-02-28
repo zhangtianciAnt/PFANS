@@ -102,7 +102,7 @@
   // import EasyNormalContainer from '@/components/EasyNormalContainer';
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import {getSupplierinfor} from '@/utils/customize';
 
   export default {
     name: 'PFANS6009View',
