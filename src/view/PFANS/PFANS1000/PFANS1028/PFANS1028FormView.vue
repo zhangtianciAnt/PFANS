@@ -20,9 +20,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :error="errorgroup" :label="$t('label.PFANS1028VIEW_ORGANIZATION')" prop="group_id">
-                      <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                           orgtype="2" style="width:20vw"></org>
+                    <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')" >
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -508,9 +507,8 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="errorgroup" :label="$t('label.PFANS1028VIEW_ORGANIZATION')" prop="group_id">
-                      <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                           orgtype="2" style="width:20vw"></org>
+                    <el-form-item :error="errorgroup" :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -862,9 +860,8 @@
                   </el-row>
                   <el-row>
                     <el-col :span="12">
-                      <el-form-item :error="errorgroup" :label="$t('label.PFANS1028VIEW_ORGANIZATION')" prop="group_id">
-                        <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                             orgtype="2" style="width:20vw"></org>
+                      <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')" >
+                        <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -2181,7 +2178,7 @@
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.form.possible !== '' && this.form.position !== null) {
+            if (this.form.possible !== '') {
               this.checkList = JSON.parse(this.form.possible);
             }
             if (this.form.review !== '' && this.form.review !== null) {
@@ -2201,8 +2198,8 @@
             let serdate1 = repair.slice(repair.length - 10);
             this.form.claimdatetime = [serdate, serdate1];
 
-            this.grouporglist = this.form.group_id;
-            debugger
+            this.grouporglist = this.form.deployment;
+            debugger;
             if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
               for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
                 let aa = JSON.parse(response.limitcommunt)[i];
@@ -2349,9 +2346,9 @@
         }
       },*/
       getGroupId(val) {
-        this.form.group_id = val;
+        this.form.deployment = val;
         this.grouporglist = val;
-        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+        if (!this.form.deployment || this.form.deployment === '' || val === 'undefined') {
           this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
         } else {
           this.errorgroup = '';
@@ -2450,8 +2447,11 @@
                   jud2: this.tableSof[i].judgment2,
                 });
               }
-
-              this.form.limitcommunt = JSON.stringify(this.arrJud);
+              this.form.limitcommunt=JSON.stringify(this.arrJud);
+              this.form.limitdelivery=JSON.stringify(this.arrdel);
+              this.form.limittechnology=JSON.stringify(this.arrgate);
+              this.form.limitcomputers=JSON.stringify(this.arrput);
+              this.form.limitjasoftware = JSON.stringify(this.arrsofe);
               this.form.supplieindustrial = JSON.stringify(this.arrIndustrial);
               this.form.supplielectronic = JSON.stringify(this.arrElectronic);
               this.form.suppliecom = JSON.stringify(this.arrCOM);
