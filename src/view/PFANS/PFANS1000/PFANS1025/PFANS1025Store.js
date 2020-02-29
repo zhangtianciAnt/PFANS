@@ -5,9 +5,9 @@ const PFANS1025Store = {
   state: {},
   mutations: {},
   actions: {
-    get() {
+    get({commit}, data) {
       return new Promise((resolve, reject) => {
-        get().then(response => {
+        get(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
