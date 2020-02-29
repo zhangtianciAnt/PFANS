@@ -50,7 +50,7 @@
             filter: true,
           },
           {
-            code: 'department',
+            code: 'deployment',
             label: 'label.PFANS1024VIEW_DEPLOYMENT',
             width: 120,
             fix: false,
@@ -102,6 +102,12 @@
                 let letContracttype = getDictionaryInfo(response[j].contracttype);
                 if (letContracttype != null) {
                   response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].trusteejapanese !== null && response[j].trusteejapanese !== "") {
+                let user = getUserInfo(response[j].trusteejapanese);
+                if (user) {
+                  response[j].trusteejapanese = user.userinfo.customername;
                 }
               }
             }
