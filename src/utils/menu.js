@@ -58,6 +58,20 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
+                  '_id': 'PFANS1038',
+                  'name': 'menu.PFANS1038',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1038View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1038_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1038_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1038_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1038_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS1036',
                   'name': 'menu.PFANS1036',
                   'menuvisible': true,
@@ -70,16 +84,7 @@ export function menu() {
                     {"_id": "PFANS1036_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS1036_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
-                }
-              ]
-            },
-            {
-              '_id': 'SALESTHEME',
-              'name': 'menu.SALESTHEME',
-              'menuvisible': true,
-              'menuurl': '',
-              'menuicon': '',
-              'children': [
+                },
                 {
                   '_id': 'PFANS1039',
                   'name': 'menu.PFANS1039',
@@ -96,6 +101,29 @@ export function menu() {
                 }
               ]
             },
+            // {
+            //   '_id': 'SALESTHEME',
+            //   'name': 'menu.SALESTHEME',
+            //   'menuvisible': true,
+            //   'menuurl': '',
+            //   'menuicon': '',
+            //   'children': [
+            //     {
+            //       '_id': 'PFANS1039',
+            //       'name': 'menu.PFANS1039',
+            //       'menuvisible': true,
+            //       'menuurl': '/PFANS1039View',
+            //       'menuicon': '',
+            //       'children': [],
+            //       'actions': [
+            //         {"_id": "PFANS1039_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+            //         {"_id": "PFANS1039_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+            //         {"_id": "PFANS1039_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+            //         {"_id": "PFANS1039_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+            //       ]
+            //     }
+            //   ]
+            // },
             {
               '_id': 'JUDGEMENT',
               'name': 'menu.JUDGEMENT',
@@ -625,20 +653,6 @@ export function menu() {
                   'menuurl': '',
                   'menuicon': '',
                   'children': [
-                    {
-                      '_id': 'PFANS1038',
-                      'name': 'menu.PFANS1038',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1038View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1038_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1038_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1038_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1038_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
                     {
                       '_id': 'PFANS1037',
                       'name': 'menu.PFANS1037',

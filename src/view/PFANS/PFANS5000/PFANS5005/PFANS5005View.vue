@@ -22,7 +22,7 @@
         data:[],
         columns:[
           // {
-          //   code: 'numbers',
+          //   code: 'numrs',
           //   label: 'label.PFANS5005VIEW_PROJECTNO',
           //   width: 120,
           //   fix: false,
