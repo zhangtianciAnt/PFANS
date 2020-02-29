@@ -23,3 +23,12 @@ export function update(data) {
     data: data
   })
 }
+
+
+export function getContractList(data) {
+  return request({
+    url: 'contractapplication/getContractList',
+    method: 'get',
+    params: data
+  })
+}
