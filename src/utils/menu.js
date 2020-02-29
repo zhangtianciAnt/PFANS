@@ -81,7 +81,7 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'PFANS1036',
+                  '_id': 'PFANS1039',
                   'name': 'menu.PFANS1039',
                   'menuvisible': true,
                   'menuurl': '/PFANS1039View',
