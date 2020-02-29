@@ -182,7 +182,9 @@
                 if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== ""){
                     response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
                 }
-
+                if (response[j].openingdate !== null && response[j].openingdate !== ""){
+                    response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
+                }
             }
           this.data = response;
 
