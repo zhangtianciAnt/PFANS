@@ -15,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getStatus} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -90,6 +90,13 @@
             width: 150,
             fix: false,
             filter: true
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true
           }
         ],
         buttonList: [
@@ -107,9 +114,17 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-
+              if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
               if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== "") {
                 response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
+              }
+              if (response[j].status !== null && response[j].status !== "") {
+                response[j].status = getStatus(response[j].status);
               }
             }
           }
