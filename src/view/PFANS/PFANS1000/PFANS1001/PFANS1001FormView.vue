@@ -78,38 +78,38 @@
           this.row = 'businessid';
           this.title = 'title.PFANS1002VIEW';
           let businesstype = {'businesstype': '0'};
-          this.dispatchparameter('PFANS1041Store/getBusiness',businesstype);
+          this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
         } else if (val === 2) {
             this.row = 'businessid';
             this.title = 'title.PFANS1035VIEW';
             let businesstype = {'businesstype': '1'};
-            this.dispatchparameter('PFANS1041Store/getBusiness',businesstype);
+            this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
         } else if (val === 3) {
           this.row = 'judgementid';
             this.title = 'title.PFANS1003VIEW';
           let letequipment = {'equipment': '1'};
-          this.dispatchparameter('PFANS1041Store/getJudgement', letequipment);
+          this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 4) {
           this.row = 'judgementid';
           this.title = 'title.PFANS1004VIEW';
           let letequipment = {'equipment': '0'};
-          this.dispatchparameter('PFANS1041Store/getJudgement', letequipment);
+          this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 5) {
           this.row = 'purchaseapply_id';
           this.title = 'title.PFANS1005VIEW';
-          this.dispatch('PFANS1041Store/getpurchaseApply');
+          this.dispatch('PFANS1001Store/getpurchaseApply');
         } else if (val === 6) {
           this.row = 'loanapplication_id';
           this.title = 'title.PFANS1006VIEW';
-          this.dispatch('PFANS1041Store/getLoanapplication');
+          this.dispatch('PFANS1001Store/getLoanapplication');
         } else if (val === 10) {
           this.row = 'communication_id';
           this.title = 'title.PFANS1010VIEW';
-          this.dispatch('PFANS1041Store/getCommunication');
+          this.dispatch('PFANS1001Store/getCommunication');
         } else if (val === 11) {
           this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';
-          this.dispatch('PFANS1041Store/getOffshore');
+          this.dispatch('PFANS1001Store/getOffshore');
         }
       },
       dispatch(val) {
