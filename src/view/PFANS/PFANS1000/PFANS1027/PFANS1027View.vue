@@ -8,7 +8,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
   import moment from "moment";
-  import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getUserInfo,getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS1027View',
@@ -92,6 +92,12 @@
           .dispatch('PFANS1027Store/get')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
+              if (response[j].startdate !== null && response[j].startdate !== "") {
+              response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+            }
+              if (response[j].enddate !== null && response[j].enddate !== "") {
+                response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+              }
               if (response[j].contracttype !== null && response[j].contracttype !== "") {
                 let letContracttype = getDictionaryInfo(response[j].contracttype);
                 if (letContracttype != null) {
