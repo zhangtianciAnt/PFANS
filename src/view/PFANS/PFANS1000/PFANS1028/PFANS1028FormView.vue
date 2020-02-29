@@ -36,20 +36,13 @@
                   <el-col :span="8">
                     <!--取契约番号-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                      <el-select :disabled="!disable" style="width:20vw" v-model="form.contractnumber">
-                        <el-option
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                          v-for="item in options">
-                        </el-option>
-                      </el-select>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <!--带出PJ名-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_NAME')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.janame"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -503,20 +496,13 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                      <el-select :disabled="!disable" style="width:20vw" v-model="form.contractnumber">
-                        <el-option
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                          v-for="item in options">
-                        </el-option>
-                      </el-select>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <!--带出PJ名-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_NAME')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.janame"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -547,7 +533,6 @@
                       <el-row>
                         <el-table :data="tableCommun"
                                   border
-                                  :span-method="CommunSpanMethod"
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
                                            width="150">
@@ -636,13 +621,10 @@
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
                             <template slot-scope="scope">
-                              <dicselect :code="code1"
-                                         :data="scope.row.judgment1"
-                                         :disabled="!disable"
-                                         :multiple="multiple"
-                                         :no="scope.row"
-                                         @change="getjudgment1">
-                              </dicselect>
+                              <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                                <el-option label="o" value="1"></el-option>
+                                <el-option label="x" value="2"></el-option>
+                              </el-select>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
@@ -653,13 +635,10 @@
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                             <template slot-scope="scope">
-                              <dicselect :code="code1"
-                                         :data="scope.row.judgment2"
-                                         :disabled="!disable"
-                                         :multiple="multiple"
-                                         :no="scope.row"
-                                         @change="getjudgment2">
-                              </dicselect>
+                              <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                                <el-option label="o" value="1"></el-option>
+                                <el-option label="x" value="2"></el-option>
+                              </el-select>
                             </template>
                           </el-table-column>
                         </el-table>
@@ -690,13 +669,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment1"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment1">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
@@ -707,13 +683,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment2"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment2">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -743,13 +716,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment1"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment1">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
@@ -760,13 +730,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment2"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment2">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -796,13 +763,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment1"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment1">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
@@ -813,13 +777,10 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                           <template slot-scope="scope">
-                            <dicselect :code="code1"
-                                       :data="scope.row.judgment2"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getjudgment2">
-                            </dicselect>
+                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                              <el-option label="o" value="1"></el-option>
+                              <el-option label="x" value="2"></el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -882,14 +843,7 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                        <el-select :disabled="!disable" style="width:20vw" v-model="form.contractnumber">
-                          <el-option
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                            v-for="item in options">
-                          </el-option>
-                        </el-select>
+                        <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -897,7 +851,7 @@
                     <el-col :span="12">
                       <!--带出PJ名-->
                       <el-form-item :label="$t('label.PFANS1028VIEW_NAME')">
-                        <el-input :disabled="!disable" style="width:20vw" v-model="form.placejapanese"></el-input>
+                        <el-input :disabled="!disable" style="width:20vw" v-model="form.janame"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -1277,27 +1231,6 @@
       dicselect,
     },
     data() {
-      var checkuser = (rule, value, callback) => {
-        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
-          this.error = this.$t('normal.error_09') + this.$t('label.user_name');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
-        } else {
-          this.error = '';
-          return callback();
-        }
-      };
-      var checktele = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         radioSujud: '',
         checked1: false,
@@ -1315,8 +1248,6 @@
         grouporglist: '',
         options: [],
         checkList: [],
-        // possible:[],
-        // outputlimit2:[],
         tableAValue: '',
         error: '',
         userlist: '',
@@ -1330,6 +1261,10 @@
         orglist: '',
         baseInfo: {},
         arrJud: [],
+        arrsofe: [],
+        arrput: [],
+        arrdel: [],
+        arrgate: [],
         arrIndustrial: [],
         arrElectronic: [],
         arrCOM: [],
@@ -1383,90 +1318,507 @@
           sujudegresult: '',
           lijudegresult: '',
         },
+        tableComputers: [
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COMTECHNICAL1'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS40'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS41'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS42'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS43'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS44'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS45'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS46'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS47'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS48'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS49'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS50'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS51'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS52'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS53'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS54'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS55'),
+            judgment2: '',
+          },
 
-        tableComputers: [{}],
-        tableDelivery: [{}],
-        tableGatetechnology: [{}],
-        tableJasoftware: [{}],
-        tableCommun: [{
-          technicalnumber: '01',
-          grade: 'J',
-          technicalname: '技術名称',
-          judgment1: '',
-          points: '規制要点',
-          judgment2: '',
-        }, {
-          technicalnumber: '02',
-          grade: 'J',
-          technicalname: '技術名称',
-          judgment1: '',
-          points: '規制要点',
-          judgment2: '',
-        }, {
-          technicalnumber: '01',
-          grade: 'X',
-          technicalname: '技術名称',
-          judgment1: '',
-          points: '規制要点',
-          judgment2: '',
-        },
-          {
-            technicalnumber: '02',
+          { technicalnumber:'02',
             grade: 'X',
-            technicalname: '技術名称',
+            technicalname: this.$t('label.PFANS1028VIEW_COMTECHNICAL2'),
             judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '03',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '04',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '05',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '06',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '07',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
-            judgment2: '',
-          },
-          {
-            technicalnumber: '08',
-            grade: 'X',
-            technicalname: '技術名称',
-            judgment1: '',
-            points: '規制要点',
+            points:this.$t('label.PFANS1028VIEW_POINTS32'),
             judgment2: '',
           },
         ],
+        tableDelivery: [
+          { technicalnumber:'01',
+            grade: 'J',
+            technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS30'),
+            judgment2: '',
+          },
+          { technicalnumber:'02',
+            grade: 'J',
+            technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME2'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS31'),
+            judgment2: '',
+          },
+          { technicalnumber:'02',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS32'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS33'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS34'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS35'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS36'),
+            judgment2: '',
+          },
+          { technicalnumber:'04',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME5'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS37'),
+            judgment2: '',
+          },
+          { technicalnumber:'04',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS38'),
+            judgment2: '',
+          },
+        ],
+        tableCommun: [{
+          technicalnumber:'01',
+          grade: 'J',
+          technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME1'),
+          judgment1: '',
+          points:this.$t('label.PFANS1028VIEW_POINTS1'),
+          judgment2: '',
+        },
+          {
+            technicalnumber:'01',
+            grade: '',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS2'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'02',
+            grade: 'J',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME2'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS3'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS4'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS5'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS6'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS7'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS8'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS9'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS10'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS11'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'02',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS12'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'02',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS13'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'02',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS14'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'03',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS14'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'03',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            judgment2: '',
+          },
+
+          {
+            technicalnumber:'04',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'04',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS16'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'05',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME7'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS17'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'05',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS18'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'05',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS19'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'05',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS20'),
+            judgment2: '',
+          },
+
+
+          {
+            technicalnumber:'06',
+            grade:  'X',
+            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME8'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS21'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'06',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS22'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'06',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS23'),
+            judgment2: '',
+          },
+
+          {
+            technicalnumber:'07',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME9'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS24'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'07',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS25'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'07',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS26'),
+            judgment2: '',
+          },
+          {
+            technicalnumber:'07',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS27'),
+            judgment2: '',
+          },
+
+          {
+            technicalnumber:'08',
+            grade:  'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME10'),
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS28'),
+            judgment2: '',
+          },
+        ],
+        tableJasoftware: [
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_SOFTWARE1'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS58'),
+            judgment2: '',
+          },
+          { technicalnumber:'01',
+            grade: 'X',
+            technicalname:'',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS59'),
+            judgment2: '',
+          },
+          { technicalnumber:'02',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_SOFTWARE1'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS60'),
+            judgment2: '',
+          },
+        ],
+        tableGatetechnology: [
+          { technicalnumber:'07',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL1'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS61'),
+            judgment2: '',
+          },
+          { technicalnumber:'07',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS62'),
+            judgment2: '',
+          },
+          { technicalnumber:'07',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS63'),
+            judgment2: '',
+          },
+          { technicalnumber:'02',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL2'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS64'),
+            judgment2: '',
+          },
+          { technicalnumber:'05',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL3'),
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS65'),
+            judgment2: '',
+          },
+          { technicalnumber:'05',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points:this.$t('label.PFANS1028VIEW_POINTS66'),
+            judgment2: '',
+          },
+        ],
+
         tableIndustrial: [{
           japno: '4',
           tradename: this.$t('label.PFANS1028VIEW_TRADENAME4'),
@@ -1829,7 +2181,7 @@
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.form.possible !== '') {
+            if (this.form.possible !== '' && this.form.position !== null) {
               this.checkList = JSON.parse(this.form.possible);
             }
             if (this.form.review !== '' && this.form.review !== null) {
@@ -1848,38 +2200,81 @@
             let serdate = repair.slice(0, 10);
             let serdate1 = repair.slice(repair.length - 10);
             this.form.claimdatetime = [serdate, serdate1];
-            debugger;
-            this.grouporglist = this.form.group_id;
-            for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
-              let aa = JSON.parse(response.limitcommunt)[i];
-              this.tableCommun[i].judgment1 = aa.jud1;
-              this.tableCommun[i].judgment2 = aa.jud2;
-            }
-            // tableIndustrial
-            // tableElectronic
-            // tableCon
-            // tableSof
 
-            for (let i = 0; i < JSON.parse(response.supplieindustrial).length; i++) {
-              let aa = JSON.parse(response.supplieindustrial)[i];
-              this.tableIndustrial[i].judgment1 = aa.jud1;
-              this.tableIndustrial[i].judgment2 = aa.jud2;
+            this.grouporglist = this.form.group_id;
+            debugger
+            if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
+              for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
+                let aa = JSON.parse(response.limitcommunt)[i];
+                this.tableCommun[i].judgment1 = aa.jud1;
+                this.tableCommun[i].judgment2 = aa.jud2;
+              }
             }
-            for (let i = 0; i < JSON.parse(response.supplielectronic).length; i++) {
-              let aa = JSON.parse(response.supplielectronic)[i];
-              this.tableElectronic[i].judgment1 = aa.jud1;
-              this.tableElectronic[i].judgment2 = aa.jud2;
+
+            if (this.form.limitdelivery !== '' && this.form.limitdelivery !== null) {
+              for (let i = 0; i < JSON.parse(response.limitdelivery).length; i++) {
+                let aa = JSON.parse(response.limitdelivery)[i];
+                this.tableDelivery[i].judgment1 = aa.jud1;
+                this.tableDelivery[i].judgment2 = aa.jud2;
+              }
             }
-            for (let i = 0; i < JSON.parse(response.suppliecom).length; i++) {
-              let aa = JSON.parse(response.suppliecom)[i];
-              this.tableCon[i].judgment1 = aa.jud1;
-              this.tableCon[i].judgment2 = aa.jud2;
+
+            if (this.form.limitcomputers !== '' && this.form.limitcomputers !== null) {
+              for (let i = 0; i < JSON.parse(response.limitcomputers).length; i++) {
+                let aa = JSON.parse(response.limitcomputers)[i];
+                this.tableComputers[i].judgment1 = aa.jud1;
+                this.tableComputers[i].judgment2 = aa.jud2;
+              }
             }
-            for (let i = 0; i < JSON.parse(response.suppliesof).length; i++) {
-              let aa = JSON.parse(response.suppliesof)[i];
-              this.tableSof[i].judgment1 = aa.jud1;
-              this.tableSof[i].judgment2 = aa.jud2;
+
+            if (this.form.limitjasoftware !== '' && this.form.limitjasoftware !== null) {
+              for (let i = 0; i < JSON.parse(response.limitjasoftware).length; i++) {
+                let aa = JSON.parse(response.limitjasoftware)[i];
+                this.tableJasoftware[i].judgment1 = aa.jud1;
+                this.tableJasoftware[i].judgment2 = aa.jud2;
+              }
             }
+
+            if (this.form.limittechnology !== '' && this.form.limittechnology !== null) {
+              for (let i = 0; i < JSON.parse(response.limittechnology).length; i++) {
+                let aa = JSON.parse(response.limittechnology)[i];
+                this.tableGatetechnology[i].judgment1 = aa.jud1;
+                this.tableGatetechnology[i].judgment2 = aa.jud2;
+              }
+            }
+
+            if (this.form.supplieindustrial !== '' && this.form.supplieindustrial !== null) {
+              for (let i = 0; i < JSON.parse(response.supplieindustrial).length; i++) {
+                let aa = JSON.parse(response.supplieindustrial)[i];
+                this.tableIndustrial[i].judgment1 = aa.jud1;
+                this.tableIndustrial[i].judgment2 = aa.jud2;
+              }
+            }
+
+            if (this.form.supplielectronic !== '' && this.form.supplielectronic !== null) {
+              for (let i = 0; i < JSON.parse(response.supplielectronic).length; i++) {
+                let aa = JSON.parse(response.supplielectronic)[i];
+                this.tableElectronic[i].judgment1 = aa.jud1;
+                this.tableElectronic[i].judgment2 = aa.jud2;
+              }
+            }
+
+            if (this.form.suppliecom !== '' && this.form.suppliecom !== null) {
+              for (let i = 0; i < JSON.parse(response.suppliecom).length; i++) {
+                let aa = JSON.parse(response.suppliecom)[i];
+                this.tableCon[i].judgment1 = aa.jud1;
+                this.tableCon[i].judgment2 = aa.jud2;
+              }
+            }
+
+            if (this.form.suppliesof !== '' && this.form.suppliesof !== null) {
+              for (let i = 0; i < JSON.parse(response.suppliesof).length; i++) {
+                let aa = JSON.parse(response.suppliesof)[i];
+                this.tableSof[i].judgment1 = aa.jud1;
+                this.tableSof[i].judgment2 = aa.jud2;
+              }
+            }
+
             this.loading = false;
           })
           .catch(error => {
@@ -1938,7 +2333,7 @@
       },
 
       /*合并单元格*/
-      CommunSpanMethod({row, column, rowIndex, columnIndex}) {
+    /*  CommunSpanMethod({row, column, rowIndex, columnIndex}) {
         if (columnIndex === 0) {
           if (rowIndex % 2 === 0) {
             return {
@@ -1952,7 +2347,7 @@
             };
           }
         }
-      },
+      },*/
       getGroupId(val) {
         this.form.group_id = val;
         this.grouporglist = val;
@@ -2001,6 +2396,30 @@
                 this.arrJud.push({
                   jud1: this.tableCommun[i].judgment1,
                   jud2: this.tableCommun[i].judgment2,
+                });
+              }
+              for (let i = 0; i < this.tableGatetechnology.length; i++) {
+                this.arrgate.push({
+                  jud1: this.tableGatetechnology[i].judgment1,
+                  jud2: this.tableGatetechnology[i].judgment2,
+                });
+              }
+              for (let i = 0; i < this.tableDelivery.length; i++) {
+                this.arrdel.push({
+                  jud1: this.tableDelivery[i].judgment1,
+                  jud2: this.tableDelivery[i].judgment2,
+                });
+              }
+              for (let i = 0; i < this.tableComputers.length; i++) {
+                this.arrput.push({
+                  jud1: this.tableComputers[i].judgment1,
+                  jud2: this.tableComputers[i].judgment2,
+                });
+              }
+              for (let i = 0; i < this.tableJasoftware.length; i++) {
+                this.arrsofe.push({
+                  jud1: this.tableJasoftware[i].judgment1,
+                  jud2: this.tableJasoftware[i].judgment2,
                 });
               }
               //工業設備
