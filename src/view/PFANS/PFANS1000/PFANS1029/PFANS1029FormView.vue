@@ -123,35 +123,44 @@
                         :data="tableData"
                         style="width: 100%">
                         <el-table-column
-                          prop="submitTime"
+                          prop="project_NAMEJP"
+                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
+                          width="150" />
+                        <el-table-column
+                          prop="project_NAME"
+                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
+                          width="150" />
+                        <el-table-column
+                          prop="deployment"
+                          :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
+                          width="150" />
+                        <el-table-column
+                          prop="claimtype"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          prop="deliverydate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="completiondate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="claimdate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="supportdate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-                          prop="requestAmount"
+                          prop="claimamount"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                           width="150">
                         </el-table-column>
@@ -350,35 +359,44 @@
                   :data="tableData"
                   style="width: 100%">
                   <el-table-column
-                    prop="submitTime"
+                    prop="project_NAMEJP"
+                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
+                    width="150" />
+                  <el-table-column
+                    prop="project_NAME"
+                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
+                    width="150" />
+                  <el-table-column
+                    prop="deployment"
+                    :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
+                    width="150" />
+                  <el-table-column
+                    prop="claimtype"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    prop="deliverydate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="completiondate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="claimdate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="supportdate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-                    prop="requestAmount"
+                    prop="claimamount"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">
                   </el-table-column>
@@ -473,24 +491,7 @@
         orglist:'',
         baseInfo: {},
         flag: 0,
-          tableData: [
-              {
-                  submitTime:'1',
-                  submitDate:'',
-                  acceptanceDate:'',
-                  requestDate:'',
-                  payDate:'',
-                  requestAmount:'452'
-              },
-              {
-                  submitTime:'2',
-                  submitDate:'',
-                  acceptanceDate:'',
-                  requestDate:'',
-                  payDate:'',
-                  requestAmount:'100'
-              }
-          ],
+        tableData: [],
         form: {
             contract_id:'',
             contractnumber:'',
@@ -589,6 +590,7 @@
             });
             this.loading = false;
           });
+        this.getContractList(this.$route.params._id)
       }
     },
     created(){
@@ -613,6 +615,21 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getContractList(contract_id) {
+        this.$store
+          .dispatch('PFANS1029Store/getContractList', {"contractId": contract_id})
+          .then(response => {
+            this.tableData = response
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;

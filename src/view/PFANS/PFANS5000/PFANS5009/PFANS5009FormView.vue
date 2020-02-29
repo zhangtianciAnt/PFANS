@@ -174,38 +174,38 @@
                             :data="scope.row.phase"
                             :disabled="true"
                             :no="scope.row"
-                            @change="getrole"
                           ></dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="!disabled" style="width: 100%"
-                                    maxlength="20"
-                                    v-model="scope.row.stageproduct"
-                                    v-show="scope.row.showrow">
-                          </el-input>
+<!--                          <el-input :disabled="true" style="width: 100%"-->
+<!--                                    maxlength="20"-->
+<!--                                    v-model="scope.row.stageproduct"-->
+<!--                                    v-show="scope.row.showrow">-->
+<!--                          </el-input>-->
                           <dicselect :code="code2"
                                      :data="scope.row.stageproduct"
-                                     :disabled="!disabled"
+                                     :disabled="true"
                                      :no="scope.row"
                                      @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow1">
+                                     style="width: 100%" v-if="scope.row.phase === 'PP012001'">
                           </dicselect>
                           <dicselect :code="code3"
                                      :data="scope.row.stageproduct"
-                                     :disabled="!disabled"
+                                     :disabled="true"
                                      :no="scope.row"
                                      @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow2">
+                                     style="width: 100%" v-if="scope.row.phase === 'PP012002'">
                           </dicselect>
                           <dicselect :code="code4"
                                      :data="scope.row.stageproduct"
-                                     :disabled="!disabled"
+                                     :disabled="true"
                                      :no="scope.row"
                                      @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow3">
-                          </dicselect></template>
+                                     style="width: 100%" v-if="scope.row.phase === 'PP012003'">
+                          </dicselect>
+                        </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCTSTATUS')" align="center" width="100">
                         <template slot-scope="scope">
@@ -589,6 +589,7 @@
                 </el-row>
               </el-form-item>
             </el-tab-pane>
+<!--            工时统计-->
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')" name="forth">
               <el-form-item>
                 <el-row>
@@ -760,6 +761,8 @@
         currentRow3 : '',
         tabIndex: 0,
         multiple1: false,
+
+        //主页
         form: {
           center_id: '',
           group_id: '',
@@ -776,16 +779,19 @@
           work: '',
           deadline: moment(new Date()).format('YYYY-MM-DD'),
         },
+
+        //阶段信息
         tableP: [{
           companyprojects_id: '',
           stageinformation_id: '',
           phase: '',
           stageproduct: '',
-          productstatus: this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED'),
+          productstatus: '',
           estimatedwork: '',
           actualwork: '',
           estimatedstarttime: '',
           estimatedendtime: '',
+          month: '',
           remarks: '',
           actualstarttime: '',
           actualendtime: '',
@@ -796,6 +802,8 @@
           showrow2: false,
           showrow3: false,
         }],
+
+        //项目体制  社内
         tableB: [
           {
             projectsystem_id: '',
@@ -810,6 +818,8 @@
             rowindex: '',
           },
         ],
+
+        //项目体制  社外
         tableC: [
           {
             projectsystem_id: '',
@@ -824,6 +834,8 @@
             rowindex: '',
           },
         ],
+
+        //工时统计
         tableA: [
           {
             stageinformation_id: '',
@@ -960,12 +972,30 @@
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
             if (response.stageinformation.length > 0) {
-              this.tableP = response.stageinformation;
+              this.tableP = [];
+              //阶段信息
+              for(let h = 0; h < response.stageinformation.length; h ++){
+                let o = {};
+                o.phase = response.stageinformation[h].phase;
+                o.stageproduct = response.stageinformation[h].stageproduct;
+                o.productstatus = response.stageinformation[h].productstatus;
+                o.estimatedwork = response.stageinformation[h].estimatedwork;
+                o.actualwork = response.stageinformation[h].actualwork;
+                o.estimatedstarttime = response.stageinformation[h].estimatedstarttime;
+                o.estimatedendtime = response.stageinformation[h].estimatedendtime;
+                o.remarks = response.stageinformation[h].remarks;
+                o.actualstarttime = response.stageinformation[h].actualstarttime;
+                o.actualendtime = response.stageinformation[h].actualendtime;
+                o.product = response.stageinformation[h].product;
+                this.tableP.push(o);
+              }
             }
             if (response.projectsystem.length > 0) {
+              this.tableB = [];
+              this.tableC = [];
+              //项目体制
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
-                  this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -978,9 +1008,7 @@
                   o.exittime = response.projectsystem[i].exittime;
                   o.rowindex = response.projectsystem[i].rowindex;
                   this.tableB.push(o);
-
                 } else {
-                  this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1183,31 +1211,31 @@
       //       this.loading = false;
       //     });
       // },
-      getrole(val, row) {
-        row.phase = val;
-        row.stageproduct = ' ';
-        if (val === '') {
-          row.showrow = true;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PP012001') {
-          row.showrow = false;
-          row.showrow1 = true;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PP012002') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = true;
-          row.showrow3 = false;
-        } else if (val === 'PP012003') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = true;
-        }
-      },
+      // getrole(val, row) {
+      //   row.phase = val;
+      //   row.stageproduct = '';
+      //   if (val === '') {
+      //     row.showrow = true;
+      //     row.showrow1 = false;
+      //     row.showrow2 = false;
+      //     row.showrow3 = false;
+      //   } else if (val === 'PP012001') {
+      //     row.showrow = false;
+      //     row.showrow1 = true;
+      //     row.showrow2 = false;
+      //     row.showrow3 = false;
+      //   } else if (val === 'PP012002') {
+      //     row.showrow = false;
+      //     row.showrow1 = false;
+      //     row.showrow2 = true;
+      //     row.showrow3 = false;
+      //   } else if (val === 'PP012003') {
+      //     row.showrow = false;
+      //     row.showrow1 = false;
+      //     row.showrow2 = false;
+      //     row.showrow3 = true;
+      //   }
+      // },
       getrole1(val, row) {
         row.stageproduct = val;
       },
