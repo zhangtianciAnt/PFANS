@@ -19,7 +19,7 @@
                     <dicselect
                       :code="code"
                       :data="form.contracttype"
-                      :disabled="!disabled"
+                      :disabled="!disabled1"
                       :selectType="selectType"
                       @change="getContracttype"
                       style="width:20vw">
@@ -83,8 +83,8 @@
                     <dicselect
                       code="HT006"
                       :data="form.currencyposition"
-                      style="width: 20rem"
-                      :disabled="!disabled">
+                      style="width: 20vw"
+                      :disabled="!disabled1">
                     </dicselect>
                     <!--<el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"-->
                               <!--v-model="form.currencyposition"></el-input>-->
@@ -199,34 +199,97 @@
             <el-tab-pane :label="$t('label.PFANS1027VIEW_DETAILS')" name="third">
               <el-tabs v-model="activeName2" type="border-card">
                 <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_PERSON')" name="third1">
-<!--                  <el-table-->
-<!--                    :data="tablethird1"-->
-<!--                    :span-method="objectSpanMethod"-->
-<!--                    border-->
-<!--                    style="width: 100%; margin-top: 20px">-->
-<!--                    <el-table-column-->
-<!--                      label=" "-->
-<!--                      width="200">-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column-->
-<!--                      label="PFANS1027VIEW_CONTENT">-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column-->
-<!--                      prop="amount1"-->
-<!--                      label="数值 1（元）">-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column-->
-<!--                      prop="amount2"-->
-<!--                      label="数值 2（元）">-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column-->
-<!--                      prop="amount3"-->
-<!--                      label="数值 3（元）">-->
-<!--                    </el-table-column>-->
-<!--                  </el-table>-->
+                  <el-table
+                    :data="tablethird1"
+                    :span-method="objectSpanMethod"
+                    border
+                    style="width: 100%; margin-top: 20px"
+                    stripe header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column
+                      width="200">
+                      <template slot-scope="scope">
+                        {{$t('label.PFANS1027FORMVIEW_APPOINT1')}}
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      prop="name"
+                      :label="$t('label.PFANS1027VIEW_CONTENT')"
+                      width="200">
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_UNITPRICE')"
+                      width="200">
+                      <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.functionsprice1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_MANHOUR')"
+                      width="200">
+                      <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.functionhour1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_UNIT')"
+                      width="200">
+                      <template slot-scope="scope">
+                        <dicselect
+                          :no="scope.row"
+                          :code="code"
+                          :data="scope.row.functionunit1"
+                          :multiple="multiple"
+                          @change="getFunctionunit1"
+                          style="width: 11rem"
+                          :disabled="!disabled">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_COST')"
+                      width="200">
+                      <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.functionamount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                      </template>
+                    </el-table-column>
+                  </el-table>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_OTHER')" name="third2">
-
+                  <el-table :data="tablethird2" stripe header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
+                                     type="index" width="50"></el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center"  prop="claimtype" width="200">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disabled" v-model="scope.row.claimtype">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"  prop="claimdate" width="200">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="200">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="200">
+                      <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                      </template>
+                    </el-table-column>
+                  </el-table>
                 </el-tab-pane>
               </el-tabs>
             </el-tab-pane>
@@ -389,84 +452,193 @@
                   claimamount: '',
                 },
               ],
-                lethird1:[
-                {
-                personfeeid: '',
-                quotationid: '',
+              tablethird1: [{
+                name: '仕様分析',
                 functionsprice1: '',
                 functionhour1: '',
                 functionunit1: '',
-                functionamount1: '',
-                systemsprice1: '',
-                systemhour1: '',
-                systemunit1: '',
-                systemamount1: '',
-                designsprice1: '',
-                designhour1: '',
-                designunit1: '',
-                designamount1: '',
-                versprice1: '',
-                verhour1: '',
-                verunit1: '',
-                veramount1: '',
+                functionamount1: ''
+              }, {
+                name: 'システム設計',
+                  systemsprice1: '',
+                  systemhour1: '',
+                  systemunit1: '',
+                  systemamount1: ''
+              }, {
+                name: '詳細設計',
+                  designsprice1: '',
+                  designhour1: '',
+                  designunit1: '',
+                  designamount1: ''
+                },{
+                name: '検証設計',
+                  versprice1: '',
+                  verhour1: '',
+                  verunit1: '',
+                  veramount1: ''
+                },{
+                name: '実装',
                 implesprice1: '',
                 implehour1: '',
                 impleunit1: '',
-                impleamount1: '',
+                impleamount1: ''
+              },{
+                name: '検証・デバッグ',
                 debugsprice1: '',
                 debughour1: '',
                 debugunit1: '',
-                debugamount1: '',
+                debugamount1: ''
+              },{
+                name: '仕様分析',
                 functionsprice2: '',
                 functionhour2: '',
                 functionunit2: '',
-                functionamount2: '',
+                functionamount2: ''
+              }, {
+                name: 'システム設計',
                 systemsprice2: '',
                 systemhour2: '',
                 systemunit2: '',
-                systemamount2: '',
+                systemamount2: ''
+              }, {
+                name: '詳細設計',
                 designsprice2: '',
                 designhour2: '',
                 designunit2: '',
-                designamount2: '',
+                designamount2: ''
+              },{
+                name: '検証設計',
                 versprice2: '',
                 verhour2: '',
                 verunit2: '',
-                veramount2: '',
+                veramount2: ''
+              },{
+                name: '実装',
                 implesprice2: '',
                 implehour2: '',
                 impleunit2: '',
-                impleamount2: '',
+                impleamount2: ''
+              },{
+                name: '検証・デバッグ',
                 debugsprice2: '',
                 debughour2: '',
                 debugunit2: '',
-                debugamount2: '',
+                debugamount2: ''
+              },{
+                name: '仕様分析',
                 functionsprice3: '',
                 functionhour3: '',
                 functionunit3: '',
-                functionamount3: '',
+                functionamount3: ''
+              }, {
+                name: 'システム設計',
                 systemsprice3: '',
                 systemhour3: '',
                 systemunit3: '',
-                systemamount3: '',
+                systemamount3: ''
+              }, {
+                name: '詳細設計',
                 designsprice3: '',
                 designhour3: '',
                 designunit3: '',
-                designamount3: '',
+                designamount3: ''
+              },{
+                name: '検証設計',
                 versprice3: '',
                 verhour3: '',
                 verunit3: '',
-                veramount3: '',
+                veramount3: ''
+              },{
+                name: '実装',
                 implesprice3: '',
                 implehour3: '',
                 impleunit3: '',
-                impleamount3: '',
+                impleamount3: ''
+              },{
+                name: '検証・デバッグ',
                 debugsprice3: '',
                 debughour3: '',
                 debugunit3: '',
-                debugamount3: '',
-                },
-              ],
+                debugamount3: ''
+              },],
+              //   tablethird1:[
+              //   {
+              //   personfeeid: '',
+              //   quotationid: '',
+              //   functionsprice1: '',
+              //   functionhour1: '',
+              //   functionunit1: '',
+              //   functionamount1: '',
+              //   systemsprice1: '',
+              //   systemhour1: '',
+              //   systemunit1: '',
+              //   systemamount1: '',
+              //   designsprice1: '',
+              //   designhour1: '',
+              //   designunit1: '',
+              //   designamount1: '',
+              //   versprice1: '',
+              //   verhour1: '',
+              //   verunit1: '',
+              //   veramount1: '',
+              //   implesprice1: '',
+              //   implehour1: '',
+              //   impleunit1: '',
+              //   impleamount1: '',
+              //   debugsprice1: '',
+              //   debughour1: '',
+              //   debugunit1: '',
+              //   debugamount1: '',
+              //   functionsprice2: '',
+              //   functionhour2: '',
+              //   functionunit2: '',
+              //   functionamount2: '',
+              //   systemsprice2: '',
+              //   systemhour2: '',
+              //   systemunit2: '',
+              //   systemamount2: '',
+              //   designsprice2: '',
+              //   designhour2: '',
+              //   designunit2: '',
+              //   designamount2: '',
+              //   versprice2: '',
+              //   verhour2: '',
+              //   verunit2: '',
+              //   veramount2: '',
+              //   implesprice2: '',
+              //   implehour2: '',
+              //   impleunit2: '',
+              //   impleamount2: '',
+              //   debugsprice2: '',
+              //   debughour2: '',
+              //   debugunit2: '',
+              //   debugamount2: '',
+              //   functionsprice3: '',
+              //   functionhour3: '',
+              //   functionunit3: '',
+              //   functionamount3: '',
+              //   systemsprice3: '',
+              //   systemhour3: '',
+              //   systemunit3: '',
+              //   systemamount3: '',
+              //   designsprice3: '',
+              //   designhour3: '',
+              //   designunit3: '',
+              //   designamount3: '',
+              //   versprice3: '',
+              //   verhour3: '',
+              //   verunit3: '',
+              //   veramount3: '',
+              //   implesprice3: '',
+              //   implehour3: '',
+              //   impleunit3: '',
+              //   impleamount3: '',
+              //   debugsprice3: '',
+              //   debughour3: '',
+              //   debugunit3: '',
+              //   debugamount3: '',
+              //   },
+              // ],
                 tablethird2:[
                 {
                   othpersonfeeid: '',
@@ -527,7 +699,6 @@
                           this.form.loadingjudge = user.userinfo.customername;
                         }
                       }
-
                       if (response.basicinformation.length > 0) {
                         this.tablefirst = response.basicinformation;
                       }
@@ -605,14 +776,28 @@
           radio3change(val){
             this.radio3 = val;
           },
+          getFunctionunit1(val,row){
+            row.functionunit1 = val;
+          },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-            if (columnIndex === 0) {
-              if (rowIndex % 2 === 0) {
+            if (columnIndex === 0 ) {
+              if (rowIndex === 0) {
                 return {
-                  rowspan: 2,
+                  rowspan: 6,
                   colspan: 1
                 };
-              } else {
+              }else if (rowIndex === 0) {
+                return {
+                  rowspan: 6,
+                  colspan: 1
+                };
+              }else if (rowIndex === 0) {
+                return {
+                  rowspan: 6,
+                  colspan: 1
+                };
+              }
+              else {
                 return {
                   rowspan: 0,
                   colspan: 0

@@ -411,6 +411,7 @@
             this.userlist = this.form.managerid;
             /*阶段信息*/
             if (response.stageinformation.length > 0) {
+              console.log("asdasd    " + response.stageinformation)
               this.stage = response.stageinformation;
             }
             /*项目资源*///项目体制

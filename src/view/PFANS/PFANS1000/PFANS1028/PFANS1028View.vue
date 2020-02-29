@@ -51,7 +51,7 @@
             filter: true
           },
           {
-            code: 'name',
+            code: 'janame',
             label: 'label.PFANS1028VIEW_NAME',
             width: 150,
             fix: false,
@@ -89,7 +89,7 @@
           {
             code: 'claimdatetime',
             label: 'label.PFANS1028VIEW_PERIOD',
-            width: 150,
+            width: 170,
             fix: false,
             filter: true
           },
@@ -136,6 +136,12 @@
                 response[j].review = this.$t('label.PFANS1028VIEW_NOPANASG');
               } else {
                 response[j].review = this.$t('label.PFANS1028VIEW_PANASG');
+              }
+            }
+            if (response[j].varto !== null && response[j].varto !== "") {
+              let letContracttype = getDictionaryInfo(response[j].varto);
+              if (letContracttype != null) {
+                response[j].varto = letContracttype.value1;
               }
             }
             }
