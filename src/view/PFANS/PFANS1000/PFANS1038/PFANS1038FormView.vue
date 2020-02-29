@@ -7,7 +7,7 @@
     v-loading="loading"
   >
     <div slot="customize" style="margin-top:2vw">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
+      <el-form :model="form" label-position="top" label-width="8vw" ref="form">
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane
             label="现实点人员"
@@ -51,14 +51,14 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
+                  <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </template>
               </el-table-column>
               <el-table-column
@@ -144,16 +144,16 @@
                 label="新规采用入社预定日"
                 width="200"
                 align="center"
-                >
+              >
                 <template slot-scope="scope">
-                <el-date-picker
-                  v-model="scope.row.entermouth"
-                  type="month"
-                  style="width:10vw"
-                  placeholder="请选择"
-                  size="small"
-                 v-show="!scope.row.isoutside">
-                </el-date-picker>
+                  <el-date-picker
+                    v-model="scope.row.entermouth"
+                    type="month"
+                    style="width:10vw"
+                    placeholder="请选择"
+                    size="small"
+                    v-show="!scope.row.isoutside">
+                  </el-date-picker>
                   <span v-show="scope.row.isoutside">{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
@@ -165,7 +165,7 @@
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
-                  @change="val => changeOption(val,scope.row)">
+                    @change="val => changeOption(val,scope.row)">
                   </el-switch>
                 </template>
               </el-table-column>
@@ -262,20 +262,23 @@
         buttonList:[],
         titles: this.$route.params.type === 0 ? "社员计划" : "外驻计划",
         form:{
-          year:""
+          years:""
         }
       };
     },
     computed:{
       getThisYearLevel:function () {
-           if(this.form.year){
-             return this.form.year + "";
-           }else{
-             this.form.year = moment().subtract(3,'M').format('YYYY');
-            return this.form.year + "";
-           }
+        if(this.form.year){
+          return this.form.years + "";
+        }else{
+          this.form.years = moment().subtract(3,'M').format('YYYY');
+          return this.form.years + "";
+        }
       },
-      getNextYearLevel:(parseInt(this.getThisYearLevel) + 1) + ""
+      getNextYearLevel:function () {
+        debugger
+        return parseInt(this.getThisYearLevel) + 1;
+      }
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -362,10 +365,12 @@
         this.$store
           .dispatch("PFANS1038Store/getOne", id)
           .then(response => {
-              this.loading = false;
-              this.form = response;
-              this.form.employed = JSON.parse(this.form.employed);
-              this.form.employed = JSON.parse(this.form.employed);
+            this.loading = false;
+            this.form = response;
+            debugger
+            console.log(JSON.parse(this.form.employed));
+            this.tableData = JSON.parse(this.form.employed);
+            this.newTableData = JSON.parse(this.form.employed);
           })
           .catch(error => {
             Message({
