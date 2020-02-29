@@ -20,7 +20,6 @@
                       :code="code"
                       :data="form.contracttype"
                       :disabled="!disabled"
-                      :multiple="multiple"
                       :selectType="selectType"
                       @change="getContracttype"
                       style="width:20vw">
@@ -81,8 +80,14 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" prop="currencyposition">
-                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
-                              v-model="form.currencyposition"></el-input>
+                    <dicselect
+                      code="HT006"
+                      :data="form.currencyposition"
+                      style="width: 20rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                    <!--<el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"-->
+                              <!--v-model="form.currencyposition"></el-input>-->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -318,7 +323,7 @@
     import {Message} from 'element-ui'
     import org from "../../../components/org";
     import moment from "moment";
-    import {getOrgInfo,getDictionaryInfo} from '@/utils/customize';
+    import {getOrgInfo,getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1027FormView',
@@ -501,16 +506,28 @@
                 this.$store
                     .dispatch('PFANS1027Store/selectById', {"quotationid": this.$route.params._id})
                     .then(response => {
-                      if (response.length > 0) {
-                        for (let i = 0; i < response.length; i++) {
-                            this.form = response.quotation;
-                      //契約種類
-                         let letabbreviation = getDictionaryInfo(response[i].contracttype);
-                         if (letabbreviation != null) {
-                            response[i].contracttype = letabbreviation.value1;
-                          }
+                      this.form = response.quotation;
+//                      //契約種類
+//                      let letabbreviation = getDictionaryInfo(response[i].contracttype);
+//                     if (letabbreviation != null) {
+//                        response[i].contracttype = letabbreviation.value1;
+//                      }
+
+                      // 委託元（和文）
+                      if(this.form.trusteejapanese !== null && this.form.trusteejapanese !== "") {
+                        let user = getUserInfo(this.form.trusteejapanese);
+                        if (user) {
+                          this.form.trusteejapanese = user.userinfo.customername;
                         }
                       }
+                      // 出荷判定実施者
+                      if(this.form.loadingjudge !== null && this.form.loadingjudge !== "") {
+                        let user = getUserInfo(this.form.loadingjudge);
+                        if (user) {
+                          this.form.loadingjudge = user.userinfo.customername;
+                        }
+                      }
+
                       if (response.basicinformation.length > 0) {
                         this.tablefirst = response.basicinformation;
                       }
