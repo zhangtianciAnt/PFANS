@@ -893,7 +893,7 @@
   import dicselect from '../../../components/dicselect';
 
   export default {
-    name: 'PFANS1039FormView',
+    name: 'PFANS1041View',
     components: {
       dicselect,
       EasyNormalContainer,
@@ -901,7 +901,7 @@
     data() {
       return {
         value2: '',
-        title: 'title.PFANS1039VIEW',
+        title: 'title.PFANS1041VIEW',
         activeName: 'first',
         loading: false,
         disabled: false,
