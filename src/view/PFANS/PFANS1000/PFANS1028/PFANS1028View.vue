@@ -123,6 +123,22 @@
           //     response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
           //   }
           // }
+          for (let j = 0; j < response.length; j++){
+            if(response[j].requirements !== null && response[j].requirements !== ""){
+                  if(response[j].requirements === "0"){
+                    response[j].requirements = this.$t('label.PFANS1028VIEW_NOT');
+                  } else {
+                    response[j].requirements = this.$t('label.PFANS1028VIEW_YES');
+                  }
+                }
+            if(response[j].review !== null && response[j].review !== ""){
+              if(response[j].review === "2"){
+                response[j].review = this.$t('label.PFANS1028VIEW_NOPANASG');
+              } else {
+                response[j].review = this.$t('label.PFANS1028VIEW_PANASG');
+              }
+            }
+            }
           this.data = response;
           this.loading = false;
         })

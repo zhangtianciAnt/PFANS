@@ -85,14 +85,14 @@
                           </el-checkbox>
                         </el-col>
                         <el-col :span="20">
-                          <el-checkbox v-model="checked2" :disabled="disabled2">
+                          <el-checkbox v-model="checked3" :disabled="disabled3"  @change="getChecked3">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS3')}}</p>
                           </el-checkbox>
                         </el-col>
                       </el-row>
                       <el-row>
                         <el-col :span="8">
-                          <el-checkbox v-model="checked3" @change="getChecked3" :disabled="disabled3" style="margin-left: 50px">
+                          <el-checkbox v-model="checked2" :disabled="disabled2" @change="getChecked2" style="margin-left: 50px">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS2')}}</p>
                           </el-checkbox>
                         </el-col>
@@ -147,7 +147,7 @@
                   <el-col :span="24">
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')">
-                      <el-checkbox-group v-model="possible">
+                      <el-checkbox-group v-model="checkList">
                         <el-checkbox  :label="$t('label.PFANS1028VIEW_BOOKS')"></el-checkbox>
                         <el-checkbox  :label="$t('label.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
                         <el-checkbox  :label="$t('label.PFANS1028VIEW_MAIL')"></el-checkbox>
@@ -213,7 +213,7 @@
                             </el-col>
                             <el-col :span="12">
                               <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
-                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.reson"></el-input>
+                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.weaponreson"></el-input>
                               </el-form-item>
                             </el-col>
                           </el-row>
@@ -234,7 +234,7 @@
                             </el-col>
                             <el-col :span="12">
                               <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
-                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.reson"></el-input>
+                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.wordreson"></el-input>
                               </el-form-item>
                             </el-col>
                           </el-row>
@@ -255,7 +255,7 @@
                             </el-col>
                             <el-col :span="12">
                               <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
-                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.reson"></el-input>
+                                <el-input  :disabled="!disable" style="width:20vw" v-model="form.specifireson"></el-input>
                               </el-form-item>
                             </el-col>
                           </el-row>
@@ -273,6 +273,20 @@
                           </el-row>
                         </el-form-item>
                       </el-col>
+                      <el-row>
+                        <el-col :span="12">
+                            <el-radio
+                              :disabled="!disable"
+                              label="0"
+                              v-model="form.regulation"
+                            >{{this.$t('label.PFANS1028VIEW_RULES1')}}</el-radio>
+                            <el-radio
+                              :disabled="!disable"
+                              label="1"
+                              v-model="form.regulation"
+                            >{{this.$t('label.PFANS1028VIEW_RULES2')}}</el-radio>
+                        </el-col>
+                      </el-row>
                       <el-row>
                         <el-col :span="12">
                           <el-form-item :label="$t('label.PFANS1028VIEW_MANAGEMENT2')">
@@ -387,7 +401,7 @@
                           >{{this.$t('label.PFANS1028VIEW_JANOJUDGE')}}</el-radio>
                           <el-radio
                             :disabled="!disable"
-                            label="3"
+                            label="2"
                             v-model="form.americantechnology"
                           >{{this.$t('label.PFANS1028VIEW_NOT')}}</el-radio>
                           <el-radio
@@ -529,9 +543,9 @@
 <!--                                         :no="scope.row"-->
 <!--                                         @change="getjudgment1">-->
 <!--                              </dicselect>-->
-                              <el-select v-model="scope.row.judgment1" :disabled="!disable">
-                                <el-option label="OK" value="1"></el-option>
-                                <el-option label="NG" value="2"></el-option>
+                              <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                                <el-option label="o" value="1"></el-option>
+                                <el-option label="x" value="2"></el-option>
                               </el-select>
                             </template>
                           </el-table-column>
@@ -549,9 +563,9 @@
 <!--                                         :no="scope.row"-->
 <!--                                         @change="getjudgment2">-->
 <!--                              </dicselect>-->
-                              <el-select v-model="scope.row.judgment2" :disabled="!disable">
-                                <el-option label="OK" value="1"></el-option>
-                                <el-option label="NG" value="2"></el-option>
+                              <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                                <el-option label="o" value="1"></el-option>
+                                <el-option label="x" value="2"></el-option>
                               </el-select>
                             </template>
                           </el-table-column>
@@ -878,13 +892,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment1"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment1">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment1"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment1">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
@@ -908,13 +926,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment2"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment2">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment2"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment2">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -941,13 +963,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment1"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment1">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment1"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment1">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
@@ -971,13 +997,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment2"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment2">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment2"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment2">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -1004,13 +1034,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment1"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment1">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment1"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment1">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
@@ -1034,13 +1068,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment2"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment2">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment2"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment2">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -1067,13 +1105,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment1"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment1">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment1"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment1">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
@@ -1097,13 +1139,17 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                         <template slot-scope="scope">
-                          <dicselect :code="code1"
-                                     :data="scope.row.judgment2"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getjudgment2">
-                          </dicselect>
+<!--                          <dicselect :code="code1"-->
+<!--                                     :data="scope.row.judgment2"-->
+<!--                                     :disabled="!disable"-->
+<!--                                     :multiple="multiple"-->
+<!--                                     :no="scope.row"-->
+<!--                                     @change="getjudgment2">-->
+<!--                          </dicselect>-->
+                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-option label="o" value="1"></el-option>
+                            <el-option label="x" value="2"></el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -1114,19 +1160,19 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
                         <el-radio
-                          :disabled="!disable"
+                          :disabled="true"
                           label="0"
-                          v-model="form.sujudegresult"
+                          v-model="radioSujud"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT1')}}</el-radio>
                         <el-radio
-                          :disabled="!disable"
+                          :disabled="true"
                           label="1"
-                          v-model="form.sujudegresult"
+                          v-model="radioSujud"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT2')}}</el-radio>
                         <el-radio
-                          :disabled="!disable"
+                          :disabled="true"
                           label="2"
-                          v-model="form.sujudegresult"
+                          v-model="radioSujud"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT3')}}</el-radio>
                       </el-form-item>
                     </el-col>
@@ -1186,6 +1232,7 @@
         }
       };
       return {
+        radioSujud: '',
         checked1: false,
         checked2: false,
         checked3: false,
@@ -1201,8 +1248,8 @@
         grouporglist: '',
         options:[],
         checkList: [],
-        possible:[],
-        outputlimit2:[],
+        // possible:[],
+        // outputlimit2:[],
         tableAValue:'',
         error: '',
         userlist: '',
@@ -1216,6 +1263,10 @@
         orglist:'',
         baseInfo: {},
         arrJud: [],
+        arrIndustrial: [],
+        arrElectronic: [],
+        arrCOM: [],
+        arrSOF: [],
         form: {
 
           decisionnumber: '',
@@ -1226,7 +1277,8 @@
           custoenglish: '',
           varto: '',
           review: '',
-          requirements: '',
+          requirements: '0',
+          possible: '',
           claimdatetime:[],
           technical: '',
           today:moment(new Date()).format('YYYY-MM-DD'),
@@ -1234,6 +1286,14 @@
           outnumber: '',
           productnumber: '',
           outputlimit2: '',
+          weapon: '',
+          weaponreson: '',
+          word: '',
+          wordreson: '',
+          specifi: '',
+          specifireson: '',
+          restricted: '',
+          regulation: '',
           management2: '',
           mareason: '',
           reason: '',
@@ -1702,16 +1762,56 @@
           .dispatch('PFANS1028Store/one', {"nonjudgment_id": this.$route.params._id})
           .then(response => {
             this.form = response;
+            if(this.form.possible !== ""){
+              this.checkList = JSON.parse(this.form.possible);
+            }
+            if(this.form.review !== "" && this.form.review !== null){
+              if(this.form.review === "2"){
+                this.checked3 = true;
+              } else if(this.form.review === "1"){
+                this.checked1 = true;
+              } else if(this.form.review === "3"){
+                this.checked1 = true;
+                this.checked2 = true;
+              } else if(this.form.review === "4"){
+                this.checked2 = true;
+              }
+            }
             let repair = response.claimdatetime;
             let serdate = repair.slice(0, 10);
             let serdate1 = repair.slice(repair.length - 10);
             this.form.claimdatetime = [serdate, serdate1];
             debugger;
             this.grouporglist = this.form.group_id;
-              for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
+            for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
                 let aa = JSON.parse(response.limitcommunt)[i];
                 this.tableCommun[i].judgment1 = aa.jud1;
                 this.tableCommun[i].judgment2 = aa.jud2;
+            }
+            // tableIndustrial
+            // tableElectronic
+            // tableCon
+            // tableSof
+
+            for (let i = 0; i < JSON.parse(response.supplieindustrial).length; i++) {
+                let aa = JSON.parse(response.supplieindustrial)[i];
+                this.tableIndustrial[i].judgment1 = aa.jud1;
+                this.tableIndustrial[i].judgment2 = aa.jud2;
+            }
+            for (let i = 0; i < JSON.parse(response.supplielectronic).length; i++) {
+                let aa = JSON.parse(response.supplielectronic)[i];
+                this.tableElectronic[i].judgment1 = aa.jud1;
+                this.tableElectronic[i].judgment2 = aa.jud2;
+            }
+            for (let i = 0; i < JSON.parse(response.suppliecom).length; i++) {
+                let aa = JSON.parse(response.suppliecom)[i];
+                this.tableCon[i].judgment1 = aa.jud1;
+                this.tableCon[i].judgment2 = aa.jud2;
+            }
+            for (let i = 0; i < JSON.parse(response.suppliesof).length; i++) {
+                let aa = JSON.parse(response.suppliesof)[i];
+                this.tableSof[i].judgment1 = aa.jud1;
+                this.tableSof[i].judgment2 = aa.jud2;
             }
             this.loading = false;
           })
@@ -1733,14 +1833,16 @@
     },
     methods: {
       getChecked1(val) {
-        this.checked3 = val;
+        this.checked1 = val;
         if (val === true) {
           this.disabled2 = false;
           this.checked3 = false;
+          this.form.review = "1";
         } else {
           this.checked1 = false;
           this.checked2 = false;
           this.checked3 = false;
+          this.form.review = "";
         }
       },
       getChecked3(val) {
@@ -1749,10 +1851,25 @@
           this.disabled2 = true;
           this.checked1 = false;
           this.checked2 = false;
+          this.form.review = "2";
         } else {
           this.disabled2 = false;
+          this.form.review = "";
         }
       },
+      getChecked2(val) {
+        this.checked2 = val;
+        if (val === true) {
+          if(this.form.review === "1"){
+            this.form.review = "3";
+          } else {
+            this.form.review = "4";
+          }
+        } else {
+          this.form.review = "";
+        }
+      },
+
       /*合并单元格*/
       CommunSpanMethod({ row, column, rowIndex, columnIndex }) {
     if (columnIndex === 0) {
@@ -1807,13 +1924,52 @@
         this.$refs["reff"].validate(valid => {
           if (valid) {
             this.loading = true;
+            if(JSON.stringify(this.checkList) !== '[]'){
+              this.form.possible = JSON.stringify(this.checkList);
+            }else{
+              this.form.possible = '';
+            }
+            //通信デバイス、コンピューター及び電子デバイス製造
             for(let i = 0; i < this.tableCommun.length; i++){
               this.arrJud.push({
                 jud1:this.tableCommun[i].judgment1,
                 jud2:this.tableCommun[i].judgment2,
               })
             }
+            //工業設備
+            for(let i = 0; i < this.tableIndustrial.length; i++){
+              this.arrIndustrial.push({
+                jud1:this.tableIndustrial[i].judgment1,
+                jud2:this.tableIndustrial[i].judgment2,
+              })
+            }
+            //電子設備
+            for(let i = 0; i < this.tableElectronic.length; i++){
+              this.arrElectronic.push({
+                jud1:this.tableElectronic[i].judgment1,
+                jud2:this.tableElectronic[i].judgment2,
+              })
+            }
+            //ソフトウェア
+            for(let i = 0; i < this.tableCon.length; i++){
+              this.arrCOM.push({
+                jud1:this.tableCon[i].judgment1,
+                jud2:this.tableCon[i].judgment2,
+              })
+            }
+            //コンピュータ
+            for(let i = 0; i < this.tableSof.length; i++){
+              this.arrSOF.push({
+                jud1:this.tableSof[i].judgment1,
+                jud2:this.tableSof[i].judgment2,
+              })
+            }
+
             this.form.limitcommunt = JSON.stringify(this.arrJud);
+            this.form.supplieindustrial = JSON.stringify(this.arrIndustrial);
+            this.form.supplielectronic = JSON.stringify(this.arrElectronic);
+            this.form.suppliecom = JSON.stringify(this.arrCOM);
+            this.form.suppliesof = JSON.stringify(this.arrSOF);
             this.form.claimdatetime = moment(this.form.claimdatetime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
             if (this.$route.params._id) {     //编辑
               this.$store
