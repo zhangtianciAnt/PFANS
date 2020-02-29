@@ -419,7 +419,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo,getUserInfo,getCooperinterviewList} from '../../../../utils/customize';
+  import {getDictionaryInfo,getUserInfo,getCooperinterviewList,getSupplierinfor} from '../../../../utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -454,12 +454,14 @@
         form: {
           expatriatesinfor_id: '',
           expname: '',
+          cooperuserid: '',
           sex: '',
           number: '',
           post: '',
           contactinformation: '',
           age: '',
           suppliername: '',
+          suppliernameid: '',
           graduateschool: '',
           education: '',
           graduation_year: '',
@@ -807,7 +809,11 @@
         let lst13 = this.currentRow14;
         let lst14 = this.currentRow15;
         let lst15 = this.currentRow16;
+        let lst16 = this.currentRow17;
+        let lst17 = this.currentRow18;
+
         this.dialogTableVisible1 = false;
+
         this.form.expname = lst;
         this.form.sex = lst1;
         this.form.contactinformation = lst2;
@@ -823,6 +829,8 @@
         this.form.rn = lst13;
         this.form.whetherentry = lst14;
         this.form.remarks = lst15;
+        this.form.cooperuserid = lst16;
+        this.form.suppliernameid = lst17;
       },
       handleClickChange1(val) {
         this.currentRow = val.expname;
@@ -840,28 +848,35 @@
         this.currentRow14 = val.rn;
         this.currentRow15 = val.whetherentry;
         this.currentRow16 = val.remarks;
-      },
-      submit() {
-        let val = this.currentRow;
-        this.dialogTableVisible = false;
-        this.form.suppliername = val;
-      },
-      handleClickChange(val) {
-        this.currentRow = val.suppliername;
+        this.currentRow17 = val.cooperuserid;
+        this.currentRow18 = val.suppliernameid;
       },
       getExpnameList() {
         this.loading = true;
         this.$store
           .dispatch('PFANS6001Store/getcooperinterview', {})
           .then(response => {
+            console.log(response)
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              vote.expname = response[i].cooperuserid;
+              if (response[i].cooperuserid !== null && response[i].cooperuserid !== '') {
+                let cooperInfo = getCooperinterviewList(response[i].cooperuserid);
+                if (cooperInfo) {
+                  vote.expname = cooperInfo.coopername;
+                }
+              }
+              vote.cooperuserid = response[i].cooperuserid;
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               vote.contactinformation = response[i].contactinformation;
               vote.age = response[i].age;
-              vote.suppliername = response[i].supchineseid;
+              if (response[i].suppliernameid !== null && response[i].suppliernameid !== '') {
+                let supplierInfo = getSupplierinfor(response[i].suppliernameid);
+                if (supplierInfo) {
+                  vote.suppliername = supplierInfo.supchinese;
+                }
+              }
+              vote.suppliernameid = response[i].suppliernameid;
               vote.graduateschool = response[i].graduateschool;
               vote.education = getDictionaryInfo(response[i].education).value1;
               vote.graduation_year = response[i].graduation_year;
@@ -929,7 +944,6 @@
               }
             }
             this.tableData = response;
-            console.log(this.tableData);
             this.loading = false;
           })
           .catch(error => {
