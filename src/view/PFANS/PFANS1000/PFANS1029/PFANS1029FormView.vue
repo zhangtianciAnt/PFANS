@@ -113,7 +113,7 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.claimamount"></el-input>
+                          <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form.claimamount"></el-input-number>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -340,7 +340,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.claimamount" :prop="form2.claimamount"></el-input>
+                    <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -452,18 +452,7 @@
           callback();
         }
       };
-        var checkclaimamount = (rule, value, callback) => {
-            if (this.form2.claimamount !== null && this.form2.claimamount !== '') {
-                if (valfloat(value)) {
-                    callback();
-                } else {
-                    callback(new Error(this.$t('normal.error_09') + this.$t('label.effective') + this.$t('label.PFANS6007VIEW_PAYMENT')));
-                }
-            } else {
-                this.error_typeoffees = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_PAYMENT');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_PAYMENT')));
-            }
-        };
+
       return {
         activeName1: 'first',
         activeName2: 'third',
@@ -567,13 +556,6 @@
             validator: checktele,
             trigger: 'change'
           }],
-            claimamount: [
-                {
-                    required: true,
-                    validator: checkclaimamount,
-                    trigger: 'change'
-                },
-            ]
         },
 
         buttonList: []
