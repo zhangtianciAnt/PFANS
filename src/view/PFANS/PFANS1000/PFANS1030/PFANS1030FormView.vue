@@ -642,7 +642,6 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
             if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
               let sertdate=this.form.claimdatetime.slice(0,10);
               let enddate =this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
@@ -671,6 +670,14 @@
     },
     created(){
       if(!this.$route.params.disabled){
+        this.buttonList=[
+          {
+            key: 'generate',
+            name: 'button.generate',
+            disabled: false,
+          }
+        ]
+      }else {
         this.buttonList=[
           {
             key: 'save',
@@ -805,8 +812,9 @@
               this.form.maketype='1',
               this.baseInfo={};
               this.form.user_id=this.userlist;
-              this.form.deliverydate=moment(this.form.deliverydate).format('YYYY-MM-DD');
-              this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
+              if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
+                this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
+              }
               this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail=[];
               for(let i=0;i<this.tableT.length;i++){

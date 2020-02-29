@@ -118,9 +118,11 @@
     },
     mounted() {
       this.loading = true;
+      debugger
       this.$store
         .dispatch('PFANS1025Store/get', {maketype:'1'})
         .then(response => {
+
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 

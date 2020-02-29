@@ -175,7 +175,6 @@
           .dispatch('PFANS1032Store/one', {"petition_id": this.$route.params._id})
           .then(response => {
             this.form=response;
-            this.form.deliveryfinshdate=moment(this.form.deliveryfinshdate).format('YYYY-MM-DD');
             if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
               let sertdate=this.form.claimdatetime.slice(0,10);
               let enddate =this.form.claimdatetime.slice(this.form.developdate.length-10);
@@ -219,7 +218,6 @@
         this.$refs["reff"].validate(valid =>{
           if(valid){
             this.loading = true;
-            this.form.deliveryfinshdate=moment(this.form.deliveryfinshdate).format('YYYY-MM-DD');
             this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
             if(this.$route.params._id){     //编辑
               this.$store
