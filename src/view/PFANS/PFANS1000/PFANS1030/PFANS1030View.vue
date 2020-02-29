@@ -14,9 +14,9 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getUserInfo, getOrgInfoByUserId,getStatus} from '@/utils/customize';
+  import {getDictionaryInfo,getStatus} from '@/utils/customize';
   import {Message} from 'element-ui';
-  import moment from "moment";
+
 
   export default {
     name: "PFANS1025View",
@@ -114,8 +114,20 @@
         .dispatch('PFANS1025Store/get', {maketype:'1'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== "") {
+            if (response[j].award_id !== null && response[j].award_id !== "") {
 
+              if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].currencyposition !== null && response[j].currencyposition !== "") {
+                let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
+                if (letCurrencyposition != null) {
+                  response[j].currencyposition = letCurrencyposition.value1;
+                }
+              }
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
               }
