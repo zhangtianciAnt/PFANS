@@ -21,13 +21,13 @@
         title:"title.PFANS5005VIEW",
         data:[],
         columns:[
-          {
-            code: 'numbers',
-            label: 'label.PFANS5005VIEW_PROJECTNO',
-            width: 120,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'numbers',
+          //   label: 'label.PFANS5005VIEW_PROJECTNO',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'project_name',
             label: 'label.PFANS5005VIEW_PROJECTNAMW',
