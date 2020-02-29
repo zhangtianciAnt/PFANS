@@ -1,135 +1,143 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
 
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
-  import {Message} from 'element-ui';
+  import {Message} from "element-ui";
   import moment from "moment";
 
   export default {
-    name: 'PFANS5001View',
+    name: "PFANS5001View",
     components: {
-      EasyNormalTable,
+      EasyNormalTable
     },
-    data() {
+    data(){
       return {
-        loading: false,
-        title: "title.PFANS5001VIEW",
-        // 表格数据源
-        data: [],
-        // 列属性
-        columns: [
+        loading:false,
+        title:"title.PFANS5001VIEW",
+        data:[],
+        columns:[
+          // {
+          //   code: 'numrs',
+          //   label: 'label.PFANS5005VIEW_PROJECTNO',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'project_name',
-            label: 'label.PFANS5001FORMVIEW_PROJECT_NAME',
-            width: 150,
+            label: 'label.PFANS5005VIEW_PROJECTNAMW',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'createby',
-            label: 'label.applicant',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'projecttype',
-            label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
-            width: 150,
+            code: 'contractnumber',
+            label: 'label.PFANS5005VIEW_CONTRACTID',
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'leaderid',
-            label: 'label.PFANS5001FORMVIEW_LEADERID',
-            width: 150,
+            label: 'PL',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'startdate',
-            label: 'label.PFANS5001FORMVIEW_STARTDATE',
-            width: 150,
+            code: 'field',
+            label: 'label.PFANS5005VIEW_FIELD',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'enddate',
-            label: 'label.PFANS5001FORMVIEW_ENDDATE',
-            width: 150,
+            code: 'actualwork',
+            label: 'label.PFANS5005VIEW_CONTRACTFORM',
+            width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'CREATEON ',
-            label: 'label.PFANS2001VIEW_APPLICATIONTIME',
-            width: 150,
+            code: 'entrust',
+            label: 'label.PFANS5005VIEW_DEPOSITARY',
+            width: 120,
             fix: false,
-            filter: true
+            filter: true,
+          },
+          {
+            code: 'work',
+            label: 'label.PFANS5005VIEW_WORK',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'actualstarttime',
+            label: 'label.PFANS5005VIEW_STARTTIME',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'actualendtime',
+            label: 'label.PFANS5005VIEW_ENDTIME',
+            width: 120,
+            fix: false,
+            filter: true,
           },
           {
             code: 'status',
-            label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
-            width: 150,
+            label: 'label.approval_status',
+            width: 120,
             fix: false,
-            filter: true
-          }
+            filter: true,
+          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          // {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row:'companyprojects_id',
-      };
+        row_id: 'companyprojects_id'
+      }
     },
     mounted() {
       this.loading = true;
-
       this.$store
-        .dispatch('PFANS5001Store/getFpans5001List', {})
-        //根据user_id取组织架构和user_name
+        .dispatch('PFANS5001Store/getPjList')
         .then(response => {
           for (let j = 0; j < response.length; j++) {
-            if(response[j].createby !== null && response[j].createby !== "") {
-              let user = getUserInfo(response[j].createby);
-              if (user) {
-                response[j].createby = user.userinfo.customername;
-              }
-            }
-            //项目负责人
+            // todo status 未定 ,同 PFANS5009
             if(response[j].leaderid !== null && response[j].leaderid !== "") {
               let user = getUserInfo(response[j].leaderid);
               if (user) {
                 response[j].leaderid = user.userinfo.customername;
               }
             }
-            //项目类型
-            if (response[j].projecttype !== null && response[j].projecttype !== "") {
-              let letStage = getDictionaryInfo(response[j].projecttype);
-              if (letStage != null) {
-                response[j].projecttype = letStage.value1;
+            if (response[j].field !== null && response[j].field !== "") {
+              let letField = getDictionaryInfo(response[j].field);
+              if (letField != null) {
+                response[j].field = letField.value1;
               }
             }
-            //状态
-            response[j] .status = getStatus(response[j] .status);
-            // 开始时间
-            if (response[j].startdate !== null && response[j].startdate !== "") {
-              response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+            if (response[j].actualstarttime !== null && response[j].actualstarttime !== "") {
+              var d = new Date(response[j].actualstarttime);
+              var times=d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+              response[j].actualstarttime = times;
             }
-            //预计完成时间
-            if (response[j].enddate !== null && response[j].enddate !== "") {
-              response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+            if (response[j].actualendtime !== null && response[j].actualendtime !== "") {
+              var d = new Date(response[j].actualendtime);
+              var times=d.getFullYear() + '-' + this.addZero(d.getMonth() + 1) + '-' + this.addZero(d.getDate());
+              response[j].actualendtime = times;
             }
-            //申请时间
-            if (response[j].CREATEON !== null && response[j].CREATEON !== "") {
-              response[j].CREATEON = moment(response[j].CREATEON).format("YYYY-MM-DD");
+            if (response[j].status !== null && response[j].status !== "") {
+              response[j].status = getStatus(response[j].status);
             }
           }
           this.data = response;
@@ -142,16 +150,32 @@
             duration: 5 * 1000
           });
           this.loading = false;
-        })
-
+        });
     },
     methods: {
       rowClick(row) {
         this.rowid = row.companyprojects_id;
       },
-      //点击上部按钮处理
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+
+        if (val === 'update') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS5001FormView',
+            params: {
+              _id: this.rowid,
+              disabled: true
+            }
+          })
+        }
         if (val === 'view') {
           if (this.rowid === '') {
             Message({
@@ -169,37 +193,15 @@
             }
           })
         }
-        if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS5001FormView',
-            params: {
-              _id: "",
-              disabled: true
-            }
-          })
-        }
-        if (val === 'edit') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS5001FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true
-            }
-          })
-        }
+
       },
+      addZero(num) {
+        return num < 10 ? '0' + num : num;
+      }
     }
   }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style scoped>
 
 </style>
