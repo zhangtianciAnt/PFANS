@@ -25,7 +25,7 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="supchinese"
+                prop="suppliername"
                 label="外驻先"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
@@ -88,6 +88,7 @@
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
+                <template slot-scope="scope">
                 <el-select size="small" v-model="scope.row.supchinese" placeholder="请选择">
                   <el-option
                     v-for="item in externalOption"
@@ -96,6 +97,7 @@
                     :value="item.supplierinfor_id">
                   </el-option>
                 </el-select>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="name"
@@ -277,7 +279,7 @@
       },
       getNextYearLevel:function () {
         debugger
-        return parseInt(this.getThisYearLevel) + 1;
+        return (parseInt(this.getThisYearLevel) + 1) + "";
       }
     },
     created() {
@@ -293,6 +295,7 @@
       }
     },
     mounted() {
+      this.getExternal();
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
       }else{
@@ -381,7 +384,7 @@
           });
       },
       formatterDic(row, column) {
-        if (column.property === "thisyear") {
+        if (column.property === "thisyear" && this.$route.params.type === 0) {
           if (row[column.property]) {
             debugger
             let dic = getDictionaryInfo(row[column.property]);
@@ -391,6 +394,8 @@
           }
         } else if (column.property === "entermouth") {
           return "-";
+        }else{
+          return row[column.property];
         }
       },
       deleteRow(index, rows) {
@@ -409,6 +414,7 @@
       buttonClick(val) {
         this.form.employed = JSON.stringify(this.tableData);
         this.form.newentry = JSON.stringify(this.newTableData);
+        this.form.type = this.$route.params.type;
         if (!this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -433,7 +439,6 @@
             });
         } else {
           this.loading = true;
-          this.form.type = this.$route.params.type;
           this.$store
             .dispatch("PFANS1038Store/update", this.form)
             .then(response => {
