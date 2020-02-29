@@ -26,13 +26,13 @@
             contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
             contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
             columns:[
-              {
-                code: 'numbers',
-                label: 'label.PFANS5009VIEW_PROJECTNO',
-                width: 120,
-                fix: false,
-                filter: true,
-              },
+              // {
+              //   code: 'numbers',
+              //   label: 'label.PFANS5009VIEW_PROJECTNO',
+              //   width: 120,
+              //   fix: false,
+              //   filter: true,
+              // },
               {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',

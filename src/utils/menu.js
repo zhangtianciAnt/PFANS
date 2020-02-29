@@ -81,17 +81,17 @@ export function menu() {
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'PFANS1036',
-                  'name': 'menu.PFANS1041',
+                  '_id': 'PFANS1039',
+                  'name': 'menu.PFANS1039',
                   'menuvisible': true,
-                  'menuurl': '/PFANS1041View',
+                  'menuurl': '/PFANS1039View',
                   'menuicon': '',
                   'children': [],
                   'actions': [
-                    {"_id": "PFANS1041_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1041_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                    {"_id": "PFANS1039_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1039_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1039_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1039_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 }
               ]
