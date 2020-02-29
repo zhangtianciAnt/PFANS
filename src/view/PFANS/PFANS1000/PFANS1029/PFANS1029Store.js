@@ -1,7 +1,8 @@
 import {
   get,
   one,
-  update
+  update,
+  getContractList
 } from './PFANS1029Api'
 
 const PFANS1029Store = {
@@ -50,6 +51,20 @@ const PFANS1029Store = {
         })
       })
     },
+
+    getContractList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getContractList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
   }
 }
 export default PFANS1029Store;
