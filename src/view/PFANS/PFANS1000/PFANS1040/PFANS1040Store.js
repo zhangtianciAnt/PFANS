@@ -6,7 +6,7 @@ import {
 }
   from './PFANS1040Api'
 
-const PFANS1039Store = {
+const PFANS1040Store = {
   namespaced: true,
   state: {},
   mutations: {},
