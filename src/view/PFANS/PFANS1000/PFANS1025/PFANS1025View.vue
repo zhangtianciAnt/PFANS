@@ -119,7 +119,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1025Store/get', {maketype:'0'})
+        .dispatch('PFANS1025Store/get', {'maketype':'7'})
         .then(response => {
 
           for (let j = 0; j < response.length; j++) {

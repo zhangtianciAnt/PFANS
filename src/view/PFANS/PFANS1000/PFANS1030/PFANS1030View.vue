@@ -111,7 +111,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1025Store/get', {maketype:'1'})
+        .dispatch('PFANS1025Store/get', {'maketype':'4'})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].award_id !== null && response[j].award_id !== "") {

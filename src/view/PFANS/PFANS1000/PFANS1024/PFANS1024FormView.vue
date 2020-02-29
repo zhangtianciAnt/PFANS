@@ -1767,6 +1767,7 @@
           },
           //書類作成
           clickData(val){
+            alert(val);
             var tabledata = {'contractnumber': this.$route.params._id,'rowindex': val};
             this.$refs["refform"].validate(valid => {
               if (valid) {
@@ -1899,6 +1900,9 @@
                         }
                     }
                 });
+            }
+            if (val === "makeinto") {
+              this.dialogBook = true;
             }
           }
         }
