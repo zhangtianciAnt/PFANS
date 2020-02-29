@@ -545,11 +545,11 @@
             'name': 'button.save',
             'disabled': false,
           },
-          {
-            'key': 'generate',
-            'name': 'button.generate',
-            'disabled': false
-          },
+          // {
+          //   'key': 'generate',
+          //   'name': 'button.generate',
+          //   'disabled': false
+          // },
         ],
       };
     },
@@ -648,7 +648,7 @@
               if (response[j].expname !== null && response[j].expname !== "") {
                 let expname = getCooperinterviewList(response[j].expname);
                 if (expname) {
-                  response[j].expname = coopername.coopername;;
+                  response[j].expname = expname.coopername;
                 }
               }
               if (response[j].suppliername !== null && response[j].suppliername !== "") {

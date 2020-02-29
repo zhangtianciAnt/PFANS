@@ -110,8 +110,7 @@
                         :disabled="!disabled"
                         v-model="form.requirements"
                         active-value="1"
-                        inactive-value="0"
-                        @change="radiochange">
+                        inactive-value="0">
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANS1028VIEW_YES')}}</span>
                     </el-form-item>
@@ -503,48 +502,57 @@
                       <el-row >
                         <el-table :data="tableCommun"
                                   border
+                                  :span-method="CommunSpanMethod"
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center" width="150">
                             <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.technicalnumber">
+                              <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.technicalnumber">
                               </el-input>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
                             <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.grade"></el-input>
+                              <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.grade"></el-input>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
                             <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.technicalname"></el-input>
+                              <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.technicalname"></el-input>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
                             <template slot-scope="scope">
-                              <dicselect :code="code1"
-                                         :data="scope.row.judgment1"
-                                         :disabled="!disable"
-                                         :multiple="multiple"
-                                         :no="scope.row"
-                                         @change="getjudgment1">
-                              </dicselect>
+<!--                              <dicselect :code="code1"-->
+<!--                                         :data="scope.row.judgment1"-->
+<!--                                         :disabled="!disable"-->
+<!--                                         :multiple="multiple"-->
+<!--                                         :no="scope.row"-->
+<!--                                         @change="getjudgment1">-->
+<!--                              </dicselect>-->
+                              <el-select v-model="scope.row.judgment1" :disabled="!disable">
+                                <el-option label="OK" value="1"></el-option>
+                                <el-option label="NG" value="2"></el-option>
+                              </el-select>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
                             <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.points"></el-input>
+                              <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.points"></el-input>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
                             <template slot-scope="scope">
-                              <dicselect :code="code1"
-                                         :data="scope.row.judgment2"
-                                         :disabled="!disable"
-                                         :multiple="multiple"
-                                         :no="scope.row"
-                                         @change="getjudgment2">
-                              </dicselect>
+<!--                              <dicselect :code="code1"-->
+<!--                                         :data="scope.row.judgment2"-->
+<!--                                         :disabled="!disable"-->
+<!--                                         :multiple="multiple"-->
+<!--                                         :no="scope.row"-->
+<!--                                         @change="getjudgment2">-->
+<!--                              </dicselect>-->
+                              <el-select v-model="scope.row.judgment2" :disabled="!disable">
+                                <el-option label="OK" value="1"></el-option>
+                                <el-option label="NG" value="2"></el-option>
+                              </el-select>
                             </template>
                           </el-table-column>
                         </el-table>
@@ -1249,6 +1257,10 @@
           lijudegresult: '',
         },
 
+        tableComputers: [{}],
+        tableDelivery: [{}],
+        tableGatetechnology: [{}],
+        tableJasoftware: [{}],
         tableCommun: [{
           technicalnumber:'01',
           grade: 'J',
@@ -1684,30 +1696,22 @@
       }
     },
     mounted() {
-      this.loading = true;
       if (this.$route.params._id) {
+        this.loading = true;
         this.$store
-          .dispatch('PFANS1028Store/get', {"nonjudgment_id": this.$route.params._id})
+          .dispatch('PFANS1028Store/one', {"nonjudgment_id": this.$route.params._id})
           .then(response => {
             this.form = response;
+            let repair = response.claimdatetime;
+            let serdate = repair.slice(0, 10);
+            let serdate1 = repair.slice(repair.length - 10);
+            this.form.claimdatetime = [serdate, serdate1];
+            debugger;
             this.grouporglist = this.form.group_id;
-            if (response.length > 0) {
-              for (let i = 0; i < response.length; i++) {
-
-                if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-                  let repair = response[i].claimdatetime;
-                  let serdate = repair.slice(0, 10);
-                  let serdate1 = repair.slice(repair.length - 10);
-                  this.form.claimdatetime = [serdate, serdate1];
-                }
-                let aa = response[i].award.judgment1
-                let o = JSON.parse(aa);
-                console.log(o);
-                for(var i=0;i < this.tableCommun.length;i++){
-                  this.tableCommun[i].judgment1 = o[i].jud1;
-                  this.tableCommun[i].judgment2 = o[i].jud2;
-                }
-              }
+              for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
+                let aa = JSON.parse(response.limitcommunt)[i];
+                this.tableCommun[i].judgment1 = aa.jud1;
+                this.tableCommun[i].judgment2 = aa.jud2;
             }
             this.loading = false;
           })
@@ -1749,6 +1753,22 @@
           this.disabled2 = false;
         }
       },
+      /*合并单元格*/
+      CommunSpanMethod({ row, column, rowIndex, columnIndex }) {
+    if (columnIndex === 0) {
+      if (rowIndex % 2 === 0) {
+        return {
+          rowspan: 2,
+          colspan: 1
+        };
+      } else {
+        return {
+          rowspan: 0,
+          colspan: 0
+        };
+      }
+    }
+  },
       getGroupId(val) {
         this.form.group_id = val;
         this.grouporglist = val;
@@ -1784,16 +1804,17 @@
 
       buttonClick(val) {
         if(val==="save"){
-          for(let i = 0; i < this.tableCommun.length; i++){
-            this.arrJud.push({
-              jud1:this.tableCommun[i].judgment1,
-              jud2:this.tableCommun[i].judgment2,
-            })
-          }
-          this.form.judgment1 = JSON.stringify(this.arrJud);
         this.$refs["reff"].validate(valid => {
           if (valid) {
             this.loading = true;
+            for(let i = 0; i < this.tableCommun.length; i++){
+              this.arrJud.push({
+                jud1:this.tableCommun[i].judgment1,
+                jud2:this.tableCommun[i].judgment2,
+              })
+            }
+            this.form.limitcommunt = JSON.stringify(this.arrJud);
+            this.form.claimdatetime = moment(this.form.claimdatetime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
             if (this.$route.params._id) {     //编辑
               this.$store
                 .dispatch('PFANS1028Store/update', this.form)

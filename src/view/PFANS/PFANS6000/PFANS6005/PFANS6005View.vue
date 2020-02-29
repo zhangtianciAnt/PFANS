@@ -8,7 +8,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getCooperinterviewList} from '@/utils/customize';
 
   export default {
     name: "PFANS6005View",
@@ -116,7 +116,14 @@
       this.$store
         .dispatch('PFANS6005Store/getpriceset', {})
         .then(response => {
+          console.log(response)
           for (let j = 0; j < response.length; j++) {
+            if(response[j].user_id !== null && response[j].user_id !== ""){
+              let userInfo = getCooperinterviewList(response[j].user_id);
+              if(userInfo){
+                response[j].user_id = userInfo.coopername;
+              }
+            }
             // 技術スキル
             if (response[j].technical !== null && response[j].technical !== "" ) {
               let technical = getDictionaryInfo(response[j].technical);

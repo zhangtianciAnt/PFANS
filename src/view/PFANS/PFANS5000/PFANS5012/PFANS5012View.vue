@@ -19,19 +19,10 @@
       return {
         totaldata: [],
         total: 0,
-        message: [{hang: '', error: '',}],
-        Message1: true,
-        result: false,
-        cuowu: '',
-        daoru: false,
         checkTableData: [],
         addActionUrl: '',
         resultShow: false,
         file: null,
-        successCount: 0,
-        errorCount: 0,
-        errorList: [],
-        downloadLoading: false,
         loading: false,
         title: "title.PFANS5012View",
         data: [],
@@ -52,13 +43,13 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'project_id',
-            label: 'label.PFANS5008VIEW_PROGRAM',
-            width: 120,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'project_id',
+          //   label: 'label.PFANS5008VIEW_PROGRAM',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'log_date',
             label: 'label.PFANS5008VIEW_RIQI',
@@ -95,10 +86,6 @@
               .then(response => {
                   for (let j = 0; j < response.length; j++) {
                     let lst = getOrgInfoByUserId(response[j].createby);
-                    let user = getUserInfo(response[j].createby)
-                    if (user) {
-                       response[j].username = user.userinfo.customername;
-                    }
                     response[j].center_name = lst.centerNmae;
                     response[j].group_name = lst.groupNmae;
                     response[j].log_date = moment(response[j].log_date).format("MM")+"月";

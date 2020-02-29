@@ -53,7 +53,7 @@
     import {getToken} from '@/utils/auth'
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+    import {getUserInfo, getDictionaryInfo,getSupplierinfor} from '@/utils/customize';
 
     export default {
         name: 'PFANS6003View',
@@ -174,10 +174,10 @@
                     .dispatch('PFANS6003Store/getsupplierinfor')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            if (response[j].supchinese !== null && response[j].supchinese !== "") {
-                                let supchinese = getUserInfo(response[j].supchinese);
-                                if (supchinese) {
-                                    response[j].supchinese = user.userinfo.customername;
+                            if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== "") {
+                                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+                                if (supplierInfo) {
+                                    response[j].supchinese = supplierInfo.supchinese;
                                 }
                             }
                             if (response[j].liableperson !== null && response[j].liableperson !== "") {
