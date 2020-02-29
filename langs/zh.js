@@ -2256,6 +2256,8 @@ module.exports = {
     PFANS1028VIEW_points64: 'わが国大地制御網全体平差方法とソフトウェア技術',
     PFANS1028VIEW_points65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
     PFANS1028VIEW_points66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
+    PFANS1028VIEW_PANASG: '松下Ｇ',
+    PFANS1028VIEW_NOPANASG: '非松下Ｇ',
     PFANS1029VIEW_CONTRACTID: '契約番号',
     PFANS1029VIEW_DEPOSITJAPANESE: '委託元',
     PFANS1029VIEW_PRPLACEJAPANESE: '委託元場所',
