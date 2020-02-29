@@ -782,6 +782,7 @@
         tableA: [
           {
             contractthemeid: '',
+            months: '',
             years: moment(new Date()).format('YYYY'),
             theme: '',
             center: '',
@@ -858,7 +859,7 @@
       getdata(year,month,flg){
         this.loading = true;
         this.$store
-          .dispatch('PFANS1040Store/get', {'years': year,'months': month,})
+          .dispatch('PFANS1040Store/get', {'type': '0','years': year,'months': month,})
           .then(response => {
             if (response.length > 0) {
               if(month != ""){
@@ -882,7 +883,9 @@
             }
             else{
                 if(month === ""){
-                    this.tableA = [];
+                    if(this.tableA.length === 0){
+                      this.addRowF();
+                    }
                     this.tableB = [];
                 }
                 else{
@@ -1005,6 +1008,7 @@
       addRowF() {
         this.tableA.push({
           contractthemeid: '',
+          months: '',
           years: moment(new Date()).format('YYYY'),
           theme: '',
           center: '',
