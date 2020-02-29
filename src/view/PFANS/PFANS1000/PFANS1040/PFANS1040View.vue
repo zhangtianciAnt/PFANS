@@ -743,7 +743,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getOrgInfo,getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -831,6 +831,7 @@
             amount3: '',
             type: '0',
             rowindex: '',
+            status: '',
           },
         ],
         baseInfo: [],
@@ -860,7 +861,7 @@
       //     }
       //   }
       // }
-      this.getdata(this.years);
+      this.getdata(this.years,0);
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -872,10 +873,10 @@
 
     },
     methods: {
-      getdata(val){
+      getdata(val,flg){
         this.loading = true;
         this.$store
-          .dispatch('PFANS1040Store/One', {'years': val})
+          .dispatch('PFANS1040Store/get', {'years': val})
           .then(response => {//222
             this.tableF = [];
             if (response.length > 0) {
@@ -889,7 +890,9 @@
               //   this.disabled = false;
               // }
             }
-            this.loading = false;
+            if(flg === 0){
+              this.loading = false;
+            }
           })
           .catch(error => {
             Message({
@@ -947,7 +950,7 @@
       },
       yearChange(value){//111
         this.years = moment(value).format('YYYY');
-        this.getdata(this.years);
+        this.getdata(this.years,0);
         if(this.years === moment(new Date()).format("YYYY")){
           this.disabled = false;
         }
@@ -1019,19 +1022,15 @@
         });
       },
       buttonClick(val) {
-        if (val === 'back') {
-          this.$router.push({
-            name: 'PFANS1039View',
-            params: {},
-          });
-        }
         if (val === 'save') {
+          this.loading = true;
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.baseInfo = this.tableF;
               this.$store
                 .dispatch('PFANS1040Store/insert', this.baseInfo).then(response => {
                 this.data = response;
+                this.getdata(this.years,1);
                 this.loading = false;
                 Message({
                   message: this.$t('normal.success_01'),
