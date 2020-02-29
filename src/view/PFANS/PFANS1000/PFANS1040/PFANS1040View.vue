@@ -893,7 +893,7 @@
   import dicselect from '../../../components/dicselect';
 
   export default {
-    name: 'PFANS1039FormView',
+    name: 'PFANS1040View',
     components: {
       dicselect,
       EasyNormalContainer,
@@ -901,7 +901,7 @@
     data() {
       return {
         value2: '',
-        title: 'title.PFANS1039VIEW',
+        title: 'title.PFANS1040VIEW',
         activeName: 'first',
         loading: false,
         disabled: false,
@@ -1099,7 +1099,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1039Store/One', {'contractthemeid': this.$route.params._id})
+          .dispatch('PFANS1040Store/One', {'contractthemeid': this.$route.params._id})
           .then(response => {
             if (response.contracttheme.length > 0) {
               this.tableF = response.contracttheme;
@@ -1211,7 +1211,7 @@
       buttonClick(val) {
         if (val === 'back') {
           this.$router.push({
-            name: 'PFANS1041View',
+            name: 'PFANS1039View',
             params: {},
           });
         }
@@ -1223,7 +1223,7 @@
               if (this.$route.params._id) {
                 this.baseInfo.contracttheme.contractthemeid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1039Store/update', this.baseInfo)
+                  .dispatch('PFANS1040Store/update', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -1234,7 +1234,7 @@
                         duration: 5 * 1000,
                       });
                       this.$router.push({
-                        name: 'PFANS1039View',
+                        name: 'PFANS1040View',
                       });
                     }
                   })
@@ -1248,7 +1248,7 @@
                   });
               } else {
                 this.$store
-                  .dispatch('PFANS1039Store/insert', this.baseInfo).then(response => {
+                  .dispatch('PFANS1040Store/insert', this.baseInfo).then(response => {
                   this.data = response;
                   this.loading = false;
                   Message({
@@ -1257,7 +1257,7 @@
                     duration: 5 * 1000,
                   });
                   this.$router.push({
-                    name: 'PFANS1039View',
+                    name: 'PFANS1040View',
                   });
                 })
                   .catch(error => {

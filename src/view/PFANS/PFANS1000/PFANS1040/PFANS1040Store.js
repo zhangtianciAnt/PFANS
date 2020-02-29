@@ -4,9 +4,9 @@ import {
   One,
   update
 }
-  from './PFANS1039Api'
+  from './PFANS1040Api'
 
-const PFANS1039Store = {
+const PFANS1040Store = {
   namespaced: true,
   state: {},
   mutations: {},
@@ -66,4 +66,4 @@ const PFANS1039Store = {
   }
 }
 
-export default PFANS1039Store;
+export default PFANS1040Store;
