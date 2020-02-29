@@ -315,7 +315,6 @@
                   return {name: res.userinfo.customername, userid: res.userid, thisyear: res.userinfo.rank};
                 }
               )
-              console.log(this.tableData);
             }
           })
           .catch(error => {
@@ -332,7 +331,7 @@
           .then(response => {
             debugger
             if (response.length > 0) {
-              this.newTableData = response;
+              this.tableData = response;
             }
           })
           .catch(error => {
@@ -370,7 +369,7 @@
             debugger
             console.log(JSON.parse(this.form.employed));
             this.tableData = JSON.parse(this.form.employed);
-            this.newTableData = JSON.parse(this.form.employed);
+            this.newTableData = JSON.parse(this.form.newentry);
           })
           .catch(error => {
             Message({
