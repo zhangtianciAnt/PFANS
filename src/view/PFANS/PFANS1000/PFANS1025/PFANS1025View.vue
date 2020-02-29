@@ -118,7 +118,6 @@
     },
     mounted() {
       this.loading = true;
-      debugger
       this.$store
         .dispatch('PFANS1025Store/get', {maketype:'1'})
         .then(response => {
