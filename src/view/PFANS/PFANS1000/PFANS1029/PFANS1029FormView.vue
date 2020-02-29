@@ -113,7 +113,7 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.claimamount"></el-input>
+                          <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form.claimamount"></el-input-number>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -244,6 +244,7 @@
             <!--役務契約書(受託)-->
             <el-tab-pane :label="$t('label.PFANS1029FROM_LABOR')" name="second">
               <!--1-->
+
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CONTRACTID')">
@@ -339,7 +340,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.claimamount"></el-input>
+                    <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -451,11 +452,13 @@
           callback();
         }
       };
+
       return {
         activeName1: 'first',
         activeName2: 'third',
         disabled: true,
         tableAValue:'',
+        error_typeoffees: '',
         error: '',
         userlist: '',
         code1: 'PJ078',
@@ -501,7 +504,6 @@
             pjnamechinese:'',
             openingdate:'',
             enddate:'',
-            currencyformat:'',
             currencyposition:'',
             claimamount:'',
             prplacepositionjapanese:'',
@@ -529,7 +531,7 @@
               pjnamechinese:'',
               openingdate:'',
               enddate:'',
-            currencyposition:'',
+              currencyposition:'',
               claimamount:'',
               prplacepositionjapanese:'',
               prplacepositionchinese:'',
@@ -555,6 +557,7 @@
             trigger: 'change'
           }],
         },
+
         buttonList: []
       }
     },

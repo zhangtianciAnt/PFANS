@@ -271,11 +271,11 @@
           judgment:'',
           determination:'',
         },
-        code1: '',
-        code2: '',
+        code1: 'PJ078',
+        code2: 'PJ081',
         code3: 'HT006',
-        code4: '',
-        code5: '',
+        code4: 'HT012',
+        code5: 'PJ082',
         disabled: false,
         rules: {
           loadingjudge: [{

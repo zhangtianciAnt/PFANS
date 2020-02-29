@@ -14,7 +14,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import moment from 'moment'
-  import {getStatus, getUserInfo} from '@/utils/customize'
+  import {getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS1031View',
@@ -132,7 +132,62 @@
       this.$store
         .dispatch('PFANS1031Store/get',{})
         .then(response => {
+            for(let j = 0;j < response.length;j++){
+                if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].contracttype);
+                    if (letContracttype != null) {
+                        response[j].contracttype = letContracttype.value1;
+                    }
+                }
+
+                if (response[j].claimtype !== null && response[j].claimtype !== "") {
+
+                    let letContracttype = getDictionaryInfo(response[j].claimtype);
+
+                    if (letContracttype != null) {
+                        response[j].claimtype = letContracttype.value1;
+                    }
+                }
+
+                if (response[j].currencyformat !== null && response[j].currencyformat !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].currencyformat);
+                    if (letContracttype != null) {
+                        response[j].currencyformat = letContracttype.value1;
+                    }
+                }
+
+                if (response[j].toto !== null && response[j].toto !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].toto);
+                    if (letContracttype != null) {
+                        response[j].toto = letContracttype.value1;
+                    }
+                }
+
+                if (response[j].judgment !== null && response[j].judgment !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].judgment);
+                    if (letContracttype != null) {
+                        response[j].judgment = letContracttype.value1;
+                    }
+                }
+
+                if (response[j].determination !== null && response[j].determination !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].determination);
+                    if (letContracttype != null) {
+                        response[j].determination = letContracttype.value1;
+                    }
+                }
+                if (response[j].enddate !== null && response[j].enddate !== ""){
+                    response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+                }
+                if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== ""){
+                    response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
+                }
+                if (response[j].openingdate !== null && response[j].openingdate !== ""){
+                    response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
+                }
+            }
           this.data = response;
+
           this.loading = false
         })
         .catch(error => {

@@ -44,14 +44,14 @@
             filter: true
           },
           {
-            code: 'entrustjapanese',
+            code: 'custochinese',
             label: 'label.PFANS1025VIEW_ENTRUST',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'enplacechinese',
+            code: 'placechinese',
             label: 'label.PFANS1025VIEW_ENTRUSTPLACE',
             width: 150,
             fix: false,
@@ -65,14 +65,14 @@
             filter: true
           },
           {
-            code: 'pjnamejapanese',
+            code: 'pjnamechinese',
             label: 'label.PFANS1025VIEW_PJNAME',
             width: 120,
             fix: false,
             filter: true
           },
           {
-            code: 'developdate',
+            code: 'claimdatetime',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
             width: 200,
             fix: false,
@@ -87,7 +87,7 @@
             filter: true
           },
           {
-            code: 'currencyformat',
+            code: 'currencyposition',
             label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
@@ -119,8 +119,9 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1025Store/get', {})
+        .dispatch('PFANS1025Store/get', {maketype:'1'})
         .then(response => {
+
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
 

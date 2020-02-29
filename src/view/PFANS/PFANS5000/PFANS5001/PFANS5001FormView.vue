@@ -2125,7 +2125,6 @@
             }
             var manMonth = 0;
             for (let i = 0; i < this.tableA.length; i++) {
-              debugger;
               if(this.tableA.estimatedwork !== ''){
                 manMonth = Math.round((manMonth + this.tableA[i].estimatedwork)*100)/100;
               }
