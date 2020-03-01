@@ -563,6 +563,33 @@
         }
       },
 
+      getproject() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
+          .then(response => {
+            for(let i = 0; i < response.projectsystem.length; i++){
+              if(response[i].company === this.tableData.suppliername){
+                for(let j = 0; j < response.companyprojects.length; j++){
+                  this.tableData.managerid = response[j].managerid;
+                  this.tableData.project_name = response[j].project_name;
+                  console.log("sssss   " + this.tableData.suppliername)
+                }
+              }
+            }
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+
       updateexpatriatesinfor() {
         this.loading = true;
         this.$store
@@ -721,6 +748,7 @@
     },
     mounted() {
       this.getexpatriatesinforthisyear();
+      // this.getproject();
     },
   }
 </script>
