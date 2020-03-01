@@ -220,8 +220,8 @@ module.exports = {
     PFANS2018: '公司考勤设定',
     PFANS5008: '日志管理',
     PJCASE: 'PJ起案',
-    PFANS5001: 'PJ起案审批',
-    PFANS5002: 'PJ起案申请',
+    PFANS5001: 'PJ起案申请',
+    PFANS5002: 'PJ起案审批',
     PJPROGRESS: 'PJ进度',
     PFANS5009: '现场管理',
     PFANS5011: '项目工数',
@@ -335,8 +335,8 @@ module.exports = {
     PFANS3007VIEW: '日本出張のマンション予約',
     PFANS4001VIEW: '印章申请',
     PFANS4001FORMVIEW: '印章使用申请',
-    PFANS5001VIEW: 'PJ起案审批',
-    PFANS5002VIEW: 'PJ起案申请',
+    PFANS5001VIEW: 'PJ起案申请',
+    PFANS5002VIEW: 'PJ起案审批',
     PFANS5004VIEW: '尚未结束项目列表',
     PFANS5005VIEW: 'PJ完了审批',
     PFANS5009VIEW: '现场管理',
@@ -1028,6 +1028,15 @@ module.exports = {
     PFANS1027FORMVIEW_APPOINT1: '下記機能を実装したVer2.2リリース' +
       '・CentOS 7.3対応\n' +
       '・マガジン複数コンテナ化',
+    PFANS1027FORMVIEW_APPOINT2: '技術検討\n' +
+      '・小ファイルパック化\n' +
+      '・過去経歴読出し用API',
+    PFANS1027FORMVIEW_APPOINT3: 'リリース済みバージョンのバグ対応',
+    PFANS1027FORMVIEW_OTHER1: '費用名称',
+    PFANS1027FORMVIEW_OTHER2: '出差費',
+    PFANS1027FORMVIEW_OTHER3: '设备費',
+    PFANS1027FORMVIEW_OTHER4: '詳細',
+    PFANS1027FORMVIEW_OTHER5: '費用(円)',
     PFANS1028VIEW_NO: '管理NO.',
     PFANS1028VIEW_CAREER: '事業場名',
     PFANS1028VIEW_ORGANIZATION: '組織名',
