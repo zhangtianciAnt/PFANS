@@ -1032,6 +1032,11 @@ module.exports = {
       '・小ファイルパック化\n' +
       '・過去経歴読出し用API',
     PFANS1027FORMVIEW_APPOINT3: 'リリース済みバージョンのバグ対応',
+    PFANS1027FORMVIEW_OTHER1: '費用名称',
+    PFANS1027FORMVIEW_OTHER2: '出差費',
+    PFANS1027FORMVIEW_OTHER3: '设备費',
+    PFANS1027FORMVIEW_OTHER4: '詳細',
+    PFANS1027FORMVIEW_OTHER5: '費用(円)',
     PFANS1028VIEW_NO: '管理NO.',
     PFANS1028VIEW_CAREER: '事業場名',
     PFANS1028VIEW_ORGANIZATION: '組織名',

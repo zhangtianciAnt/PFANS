@@ -562,6 +562,16 @@
                   response.numberCount[i].currencyposition = letCurrencyposition.value1;
                 }
               }
+
+              let deliverydate = response.numberCount[i].deliverydate;
+              let completiondate = response.numberCount[i].completiondate;
+              let claimdate = response.numberCount[i].claimdate;
+              let supportdate = response.numberCount[i].supportdate;
+
+              response.numberCount[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+              response.numberCount[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+              response.numberCount[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+              response.numberCount[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
             }
 
             if (response.depositjapanese !== null && response.depositjapanese !== "") {

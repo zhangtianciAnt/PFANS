@@ -739,9 +739,16 @@
                         this.tablefirst = response.basicinformation;
                       }
                       if (response.personfee.length > 0) {
+                        for (let index = 0; index < response.personfee.length; index++) {
+                          response.personfee[index].name1 = this.tablethird1[index].name1;
+                          response.personfee[index].name = this.tablethird1[index].name;
+                        }
                         this.tablethird1 = response.personfee;
                       }
                       if (response.othpersonfee.length > 0) {
+                        for (let index = 0; index < response.othpersonfee.length; index++) {
+                          response.othpersonfee[index].name = this.tablethird2[index].name;
+                        }
                         this.tablethird2 = response.othpersonfee;
                       }
                       if (response.fruit.length > 0) {
