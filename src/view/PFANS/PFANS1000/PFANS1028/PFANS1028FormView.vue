@@ -16,18 +16,18 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_CAREER')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.career"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.career"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <!--取番号，-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_NO')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.decisionnumber"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.gfjudgeno"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -35,7 +35,7 @@
                   <el-col :span="8">
                     <!--取契约番号-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -46,7 +46,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARY')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.custoenglish"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.custoenglish"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -54,7 +54,7 @@
                   <el-col :span="8">
                     <!--写达到TO-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_COUNTRY')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.varto"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.varto"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -117,7 +117,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_PERIOD')">
                       <el-date-picker
-                        :disabled="!disable"
+                        :disabled="true"
                         :end-placeholder="$t('label.enddate')"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
@@ -490,12 +490,12 @@
                   <!--取契约书番号-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.outnumber"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.jxjudgeno"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -507,15 +507,15 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="errorgroup" :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
+                    <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
                       <div class="block">
                         <el-date-picker
-                          :disabled="!disable"
+                          :disabled="true"
                           style="width: 20vw"
                           type="date"
                           v-model="form.today">
@@ -854,12 +854,12 @@
                     <!--取契约书番号-->
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')">
-                        <el-input :disabled="!disable" style="width:20vw" v-model="form. productnumber"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="form. lyjudgeno"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
-                        <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -886,7 +886,7 @@
                       <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
                         <div class="block">
                           <el-date-picker
-                            :disabled="!disable"
+                            :disabled="true"
                             style="width: 20vw"
                             type="date"
                             v-model="form.today">
@@ -1239,20 +1239,15 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect';
   import moment from 'moment';
-  import org from '../../../components/org';
+  import {getDictionaryInfo} from '@/utils/customize';
 
 
   export default {
     name: 'PFANS1028FormView',
     components: {
       EasyNormalContainer,
-      user,
-      org,
-      dicselect,
     },
     data() {
       return {
@@ -1352,6 +1347,9 @@
           suppliesof: '',
           sujudegresult: '',
           lijudegresult: [],
+          jxjudgeno:'',
+          gfjudgeno:'',
+          lyjudgeno:'',
         },
         tableComputers: [
           {
@@ -1536,7 +1534,7 @@
           {
             technicalnumber: '01',
             grade: 'X',
-            technicalname: '通信伝送技術',
+            technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME4'),
             judgment1: '',
             points: this.$t('label.PFANS1028VIEW_POINTS34'),
             judgment2: '',
@@ -2529,6 +2527,13 @@
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.form.gfjudgeno='GF-'+response.contractnumber;
+            this.form.jxjudgeno='JX-'+response.contractnumber;
+            this.form.lyjudgeno='LY-'+response.contractnumber;
+            if(this.form.varto!== '' && this.form.varto !== null){
+              this.form.varto=getDictionaryInfo(response.varto).value1;
+            }
+
             if (this.form.possible !== '') {
               this.checkList = JSON.parse(this.form.possible);
             }
@@ -2816,6 +2821,7 @@
           this.disabled2 = false;
           this.checked3 = false;
           this.form.review = '1';
+          this.form.requirements='1'
         } else {
           this.checked1 = false;
           this.checked2 = false;
@@ -2830,6 +2836,7 @@
           this.checked1 = false;
           this.checked2 = false;
           this.form.review = '2';
+          this.form.requirements='1'
         } else {
           this.disabled2 = false;
           this.form.review = '';
@@ -2840,20 +2847,12 @@
         if (val === true) {
           if (this.form.review === '1') {
             this.form.review = '3';
+            this.form.requirements='0'
           } else {
             this.form.review = '4';
           }
         } else {
           this.form.review = '';
-        }
-      },
-      getGroupId(val) {
-        this.form.deployment = val;
-        this.grouporglist = val;
-        if (!this.form.deployment || this.form.deployment === '' || val === 'undefined') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-        } else {
-          this.errorgroup = '';
         }
       },
       workflowState(val) {
@@ -2871,13 +2870,6 @@
       end() {
         this.form.status = '0';
         this.buttonClick('save');
-      },
-
-      getjudgment1(row, val) {
-        row.judgment1 = val;
-      },
-      getjudgment2(row, val) {
-        row.judgment2 = val;
       },
 
       buttonClick(val) {
