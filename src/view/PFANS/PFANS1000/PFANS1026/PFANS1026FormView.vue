@@ -238,6 +238,19 @@ first<template>
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                  width="370">
                   <template slot-scope="scope">
@@ -554,6 +567,19 @@ first<template>
                   <template slot-scope="scope">
                     <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
@@ -874,6 +900,19 @@ first<template>
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                  width="370">
                   <template slot-scope="scope">
@@ -1133,6 +1172,19 @@ first<template>
                   <template slot-scope="scope">
                     <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
@@ -1396,6 +1448,19 @@ first<template>
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                  width="370">
                   <template slot-scope="scope">
@@ -1655,6 +1720,19 @@ first<template>
                   <template slot-scope="scope">
                     <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
@@ -1918,6 +1996,19 @@ first<template>
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                  width="370">
                   <template slot-scope="scope">
@@ -2172,6 +2263,19 @@ first<template>
                   <template slot-scope="scope">
                     <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
@@ -2435,6 +2539,19 @@ first<template>
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                  width="370">
                   <template slot-scope="scope">
@@ -2607,19 +2724,6 @@ first<template>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="190">
               <template slot-scope="scope">
                 <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-              </template>
-            </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
-              <template slot-scope="scope">
-                <dicselect
-                  :code="code9"
-                  :data="scope.row.currencyposition"
-                  :no="scope.row"
-                  :multiple="multiple"
-                  @change="getCurrencyposition"
-                  style="width: 11rem"
-                  :disabled="!disabled">
-                </dicselect>
               </template>
             </el-table-column>
           </el-table>
@@ -2918,12 +3022,17 @@ first<template>
             },
             //日期区组件处理
             getclaimdatetime(claimdatetime){
-                if(claimdatetime.length > 0){
+              if(claimdatetime != null){
+                  if(claimdatetime.length > 0){
                     return moment(claimdatetime[0]).format('YYYY-MM-DD') + " ~ " + moment(claimdatetime[1]).format('YYYY-MM-DD');
-                }
-                else{
+                  }
+                  else{
                     return '';
-                }
+                  }
+              }
+              else{
+                  return '';
+              }
             },
             getRowClass1({row, column, rowIndex, columnIndex}) {
 
@@ -3475,6 +3584,7 @@ first<template>
                 claim: '',
                 deliveryfinshdate: '',
                 loadingjudge: '',
+                currencyposition: '',
                 custojapanese: '',
                 custoenglish: '',
                 custoabbreviation: '',
@@ -3507,7 +3617,6 @@ first<template>
                 completiondate:'',
                 claimdate: moment(new Date()).format("YYYY-MM-DD"),
                 claimamount:'',
-                currencyposition:'',
                 supportdate:'',
                 type: '1',
                 maketype: '',

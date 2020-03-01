@@ -135,6 +135,19 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -291,6 +304,19 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -445,6 +471,19 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
@@ -627,6 +666,19 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :code="code9"
+                      :data="scope.row.currencyposition"
+                      :no="scope.row"
+                      :multiple="multiple"
+                      @change="getCurrencyposition"
+                      style="width: 11rem"
+                      :disabled="!disabled">
+                    </dicselect>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -788,19 +840,6 @@
                 <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
-              <template slot-scope="scope">
-                <dicselect
-                  :code="code9"
-                  :data="scope.row.currencyposition"
-                  :no="scope.row"
-                  :multiple="multiple"
-                  @change="getCurrencyposition"
-                  style="width: 11rem"
-                  :disabled="!disabled">
-                </dicselect>
-              </template>
-            </el-table-column>
           </el-table>
         </el-form>
       </div>
@@ -936,7 +975,7 @@
                   let contractdate = contractapplication[i].contractdate;
                   let contractdat = contractdate.slice(0, 10);
                   let contractdate1 = contractdate.slice(contractdate.length - 10);
-                  contractapplication[i].claimdatetime = [contractdat, contractdate1];
+                  contractapplication[i].contractdate = [contractdat, contractdate1];
                 }
                 let o = Object.assign({}, contractapplication[i]);
                 this.tabledata.push(o);
@@ -1042,8 +1081,13 @@
       },
       //日期区组件处理
       getcontractdate(contractdate){
-        if(contractdate.length > 0){
-          return moment(contractdate[0]).format('YYYY-MM-DD') + " ~ " + moment(contractdate[1]).format('YYYY-MM-DD');
+        if(contractdate != null){
+          if(contractdate.length > 0){
+            return moment(contractdate[0]).format('YYYY-MM-DD') + " ~ " + moment(contractdate[1]).format('YYYY-MM-DD');
+          }
+          else{
+            return '';
+          }
         }
         else{
           return '';
@@ -1271,7 +1315,6 @@
           completiondate:'',
           claimdate: moment(new Date()).format("YYYY-MM-DD"),
           claimamount:'',
-          currencyposition:'',
           supportdate:'',
           type: '0',
           maketype: '',
@@ -1280,7 +1323,6 @@
       },
       //契約番号做成
       click() {
-        alert(1);
         //請求方式
         let letclaimtype = '';
         let letbook = '';
