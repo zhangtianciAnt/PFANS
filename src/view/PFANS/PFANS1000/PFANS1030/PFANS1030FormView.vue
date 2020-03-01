@@ -692,9 +692,8 @@
           .then(response => {
             this.form = response.award;
             if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-              let sertdate=this.form.claimdatetime.slice(0,10);
-              let enddate =this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
-              this.form.claimdatetime=[sertdate,enddate];
+              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0,10);
+              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
             }
             if (response.awardDetail.length > 0) {
               this.tableT = response.awardDetail
@@ -928,6 +927,7 @@
                     award_id:this.tableT[i].award_id,
                     budgetcode:this.tableT[i].budgetcode,
                     depart:this.tableT[i].depart,
+                    projects:this.tableT[i].projects,
                     member:this.tableT[i].member,
                     community:this.tableT[i].community,
                     outsource:this.tableT[i].outsource,

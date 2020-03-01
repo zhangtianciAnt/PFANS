@@ -102,19 +102,13 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencyposition"-->
-<!--                                 :disabled="!disable"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="getcurrencyformat"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
-                      <el-switch
-                        :disabled="!disable"
-                        v-model="form.currencyposition"
-                        active-value="1"
-                        inactive-value="0">
-                      </el-switch>
+                      <dicselect :code="code3"
+                                 :data="form.currencyposition"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getcurrencyformat"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -174,13 +168,19 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_EXTRINSIC')">
-                      <dicselect :code="code1"
-                                 :data="form.extrinsic"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getextrinsic"
-                                 style="width:20vw">
-                      </dicselect>
+<!--                      <dicselect :code="code1"-->
+<!--                                 :data="form.extrinsic"-->
+<!--                                 :disabled="!disable"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getextrinsic"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <el-switch
+                        :disabled="!disable"
+                        v-model="form.extrinsic"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -296,6 +296,14 @@
                           @getOrgids="getGroupId"></org>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
+                  <template slot-scope="scope">
+                    <project :disabled="!disable" style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                             @change="changePro">
+                    </project>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600">
                 <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
                   <template slot-scope="scope">
                     <el-input-number
@@ -334,6 +342,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.outsource"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -347,8 +356,10 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.outcommunity"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
+                </el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
                   <template slot-scope="scope">
@@ -414,6 +425,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
+  import project from '../../../components/project';
 
 
   export default {
@@ -422,7 +434,8 @@
       EasyNormalContainer,
       user,
       org,
-      dicselect
+      dicselect,
+      project
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -453,6 +466,7 @@
         userlist: '',
         code1: 'PJ010',
         code2: 'HT005',
+        code3: 'HT006',
         code4: 'HT018',
         errorgroup:'',
         selectType: "Single",
@@ -534,9 +548,8 @@
           .then(response => {
             this.form = response.award;
             if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-              let sertdate=this.form.claimdatetime.slice(0,10);
-              let enddate =this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
-              this.form.claimdatetime=[sertdate,enddate];
+              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0,10);
+              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
             }
             if (response.awardDetail.length > 0) {
               this.tableT = response.awardDetail
@@ -581,6 +594,13 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      changePro(val, row) {
+        row.projects = val;
+      },
+      changeSum(row) {
+        row.worknumber = row.outsource;
+        row.awardmoney = row.outsource * row.outcommunity;
+      },
       getplan(val) {
         this.form.plan = val;
       },
@@ -716,6 +736,7 @@
                     budgetcode:this.tableT[i].budgetcode,
                     depart:this.tableT[i].depart,
                     member:this.tableT[i].member,
+                    projects:this.tableT[i].projects,
                     community:this.tableT[i].community,
                     outsource:this.tableT[i].outsource,
                     outcommunity:this.tableT[i].outcommunity,
