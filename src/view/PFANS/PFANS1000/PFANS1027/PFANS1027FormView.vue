@@ -206,10 +206,7 @@
                     style="width: 100%; margin-top: 20px"
                     stripe header-cell-class-name="sub_bg_color_grey height">
                     <el-table-column
-                      width="200">
-                      <template slot-scope="scope">
-                        {{$t('label.PFANS1027FORMVIEW_APPOINT1')}}
-                      </template>
+                      width="200" prop="title">
                     </el-table-column>
                     <el-table-column
                       prop="name"
@@ -453,108 +450,174 @@
                 },
               ],
               tablethird1: [{
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: '仕様分析',
                 functionsprice1: '',
                 functionhour1: '',
                 functionunit1: '',
                 functionamount1: ''
               }, {
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: 'システム設計',
                   systemsprice1: '',
                   systemhour1: '',
                   systemunit1: '',
                   systemamount1: ''
               }, {
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: '詳細設計',
                   designsprice1: '',
                   designhour1: '',
                   designunit1: '',
                   designamount1: ''
                 },{
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: '検証設計',
                   versprice1: '',
                   verhour1: '',
                   verunit1: '',
                   veramount1: ''
                 },{
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: '実装',
                 implesprice1: '',
                 implehour1: '',
                 impleunit1: '',
                 impleamount1: ''
               },{
+                title: '下記機能を実装したVer2.2リリース\n' +
+                  '\n' +
+                  '・CentOS 7.3対応\n' +
+                  '\n' +
+                  '・マガジン複数コンテナ化\n',
                 name: '検証・デバッグ',
                 debugsprice1: '',
                 debughour1: '',
                 debugunit1: '',
                 debugamount1: ''
               },{
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: '仕様分析',
                 functionsprice2: '',
                 functionhour2: '',
                 functionunit2: '',
                 functionamount2: ''
               }, {
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: 'システム設計',
                 systemsprice2: '',
                 systemhour2: '',
                 systemunit2: '',
                 systemamount2: ''
               }, {
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: '詳細設計',
                 designsprice2: '',
                 designhour2: '',
                 designunit2: '',
                 designamount2: ''
               },{
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: '検証設計',
                 versprice2: '',
                 verhour2: '',
                 verunit2: '',
                 veramount2: ''
               },{
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: '実装',
                 implesprice2: '',
                 implehour2: '',
                 impleunit2: '',
                 impleamount2: ''
               },{
+                title: '技術検討\n' +
+                  '\n' +
+                  '・小ファイルパック化\n' +
+                  '\n' +
+                  '・過去経歴読出し用API\n',
                 name: '検証・デバッグ',
                 debugsprice2: '',
                 debughour2: '',
                 debugunit2: '',
                 debugamount2: ''
               },{
+                title: 'リリース済みバージョンのバグ対応',
                 name: '仕様分析',
                 functionsprice3: '',
                 functionhour3: '',
                 functionunit3: '',
                 functionamount3: ''
               }, {
+                title: 'リリース済みバージョンのバグ対応',
                 name: 'システム設計',
                 systemsprice3: '',
                 systemhour3: '',
                 systemunit3: '',
                 systemamount3: ''
               }, {
+                title: 'リリース済みバージョンのバグ対応',
                 name: '詳細設計',
                 designsprice3: '',
                 designhour3: '',
                 designunit3: '',
                 designamount3: ''
               },{
+                title: 'リリース済みバージョンのバグ対応',
                 name: '検証設計',
                 versprice3: '',
                 verhour3: '',
                 verunit3: '',
                 veramount3: ''
               },{
+                title: 'リリース済みバージョンのバグ対応',
                 name: '実装',
                 implesprice3: '',
                 implehour3: '',
                 impleunit3: '',
                 impleamount3: ''
               },{
+                title: 'リリース済みバージョンのバグ対応',
                 name: '検証・デバッグ',
                 debugsprice3: '',
                 debughour3: '',
@@ -781,17 +844,7 @@
           },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
-              if (rowIndex === 0) {
-                return {
-                  rowspan: 6,
-                  colspan: 1
-                };
-              }else if (rowIndex === 0) {
-                return {
-                  rowspan: 6,
-                  colspan: 1
-                };
-              }else if (rowIndex === 0) {
+              if (rowIndex === 0 || rowIndex === 6 || rowIndex === 12) {
                 return {
                   rowspan: 6,
                   colspan: 1
