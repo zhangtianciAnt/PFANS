@@ -153,7 +153,6 @@
                 this.months = row.months;
             },
             buttonClick(val) {
-                debugger;
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
                     if (this.user_id === '') {
