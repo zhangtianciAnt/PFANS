@@ -206,10 +206,11 @@
                     style="width: 100%; margin-top: 20px"
                     stripe header-cell-class-name="sub_bg_color_grey height">
                     <el-table-column
+                      prop="name1"
                       width="200">
-                      <template slot-scope="scope">
-                        {{$t('label.PFANS1027FORMVIEW_APPOINT1')}}
-                      </template>
+<!--                      <template slot-scope="scope">-->
+<!--                        {{$t('label.PFANS1027FORMVIEW_APPOINT1')}}-->
+<!--                      </template>-->
                     </el-table-column>
                     <el-table-column
                       prop="name"
@@ -236,7 +237,7 @@
                       <template slot-scope="scope">
                         <dicselect
                           :no="scope.row"
-                          :code="code"
+                          :code="code1"
                           :data="scope.row.functionunit1"
                           :multiple="multiple"
                           @change="getFunctionunit1"
@@ -453,6 +454,7 @@
                 },
               ],
               tablethird1: [{
+                name1: this.$t('label.PFANS1027FORMVIEW_APPOINT1'),
                 name: '仕様分析',
                 functionsprice1: '',
                 functionhour1: '',
@@ -489,6 +491,7 @@
                 debugunit1: '',
                 debugamount1: ''
               },{
+                name1: this.$t('label.PFANS1027FORMVIEW_APPOINT2'),
                 name: '仕様分析',
                 functionsprice2: '',
                 functionhour2: '',
@@ -525,6 +528,7 @@
                 debugunit2: '',
                 debugamount2: ''
               },{
+                name1: this.$t('label.PFANS1027FORMVIEW_APPOINT3'),
                 name: '仕様分析',
                 functionsprice3: '',
                 functionhour3: '',
@@ -670,6 +674,7 @@
                 qualifications: '',
                 fileList: [],
                 code: 'HT008',
+                code1: 'HT006',
             };
         },
         mounted() {
@@ -781,17 +786,7 @@
           },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
-              if (rowIndex === 0) {
-                return {
-                  rowspan: 6,
-                  colspan: 1
-                };
-              }else if (rowIndex === 0) {
-                return {
-                  rowspan: 6,
-                  colspan: 1
-                };
-              }else if (rowIndex === 0) {
+              if (rowIndex % 6 === 0) {
                 return {
                   rowspan: 6,
                   colspan: 1
