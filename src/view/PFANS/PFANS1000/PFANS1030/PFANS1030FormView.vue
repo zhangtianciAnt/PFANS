@@ -256,8 +256,9 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.projects">
-                    </el-input>
+                    <project :disabled="!disable" style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                             @change="changePro">
+                    </project>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="600">
@@ -518,7 +519,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-
+  import project from '../../../components/project';
 
   export default {
     name: "PFANS1025FormView",
@@ -526,7 +527,8 @@
       EasyNormalContainer,
       user,
       org,
-      dicselect
+      dicselect,
+      project
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -756,6 +758,9 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      changePro(val, row) {
+        row.projects = val;
+      },
       sumAward(){
         if(this.form.contracttype === "HT006002"){
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
