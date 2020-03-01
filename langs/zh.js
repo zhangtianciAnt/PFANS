@@ -1120,6 +1120,7 @@ module.exports = {
     PFANS1028VIEW_SUMMARY: '概要',
     PFANS1028VIEW_PAYMENT: '税関コード',
     PFANS1028VIEW_BIT: '単位',
+    PFANS1028VIEW_BIT4: '台',
     PFANS1028VIEW_TRADENAME9: 'ロール成形機とロール機能を持つスパイラル加工機と\n' +
       '芯軸用に設計されたソフトウェア',
     PFANS1028VIEW_TRADENAME10: '核両用品及び関連技術規制リスト工業設備の「数値制御」ユニットや\n' +
