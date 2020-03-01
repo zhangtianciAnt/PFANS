@@ -104,39 +104,23 @@
                 </el-col>
               </el-row>
               <el-table :data="tablefirst" stripe header-cell-class-name="sub_bg_color_grey height">
-                <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
-                                 type="index" width="50"></el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center"  prop="claimtype" width="200">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disabled" v-model="scope.row.claimtype">
-                    </el-input>
-                  </template>
+                <el-table-column
+                  prop="claimtype"
+                  :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"  prop="claimdate" width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="200">
-                    <template slot-scope="scope">
-                      <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                    </template>
-                  </el-table-column>
+                <el-table-column
+                  prop="deliverydate"
+                  :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"  width="150" />
+                <el-table-column
+                  :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="150" />
+                <el-table-column
+                  :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"  prop="claimdate" width="150" />
+                <el-table-column
+                  :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="150" />
+                <el-table-column
+                  :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="150" />
+                <el-table-column
+                  prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
@@ -735,9 +719,35 @@
                           this.form.loadingjudge = user.userinfo.customername;
                         }
                       }
-                      if (response.basicinformation.length > 0) {
-                        this.tablefirst = response.basicinformation;
+//                      if (response.basicinformation.length > 0) {
+//                        this.tablefirst = response.basicinformation;
+//                      }
+                      if ( response.numbercounts.length > 0 ) {
+                        for (let i = 0; i < response.numbercounts.length; i++) {
+                          let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                          if (letCurrencyposition != null) {
+                            response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                          }
+                          let deliverydate = response.numbercounts[i].deliverydate;
+                          let completiondate = response.numbercounts[i].completiondate;
+                          let claimdate = response.numbercounts[i].claimdate;
+                          let supportdate = response.numbercounts[i].supportdate
+
+                          if ( deliverydate !== "" && deliverydate!=null) {
+                            response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                          }
+                          if (completiondate!== "" && completiondate!=null) {
+                            response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                          }
+                          if (claimdate!==""&& claimdate!=null) {
+                            response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                          }
+                          if (supportdate!==""&& supportdate!=null) {
+                            response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                          }
+                        }
                       }
+                      this.tablefirst = response.numbercounts
                       if (response.personfee.length > 0) {
                         for (let index = 0; index < response.personfee.length; index++) {
                           response.personfee[index].name1 = this.tablethird1[index].name1;
@@ -881,23 +891,23 @@
                       this.baseInfo.personfee = [];
                       this.baseInfo.othpersonfee = [];
                       this.baseInfo.fruit = [];
-                      for (let i = 0; i < this.tablefirst.length; i++) {
-                        if (this.tablefirst[i].claimtype !== '' || this.tablefirst[i].deliverydate !== '' || this.tablefirst[i].completiondate !== '' ||
-                          this.tablefirst[i].claimdate !== '' || this.tablefirst[i].supportdate !== '' || this.tablefirst[i].claimamount !== ''
-                        )
-                          this.baseInfo.basicinformation.push(
-                            {
-                              basicinformationid: this.tablefirst[i].basicinformationid,
-                              quotationid: this.tablefirst[i].quotationid,
-                              claimtype: this.tablefirst[i].claimtype,
-                              deliverydate: this.tablefirst[i].deliverydate,
-                              completiondate: this.tablefirst[i].completiondate,
-                              claimdate: this.tablefirst[i].claimdate,
-                              supportdate: this.tablefirst[i].supportdate,
-                              claimamount:  this.tablefirst[i].claimamount,
-                            },
-                          );
-                        }
+//                      for (let i = 0; i < this.tablefirst.length; i++) {
+//                        if (this.tablefirst[i].claimtype !== '' || this.tablefirst[i].deliverydate !== '' || this.tablefirst[i].completiondate !== '' ||
+//                          this.tablefirst[i].claimdate !== '' || this.tablefirst[i].supportdate !== '' || this.tablefirst[i].claimamount !== ''
+//                        )
+//                          this.baseInfo.basicinformation.push(
+//                            {
+//                              basicinformationid: this.tablefirst[i].basicinformationid,
+//                              quotationid: this.tablefirst[i].quotationid,
+//                              claimtype: this.tablefirst[i].claimtype,
+//                              deliverydate: this.tablefirst[i].deliverydate,
+//                              completiondate: this.tablefirst[i].completiondate,
+//                              claimdate: this.tablefirst[i].claimdate,
+//                              supportdate: this.tablefirst[i].supportdate,
+//                              claimamount:  this.tablefirst[i].claimamount,
+//                            },
+//                          );
+//                        }
                       for (let i = 0; i < this.tablethird1.length; i++) {
                         if (this.tablethird1[i].functionsprice1 !== '' || this.tablethird1[i].functionhour1 !== '' || this.tablethird1[i].functionunit1 !== '' ||
                           this.tablethird1[i].functionamount1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemhour1 !== ''
