@@ -652,7 +652,7 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_COMPUTERS')" name="third">
                       <el-table :data="tableComputers"
-                                border :span-method="objectSpanMethod2"
+                                :span-method="objectSpanMethod2" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
                                          prop="technicalnumber"
@@ -705,7 +705,7 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_JASOFTWARE')" name="fourth">
                       <el-table :data="tableJasoftware"
-                                border :span-method="objectSpanMethod3"
+                                :span-method="objectSpanMethod3" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
                                          prop="technicalnumber"
@@ -758,7 +758,7 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_GATETECHNOLOGY')" name="fifth">
                       <el-table :data="tableGatetechnology"
-                                border :span-method="objectSpanMethod4"
+                                :span-method="objectSpanMethod4" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
                                          prop="technicalnumber"
@@ -816,28 +816,28 @@
                             <el-checkbox-group v-model="form.lijudegresult">
                               <el-checkbox
                                 disabled
-                              label="0"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
+                                label="0"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
                               </el-checkbox>
                               <el-checkbox
                                 disabled
-                              label="1"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT2')}}
+                                label="1"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT2')}}
                               </el-checkbox>
                               <el-checkbox
                                 disabled
-                              label="2"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT3')}}
+                                label="2"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT3')}}
                               </el-checkbox>
                               <el-checkbox
                                 disabled
-                              label="3"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT4')}}
+                                label="3"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT4')}}
                               </el-checkbox>
                               <el-checkbox
                                 disabled
-                              label="4"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
+                                label="4"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
                               </el-checkbox>
                             </el-checkbox-group>
                           </el-form-item>
@@ -2848,23 +2848,6 @@
           this.form.review = '';
         }
       },
-
-      /*合并单元格*/
-      /*  CommunSpanMethod({row, column, rowIndex, columnIndex}) {
-          if (columnIndex === 0) {
-            if (rowIndex % 2 === 0) {
-              return {
-                rowspan: 2,
-                colspan: 1,
-              };
-            } else {
-              return {
-                rowspan: 0,
-                colspan: 0,
-              };
-            }
-          }
-        },*/
       getGroupId(val) {
         this.form.deployment = val;
         this.grouporglist = val;
@@ -2967,6 +2950,12 @@
                   jud2: this.tableSof[i].judgment2,
                 });
               }
+              let lijudegresult = '';
+              for (let item of this.form.lijudegresult) {
+                lijudegresult += item + ",";
+              }
+              lijudegresult = lijudegresult.substr(0, lijudegresult.length - 1);
+              this.form.lijudegresult = lijudegresult;
               this.form.limitcommunt = JSON.stringify(this.arrJud);
               this.form.limitdelivery = JSON.stringify(this.arrdel);
               this.form.limittechnology = JSON.stringify(this.arrgate);
