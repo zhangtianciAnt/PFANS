@@ -461,7 +461,7 @@
         error_typeoffees: '',
         error: '',
         userlist: '',
-        code1: 'PJ078',
+        code1: 'HT008',
         code2: 'PJ079',
         code3: 'PJ080',
         errorgroup:'',
@@ -567,7 +567,7 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
-              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
+              if(response.contracttype === 'HT008001'||response.contracttype === 'HT008002'||response.contracttype === 'HT008005'||response.contracttype === 'HT008006')
               {
                 this.flag = 0;//技术类型
                 this.activeName1 = 'first',

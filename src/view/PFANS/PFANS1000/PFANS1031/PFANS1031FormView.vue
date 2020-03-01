@@ -271,7 +271,7 @@
           judgment:'',
           determination:'',
         },
-        code1: 'PJ078',
+        code1: 'HT008',
         code2: 'PJ081',
         code3: 'HT006',
         code4: 'HT012',
