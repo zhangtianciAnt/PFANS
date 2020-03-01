@@ -555,7 +555,7 @@
                 response.depositjapanese = letUser.userinfo.customername;
               }
             }
-              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
+              if(response.contracttype === 'HT008001'||response.contracttype === 'HT008002'||response.contracttype === 'HT008005'||response.contracttype === 'HT008006')
               {
                 this.flag = 0;//技术类型
                 this.activeName1 = 'first',
