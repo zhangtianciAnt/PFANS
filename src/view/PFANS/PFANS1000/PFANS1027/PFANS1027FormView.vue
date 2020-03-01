@@ -256,38 +256,51 @@
                   </el-table>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_OTHER')" name="third2">
-                  <el-table :data="tablethird2" stripe header-cell-class-name="sub_bg_color_grey height">
-                    <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
-                                     type="index" width="50"></el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center"  prop="claimtype" width="200">
+                  <el-table
+                    :data="tablethird2"
+                    :span-method="arraySpanMethod"
+                    border
+                    style="width: 100%; margin-top: 20px"
+                    stripe header-cell-class-name="sub_bg_color_grey height">
+                    <el-table-column
+                      prop="name"
+                      :label="$t('label.PFANS1027FORMVIEW_OTHER1')"
+                      width="200">
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS1027FORMVIEW_OTHER4')"
+                      width="200">
                       <template slot-scope="scope">
-                        <el-input :disabled="!disabled" v-model="scope.row.claimtype">
-                        </el-input>
+                        <el-input-number v-model="scope.row.detailed1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
+                    <el-table-column
+                      :label="$t('label.PFANS1027FORMVIEW_OTHER5')"
+                      width="200">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
+                        <el-input-number v-model="scope.row.cost1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_UNIT')"
+                      width="200">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
+                        <dicselect
+                          :no="scope.row"
+                          :code="code1"
+                          :data="scope.row.unit1"
+                          :multiple="multiple"
+                          @change="getUnit1"
+                          style="width: 11rem"
+                          :disabled="!disabled">
+                        </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"  prop="claimdate" width="200">
+                    <el-table-column
+                      :label="$t('label.PFANS1027VIEW_COST')"
+                      width="200">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="200">
-                      <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="200">
-                      <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.amount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -455,111 +468,111 @@
               ],
               tablethird1: [{
                 name1: this.$t('label.PFANS1027FORMVIEW_APPOINT1'),
-                name: '仕様分析',
+                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
                 functionsprice1: '',
                 functionhour1: '',
                 functionunit1: '',
                 functionamount1: ''
               }, {
-                name: 'システム設計',
+                name: this.$t('label.PFANS1027VIEW_DESIGN'),
                   systemsprice1: '',
                   systemhour1: '',
                   systemunit1: '',
                   systemamount1: ''
               }, {
-                name: '詳細設計',
+                name: this.$t('label.PFANS1027VIEW_DETAILED'),
                   designsprice1: '',
                   designhour1: '',
                   designunit1: '',
                   designamount1: ''
                 },{
-                name: '検証設計',
+                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
                   versprice1: '',
                   verhour1: '',
                   verunit1: '',
                   veramount1: ''
                 },{
-                name: '実装',
+                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
                 implesprice1: '',
                 implehour1: '',
                 impleunit1: '',
                 impleamount1: ''
               },{
-                name: '検証・デバッグ',
+                name: this.$t('label.PFANS1027VIEW_DEBUG'),
                 debugsprice1: '',
                 debughour1: '',
                 debugunit1: '',
                 debugamount1: ''
               },{
                 name1: this.$t('label.PFANS1027FORMVIEW_APPOINT2'),
-                name: '仕様分析',
+                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
                 functionsprice2: '',
                 functionhour2: '',
                 functionunit2: '',
                 functionamount2: ''
               }, {
-                name: 'システム設計',
+                name: this.$t('label.PFANS1027VIEW_DESIGN'),
                 systemsprice2: '',
                 systemhour2: '',
                 systemunit2: '',
                 systemamount2: ''
               }, {
-                name: '詳細設計',
+                name: this.$t('label.PFANS1027VIEW_DETAILED'),
                 designsprice2: '',
                 designhour2: '',
                 designunit2: '',
                 designamount2: ''
               },{
-                name: '検証設計',
+                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
                 versprice2: '',
                 verhour2: '',
                 verunit2: '',
                 veramount2: ''
               },{
-                name: '実装',
+                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
                 implesprice2: '',
                 implehour2: '',
                 impleunit2: '',
                 impleamount2: ''
               },{
-                name: '検証・デバッグ',
+                name: this.$t('label.PFANS1027VIEW_DEBUG'),
                 debugsprice2: '',
                 debughour2: '',
                 debugunit2: '',
                 debugamount2: ''
               },{
                 name1: this.$t('label.PFANS1027FORMVIEW_APPOINT3'),
-                name: '仕様分析',
+                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
                 functionsprice3: '',
                 functionhour3: '',
                 functionunit3: '',
                 functionamount3: ''
               }, {
-                name: 'システム設計',
+                name: this.$t('label.PFANS1027VIEW_DESIGN'),
                 systemsprice3: '',
                 systemhour3: '',
                 systemunit3: '',
                 systemamount3: ''
               }, {
-                name: '詳細設計',
+                name: this.$t('label.PFANS1027VIEW_DETAILED'),
                 designsprice3: '',
                 designhour3: '',
                 designunit3: '',
                 designamount3: ''
               },{
-                name: '検証設計',
+                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
                 versprice3: '',
                 verhour3: '',
                 verunit3: '',
                 veramount3: ''
               },{
-                name: '実装',
+                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
                 implesprice3: '',
                 implehour3: '',
                 impleunit3: '',
                 impleamount3: ''
               },{
-                name: '検証・デバッグ',
+                name: this.$t('label.PFANS1027VIEW_DEBUG'),
                 debugsprice3: '',
                 debughour3: '',
                 debugunit3: '',
@@ -643,23 +656,41 @@
               //   debugamount3: '',
               //   },
               // ],
-                tablethird2:[
-                {
-                  othpersonfeeid: '',
-                  quotationid: '',
+                tablethird2:[{
+                  name: this.$t('label.PFANS1027FORMVIEW_OTHER2'),
                   detailed1: '',
                   cost1: '',
                   unit1: '',
-                  amount1: '',
+                  amount1: ''
+                },{
+                  name: this.$t('label.PFANS1027FORMVIEW_OTHER3'),
                   detailed2: '',
                   cost2: '',
                   unit2: '',
-                  amount2: '',
+                  amount2: ''
+                },{
+                  name: this.$t('label.PFANS1027FORMVIEW_OTHER4'),
                   detailed3: '',
                   cost3: '',
                   unit3: '',
-                  amount3: '',
+                  amount3: ''
                 },
+                // {
+                //   othpersonfeeid: '',
+                //   quotationid: '',
+                //   detailed1: '',
+                //   cost1: '',
+                //   unit1: '',
+                //   amount1: '',
+                //   detailed2: '',
+                //   cost2: '',
+                //   unit2: '',
+                //   amount2: '',
+                //   detailed3: '',
+                //   cost3: '',
+                //   unit3: '',
+                //   amount3: '',
+                // },
               ],
                 tablefifth:[
                 {
@@ -784,6 +815,9 @@
           getFunctionunit1(val,row){
             row.functionunit1 = val;
           },
+          getUnit1(val,row){
+            row.unit1 = val;
+          },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
               if (rowIndex % 6 === 0) {
@@ -797,6 +831,15 @@
                   rowspan: 0,
                   colspan: 0
                 };
+              }
+            }
+          },
+          arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+            if (rowIndex % 2 === 0) {
+              if (columnIndex === 0) {
+                return [1, 1];
+              } else if (columnIndex === 0) {
+                return [0, 0];
               }
             }
           },
