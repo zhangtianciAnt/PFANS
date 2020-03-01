@@ -215,7 +215,7 @@
   import PFANS1031View from '../PFANS1031/PFANS1031View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
   import moment from 'moment';
 
@@ -307,6 +307,12 @@
           .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (response.depositjapanese !== null && response.depositjapanese !== "") {
+              let letUser = getUserInfo(response.depositjapanese);
+              if (letUser != null) {
+                response.depositjapanese = letUser.userinfo.customername;
+              }
+            }
             this.userlist = this.form.loadingjudge;
             this.loading = false;
           })
