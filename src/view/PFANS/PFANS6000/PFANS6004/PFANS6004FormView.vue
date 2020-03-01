@@ -33,9 +33,6 @@
                             <el-table-column property="contactinformation"
                                              :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')"
                                              width="150"></el-table-column>
-                            <el-table-column property="birth"
-                                             :label="$t('label.PFANS6001VIEW_BIRTH')"
-                                             width="100"></el-table-column>
                             <el-table-column property="age"
                                              :label="$t('label.PFANSUSERFORMVIEW_AGE')"
                                              width="100"></el-table-column>
