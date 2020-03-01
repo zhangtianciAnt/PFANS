@@ -140,19 +140,19 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item
-                      :label="$t('label.PFANS1028VIEW_POSSIBLE')">
+                      :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
                       <el-checkbox-group v-model="checkList">
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_BOOKS')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_MAIL')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_SERVER')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_MEETING')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_COUNTRY2')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHERC')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OVERSEA')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_COUNTRY3')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHERC2')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHER')"></el-checkbox>
+                        <el-checkbox label="書類提供"></el-checkbox>
+                        <el-checkbox label="ソフトウェア提供"></el-checkbox>
+                        <el-checkbox label="E-MAIL"></el-checkbox>
+                        <el-checkbox label="サーバー"></el-checkbox>
+                        <el-checkbox label="技術討論・会議(NDA内)"></el-checkbox>
+                        <el-checkbox label="委託元国と"></el-checkbox>
+                        <el-checkbox label="その他の国へ"></el-checkbox>
+                        <el-checkbox label="海外発表、海外展示"></el-checkbox>
+                        <el-checkbox label="委託元国へ"></el-checkbox>
+                        <el-checkbox label="その他の国へ"></el-checkbox>
+                        <el-checkbox label="その他"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
                   </el-col>
