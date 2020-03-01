@@ -6,14 +6,6 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
           <el-row>
-            <el-col :span="22">
-              <div class="sub_color_black" style="font-size: 30px ; text-align: center">
-                {{$t('label.PFANS6001VIEW_INTERVIEWRECORD')}}
-              </div>
-            </el-col>
-          </el-row>
-
-          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="coopername">
                 <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
