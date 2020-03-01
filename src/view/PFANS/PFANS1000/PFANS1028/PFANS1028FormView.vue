@@ -1299,7 +1299,7 @@
           possible: '',
           claimdatetime: [],
           technical: '',
-          today:  moment(new Date()).format('YYYY-MM-DD'),
+          today:moment(new Date()).format('YYYY-MM-DD'),
           export: '',
           outnumber: '',
           productnumber: '',
@@ -2512,12 +2512,12 @@
         this.$store
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
+            debugger
             this.form = response;
             this.form.gfjudgeno='GF-'+response.contractnumber;
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
             if (this.form.possible !== '') {
-              debugger
               this.checkList = JSON.parse(this.form.possible);
             }
             if (this.form.review !== '' && this.form.review !== null) {
@@ -2939,7 +2939,6 @@
               this.form.supplielectronic = JSON.stringify(this.arrElectronic);
               this.form.suppliecom = JSON.stringify(this.arrCOM);
               this.form.suppliesof = JSON.stringify(this.arrSOF);
-              this.form.today = moment(this.form.today).format('YYYY-MM-DD');
               this.form.claimdatetime = moment(this.form.claimdatetime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
               if (this.$route.params._id) {     //编辑
                 this.$store
