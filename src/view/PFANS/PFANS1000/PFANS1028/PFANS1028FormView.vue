@@ -530,29 +530,31 @@
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_COMMUNICATION')" name="first">
                       <el-row>
                         <el-table :data="tableCommun"
-                                  border
+                                  border :span-method="objectSpanMethod"
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
-                                           width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalnumber">
-                              </el-input>
-                            </template>
+                                           width="50" prop="technicalnumber">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalnumber">-->
+                            <!--</el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.grade"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="50"
+                                           prop="grade">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.grade"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalname"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="280"
+                                           prop="technicalname">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalname"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                             <template slot-scope="scope">
                               <!--                              <dicselect :code="code1"-->
                               <!--                                         :data="scope.row.judgment1"-->
@@ -567,13 +569,14 @@
                               </el-select>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.points"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="380"
+                                           prop="points">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.points"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                             <template slot-scope="scope">
                               <!--                              <dicselect :code="code1"-->
                               <!--                                         :data="scope.row.judgment2"-->
@@ -813,7 +816,7 @@
                             </el-radio>
                             <el-radio
                               :disabled="!disable"
-                              label="3"
+                              label="4"
                               v-model="form.lijudegresult"
                             >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
                             </el-radio>
@@ -1190,19 +1193,19 @@
                         <el-radio
                           :disabled="true"
                           label="0"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT1')}}
                         </el-radio>
                         <el-radio
                           :disabled="true"
                           label="1"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT2')}}
                         </el-radio>
                         <el-radio
                           :disabled="true"
                           label="2"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT3')}}
                         </el-radio>
                       </el-form-item>
@@ -1241,7 +1244,12 @@
     },
     data() {
       return {
-        radioSujud: '',
+        radioSujud: {
+          tableIndustrial: '0',
+          tableElectronic: '0',
+          tableCon: '0',
+          tableSof: '0',
+        },
         checked1: false,
         checked2: false,
         checked3: false,
@@ -1279,7 +1287,6 @@
         arrCOM: [],
         arrSOF: [],
         form: {
-
           decisionnumber: '',
           career: '',
           deployment: '',
@@ -1520,7 +1527,8 @@
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME1'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS1'),
+            points: '耐放射技術、工程\n' +
+              '　(1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術',
             judgment2: '',
           },
           {
@@ -1528,7 +1536,7 @@
             grade: '',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS2'),
+            points: '　(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
             judgment2: '',
           },
           {
@@ -1536,7 +1544,7 @@
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME2'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS3'),
+            points: '遠隔操作型核武装偵察ロボット製造技術',
             judgment2: '',
           },
           {
@@ -1544,39 +1552,32 @@
             grade:  'X',
             technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS4'),
+            points: '1. 広帯域小型化セパレータ製造技術\n' +
+              '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程',
             judgment2: '',
           },
           {
             technicalnumber:'01',
             grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS5'),
+            points: '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程',
             judgment2: '',
           },
           {
             technicalnumber:'01',
             grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS6'),
+            points: '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術',
             judgment2: '',
           },
           {
             technicalnumber:'01',
             grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS7'),
-            judgment2: '',
-          },
-          {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:'',
-            judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS8'),
+            points: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
             judgment2: '',
           },
           {
@@ -1584,7 +1585,8 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS9'),
+            points: '3. 圧電ジャイロスコープセンサー製造技術\n' +
+              '　(1) サポートシステムの設計、製造工程',
             judgment2: '',
           },
           {
@@ -1592,7 +1594,7 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS10'),
+            points: '　(2) 圧電トランスデューサの貼付工程',
             judgment2: '',
           },
           {
@@ -1600,15 +1602,133 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS11'),
+            points: '　(3) 金属振動子の構造設計、工程および熱処理技術',
             judgment2: '',
           },
+          {
+            technicalnumber:'01',
+            grade:  'X',
+            technicalname:'',
+            judgment1: '',
+            points: '　(4) 0校正システム構造設計および組立技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade:  'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(5) 0校正信号処理技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. 声表面波部品設計技術\n' +
+              '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '5. 声表面波部品製造技術\n' +
+              '　(1) 組合技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(2) 整合技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 大面積[220mm×20mm]フォトエッチング技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '8. イオンビーム処理改善グリッド電子発射技術',
+            judgment2: '',
+          },
+
+
+
           {
             technicalnumber:'02',
             grade:  'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS12'),
+            points: '1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
+              '　(1) Cr-Ni-Ag金属遮断層焼結技術',
             judgment2: '',
           },
           {
@@ -1616,23 +1736,31 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS13'),
+            points: '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程',
             judgment2: '',
           },
           {
-            technicalnumber:'02',
-            grade:  'X',
+            technicalnumber: '02',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS14'),
+            points: '2. 導電抵抗＜2Ωのダイオード製造技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '02',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
             judgment2: '',
           },
           {
             technicalnumber:'03',
             grade:  'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME5'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS14'),
+            points: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
             judgment2: '',
           },
           {
@@ -1640,16 +1768,17 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            points: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
             judgment2: '',
           },
 
           {
             technicalnumber:'04',
             grade:  'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME6'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            points: '1. 高出力[100MW級]マイクロ波技術\n' +
+              '　(1) パルスパワー技術および重電子ビーム加速技術',
             judgment2: '',
           },
           {
@@ -1657,7 +1786,7 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS16'),
+            points: '　(2) 爆発性電磁圧縮技術',
             judgment2: '',
           },
           {
@@ -1665,7 +1794,8 @@
             grade:  'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME7'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS17'),
+            points: '1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
+              '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術',
             judgment2: '',
           },
           {
@@ -1673,7 +1803,7 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS18'),
+            points: '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術',
             judgment2: '',
           },
           {
@@ -1681,7 +1811,7 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS19'),
+            points: '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術',
             judgment2: '',
           },
           {
@@ -1689,17 +1819,33 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS20'),
+            points: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
             judgment2: '',
           },
-
+          {
+            technicalnumber: '05',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '3. 光ファイバー被覆ライン技術の工程パラメータ',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '05',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
+            judgment2: '',
+          },
 
           {
             technicalnumber:'06',
             grade:  'X',
             technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME8'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS21'),
+            points: '1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
+              '　(1) 全体設計技術',
             judgment2: '',
           },
           {
@@ -1707,7 +1853,7 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS22'),
+            points: '　(2) 本体、操作システム技術',
             judgment2: '',
           },
           {
@@ -1715,16 +1861,32 @@
             grade:  'X',
             technicalname:'',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS23'),
+            points: '　(3) 本体、補助機、外付け設備の製造および開発技術',
             judgment2: '',
           },
-
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
+            judgment2: '',
+          },
           {
             technicalnumber:'07',
             grade:  'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME9'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS24'),
+            points: '1. アンテナアレイ技術\n' +
+              '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ',
             judgment2: '',
           },
           {
@@ -1732,7 +1894,7 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS25'),
+            points: '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程',
             judgment2: '',
           },
           {
@@ -1740,7 +1902,7 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS26'),
+            points: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
             judgment2: '',
           },
           {
@@ -1748,16 +1910,23 @@
             grade:  'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS27'),
+            points: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
             judgment2: '',
           },
-
+          {
+            technicalnumber: '07',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
+            judgment2: '',
+          },
           {
             technicalnumber:'08',
             grade:  'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME10'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS28'),
+            points: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
             judgment2: '',
           },
         ],
@@ -2280,7 +2449,7 @@
             this.form.claimdatetime = [serdate, serdate1];
 
             this.grouporglist = this.form.deployment;
-            debugger;
+            ;
             if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
               for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
                 let aa = JSON.parse(response.limitcommunt)[i];
@@ -2372,6 +2541,66 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      objectSpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 2) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else if (rowIndex === 3) {
+            return {
+              rowspan: 21,
+              colspan: 1
+            };
+          } else if (rowIndex === 24) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          } else if (rowIndex === 28) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 30) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 32) {
+            return {
+              rowspan: 6,
+              colspan: 1
+            };
+          } else if (rowIndex === 38) {
+            return {
+              rowspan: 5,
+              colspan: 1
+            };
+          } else if (rowIndex === 43) {
+            return {
+              rowspan: 5,
+              colspan: 1
+            };
+          } else if (rowIndex === 48) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
       getChecked1(val) {
         this.checked1 = val;
         if (val === true) {
@@ -2569,6 +2798,89 @@
         }
       },
     },
+    watch: {
+      tableIndustrial: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableIndustrial = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableIndustrial = '1';
+              return
+            }
+          }
+          this.radioSujud.tableIndustrial = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableElectronic: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableElectronic = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableElectronic = '1';
+              return
+            }
+          }
+          this.radioSujud.tableElectronic = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableCon: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableCon = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableCon = '1';
+              return
+            }
+          }
+          this.radioSujud.tableCon = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableSof: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableSof = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableSof = '1';
+              return
+            }
+          }
+          this.radioSujud.tableSof = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      radioSujud: {
+        handler(val) {
+          if (val.tableIndustrial === '2' || val.tableElectronic === '2' || val.tableCon === '2' || val.tableSof === '2') {
+            this.form.sujudegresult = '2'
+          } else if (val.tableIndustrial === '1' || val.tableElectronic === '1' || val.tableCon === '1' || val.tableSof === '1') {
+            this.form.sujudegresult = '1'
+          } else {
+            this.form.sujudegresult = '0'
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      }
+    }
   };
 </script>
 
