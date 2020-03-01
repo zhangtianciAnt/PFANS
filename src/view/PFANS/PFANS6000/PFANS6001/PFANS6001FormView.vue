@@ -261,8 +261,7 @@
   import moment from 'moment';
   import org from '../../../components/org';
   import {isvalidPhone} from '@/utils/validate';
-  import {getSupplierinfor} from '@/utils/customize';
-
+  import {getSupplierinfor} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS6001FormView',
@@ -563,18 +562,14 @@
         this.$store
           .dispatch('PFANS6001Store/getSupplierNameList', {})
           .then(response => {
+            console.log(response);
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
-              if (response[i].supplierinfor_id !== null && response[i].supplierinfor_id !== "") {
-                let supplierInfo = getSupplierinfor(response[i].supplierinfor_id);
-                if (supplierInfo) {
-                  vote.suppliername = supplierInfo.supchinese;
-                }
-              }
+              vote.suppliername = response[i].supchinese;
               vote.userid = response[i].prochinese;
               vote.contactinformation = response[i].protelephone;
-              vote.suppliernameid = response[i].supplierinfor_id;
+              vote.suppliernameid = response[i].supchineseid;
               this.gridData.push(vote);
             }
             this.loading = false;
