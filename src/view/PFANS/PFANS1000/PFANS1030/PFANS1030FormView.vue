@@ -710,10 +710,18 @@
                 let claimdate = response.numbercounts[i].claimdate;
                 let supportdate = response.numbercounts[i].supportdate
 
-                response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
-                response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
-                response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
-                response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                if ( deliverydate !== "" && deliverydate!=null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate!== "" && completiondate!=null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate!==""&& claimdate!=null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate!==""&& supportdate!=null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
               }
             }
             this.tableS = response.numbercounts
