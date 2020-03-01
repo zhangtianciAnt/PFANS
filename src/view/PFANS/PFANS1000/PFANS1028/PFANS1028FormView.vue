@@ -54,11 +54,7 @@
                   <el-col :span="8">
                     <!--写达到TO-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_COUNTRY')">
-                      <dicselect :code="code1"
-                                 :data="form.varto"
-                                 :disabled="true"
-                                 style="width:20vw">
-                      </dicselect>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.varto"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -105,7 +101,7 @@
                     <el-form-item :label="$t('label.PFANS1028VIEW_REQUIREMENTS')">
                       <span style="margin-right: 1vw ">{{$t('label.PFANS1028VIEW_NOT')}}</span>
                       <el-switch
-                        :disabled="true"
+                        :disabled="!disabled"
                         active-value="1"
                         inactive-value="0"
                         v-model="form.requirements">
@@ -145,18 +141,18 @@
                   <el-col :span="24">
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
-                      <el-checkbox-group v-model="checkList" :disabled="!disable" >
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_BOOKS')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_MAIL')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_SERVER')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_MEETING')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_COUNTRY2')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHERC')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OVERSEA')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_COUNTRY3')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHERC2')"></el-checkbox>
-                        <el-checkbox :label="$t('label.PFANS1028VIEW_OTHER')"></el-checkbox>
+                      <el-checkbox-group v-model="checkList">
+                        <el-checkbox label="書類提供"></el-checkbox>
+                        <el-checkbox label="ソフトウェア提供"></el-checkbox>
+                        <el-checkbox label="E-MAIL"></el-checkbox>
+                        <el-checkbox label="サーバー"></el-checkbox>
+                        <el-checkbox label="技術討論・会議(NDA内)"></el-checkbox>
+                        <el-checkbox label="委託元国と"></el-checkbox>
+                        <el-checkbox label="その他の国へ"></el-checkbox>
+                        <el-checkbox label="海外発表、海外展示"></el-checkbox>
+                        <el-checkbox label="委託元国へ"></el-checkbox>
+                        <el-checkbox label="その他の国へ"></el-checkbox>
+                        <el-checkbox label="その他"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
                   </el-col>
@@ -517,8 +513,14 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
-                      <el-date-picker :disabled="true" type="date" v-model="form.today"
-                                      style="width: 20vw"></el-date-picker>
+                      <div class="block">
+                        <el-date-picker
+                          :disabled="true"
+                          style="width: 20vw"
+                          type="date"
+                          v-model="form.today">
+                        </el-date-picker>
+                      </div>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -882,8 +884,14 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
-                          <el-date-picker :disabled="true" type="date" v-model="form.today"
-                                          style="width: 20vw"></el-date-picker>
+                        <div class="block">
+                          <el-date-picker
+                            :disabled="true"
+                            style="width: 20vw"
+                            type="date"
+                            v-model="form.today">
+                          </el-date-picker>
+                        </div>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1232,7 +1240,6 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import {getDictionaryInfo} from '@/utils/customize';
 
@@ -1241,7 +1248,6 @@
     name: 'PFANS1028FormView',
     components: {
       EasyNormalContainer,
-      dicselect
     },
     data() {
       return {
@@ -1268,9 +1274,17 @@
         activeName2: 'first',
         activeName3: 'first',
         disabled: true,
+
+        errorgroup: '',
+        grouporglist: '',
         options: [],
         checkList: [],
-        code1: 'HT012',
+        tableAValue: '',
+        error: '',
+        userlist: '',
+        code1: 'HT016',
+        code2: 'HT005',
+        selectType: 'Single',
         loading: false,
         title: 'title.PFANS1028VIEW',
         canStart: false,
@@ -1299,7 +1313,7 @@
           possible: '',
           claimdatetime: [],
           technical: '',
-          today:moment(new Date()).format('YYYY-MM-DD'),
+          today: moment(new Date()).format('YYYY-MM-DD'),
           export: '',
           outnumber: '',
           productnumber: '',
@@ -2512,11 +2526,14 @@
         this.$store
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
-            debugger
             this.form = response;
             this.form.gfjudgeno='GF-'+response.contractnumber;
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
+            if(this.form.varto!== '' && this.form.varto !== null){
+              this.form.varto=getDictionaryInfo(response.varto).value1;
+            }
+
             if (this.form.possible !== '') {
               this.checkList = JSON.parse(this.form.possible);
             }
