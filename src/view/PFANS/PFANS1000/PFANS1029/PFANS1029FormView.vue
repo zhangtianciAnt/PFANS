@@ -349,7 +349,7 @@
 
               <template>
                 <el-table
-                  :data="tableData"
+                  :data="tableData2"
                   style="width: 100%">
                   <el-table-column
                     prop="claimtype"
@@ -423,7 +423,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
 
   export default {
@@ -465,8 +465,8 @@
         error_typeoffees: '',
         error: '',
         userlist: '',
-        code1: 'PJ078',
-        code2: 'PJ079',
+        code1: 'HT008',
+        code2: 'HT006',
         code3: 'PJ080',
         errorgroup:'',
         selectType: "Single",
@@ -478,6 +478,7 @@
         baseInfo: {},
         flag: 0,
         tableData: [],
+        tableData2: [],
         form: {
             contract_id:'',
             contractnumber:'',
@@ -554,19 +555,6 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
-
-              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
-              {
-                this.flag = 0;//技术类型
-                this.activeName1 = 'first',
-                this.form = response;
-
-              }else{
-                this.flag = 1;//业务类型
-                this.activeName1 = 'second',
-                this.form2 = response;
-              }
-
             for (let i = 0; i < response.numberCount.length; i++) {
               if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
                 let letCurrencyposition = getDictionaryInfo(response.numberCount[i].currencyposition);
@@ -576,9 +564,24 @@
               }
             }
 
-            this.tableData = response.numberCount;
-
-
+            if (response.depositjapanese !== null && response.depositjapanese !== "") {
+              let letUser = getUserInfo(response.depositjapanese);
+              if (letUser != null) {
+                response.depositjapanese = letUser.userinfo.customername;
+              }
+            }
+              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
+              {
+                this.flag = 0;//技术类型
+                this.activeName1 = 'first',
+                this.form = response;
+                this.tableData = response.numberCount;
+              }else{
+                this.flag = 1;//业务类型
+                this.activeName1 = 'second',
+                this.form2 = response;
+                this.tableData2 = response.numberCount;
+              }
             this.loading = false;
 
           })
