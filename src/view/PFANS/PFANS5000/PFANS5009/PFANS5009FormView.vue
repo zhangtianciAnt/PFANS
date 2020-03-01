@@ -209,7 +209,7 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCTSTATUS')" align="center" width="100">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" :no="scope.row" maxlength="20" style="width: 100%;"
+                          <el-input :disabled="!disabled" :no="scope.row" maxlength="20" style="width: 100%;"
                                     v-model.trim="scope.row.productstatus"></el-input>
                         </template>
                       </el-table-column>
@@ -403,26 +403,6 @@
                               </el-date-picker>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.operation')" align="center" width="200">
-                            <template slot-scope="scope">
-                              <el-button
-                                :disabled="true"
-                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
-                                plain
-                                size="small"
-                                type="danger"
-                              >{{$t('button.delete')}}
-                              </el-button>
-                              <el-button
-                                :disabled="true"
-                                @click="addRow1()"
-                                plain
-                                size="small"
-                                type="primary"
-                              >{{$t('button.insert')}}
-                              </el-button>
-                            </template>
-                          </el-table-column>
                         </el-table>
                       </el-tab-pane>
 
@@ -464,55 +444,60 @@
                             align="center"
                             width="200">
                             <template slot-scope="scope">
-                              <el-col :span="8">
-                                <div class="dpSupIndex" style="width:10vw" prop="expname">
-                                  <el-container>
-                                    <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                           :disabled="true"></input>
-                                    <el-button :disabled="true" icon="el-icon-search"
-                                               @click="dialogTableVisible1 = true"
-                                               size="small"></el-button>
-                                    <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
-                                               :visible.sync="dialogTableVisible1"
-                                               center size="50%"
-                                               top="8vh" lock-scroll
-                                               append-to-body>
-                                      <div style="text-align: center">
-                                        <el-row style="text-align: center;height: 90%;overflow: hidden">
-                                          <el-table
-                                            :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
-                                            height="500px" highlight-current-row style="width: 100%"
-                                            tooltip-effect="dark"
-                                            @row-click="handleClickChange">
-                                            <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                                                             width="100"></el-table-column>
-                                            <el-table-column property="expname" fixed
-                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                                             width="100"></el-table-column>
-                                            <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
-                                                             width="100"></el-table-column>
-                                            <el-table-column property="post"
-                                                             :label="$t('label.PFANSUSERVIEW_POST')"
-                                                             width="150"></el-table-column>
-                                            <el-table-column
-                                              align="right" width="180">
-                                              <template slot="header" slot-scope="scope">
-                                                <el-input
-                                                  v-model="search"
-                                                  size="mini"
-                                                  placeholder="请输入姓名关键字搜索"/>
-                                              </template>
-                                            </el-table-column>
-                                          </el-table>
-                                        </el-row>
-                                        <span slot="footer" class="dialog-footer">
-                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
-                                          </span>
-                                      </div>
-                                    </el-dialog>
-                                  </el-container>
-                                </div>
-                              </el-col>
+                              <el-input
+                                v-model="scope.row.name"
+                                :disabled="true"
+                                style="width: 100%">
+                              </el-input>
+                              <!--                              <el-col :span="8">-->
+                              <!--                                <div class="dpSupIndex" style="width:10vw" prop="expname">-->
+                              <!--                                  <el-container>-->
+                              <!--                                    <input class="content bg" v-model="scope.row.name" :error="errorexpname"-->
+                              <!--                                           :disabled="true"></input>-->
+                              <!--                                    <el-button :disabled="true" icon="el-icon-search"-->
+                              <!--                                               @click="dialogTableVisible1 = true"-->
+                              <!--                                               size="small"></el-button>-->
+                              <!--                                    <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"-->
+                              <!--                                               :visible.sync="dialogTableVisible1"-->
+                              <!--                                               center size="50%"-->
+                              <!--                                               top="8vh" lock-scroll-->
+                              <!--                                               append-to-body>-->
+                              <!--                                      <div style="text-align: center">-->
+                              <!--                                        <el-row style="text-align: center;height: 90%;overflow: hidden">-->
+                              <!--                                          <el-table-->
+                              <!--                                            :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"-->
+                              <!--                                            height="500px" highlight-current-row style="width: 100%"-->
+                              <!--                                            tooltip-effect="dark"-->
+                              <!--                                            @row-click="handleClickChange">-->
+                              <!--                                            <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                              <!--                                                             width="100"></el-table-column>-->
+                              <!--                                            <el-table-column property="expname" fixed-->
+                              <!--                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"-->
+                              <!--                                                             width="100"></el-table-column>-->
+                              <!--                                            <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"-->
+                              <!--                                                             width="100"></el-table-column>-->
+                              <!--                                            <el-table-column property="post"-->
+                              <!--                                                             :label="$t('label.PFANSUSERVIEW_POST')"-->
+                              <!--                                                             width="150"></el-table-column>-->
+                              <!--                                            <el-table-column-->
+                              <!--                                              align="right" width="180">-->
+                              <!--                                              <template slot="header" slot-scope="scope">-->
+                              <!--                                                <el-input-->
+                              <!--                                                  v-model="search"-->
+                              <!--                                                  size="mini"-->
+                              <!--                                                  placeholder="请输入姓名关键字搜索"/>-->
+                              <!--                                              </template>-->
+                              <!--                                            </el-table-column>-->
+                              <!--                                          </el-table>-->
+                              <!--                                        </el-row>-->
+                              <!--                                        <span slot="footer" class="dialog-footer">-->
+                              <!--                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>-->
+                              <!--                                          </span>-->
+                              <!--                                      </div>-->
+                              <!--                                    </el-dialog>-->
+                              <!--                                  </el-container>-->
+                              <!--                                </div>-->
+                              <!--                              </el-col>-->
                             </template>
                           </el-table-column>
 
@@ -560,26 +545,6 @@
                                 v-model="scope.row.exittime"
                                 style="width: 9rem">
                               </el-date-picker>
-                            </template>
-                          </el-table-column>
-                          <el-table-column :label="$t('label.operation')" align="center" width="200">
-                            <template slot-scope="scope">
-                              <el-button
-                                :disabled="true"
-                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
-                                plain
-                                size="small"
-                                type="danger"
-                              >{{$t('button.delete')}}
-                              </el-button>
-                              <el-button
-                                :disabled="true"
-                                @click="addRow2()"
-                                plain
-                                size="small"
-                                type="primary"
-                              >{{$t('button.insert')}}
-                              </el-button>
                             </template>
                           </el-table-column>
                         </el-table>
