@@ -115,37 +115,23 @@
               <el-row >
                 <el-col :span="24">
                   <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
-                    <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
-                        </el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="170">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.deliverydate"></el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="150" prop="member">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.completiondate"></el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimdate"></el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  width="150"  prop="outsource">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.supportdate"></el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimamount"></el-input>
-                      </template>
-                    </el-table-column>
+                    <el-table-column
+                      prop="claimtype"
+                      :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150" />
+                    <el-table-column
+                      prop="deliverydate"
+                      :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="170" />
+                    <el-table-column
+                      prop="completiondate"
+                      :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="150"/>
+                    <el-table-column
+                      prop="claimdate" :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"width="150"/>
+                    <el-table-column
+                      prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  width="150" />
+                    <el-table-column
+                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  width="150" />
+                    <el-table-column
+                      prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />
                   </el-table>
                 </el-col>
               </el-row>
@@ -519,6 +505,8 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
+  import {getDictionaryInfo} from '@/utils/customize';
+
   import project from '../../../components/project';
 
   export default {
@@ -613,14 +601,7 @@
           awardmoney: '',
           rowindex: '',
         }],
-        tableS:[{
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-        }],
+        tableS:[],
         tableD:[{
           attf: 'R11B',
           attfmoth: '',
@@ -721,6 +702,32 @@
                 this.orglist=this.tableT[i].depart;
               }
             }
+            if ( response.numbercounts.length > 0 ) {
+              for (let i = 0; i < response.numbercounts.length; i++) {
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                }
+                let deliverydate = response.numbercounts[i].deliverydate;
+                let completiondate = response.numbercounts[i].completiondate;
+                let claimdate = response.numbercounts[i].claimdate;
+                let supportdate = response.numbercounts[i].supportdate
+
+                if ( deliverydate !== "" && deliverydate!=null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate!== "" && completiondate!=null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate!==""&& claimdate!=null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate!==""&& supportdate!=null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+              }
+            }
+            this.tableS = response.numbercounts
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
