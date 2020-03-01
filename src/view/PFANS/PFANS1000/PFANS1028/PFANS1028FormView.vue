@@ -815,27 +815,22 @@
                           <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
                             <el-checkbox-group v-model="form.lijudegresult">
                               <el-checkbox
-                                disabled
                                 label="0"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
                               </el-checkbox>
                               <el-checkbox
-                                disabled
                                 label="1"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT2')}}
                               </el-checkbox>
                               <el-checkbox
-                                disabled
                                 label="2"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT3')}}
                               </el-checkbox>
                               <el-checkbox
-                                disabled
                                 label="3"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT4')}}
                               </el-checkbox>
                               <el-checkbox
-                                disabled
                                 label="4"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
                               </el-checkbox>
@@ -1211,19 +1206,16 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
                         <el-radio
-                          :disabled="true"
                           label="0"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT1')}}
                         </el-radio>
                         <el-radio
-                          :disabled="true"
                           label="1"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT2')}}
                         </el-radio>
                         <el-radio
-                          :disabled="true"
                           label="2"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT3')}}
@@ -1269,6 +1261,13 @@
           tableElectronic: '0',
           tableCon: '0',
           tableSof: '0',
+        },
+        radiolijudegresult: {
+          tableCommun: '0',
+          tableDelivery: '0',
+          tableComputers: '0',
+          tableJasoftware: '0',
+          tableGatetechnology: '0'
         },
         checked1: false,
         checked2: false,
@@ -3074,6 +3073,163 @@
             this.form.sujudegresult = '1'
           } else {
             this.form.sujudegresult = '0'
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableCommun: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableCommun = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableCommun = '2';
+                return
+              }
+              this.radiolijudegresult.tableCommun = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableCommun = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableCommun = '3';
+                return
+              }
+              this.radiolijudegresult.tableCommun = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableDelivery: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableDelivery = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableDelivery = '2';
+                return
+              }
+              this.radiolijudegresult.tableDelivery = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableDelivery = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableDelivery = '3';
+                return
+              }
+              this.radiolijudegresult.tableDelivery = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableComputers: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableComputers = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableComputers = '2';
+                return
+              }
+              this.radiolijudegresult.tableComputers = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableComputers = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableComputers = '3';
+                return
+              }
+              this.radiolijudegresult.tableComputers = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableJasoftware: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableJasoftware = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableJasoftware = '2';
+                return
+              }
+              this.radiolijudegresult.tableJasoftware = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableJasoftware = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableJasoftware = '3';
+                return
+              }
+              this.radiolijudegresult.tableJasoftware = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableGatetechnology: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '2';
+                return
+              }
+              this.radiolijudegresult.tableGatetechnology = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '3';
+                return
+              }
+              this.radiolijudegresult.tableGatetechnology = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      radiolijudegresult: {
+        handler(val) {
+          this.form.lijudegresult = [];
+          if (val.tableCommun === '4' || val.tableDelivery === '4' || val.tableComputers === '4' || val.tableJasoftware === '4' || val.tableGatetechnology === '4') {
+            this.form.lijudegresult.push('4')
+            return;
+          }
+          if (val.tableCommun === '3' || val.tableDelivery === '3' || val.tableComputers === '3' || val.tableJasoftware === '3' || val.tableGatetechnology === '3') {
+            this.form.lijudegresult.push('3')
+          } else {
+            this.form.lijudegresult.push('1')
+          }
+
+          if (val.tableCommun === '2' || val.tableDelivery === '2' || val.tableComputers === '2' || val.tableJasoftware === '2' || val.tableGatetechnology === '2') {
+            this.form.lijudegresult.push('2')
+          } else {
+            this.form.lijudegresult.push('0')
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler

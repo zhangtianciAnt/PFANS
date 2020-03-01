@@ -1212,7 +1212,8 @@ module.exports = {
       '当技術は、「輸出制限リスト」の対象であり、「輸出制限品目」である。（→商務部に確認）',
     PFANS1028VIEW_LIJUDEGRESULT3: '（判定対象①には○があるが、②が×の場合）\t\t\t\n' +
       '当技術は、「輸出禁止リスト（Ｊ）」について「非該当」である。\t\t\t\n',
-    PFANS1028VIEW_LIJUDEGRESULT4: '当技術は、「輸出制限リスト（×）」について「非該当」である。',
+    PFANS1028VIEW_LIJUDEGRESULT4: '（判定対象①には○があるが、②が×の場合）\t\t\t\n' +
+      '当技術は、「輸出制限リスト（×）」について「非該当」である。',
     PFANS1028VIEW_LIJUDEGRESULT5: '（○がひとつもない。全て×である。）\t\t\t\n' +
       '当技術は、「輸出禁止・輸出制限リスト」の対象外である。\t',
     PFANS1028VIEW_COTECHNICALNAME1: '集積回路製造技術',
