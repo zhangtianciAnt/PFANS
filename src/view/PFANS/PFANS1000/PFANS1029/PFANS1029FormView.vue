@@ -12,7 +12,7 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName1" type="border-card">
             <!--技術契約書(受託)-->
-            <el-tab-pane :label="$t('label.PFANS1029FROM_TECHNICAL')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1029FROM_TECHNICAL')" name="first" :disabled="tabDisabled">
               <div>
                 <el-tabs v-model="activeName2" type="border-card">
                   <!--info1-->
@@ -96,10 +96,27 @@
                           </el-date-picker>
                         </el-form-item>
                       </el-col>
-
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
+                          <dicselect :code="code2"
+                                     :data="form.currencyposition"
+                                     :disabled="true"
+                                     :multiple="multiple"
+                                     @change="getcurrencyformat"
+                                     style="width:20vw">
+                          </dicselect>
+                        </el-form-item>
+                      </el-col>
                     </el-row>
 
-
+                    <!--5-->
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
+                          <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form.claimamount"></el-input-number>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
 
                     <template>
                       <el-table
@@ -227,7 +244,7 @@
             </el-tab-pane>
 
             <!--役務契約書(受託)-->
-            <el-tab-pane :label="$t('label.PFANS1029FROM_LABOR')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1029FROM_LABOR')" name="second" :disabled="tab2Disabled">
               <!--1-->
 
               <el-row>
@@ -308,11 +325,27 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
+                    <dicselect :code="code2"
+                               :data="form2.currencyposition"
+                               :disabled="true"
+                               :multiple="multiple"
+                               @change="getcurrencyformat"
+                               style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
               </el-row>
 
               <!--5-->
-
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
+                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
               <template>
                 <el-table
@@ -427,6 +460,8 @@
       return {
         activeName1: 'first',
         activeName2: 'third',
+        tabDisabled: true,
+        tab2Disabled: true,
         disabled: true,
         tableAValue:'',
         error_typeoffees: '',
@@ -559,11 +594,13 @@
               {
                 this.flag = 0;//技术类型
                 this.activeName1 = 'first',
+                  this.tabDisabled = false;
                 this.form = response;
                 this.tableData = response.numberCount;
               }else{
                 this.flag = 1;//业务类型
                 this.activeName1 = 'second',
+                  this.tab2Disabled = false;
                 this.form2 = response;
                 this.tableData2 = response.numberCount;
               }
@@ -733,9 +770,6 @@
       gettotal(val){
         this.form.total= this.form.number*this.form.price;
       },
-
-
-
       buttonClick(val) {
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
@@ -744,9 +778,15 @@
               if(this.flag === 0){
                   //this.baseInfo={};
                   this.form.user_id=this.userlist;
-                  this.form.openingdate=moment(this.form.openingdate).format('YYYY-MM-DD');
-                  this.form.enddate=moment(this.form.enddate).format('YYYY-MM-DD');
-                  this.form.signingdate=moment(this.form.signingdate).format('YYYY-MM-DD');
+                  if(this.form.openingdate != null && this.form.openingdate != "") {
+                    this.form.openingdate=moment(this.form.openingdate).format('YYYY-MM-DD');
+                  }
+                  if(this.form.enddate != null && this.form.enddate != "") {
+                    this.form.enddate=moment(this.form.enddate).format('YYYY-MM-DD');
+                  }
+                  if(this.form.signingdate != null && this.form.signingdate != "") {
+                    this.form.signingdate=moment(this.form.signingdate).format('YYYY-MM-DD');
+                  }
                   if(this.$route.params._id){     //编辑
                       this.form.contract_id = this.$route.params._id;
                       this.$store
@@ -776,9 +816,15 @@
                   }
               }else{
                   this.form2.user_id=this.userlist;
-                  this.form2.openingdate=moment(this.form2.openingdate).format('YYYY-MM-DD');
-                  this.form2.enddate=moment(this.form2.enddate).format('YYYY-MM-DD');
-                  this.form2.signingdate=moment(this.form2.signingdate).format('YYYY-MM-DD');
+                  if(this.form2.openingdate != null && this.form2.openingdate != "") {
+                    this.form2.openingdate=moment(this.form2.openingdate).format('YYYY-MM-DD');
+                  }
+                  if(this.form2.enddate != null && this.form2.enddate != ""){
+                    this.form2.enddate=moment(this.form2.enddate).format('YYYY-MM-DD');
+                  }
+                  if(this.form2.signingdate != null && this.form2.signingdate != ""){
+                    this.form2.signingdate=moment(this.form2.signingdate).format('YYYY-MM-DD');
+                  }
                   if(this.$route.params._id){     //编辑
                       this.form2.contract_id = this.$route.params._id;
                       this.$store
