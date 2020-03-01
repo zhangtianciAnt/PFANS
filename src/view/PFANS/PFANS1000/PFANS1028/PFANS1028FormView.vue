@@ -884,21 +884,22 @@
                     <el-table :data="tableIndustrial"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="50" prop="japno">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="280"
+                                       prop="tradename">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -913,28 +914,30 @@
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="380"
+                                       prop="summary">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="150"
+                                       prop="payment">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="60" prop="bit">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -957,21 +960,22 @@
                     <el-table :data="tableElectronic"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="50" prop="japno">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="280"
+                                       prop="tradename">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -986,28 +990,30 @@
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="380"
+                                       prop="summary">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="150"
+                                       prop="payment">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="60" prop="bit">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -1030,21 +1036,22 @@
                     <el-table :data="tableCon"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="50" prop="japno">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="280"
+                                       prop="tradename">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -1059,28 +1066,30 @@
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="380"
+                                       prop="summary">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="150"
+                                       prop="payment">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="60" prop="bit">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -1103,21 +1112,22 @@
                     <el-table :data="tableSof"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="50" prop="japno">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="280"
+                                       prop="tradename">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -1132,28 +1142,30 @@
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="380"
+                                       prop="summary">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="150"
+                                       prop="payment">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="60" prop="bit">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
