@@ -152,6 +152,11 @@
                           :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                           width="150">
                         </el-table-column>
+                        <el-table-column
+                          prop="currencyposition"
+                          :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
+                          width="150">
+                        </el-table-column>
                       </el-table>
                     </template>
                     <!--add table-->
@@ -376,6 +381,11 @@
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">
                   </el-table-column>
+                  <el-table-column
+                    prop="currencyposition"
+                    :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
+                    width="150">
+                  </el-table-column>
                 </el-table>
               </template>
               <!--6-->
@@ -557,7 +567,18 @@
                 this.form2 = response;
               }
 
+            for (let i = 0; i < response.numberCount.length; i++) {
+              if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
+                let letCurrencyposition = getDictionaryInfo(response.numberCount[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numberCount[i].currencyposition = letCurrencyposition.value1;
+                }
+              }
+            }
+
             this.tableData = response.numberCount;
+
+
             this.loading = false;
 
           })
