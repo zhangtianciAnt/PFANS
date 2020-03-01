@@ -6,18 +6,69 @@
                  style="padding: 2vw">
           <el-row>
             <!--1-->
+            <!--            <el-col :span="8">-->
+            <!--              <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">-->
+            <!--                <el-select v-model="form.pjname" style="width:20vw" placeholder="请选择" @change="changeOption">-->
+            <!--                  <el-option-->
+            <!--                    v-for="(item,index) in options1"-->
+            <!--                    :key="index"-->
+            <!--                    :label="item.project_name"-->
+            <!--                    :value="item.project_name">-->
+            <!--                  </el-option>-->
+            <!--                </el-select>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
-                <el-select v-model="form.pjname" style="width:20vw" placeholder="请选择" @change="changeOption">
-                  <el-option
-                    v-for="(item,index) in options1"
-                    :key="index"
-                    :label="item.project_name"
-                    :value="item.project_name">
-                  </el-option>
-                </el-select>
+              <el-form-item :error="error_pjname" :label="$t('label.PFANS6007VIEW_PJNAME')"
+                            prop="pjname">
+                <div class="dpSupIndex" style="width: 20vw" prop="pjname">
+                  <el-container>
+                    <input class="content bg" v-model="form.pjname" :error="error_pjname"
+                           :disabled="true"></input>
+                    <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
+                               size="small"></el-button>
+                    <el-dialog :title="$t('label.PFANS6007VIEW_PJNAME')" :visible.sync="dialogTableVisible" center
+                               size="50%"
+                               top="8vh" lock-scroll
+                               append-to-body>
+                      <div style="text-align: center">
+                        <el-row style="text-align: center;height: 90%;overflow: hidden">
+                          <el-table
+                            :data="gridData.filter(data => !search || data.pjname.toLowerCase().includes(search.toLowerCase()))"
+                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                            @row-click="handleClickChange">
+                            <el-table-column property="pjname" :label="$t('label.PFANS6007VIEW_PJNAME')"
+                                             width="150"></el-table-column>
+                            <el-table-column property="psdcdwindow" :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
+                                             width="120"></el-table-column>
+                            <el-table-column property="bpclubname"
+                                             :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
+                                             width="150"></el-table-column>
+                            <el-table-column property="bpplayer"
+                                             :label="$t('label.PFANS6007VIEW_BPPLAYER')"
+                                             width="120"></el-table-column>
+                            <el-table-column
+                              align="right" width="230">
+                              <template slot="header" slot-scope="scope">
+                                <el-input
+                                  v-model="search"
+                                  size="mini"
+                                  placeholder="请输入供应商关键字搜索"/>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-row>
+                        <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                      </div>
+                    </el-dialog>
+                  </el-container>
+                </div>
               </el-form-item>
             </el-col>
+
+
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
                 <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
@@ -184,6 +235,8 @@
         selectType: "Single",
         title: "title.PFANS6007VIEW_TITLE",
         buttonList: [],
+        search: '',
+        gridData: [],
         multiple: false,
         form: {
           variousfunds_id:'',
@@ -199,6 +252,7 @@
         },
         code2: 'BP013',
         code3: 'BP014',
+        dialogTableVisible: false,
         rules: {
           pjname: [
             {
@@ -246,6 +300,7 @@
       };
     },
     mounted() {
+      this.getCompanyProject();
       if (this.$route.params._id) {//查看详情
         this.loading = true;
         this.$store
@@ -262,38 +317,6 @@
             });
             this.loading = false;
           })
-      }else{//新建
-          this.$store
-              .dispatch('PFANS6007Store/getexpatriatesinfor', {})
-              .then(response => {
-                  for(let j=0;j < response.length;j++){
-                      //项目负责人
-                      let item = {username: "",project_name: "",bpclubname: "",bpplayer: ""};
-                      if(response[j].project_name !== null && response[j].project_name !== "") {
-                          item.bpclubname = response[j].suppliername;
-                          item.project_name = response[j].project_name;
-                          item.bpplayer = response[j].expname;;
-                          let user = getUserInfo(response[j].managerid);
-                          if (user) {
-                              item.username= user.userinfo.customername;
-                          }
-                          this.options1.push(item);
-                      }
-                  }
-                  /*console.log(this.options1.length);
-                  for(let i=0;i<this.options1.length;i++){
-                      console.log(this.options1[i].username+" || "+this.options1[i].project_name+" || "+this.options1[i].bpclubname+" || "+this.options1[i].bpplayer)
-                  }*/
-                  this.loading = false;
-              })
-              .catch(error => {
-                  Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                  });
-                  this.loading = false;
-              })
       }
     },
     created() {
@@ -310,6 +333,38 @@
       }
     },
     methods: {
+      getCompanyProject() {
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              this.gridData = [];
+              for (let i = 0; i < response.length; i++) {
+                let vote = {};
+                vote.pjname = response[i].project_name;
+                if (response[i].managerid !== null && response[i].managerid !== '') {
+                  let user = getUserInfo(response[i].managerid);
+                  if (user) {
+                    vote.psdcdwindow = user.userinfo.customername;
+                  }
+                }
+                vote.bpclubname = response[i].entrust;
+                vote.bpplayer = response[i].deployment;
+                this.gridData.push(vote);
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       changeOption(val){
           for(let i=0;i < this.options1.length;i++){
               if(this.options1[i].project_name === val){
@@ -321,6 +376,23 @@
       },
       getYear(val) {
         this.form.year = val;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.pjname;
+        this.currentRow1 = val.psdcdwindow;
+        this.currentRow2 = val.bpclubname;
+        this.currentRow3 = val.bpplayer;
+      },
+      submit() {
+        let lst = this.currentRow;
+        let lst1 = this.currentRow1;
+        let lst2 = this.currentRow2;
+        let lst3 = this.currentRow3;
+        this.dialogTableVisible = false;
+        this.form.pjname = lst;
+        this.form.psdcdwindow = lst1;
+        this.form.bpclubname = lst2;
+        this.form.bpplayer = lst3;
       },
       getPlmonthplan(val) {
         this.form.plmonthplan = val;
@@ -394,5 +466,36 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 
 </style>

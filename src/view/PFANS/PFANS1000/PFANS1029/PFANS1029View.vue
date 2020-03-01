@@ -141,6 +141,14 @@
                     }
                 }
             }
+
+            if (response[j].depositjapanese !== null && response[j].depositjapanese !== "") {
+              let letUser = getUserInfo(response[j].depositjapanese);
+              if (letUser != null) {
+                response[j].depositjapanese = letUser.userinfo.customername;
+              }
+            }
+
           }
           this.data = response;
           this.loading = false;
