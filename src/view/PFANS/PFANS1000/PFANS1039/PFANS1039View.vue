@@ -51,6 +51,7 @@
     },
     methods: {
       submitForm(val) {
+        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 1) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1040View");
           this.$router.push({

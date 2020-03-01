@@ -1,16 +1,16 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"
+                         :canStart="canStart"
                          :title="title"
                          @buttonClick="buttonClick"
-                         :canStart="canStart"
                          @end="end" @start="start"
                          @workflowState="workflowState"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs type="border-card" v-model="activeName">
             <el-tab-pane :label="$t('label.PFANS1028VIEW_JUDGE')" name="first">
               <div>
                 <el-row>
@@ -20,7 +20,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')" >
+                    <el-form-item :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
                       <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
@@ -72,21 +72,21 @@
                       <!--                        </el-checkbox-group>-->
                       <el-row>
                         <el-col :span="4">
-                          <el-checkbox v-model="checked1" @change="getChecked1" :disabled="disabled1"
-                                       style="margin-left: 50px">
+                          <el-checkbox :disabled="disabled1" @change="getChecked1" style="margin-left: 50px"
+                                       v-model="checked1">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS1')}}</p>
                           </el-checkbox>
                         </el-col>
                         <el-col :span="20">
-                          <el-checkbox v-model="checked3" :disabled="disabled3" @change="getChecked3">
+                          <el-checkbox :disabled="disabled3" @change="getChecked3" v-model="checked3">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS3')}}</p>
                           </el-checkbox>
                         </el-col>
                       </el-row>
                       <el-row>
                         <el-col :span="8">
-                          <el-checkbox v-model="checked2" :disabled="disabled2" @change="getChecked2"
-                                       style="margin-left: 50px">
+                          <el-checkbox :disabled="disabled2" @change="getChecked2" style="margin-left: 50px"
+                                       v-model="checked2">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS2')}}</p>
                           </el-checkbox>
                         </el-col>
@@ -102,9 +102,9 @@
                       <span style="margin-right: 1vw ">{{$t('label.PFANS1028VIEW_NOT')}}</span>
                       <el-switch
                         :disabled="!disabled"
-                        v-model="form.requirements"
                         active-value="1"
-                        inactive-value="0">
+                        inactive-value="0"
+                        v-model="form.requirements">
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANS1028VIEW_YES')}}</span>
                     </el-form-item>
@@ -117,13 +117,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_PERIOD')">
                       <el-date-picker
-                        v-model="form.claimdatetime"
                         :disabled="!disable"
-                        type="daterange"
+                        :end-placeholder="$t('label.enddate')"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
-                        :end-placeholder="$t('label.enddate')"
-                        style="width:20vw">
+                        style="width:20vw"
+                        type="daterange"
+                        v-model="form.claimdatetime">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -131,8 +131,8 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1028VIEW_TECHNICAL')">
-                      <el-input :disabled="!disable" v-model="form.technical" style="width: 70vw"
-                                type="textarea"></el-input>
+                      <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                                v-model="form.technical"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -526,33 +526,36 @@
                 </el-row>
 
                 <div>
-                  <el-tabs v-model="activeName2" type="border-card">
+                  <el-tabs type="border-card" v-model="activeName2">
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_COMMUNICATION')" name="first">
                       <el-row>
                         <el-table :data="tableCommun"
-                                  border
+                                  :span-method="objectSpanMethod" border
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
-                                           width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalnumber">
-                              </el-input>
-                            </template>
+                                           prop="technicalnumber" width="50">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalnumber">-->
+                            <!--</el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.grade"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" prop="grade"
+                                           width="50">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.grade"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalname"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
+                                           prop="technicalname"
+                                           width="280">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalname"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                             <template slot-scope="scope">
                               <!--                              <dicselect :code="code1"-->
                               <!--                                         :data="scope.row.judgment1"-->
@@ -561,19 +564,20 @@
                               <!--                                         :no="scope.row"-->
                               <!--                                         @change="getjudgment1">-->
                               <!--                              </dicselect>-->
-                              <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                              <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                                 <el-option label="o" value="1"></el-option>
                                 <el-option label="x" value="2"></el-option>
                               </el-select>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.points"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="left" prop="points"
+                                           width="500">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.points"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                             <template slot-scope="scope">
                               <!--                              <dicselect :code="code1"-->
                               <!--                                         :data="scope.row.judgment2"-->
@@ -582,7 +586,7 @@
                               <!--                                         :no="scope.row"-->
                               <!--                                         @change="getjudgment2">-->
                               <!--                              </dicselect>-->
-                              <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                              <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                                 <el-option label="o" value="1"></el-option>
                                 <el-option label="x" value="2"></el-option>
                               </el-select>
@@ -595,45 +599,49 @@
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_DELIVERY')" name="second">
                       <el-row>
                         <el-table :data="tableDelivery"
-                                  border
+                                  :span-method="objectSpanMethod1" border
                                   header-cell-class-name="sub_bg_color_blue" stripe>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
-                                           width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalnumber">
-                              </el-input>
-                            </template>
+                                           prop="technicalnumber" width="50">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalnumber">-->
+                            <!--</el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.grade"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" prop="grade"
+                                           width="50">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.grade"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                            <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.technicalname"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
+                                           prop="technicalname"
+                                           width="280">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.technicalname"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                             <template slot-scope="scope">
-                              <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                              <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                                 <el-option label="o" value="1"></el-option>
                                 <el-option label="x" value="2"></el-option>
                               </el-select>
                             </template>
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                            <template slot-scope="scope">
-                              <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                        v-model="scope.row.points"></el-input>
-                            </template>
+                          <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="left" prop="points"
+                                           width="500">
+                            <!--<template slot-scope="scope">-->
+                            <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                            <!--v-model="scope.row.points"></el-input>-->
+                            <!--</template>-->
                           </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                          <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                             <template slot-scope="scope">
-                              <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                              <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                                 <el-option label="o" value="1"></el-option>
                                 <el-option label="x" value="2"></el-option>
                               </el-select>
@@ -644,44 +652,50 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_COMPUTERS')" name="third">
                       <el-table :data="tableComputers"
-                                border
+                                :span-method="objectSpanMethod2" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalnumber">
-                            </el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
+                                         prop="technicalnumber"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalnumber">-->
+                          <!--</el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.grade"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" prop="grade"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.grade"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalname"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
+                                         prop="technicalname"
+                                         width="280">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalname"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.points"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="left" prop="points"
+                                         width="500">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.points"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
@@ -691,44 +705,50 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_JASOFTWARE')" name="fourth">
                       <el-table :data="tableJasoftware"
-                                border
+                                :span-method="objectSpanMethod3" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalnumber">
-                            </el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
+                                         prop="technicalnumber"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalnumber">-->
+                          <!--</el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.grade"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" prop="grade"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.grade"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalname"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
+                                         prop="technicalname"
+                                         width="280">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalname"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.points"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="left" prop="points"
+                                         width="500">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.points"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
@@ -738,44 +758,50 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_GATETECHNOLOGY')" name="fifth">
                       <el-table :data="tableGatetechnology"
-                                border
+                                :span-method="objectSpanMethod4" border
                                 header-cell-class-name="sub_bg_color_blue" stripe>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalnumber">
-                            </el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNUMBER')" align="center"
+                                         prop="technicalnumber"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalnumber">-->
+                          <!--</el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.grade"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_GRADE')" align="center" prop="grade"
+                                         width="50">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.grade"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.technicalname"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
+                                         prop="technicalname"
+                                         width="280">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.technicalname"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="center" width="170">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" style="width: 100%"
-                                      v-model="scope.row.points"></el-input>
-                          </template>
+                        <el-table-column :label="$t('label.PFANS1028VIEW_POINTS')" align="left" prop="points"
+                                         width="500">
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
+                          <!--v-model="scope.row.points"></el-input>-->
+                          <!--</template>-->
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                        <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                            <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                               <el-option label="o" value="1"></el-option>
                               <el-option label="x" value="2"></el-option>
                             </el-select>
@@ -787,36 +813,28 @@
                       <el-row>
                         <el-col :span="12">
                           <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
-                            <el-radio
-                              :disabled="!disable"
-                              label="0"
-                              v-model="form.lijudegresult"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
-                            </el-radio>
-                            <el-radio
-                              :disabled="!disable"
-                              label="1"
-                              v-model="form.lijudegresult"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT2')}}
-                            </el-radio>
-                            <el-radio
-                              :disabled="!disable"
-                              label="2"
-                              v-model="form.lijudegresult"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT3')}}
-                            </el-radio>
-                            <el-radio
-                              :disabled="!disable"
-                              label="3"
-                              v-model="form.lijudegresult"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT4')}}
-                            </el-radio>
-                            <el-radio
-                              :disabled="!disable"
-                              label="3"
-                              v-model="form.lijudegresult"
-                            >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
-                            </el-radio>
+                            <el-checkbox-group v-model="form.lijudegresult">
+                              <el-checkbox
+                                label="0"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
+                              </el-checkbox>
+                              <el-checkbox
+                                label="1"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT2')}}
+                              </el-checkbox>
+                              <el-checkbox
+                                label="2"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT3')}}
+                              </el-checkbox>
+                              <el-checkbox
+                                label="3"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT4')}}
+                              </el-checkbox>
+                              <el-checkbox
+                                label="4"
+                              >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT5')}}
+                              </el-checkbox>
+                            </el-checkbox-group>
                           </el-form-item>
                         </el-col>
                       </el-row>
@@ -829,7 +847,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1028VIEW_OUTPUTSUPPLIE')" name="third">
-              <el-tabs v-model="activeName3" type="border-card">
+              <el-tabs type="border-card" v-model="activeName3">
                 <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')" name="first">
 
                   <el-row>
@@ -860,7 +878,7 @@
                   </el-row>
                   <el-row>
                     <el-col :span="12">
-                      <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')" >
+                      <el-form-item :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
                         <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                       </el-form-item>
                     </el-col>
@@ -884,21 +902,22 @@
                     <el-table :data="tableIndustrial"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" prop="japno" width="50">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="left" prop="tradename"
+                                       width="280">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -907,34 +926,36 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment1">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="left" prop="summary"
+                                       width="380">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" prop="payment"
+                                       width="150">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" prop="bit" width="60">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -943,7 +964,7 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment2">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
@@ -957,21 +978,22 @@
                     <el-table :data="tableElectronic"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" prop="japno" width="50">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="left" prop="tradename"
+                                       width="280">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -980,34 +1002,36 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment1">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="left" prop="summary"
+                                       width="380">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" prop="payment"
+                                       width="150">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" prop="bit" width="60">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -1016,7 +1040,7 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment2">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
@@ -1030,21 +1054,22 @@
                     <el-table :data="tableCon"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" prop="japno" width="50">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="left" prop="tradename"
+                                       width="280">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -1053,34 +1078,36 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment1">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="left" prop="summary"
+                                       width="380">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" prop="payment"
+                                       width="150">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" prop="bit" width="60">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -1089,7 +1116,7 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment2">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
@@ -1103,21 +1130,22 @@
                     <el-table :data="tableSof"
                               border
                               header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">
-                          </el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JAPNO')" align="center" prop="japno" width="50">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.japno">-->
+                        <!--</el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 100vw"
-                                    type="textarea"
-                                    v-model="scope.row.tradename"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_TRADENAME')" align="left" prop="tradename"
+                                       width="280">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 100vw"-->
+                        <!--type="textarea"-->
+                        <!--v-model="scope.row.tradename"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="150">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT1')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment1"-->
@@ -1126,34 +1154,36 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment1">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment1" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment1">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true"
-                                    style="width: 150vw"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 7}"
-                                    v-model="scope.row.summary"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_SUMMARY')" align="left" prop="summary"
+                                       width="380">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true"-->
+                        <!--style="width: 150vw"-->
+                        <!--type="textarea"-->
+                        <!--:autosize="{ minRows: 2, maxRows: 7}"-->
+                        <!--v-model="scope.row.summary"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.payment"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_PAYMENT')" align="center" prop="payment"
+                                       width="150">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.payment"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" width="170">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                    v-model="scope.row.bit"></el-input>
-                        </template>
+                      <el-table-column :label="$t('label.PFANS1028VIEW_BIT')" align="center" prop="bit" width="60">
+                        <!--<template slot-scope="scope">-->
+                        <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
+                        <!--v-model="scope.row.bit"></el-input>-->
+                        <!--</template>-->
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="170">
+                      <el-table-column :label="$t('label.PFANS1028VIEW_JUDGMENT2')" align="center" width="100">
                         <template slot-scope="scope">
                           <!--                          <dicselect :code="code1"-->
                           <!--                                     :data="scope.row.judgment2"-->
@@ -1162,7 +1192,7 @@
                           <!--                                     :no="scope.row"-->
                           <!--                                     @change="getjudgment2">-->
                           <!--                          </dicselect>-->
-                          <el-select v-model="scope.row.judgment2" clearable :disabled="!disable">
+                          <el-select :disabled="!disable" clearable v-model="scope.row.judgment2">
                             <el-option label="o" value="1"></el-option>
                             <el-option label="x" value="2"></el-option>
                           </el-select>
@@ -1176,21 +1206,18 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
                         <el-radio
-                          :disabled="true"
                           label="0"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT1')}}
                         </el-radio>
                         <el-radio
-                          :disabled="true"
                           label="1"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT2')}}
                         </el-radio>
                         <el-radio
-                          :disabled="true"
                           label="2"
-                          v-model="radioSujud"
+                          v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT3')}}
                         </el-radio>
                       </el-form-item>
@@ -1229,7 +1256,19 @@
     },
     data() {
       return {
-        radioSujud: '',
+        radioSujud: {
+          tableIndustrial: '0',
+          tableElectronic: '0',
+          tableCon: '0',
+          tableSof: '0',
+        },
+        radiolijudegresult: {
+          tableCommun: '0',
+          tableDelivery: '0',
+          tableComputers: '0',
+          tableJasoftware: '0',
+          tableGatetechnology: '0'
+        },
         checked1: false,
         checked2: false,
         checked3: false,
@@ -1267,7 +1306,6 @@
         arrCOM: [],
         arrSOF: [],
         form: {
-
           decisionnumber: '',
           career: '',
           deployment: '',
@@ -1313,555 +1351,866 @@
           suppliecom: '',
           suppliesof: '',
           sujudegresult: '',
-          lijudegresult: '',
+          lijudegresult: [],
         },
         tableComputers: [
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COMTECHNICAL1'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS40'),
+            points: this.$t('label.PFANS1028VIEW_POINTS40'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS41'),
+            points: this.$t('label.PFANS1028VIEW_POINTS41'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS42'),
+            points: this.$t('label.PFANS1028VIEW_POINTS42'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS43'),
+            points: this.$t('label.PFANS1028VIEW_POINTS43'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS44'),
+            points: this.$t('label.PFANS1028VIEW_POINTS44'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS45'),
+            points: this.$t('label.PFANS1028VIEW_POINTS45'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS46'),
+            points: this.$t('label.PFANS1028VIEW_POINTS46'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS47'),
+            points: this.$t('label.PFANS1028VIEW_POINTS47'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS48'),
+            points: this.$t('label.PFANS1028VIEW_POINTS48'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS49'),
+            points: this.$t('label.PFANS1028VIEW_POINTS49'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS50'),
+            points: this.$t('label.PFANS1028VIEW_POINTS50'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS51'),
+            points: this.$t('label.PFANS1028VIEW_POINTS51'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS52'),
+            points: this.$t('label.PFANS1028VIEW_POINTS52'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS53'),
+            points: this.$t('label.PFANS1028VIEW_POINTS53'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS54'),
+            points: this.$t('label.PFANS1028VIEW_POINTS54'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS55'),
+            points: this.$t('label.PFANS1028VIEW_POINTS55'),
             judgment2: '',
           },
 
-          { technicalnumber:'02',
+          {
+            technicalnumber: '02',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COMTECHNICAL2'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS32'),
+            points: this.$t('label.PFANS1028VIEW_POINTS56'),
+            judgment2: '',
+          },
+          {
+            technicalnumber: '02',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS57'),
             judgment2: '',
           },
         ],
         tableDelivery: [
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME3'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS30'),
+            points: this.$t('label.PFANS1028VIEW_POINTS30'),
             judgment2: '',
           },
-          { technicalnumber:'02',
+          {
+            technicalnumber: '02',
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME2'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS31'),
+            points: this.$t('label.PFANS1028VIEW_POINTS31'),
             judgment2: '',
           },
-          { technicalnumber:'02',
+          {
+            technicalnumber: '02',
+            grade: 'J',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS32'),
+            judgment2: '',
+          },
+          {
+            technicalnumber: '02',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME3'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS32'),
+            points: this.$t('label.PFANS1028VIEW_POINTS33'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            technicalname: '通信伝送技術',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS33'),
+            points: this.$t('label.PFANS1028VIEW_POINTS34'),
             judgment2: '',
           },
-          { technicalnumber:'01',
-            grade: 'X',
-            technicalname: '',
-            judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS34'),
-            judgment2: '',
-          },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS35'),
+            points: this.$t('label.PFANS1028VIEW_POINTS35'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS36'),
+            points: this.$t('label.PFANS1028VIEW_POINTS36'),
             judgment2: '',
           },
-          { technicalnumber:'04',
-            grade: 'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME5'),
-            judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS37'),
-            judgment2: '',
-          },
-          { technicalnumber:'04',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS38'),
+            points: '　(2) 低雑音増幅技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 高感度および耐通信妨害技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS37'),
+            judgment2: '',
+          },
+          {
+            technicalnumber: '04',
+            grade: 'X',
+            technicalname: '衛星応用技術',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS38'),
+            judgment2: '',
+          },
+          {
+            technicalnumber: '04',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '04',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '③システムの情報伝送体制、デバッグ方式、幀構造',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '04',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: this.$t('label.PFANS1028VIEW_POINTS39'),
             judgment2: '',
           },
         ],
-        tableCommun: [{
-          technicalnumber:'01',
-          grade: 'J',
-          technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME1'),
-          judgment1: '',
-          points:this.$t('label.PFANS1028VIEW_POINTS1'),
-          judgment2: '',
-        },
+        tableCommun: [
           {
-            technicalnumber:'01',
+            technicalnumber: '01',
+            grade: 'J',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME1'),
+            judgment1: '',
+            points: '耐放射技術、工程\n' +
+              '　(1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
             grade: '',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS2'),
+            points: '　(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
             judgment2: '',
           },
           {
-            technicalnumber:'02',
+            technicalnumber: '02',
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME2'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS3'),
+            points: '遠隔操作型核武装偵察ロボット製造技術',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS4'),
+            points: '1. 広帯域小型化セパレータ製造技術\n' +
+              '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS5'),
+            points: '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS6'),
+            points: '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS7'),
+            points: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS8'),
+            points: '3. 圧電ジャイロスコープセンサー製造技術\n' +
+              '　(1) サポートシステムの設計、製造工程',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS9'),
+            points: '　(2) 圧電トランスデューサの貼付工程',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS10'),
+            points: '　(3) 金属振動子の構造設計、工程および熱処理技術',
             judgment2: '',
           },
           {
-            technicalnumber:'01',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS11'),
+            points: '　(4) 0校正システム構造設計および組立技術',
             judgment2: '',
           },
           {
-            technicalnumber:'02',
-            grade:  'X',
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(5) 0校正信号処理技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. 声表面波部品設計技術\n' +
+              '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '5. 声表面波部品製造技術\n' +
+              '　(1) 組合技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(2) 整合技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 大面積[220mm×20mm]フォトエッチング技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '01',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '8. イオンビーム処理改善グリッド電子発射技術',
+            judgment2: '',
+          },
+
+
+          {
+            technicalnumber: '02',
+            grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS12'),
+            points: '1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
+              '　(1) Cr-Ni-Ag金属遮断層焼結技術',
             judgment2: '',
           },
           {
-            technicalnumber:'02',
-            grade:  'X',
+            technicalnumber: '02',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS13'),
+            points: '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程',
             judgment2: '',
           },
           {
-            technicalnumber:'02',
-            grade:  'X',
+            technicalnumber: '02',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS14'),
+            points: '2. 導電抵抗＜2Ωのダイオード製造技術',
             judgment2: '',
           },
           {
-            technicalnumber:'03',
-            grade:  'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
-            judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS14'),
-            judgment2: '',
-          },
-          {
-            technicalnumber:'03',
-            grade:  'X',
+            technicalnumber: '02',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            points: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '03',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME5'),
+            judgment1: '',
+            points: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '03',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
             judgment2: '',
           },
 
           {
-            technicalnumber:'04',
-            grade:  'X',
-            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
+            technicalnumber: '04',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME6'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS15'),
+            points: '1. 高出力[100MW級]マイクロ波技術\n' +
+              '　(1) パルスパワー技術および重電子ビーム加速技術',
             judgment2: '',
           },
           {
-            technicalnumber:'04',
-            grade:  'X',
+            technicalnumber: '04',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS16'),
+            points: '　(2) 爆発性電磁圧縮技術',
             judgment2: '',
           },
           {
-            technicalnumber:'05',
-            grade:  'X',
+            technicalnumber: '05',
+            grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME7'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS17'),
+            points: '1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
+              '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術',
             judgment2: '',
           },
           {
-            technicalnumber:'05',
-            grade:  'X',
-            technicalname:'',
-            judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS18'),
-            judgment2: '',
-          },
-          {
-            technicalnumber:'05',
-            grade:  'X',
+            technicalnumber: '05',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS19'),
+            points: '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術',
             judgment2: '',
           },
           {
-            technicalnumber:'05',
-            grade:  'X',
+            technicalnumber: '05',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS20'),
-            judgment2: '',
-          },
-
-
-          {
-            technicalnumber:'06',
-            grade:  'X',
-            technicalname:this.$t('label.PFANS1028VIEW_COTECHNICALNAME8'),
-            judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS21'),
+            points: '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術',
             judgment2: '',
           },
           {
-            technicalnumber:'06',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '05',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS22'),
+            points: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
             judgment2: '',
           },
           {
-            technicalnumber:'06',
-            grade:  'X',
-            technicalname:'',
+            technicalnumber: '05',
+            grade: 'X',
+            technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS23'),
+            points: '3. 光ファイバー被覆ライン技術の工程パラメータ',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '05',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
             judgment2: '',
           },
 
           {
-            technicalnumber:'07',
-            grade:  'X',
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME8'),
+            judgment1: '',
+            points: '1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
+              '　(1) 全体設計技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(2) 本体、操作システム技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '　(3) 本体、補助機、外付け設備の製造および開発技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '06',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '07',
+            grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME9'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS24'),
+            points: '1. アンテナアレイ技術\n' +
+              '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ',
             judgment2: '',
           },
           {
-            technicalnumber:'07',
-            grade:  'X',
+            technicalnumber: '07',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS25'),
+            points: '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程',
             judgment2: '',
           },
           {
-            technicalnumber:'07',
-            grade:  'X',
+            technicalnumber: '07',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS26'),
+            points: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
             judgment2: '',
           },
           {
-            technicalnumber:'07',
-            grade:  'X',
+            technicalnumber: '07',
+            grade: 'X',
             technicalname: '',
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS27'),
+            points: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
             judgment2: '',
           },
-
           {
-            technicalnumber:'08',
-            grade:  'X',
+            technicalnumber: '07',
+            grade: 'X',
+            technicalname: '',
+            judgment1: '',
+            points: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
+            judgment2: '',
+          },
+          {
+            technicalnumber: '08',
+            grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME10'),
             judgment1: '',
-            points: this.$t('label.PFANS1028VIEW_POINTS28'),
+            points: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
             judgment2: '',
           },
         ],
         tableJasoftware: [
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_SOFTWARE1'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS58'),
+            points: this.$t('label.PFANS1028VIEW_POINTS58'),
             judgment2: '',
           },
-          { technicalnumber:'01',
+          {
+            technicalnumber: '01',
             grade: 'X',
-            technicalname:'',
+            technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS59'),
+            points: this.$t('label.PFANS1028VIEW_POINTS59'),
             judgment2: '',
           },
-          { technicalnumber:'02',
+          {
+            technicalnumber: '02',
             grade: 'X',
-            technicalname: this.$t('label.PFANS1028VIEW_SOFTWARE1'),
+            technicalname: this.$t('label.PFANS1028VIEW_SOFTWARE2'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS60'),
+            points: this.$t('label.PFANS1028VIEW_POINTS60'),
             judgment2: '',
           },
         ],
         tableGatetechnology: [
-          { technicalnumber:'07',
+          {
+            technicalnumber: '07',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL1'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS61'),
+            points: this.$t('label.PFANS1028VIEW_POINTS61'),
             judgment2: '',
           },
-          { technicalnumber:'07',
+          {
+            technicalnumber: '07',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS62'),
+            points: this.$t('label.PFANS1028VIEW_POINTS62'),
             judgment2: '',
           },
-          { technicalnumber:'07',
+          {
+            technicalnumber: '07',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS63'),
+            points: this.$t('label.PFANS1028VIEW_POINTS63'),
             judgment2: '',
           },
-          { technicalnumber:'02',
+          {
+            technicalnumber: '02',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL2'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS64'),
+            points: this.$t('label.PFANS1028VIEW_POINTS64'),
             judgment2: '',
           },
-          { technicalnumber:'05',
+          {
+            technicalnumber: '05',
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_GATETECHNICAL3'),
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS65'),
+            points: this.$t('label.PFANS1028VIEW_POINTS65'),
             judgment2: '',
           },
-          { technicalnumber:'05',
+          {
+            technicalnumber: '05',
             grade: 'X',
             technicalname: '',
             judgment1: '',
-            points:this.$t('label.PFANS1028VIEW_POINTS66'),
+            points: this.$t('label.PFANS1028VIEW_POINTS66'),
             judgment2: '',
           },
         ],
-
-        tableIndustrial: [{
-          japno: '4',
-          tradename: this.$t('label.PFANS1028VIEW_TRADENAME4'),
-          summary: this.$t('label.PFANS1028VIEW_SUMMARY4'),
-          judgment1: '',
-          payment: '8479509010',
-          bit: this.$t('label.PFANS1028VIEW_BIT4'),
-          judgment2: '',
-        },
+        tableIndustrial: [
           {
-            japno: '5',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME5'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY5'),
+            japno: '9',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME9'),
+            summary: '',
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '10',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME10'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY10'),
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '11',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME11'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY11'),
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '16',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME16'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY16'),
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '16',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME16'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY16'),
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '17',
+            tradename: 'ロボットまたは"端末機"',
+            summary: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
+              '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
+            judgment1: '',
+            payment: '8479509010',
+            bit: '台',
+            judgment2: '',
+          },
+          {
+            japno: '18',
+            tradename: 'ロボットまたは"端末機"用に設計された制御機器',
+            summary: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
             judgment1: '',
             payment: '8537109021',
-            bit: this.$t('label.PFANS1028VIEW_BIT5'),
+            bit: '',
             judgment2: '',
           },
           {
-            japno: '33',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME33'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY33'),
+            japno: '19',
+            tradename: 'ロボットまたは"端末機"用に設計されたソフトウェア',
+            summary: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計されたソフトウェア',
+            judgment1: '',
+            payment: '',
+            bit: '個/kg',
+            judgment2: '',
+          },
+          {
+            japno: '24',
+            tradename: '電子工学機器の制御用に設計されたソフトウェア',
+            summary: '｢フィードバック又は閉ループ制御技術とデジタル制御装置を使用する電動式の振動試験システム｣に記述されている制御システムと同時に使用或は｢試験部品を支える基盤構造と電子工学機器｣に記述されている制御電子学装置のために設計されたソフトウェア',
             judgment1: '',
             payment: '',
             bit: '',
             judgment2: '',
           },
           {
-            japno: '40',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME40'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY40'),
+            japno: '29',
+            tradename: '真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置された\n' +
+              'コンピューター制御システム及び監視システム用に設計されたソフトウェア',
+            summary: '核両用品及び関連技術輸出規制リストに記述されている真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置されたコンピューター制御システム及び監視システム用に設計されたソフトウェア',
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
+          {
+            japno: '35',
+            tradename: 'アイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
+            summary: '核両用品及び関連技術輸出規制リストに記述されているアイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
             judgment1: '',
             payment: '',
             bit: '',
             judgment2: '',
           },
         ],
-        tableElectronic: [{
-          japno: '48',
-          tradename: this.$t('label.PFANS1028VIEW_TRADENAME48'),
-          summary: '',
-          judgment1: '',
-          payment: '',
-          bit: this.$t('label.PFANS1028VIEW_BIT4'),
-          judgment2: '',
-        },
+        tableElectronic: [
+          {
+            japno: '48',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME48'),
+            summary: '',
+            judgment1: '',
+            payment: '',
+            bit: this.$t('label.PFANS1028VIEW_BIT4'),
+            judgment2: '',
+          },
           {
             japno: '49',
             tradename: this.$t('label.PFANS1028VIEW_TRADENAME49'),
@@ -1891,8 +2240,8 @@
           },
           {
             japno: '52',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY52'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME52'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '8526109011',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1900,8 +2249,8 @@
           },
           {
             japno: '53',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY53'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME53'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '8526109091',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1909,8 +2258,8 @@
           },
           {
             japno: '54',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY54'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME54'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '9014800020',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1918,8 +2267,8 @@
           },
           {
             japno: '55',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY55'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME55'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '9014209017',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1927,8 +2276,8 @@
           },
           {
             japno: '56',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY56'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME56'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '9014209018',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1936,8 +2285,8 @@
           },
           {
             japno: '57',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY57'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME57'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '9014209016',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1945,8 +2294,8 @@
           },
           {
             japno: '58',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY58'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME58'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '8537109021',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1954,8 +2303,8 @@
           },
           {
             japno: '59',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY59'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME59'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1963,8 +2312,8 @@
           },
           {
             japno: '60',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY60'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME60'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1972,8 +2321,8 @@
           },
           {
             japno: '61',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY61'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME61'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1981,8 +2330,8 @@
           },
           {
             japno: '62',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY62'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME62'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '8537109021',
             bit: this.$t('label.PFANS1028VIEW_BIT6'),
@@ -1990,8 +2339,8 @@
           },
           {
             japno: '63',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY63'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME63'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '',
             bit: '',
@@ -1999,8 +2348,8 @@
           },
           {
             japno: '64',
-            tradename: this.$t('label.PFANS1028VIEW_TRADENAME51'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY64'),
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME64'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY51'),
             judgment1: '',
             payment: '',
             bit: this.$t('label.PFANS1028VIEW_BIT4'),
@@ -2025,15 +2374,16 @@
             judgment2: '',
           },
         ],
-        tableCon: [{
-          japno: '98',
-          tradename: this.$t('label.PFANS1028VIEW_TRADENAME98'),
-          summary: this.$t('label.PFANS1028VIEW_SUMMARY98'),
-          judgment1: '',
-          payment: '',
-          bit: '',
-          judgment2: '',
-        },
+        tableCon: [
+          {
+            japno: '98',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME98'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY98'),
+            judgment1: '',
+            payment: '',
+            bit: '',
+            judgment2: '',
+          },
           {
             japno: '99',
             tradename: this.$t('label.PFANS1028VIEW_TRADENAME99'),
@@ -2107,15 +2457,16 @@
             judgment2: '',
           },
         ],
-        tableSof: [{
-          japno: '1',
-          tradename: this.$t('label.PFANS1028VIEW_TRADENAME1'),
-          summary: '',
-          judgment1: '',
-          payment: '8471411000',
-          bit: this.$t('label.PFANS1028VIEW_BIT4'),
-          judgment2: '',
-        },
+        tableSof: [
+          {
+            japno: '1',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME1'),
+            summary: '',
+            judgment1: '',
+            payment: '8471411000',
+            bit: this.$t('label.PFANS1028VIEW_BIT4'),
+            judgment2: '',
+          },
           {
             japno: '2',
             tradename: this.$t('label.PFANS1028VIEW_TRADENAME2'),
@@ -2128,7 +2479,7 @@
           {
             japno: '3',
             tradename: this.$t('label.PFANS1028VIEW_TRADENAME3'),
-            summary: this.$t('label.PFANS1028VIEW_SUMMARY103'),
+            summary: '',
             judgment1: '',
             payment: '8471491000',
             bit: this.$t('label.PFANS1028VIEW_BIT4'),
@@ -2199,7 +2550,6 @@
             this.form.claimdatetime = [serdate, serdate1];
 
             this.grouporglist = this.form.deployment;
-            debugger;
             if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
               for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
                 let aa = JSON.parse(response.limitcommunt)[i];
@@ -2272,6 +2622,15 @@
               }
             }
 
+            if (this.form.lijudegresult && this.form.lijudegresult.split(',').length > 0) {
+              let item = [];
+              for (let i of this.form.lijudegresult.split(',')) {
+                item.push(i);
+              }
+              this.form.lijudegresult = item;
+            } else {
+              this.form.lijudegresult = [];
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -2291,6 +2650,166 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      objectSpanMethod4({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 3,
+              colspan: 1
+            };
+          } else if (rowIndex === 3) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else if (rowIndex === 4) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      objectSpanMethod3({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 2) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      objectSpanMethod2({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 16,
+              colspan: 1
+            };
+          } else if (rowIndex === 16) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      objectSpanMethod1({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else if (rowIndex === 1) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 3) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else if (rowIndex === 4) {
+            return {
+              rowspan: 6,
+              colspan: 1
+            };
+          } else if (rowIndex === 10) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      objectSpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1 || columnIndex === 2 || columnIndex === 3) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 2) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else if (rowIndex === 3) {
+            return {
+              rowspan: 21,
+              colspan: 1
+            };
+          } else if (rowIndex === 24) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          } else if (rowIndex === 28) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 30) {
+            return {
+              rowspan: 2,
+              colspan: 1
+            };
+          } else if (rowIndex === 32) {
+            return {
+              rowspan: 6,
+              colspan: 1
+            };
+          } else if (rowIndex === 38) {
+            return {
+              rowspan: 5,
+              colspan: 1
+            };
+          } else if (rowIndex === 43) {
+            return {
+              rowspan: 5,
+              colspan: 1
+            };
+          } else if (rowIndex === 48) {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
       getChecked1(val) {
         this.checked1 = val;
         if (val === true) {
@@ -2328,23 +2847,6 @@
           this.form.review = '';
         }
       },
-
-      /*合并单元格*/
-    /*  CommunSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 0) {
-          if (rowIndex % 2 === 0) {
-            return {
-              rowspan: 2,
-              colspan: 1,
-            };
-          } else {
-            return {
-              rowspan: 0,
-              colspan: 0,
-            };
-          }
-        }
-      },*/
       getGroupId(val) {
         this.form.deployment = val;
         this.grouporglist = val;
@@ -2447,10 +2949,16 @@
                   jud2: this.tableSof[i].judgment2,
                 });
               }
-              this.form.limitcommunt=JSON.stringify(this.arrJud);
-              this.form.limitdelivery=JSON.stringify(this.arrdel);
-              this.form.limittechnology=JSON.stringify(this.arrgate);
-              this.form.limitcomputers=JSON.stringify(this.arrput);
+              let lijudegresult = '';
+              for (let item of this.form.lijudegresult) {
+                lijudegresult += item + ",";
+              }
+              lijudegresult = lijudegresult.substr(0, lijudegresult.length - 1);
+              this.form.lijudegresult = lijudegresult;
+              this.form.limitcommunt = JSON.stringify(this.arrJud);
+              this.form.limitdelivery = JSON.stringify(this.arrdel);
+              this.form.limittechnology = JSON.stringify(this.arrgate);
+              this.form.limitcomputers = JSON.stringify(this.arrput);
               this.form.limitjasoftware = JSON.stringify(this.arrsofe);
               this.form.supplieindustrial = JSON.stringify(this.arrIndustrial);
               this.form.supplielectronic = JSON.stringify(this.arrElectronic);
@@ -2488,6 +2996,246 @@
         }
       },
     },
+    watch: {
+      tableIndustrial: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableIndustrial = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableIndustrial = '1';
+              return
+            }
+          }
+          this.radioSujud.tableIndustrial = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableElectronic: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableElectronic = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableElectronic = '1';
+              return
+            }
+          }
+          this.radioSujud.tableElectronic = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableCon: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableCon = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableCon = '1';
+              return
+            }
+          }
+          this.radioSujud.tableCon = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableSof: {
+        handler(val) {
+
+          for (let item of val) {
+            if (item.judgment1 && item.judgment1 === '2') {
+              this.radioSujud.tableSof = '2';
+              return;
+            } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              this.radioSujud.tableSof = '1';
+              return
+            }
+          }
+          this.radioSujud.tableSof = '0';
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      radioSujud: {
+        handler(val) {
+          if (val.tableIndustrial === '2' || val.tableElectronic === '2' || val.tableCon === '2' || val.tableSof === '2') {
+            this.form.sujudegresult = '2'
+          } else if (val.tableIndustrial === '1' || val.tableElectronic === '1' || val.tableCon === '1' || val.tableSof === '1') {
+            this.form.sujudegresult = '1'
+          } else {
+            this.form.sujudegresult = '0'
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableCommun: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableCommun = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableCommun = '2';
+                return
+              }
+              this.radiolijudegresult.tableCommun = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableCommun = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableCommun = '3';
+                return
+              }
+              this.radiolijudegresult.tableCommun = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableDelivery: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableDelivery = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableDelivery = '2';
+                return
+              }
+              this.radiolijudegresult.tableDelivery = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableDelivery = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableDelivery = '3';
+                return
+              }
+              this.radiolijudegresult.tableDelivery = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableComputers: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableComputers = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableComputers = '2';
+                return
+              }
+              this.radiolijudegresult.tableComputers = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableComputers = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableComputers = '3';
+                return
+              }
+              this.radiolijudegresult.tableComputers = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableJasoftware: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableJasoftware = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableJasoftware = '2';
+                return
+              }
+              this.radiolijudegresult.tableJasoftware = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableJasoftware = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableJasoftware = '3';
+                return
+              }
+              this.radiolijudegresult.tableJasoftware = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      tableGatetechnology: {
+        handler(val) {
+          for (let item of val) {
+            if (item.grade === 'J') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '2';
+                return
+              }
+              this.radiolijudegresult.tableGatetechnology = '0';
+            } else if (item.grade === 'X') {
+              if (item.judgment1 && item.judgment1 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '4';
+                return;
+              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+                this.radiolijudegresult.tableGatetechnology = '3';
+                return
+              }
+              this.radiolijudegresult.tableGatetechnology = '1';
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+      radiolijudegresult: {
+        handler(val) {
+          this.form.lijudegresult = [];
+          if (val.tableCommun === '4' || val.tableDelivery === '4' || val.tableComputers === '4' || val.tableJasoftware === '4' || val.tableGatetechnology === '4') {
+            this.form.lijudegresult.push('4')
+            return;
+          }
+          if (val.tableCommun === '3' || val.tableDelivery === '3' || val.tableComputers === '3' || val.tableJasoftware === '3' || val.tableGatetechnology === '3') {
+            this.form.lijudegresult.push('3')
+          } else {
+            this.form.lijudegresult.push('1')
+          }
+
+          if (val.tableCommun === '2' || val.tableDelivery === '2' || val.tableComputers === '2' || val.tableJasoftware === '2' || val.tableGatetechnology === '2') {
+            this.form.lijudegresult.push('2')
+          } else {
+            this.form.lijudegresult.push('0')
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+        deep: true  // 可以深度检测到 person 对象的属性值的变化
+      }
+    }
   };
 </script>
 

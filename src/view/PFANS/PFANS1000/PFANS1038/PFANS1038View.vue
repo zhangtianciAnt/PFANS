@@ -35,7 +35,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from "element-ui";
-  import {getDictionaryInfo, getOrgInfo, getUserInfo} from "../../../../utils/customize";
+  import {getUserInfo} from "../../../../utils/customize";
   import moment from "moment";
 
   export default {
@@ -154,6 +154,7 @@
         this.id = row.personnelplanid;
       },
       buttonClick(val) {
+        debugger;
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);
         if ("update" === val) {
           if (!this.id) {

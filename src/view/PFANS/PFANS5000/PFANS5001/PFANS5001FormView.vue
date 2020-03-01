@@ -1490,9 +1490,10 @@
             }
             //项目体制
             if (response.projectsystem.length > 0) {
+              this.tableB = [];
+              this.tableC = [];
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
-                  this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1505,9 +1506,7 @@
                   o.exittime = response.projectsystem[i].exittime;
                   o.rowindex = response.projectsystem[i].rowindex;
                   this.tableB.push(o);
-
                 } else {
-                  this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1526,9 +1525,9 @@
             //项目合同
             if (response.projectcontract.length > 0) {
               this.tableD = response.projectcontract;
+              this.tableB = [];
               for (var i = 0; i < response.projectcontract.length; i++) {
                 if (response.projectcontract[i].type === '0') {
-                  this.tableB = [];
                   let o = {};
                   o.name = response.projectcontract[i].projectcontract_id;
                   o.companyprojects_id = response.projectcontract[i].companyprojects_id;
@@ -1716,12 +1715,14 @@
         this.currentRow1 = val.expname;
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
+        this.currentRow4 = val.suppliernameid;
       },
       submit(row) {
         row.number = this.currentRow;
         row.name = this.currentRow1;
         row.company = this.currentRow2;
         row.position = this.currentRow3;
+        row.suppliernameid = this.currentRow4;
         this.dialogTableVisible1 = false;
       },
       handleClickChange1(val) {
@@ -1962,6 +1963,7 @@
           number: '',
           company: '',
           name: '',
+          suppliernameid: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2047,6 +2049,7 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor', {})
           .then(response => {
+            console.log(response);
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
@@ -2054,6 +2057,7 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               vote1.post = response[i].post;
+              vote1.suppliernameid = response[i].cooperuserid;
               this.gridData1.push(vote1);
             }
             this.centerorglist = this.form.center_id;
@@ -2176,12 +2180,14 @@
               if (
                 this.tableC[i].number !== '' ||
                 this.tableC[i].name !== '' ||
+                this.tableC[i].suppliernameid !== '' ||
                 this.tableC[i].admissiontime !== '' ||
                 this.tableC[i].exittime !== ''
               ) {
                 this.baseInfo.projectsystem.push({
                   number: this.tableC[i].number,
                   name: this.tableC[i].name,
+                  suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   company: this.tableC[i].company,
                   admissiontime: this.tableC[i].admissiontime,
