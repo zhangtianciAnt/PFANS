@@ -127,15 +127,16 @@
                   response[j].contracttype = letContracttype.value1;
                 }
               }
+              if (response[j].openingdate !== null && response[j].openingdate !== ""){
+                response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
+              }
               if (response[j].enddate !== null && response[j].enddate !== ""){
                 response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
               }
               if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== ""){
                 response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
               }
-              if (response[j].openingdate !== null && response[j].openingdate !== ""){
-                response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
-              }
+
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
               }
