@@ -14,7 +14,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getStatus} from '@/utils/customize';
   import {Message} from 'element-ui';
 
 
@@ -30,7 +30,7 @@
         data: [],
         columns:[
           {
-            code: 'decisionnumber',
+            code: 'gfjudgeno',
             label: 'label.PFANS1028VIEW_NO',
             width: 150,
             fix: false,
@@ -51,7 +51,7 @@
             filter: true
           },
           {
-            code: 'name',
+            code: 'janame',
             label: 'label.PFANS1028VIEW_NAME',
             width: 150,
             fix: false,
@@ -89,7 +89,7 @@
           {
             code: 'claimdatetime',
             label: 'label.PFANS1028VIEW_PERIOD',
-            width: 150,
+            width: 170,
             fix: false,
             filter: true
           },
@@ -97,6 +97,13 @@
             code: 'technical',
             label: 'label.PFANS1028VIEW_TECHNICAL',
             width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
             fix: false,
             filter: true
           }
@@ -114,15 +121,34 @@
       this.$store
         .dispatch('PFANS1028Store/get',{})
         .then(response => {
-          // for (let j = 0; j < response.length; j++) {
-          //   if(response[j].contracttype !== null && response[j].contracttype !== ""){
-          //     response[j].contracttype = getDictionaryInfo(response[j].contracttype).value1;
-          //   }
-          //
-          //   if(response[j].currencyposition !== null && response[j].currencyposition !== ""){
-          //     response[j].currencyposition = getDictionaryInfo(response[j].currencyposition).value1;
-          //   }
-          // }
+          for (let j = 0; j < response.length; j++){
+            if(response[j].requirements !== null && response[j].requirements !== ""){
+              if(response[j].requirements === "0"){
+                response[j].requirements = this.$t('label.PFANS1028VIEW_NOT');
+              } else {
+                response[j].requirements = this.$t('label.PFANS1028VIEW_YES');
+              }
+            }
+            if(response[j].review !== null && response[j].review !== ""){
+              if(response[j].review === "2"){
+                response[j].review = this.$t('label.PFANS1028VIEW_NOPANASG');
+              } else {
+                response[j].review = this.$t('label.PFANS1028VIEW_PANASG');
+              }
+            }
+            if (response[j].varto !== null && response[j].varto !== "") {
+              let letContracttype = getDictionaryInfo(response[j].varto);
+              if (letContracttype != null) {
+                response[j].varto = letContracttype.value1;
+              }
+            }
+            if (response[j].contractnumber !== null && response[j].contractnumber !== "") {
+              response[j].gfjudgeno='GF-'+response[j].contractnumber;
+            }
+            if (response[j].status !== null && response[j].status !== "") {
+              response[j].status = getStatus(response[j].status);
+            }
+          }
           this.data = response;
           this.loading = false;
         })

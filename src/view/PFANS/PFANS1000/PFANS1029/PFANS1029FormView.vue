@@ -123,36 +123,38 @@
                         :data="tableData"
                         style="width: 100%">
                         <el-table-column
-                          prop="submitTime"
+                          prop="claimtype"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          prop="deliverydate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="completiondate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="claimdate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-
+                          prop="supportdate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
-                          width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                        </el-date-picker>
+                          width="150">
                         </el-table-column>
                         <el-table-column
-                          prop="requestAmount"
+                          prop="claimamount"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
+                          width="150">
+                        </el-table-column>
+                        <el-table-column
+                          prop="currencyposition"
+                          :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
                           width="150">
                         </el-table-column>
                       </el-table>
@@ -347,39 +349,41 @@
 
               <template>
                 <el-table
-                  :data="tableData"
+                  :data="tableData2"
                   style="width: 100%">
                   <el-table-column
-                    prop="submitTime"
+                    prop="claimtype"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    prop="deliverydate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="completiondate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="claimdate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-
+                    prop="supportdate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
-                    width="150"><el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                  </el-date-picker>
+                    width="150">
                   </el-table-column>
                   <el-table-column
-                    prop="requestAmount"
+                    prop="claimamount"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
+                    width="150">
+                  </el-table-column>
+                  <el-table-column
+                    prop="currencyposition"
+                    :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
                     width="150">
                   </el-table-column>
                 </el-table>
@@ -419,7 +423,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
 
   export default {
@@ -462,7 +466,7 @@
         error: '',
         userlist: '',
         code1: 'HT008',
-        code2: 'PJ079',
+        code2: 'HT006',
         code3: 'PJ080',
         errorgroup:'',
         selectType: "Single",
@@ -473,24 +477,8 @@
         orglist:'',
         baseInfo: {},
         flag: 0,
-          tableData: [
-              {
-                  submitTime:'1',
-                  submitDate:'',
-                  acceptanceDate:'',
-                  requestDate:'',
-                  payDate:'',
-                  requestAmount:'452'
-              },
-              {
-                  submitTime:'2',
-                  submitDate:'',
-                  acceptanceDate:'',
-                  requestDate:'',
-                  payDate:'',
-                  requestAmount:'100'
-              }
-          ],
+        tableData: [],
+        tableData2: [],
         form: {
             contract_id:'',
             contractnumber:'',
@@ -567,16 +555,32 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
-              if(response.contracttype === 'HT008001'||response.contracttype === 'HT008002'||response.contracttype === 'HT008005'||response.contracttype === 'HT008006')
+            for (let i = 0; i < response.numberCount.length; i++) {
+              if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
+                let letCurrencyposition = getDictionaryInfo(response.numberCount[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numberCount[i].currencyposition = letCurrencyposition.value1;
+                }
+              }
+            }
+
+            if (response.depositjapanese !== null && response.depositjapanese !== "") {
+              let letUser = getUserInfo(response.depositjapanese);
+              if (letUser != null) {
+                response.depositjapanese = letUser.userinfo.customername;
+              }
+            }
+              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
               {
                 this.flag = 0;//技术类型
                 this.activeName1 = 'first',
                 this.form = response;
-
+                this.tableData = response.numberCount;
               }else{
                 this.flag = 1;//业务类型
                 this.activeName1 = 'second',
                 this.form2 = response;
+                this.tableData2 = response.numberCount;
               }
             this.loading = false;
 

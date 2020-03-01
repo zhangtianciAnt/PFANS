@@ -15,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getStatus} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -78,9 +78,16 @@
             filter: true
           },
           {
-            code: 'claimdatetime',
-            label: 'label.PFANS1025VIEW_DEVELOPDATE',
-            width: 150,
+            code: 'openingdate',
+            label: 'label.PFANS1025VIEW_OPENINGDATE',
+            width: 140,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'enddate',
+            label: 'label.PFANS1025VIEW_ENDDATE',
+            width: 140,
             fix: false,
             filter: true
           },
@@ -88,6 +95,13 @@
             code: 'deliveryfinshdate',
             label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
             width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
             fix: false,
             filter: true
           }
@@ -107,9 +121,23 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-
-              if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== "") {
+              if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].enddate !== null && response[j].enddate !== ""){
+                response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+              }
+              if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== ""){
                 response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format("YYYY-MM-DD");
+              }
+              if (response[j].openingdate !== null && response[j].openingdate !== ""){
+                response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
+              }
+              if (response[j].status !== null && response[j].status !== "") {
+                response[j].status = getStatus(response[j].status);
               }
             }
           }

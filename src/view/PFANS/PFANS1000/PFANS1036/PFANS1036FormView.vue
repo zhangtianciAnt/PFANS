@@ -6,9 +6,6 @@
       v-loading="loading"
       :title="title"
       @buttonClick="buttonClick"
-      @end="end"
-      @start="start"
-      @workflowState="workflowState"
       ref="container"
     >
       <div slot="customize">
@@ -17,13 +14,6 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" name="first">
               <div>
-                <el-date-picker
-                  v-model="month"
-                  type="month"
-                  align="right"
-                  :picker-options="pickerOptions"
-                  placeholder="选择月">
-                </el-date-picker>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
@@ -6792,22 +6782,6 @@
         } else {
           this.error = '';
         }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('save');
-      },
-      start() {
-        this.form.status = '2';
-        this.buttonClick('save');
-      },
-      end() {
-        this.form.status = '0';
-        this.buttonClick('save');
       },
       deleteRowF(index, rows) {
         if (rows.length > 1) {

@@ -7,7 +7,7 @@
     v-loading="loading"
   >
     <div slot="customize" style="margin-top:2vw">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
+      <el-form :model="form" label-position="top" label-width="8vw" ref="form">
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane
             label="现实点人员"
@@ -25,7 +25,7 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="supchinese"
+                prop="suppliername"
                 label="外驻先"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
@@ -51,14 +51,14 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
+                  <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </template>
               </el-table-column>
               <el-table-column
@@ -88,6 +88,7 @@
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
+                <template slot-scope="scope">
                 <el-select size="small" v-model="scope.row.supchinese" placeholder="请选择">
                   <el-option
                     v-for="item in externalOption"
@@ -96,6 +97,7 @@
                     :value="item.supplierinfor_id">
                   </el-option>
                 </el-select>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="name"
@@ -144,16 +146,16 @@
                 label="新规采用入社预定日"
                 width="200"
                 align="center"
-                >
+              >
                 <template slot-scope="scope">
-                <el-date-picker
-                  v-model="scope.row.entermouth"
-                  type="month"
-                  style="width:10vw"
-                  placeholder="请选择"
-                  size="small"
-                 v-show="!scope.row.isoutside">
-                </el-date-picker>
+                  <el-date-picker
+                    v-model="scope.row.entermouth"
+                    type="month"
+                    style="width:10vw"
+                    placeholder="请选择"
+                    size="small"
+                    v-show="!scope.row.isoutside">
+                  </el-date-picker>
                   <span v-show="scope.row.isoutside">{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
@@ -165,7 +167,7 @@
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
-                  @change="val => changeOption(val,scope.row)">
+                    @change="val => changeOption(val,scope.row)">
                   </el-switch>
                 </template>
               </el-table-column>
@@ -262,20 +264,23 @@
         buttonList:[],
         titles: this.$route.params.type === 0 ? "社员计划" : "外驻计划",
         form:{
-          year:""
+          years:""
         }
       };
     },
     computed:{
       getThisYearLevel:function () {
-           if(this.form.year){
-             return this.form.year + "";
-           }else{
-             this.form.year = moment().subtract(3,'M').format('YYYY');
-            return this.form.year + "";
-           }
+        if(this.form.year){
+          return this.form.years + "";
+        }else{
+          this.form.years = moment().subtract(3,'M').format('YYYY');
+          return this.form.years + "";
+        }
       },
-      getNextYearLevel:(parseInt(this.getThisYearLevel) + 1) + ""
+      getNextYearLevel:function () {
+        debugger
+        return (parseInt(this.getThisYearLevel) + 1) + "";
+      }
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -290,6 +295,7 @@
       }
     },
     mounted() {
+      this.getExternal();
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
       }else{
@@ -312,7 +318,6 @@
                   return {name: res.userinfo.customername, userid: res.userid, thisyear: res.userinfo.rank};
                 }
               )
-              console.log(this.tableData);
             }
           })
           .catch(error => {
@@ -329,7 +334,7 @@
           .then(response => {
             debugger
             if (response.length > 0) {
-              this.newTableData = response;
+              this.tableData = response;
             }
           })
           .catch(error => {
@@ -362,10 +367,12 @@
         this.$store
           .dispatch("PFANS1038Store/getOne", id)
           .then(response => {
-              this.loading = false;
-              this.form = response;
-              this.form.employed = JSON.parse(this.form.employed);
-              this.form.employed = JSON.parse(this.form.employed);
+            this.loading = false;
+            this.form = response;
+            debugger
+            console.log(JSON.parse(this.form.employed));
+            this.tableData = JSON.parse(this.form.employed);
+            this.newTableData = JSON.parse(this.form.newentry);
           })
           .catch(error => {
             Message({
@@ -377,7 +384,7 @@
           });
       },
       formatterDic(row, column) {
-        if (column.property === "thisyear") {
+        if (column.property === "thisyear" && this.$route.params.type === 0) {
           if (row[column.property]) {
             debugger
             let dic = getDictionaryInfo(row[column.property]);
@@ -387,6 +394,8 @@
           }
         } else if (column.property === "entermouth") {
           return "-";
+        }else{
+          return row[column.property];
         }
       },
       deleteRow(index, rows) {
@@ -405,6 +414,7 @@
       buttonClick(val) {
         this.form.employed = JSON.stringify(this.tableData);
         this.form.newentry = JSON.stringify(this.newTableData);
+        this.form.type = this.$route.params.type;
         if (!this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -429,7 +439,6 @@
             });
         } else {
           this.loading = true;
-          this.form.type = this.$route.params.type;
           this.$store
             .dispatch("PFANS1038Store/update", this.form)
             .then(response => {

@@ -1012,6 +1012,22 @@ module.exports = {
     PFANS1027VIEW: '見積書(受託)',
     PFANS1027FORMVIEW_JAPANESE: '委託元場所（和文）',
     PFANS1027FORMVIEW_FRUITNAME: '成果物名称',
+    PFANS1027VIEW_UNITPRICE: '単価（ドル/人月）',
+    PFANS1027VIEW_MANHOUR: '工数（人月）',
+    PFANS1027VIEW_COST: '費用',
+    PFANS1027VIEW_CONTENT: '業務内容',
+    PFANS1027VIEW_ANALYSIS: '仕様分析',
+    PFANS1027VIEW_DESIGN: 'システム設計',
+    PFANS1027VIEW_DETAILED: '詳細設計',
+    PFANS1027VIEW_VERIFICATION: '検証設計',
+    PFANS1027VIEW_IMPLEMENTATION: '実装',
+    PFANS1027VIEW_DEBUG: '検証・デバッグ',
+    PFANS1027FORMVIEW_PERSON: '人件費',
+    PFANS1027FORMVIEW_OTHER: '其他費用',
+    PFANS1027VIEW_UNIT: '通貨单位',
+    PFANS1027FORMVIEW_APPOINT1: '下記機能を実装したVer2.2リリース' +
+      '・CentOS 7.3対応\n' +
+      '・マガジン複数コンテナ化',
     PFANS1028VIEW_NO: '管理NO.',
     PFANS1028VIEW_CAREER: '事業場名',
     PFANS1028VIEW_ORGANIZATION: '組織名',
@@ -1043,7 +1059,7 @@ module.exports = {
     PFANS1028VIEW_OTHERC2: 'その他の国へ',
     PFANS1028VIEW_OTHER: 'その他',
     PFANS1028VIEW_DETERMINE: '該非判定明細*期間末時点を予測して判定',
-    PFANS1028VIEW_OUTPUTLIMIT2: '(1) 輸出禁止・輸出制限技術リストの内にあるか？（判定書管理No:)',
+    PFANS1028VIEW_OUTPUTLIMIT2: '(1) 輸出禁止・輸出制限技術リストの内にあるか？',
     PFANS1028VIEW_TODAY: '作成年月日',
     PFANS1028VIEW_EXPORT: '輸出貨物/技術名',
     PFANS1028VIEW_JUDGENO: '判定書管理NO．',
@@ -1104,16 +1120,44 @@ module.exports = {
     PFANS1028VIEW_SUMMARY: '概要',
     PFANS1028VIEW_PAYMENT: '税関コード',
     PFANS1028VIEW_BIT: '単位',
-    PFANS1028VIEW_TRADENAME4: '  ロボットまたは"端末機"',
-    PFANS1028VIEW_SUMMARY4: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
+
+
+    PFANS1028VIEW_TRADENAME9: 'ロール成形機とロール機能を持つスパイラル加工機と\n' +
+      '芯軸用に設計されたソフトウェア',
+    PFANS1028VIEW_TRADENAME10: '核両用品及び関連技術規制リスト工業設備の「数値制御」ユニットや\n' +
+      '「数値制御」工作機械の"開発"、"生産"、"使用"のために\n' +
+      '設計または修正されたソフトウェア。',
+    PFANS1028VIEW_SUMMARY10: '説明：\n' +
+      '(1)単独で輸出するｿﾌﾄと｢数値制御｣ユニットや電子装置やシステムにインストールされてるソフトはすべて対象になる。\n' +
+      '(2)制御ユニット又は工作機械のメーカが非制御工作機械を操作するために設計または修正されたソフトウェアは対象外になる。',
+    PFANS1028VIEW_TRADENAME11: '電子装置・システムに供給され、自在に組合せ使用できるソフトウェア',
+    PFANS1028VIEW_SUMMARY11: '該当装置に｢数値制御｣ユニットの作用を付けさせ、五つ又はもっと多くの\n' +
+      '同時に調整し行う｢型整合制御｣の内挿軸を制御できる。\n' +
+      '(1)単独で輸出するｿﾌﾄと｢数値制御｣ユニットや電子装置やシステムにインストールされてるソフトはすべて対象になる。\n' +
+      '(2)制御ユニット又は工作機械のメーカが非制御工作機械を操作するために設計または修正されたソフトウェアは対象外になる。',
+
+    PFANS1028VIEW_TRADENAME16: '寸法測定器、装置又はシステム用に設計されたソフトウェア',
+    PFANS1028VIEW_SUMMARY16: '核両用品及び関連技術輸出規制リストの工業設備の寸法検査用の\n' +
+      '機器･装置･システムのために、設計したソフトウェア（壁厚さと軸郭を測るソフトウェアも含み）',
+    PFANS1028VIEW_TRADENAME17: '  ロボットまたは"端末機"',
+    PFANS1028VIEW_SUMMARY17: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
       '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
+    PFANS1028VIEW_SUMMARY18: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
+    PFANS1028VIEW_TRADENAME19: 'ロボットまたは"端末機"用に設計されたソフトウェア',
+    PFANS1028VIEW_SUMMARY19: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計されたソフトウェア',
+    PFANS1028VIEW_TRADENAME24: '電子工学機器の制御用に設計されたソフトウェア',
+    PFANS1028VIEW_SUMMARY24:'｢フィードバック又は閉ループ制御技術とデジタル制御装置を使用する電動式の振動試験システム｣に記述されている制御システムと同時に使用或は｢試験部品を支える基盤構造と電子工学機器｣に記述されている制御電子学装置のために設計されたソフトウェア',
+    PFANS1028VIEW_TRADENAME29: '真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置された\n' +
+      'コンピューター制御システム及び監視システム用に設計されたソフトウェア',
+    PFANS1028VIEW_SUMMARY29:'核両用品及び関連技術輸出規制リストに記述されている真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置されたコンピューター制御システム及び監視システム用に設計されたソフトウェア',
+    PFANS1028VIEW_TRADENAME35: 'アイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
+    PFANS1028VIEW_SUMMARY35:'核両用品及び関連技術輸出規制リストに記述されているアイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
     PFANS1028VIEW_BIT4: '台',
-    PFANS1028VIEW_TRADENAME5: 'ロボットまたは"端末機"用に設計された制御機器',
-    PFANS1028VIEW_SUMMARY5: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
     PFANS1028VIEW_BIT5: '个',
+    PFANS1028VIEW_BIT6: '個',
+    PFANS1028VIEW_BIT7: '個/k',
     PFANS1028VIEW_TRADENAME33: 'ロボットまたは"端末機"用に設計されたソフトウェア  ',
     PFANS1028VIEW_SUMMARY33: '核両用品及び関連技術輸出規制',
-    PFANS1028VIEW_BIT6: '個',
     PFANS1028VIEW_TRADENAME48: 'ミサイル再突入体用に設計した電子設備',
     PFANS1028VIEW_TRADENAME49: '電子受信妨害設備',
     PFANS1028VIEW_SUMMARY49: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの電子受信妨害設備',
@@ -1213,1049 +1257,115 @@ module.exports = {
     PFANS1028VIEW_GATETECHNICAL1: '目標特徴抽出及び識別技術',
     PFANS1028VIEW_GATETECHNICAL2: '大地測量技術',
     PFANS1028VIEW_GATETECHNICAL3: '音響学工程技術',
+    PFANS1028VIEW_POINTS1: '"耐放射技術、工程\n' +
+      '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011RAD(SI)-SのCMOS/SOS[SI-ON SAPPHIRE/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
+      '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011RAD(SI)-Sの双電極部品製造技術',
+    PFANS1028VIEW_POINTS2: '遠隔操作型核武装偵察ロボット製造技術',
 
-    PFANS1028VIEW_points1: '"耐放射技術、工程\n' +
-      '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
-      '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
-    PFANS1028VIEW_points2: '遠隔操作型核武装偵察ロボット製造技術',
-
-    PFANS1028VIEW_points3: '"1. 広帯域小型化セパレータ製造技術\n' +
+    PFANS1028VIEW_POINTS3: '"1. 広帯域小型化セパレータ製造技術\n' +
       '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程"\t\t\t\n' +
-      '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
+      '　(2) 極狭FERROMAGNETIC共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
       '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術\t\t\t\n',
-    PFANS1028VIEW_points4: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
-    PFANS1028VIEW_points5: '"3. 圧電ジャイロスコープセンサー製造技術\n' +
+    PFANS1028VIEW_POINTS4: '2. 広帯域[2～8GHZ]懸架配線式周波数分割器設計技術及び製造工程',
+    PFANS1028VIEW_POINTS5: '"3. 圧電ジャイロスコープセンサー製造技術\n' +
       '　(1) サポートシステムの設計、製造工程\n' +
       '"\t\t\t\n' +
       '　(2) 圧電トランスデューサの貼付工程\t\t\t\n' +
       '　(3) 金属振動子の構造設計、工程および熱処理技術\t\t\t\n' +
       '　(4) 0校正システム構造設計および組立技術\t\t\t\n' +
       '　(5) 0校正信号処理技術\t\t\t\n',
-    PFANS1028VIEW_points6: '"4. 声表面波部品設計技術\n' +
-      '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)"\t\t\t\n' +
-      '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)\t\t\t\n' +
-      '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)\t\t\t\n' +
-      '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)\t\t\t\n' +
-      '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)\t\t\t\n' +
-      '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)\t\t\t\n',
-    PFANS1028VIEW_points7: '"5. 声表面波部品製造技術\n' +
+    PFANS1028VIEW_POINTS6: '"4. 声表面波部品設計技術\n' +
+      '　(1) 声表面波フィルター(周波数＞2GHZ、帯域外抑制＞70DB、挿入損失＜1.5DB)"\t\t\t\n' +
+      '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHZ)\t\t\t\n' +
+      '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHZ)\t\t\t\n' +
+      '　(4) 声表面波固定遅延線(周波数＞2GHZ、遅延時間＞300ΜS)\t\t\t\n' +
+      '　(5) 声表面波分散型遅延線(周波数＞500MHZ、時帯積＞10,000、サイドローブ抑制＞32DB)\t\t\t\n' +
+      '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32DB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)\t\t\t\n',
+    PFANS1028VIEW_POINTS7: '"5. 声表面波部品製造技術\n' +
       '　(1) 組合技術"\t\t\t\n' +
       '　(2) 整合技術\t\t\t\n' +
-      '　(3) 大面積[220mm×20mm]フォトエッチング技術\t\t\t\n',
-    PFANS1028VIEW_points8: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
-    PFANS1028VIEW_points9: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
-    PFANS1028VIEW_points10: '8. イオンビーム処理改善グリッド電子発射技術',
-    PFANS1028VIEW_points11: '"1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
-      '　(1) Cr-Ni-Ag金属遮断層焼結技術\n' +
+      '　(3) 大面積[220MM×20MM]フォトエッチング技術\t\t\t\n',
+    PFANS1028VIEW_POINTS8: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
+    PFANS1028VIEW_POINTS9: '7. マルチビーム・クライストロン(KLYSTRON)設計および結像技術',
+    PFANS1028VIEW_POINTS10: '8. イオンビーム処理改善グリッド電子発射技術',
+    PFANS1028VIEW_POINTS11: '"1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
+      '　(1) CR-NI-AG金属遮断層焼結技術\n' +
       '"\t\t\t\n' +
-      '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程\t\t\t\n',
-    PFANS1028VIEW_points12: '2. 導電抵抗＜2Ωのダイオード製造技術',
-    PFANS1028VIEW_points13: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
-    PFANS1028VIEW_points14: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
-    PFANS1028VIEW_points15: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
-    PFANS1028VIEW_points16: '"1. 高出力[100MW級]マイクロ波技術\n' +
+      '　(2) SIO2およびSI3N4絶縁膜ゲート電極形成工程\t\t\t\n',
+    PFANS1028VIEW_POINTS12: '2. 導電抵抗＜2Ωのダイオード製造技術',
+    PFANS1028VIEW_POINTS13: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
+    PFANS1028VIEW_POINTS14: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
+    PFANS1028VIEW_POINTS15: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
+    PFANS1028VIEW_POINTS16: '"1. 高出力[100MW級]マイクロ波技術\n' +
       '　(1) パルスパワー技術および重電子ビーム加速技術"\t\t\t\n' +
       '　(2) 爆発性電磁圧縮技術\t\t\t\n',
-    PFANS1028VIEW_points17: '"1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
-      '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術"\t\t\t\n' +
-      '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術\t\t\t\n' +
-      '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術\t\t\t\n',
-    PFANS1028VIEW_points18: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
-    PFANS1028VIEW_points19: '3. 光ファイバー被覆ライン技術の工程パラメータ',
-    PFANS1028VIEW_points20: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
-    PFANS1028VIEW_points21: '"1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
+    PFANS1028VIEW_POINTS17: '"1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
+      '　(1) 10.6ΜM光損失＜1DB/Mのガラス光ファイバーの成分および調製技術"\t\t\t\n' +
+      '　(2) 10.6ΜM光損失＜0.5DB/Mのクリスタル 光ファイバー調製技術\t\t\t\n' +
+      '　(3) 10.6ΜM光損失＜1DB/Mの空芯光ファイバーの材料および調製技術\t\t\t\n',
+    PFANS1028VIEW_POINTS18: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
+    PFANS1028VIEW_POINTS19: '3. 光ファイバー被覆ライン技術の工程パラメータ',
+    PFANS1028VIEW_POINTS20: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
+    PFANS1028VIEW_POINTS21: '"1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
       '　(1) 全体設計技術"\t\t\t\n' +
       '　(2) 本体、操作システム技術\t\t\t\n' +
       '　(3) 本体、補助機、外付け設備の製造および開発技術\t\t\t\n',
-    PFANS1028VIEW_points22: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
-    PFANS1028VIEW_points23: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
-    PFANS1028VIEW_points24: '"1. アンテナアレイ技術\n' +
+    PFANS1028VIEW_POINTS22: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
+    PFANS1028VIEW_POINTS23: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
+    PFANS1028VIEW_POINTS24: '"1. アンテナアレイ技術\n' +
       '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ"\t\t\t\n' +
-      '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程\t\t\t\n',
-    PFANS1028VIEW_points25: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
-    PFANS1028VIEW_points26: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
-    PFANS1028VIEW_points27: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
-    PFANS1028VIEW_points28: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
+      '　(2) 広帯域[Cバンド＞800MHZ]給電部精密加工工程\t\t\t\n',
+    PFANS1028VIEW_POINTS25: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
+    PFANS1028VIEW_POINTS26: '3. 周波数帯域幅＞100MHZ、ダイナミックレンジ＞90DBの集積音声-光ヘテロダイン (HETERODYNE)受信技術',
+    PFANS1028VIEW_POINTS27: '4. C/NOが46DB.HZを下回るCDMA突発信号スピードキャッチ技術',
+    PFANS1028VIEW_POINTS28: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
 
-    PFANS1028VIEW_points30: 'わが国の政府、政治、経済、金融部門に使用されているし、国家機密に関わる情報安全機密保持技術',
-    PFANS1028VIEW_points31: '下記のいずれかに関連する衛星制御情報伝送暗号化技術\n' +
+    PFANS1028VIEW_POINTS30: 'わが国の政府、政治、経済、金融部門に使用されているし、国家機密に関わる情報安全機密保持技術',
+    PFANS1028VIEW_POINTS31: '下記のいずれかに関連する衛星制御情報伝送暗号化技術\n' +
       '1.暗号化原理、案及びコース設計技術',
-    PFANS1028VIEW_points32: '2.暗号化と解読のソフトウェア、ハードウェア',
-    PFANS1028VIEW_points33: 'スーパーコンピュータ[演算回数≧1300億回]ネットワークシステム、パラレル処理技術',
-    PFANS1028VIEW_points34: '1. テレビ、電話の機密保持技術\n' +
+    PFANS1028VIEW_POINTS32: '2.暗号化と解読のソフトウェア、ハードウェア',
+    PFANS1028VIEW_POINTS33: 'スーパーコンピュータ[演算回数≧1300億回]ネットワークシステム、パラレル処理技術',
+    PFANS1028VIEW_POINTS34: '1. テレビ、電話の機密保持技術\n' +
       '　(1) パスワード設定技術',
-    PFANS1028VIEW_points35: '2. わが国が研究、開発し、軍事用の情報伝送暗号化、解読処理技術',
-    PFANS1028VIEW_points36: '"3. 海底低周波数電磁通信技術\n' +
+    PFANS1028VIEW_POINTS35: '2. わが国が研究、開発し、軍事用の情報伝送暗号化、解読処理技術',
+    PFANS1028VIEW_POINTS36: '"3. 海底低周波数電磁通信技術\n' +
       '　(1) 低周波数電磁場を利用して海底通信を行う技術"\t\t\t\n' +
       '　(2) 低雑音増幅技術\t\t\t\n' +
       '　(3) 高感度および耐通信妨害技術\t\t\t\n',
-    PFANS1028VIEW_points37: '4.通信機密保持技術\n' +
+    PFANS1028VIEW_POINTS37: '4.通信機密保持技術\n' +
       '　わが国のため、研究開発、設計、生産の各種通信機密保持機器と通信暗号化技術',
-    PFANS1028VIEW_points38: '"1.以下のいずれかに関連する双星航路標識位置測定システム\n' +
+    PFANS1028VIEW_POINTS38: '"1.以下のいずれかに関連する双星航路標識位置測定システム\n' +
       '①入場信号即時取得ユニットの信号フォーム、部品構造と製造工程"\t\t\t\n' +
       '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ\t\t\t\n' +
       '③システムの情報伝送体制、デバッグ方式、幀構造\t\t\t\n',
-    PFANS1028VIEW_points39: '2.画像迅速処理方法とソフトウェア',
-    PFANS1028VIEW_points40: '1.知能漢字音声開発ツール技術',
-    PFANS1028VIEW_points41: '2. Character式漢字表示制御器の設計、製造工程',
-    PFANS1028VIEW_points42: '3. コンピュータ中国語システムの中核コア技術',
-    PFANS1028VIEW_points43: '4. 工事図面のコンピュータ補助設計[CAD]およびファイル管理システムのラスタ (raster)/ベクトル (vector)混合情報処理方法',
-    PFANS1028VIEW_points44: '5. 中国語プラットフォーム技術(中国語処理コア技術)',
-    PFANS1028VIEW_points45: '6. 情報の保存/読込、暗号化/解読処理技術',
-    PFANS1028VIEW_points46: '7. 中国語/外国語翻訳技術',
-    PFANS1028VIEW_points47: '8. 少数民族言語処理技術',
-    PFANS1028VIEW_points48: '9. 漢字、言語音声識別技術',
-    PFANS1028VIEW_points49: '10. 中国語/少数民族言語言語音声合成技術',
-    PFANS1028VIEW_points50: '11. 漢字圧縮、圧縮解除技術',
-    PFANS1028VIEW_points51: '12. 活字体漢字識別技術、プログラム構造、主要算法およびソースプログラム',
-    PFANS1028VIEW_points52: '13. ビデオテックス (Videotex)システムの漢字処理技術およびネットワーク間制御技術',
-    PFANS1028VIEW_points53: '14. 対話および自習機能を持つオフライン手書き漢字識別システムおよびその方法',
-    PFANS1028VIEW_points54: '15. コンピュータ漢字入力識別方法に使用される、筆記体サンプル、活字体サンプルおよび漢字コーパス',
-    PFANS1028VIEW_points55: '16. 漢字識別の特徴抽出方法およびテキスト分割技術のソースプログラム',
-    PFANS1028VIEW_points56: '1. パラレル型知能Reduceステーション',
-    PFANS1028VIEW_points57: '2. CIMS[コンピュータ統合製造方式]実験工程',
-    PFANS1028VIEW_points58: '1. スーパーコンピュータ[演算回数≧1300億回]ソフトウェア技術',
-    PFANS1028VIEW_points59: '2. パラレルコンピュータのマイクロカーネルおよびマルチスレッド実現技術、プログラムパラレル識別技術およびパラレル最適化編集ソースプログラム',
-    PFANS1028VIEW_points60: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_points61: '1.目標特徴 (Target signature)光スペクトル',
-    PFANS1028VIEW_points62: '2.目標特徴および関連データベース',
-    PFANS1028VIEW_points63: '3.目標画像特徴抽出',
-    PFANS1028VIEW_points64: 'わが国大地制御網全体平差方法とソフトウェア技術',
-    PFANS1028VIEW_points65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
-    PFANS1028VIEW_points66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
-    PFANS1028VIEW_NO: '管理NO.',
-    PFANS1028VIEW_CAREER: '事業場名',
-    PFANS1028VIEW_ORGANIZATION: '組織名',
-    PFANS1028VIEW_NAME: 'ﾌﾟﾛｼﾞｪｸﾄ名',
-    PFANS1028VIEW_COUNTRY: '委託元国',
-    PFANS1028VIEW_REVIEW: '客観要件審査',
-    PFANS1028VIEW_REQUIREMENTS: '客観要件',
-    PFANS1028VIEW_PERIOD: '期間',
-    PFANS1028VIEW_TECHNICAL: '技術名称と内容',
-    PFANS1028VIEW_JUDGE: 'ﾌﾟﾛｼﾞｪｸﾄ一括判定用',
-    PFANS1028VIEW_OUTPUTLIMIT: '輸出禁止・輸出制限技術リスト',
-    PFANS1028VIEW_OUTPUTSUPPLIE: '両用品及び技術の輸出入許可証管理リスト',
-    PFANS1028VIEW_OUTPUTMANAGEMENT: '輸出管理 該非判定・輸出決裁書 <ﾌﾟﾛｼﾞｪｸﾄ一括判定用>',
-    PFANS1028VIEW_REQUIREMENTS1: '顧客：松下Ｇ.',
-    PFANS1028VIEW_REQUIREMENTS2: '用途：民生用途（研究開発等）→両方あてはまる場合、非該当.',
-    PFANS1028VIEW_REQUIREMENTS3: '顧客：非松下Ｇ→客観要件審査へ(ﾁｪｯｸｼｰﾄ添付).',
-    PFANS1028VIEW_NOT: '非該当',
-    PFANS1028VIEW_YES: '該当',
-    PFANS1028VIEW_POSSIBLE: '輸出形態予測（全ての可能性を回答）',
-    PFANS1028VIEW_BOOKS: '書類提供',
-    PFANS1028VIEW_SOFTWARE: 'ソフトウェア提供',
-    PFANS1028VIEW_MAIL: 'E-MAIL',
-    PFANS1028VIEW_SERVER: 'サーバー.',
-    PFANS1028VIEW_MEETING: '技術討論・会議(NDA内)',
-    PFANS1028VIEW_COUNTRY2: '委託元国と',
-    PFANS1028VIEW_OTHERC: 'その他の国と',
-    PFANS1028VIEW_OVERSEA: '海外発表、海外展示',
-    PFANS1028VIEW_COUNTRY3: '委託元国へ',
-    PFANS1028VIEW_OTHERC2: 'その他の国へ',
-    PFANS1028VIEW_OTHER: 'その他',
-    PFANS1028VIEW_DETERMINE: '該非判定明細*期間末時点を予測して判定',
-    PFANS1028VIEW_OUTPUTLIMIT2: '(1) 輸出禁止・輸出制限技術リストの内にあるか？（判定書管理No:)',
-    PFANS1028VIEW_TODAY: '作成年月日',
-    PFANS1028VIEW_EXPORT: '輸出貨物/技術名',
-    PFANS1028VIEW_JUDGENO: '判定書管理NO．',
-    PFANS1028VIEW_COMMUNICATION: '通信デバイス、コンピューター及び電子デバイス製造',
-    PFANS1028VIEW_DELIVERY: '通信と情報伝送サービス',
-    PFANS1028VIEW_COMPUTERS: 'コンピュータ－サービス',
-    PFANS1028VIEW_JASOFTWARE: 'ソフトウェア',
-    PFANS1028VIEW_GATETECHNOLOGY: '専門技術サービス',
-    PFANS1028VIEW_JUDGMENTRESULT: '該非判定結果',
-    PFANS1028VIEW_TECHNICALNUMBER: '技術名称番号',
-    PFANS1028VIEW_GRADE: '制御等級',
-    PFANS1028VIEW_TECHNICALNAME: '技術名称',
-    PFANS1028VIEW_POINTS: '規制要点',
-    PFANS1028VIEW_JUDGMENT1: '判定対象①',
-    PFANS1028VIEW_JUDGMENT2: '判定対象②',
-    PFANS1028VIEW_INDUSTRIAL: '工業設備',
-    PFANS1028VIEW_ELECTRONIC: '電子設備',
-    PFANS1028VIEW_COM: 'ソフトウェア',
-    PFANS1028VIEW_SOF: 'コンピュータ',
-    PFANS1028VIEW_JAPANNO: 'ﾌﾟﾛｼﾞｪｸﾄNO',
-    PFANS1028VIEW_MANAGEMENT2: '(2)両用品及び技術輸出入許可証管理リストに関する該非判定',
-    PFANS1028VIEW_REASON: '判定項番および理由',
-    PFANS1028VIEW_ELEPHANTS: '対象外',
-    PFANS1028VIEW_DECRESULT: '判定結果',
-    PFANS1028VIEW_MANAGEMENT3: '(3)商用暗号管理条例に関する該非判定暗号化と解読化を中核機能とする専用ﾊｰﾄﾞ･ｿﾌﾄｳｴｱか',
-    PFANS1028VIEW_POSSIBILITY: '（可能性無し）',
-    PFANS1028VIEW_MANAGEMENT4: '（当ﾌﾟﾛｼﾞｪｸﾄで期間中に輸出管理該当申請する技術が発生する可能性の有無)',
-    PFANS1028VIEW_YES2: '該当の可能性有り→商務部に確認',
-    PFANS1028VIEW_YES3: '該当(要輸出許可/個別決裁へ',
-    PFANS1028VIEW_ELEPHANTS2: '対象外（可能性無し）',
-    PFANS1028VIEW_JUDGED: '商務部判定',
-    PFANS1028VIEW_RULES1: '規制リスト非該当である　',
-    PFANS1028VIEW_RULES2: '規制リスト対象外である',
-    PFANS1028VIEW_EXPORTEAR: '米国再輸出規制（EAR）',
-    PFANS1028VIEW_AMERICANTECHNOLOGY: '米国の技術である、または米国の技術を含む',
-    PFANS1028VIEW_JANO: 'はい',
-    PFANS1028VIEW_JANOJUDGE: 'いいえ→ EAR該非判定',
-    PFANS1028VIEW_OUGHT: '該当(ECCN NO.: )',
-    PFANS1028VIEW_JUDGECOMPLEMENT: '判定補足',
-    PFANS1028VIEW_DETERMINER: '判定者',
-    PFANS1028VIEW_JAPANTL: 'ﾌﾟﾛｼﾞｪｸﾄＴＬ',
-    PFANS1028VIEW_JAPANGM: 'ﾌﾟﾛｼﾞｪｸﾄＧＭ',
-    PFANS1028VIEW_OUTPUTCONTACT: '輸出管理連絡者',
-    PFANS1028VIEW_OUTPUTMANAGER: '輸出管理責任者',
-    PFANS1028VIEW_MANAGER: '総経理',
-    PFANS1028VIEW_SURNAME: '氏　名　',
-    PFANS1028VIEW_DETERMINATION: '判定年月日',
-    PFANS1028VIEW_PRINT: '印',
-    PFANS1028VIEW_JUDGECOMPLEMENT2: '備考',
-    PFANS1028VIEW_FIANLRESULT: '最終判定',
-    PFANS1028VIEW_EXPORTLICENSE: '輸出許可証',
-    PFANS1028VIEW_NECESSARY: '必要',
-    PFANS1028VIEW_UNNECESSARY: '必要無し',
-    PFANS1028VIEW_CANOUTPUT: '輸出可',
-    PFANS1028VIEW_NOTOUTPUT: '輸出不可',
-    PFANS1028VIEW_JAPNO: 'ｼﾘｱﾙNO',
-    PFANS1028VIEW_TRADENAME: '商品名称',
-    PFANS1028VIEW_SUMMARY: '概要',
-    PFANS1028VIEW_PAYMENT: '税関コード',
-    PFANS1028VIEW_BIT: '単位',
-    PFANS1028VIEW_TRADENAME4: '  ロボットまたは"端末機"',
-    PFANS1028VIEW_SUMMARY4: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
-      '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
-    PFANS1028VIEW_BIT4: '台',
-    PFANS1028VIEW_TRADENAME5: 'ロボットまたは"端末機"用に設計された制御機器',
-    PFANS1028VIEW_SUMMARY5: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
-    PFANS1028VIEW_BIT5: '个',
-    PFANS1028VIEW_TRADENAME33: 'ロボットまたは"端末機"用に設計されたソフトウェア  ',
-    PFANS1028VIEW_SUMMARY33: '核両用品及び関連技術輸出規制',
-    PFANS1028VIEW_BIT6: '個',
-    PFANS1028VIEW_TRADENAME48: 'ミサイル再突入体用に設計した電子設備',
-    PFANS1028VIEW_TRADENAME49: '電子受信妨害設備',
-    PFANS1028VIEW_SUMMARY49: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの電子受信妨害設備',
-    PFANS1028VIEW_TRADENAME50: '小型電気回路と測定器',
-    PFANS1028VIEW_SUMMARY50: '抗輻射強化電子回路と探査測定器、電磁パルス防御、X線、衝撃波と熱輻射総合損害回避装置',
-    PFANS1028VIEW_TRADENAME51: 'ミサイル、ロケット等の誘導に使用するレーダー設備',
-    PFANS1028VIEW_SUMMARY51: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの目標探査測定',
-    PFANS1028VIEW_TRADENAME52: 'ミサイル、ロケット等に搭載するレーダー設備',
-    PFANS1028VIEW_TRADENAME53: 'ミサイル、ロケット等に使用するその他のレーダー設備',
-    PFANS1028VIEW_TRADENAME54: '高度計',
-    PFANS1028VIEW_TRADENAME55: '地形等高線地図作成設備',
-    PFANS1028VIEW_TRADENAME56: 'シーン・ドラフト及び関連設備（デジタルとアナログマシンを含む）',
-    PFANS1028VIEW_TRADENAME57: '映像センサー設備',
-    PFANS1028VIEW_TRADENAME58: '特別設計した誘導情報処理設備',
-    PFANS1028VIEW_TRADENAME59: '伝導熱排除用電子装置とその部品',
-    PFANS1028VIEW_TRADENAME60: '抗輻射強化電子回路とその部品',
-    PFANS1028VIEW_TRADENAME61: '125℃以上の温度で短期作動できる電子装置と部品',
-    PFANS1028VIEW_TRADENAME62: '全体構造支柱部品用に設計した電子装置とその部品',
-    PFANS1028VIEW_TRADENAME63: '遠隔測定設備及び技術',
-    PFANS1028VIEW_TRADENAME64: '遠隔測定又は遠隔制御地上設備\t',
-    PFANS1028VIEW_TRADENAME65: 'アナログ計算機とデジタル計算機',
-    PFANS1028VIEW_SUMMARY65: '連続作動時の環境温度範囲が－45℃度～+55℃；或いは強化または抗輻射強化したアナログ計算機とデジタル計算装置',
-    PFANS1028VIEW_TRADENAME66: 'アナログ/デジタル変換器\t',
-    PFANS1028VIEW_SUMMARY66: '"以下の特徴を有するもの：\n' +
-      '1.環境温度範囲－54℃～+125℃内で連続作動可能、なお\n' +
-      '2.強化設備に適する軍事用技術基準に設計可能、或いは\n' +
-      '3.軍事用品に設計又は改造、或いは抗輻射能製品に設計可能である、なお以下のいずれの項目の特徴を有するもの：\n' +
-      '(1)限定精度の下で変換速度が200000回/秒の完全変換可能\n' +
-      '(2)定められた作動温度範囲内で精度が全測定過程中１/10000以上に達する\n' +
-      '(3)品質因子（精度で秒変換速度を割算した結果）が\n' +
-      '1×100000000以上\n' +
-      '(4)組込アナログ/デジタル変換器微型回路は以下の特性がある。\n' +
-      '①最大画面解像度時、最大転換時間＜20μs\n' +
-      '②定められてる作動温度範囲内，定額の非線形度＞全測定過程の0.025%"\t\t\n',
-    PFANS1028VIEW_TRADENAME98: ' ソフトウェア',
-    PFANS1028VIEW_SUMMARY98: '事後記録データーを処理して、飛行機器の全飛行過程中の位置を確定できるソフトウェア',
-    PFANS1028VIEW_TRADENAME99: 'レーダー波反射特性を抑える構造部品、構造材料、塗料及び特別設計した光学反射又は輻射を抑える塗料の生産設備、技術及び特別設計したソフトウェア',
-    PFANS1028VIEW_TRADENAME100: 'レーダー反射率、紫外/赤外線と音声信号を低減する技術及び専門設計のソフトウェア',
-    PFANS1028VIEW_TRADENAME101: '飛行制御用および測定用のソフトウェア',
-    PFANS1028VIEW_TRADENAME102: 'レーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_SUMMARY102: '弾道ミサイル、キャリアロケット、探測ロケット、巡航ミサイル、無人操縦飛行器の特有設計のレーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_TRADENAME103: 'システムの構築、シミュレーション又は全体設計用ソフトウェア',
-    PFANS1028VIEW_SUMMARY103: 'ミサイル、ロケットの関連設計と実験技術',
-    PFANS1028VIEW_TRADENAME104: '堆積熱分解及び圧縮強化プロセス制御装置用に特別設計したソフトウェア　',
-    PFANS1028VIEW_TRADENAME105: '三次元又は多次元連動したプログラム制御のインターレーシングマシン用に設計したデジタル制御ソフトウエア',
-    PFANS1028VIEW_TRADENAME106: '２つまたは２つ以上の次元を有するＮＣ及びプログラム制御テープ敷設機用に特別設計したソフトウェア',
-    PFANS1028VIEW_PROHIBITED: '禁止リスト対象',
-    PFANS1028VIEW_LIMITATION: '制限リスト対象',
-    PFANS1028VIEW_RESTRICTED: '制限リスト内にある場合下記を判定（該非判定）',
-    PFANS1028VIEW_WEAPON: '目的判定：軍事、武器目的か?',
-    PFANS1028VIEW_WORD: '先進性判定：世界でも先進の技術か？',
-    PFANS1028VIEW_SPECIFI: '具体製品化判定：実演出来る程度の完成度になるか？',
-    PFANS1028VIEW_NOTALL: 'すべて「いいえ」→□ 非該当',
-    PFANS1028VIEW_POSSCAN: '「はい」がある →□ 該当の可能性有り',
-    PFANS1028VIEW_RESON: '理由',
-    PFANS1028VIEW_PRONO: 'いいえ',
-    PFANS1028VIEW_TRADENAME1: ' 超大型・大型・中型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME2: '小型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME3: 'システム形式で検査を申し込んだ超大型・大型・中型機（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME4: 'システム形式で検査を申し込んだ小型コンピュータ（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME5: '超大型・大型・中型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）',
-    PFANS1028VIEW_TRADENAME6: '小型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）ア',
-    PFANS1028VIEW_SUJUDEGRESULT1: '（判定対象①と②に○がある場合。）　\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象であり、輸出規制品目である。',
-    PFANS1028VIEW_SUJUDEGRESULT2: '(判定対象①には○があるが②が×の場合）\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」について非該当である。',
-    PFANS1028VIEW_SUJUDEGRESULT3: '（全て×である。○がひとつもない場合） \t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象外である。  ',
-    PFANS1028VIEW_LIJUDEGRESULT1: '（制御等級「Ｊ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト」の対象であり、「輸出禁止」である。',
-    PFANS1028VIEW_LIJUDEGRESULT2: '（制御等級「Ｘ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出制限リスト」の対象であり、「輸出制限品目」である。（→商務部に確認）',
-    PFANS1028VIEW_LIJUDEGRESULT3: '（判定対象①には○があるが、②が×の場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト（Ｊ）」について「非該当」である。\t\t\t\n',
-    PFANS1028VIEW_LIJUDEGRESULT4: '当技術は、「輸出制限リスト（×）」について「非該当」である。',
-    PFANS1028VIEW_LIJUDEGRESULT5: '（○がひとつもない。全て×である。）\t\t\t\n' +
-      '当技術は、「輸出禁止・輸出制限リスト」の対象外である。\t',
-    PFANS1028VIEW_COTECHNICALNAME1: '集積回路製造技術',
-    PFANS1028VIEW_COTECHNICALNAME2: 'ロボット製造技術',
-    PFANS1028VIEW_COTECHNICALNAME3: '電子部品製造技術',
-    PFANS1028VIEW_COTECHNICALNAME4: '半導体デバイス製造技術',
-    PFANS1028VIEW_COTECHNICALNAME5: 'センサー製造技術',
-    PFANS1028VIEW_COTECHNICALNAME6: 'マイクロ波技術',
-    PFANS1028VIEW_COTECHNICALNAME7: '光ファイバー製造及び通信技術',
-    PFANS1028VIEW_COTECHNICALNAME8: 'コンピュータのハードウエア及び外部設備製造技術',
-    PFANS1028VIEW_COTECHNICALNAME9: '無線通信技術',
-    PFANS1028VIEW_COTECHNICALNAME10: 'ロボット製造技術',
-    PFANS1028VIEW_DETECHNICALNAME1: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME2: '空間データ伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME3: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME4: '通信伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME5: '衛星応用技術',
-    PFANS1028VIEW_COMTECHNICAL1: '情報処理技術',
-    PFANS1028VIEW_COMTECHNICAL2: ' コンピュータ応用技術',
-    PFANS1028VIEW_SOFTWARE1: 'コンピュータの通常ソフトウエア編成技術',
-    PFANS1028VIEW_SOFTWARE2: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_GATETECHNICAL1: '目標特徴抽出及び識別技術',
-    PFANS1028VIEW_GATETECHNICAL2: '大地測量技術',
-    PFANS1028VIEW_GATETECHNICAL3: '音響学工程技術',
-
-    PFANS1028VIEW_points1: '"耐放射技術、工程\n' +
-      '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
-      '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
-    PFANS1028VIEW_points2: '遠隔操作型核武装偵察ロボット製造技術',
-
-    PFANS1028VIEW_points3: '"1. 広帯域小型化セパレータ製造技術\n' +
-      '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程"\t\t\t\n' +
-      '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
-      '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術\t\t\t\n',
-    PFANS1028VIEW_points4: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
-    PFANS1028VIEW_points5: '"3. 圧電ジャイロスコープセンサー製造技術\n' +
-      '　(1) サポートシステムの設計、製造工程\n' +
-      '"\t\t\t\n' +
-      '　(2) 圧電トランスデューサの貼付工程\t\t\t\n' +
-      '　(3) 金属振動子の構造設計、工程および熱処理技術\t\t\t\n' +
-      '　(4) 0校正システム構造設計および組立技術\t\t\t\n' +
-      '　(5) 0校正信号処理技術\t\t\t\n',
-    PFANS1028VIEW_points6: '"4. 声表面波部品設計技術\n' +
-      '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)"\t\t\t\n' +
-      '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)\t\t\t\n' +
-      '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)\t\t\t\n' +
-      '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)\t\t\t\n' +
-      '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)\t\t\t\n' +
-      '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)\t\t\t\n',
-    PFANS1028VIEW_points7: '"5. 声表面波部品製造技術\n' +
-      '　(1) 組合技術"\t\t\t\n' +
-      '　(2) 整合技術\t\t\t\n' +
-      '　(3) 大面積[220mm×20mm]フォトエッチング技術\t\t\t\n',
-    PFANS1028VIEW_points8: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
-    PFANS1028VIEW_points9: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
-    PFANS1028VIEW_points10: '8. イオンビーム処理改善グリッド電子発射技術',
-    PFANS1028VIEW_points11: '"1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
-      '　(1) Cr-Ni-Ag金属遮断層焼結技術\n' +
-      '"\t\t\t\n' +
-      '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程\t\t\t\n',
-    PFANS1028VIEW_points12: '2. 導電抵抗＜2Ωのダイオード製造技術',
-    PFANS1028VIEW_points13: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
-    PFANS1028VIEW_points14: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
-    PFANS1028VIEW_points15: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
-    PFANS1028VIEW_points16: '"1. 高出力[100MW級]マイクロ波技術\n' +
-      '　(1) パルスパワー技術および重電子ビーム加速技術"\t\t\t\n' +
-      '　(2) 爆発性電磁圧縮技術\t\t\t\n',
-    PFANS1028VIEW_points17: '"1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
-      '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術"\t\t\t\n' +
-      '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術\t\t\t\n' +
-      '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術\t\t\t\n',
-    PFANS1028VIEW_points18: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
-    PFANS1028VIEW_points19: '3. 光ファイバー被覆ライン技術の工程パラメータ',
-    PFANS1028VIEW_points20: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
-    PFANS1028VIEW_points21: '"1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
-      '　(1) 全体設計技術"\t\t\t\n' +
-      '　(2) 本体、操作システム技術\t\t\t\n' +
-      '　(3) 本体、補助機、外付け設備の製造および開発技術\t\t\t\n',
-    PFANS1028VIEW_points22: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
-    PFANS1028VIEW_points23: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
-    PFANS1028VIEW_points24: '"1. アンテナアレイ技術\n' +
-      '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ"\t\t\t\n' +
-      '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程\t\t\t\n',
-    PFANS1028VIEW_points25: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
-    PFANS1028VIEW_points26: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
-    PFANS1028VIEW_points27: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
-    PFANS1028VIEW_points28: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
-
-    PFANS1028VIEW_points30: 'わが国の政府、政治、経済、金融部門に使用されているし、国家機密に関わる情報安全機密保持技術',
-    PFANS1028VIEW_points31: '下記のいずれかに関連する衛星制御情報伝送暗号化技術\n' +
-      '1.暗号化原理、案及びコース設計技術',
-    PFANS1028VIEW_points32: '2.暗号化と解読のソフトウェア、ハードウェア',
-    PFANS1028VIEW_points33: 'スーパーコンピュータ[演算回数≧1300億回]ネットワークシステム、パラレル処理技術',
-    PFANS1028VIEW_points34: '1. テレビ、電話の機密保持技術\n' +
-      '　(1) パスワード設定技術',
-    PFANS1028VIEW_points35: '2. わが国が研究、開発し、軍事用の情報伝送暗号化、解読処理技術',
-    PFANS1028VIEW_points36: '"3. 海底低周波数電磁通信技術\n' +
-      '　(1) 低周波数電磁場を利用して海底通信を行う技術"\t\t\t\n' +
-      '　(2) 低雑音増幅技術\t\t\t\n' +
-      '　(3) 高感度および耐通信妨害技術\t\t\t\n',
-    PFANS1028VIEW_points37: '4.通信機密保持技術\n' +
-      '　わが国のため、研究開発、設計、生産の各種通信機密保持機器と通信暗号化技術',
-    PFANS1028VIEW_points38: '"1.以下のいずれかに関連する双星航路標識位置測定システム\n' +
-      '①入場信号即時取得ユニットの信号フォーム、部品構造と製造工程"\t\t\t\n' +
-      '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ\t\t\t\n' +
-      '③システムの情報伝送体制、デバッグ方式、幀構造\t\t\t\n',
-    PFANS1028VIEW_points39: '2.画像迅速処理方法とソフトウェア',
-    PFANS1028VIEW_points40: '1.知能漢字音声開発ツール技術',
-    PFANS1028VIEW_points41: '2. Character式漢字表示制御器の設計、製造工程',
-    PFANS1028VIEW_points42: '3. コンピュータ中国語システムの中核コア技術',
-    PFANS1028VIEW_points43: '4. 工事図面のコンピュータ補助設計[CAD]およびファイル管理システムのラスタ (raster)/ベクトル (vector)混合情報処理方法',
-    PFANS1028VIEW_points44: '5. 中国語プラットフォーム技術(中国語処理コア技術)',
-    PFANS1028VIEW_points45: '6. 情報の保存/読込、暗号化/解読処理技術',
-    PFANS1028VIEW_points46: '7. 中国語/外国語翻訳技術',
-    PFANS1028VIEW_points47: '8. 少数民族言語処理技術',
-    PFANS1028VIEW_points48: '9. 漢字、言語音声識別技術',
-    PFANS1028VIEW_points49: '10. 中国語/少数民族言語言語音声合成技術',
-    PFANS1028VIEW_points50: '11. 漢字圧縮、圧縮解除技術',
-    PFANS1028VIEW_points51: '12. 活字体漢字識別技術、プログラム構造、主要算法およびソースプログラム',
-    PFANS1028VIEW_points52: '13. ビデオテックス (Videotex)システムの漢字処理技術およびネットワーク間制御技術',
-    PFANS1028VIEW_points53: '14. 対話および自習機能を持つオフライン手書き漢字識別システムおよびその方法',
-    PFANS1028VIEW_points54: '15. コンピュータ漢字入力識別方法に使用される、筆記体サンプル、活字体サンプルおよび漢字コーパス',
-    PFANS1028VIEW_points55: '16. 漢字識別の特徴抽出方法およびテキスト分割技術のソースプログラム',
-    PFANS1028VIEW_points56: '1. パラレル型知能Reduceステーション',
-    PFANS1028VIEW_points57: '2. CIMS[コンピュータ統合製造方式]実験工程',
-    PFANS1028VIEW_points58: '1. スーパーコンピュータ[演算回数≧1300億回]ソフトウェア技術',
-    PFANS1028VIEW_points59: '2. パラレルコンピュータのマイクロカーネルおよびマルチスレッド実現技術、プログラムパラレル識別技術およびパラレル最適化編集ソースプログラム',
-    PFANS1028VIEW_points60: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_points61: '1.目標特徴 (Target signature)光スペクトル',
-    PFANS1028VIEW_points62: '2.目標特徴および関連データベース',
-    PFANS1028VIEW_points63: '3.目標画像特徴抽出',
-    PFANS1028VIEW_points64: 'わが国大地制御網全体平差方法とソフトウェア技術',
-    PFANS1028VIEW_points65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
-    PFANS1028VIEW_points66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
-    PFANS1028VIEW_NO: '管理NO.',
-    PFANS1028VIEW_CAREER: '事業場名',
-    PFANS1028VIEW_ORGANIZATION: '組織名',
-    PFANS1028VIEW_NAME: 'ﾌﾟﾛｼﾞｪｸﾄ名',
-    PFANS1028VIEW_COUNTRY: '委託元国',
-    PFANS1028VIEW_REVIEW: '客観要件審査',
-    PFANS1028VIEW_REQUIREMENTS: '客観要件',
-    PFANS1028VIEW_PERIOD: '期間',
-    PFANS1028VIEW_TECHNICAL: '技術名称と内容',
-    PFANS1028VIEW_JUDGE: 'ﾌﾟﾛｼﾞｪｸﾄ一括判定用',
-    PFANS1028VIEW_OUTPUTLIMIT: '輸出禁止・輸出制限技術リスト',
-    PFANS1028VIEW_OUTPUTSUPPLIE: '両用品及び技術の輸出入許可証管理リスト',
-    PFANS1028VIEW_OUTPUTMANAGEMENT: '輸出管理 該非判定・輸出決裁書 <ﾌﾟﾛｼﾞｪｸﾄ一括判定用>',
-    PFANS1028VIEW_REQUIREMENTS1: '顧客：松下Ｇ.',
-    PFANS1028VIEW_REQUIREMENTS2: '用途：民生用途（研究開発等）→両方あてはまる場合、非該当.',
-    PFANS1028VIEW_REQUIREMENTS3: '顧客：非松下Ｇ→客観要件審査へ(ﾁｪｯｸｼｰﾄ添付).',
-    PFANS1028VIEW_NOT: '非該当',
-    PFANS1028VIEW_YES: '該当',
-    PFANS1028VIEW_POSSIBLE: '輸出形態予測（全ての可能性を回答）',
-    PFANS1028VIEW_BOOKS: '書類提供',
-    PFANS1028VIEW_SOFTWARE: 'ソフトウェア提供',
-    PFANS1028VIEW_MAIL: 'E-MAIL',
-    PFANS1028VIEW_SERVER: 'サーバー.',
-    PFANS1028VIEW_MEETING: '技術討論・会議(NDA内)',
-    PFANS1028VIEW_COUNTRY2: '委託元国と',
-    PFANS1028VIEW_OTHERC: 'その他の国と',
-    PFANS1028VIEW_OVERSEA: '海外発表、海外展示',
-    PFANS1028VIEW_COUNTRY3: '委託元国へ',
-    PFANS1028VIEW_OTHERC2: 'その他の国へ',
-    PFANS1028VIEW_OTHER: 'その他',
-    PFANS1028VIEW_DETERMINE: '該非判定明細*期間末時点を予測して判定',
-    PFANS1028VIEW_OUTPUTLIMIT2: '(1) 輸出禁止・輸出制限技術リストの内にあるか？（判定書管理No:)',
-    PFANS1028VIEW_TODAY: '作成年月日',
-    PFANS1028VIEW_EXPORT: '輸出貨物/技術名',
-    PFANS1028VIEW_JUDGENO: '判定書管理NO．',
-    PFANS1028VIEW_COMMUNICATION: '通信デバイス、コンピューター及び電子デバイス製造',
-    PFANS1028VIEW_DELIVERY: '通信と情報伝送サービス',
-    PFANS1028VIEW_COMPUTERS: 'コンピュータ－サービス',
-    PFANS1028VIEW_JASOFTWARE: 'ソフトウェア',
-    PFANS1028VIEW_GATETECHNOLOGY: '専門技術サービス',
-    PFANS1028VIEW_JUDGMENTRESULT: '該非判定結果',
-    PFANS1028VIEW_TECHNICALNUMBER: '技術名称番号',
-    PFANS1028VIEW_GRADE: '制御等級',
-    PFANS1028VIEW_TECHNICALNAME: '技術名称',
-    PFANS1028VIEW_POINTS: '規制要点',
-    PFANS1028VIEW_JUDGMENT1: '判定対象①',
-    PFANS1028VIEW_JUDGMENT2: '判定対象②',
-    PFANS1028VIEW_INDUSTRIAL: '工業設備',
-    PFANS1028VIEW_ELECTRONIC: '電子設備',
-    PFANS1028VIEW_COM: 'ソフトウェア',
-    PFANS1028VIEW_SOF: 'コンピュータ',
-    PFANS1028VIEW_JAPANNO: 'ﾌﾟﾛｼﾞｪｸﾄNO',
-    PFANS1028VIEW_MANAGEMENT2: '(2)両用品及び技術輸出入許可証管理リストに関する該非判定',
-    PFANS1028VIEW_REASON: '判定項番および理由',
-    PFANS1028VIEW_ELEPHANTS: '対象外',
-    PFANS1028VIEW_DECRESULT: '判定結果',
-    PFANS1028VIEW_MANAGEMENT3: '(3)商用暗号管理条例に関する該非判定暗号化と解読化を中核機能とする専用ﾊｰﾄﾞ･ｿﾌﾄｳｴｱか',
-    PFANS1028VIEW_POSSIBILITY: '（可能性無し）',
-    PFANS1028VIEW_MANAGEMENT4: '（当ﾌﾟﾛｼﾞｪｸﾄで期間中に輸出管理該当申請する技術が発生する可能性の有無)',
-    PFANS1028VIEW_YES2: '該当の可能性有り→商務部に確認',
-    PFANS1028VIEW_YES3: '該当(要輸出許可/個別決裁へ',
-    PFANS1028VIEW_ELEPHANTS2: '対象外（可能性無し）',
-    PFANS1028VIEW_JUDGED: '商務部判定',
-    PFANS1028VIEW_RULES1: '規制リスト非該当である　',
-    PFANS1028VIEW_RULES2: '規制リスト対象外である',
-    PFANS1028VIEW_EXPORTEAR: '米国再輸出規制（EAR）',
-    PFANS1028VIEW_AMERICANTECHNOLOGY: '米国の技術である、または米国の技術を含む',
-    PFANS1028VIEW_JANO: 'はい',
-    PFANS1028VIEW_JANOJUDGE: 'いいえ→ EAR該非判定',
-    PFANS1028VIEW_OUGHT: '該当(ECCN NO.: )',
-    PFANS1028VIEW_JUDGECOMPLEMENT: '判定補足',
-    PFANS1028VIEW_DETERMINER: '判定者',
-    PFANS1028VIEW_JAPANTL: 'ﾌﾟﾛｼﾞｪｸﾄＴＬ',
-    PFANS1028VIEW_JAPANGM: 'ﾌﾟﾛｼﾞｪｸﾄＧＭ',
-    PFANS1028VIEW_OUTPUTCONTACT: '輸出管理連絡者',
-    PFANS1028VIEW_OUTPUTMANAGER: '輸出管理責任者',
-    PFANS1028VIEW_MANAGER: '総経理',
-    PFANS1028VIEW_SURNAME: '氏　名　',
-    PFANS1028VIEW_DETERMINATION: '判定年月日',
-    PFANS1028VIEW_PRINT: '印',
-    PFANS1028VIEW_JUDGECOMPLEMENT2: '備考',
-    PFANS1028VIEW_FIANLRESULT: '最終判定',
-    PFANS1028VIEW_EXPORTLICENSE: '輸出許可証',
-    PFANS1028VIEW_NECESSARY: '必要',
-    PFANS1028VIEW_UNNECESSARY: '必要無し',
-    PFANS1028VIEW_CANOUTPUT: '輸出可',
-    PFANS1028VIEW_NOTOUTPUT: '輸出不可',
-    PFANS1028VIEW_JAPNO: 'ｼﾘｱﾙNO',
-    PFANS1028VIEW_TRADENAME: '商品名称',
-    PFANS1028VIEW_SUMMARY: '概要',
-    PFANS1028VIEW_PAYMENT: '税関コード',
-    PFANS1028VIEW_BIT: '単位',
-    PFANS1028VIEW_TRADENAME4: '  ロボットまたは"端末機"',
-    PFANS1028VIEW_SUMMARY4: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
-      '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
-    PFANS1028VIEW_BIT4: '台',
-    PFANS1028VIEW_TRADENAME5: 'ロボットまたは"端末機"用に設計された制御機器',
-    PFANS1028VIEW_SUMMARY5: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
-    PFANS1028VIEW_BIT5: '个',
-    PFANS1028VIEW_TRADENAME33: 'ロボットまたは"端末機"用に設計されたソフトウェア  ',
-    PFANS1028VIEW_SUMMARY33: '核両用品及び関連技術輸出規制',
-    PFANS1028VIEW_BIT6: '個',
-    PFANS1028VIEW_TRADENAME48: 'ミサイル再突入体用に設計した電子設備',
-    PFANS1028VIEW_TRADENAME49: '電子受信妨害設備',
-    PFANS1028VIEW_SUMMARY49: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの電子受信妨害設備',
-    PFANS1028VIEW_TRADENAME50: '小型電気回路と測定器',
-    PFANS1028VIEW_SUMMARY50: '抗輻射強化電子回路と探査測定器、電磁パルス防御、X線、衝撃波と熱輻射総合損害回避装置',
-    PFANS1028VIEW_TRADENAME51: 'ミサイル、ロケット等の誘導に使用するレーダー設備',
-    PFANS1028VIEW_SUMMARY51: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの目標探査測定',
-    PFANS1028VIEW_TRADENAME52: 'ミサイル、ロケット等に搭載するレーダー設備',
-    PFANS1028VIEW_TRADENAME53: 'ミサイル、ロケット等に使用するその他のレーダー設備',
-    PFANS1028VIEW_TRADENAME54: '高度計',
-    PFANS1028VIEW_TRADENAME55: '地形等高線地図作成設備',
-    PFANS1028VIEW_TRADENAME56: 'シーン・ドラフト及び関連設備（デジタルとアナログマシンを含む）',
-    PFANS1028VIEW_TRADENAME57: '映像センサー設備',
-    PFANS1028VIEW_TRADENAME58: '特別設計した誘導情報処理設備',
-    PFANS1028VIEW_TRADENAME59: '伝導熱排除用電子装置とその部品',
-    PFANS1028VIEW_TRADENAME60: '抗輻射強化電子回路とその部品',
-    PFANS1028VIEW_TRADENAME61: '125℃以上の温度で短期作動できる電子装置と部品',
-    PFANS1028VIEW_TRADENAME62: '全体構造支柱部品用に設計した電子装置とその部品',
-    PFANS1028VIEW_TRADENAME63: '遠隔測定設備及び技術',
-    PFANS1028VIEW_TRADENAME64: '遠隔測定又は遠隔制御地上設備\t',
-    PFANS1028VIEW_TRADENAME65: 'アナログ計算機とデジタル計算機',
-    PFANS1028VIEW_SUMMARY65: '連続作動時の環境温度範囲が－45℃度～+55℃；或いは強化または抗輻射強化したアナログ計算機とデジタル計算装置',
-    PFANS1028VIEW_TRADENAME66: 'アナログ/デジタル変換器\t',
-    PFANS1028VIEW_SUMMARY66: '"以下の特徴を有するもの：\n' +
-      '1.環境温度範囲－54℃～+125℃内で連続作動可能、なお\n' +
-      '2.強化設備に適する軍事用技術基準に設計可能、或いは\n' +
-      '3.軍事用品に設計又は改造、或いは抗輻射能製品に設計可能である、なお以下のいずれの項目の特徴を有するもの：\n' +
-      '(1)限定精度の下で変換速度が200000回/秒の完全変換可能\n' +
-      '(2)定められた作動温度範囲内で精度が全測定過程中１/10000以上に達する\n' +
-      '(3)品質因子（精度で秒変換速度を割算した結果）が\n' +
-      '1×100000000以上\n' +
-      '(4)組込アナログ/デジタル変換器微型回路は以下の特性がある。\n' +
-      '①最大画面解像度時、最大転換時間＜20μs\n' +
-      '②定められてる作動温度範囲内，定額の非線形度＞全測定過程の0.025%"\t\t\n',
-    PFANS1028VIEW_TRADENAME98: ' ソフトウェア',
-    PFANS1028VIEW_SUMMARY98: '事後記録データーを処理して、飛行機器の全飛行過程中の位置を確定できるソフトウェア',
-    PFANS1028VIEW_TRADENAME99: 'レーダー波反射特性を抑える構造部品、構造材料、塗料及び特別設計した光学反射又は輻射を抑える塗料の生産設備、技術及び特別設計したソフトウェア',
-    PFANS1028VIEW_TRADENAME100: 'レーダー反射率、紫外/赤外線と音声信号を低減する技術及び専門設計のソフトウェア',
-    PFANS1028VIEW_TRADENAME101: '飛行制御用および測定用のソフトウェア',
-    PFANS1028VIEW_TRADENAME102: 'レーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_SUMMARY102: '弾道ミサイル、キャリアロケット、探測ロケット、巡航ミサイル、無人操縦飛行器の特有設計のレーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_TRADENAME103: 'システムの構築、シミュレーション又は全体設計用ソフトウェア',
-    PFANS1028VIEW_SUMMARY103: 'ミサイル、ロケットの関連設計と実験技術',
-    PFANS1028VIEW_TRADENAME104: '堆積熱分解及び圧縮強化プロセス制御装置用に特別設計したソフトウェア　',
-    PFANS1028VIEW_TRADENAME105: '三次元又は多次元連動したプログラム制御のインターレーシングマシン用に設計したデジタル制御ソフトウエア',
-    PFANS1028VIEW_TRADENAME106: '２つまたは２つ以上の次元を有するＮＣ及びプログラム制御テープ敷設機用に特別設計したソフトウェア',
-    PFANS1028VIEW_PROHIBITED: '禁止リスト対象',
-    PFANS1028VIEW_LIMITATION: '制限リスト対象',
-    PFANS1028VIEW_RESTRICTED: '制限リスト内にある場合下記を判定（該非判定）',
-    PFANS1028VIEW_WEAPON: '目的判定：軍事、武器目的か?',
-    PFANS1028VIEW_WORD: '先進性判定：世界でも先進の技術か？',
-    PFANS1028VIEW_SPECIFI: '具体製品化判定：実演出来る程度の完成度になるか？',
-    PFANS1028VIEW_NOTALL: 'すべて「いいえ」→□ 非該当',
-    PFANS1028VIEW_POSSCAN: '「はい」がある →□ 該当の可能性有り',
-    PFANS1028VIEW_RESON: '理由',
-    PFANS1028VIEW_PRONO: 'いいえ',
-    PFANS1028VIEW_TRADENAME1: ' 超大型・大型・中型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME2: '小型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME3: 'システム形式で検査を申し込んだ超大型・大型・中型機（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME4: 'システム形式で検査を申し込んだ小型コンピュータ（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME5: '超大型・大型・中型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）',
-    PFANS1028VIEW_TRADENAME6: '小型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）ア',
-    PFANS1028VIEW_SUJUDEGRESULT1: '（判定対象①と②に○がある場合。）　\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象であり、輸出規制品目である。',
-    PFANS1028VIEW_SUJUDEGRESULT2: '(判定対象①には○があるが②が×の場合）\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」について非該当である。',
-    PFANS1028VIEW_SUJUDEGRESULT3: '（全て×である。○がひとつもない場合） \t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象外である。  ',
-    PFANS1028VIEW_LIJUDEGRESULT1: '（制御等級「Ｊ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト」の対象であり、「輸出禁止」である。',
-    PFANS1028VIEW_LIJUDEGRESULT2: '（制御等級「Ｘ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出制限リスト」の対象であり、「輸出制限品目」である。（→商務部に確認）',
-    PFANS1028VIEW_LIJUDEGRESULT3: '（判定対象①には○があるが、②が×の場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト（Ｊ）」について「非該当」である。\t\t\t\n',
-    PFANS1028VIEW_LIJUDEGRESULT4: '当技術は、「輸出制限リスト（×）」について「非該当」である。',
-    PFANS1028VIEW_LIJUDEGRESULT5: '（○がひとつもない。全て×である。）\t\t\t\n' +
-      '当技術は、「輸出禁止・輸出制限リスト」の対象外である。\t',
-    PFANS1028VIEW_COTECHNICALNAME1: '集積回路製造技術',
-    PFANS1028VIEW_COTECHNICALNAME2: 'ロボット製造技術',
-    PFANS1028VIEW_COTECHNICALNAME3: '電子部品製造技術',
-    PFANS1028VIEW_COTECHNICALNAME4: '半導体デバイス製造技術',
-    PFANS1028VIEW_COTECHNICALNAME5: 'センサー製造技術',
-    PFANS1028VIEW_COTECHNICALNAME6: 'マイクロ波技術',
-    PFANS1028VIEW_COTECHNICALNAME7: '光ファイバー製造及び通信技術',
-    PFANS1028VIEW_COTECHNICALNAME8: 'コンピュータのハードウエア及び外部設備製造技術',
-    PFANS1028VIEW_COTECHNICALNAME9: '無線通信技術',
-    PFANS1028VIEW_COTECHNICALNAME10: 'ロボット製造技術',
-    PFANS1028VIEW_DETECHNICALNAME1: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME2: '空間データ伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME3: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME4: '通信伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME5: '衛星応用技術',
-    PFANS1028VIEW_COMTECHNICAL1: '情報処理技術',
-    PFANS1028VIEW_COMTECHNICAL2: ' コンピュータ応用技術',
-    PFANS1028VIEW_SOFTWARE1: 'コンピュータの通常ソフトウエア編成技術',
-    PFANS1028VIEW_SOFTWARE2: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_GATETECHNICAL1: '目標特徴抽出及び識別技術',
-    PFANS1028VIEW_GATETECHNICAL2: '大地測量技術',
-    PFANS1028VIEW_GATETECHNICAL3: '音響学工程技術',
-
-    PFANS1028VIEW_points1: '"耐放射技術、工程\n' +
-      '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
-      '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
-    PFANS1028VIEW_points2: '遠隔操作型核武装偵察ロボット製造技術',
-
-    PFANS1028VIEW_points3: '"1. 広帯域小型化セパレータ製造技術\n' +
-      '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程"\t\t\t\n' +
-      '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
-      '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術\t\t\t\n',
-    PFANS1028VIEW_points4: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
-    PFANS1028VIEW_points5: '"3. 圧電ジャイロスコープセンサー製造技術\n' +
-      '　(1) サポートシステムの設計、製造工程\n' +
-      '"\t\t\t\n' +
-      '　(2) 圧電トランスデューサの貼付工程\t\t\t\n' +
-      '　(3) 金属振動子の構造設計、工程および熱処理技術\t\t\t\n' +
-      '　(4) 0校正システム構造設計および組立技術\t\t\t\n' +
-      '　(5) 0校正信号処理技術\t\t\t\n',
-    PFANS1028VIEW_points6: '"4. 声表面波部品設計技術\n' +
-      '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)"\t\t\t\n' +
-      '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)\t\t\t\n' +
-      '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)\t\t\t\n' +
-      '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)\t\t\t\n' +
-      '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)\t\t\t\n' +
-      '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)\t\t\t\n',
-    PFANS1028VIEW_points7: '"5. 声表面波部品製造技術\n' +
-      '　(1) 組合技術"\t\t\t\n' +
-      '　(2) 整合技術\t\t\t\n' +
-      '　(3) 大面積[220mm×20mm]フォトエッチング技術\t\t\t\n',
-    PFANS1028VIEW_points8: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
-    PFANS1028VIEW_points9: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
-    PFANS1028VIEW_points10: '8. イオンビーム処理改善グリッド電子発射技術',
-    PFANS1028VIEW_points11: '"1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
-      '　(1) Cr-Ni-Ag金属遮断層焼結技術\n' +
-      '"\t\t\t\n' +
-      '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程\t\t\t\n',
-    PFANS1028VIEW_points12: '2. 導電抵抗＜2Ωのダイオード製造技術',
-    PFANS1028VIEW_points13: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
-    PFANS1028VIEW_points14: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
-    PFANS1028VIEW_points15: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
-    PFANS1028VIEW_points16: '"1. 高出力[100MW級]マイクロ波技術\n' +
-      '　(1) パルスパワー技術および重電子ビーム加速技術"\t\t\t\n' +
-      '　(2) 爆発性電磁圧縮技術\t\t\t\n',
-    PFANS1028VIEW_points17: '"1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
-      '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術"\t\t\t\n' +
-      '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術\t\t\t\n' +
-      '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術\t\t\t\n',
-    PFANS1028VIEW_points18: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
-    PFANS1028VIEW_points19: '3. 光ファイバー被覆ライン技術の工程パラメータ',
-    PFANS1028VIEW_points20: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
-    PFANS1028VIEW_points21: '"1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
-      '　(1) 全体設計技術"\t\t\t\n' +
-      '　(2) 本体、操作システム技術\t\t\t\n' +
-      '　(3) 本体、補助機、外付け設備の製造および開発技術\t\t\t\n',
-    PFANS1028VIEW_points22: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
-    PFANS1028VIEW_points23: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
-    PFANS1028VIEW_points24: '"1. アンテナアレイ技術\n' +
-      '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ"\t\t\t\n' +
-      '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程\t\t\t\n',
-    PFANS1028VIEW_points25: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
-    PFANS1028VIEW_points26: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
-    PFANS1028VIEW_points27: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
-    PFANS1028VIEW_points28: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
-
-    PFANS1028VIEW_points30: 'わが国の政府、政治、経済、金融部門に使用されているし、国家機密に関わる情報安全機密保持技術',
-    PFANS1028VIEW_points31: '下記のいずれかに関連する衛星制御情報伝送暗号化技術\n' +
-      '1.暗号化原理、案及びコース設計技術',
-    PFANS1028VIEW_points32: '2.暗号化と解読のソフトウェア、ハードウェア',
-    PFANS1028VIEW_points33: 'スーパーコンピュータ[演算回数≧1300億回]ネットワークシステム、パラレル処理技術',
-    PFANS1028VIEW_points34: '1. テレビ、電話の機密保持技術\n' +
-      '　(1) パスワード設定技術',
-    PFANS1028VIEW_points35: '2. わが国が研究、開発し、軍事用の情報伝送暗号化、解読処理技術',
-    PFANS1028VIEW_points36: '"3. 海底低周波数電磁通信技術\n' +
-      '　(1) 低周波数電磁場を利用して海底通信を行う技術"\t\t\t\n' +
-      '　(2) 低雑音増幅技術\t\t\t\n' +
-      '　(3) 高感度および耐通信妨害技術\t\t\t\n',
-    PFANS1028VIEW_points37: '4.通信機密保持技術\n' +
-      '　わが国のため、研究開発、設計、生産の各種通信機密保持機器と通信暗号化技術',
-    PFANS1028VIEW_points38: '"1.以下のいずれかに関連する双星航路標識位置測定システム\n' +
-      '①入場信号即時取得ユニットの信号フォーム、部品構造と製造工程"\t\t\t\n' +
-      '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ\t\t\t\n' +
-      '③システムの情報伝送体制、デバッグ方式、幀構造\t\t\t\n',
-    PFANS1028VIEW_points39: '2.画像迅速処理方法とソフトウェア',
-    PFANS1028VIEW_points40: '1.知能漢字音声開発ツール技術',
-    PFANS1028VIEW_points41: '2. Character式漢字表示制御器の設計、製造工程',
-    PFANS1028VIEW_points42: '3. コンピュータ中国語システムの中核コア技術',
-    PFANS1028VIEW_points43: '4. 工事図面のコンピュータ補助設計[CAD]およびファイル管理システムのラスタ (raster)/ベクトル (vector)混合情報処理方法',
-    PFANS1028VIEW_points44: '5. 中国語プラットフォーム技術(中国語処理コア技術)',
-    PFANS1028VIEW_points45: '6. 情報の保存/読込、暗号化/解読処理技術',
-    PFANS1028VIEW_points46: '7. 中国語/外国語翻訳技術',
-    PFANS1028VIEW_points47: '8. 少数民族言語処理技術',
-    PFANS1028VIEW_points48: '9. 漢字、言語音声識別技術',
-    PFANS1028VIEW_points49: '10. 中国語/少数民族言語言語音声合成技術',
-    PFANS1028VIEW_points50: '11. 漢字圧縮、圧縮解除技術',
-    PFANS1028VIEW_points51: '12. 活字体漢字識別技術、プログラム構造、主要算法およびソースプログラム',
-    PFANS1028VIEW_points52: '13. ビデオテックス (Videotex)システムの漢字処理技術およびネットワーク間制御技術',
-    PFANS1028VIEW_points53: '14. 対話および自習機能を持つオフライン手書き漢字識別システムおよびその方法',
-    PFANS1028VIEW_points54: '15. コンピュータ漢字入力識別方法に使用される、筆記体サンプル、活字体サンプルおよび漢字コーパス',
-    PFANS1028VIEW_points55: '16. 漢字識別の特徴抽出方法およびテキスト分割技術のソースプログラム',
-    PFANS1028VIEW_points56: '1. パラレル型知能Reduceステーション',
-    PFANS1028VIEW_points57: '2. CIMS[コンピュータ統合製造方式]実験工程',
-    PFANS1028VIEW_points58: '1. スーパーコンピュータ[演算回数≧1300億回]ソフトウェア技術',
-    PFANS1028VIEW_points59: '2. パラレルコンピュータのマイクロカーネルおよびマルチスレッド実現技術、プログラムパラレル識別技術およびパラレル最適化編集ソースプログラム',
-    PFANS1028VIEW_points60: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_points61: '1.目標特徴 (Target signature)光スペクトル',
-    PFANS1028VIEW_points62: '2.目標特徴および関連データベース',
-    PFANS1028VIEW_points63: '3.目標画像特徴抽出',
-    PFANS1028VIEW_points64: 'わが国大地制御網全体平差方法とソフトウェア技術',
-    PFANS1028VIEW_points65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
-    PFANS1028VIEW_points66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
-    PFANS1028VIEW_NO: '管理NO.',
-    PFANS1028VIEW_CAREER: '事業場名',
-    PFANS1028VIEW_ORGANIZATION: '組織名',
-    PFANS1028VIEW_NAME: 'ﾌﾟﾛｼﾞｪｸﾄ名',
-    PFANS1028VIEW_COUNTRY: '委託元国',
-    PFANS1028VIEW_REVIEW: '客観要件審査',
-    PFANS1028VIEW_REQUIREMENTS: '客観要件',
-    PFANS1028VIEW_PERIOD: '期間',
-    PFANS1028VIEW_TECHNICAL: '技術名称と内容',
-    PFANS1028VIEW_JUDGE: 'ﾌﾟﾛｼﾞｪｸﾄ一括判定用',
-    PFANS1028VIEW_OUTPUTLIMIT: '輸出禁止・輸出制限技術リスト',
-    PFANS1028VIEW_OUTPUTSUPPLIE: '両用品及び技術の輸出入許可証管理リスト',
-    PFANS1028VIEW_OUTPUTMANAGEMENT: '輸出管理 該非判定・輸出決裁書 <ﾌﾟﾛｼﾞｪｸﾄ一括判定用>',
-    PFANS1028VIEW_REQUIREMENTS1: '顧客：松下Ｇ.',
-    PFANS1028VIEW_REQUIREMENTS2: '用途：民生用途（研究開発等）→両方あてはまる場合、非該当.',
-    PFANS1028VIEW_REQUIREMENTS3: '顧客：非松下Ｇ→客観要件審査へ(ﾁｪｯｸｼｰﾄ添付).',
-    PFANS1028VIEW_NOT: '非該当',
-    PFANS1028VIEW_YES: '該当',
-    PFANS1028VIEW_POSSIBLE: '輸出形態予測（全ての可能性を回答）',
-    PFANS1028VIEW_BOOKS: '書類提供',
-    PFANS1028VIEW_SOFTWARE: 'ソフトウェア提供',
-    PFANS1028VIEW_MAIL: 'E-MAIL',
-    PFANS1028VIEW_SERVER: 'サーバー.',
-    PFANS1028VIEW_MEETING: '技術討論・会議(NDA内)',
-    PFANS1028VIEW_COUNTRY2: '委託元国と',
-    PFANS1028VIEW_OTHERC: 'その他の国と',
-    PFANS1028VIEW_OVERSEA: '海外発表、海外展示',
-    PFANS1028VIEW_COUNTRY3: '委託元国へ',
-    PFANS1028VIEW_OTHERC2: 'その他の国へ',
-    PFANS1028VIEW_OTHER: 'その他',
-    PFANS1028VIEW_DETERMINE: '該非判定明細*期間末時点を予測して判定',
-    PFANS1028VIEW_OUTPUTLIMIT2: '(1) 輸出禁止・輸出制限技術リストの内にあるか？（判定書管理No:)',
-    PFANS1028VIEW_TODAY: '作成年月日',
-    PFANS1028VIEW_EXPORT: '輸出貨物/技術名',
-    PFANS1028VIEW_JUDGENO: '判定書管理NO．',
-    PFANS1028VIEW_COMMUNICATION: '通信デバイス、コンピューター及び電子デバイス製造',
-    PFANS1028VIEW_DELIVERY: '通信と情報伝送サービス',
-    PFANS1028VIEW_COMPUTERS: 'コンピュータ－サービス',
-    PFANS1028VIEW_JASOFTWARE: 'ソフトウェア',
-    PFANS1028VIEW_GATETECHNOLOGY: '専門技術サービス',
-    PFANS1028VIEW_JUDGMENTRESULT: '該非判定結果',
-    PFANS1028VIEW_TECHNICALNUMBER: '技術名称番号',
-    PFANS1028VIEW_GRADE: '制御等級',
-    PFANS1028VIEW_TECHNICALNAME: '技術名称',
-    PFANS1028VIEW_POINTS: '規制要点',
-    PFANS1028VIEW_JUDGMENT1: '判定対象①',
-    PFANS1028VIEW_JUDGMENT2: '判定対象②',
-    PFANS1028VIEW_INDUSTRIAL: '工業設備',
-    PFANS1028VIEW_ELECTRONIC: '電子設備',
-    PFANS1028VIEW_COM: 'ソフトウェア',
-    PFANS1028VIEW_SOF: 'コンピュータ',
-    PFANS1028VIEW_JAPANNO: 'ﾌﾟﾛｼﾞｪｸﾄNO',
-    PFANS1028VIEW_MANAGEMENT2: '(2)両用品及び技術輸出入許可証管理リストに関する該非判定',
-    PFANS1028VIEW_REASON: '判定項番および理由',
-    PFANS1028VIEW_ELEPHANTS: '対象外',
-    PFANS1028VIEW_DECRESULT: '判定結果',
-    PFANS1028VIEW_MANAGEMENT3: '(3)商用暗号管理条例に関する該非判定暗号化と解読化を中核機能とする専用ﾊｰﾄﾞ･ｿﾌﾄｳｴｱか',
-    PFANS1028VIEW_POSSIBILITY: '（可能性無し）',
-    PFANS1028VIEW_MANAGEMENT4: '（当ﾌﾟﾛｼﾞｪｸﾄで期間中に輸出管理該当申請する技術が発生する可能性の有無)',
-    PFANS1028VIEW_YES2: '該当の可能性有り→商務部に確認',
-    PFANS1028VIEW_YES3: '該当(要輸出許可/個別決裁へ',
-    PFANS1028VIEW_ELEPHANTS2: '対象外（可能性無し）',
-    PFANS1028VIEW_JUDGED: '商務部判定',
-    PFANS1028VIEW_RULES1: '規制リスト非該当である　',
-    PFANS1028VIEW_RULES2: '規制リスト対象外である',
-    PFANS1028VIEW_EXPORTEAR: '米国再輸出規制（EAR）',
-    PFANS1028VIEW_AMERICANTECHNOLOGY: '米国の技術である、または米国の技術を含む',
-    PFANS1028VIEW_JANO: 'はい',
-    PFANS1028VIEW_JANOJUDGE: 'いいえ→ EAR該非判定',
-    PFANS1028VIEW_OUGHT: '該当(ECCN NO.: )',
-    PFANS1028VIEW_JUDGECOMPLEMENT: '判定補足',
-    PFANS1028VIEW_DETERMINER: '判定者',
-    PFANS1028VIEW_JAPANTL: 'ﾌﾟﾛｼﾞｪｸﾄＴＬ',
-    PFANS1028VIEW_JAPANGM: 'ﾌﾟﾛｼﾞｪｸﾄＧＭ',
-    PFANS1028VIEW_OUTPUTCONTACT: '輸出管理連絡者',
-    PFANS1028VIEW_OUTPUTMANAGER: '輸出管理責任者',
-    PFANS1028VIEW_MANAGER: '総経理',
-    PFANS1028VIEW_SURNAME: '氏　名　',
-    PFANS1028VIEW_DETERMINATION: '判定年月日',
-    PFANS1028VIEW_PRINT: '印',
-    PFANS1028VIEW_JUDGECOMPLEMENT2: '備考',
-    PFANS1028VIEW_FIANLRESULT: '最終判定',
-    PFANS1028VIEW_EXPORTLICENSE: '輸出許可証',
-    PFANS1028VIEW_NECESSARY: '必要',
-    PFANS1028VIEW_UNNECESSARY: '必要無し',
-    PFANS1028VIEW_CANOUTPUT: '輸出可',
-    PFANS1028VIEW_NOTOUTPUT: '輸出不可',
-    PFANS1028VIEW_JAPNO: 'ｼﾘｱﾙNO',
-    PFANS1028VIEW_TRADENAME: '商品名称',
-    PFANS1028VIEW_SUMMARY: '概要',
-    PFANS1028VIEW_PAYMENT: '税関コード',
-    PFANS1028VIEW_BIT: '単位',
-    PFANS1028VIEW_TRADENAME4: '  ロボットまたは"端末機"',
-    PFANS1028VIEW_SUMMARY4: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
-      '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
-    PFANS1028VIEW_BIT4: '台',
-    PFANS1028VIEW_TRADENAME5: 'ロボットまたは"端末機"用に設計された制御機器',
-    PFANS1028VIEW_SUMMARY5: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
-    PFANS1028VIEW_BIT5: '个',
-    PFANS1028VIEW_TRADENAME33: 'ロボットまたは"端末機"用に設計されたソフトウェア  ',
-    PFANS1028VIEW_SUMMARY33: '核両用品及び関連技術輸出規制',
-    PFANS1028VIEW_BIT6: '個',
-    PFANS1028VIEW_TRADENAME48: 'ミサイル再突入体用に設計した電子設備',
-    PFANS1028VIEW_TRADENAME49: '電子受信妨害設備',
-    PFANS1028VIEW_SUMMARY49: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの電子受信妨害設備',
-    PFANS1028VIEW_TRADENAME50: '小型電気回路と測定器',
-    PFANS1028VIEW_SUMMARY50: '抗輻射強化電子回路と探査測定器、電磁パルス防御、X線、衝撃波と熱輻射総合損害回避装置',
-    PFANS1028VIEW_TRADENAME51: 'ミサイル、ロケット等の誘導に使用するレーダー設備',
-    PFANS1028VIEW_SUMMARY51: '弾道ミサイル、搬送用ロケット、探査測定ロケット、巡航ミサイル、無人操縦飛行機器各システムの目標探査測定',
-    PFANS1028VIEW_TRADENAME52: 'ミサイル、ロケット等に搭載するレーダー設備',
-    PFANS1028VIEW_TRADENAME53: 'ミサイル、ロケット等に使用するその他のレーダー設備',
-    PFANS1028VIEW_TRADENAME54: '高度計',
-    PFANS1028VIEW_TRADENAME55: '地形等高線地図作成設備',
-    PFANS1028VIEW_TRADENAME56: 'シーン・ドラフト及び関連設備（デジタルとアナログマシンを含む）',
-    PFANS1028VIEW_TRADENAME57: '映像センサー設備',
-    PFANS1028VIEW_TRADENAME58: '特別設計した誘導情報処理設備',
-    PFANS1028VIEW_TRADENAME59: '伝導熱排除用電子装置とその部品',
-    PFANS1028VIEW_TRADENAME60: '抗輻射強化電子回路とその部品',
-    PFANS1028VIEW_TRADENAME61: '125℃以上の温度で短期作動できる電子装置と部品',
-    PFANS1028VIEW_TRADENAME62: '全体構造支柱部品用に設計した電子装置とその部品',
-    PFANS1028VIEW_TRADENAME63: '遠隔測定設備及び技術',
-    PFANS1028VIEW_TRADENAME64: '遠隔測定又は遠隔制御地上設備\t',
-    PFANS1028VIEW_TRADENAME65: 'アナログ計算機とデジタル計算機',
-    PFANS1028VIEW_SUMMARY65: '連続作動時の環境温度範囲が－45℃度～+55℃；或いは強化または抗輻射強化したアナログ計算機とデジタル計算装置',
-    PFANS1028VIEW_TRADENAME66: 'アナログ/デジタル変換器\t',
-    PFANS1028VIEW_SUMMARY66: '"以下の特徴を有するもの：\n' +
-      '1.環境温度範囲－54℃～+125℃内で連続作動可能、なお\n' +
-      '2.強化設備に適する軍事用技術基準に設計可能、或いは\n' +
-      '3.軍事用品に設計又は改造、或いは抗輻射能製品に設計可能である、なお以下のいずれの項目の特徴を有するもの：\n' +
-      '(1)限定精度の下で変換速度が200000回/秒の完全変換可能\n' +
-      '(2)定められた作動温度範囲内で精度が全測定過程中１/10000以上に達する\n' +
-      '(3)品質因子（精度で秒変換速度を割算した結果）が\n' +
-      '1×100000000以上\n' +
-      '(4)組込アナログ/デジタル変換器微型回路は以下の特性がある。\n' +
-      '①最大画面解像度時、最大転換時間＜20μs\n' +
-      '②定められてる作動温度範囲内，定額の非線形度＞全測定過程の0.025%"\t\t\n',
-    PFANS1028VIEW_TRADENAME98: ' ソフトウェア',
-    PFANS1028VIEW_SUMMARY98: '事後記録データーを処理して、飛行機器の全飛行過程中の位置を確定できるソフトウェア',
-    PFANS1028VIEW_TRADENAME99: 'レーダー波反射特性を抑える構造部品、構造材料、塗料及び特別設計した光学反射又は輻射を抑える塗料の生産設備、技術及び特別設計したソフトウェア',
-    PFANS1028VIEW_TRADENAME100: 'レーダー反射率、紫外/赤外線と音声信号を低減する技術及び専門設計のソフトウェア',
-    PFANS1028VIEW_TRADENAME101: '飛行制御用および測定用のソフトウェア',
-    PFANS1028VIEW_TRADENAME102: 'レーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_SUMMARY102: '弾道ミサイル、キャリアロケット、探測ロケット、巡航ミサイル、無人操縦飛行器の特有設計のレーダー誘導処理機に使用されるソフトウェア',
-    PFANS1028VIEW_TRADENAME103: 'システムの構築、シミュレーション又は全体設計用ソフトウェア',
-    PFANS1028VIEW_SUMMARY103: 'ミサイル、ロケットの関連設計と実験技術',
-    PFANS1028VIEW_TRADENAME104: '堆積熱分解及び圧縮強化プロセス制御装置用に特別設計したソフトウェア　',
-    PFANS1028VIEW_TRADENAME105: '三次元又は多次元連動したプログラム制御のインターレーシングマシン用に設計したデジタル制御ソフトウエア',
-    PFANS1028VIEW_TRADENAME106: '２つまたは２つ以上の次元を有するＮＣ及びプログラム制御テープ敷設機用に特別設計したソフトウェア',
-    PFANS1028VIEW_PROHIBITED: '禁止リスト対象',
-    PFANS1028VIEW_LIMITATION: '制限リスト対象',
-    PFANS1028VIEW_RESTRICTED: '制限リスト内にある場合下記を判定（該非判定）',
-    PFANS1028VIEW_WEAPON: '目的判定：軍事、武器目的か?',
-    PFANS1028VIEW_WORD: '先進性判定：世界でも先進の技術か？',
-    PFANS1028VIEW_SPECIFI: '具体製品化判定：実演出来る程度の完成度になるか？',
-    PFANS1028VIEW_NOTALL: 'すべて「いいえ」→□ 非該当',
-    PFANS1028VIEW_POSSCAN: '「はい」がある →□ 該当の可能性有り',
-    PFANS1028VIEW_RESON: '理由',
-    PFANS1028VIEW_PRONO: 'いいえ',
-    PFANS1028VIEW_TRADENAME1: ' 超大型・大型・中型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME2: '小型自動データ処理設備',
-    PFANS1028VIEW_TRADENAME3: 'システム形式で検査を申し込んだ超大型・大型・中型機（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME4: 'システム形式で検査を申し込んだ小型コンピュータ（コンピュータは自動データ処理設備）',
-    PFANS1028VIEW_TRADENAME5: '超大型・大型・中型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）',
-    PFANS1028VIEW_TRADENAME6: '小型機のCPU（同じ機器内に一個または二個のメモリー、入・出力部品があるかどうかに関わらず）ア',
-    PFANS1028VIEW_SUJUDEGRESULT1: '（判定対象①と②に○がある場合。）　\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象であり、輸出規制品目である。',
-    PFANS1028VIEW_SUJUDEGRESULT2: '(判定対象①には○があるが②が×の場合）\t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」について非該当である。',
-    PFANS1028VIEW_SUJUDEGRESULT3: '（全て×である。○がひとつもない場合） \t\t\n' +
-      '当技術は、「両用品及び技術輸出入許可証管理リスト」の対象外である。  ',
-    PFANS1028VIEW_LIJUDEGRESULT1: '（制御等級「Ｊ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト」の対象であり、「輸出禁止」である。',
-    PFANS1028VIEW_LIJUDEGRESULT2: '（制御等級「Ｘ」の判定対象①および②に○がある場合）\t\t\t\n' +
-      '当技術は、「輸出制限リスト」の対象であり、「輸出制限品目」である。（→商務部に確認）',
-    PFANS1028VIEW_LIJUDEGRESULT3: '（判定対象①には○があるが、②が×の場合）\t\t\t\n' +
-      '当技術は、「輸出禁止リスト（Ｊ）」について「非該当」である。\t\t\t\n',
-    PFANS1028VIEW_LIJUDEGRESULT4: '当技術は、「輸出制限リスト（×）」について「非該当」である。',
-    PFANS1028VIEW_LIJUDEGRESULT5: '（○がひとつもない。全て×である。）\t\t\t\n' +
-      '当技術は、「輸出禁止・輸出制限リスト」の対象外である。\t',
-    PFANS1028VIEW_COTECHNICALNAME1: '集積回路製造技術',
-    PFANS1028VIEW_COTECHNICALNAME2: 'ロボット製造技術',
-    PFANS1028VIEW_COTECHNICALNAME3: '電子部品製造技術',
-    PFANS1028VIEW_COTECHNICALNAME4: '半導体デバイス製造技術',
-    PFANS1028VIEW_COTECHNICALNAME5: 'センサー製造技術',
-    PFANS1028VIEW_COTECHNICALNAME6: 'マイクロ波技術',
-    PFANS1028VIEW_COTECHNICALNAME7: '光ファイバー製造及び通信技術',
-    PFANS1028VIEW_COTECHNICALNAME8: 'コンピュータのハードウエア及び外部設備製造技術',
-    PFANS1028VIEW_COTECHNICALNAME9: '無線通信技術',
-    PFANS1028VIEW_COTECHNICALNAME10: 'ロボット製造技術',
-    PFANS1028VIEW_DETECHNICALNAME1: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME2: '空間データ伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME3: ' コンピュータネットワーク技術',
-    PFANS1028VIEW_DETECHNICALNAME4: '通信伝送技術',
-    PFANS1028VIEW_DETECHNICALNAME5: '衛星応用技術',
-    PFANS1028VIEW_COMTECHNICAL1: '情報処理技術',
-    PFANS1028VIEW_COMTECHNICAL2: ' コンピュータ応用技術',
-    PFANS1028VIEW_SOFTWARE1: 'コンピュータの通常ソフトウエア編成技術',
-    PFANS1028VIEW_SOFTWARE2: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_GATETECHNICAL1: '目標特徴抽出及び識別技術',
-    PFANS1028VIEW_GATETECHNICAL2: '大地測量技術',
-    PFANS1028VIEW_GATETECHNICAL3: '音響学工程技術',
-
-    PFANS1028VIEW_points1: '"耐放射技術、工程\n' +
-      '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
-      '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
-    PFANS1028VIEW_points2: '遠隔操作型核武装偵察ロボット製造技術',
-
-    PFANS1028VIEW_points3: '"1. 広帯域小型化セパレータ製造技術\n' +
-      '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程"\t\t\t\n' +
-      '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
-      '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術\t\t\t\n',
-    PFANS1028VIEW_points4: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
-    PFANS1028VIEW_points5: '"3. 圧電ジャイロスコープセンサー製造技術\n' +
-      '　(1) サポートシステムの設計、製造工程\n' +
-      '"\t\t\t\n' +
-      '　(2) 圧電トランスデューサの貼付工程\t\t\t\n' +
-      '　(3) 金属振動子の構造設計、工程および熱処理技術\t\t\t\n' +
-      '　(4) 0校正システム構造設計および組立技術\t\t\t\n' +
-      '　(5) 0校正信号処理技術\t\t\t\n',
-    PFANS1028VIEW_points6: '"4. 声表面波部品設計技術\n' +
-      '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)"\t\t\t\n' +
-      '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)\t\t\t\n' +
-      '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)\t\t\t\n' +
-      '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)\t\t\t\n' +
-      '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)\t\t\t\n' +
-      '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)\t\t\t\n',
-    PFANS1028VIEW_points7: '"5. 声表面波部品製造技術\n' +
-      '　(1) 組合技術"\t\t\t\n' +
-      '　(2) 整合技術\t\t\t\n' +
-      '　(3) 大面積[220mm×20mm]フォトエッチング技術\t\t\t\n',
-    PFANS1028VIEW_points8: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
-    PFANS1028VIEW_points9: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
-    PFANS1028VIEW_points10: '8. イオンビーム処理改善グリッド電子発射技術',
-    PFANS1028VIEW_points11: '"1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
-      '　(1) Cr-Ni-Ag金属遮断層焼結技術\n' +
-      '"\t\t\t\n' +
-      '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程\t\t\t\n',
-    PFANS1028VIEW_points12: '2. 導電抵抗＜2Ωのダイオード製造技術',
-    PFANS1028VIEW_points13: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
-    PFANS1028VIEW_points14: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
-    PFANS1028VIEW_points15: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
-    PFANS1028VIEW_points16: '"1. 高出力[100MW級]マイクロ波技術\n' +
-      '　(1) パルスパワー技術および重電子ビーム加速技術"\t\t\t\n' +
-      '　(2) 爆発性電磁圧縮技術\t\t\t\n',
-    PFANS1028VIEW_points17: '"1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
-      '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術"\t\t\t\n' +
-      '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術\t\t\t\n' +
-      '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術\t\t\t\n',
-    PFANS1028VIEW_points18: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
-    PFANS1028VIEW_points19: '3. 光ファイバー被覆ライン技術の工程パラメータ',
-    PFANS1028VIEW_points20: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
-    PFANS1028VIEW_points21: '"1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
-      '　(1) 全体設計技術"\t\t\t\n' +
-      '　(2) 本体、操作システム技術\t\t\t\n' +
-      '　(3) 本体、補助機、外付け設備の製造および開発技術\t\t\t\n',
-    PFANS1028VIEW_points22: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
-    PFANS1028VIEW_points23: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
-    PFANS1028VIEW_points24: '"1. アンテナアレイ技術\n' +
-      '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ"\t\t\t\n' +
-      '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程\t\t\t\n',
-    PFANS1028VIEW_points25: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
-    PFANS1028VIEW_points26: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
-    PFANS1028VIEW_points27: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
-    PFANS1028VIEW_points28: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
-
-    PFANS1028VIEW_points30: 'わが国の政府、政治、経済、金融部門に使用されているし、国家機密に関わる情報安全機密保持技術',
-    PFANS1028VIEW_points31: '下記のいずれかに関連する衛星制御情報伝送暗号化技術\n' +
-      '1.暗号化原理、案及びコース設計技術',
-    PFANS1028VIEW_points32: '2.暗号化と解読のソフトウェア、ハードウェア',
-    PFANS1028VIEW_points33: 'スーパーコンピュータ[演算回数≧1300億回]ネットワークシステム、パラレル処理技術',
-    PFANS1028VIEW_points34: '1. テレビ、電話の機密保持技術\n' +
-      '　(1) パスワード設定技術',
-    PFANS1028VIEW_points35: '2. わが国が研究、開発し、軍事用の情報伝送暗号化、解読処理技術',
-    PFANS1028VIEW_points36: '"3. 海底低周波数電磁通信技術\n' +
-      '　(1) 低周波数電磁場を利用して海底通信を行う技術"\t\t\t\n' +
-      '　(2) 低雑音増幅技術\t\t\t\n' +
-      '　(3) 高感度および耐通信妨害技術\t\t\t\n',
-    PFANS1028VIEW_points37: '4.通信機密保持技術\n' +
-      '　わが国のため、研究開発、設計、生産の各種通信機密保持機器と通信暗号化技術',
-    PFANS1028VIEW_points38: '"1.以下のいずれかに関連する双星航路標識位置測定システム\n' +
-      '①入場信号即時取得ユニットの信号フォーム、部品構造と製造工程"\t\t\t\n' +
-      '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ\t\t\t\n' +
-      '③システムの情報伝送体制、デバッグ方式、幀構造\t\t\t\n',
-    PFANS1028VIEW_points39: '2.画像迅速処理方法とソフトウェア',
-    PFANS1028VIEW_points40: '1.知能漢字音声開発ツール技術',
-    PFANS1028VIEW_points41: '2. Character式漢字表示制御器の設計、製造工程',
-    PFANS1028VIEW_points42: '3. コンピュータ中国語システムの中核コア技術',
-    PFANS1028VIEW_points43: '4. 工事図面のコンピュータ補助設計[CAD]およびファイル管理システムのラスタ (raster)/ベクトル (vector)混合情報処理方法',
-    PFANS1028VIEW_points44: '5. 中国語プラットフォーム技術(中国語処理コア技術)',
-    PFANS1028VIEW_points45: '6. 情報の保存/読込、暗号化/解読処理技術',
-    PFANS1028VIEW_points46: '7. 中国語/外国語翻訳技術',
-    PFANS1028VIEW_points47: '8. 少数民族言語処理技術',
-    PFANS1028VIEW_points48: '9. 漢字、言語音声識別技術',
-    PFANS1028VIEW_points49: '10. 中国語/少数民族言語言語音声合成技術',
-    PFANS1028VIEW_points50: '11. 漢字圧縮、圧縮解除技術',
-    PFANS1028VIEW_points51: '12. 活字体漢字識別技術、プログラム構造、主要算法およびソースプログラム',
-    PFANS1028VIEW_points52: '13. ビデオテックス (Videotex)システムの漢字処理技術およびネットワーク間制御技術',
-    PFANS1028VIEW_points53: '14. 対話および自習機能を持つオフライン手書き漢字識別システムおよびその方法',
-    PFANS1028VIEW_points54: '15. コンピュータ漢字入力識別方法に使用される、筆記体サンプル、活字体サンプルおよび漢字コーパス',
-    PFANS1028VIEW_points55: '16. 漢字識別の特徴抽出方法およびテキスト分割技術のソースプログラム',
-    PFANS1028VIEW_points56: '1. パラレル型知能Reduceステーション',
-    PFANS1028VIEW_points57: '2. CIMS[コンピュータ統合製造方式]実験工程',
-    PFANS1028VIEW_points58: '1. スーパーコンピュータ[演算回数≧1300億回]ソフトウェア技術',
-    PFANS1028VIEW_points59: '2. パラレルコンピュータのマイクロカーネルおよびマルチスレッド実現技術、プログラムパラレル識別技術およびパラレル最適化編集ソースプログラム',
-    PFANS1028VIEW_points60: '情報安全防火壁ソフトウェア技術',
-    PFANS1028VIEW_points61: '1.目標特徴 (Target signature)光スペクトル',
-    PFANS1028VIEW_points62: '2.目標特徴および関連データベース',
-    PFANS1028VIEW_points63: '3.目標画像特徴抽出',
-    PFANS1028VIEW_points64: 'わが国大地制御網全体平差方法とソフトウェア技術',
-    PFANS1028VIEW_points65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
-    PFANS1028VIEW_points66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
+    PFANS1028VIEW_POINTS39: '2.画像迅速処理方法とソフトウェア',
+    PFANS1028VIEW_POINTS40: '1.知能漢字音声開発ツール技術',
+    PFANS1028VIEW_POINTS41: '2. CHARACTER式漢字表示制御器の設計、製造工程',
+    PFANS1028VIEW_POINTS42: '3. コンピュータ中国語システムの中核コア技術',
+    PFANS1028VIEW_POINTS43: '4. 工事図面のコンピュータ補助設計[CAD]およびファイル管理システムのラスタ (RASTER)/ベクトル (VECTOR)混合情報処理方法',
+    PFANS1028VIEW_POINTS44: '5. 中国語プラットフォーム技術(中国語処理コア技術)',
+    PFANS1028VIEW_POINTS45: '6. 情報の保存/読込、暗号化/解読処理技術',
+    PFANS1028VIEW_POINTS46: '7. 中国語/外国語翻訳技術',
+    PFANS1028VIEW_POINTS47: '8. 少数民族言語処理技術',
+    PFANS1028VIEW_POINTS48: '9. 漢字、言語音声識別技術',
+    PFANS1028VIEW_POINTS49: '10. 中国語/少数民族言語言語音声合成技術',
+    PFANS1028VIEW_POINTS50: '11. 漢字圧縮、圧縮解除技術',
+    PFANS1028VIEW_POINTS51: '12. 活字体漢字識別技術、プログラム構造、主要算法およびソースプログラム',
+    PFANS1028VIEW_POINTS52: '13. ビデオテックス (VIDEOTEX)システムの漢字処理技術およびネットワーク間制御技術',
+    PFANS1028VIEW_POINTS53: '14. 対話および自習機能を持つオフライン手書き漢字識別システムおよびその方法',
+    PFANS1028VIEW_POINTS54: '15. コンピュータ漢字入力識別方法に使用される、筆記体サンプル、活字体サンプルおよび漢字コーパス',
+    PFANS1028VIEW_POINTS55: '16. 漢字識別の特徴抽出方法およびテキスト分割技術のソースプログラム',
+    PFANS1028VIEW_POINTS56: '1. パラレル型知能REDUCEステーション',
+    PFANS1028VIEW_POINTS57: '2. CIMS[コンピュータ統合製造方式]実験工程',
+    PFANS1028VIEW_POINTS58: '1. スーパーコンピュータ[演算回数≧1300億回]ソフトウェア技術',
+    PFANS1028VIEW_POINTS59: '2. パラレルコンピュータのマイクロカーネルおよびマルチスレッド実現技術、プログラムパラレル識別技術およびパラレル最適化編集ソースプログラム',
+    PFANS1028VIEW_POINTS60: '情報安全防火壁ソフトウェア技術',
+    PFANS1028VIEW_POINTS61: '1.目標特徴 (TARGET SIGNATURE)光スペクトル',
+    PFANS1028VIEW_POINTS62: '2.目標特徴および関連データベース',
+    PFANS1028VIEW_POINTS63: '3.目標画像特徴抽出',
+    PFANS1028VIEW_POINTS64: 'わが国大地制御網全体平差方法とソフトウェア技術',
+    PFANS1028VIEW_POINTS65: '1.アクチブノイズ制御のシステム設計技術とアルゴリズムソフトウェア',
+    PFANS1028VIEW_POINTS66: '2.音パワー＞10000Wのアクチブ設計技術と製造工程',
     PFANS1028VIEW_PANASG: '松下Ｇ',
     PFANS1028VIEW_NOPANASG: '非松下Ｇ',
     PFANS1029VIEW_CONTRACTID: '契約番号',
@@ -2283,6 +1393,7 @@ module.exports = {
     PFANS1029FROM_TABLEHEADER4: '請求日',
     PFANS1029FROM_TABLEHEADER5: '支払日',
     PFANS1029FROM_TABLEHEADER6: '請求金額',
+    PFANS1029FROM_TABLEHEADER7: '通貨形式',
     PFANS1030FORMVIEW_PRINCIPALPLAC: '委託元場所',
     PFANS1030FORMVIEW_DETAIL: '详细',
     PFANS1030FORMVIEW_ATTF: '社員ランク',
@@ -2292,6 +1403,8 @@ module.exports = {
     PFANS1030FORMVIEW_NUMBER: '外注工数(人月)',
     PFANS1030FORMVIEW_PRICE: '外注経費(人月)',
     PFANS1030FORMVIEW_RATE: '部門計画限界利益率',
+    PFANS1030FORMVIEW_EXCHANGERATE: '為替レート',
+    PFANS1030FORMVIEW_SARMB: '売上(RMB)',
     PFANS1031FORMVIEW_DEPOSITJAPANESE: '委託元（和文）',
     PFANS1031FORMVIEW_ENTRUSTMENT: '委託元略',
     PFANS1031FORMVIEW_TOTO: '到达TO',
@@ -2401,35 +1514,6 @@ module.exports = {
     PFANS1039FORMVIEW_RMB: 'RMB',
     PFANS1039FORMVIEW_DOLLAR: 'ドル',
     PFANS1039FORMVIEW_YEN: '円',
-
-    // PFANS1039FORMVIEW_PERSONNEL192: '19年度2月人員',
-    // PFANS1039FORMVIEW_AMOUNT192: '19年度2月金額',
-    // PFANS1039FORMVIEW_PERSONNEL193: '19年度3月人員',
-    // PFANS1039FORMVIEW_AMOUNT193: '19年度3月金額',
-    // PFANS1039FORMVIEW_PERSONNEL4: '4月人員',
-    // PFANS1039FORMVIEW_AMOUNT4: '4月金額',
-    // PFANS1039FORMVIEW_PERSONNEL5: '5月人員',
-    // PFANS1039FORMVIEW_AMOUNT5: '5月金額',
-    // PFANS1039FORMVIEW_PERSONNEL6: '6月人員',
-    // PFANS1039FORMVIEW_AMOUNT6: '6月金額',
-    // PFANS1039FORMVIEW_PERSONNEL7: '7月人員',
-    // PFANS1039FORMVIEW_AMOUNT7: '7月金額',
-    // PFANS1039FORMVIEW_PERSONNEL8: '8月人員',
-    // PFANS1039FORMVIEW_AMOUNT8: '8月金額',
-    // PFANS1039FORMVIEW_PERSONNEL9: '9月人員',
-    // PFANS1039FORMVIEW_AMOUNT9: '9月金額',
-    // PFANS1039FORMVIEW_PERSONNEL10: '10月人員',
-    // PFANS1039FORMVIEW_AMOUNT10: '10月金額',
-    // PFANS1039FORMVIEW_PERSONNEL11: '11月人員',
-    // PFANS1039FORMVIEW_AMOUNT11: '11月金額',
-    // PFANS1039FORMVIEW_PERSONNEL12: '12月人員',
-    // PFANS1039FORMVIEW_AMOUNT12: '12月金額',
-    // PFANS1039FORMVIEW_PERSONNEL1: '1月人員',
-    // PFANS1039FORMVIEW_AMOUNT1: '1月金額',
-    // PFANS1039FORMVIEW_PERSONNEL2: '2月人員',
-    // PFANS1039FORMVIEW_AMOUNT2: '2月金額',
-    // PFANS1039FORMVIEW_PERSONNEL3: '3月人員',
-    // PFANS1039FORMVIEW_AMOUNT3: '3月金額',
     PFANS2001VIEW_POSITIONTITLE: '岗位名称',
     PFANS2001VIEW_PEOPLEREQUIRED: '需求人数',
     PFANS2001VIEW_WORKPLACE: '工作地点',

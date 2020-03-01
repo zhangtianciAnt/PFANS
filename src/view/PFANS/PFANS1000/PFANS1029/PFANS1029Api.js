@@ -23,3 +23,4 @@ export function update(data) {
     data: data
   })
 }
+

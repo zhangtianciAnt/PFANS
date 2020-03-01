@@ -1,41 +1,42 @@
 <template>
   <div style="min-height: 100%">
-      <el-tabs v-model="activeName" type="border-card">
-        <el-tab-pane
-          label="社员计划"
-          name="first"
-          style="padding-top:1%"
-        >
-          <EasyNormalTable
-            :buttonList="buttonList"
-            :columns="columns"
-            :data="data"
-            :rowid="rowid"
-            :title="titleIn"
-            @buttonClick="buttonClick"
-            @rowClick="rowClick"
-            v-loading="loading"
-          ></EasyNormalTable>
-        </el-tab-pane>
-        <el-tab-pane label="外住计划" name="second" style="padding-top:1%">
-          <EasyNormalTable
-            :buttonList="buttonList"
-            :columns="columns"
-            :data="outdata"
-            :rowid="rowid"
-            :title="titleOut"
-            @buttonClick="buttonClick"
-            @rowClick="rowClick"
-            v-loading="loading"
-          ></EasyNormalTable>
-        </el-tab-pane>
-      </el-tabs>
+    <el-tabs v-model="activeName" type="border-card">
+      <el-tab-pane
+        label="社员计划"
+        name="first"
+        style="padding-top:1%"
+      >
+        <EasyNormalTable
+          :buttonList="buttonList"
+          :columns="columns"
+          :data="data"
+          :rowid="rowid"
+          :title="titleIn"
+          @buttonClick="buttonClick"
+          @rowClick="rowClick"
+          v-loading="loading"
+        ></EasyNormalTable>
+      </el-tab-pane>
+      <el-tab-pane label="外住计划" name="second" style="padding-top:1%">
+        <EasyNormalTable
+          :buttonList="buttonList"
+          :columns="columns"
+          :data="outdata"
+          :rowid="rowid"
+          :title="titleOut"
+          @buttonClick="buttonClick"
+          @rowClick="rowClick"
+          v-loading="loading"
+        ></EasyNormalTable>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from "element-ui";
-  import {getDictionaryInfo, getOrgInfo, getUserInfo} from "../../../../utils/customize";
+  import {getUserInfo} from "../../../../utils/customize";
+  import moment from "moment";
 
   export default {
     name: 'PFANS1037View',
@@ -73,7 +74,7 @@
         titleOut:"外驻计划",
         columns: [
           {
-            code: "year",
+            code: "years",
             label: "label.PFANS2023VIEW_YEARS",
             width: 150,
             fix: false,
@@ -113,7 +114,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch("PFANS2002Store/getAll")
+        .dispatch("PFANS1038Store/getAll")
         .then(response => {
           this.loading = false;
           let userinfo = "";
@@ -122,6 +123,7 @@
           if(response.length > 0){
             response.forEach(
               res => {
+                debugger
                 userinfo = getUserInfo(res.createby).userinfo;
                 res.createby  = userinfo.customername;
                 res.center = userinfo.centername;
@@ -152,6 +154,7 @@
         this.id = row.personnelplanid;
       },
       buttonClick(val) {
+        debugger;
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);
         if ("update" === val) {
           if (!this.id) {

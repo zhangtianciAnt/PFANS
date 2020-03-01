@@ -232,7 +232,8 @@
             </el-col>
             <!--            入场时间-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')" prop="admissiontime">
+              <el-form-item :error="erroradmissiontime" :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            prop="admissiontime">
                 <el-date-picker
                   :disabled="!disabled"
                   style="width:20vw"
@@ -268,7 +269,8 @@
               <el-row>
                 <!--            退场时间-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime" v-show="show">
+                  <el-form-item :error="errorexitime" :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime"
+                                v-show="show">
                     <el-date-picker
                       :disabled="!disabled"
                       style="width:20vw"
@@ -440,6 +442,34 @@
           return callback();
         }
       };
+      var valadmissiontime = (rule, value, callback) => {
+        if (this.form.exitime !== null && this.form.exitime !== '') {
+          if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+            this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
+          } else {
+            callback();
+            this.erroradmissiontime = '';
+          }
+        } else {
+          callback();
+          this.erroradmissiontime = '';
+        }
+      };
+      var valexitime = (rule, value, callback) => {
+        if (this.form.exitime !== null && this.form.exitime !== '') {
+          if (moment(value).format('YYYY-MM-DD') < moment(this.form.admissiontime).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')));
+            this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
+          } else {
+            callback();
+            this.errorexitime = '';
+          }
+        } else {
+          callback();
+          this.errorexitime = '';
+        }
+      };
       return {
         loading: false,
         selectType: 'Single',
@@ -598,8 +628,9 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
-              trigger: 'blur',
+              trigger: 'change',
             },
+            {validator: valadmissiontime, trigger: 'change'},
           ],
           // 技术分类
           technology: [
@@ -622,8 +653,9 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITIME'),
-              trigger: 'blur',
+              trigger: 'change',
             },
+            {validator: valexitime, trigger: 'change'},
           ],
           // 退场理由
           exitreason: [

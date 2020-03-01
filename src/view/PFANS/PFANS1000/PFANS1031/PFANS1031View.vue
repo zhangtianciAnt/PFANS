@@ -14,7 +14,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import moment from 'moment'
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS1031View',
@@ -42,7 +42,7 @@
             filter: true
           },
           {
-            code: 'depositchinese',
+            code: 'depositjapanese',
             label: 'label.PFANS1032FORMVIEW_DEPOSITARY',
             width: 130,
             fix: false,
@@ -184,6 +184,12 @@
                 }
                 if (response[j].openingdate !== null && response[j].openingdate !== ""){
                     response[j].openingdate = moment(response[j].openingdate).format("YYYY-MM-DD");
+                }
+                if (response[j].depositjapanese !== null && response[j].depositjapanese !== "") {
+                  let letUser = getUserInfo(response[j].depositjapanese);
+                  if (letUser != null) {
+                    response[j].depositjapanese = letUser.userinfo.customername;
+                  }
                 }
             }
           this.data = response;
