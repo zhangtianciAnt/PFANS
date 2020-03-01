@@ -1626,7 +1626,7 @@
           },
           {
             technicalnumber: '01',
-            grade: '',
+            grade: 'J',
             technicalname: '',
             judgment1: '',
             points: '　(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
@@ -3080,26 +3080,50 @@
       },
       tableCommun: {
         handler(val) {
+          let row = 0;
           for (let item of val) {
+            let judgment1 = "";
+            if (row <= 1) {
+              judgment1 = val[0].judgment1
+            } else if (row === 2) {
+              judgment1 = val[2].judgment1
+            } else if (row <= 24) {
+              judgment1 = val[3].judgment1
+            } else if (row <= 28) {
+              judgment1 = val[25].judgment1
+            } else if (row <= 30) {
+              judgment1 = val[29].judgment1
+            } else if (row <= 32) {
+              judgment1 = val[31].judgment1
+            } else if (row <= 38) {
+              judgment1 = val[33].judgment1
+            } else if (row <= 43) {
+              judgment1 = val[39].judgment1
+            } else if (row <= 48) {
+              judgment1 = val[44].judgment1
+            } else if (row === 49) {
+              judgment1 = val[49].judgment1
+            }
             if (item.grade === 'J') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableCommun = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableCommun = '2';
                 return
               }
               this.radiolijudegresult.tableCommun = '0';
             } else if (item.grade === 'X') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableCommun = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableCommun = '3';
                 return
               }
               this.radiolijudegresult.tableCommun = '1';
             }
+            row = row + 1;
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
@@ -3107,26 +3131,40 @@
       },
       tableDelivery: {
         handler(val) {
+          let row = 0;
           for (let item of val) {
+            let judgment1 = "";
+            if (row <= 0) {
+              judgment1 = val[0].judgment1
+            } else if (row <= 2) {
+              judgment1 = val[1].judgment1
+            } else if (row <= 3) {
+              judgment1 = val[3].judgment1
+            } else if (row <= 9) {
+              judgment1 = val[4].judgment1
+            } else if (row <= 13) {
+              judgment1 = val[10].judgment1
+            }
             if (item.grade === 'J') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableDelivery = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableDelivery = '2';
                 return
               }
               this.radiolijudegresult.tableDelivery = '0';
             } else if (item.grade === 'X') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableDelivery = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableDelivery = '3';
                 return
               }
               this.radiolijudegresult.tableDelivery = '1';
             }
+            row = row + 1;
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
@@ -3134,26 +3172,34 @@
       },
       tableComputers: {
         handler(val) {
+          let row = 0;
           for (let item of val) {
+            let judgment1 = "";
+            if (row <= 15) {
+              judgment1 = val[0].judgment1
+            } else {
+              judgment1 = val[16].judgment1
+            }
             if (item.grade === 'J') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableComputers = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableComputers = '2';
                 return
               }
               this.radiolijudegresult.tableComputers = '0';
             } else if (item.grade === 'X') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableComputers = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableComputers = '3';
                 return
               }
               this.radiolijudegresult.tableComputers = '1';
             }
+            row = row + 1;
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
@@ -3161,26 +3207,34 @@
       },
       tableJasoftware: {
         handler(val) {
+          let row = 0;
           for (let item of val) {
+            let judgment1 = "";
+            if (row <= 1) {
+              judgment1 = val[0].judgment1
+            } else {
+              judgment1 = val[2].judgment1
+            }
             if (item.grade === 'J') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableJasoftware = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableJasoftware = '2';
                 return
               }
               this.radiolijudegresult.tableJasoftware = '0';
             } else if (item.grade === 'X') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableJasoftware = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableJasoftware = '3';
                 return
               }
               this.radiolijudegresult.tableJasoftware = '1';
             }
+            row = row + 1;
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
@@ -3188,26 +3242,36 @@
       },
       tableGatetechnology: {
         handler(val) {
+          let row = 0;
           for (let item of val) {
+            let judgment1 = "";
+            if (row <= 2) {
+              judgment1 = val[0].judgment1
+            } else if (row <= 3) {
+              judgment1 = val[3].judgment1
+            } else {
+              judgment1 = val[4].judgment1
+            }
             if (item.grade === 'J') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '2';
                 return
               }
               this.radiolijudegresult.tableGatetechnology = '0';
             } else if (item.grade === 'X') {
-              if (item.judgment1 && item.judgment1 === '2') {
+              if (judgment1 && judgment1 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '4';
                 return;
-              } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
+              } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '3';
                 return
               }
               this.radiolijudegresult.tableGatetechnology = '1';
             }
+            row = row + 1;
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
