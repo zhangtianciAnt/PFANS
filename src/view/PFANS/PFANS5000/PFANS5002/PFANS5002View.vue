@@ -11,14 +11,14 @@
   import moment from "moment";
 
   export default {
-    name: "PFANS5001View",
+    name: "PFANS5002View",
     components: {
       EasyNormalTable
     },
     data(){
       return {
         loading:false,
-        title:"title.PFANS5001VIEW",
+        title:"title.PFANS5002VIEW",
         data:[],
         columns:[
           // {
