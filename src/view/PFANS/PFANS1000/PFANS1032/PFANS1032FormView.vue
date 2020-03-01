@@ -159,14 +159,7 @@
     data(){
       return{
         title: "title.PFANS1032VIEW",
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        buttonList: [],
         loading: false,
         disabled: true,
         code1: 'HT008',
