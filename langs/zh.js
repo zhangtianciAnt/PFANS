@@ -1028,6 +1028,10 @@ module.exports = {
     PFANS1027FORMVIEW_APPOINT1: '下記機能を実装したVer2.2リリース' +
       '・CentOS 7.3対応\n' +
       '・マガジン複数コンテナ化',
+    PFANS1027FORMVIEW_APPOINT2: '技術検討\n' +
+      '・小ファイルパック化\n' +
+      '・過去経歴読出し用API',
+    PFANS1027FORMVIEW_APPOINT3: 'リリース済みバージョンのバグ対応',
     PFANS1028VIEW_NO: '管理NO.',
     PFANS1028VIEW_CAREER: '事業場名',
     PFANS1028VIEW_ORGANIZATION: '組織名',
