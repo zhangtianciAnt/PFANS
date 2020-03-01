@@ -16,7 +16,7 @@
               <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
                 <dicselect :code="code1"
                            :data="form.contracttype"
-                           :disabled="!disable"
+                           :disabled="disable"
                            :multiple="multiple"
                            @change="getcontracttype"
                            style="width: 11rem">
@@ -25,42 +25,42 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.depositjapanese"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.depositjapanese"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYENGLISH')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.depositenglish"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.depositenglish"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1031FORMVIEW_ENTRUSTMENT')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.entrustment"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.entrustment"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.deployment"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.deployment"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.pjnamejapanese"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.pjnamejapanese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.pjnamechinese"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.pjnamechinese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.openingdate">
@@ -72,7 +72,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.enddate">
@@ -81,14 +81,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.claimnumber"></el-input>
+                <el-input :disabled="disable" maxlength="20" style="width: 11rem" v-model="form.claimnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMTYPE')">
                 <dicselect :code="code2"
                            :data="form.claimtype"
-                           :disabled="!disable"
+                           :disabled="disable"
                            :multiple="multiple"
                            @change="getclaimtype"
                            style="width: 11rem">
@@ -100,7 +100,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.deliveryfinshdate">
@@ -110,7 +110,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.deliverydate">
@@ -120,7 +120,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="disable"
                   style="width:11rem"
                   type="date"
                   v-model="form.completiondate">
@@ -133,7 +133,7 @@
               <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                 <dicselect :code="code3"
                            :data="form.currencyformat"
-                           :disabled="!disable"
+                           :disabled="disable"
                            :multiple="multiple"
                            @change="getcurrencyformat"
                            style="width: 11rem">
@@ -142,7 +142,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
-                <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form.claimamount">
+                <el-input-number :disabled="disable" :precision="2" controls-position="right" v-model="form.claimamount">
                 </el-input-number>
               </el-form-item>
             </el-col>
@@ -150,7 +150,7 @@
               <el-form-item :label="$t('label.PFANS1031FORMVIEW_TOTO')">
                 <dicselect :code="code4"
                            :data="form.toto"
-                           :disabled="!disable"
+                           :disabled="disable"
                            :multiple="multiple"
                            @change="gettoto"
                            style="width: 11rem">
@@ -161,50 +161,13 @@
           <el-row>
             <el-col :span="8">
                 <el-form-item :error="error" :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" prop="loadingjudge">
-                  <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                  <user :disabled="disable" :error="error" :selectType="selectType" :userlist="userlist"
                         @getUserids="getUserids" style="width: 10.14rem"></user>
                 </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1031FORMVIEW_JUDGMENTNUMBER')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.judgmentnumber"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1031FORMVIEW_FULUSI')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.fulusi"></el-input>
-              </el-form-item>
-            </el-col>
+
           </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1031FORMVIEW_TAKECHARGE')">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model="form.takecharge"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1002VIEW_JUDGMENT')">
-                <dicselect :code="code5"
-                           :data="form.judgment"
-                           :disabled="!disable"
-                           :multiple="multiple"
-                           @change="getjudgment"
-                           style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1031FORMVIEW_DETERMINATION')">
-                <dicselect :code="code5"
-                           :data="form.determination"
-                           :disabled="!disable"
-                           :multiple="multiple"
-                           @change="getdetermination"
-                           style="width: 11rem">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-          </el-row>
+
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -276,7 +239,7 @@
         code3: 'HT006',
         code4: 'HT012',
         code5: 'PJ082',
-        disabled: false,
+        disabled: true,
         rules: {
           loadingjudge: [{
             required: true,
@@ -290,14 +253,14 @@
     created() {
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.buttonList = [
+        /*this.buttonList = [
           {
             key: 'save',
             name: 'button.save',
             disabled: false,
             icon: 'el-icon-check',
           },
-        ];
+        ];*/
       }
     },
     mounted() {
