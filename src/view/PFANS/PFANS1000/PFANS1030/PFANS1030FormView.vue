@@ -559,6 +559,10 @@
         orglist:'',
         baseInfo: {},
         form: {
+          number: '',
+          total: '',
+          price: '',
+          rate: '',
           sarmb: '',
           exchangerate: '',
           contractnumber: '',
@@ -911,7 +915,7 @@
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.maketype='1',
+              this.form.maketype='4',
               this.baseInfo={};
               this.form.user_id=this.userlist;
               if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){

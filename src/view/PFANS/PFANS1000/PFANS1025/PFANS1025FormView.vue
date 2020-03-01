@@ -167,14 +167,34 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.telephone"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')" >
+                      <el-date-picker
+                        v-model="form.draftingdate"
+                        :disabled="!disable"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_SCHEDULEDDATE')" >
+                      <el-date-picker
+                        v-model="form.scheduleddate"
+                        :disabled="!disable"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_EXTRINSIC')">
-<!--                      <dicselect :code="code1"-->
-<!--                                 :data="form.extrinsic"-->
-<!--                                 :disabled="!disable"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="getextrinsic"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
                       <el-switch
                         :disabled="!disable"
                         v-model="form.extrinsic"
@@ -184,17 +204,12 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.telephone"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_EQUIPMENT')">
                       <el-input  :disabled="!disable" style="width:20vw"v-model="form.equipment"></el-input>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_COMMDEPARTMENT')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.commdepartment"></el-input>
@@ -202,21 +217,13 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_COMMISSION')">
-                      <el-input  :disabled="!disable" style="width:11rem" v-model="form.commission"></el-input>
+                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.commission"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-<!--                      <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>-->
-<!--                      <el-switch-->
-<!--                        :disabled="!disable"-->
-<!--                        v-model="form.plan"-->
-<!--                        active-value="1"-->
-<!--                        inactive-value="0">-->
-<!--                      </el-switch>-->
-<!--                      <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>-->
                       <dicselect :code="code4"
                                  :data="form.plan"
                                  :disabled="!disable"
@@ -266,11 +273,10 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.remarks"></el-input>
+                      <el-input  :disabled="!disable" style="width:70vw" v-model="form.remarks"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -427,7 +433,6 @@
   import org from "../../../components/org";
   import project from '../../../components/project';
 
-
   export default {
     name: "PFANS1025FormView",
     components: {
@@ -477,6 +482,8 @@
         orglist:'',
         baseInfo: {},
         form: {
+          draftingdate: moment(new Date()).format("YYYY-MM-DD"),
+          scheduleddate: '',
           contractnumber: '',
           contracttype: '',
           custojapanese: '',
@@ -719,7 +726,7 @@
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.maketype='0',
+              this.form.maketype='7',
               this.baseInfo={};
               this.form.user_id=this.userlist;
               if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
