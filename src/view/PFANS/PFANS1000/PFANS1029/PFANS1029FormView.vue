@@ -123,18 +123,6 @@
                         :data="tableData"
                         style="width: 100%">
                         <el-table-column
-                          prop="project_NAMEJP"
-                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
-                          width="150" />
-                        <el-table-column
-                          prop="project_NAME"
-                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
-                          width="150" />
-                        <el-table-column
-                          prop="deployment"
-                          :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
-                          width="150" />
-                        <el-table-column
                           prop="claimtype"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                           width="150">
@@ -359,18 +347,6 @@
                   :data="tableData"
                   style="width: 100%">
                   <el-table-column
-                    prop="project_NAMEJP"
-                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
-                    width="150" />
-                  <el-table-column
-                    prop="project_NAME"
-                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
-                    width="150" />
-                  <el-table-column
-                    prop="deployment"
-                    :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
-                    width="150" />
-                  <el-table-column
                     prop="claimtype"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                     width="150">
@@ -568,6 +544,7 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
+
               if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
               {
                 this.flag = 0;//技术类型
@@ -579,6 +556,8 @@
                 this.activeName1 = 'second',
                 this.form2 = response;
               }
+
+            this.tableData = response.numberCount;
             this.loading = false;
 
           })
@@ -590,7 +569,6 @@
             });
             this.loading = false;
           });
-        this.getContractList(this.$route.params._id)
       }
     },
     created(){
@@ -615,21 +593,6 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      getContractList(contract_id) {
-        this.$store
-          .dispatch('PFANS1029Store/getContractList', {"contractId": contract_id})
-          .then(response => {
-            this.tableData = response
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;

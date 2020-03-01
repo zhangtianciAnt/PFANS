@@ -28,25 +28,25 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')" prop="trusteejapanese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.trusteejapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')" prop="trusteechinese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.trusteechinese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1027FORMVIEW_JAPANESE')" prop="entrustedjapanese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.entrustedjapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')" prop="entrustedchinese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.entrustedchinese"></el-input>
                   </el-form-item>
                 </el-col>
@@ -58,24 +58,24 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')" prop="pjjapanese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.pjjapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')" prop="pjchinese">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                    <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
                               v-model="form.pjchinese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" prop="startdate">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="form.startdate" style="width: 18rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.startdate" style="width: 18rem" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" prop="enddate">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="form.enddate" style="width: 18rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.enddate" style="width: 18rem" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
