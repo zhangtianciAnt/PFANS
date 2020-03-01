@@ -54,7 +54,11 @@
                   <el-col :span="8">
                     <!--写达到TO-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_COUNTRY')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.varto"></el-input>
+                      <dicselect :code="code1"
+                                 :data="form.varto"
+                                 :disabled="true"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -101,7 +105,7 @@
                     <el-form-item :label="$t('label.PFANS1028VIEW_REQUIREMENTS')">
                       <span style="margin-right: 1vw ">{{$t('label.PFANS1028VIEW_NOT')}}</span>
                       <el-switch
-                        :disabled="!disabled"
+                        :disabled="true"
                         active-value="1"
                         inactive-value="0"
                         v-model="form.requirements">
@@ -140,8 +144,8 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item
-                      :label="$t('label.PFANS1028VIEW_POSSIBLE')">
-                      <el-checkbox-group v-model="checkList">
+                      :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
+                      <el-checkbox-group v-model="checkList" :disabled="!disable" >
                         <el-checkbox :label="$t('label.PFANS1028VIEW_BOOKS')"></el-checkbox>
                         <el-checkbox :label="$t('label.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
                         <el-checkbox :label="$t('label.PFANS1028VIEW_MAIL')"></el-checkbox>
@@ -513,14 +517,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
-                      <div class="block">
-                        <el-date-picker
-                          :disabled="true"
-                          style="width: 20vw"
-                          type="date"
-                          v-model="form.today">
-                        </el-date-picker>
-                      </div>
+                      <el-date-picker :disabled="true" type="date" v-model="form.today"
+                                      style="width: 20vw"></el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -884,14 +882,8 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_TODAY')">
-                        <div class="block">
-                          <el-date-picker
-                            :disabled="true"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.today">
-                          </el-date-picker>
-                        </div>
+                          <el-date-picker :disabled="true" type="date" v-model="form.today"
+                                          style="width: 20vw"></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1240,6 +1232,7 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import {getDictionaryInfo} from '@/utils/customize';
 
@@ -1248,6 +1241,7 @@
     name: 'PFANS1028FormView',
     components: {
       EasyNormalContainer,
+      dicselect
     },
     data() {
       return {
@@ -1274,17 +1268,9 @@
         activeName2: 'first',
         activeName3: 'first',
         disabled: true,
-
-        errorgroup: '',
-        grouporglist: '',
         options: [],
         checkList: [],
-        tableAValue: '',
-        error: '',
-        userlist: '',
-        code1: 'HT016',
-        code2: 'HT005',
-        selectType: 'Single',
+        code1: 'HT012',
         loading: false,
         title: 'title.PFANS1028VIEW',
         canStart: false,
@@ -1313,7 +1299,7 @@
           possible: '',
           claimdatetime: [],
           technical: '',
-          today: moment(new Date()).format('YYYY-MM-DD'),
+          today:  moment(new Date()).format('YYYY-MM-DD'),
           export: '',
           outnumber: '',
           productnumber: '',
@@ -2530,11 +2516,8 @@
             this.form.gfjudgeno='GF-'+response.contractnumber;
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
-            if(this.form.varto!== '' && this.form.varto !== null){
-              this.form.varto=getDictionaryInfo(response.varto).value1;
-            }
-
             if (this.form.possible !== '') {
+              debugger
               this.checkList = JSON.parse(this.form.possible);
             }
             if (this.form.review !== '' && this.form.review !== null) {
@@ -2956,6 +2939,7 @@
               this.form.supplielectronic = JSON.stringify(this.arrElectronic);
               this.form.suppliecom = JSON.stringify(this.arrCOM);
               this.form.suppliesof = JSON.stringify(this.arrSOF);
+              this.form.today = moment(this.form.today).format('YYYY-MM-DD');
               this.form.claimdatetime = moment(this.form.claimdatetime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
               if (this.$route.params._id) {     //编辑
                 this.$store
