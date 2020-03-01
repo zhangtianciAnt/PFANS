@@ -24,7 +24,7 @@
                     <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
                       <dicselect :code="code1"
                                  :data="form.contracttype"
-                                 :disabled="true"
+                                 :disabled="!disable"
                                  :multiple="multiple"
                                  @change="getcontracttype"
                                  style="width:20vw">
@@ -73,14 +73,21 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" >
                       <el-date-picker
-                        v-model="form.claimdatetime"
+                        v-model="form.claimdatetimeStart"
                         :disabled="!disable"
-                        type="daterange"
-                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                        :start-placeholder="$t('label.startdate')"
-                        :end-placeholder="$t('label.enddate')"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" >
+                      <el-date-picker
+                        v-model="form.claimdatetimeEnd"
+                        :disabled="!disable"
+                        type="date"
                         style="width:20vw">
                       </el-date-picker>
                     </el-form-item>
@@ -91,19 +98,25 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                      <dicselect :code="code2"
-                                 :data="form.currencyposition"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getcurrencyformat"
-                                 style="width:20vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
+<!--                      <dicselect :code="code3"-->
+<!--                                 :data="form.currencyposition"-->
+<!--                                 :disabled="!disable"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getcurrencyformat"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <el-switch
+                        :disabled="!disable"
+                        v-model="form.currencyposition"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.claimamount"></el-input>
@@ -196,14 +209,21 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-                      <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
-                      <el-switch
-                        :disabled="!disable"
-                        v-model="form.plan"
-                        active-value="1"
-                        inactive-value="0">
-                      </el-switch>
-                      <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+<!--                      <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>-->
+<!--                      <el-switch-->
+<!--                        :disabled="!disable"-->
+<!--                        v-model="form.plan"-->
+<!--                        active-value="1"-->
+<!--                        inactive-value="0">-->
+<!--                      </el-switch>-->
+<!--                      <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>-->
+                      <dicselect :code="code4"
+                                 :data="form.plan"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getplan"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -433,6 +453,7 @@
         userlist: '',
         code1: 'PJ010',
         code2: 'HT005',
+        code4: 'HT018',
         errorgroup:'',
         selectType: "Single",
         loading: false,
@@ -451,7 +472,8 @@
           deployment: '',
           pjnamejapanese: '',
           pjnamechinese: '',
-          claimdatetime:[],
+          claimdatetimeStart: '',
+          claimdatetimeEnd: '',
           deliverydate: '',
           currencyposition: '',
           claimamount: '',
@@ -559,6 +581,9 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getplan(val) {
+        this.form.plan = val;
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -677,8 +702,8 @@
               this.form.maketype='0',
               this.baseInfo={};
               this.form.user_id=this.userlist;
-              if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-                this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
+              if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+                this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
               }
               this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail=[];

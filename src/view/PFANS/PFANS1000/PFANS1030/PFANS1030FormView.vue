@@ -72,21 +72,28 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" >
                       <el-date-picker
-                        v-model="form.claimdatetime"
+                        v-model="form.claimdatetimeStart"
                         :disabled="!disable"
-                        type="daterange"
-                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                        :start-placeholder="$t('label.startdate')"
-                        :end-placeholder="$t('label.enddate')"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" >
+                      <el-date-picker
+                        v-model="form.claimdatetimeEnd"
+                        :disabled="!disable"
+                        type="date"
                         style="width:20vw">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                      <dicselect :code="code2"
+                      <dicselect :code="code3"
                                  :data="form.currencyposition"
                                  :disabled="!disable"
                                  :multiple="multiple"
@@ -95,6 +102,8 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.claimamount"></el-input>
@@ -166,14 +175,21 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-                      <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
-                      <el-switch
-                        :disabled="!disable"
-                        v-model="form.plan"
-                        active-value="1"
-                        inactive-value="0">
-                      </el-switch>
-                      <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+<!--                      <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>-->
+<!--                      <el-switch-->
+<!--                        :disabled="!disable"-->
+<!--                        v-model="form.plan"-->
+<!--                        active-value="1"-->
+<!--                        inactive-value="0">-->
+<!--                      </el-switch>-->
+<!--                      <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>-->
+                      <dicselect :code="code4"
+                                 :data="form.plan"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getplan"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -238,6 +254,13 @@
                           @getOrgids="getGroupId"></org>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.projects">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="600">
                 <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
                   <template slot-scope="scope">
                     <el-input-number
@@ -249,6 +272,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.member"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -262,6 +286,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.community"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -276,6 +301,7 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.outsource"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -289,13 +315,15 @@
                       controls-position="right"
                       style="width: 100%"
                       v-model="scope.row.outcommunity"
+                      @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
+                </el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -309,7 +337,7 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -341,6 +369,37 @@
                   </template>
                 </el-table-column>
               </el-table>
+              <div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_EXCHANGERATE')">
+                      <el-input-number
+                        :disabled="!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :precision="4"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.exchangerate"
+                        @change="sumAward()"
+                      ></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_SARMB')">
+                      <el-input-number
+                        :disabled="true"
+                        :max="1000000000"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.sarmb"
+                      ></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1030FORMVIEW_DETAIL')" name="third">
 
@@ -498,6 +557,9 @@
         userlist: '',
         code1: 'PJ010',
         code2: 'HT005',
+        code3: 'HT006',
+        code4: 'HT018',
+        sumAwardmoney: '',
         errorgroup:'',
         selectType: "Single",
         loading: false,
@@ -507,6 +569,8 @@
         orglist:'',
         baseInfo: {},
         form: {
+          sarmb: '',
+          exchangerate: '',
           contractnumber: '',
           contracttype: '',
           custojapanese: '',
@@ -516,7 +580,8 @@
           deployment: '',
           pjnamejapanese: '',
           pjnamechinese: '',
-          claimdatetime:[],
+          claimdatetimeStart: '',
+          claimdatetimeEnd: '',
           deliverydate: '',
           currencyposition: '',
           claimamount: '',
@@ -537,6 +602,7 @@
           award_id: '',
           budgetcode: '',
           depart: '',
+          projects: '',
           member: '',
           community: '',
           outsource: '',
@@ -690,6 +756,22 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      sumAward(){
+        if(this.form.contracttype === "HT006002"){
+          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+        } else {
+          this.form.sarmb = this.sumAwardmoney;
+        }
+      },
+      changeSum(row) {
+        row.worknumber = row.member + row.outsource;
+        row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
+        if(this.form.contracttype === "HT006002"){
+          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+        } else {
+          this.form.sarmb = this.sumAwardmoney;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -705,6 +787,11 @@
 
       getcontracttype(val){
         this.form.contracttype=val;
+        if(val === "HT006002"){
+          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+        } else {
+          this.form.sarmb = this.sumAwardmoney;
+        }
       },
       getcurrencyformat(val) {
         this.form.currencyposition = val;
@@ -714,6 +801,9 @@
       },
       getvaluation(val) {
         this.form.valuation = val;
+      },
+      getplan(val) {
+        this.form.plan = val;
       },
       getindividual(val) {
         this.form.individual = val;
@@ -786,17 +876,18 @@
                 return prev;
               }
             }, 0);
-            if (index == 2) {
+            if (index == 3) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 4) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 6) {
+            if (index == 5) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
             if (index == 7) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+              this.sumAwardmoney = sums[index];
             }
           } else {
             sums[index] = '--'
@@ -812,8 +903,8 @@
               this.form.maketype='1',
               this.baseInfo={};
               this.form.user_id=this.userlist;
-              if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-                this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
+              if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+                this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
               }
               this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail=[];
