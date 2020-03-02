@@ -155,7 +155,6 @@
                         <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="海外発表、海外展示"></el-checkbox>
                         <el-checkbox label="委託元国へ"></el-checkbox>
-                        <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="その他"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
