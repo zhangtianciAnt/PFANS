@@ -488,7 +488,7 @@
                 </el-col>
               </el-row>
               <el-row >
-                <el-table :data="tableD"
+                <el-table :data="tableD" :summary-method="getTsummariesTableD"
                           :span-method="objectSpanMethod"
                           border
                           header-cell-class-name="sub_bg_color_blue" stripe>
@@ -834,20 +834,48 @@
     },
     methods: {
       objectSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 0 || columnIndex === 1) {
-          if (rowIndex === 13 || rowIndex === 14) {
+        if (rowIndex === 13 || rowIndex === 14){
+          if (columnIndex == 0) {
             return {
               rowspan: 1,
               colspan: 2
-            };
-            this.rowIndex.disable = false;
-          } else {
+            }
+          } else if (columnIndex == 1) {
             return {
-              rowspan: 1,
-              colspan: 1
-            };
+              rowspan: 0,
+              colspan: 0
+            }
+          }
+          if (columnIndex == 0 || columnIndex == 1) {
+            return [1, 1];
           }
         }
+      },
+      getTsummariesTableD(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            if (index == 1) {
+              sums[index + 1] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 2) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+          } else {
+            sums[index] = ''
+          }
+        });
+        return sums;
       },
       changePro(val, row) {
         row.projects = val;

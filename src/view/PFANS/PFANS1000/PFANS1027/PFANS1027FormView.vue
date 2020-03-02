@@ -86,8 +86,6 @@
                       style="width: 20vw"
                       :disabled="!disabled1">
                     </dicselect>
-                    <!--<el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"-->
-                              <!--v-model="form.currencyposition"></el-input>-->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -119,8 +117,6 @@
                   :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="150" />
                 <el-table-column
                   :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="150" />
-                <!--<el-table-column-->
-                  <!--prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />-->
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
@@ -194,9 +190,6 @@
                     <el-table-column
                       prop="name1"
                       width="200">
-<!--                      <template slot-scope="scope">-->
-<!--                        {{$t('label.PFANS1027FORMVIEW_APPOINT1')}}-->
-<!--                      </template>-->
                     </el-table-column>
                     <el-table-column
                       prop="name"
@@ -399,7 +392,7 @@
     import {Message} from 'element-ui'
     import org from "../../../components/org";
     import moment from "moment";
-    import {getOrgInfo,getDictionaryInfo,getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1027FormView',
@@ -437,7 +430,6 @@
                 errorcenter: '',
                 centerorglist: '',
                 title: "title.PFANS1027VIEW",
-                buttonList: [],
                 tabIndex: 0,
                 multiple: false,
                 form: {
@@ -589,84 +581,6 @@
                 debugunit3: '',
                 debugamount3: ''
               },],
-              //   tablethird1:[
-              //   {
-              //   personfeeid: '',
-              //   quotationid: '',
-              //   functionsprice1: '',
-              //   functionhour1: '',
-              //   functionunit1: '',
-              //   functionamount1: '',
-              //   systemsprice1: '',
-              //   systemhour1: '',
-              //   systemunit1: '',
-              //   systemamount1: '',
-              //   designsprice1: '',
-              //   designhour1: '',
-              //   designunit1: '',
-              //   designamount1: '',
-              //   versprice1: '',
-              //   verhour1: '',
-              //   verunit1: '',
-              //   veramount1: '',
-              //   implesprice1: '',
-              //   implehour1: '',
-              //   impleunit1: '',
-              //   impleamount1: '',
-              //   debugsprice1: '',
-              //   debughour1: '',
-              //   debugunit1: '',
-              //   debugamount1: '',
-              //   functionsprice2: '',
-              //   functionhour2: '',
-              //   functionunit2: '',
-              //   functionamount2: '',
-              //   systemsprice2: '',
-              //   systemhour2: '',
-              //   systemunit2: '',
-              //   systemamount2: '',
-              //   designsprice2: '',
-              //   designhour2: '',
-              //   designunit2: '',
-              //   designamount2: '',
-              //   versprice2: '',
-              //   verhour2: '',
-              //   verunit2: '',
-              //   veramount2: '',
-              //   implesprice2: '',
-              //   implehour2: '',
-              //   impleunit2: '',
-              //   impleamount2: '',
-              //   debugsprice2: '',
-              //   debughour2: '',
-              //   debugunit2: '',
-              //   debugamount2: '',
-              //   functionsprice3: '',
-              //   functionhour3: '',
-              //   functionunit3: '',
-              //   functionamount3: '',
-              //   systemsprice3: '',
-              //   systemhour3: '',
-              //   systemunit3: '',
-              //   systemamount3: '',
-              //   designsprice3: '',
-              //   designhour3: '',
-              //   designunit3: '',
-              //   designamount3: '',
-              //   versprice3: '',
-              //   verhour3: '',
-              //   verunit3: '',
-              //   veramount3: '',
-              //   implesprice3: '',
-              //   implehour3: '',
-              //   impleunit3: '',
-              //   impleamount3: '',
-              //   debugsprice3: '',
-              //   debughour3: '',
-              //   debugunit3: '',
-              //   debugamount3: '',
-              //   },
-              // ],
                 tablethird2:[{
                   name: this.$t('label.PFANS1027FORMVIEW_OTHER2'),
                   detailed1: '',
@@ -689,22 +603,6 @@
                   amount3: '',
                   display: true
                 },
-                // {
-                //   othpersonfeeid: '',
-                //   quotationid: '',
-                //   detailed1: '',
-                //   cost1: '',
-                //   unit1: '',
-                //   amount1: '',
-                //   detailed2: '',
-                //   cost2: '',
-                //   unit2: '',
-                //   amount2: '',
-                //   detailed3: '',
-                //   cost3: '',
-                //   unit3: '',
-                //   amount3: '',
-                // },
               ],
                 tablefifth:[
                 {
@@ -762,13 +660,6 @@
                       if (this.form.contract === '2') {
                         this.radio3 = 2;
                       }
-//                      //契約種類
-//                      let letabbreviation = getDictionaryInfo(response[i].contracttype);
-//                     if (letabbreviation != null) {
-//                        response[i].contracttype = letabbreviation.value1;
-//                      }
-
-                      // 委託元（和文）
                       if(this.form.trusteejapanese !== null && this.form.trusteejapanese !== "") {
                         let user = getUserInfo(this.form.trusteejapanese);
                         if (user) {
@@ -782,9 +673,6 @@
                           this.form.loadingjudge = user.userinfo.customername;
                         }
                       }
-//                      if (response.basicinformation.length > 0) {
-//                        this.tablefirst = response.basicinformation;
-//                      }
                       if ( response.numbercounts.length > 0 ) {
                         for (let i = 0; i < response.numbercounts.length; i++) {
                           let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
@@ -841,40 +729,10 @@
                 this.loading = false;
             }
         },
-      // created() {
-      //   this.disable = this.$route.params.disabled;
-      //   if (this.disabled) {
-      //     this.buttonList = [
-      //       {
-      //         key: "save",
-      //         name: "button.save",
-      //         disabled: false,
-      //         icon: "el-icon-check"
-      //       }
-      //     ];
-      //   }
-      // },
         created(){
-            // if(!this.$route.params.disabled){
-            //     this.buttonList=[
-            //         {
-            //             key: 'generate',
-            //             name: 'button.generate',
-            //             disabled: false,
-            //         }
-            //     ]
-            // }else {
-            //     this.buttonList=[
-            //         {
-            //             key: 'save',
-            //             name: 'button.save',
-            //             disabled: false,
-            //             icon: 'el-icon-check',
-            //         },
-            //     ]
-            // }
           if (!this.$route.params.disabled) {
             this.buttonList = [];
+            this.disabled = false;
           }
             this.disable = this.$route.params.disabled;
         },
@@ -930,29 +788,6 @@
             });
             return sums;
           },
-          // getTsummaries(param) {
-          //   const {columns, data} = param;
-          //   const sums = [];
-          //   columns.forEach((column, index) => {
-          //     if (index === 0) {
-          //       sums[index] = this.$t('label.PFANS2005FORMVIEW_HJ');
-          //       return;
-          //     }
-          //     const values = data.map(item => Number(item[column.property]));
-          //     if (!values.every(value => isNaN(value))) {
-          //       sums[index] = values.reduce((prev, curr) => {
-          //         const value = Number(curr);
-          //         if (!isNaN(value)) {
-          //           return prev + curr;
-          //         } else {
-          //           return prev;
-          //         }
-          //       }, 0);
-          //       sums[index] += ' ';
-          //     }
-          //   });
-          //   return sums;
-          // },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
               if (rowIndex % 6 === 0) {
@@ -1033,23 +868,6 @@
                       this.baseInfo.personfee = [];
                       this.baseInfo.othpersonfee = [];
                       this.baseInfo.fruit = [];
-//                      for (let i = 0; i < this.tablefirst.length; i++) {
-//                        if (this.tablefirst[i].claimtype !== '' || this.tablefirst[i].deliverydate !== '' || this.tablefirst[i].completiondate !== '' ||
-//                          this.tablefirst[i].claimdate !== '' || this.tablefirst[i].supportdate !== '' || this.tablefirst[i].claimamount !== ''
-//                        )
-//                          this.baseInfo.basicinformation.push(
-//                            {
-//                              basicinformationid: this.tablefirst[i].basicinformationid,
-//                              quotationid: this.tablefirst[i].quotationid,
-//                              claimtype: this.tablefirst[i].claimtype,
-//                              deliverydate: this.tablefirst[i].deliverydate,
-//                              completiondate: this.tablefirst[i].completiondate,
-//                              claimdate: this.tablefirst[i].claimdate,
-//                              supportdate: this.tablefirst[i].supportdate,
-//                              claimamount:  this.tablefirst[i].claimamount,
-//                            },
-//                          );
-//                        }
                       for (let i = 0; i < this.tablethird1.length; i++) {
                         if (this.tablethird1[i].functionsprice1 !== '' || this.tablethird1[i].functionhour1 !== '' || this.tablethird1[i].functionunit1 !== '' ||
                           this.tablethird1[i].functionamount1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemhour1 !== ''

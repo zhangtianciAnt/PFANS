@@ -748,10 +748,11 @@ module.exports = {
     PFANS1012FORMVIEW_FACETAX: '票面税金',
     PFANS1012FORMVIEW_CHARGED: '费用明细',
     PFANS1012FORMVIEW_DEPARTMENT: '部门名称',
-    PFANS1012FORMVIEW_ACCOUNT: '科目代码',
-    PFANS1012FORMVIEW_ACCOUNTB: '科目编码',
+    PFANS1012FORMVIEW_ACCOUNT: '科目名',
+    PFANS1012FORMVIEW_ACCOUNTB: '科目代码',
     PFANS1012FORMVIEW_MESSAGE: '眀细金额与合计金额不一致',
     PFANS1012FORMVIEW_BUDGET: '预算编码',
+    PFANS1012VIEW_YGBXXM: '员工报销项目',
     PFANS1013VIEW_TOTAL: '精算合计',
     PFANS1013VIEW_TRAFFIC: '交通费明细',
     PFANS1013VIEW_ACCOMMODATION: '住宿费明细',
@@ -1159,7 +1160,6 @@ module.exports = {
       '同時に調整し行う｢型整合制御｣の内挿軸を制御できる。\n' +
       '(1)単独で輸出するｿﾌﾄと｢数値制御｣ユニットや電子装置やシステムにインストールされてるソフトはすべて対象になる。\n' +
       '(2)制御ユニット又は工作機械のメーカが非制御工作機械を操作するために設計または修正されたソフトウェアは対象外になる。',
-
     PFANS1028VIEW_TRADENAME16: '寸法測定器、装置又はシステム用に設計されたソフトウェア',
     PFANS1028VIEW_SUMMARY16: '核両用品及び関連技術輸出規制リストの工業設備の寸法検査用の\n' +
       '機器･装置･システムのために、設計したソフトウェア（壁厚さと軸郭を測るソフトウェアも含み）',
@@ -2293,8 +2293,6 @@ module.exports = {
     PFANS5004VIEW_FINSHTIME: '完成时间',
     PFANS5004VIEW_STAFF: '员工',
     PFANS5004VIEW_ASSIST: '外协',
-
-    //todo
     PFANS5005VIEW_PROJECTNO: '项目编号',
     PFANS5005VIEW_PROJECTNAMW: '项目名称',
     PFANS5005VIEW_CONTRACTID: '契約番号',
@@ -2692,6 +2690,7 @@ module.exports = {
     ASSETS1002VIEW_INQUANTITY: '盘点到数量',
     ASSETS1002VIEW_UNQUANTITY: '未盘点到数量',
     ASSETS1002VIEW_USERID: '负责人',
+    ASSETS1002VIEW_BARTYPE: '标签类型',
     ASSETS1002FORMVIEW_INVENTORYRANGE: '盘点范围',
     ASSETS1002EXPORTFORMVIEW_BARCODE: '条形码',
     ASSETS1002EXPORTFORMVIEW_RESULT: '结果',
