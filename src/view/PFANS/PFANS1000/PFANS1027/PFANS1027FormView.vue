@@ -700,9 +700,27 @@
                     .then(response => {
                       this.form = response.quotation;
                       this.centerorglist = this.form.deploy;
-                      this.radio1 = this.form.batch;
-                      this.radio2 = this.form.settlement;
-                      this.radio3 = this.form.contract;
+                      if (this.form.batch === '1') {
+                        this.radio1 = 1;
+                      }
+                      if (this.form.batch === '2') {
+                        this.radio1 = 2;
+                      }
+                      if (this.form.settlement === '1') {
+                        this.radio2 = 1;
+                      }
+                      if (this.form.settlement === '2') {
+                        this.radio2 = 2;
+                      }
+                      if (this.form.settlement === '3') {
+                        this.radio2 = 3;
+                      }
+                      if (this.form.contract === '1') {
+                        this.radio3 = 1;
+                      }
+                      if (this.form.contract === '2') {
+                        this.radio3 = 2;
+                      }
 //                      //契約種類
 //                      let letabbreviation = getDictionaryInfo(response[i].contracttype);
 //                     if (letabbreviation != null) {
