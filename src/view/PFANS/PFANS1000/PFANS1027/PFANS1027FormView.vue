@@ -186,6 +186,8 @@
                   <el-table
                     :data="tablethird1"
                     :span-method="objectSpanMethod"
+                    :summary-method="getsummaries"
+                    show-summary
                     border
                     style="width: 100%; margin-top: 20px"
                     stripe header-cell-class-name="sub_bg_color_grey height">
@@ -202,6 +204,7 @@
                       width="200">
                     </el-table-column>
                     <el-table-column
+                      prop="functionsprice1"
                       :label="$t('label.PFANS1027VIEW_UNITPRICE')"
                       width="200">
                       <template slot-scope="scope">
@@ -209,6 +212,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="functionhour1"
                       :label="$t('label.PFANS1027VIEW_MANHOUR')"
                       width="200">
                       <template slot-scope="scope">
@@ -231,6 +235,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="functionamount1"
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
@@ -240,18 +245,24 @@
                   </el-table>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_OTHER')" name="third2">
+                  <el-row >
+                    <el-col :span="24">
                   <el-table
                     :data="tablethird2"
                     :span-method="arraySpanMethod"
+                    stripe
+                    :summary-method="getSummaries"
+                    show-summary
                     border
                     style="width: 100%; margin-top: 20px"
-                    stripe header-cell-class-name="sub_bg_color_grey height">
+                    header-cell-class-name="sub_bg_color_grey height">
                     <el-table-column
                       prop="name"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER1')"
                       width="200">
                     </el-table-column>
                     <el-table-column
+                      prop="detailed1"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER4')"
                       width="200">
                       <template slot-scope="scope">
@@ -259,6 +270,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="cost1"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER5')"
                       width="200">
                       <template slot-scope="scope">
@@ -281,6 +293,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="amount1"
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
@@ -288,6 +301,8 @@
                       </template>
                     </el-table-column>
                   </el-table>
+                    </el-col>
+                  </el-row>
                 </el-tab-pane>
               </el-tabs>
             </el-tab-pane>
@@ -306,7 +321,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="TEL">
+                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="tel">
                   <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                             v-model="form.tel"></el-input>
                 </el-form-item>
@@ -315,7 +330,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1027FORMVIEW_SYSTEM')" prop="system">
-                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 72vw"></el-input>
+                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 70vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -396,6 +411,18 @@
             org
         },
         data() {
+          var checktele = (rule, value, callback) => {
+            this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+            if (this.form.tel !== null && this.form.tel !== '') {
+              if (!this.regExp.test(value)) {
+                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
+              } else {
+                callback();
+              }
+            } else {
+              callback();
+            }
+          };
             return {
                 radio1: 1,
                 radio2: 1,
@@ -645,19 +672,22 @@
                   detailed1: '',
                   cost1: '',
                   unit1: '',
-                  amount1: ''
+                  amount1: '',
+                  display: true
                 },{
                   name: this.$t('label.PFANS1027FORMVIEW_OTHER3'),
                   detailed2: '',
                   cost2: '',
                   unit2: '',
-                  amount2: ''
+                  amount2: '',
+                  display: true
                 },{
                   name: this.$t('label.PFANS1027FORMVIEW_OTHER4'),
                   detailed3: '',
                   cost3: '',
                   unit3: '',
-                  amount3: ''
+                  amount3: '',
+                  display: true
                 },
                 // {
                 //   othpersonfeeid: '',
@@ -684,7 +714,18 @@
                 disabled: true,
                 disabled1: false,
                 menuList: [],
-                rules: {},
+                rules: {
+                  tel: [{
+                    validator: checktele,
+                    trigger: 'change'
+                  }],
+                },
+              buttonList: [{
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              }],
                 canStart: false,
                 qualifications: '',
                 fileList: [],
@@ -800,40 +841,43 @@
                 this.loading = false;
             }
         },
-      created() {
-        this.disable = this.$route.params.disabled;
-        if (this.disabled) {
-          this.buttonList = [
-            {
-              key: "save",
-              name: "button.save",
-              disabled: false,
-              icon: "el-icon-check"
-            }
-          ];
-        }
-      },
-        // created(){
-        //     if(!this.$route.params.disabled){
-        //         this.buttonList=[
-        //             {
-        //                 key: 'generate',
-        //                 name: 'button.generate',
-        //                 disabled: false,
-        //             }
-        //         ]
-        //     }else {
-        //         this.buttonList=[
-        //             {
-        //                 key: 'save',
-        //                 name: 'button.save',
-        //                 disabled: false,
-        //                 icon: 'el-icon-check',
-        //             },
-        //         ]
-        //     }
-        //     this.disable = this.$route.params.disabled;
-        // },
+      // created() {
+      //   this.disable = this.$route.params.disabled;
+      //   if (this.disabled) {
+      //     this.buttonList = [
+      //       {
+      //         key: "save",
+      //         name: "button.save",
+      //         disabled: false,
+      //         icon: "el-icon-check"
+      //       }
+      //     ];
+      //   }
+      // },
+        created(){
+            // if(!this.$route.params.disabled){
+            //     this.buttonList=[
+            //         {
+            //             key: 'generate',
+            //             name: 'button.generate',
+            //             disabled: false,
+            //         }
+            //     ]
+            // }else {
+            //     this.buttonList=[
+            //         {
+            //             key: 'save',
+            //             name: 'button.save',
+            //             disabled: false,
+            //             icon: 'el-icon-check',
+            //         },
+            //     ]
+            // }
+          if (!this.$route.params.disabled) {
+            this.buttonList = [];
+          }
+            this.disable = this.$route.params.disabled;
+        },
         methods: {
           getCenterId(val) {
             this.form.deploy = val;
@@ -862,6 +906,53 @@
           getUnit1(val,row){
             row.unit1 = val;
           },
+          getSummaries(param) {
+            const {columns, data} = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+              if (index === 0) {
+                sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                sums[index] = values.reduce((prev, curr) => {
+                  const value = Number(curr);
+                  if (!isNaN(value)) {
+                    return prev + curr;
+                  } else {
+                    return prev;
+                  }
+                }, 0);
+              } else {
+                sums[index] = '--'
+              }
+            });
+            return sums;
+          },
+          // getTsummaries(param) {
+          //   const {columns, data} = param;
+          //   const sums = [];
+          //   columns.forEach((column, index) => {
+          //     if (index === 0) {
+          //       sums[index] = this.$t('label.PFANS2005FORMVIEW_HJ');
+          //       return;
+          //     }
+          //     const values = data.map(item => Number(item[column.property]));
+          //     if (!values.every(value => isNaN(value))) {
+          //       sums[index] = values.reduce((prev, curr) => {
+          //         const value = Number(curr);
+          //         if (!isNaN(value)) {
+          //           return prev + curr;
+          //         } else {
+          //           return prev;
+          //         }
+          //       }, 0);
+          //       sums[index] += ' ';
+          //     }
+          //   });
+          //   return sums;
+          // },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
               if (rowIndex % 6 === 0) {
@@ -902,6 +993,30 @@
               quotationid: '',
               fruition: '',
             });
+          },
+          getsummaries(param) {
+            const {columns, data} = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+              if (index === 1) {
+                sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                sums[index] = values.reduce((prev, curr) => {
+                  const value = Number(curr);
+                  if (!isNaN(value)) {
+                    return prev + curr;
+                  } else {
+                    return prev;
+                  }
+                }, 0);
+              } else {
+                sums[index] = '--'
+              }
+            });
+            return sums;
           },
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {

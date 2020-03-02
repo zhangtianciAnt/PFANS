@@ -754,7 +754,7 @@
         loading: false,
         disabled: false,
         refform: {},
-        years:moment(new Date()).format("YYYY"),
+        years: this.$route.params._id,
         groupId:'',
         arrays: [
           {disabled: true},

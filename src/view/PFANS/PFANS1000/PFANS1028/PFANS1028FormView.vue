@@ -54,7 +54,11 @@
                   <el-col :span="8">
                     <!--写达到TO-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_COUNTRY')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.varto"></el-input>
+                      <dicselect :code="code1"
+                                 :data="form.varto"
+                                 :disabled="true"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -101,7 +105,7 @@
                     <el-form-item :label="$t('label.PFANS1028VIEW_REQUIREMENTS')">
                       <span style="margin-right: 1vw ">{{$t('label.PFANS1028VIEW_NOT')}}</span>
                       <el-switch
-                        :disabled="!disabled"
+                        :disabled="true"
                         active-value="1"
                         inactive-value="0"
                         v-model="form.requirements">
@@ -141,7 +145,7 @@
                   <el-col :span="24">
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
-                      <el-checkbox-group v-model="checkList">
+                      <el-checkbox-group v-model="checkList" :disabled="!disable">
                         <el-checkbox label="書類提供"></el-checkbox>
                         <el-checkbox label="ソフトウェア提供"></el-checkbox>
                         <el-checkbox label="E-MAIL"></el-checkbox>
@@ -151,7 +155,6 @@
                         <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="海外発表、海外展示"></el-checkbox>
                         <el-checkbox label="委託元国へ"></el-checkbox>
-                        <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="その他"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
@@ -1274,17 +1277,9 @@
         activeName2: 'first',
         activeName3: 'first',
         disabled: true,
-
-        errorgroup: '',
-        grouporglist: '',
         options: [],
         checkList: [],
-        tableAValue: '',
-        error: '',
-        userlist: '',
-        code1: 'HT016',
-        code2: 'HT005',
-        selectType: 'Single',
+        code1: 'HT012',
         loading: false,
         title: 'title.PFANS1028VIEW',
         canStart: false,
@@ -2530,10 +2525,7 @@
             this.form.gfjudgeno='GF-'+response.contractnumber;
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
-            if(this.form.varto!== '' && this.form.varto !== null){
-              this.form.varto=getDictionaryInfo(response.varto).value1;
-            }
-
+             this.form.today=moment(new Date()).format('YYYY-MM-DD');
             if (this.form.possible !== '') {
               this.checkList = JSON.parse(this.form.possible);
             }
