@@ -3832,7 +3832,6 @@ first<template>
                     for (let i = 0; i < this.tabledata.length; i++) {
                         this.tabledata[i].claimdatetime = this.getclaimdatetime(this.tabledata[i].claimdatetime);
                         this.tabledata[i].contracttype = this.form.contracttype
-
                         //海外受託 技術開発
                         if(this.form.contracttype === 'HT008001'){
                           this.tabledata[i].maketype = '1';
@@ -3868,6 +3867,13 @@ first<template>
                         //販売
                         else if(this.form.contracttype === 'HT008009'){
                           this.tabledata[i].maketype = '9';
+                        }
+                        if(this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
+                            let letclaimamount = 0;
+                            for (let j = 0; j < this.tableclaimtype.length; j++) {
+                              letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
+                            }
+                            this.tabledata[i].claimamount = letclaimamount;
                         }
                     }
                     baseInfo.contractapplication = this.tabledata;
