@@ -366,7 +366,7 @@
                                             v-model="scope.row.trafficdate"></el-date-picker>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('发票编号')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                               <el-option
@@ -378,7 +378,7 @@
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('费用项目')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code10"
                                        :data="scope.row.costitem"
@@ -388,7 +388,7 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('部门名称')" align="center" width="200">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
                                  orgtype="2"
@@ -1326,7 +1326,10 @@
                 row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
                 if (group) {
+                    debugger;
                     this.companyen = group.companyen;
+                    row.budgetcoding = group.encoding
+
                 }
             },
             getcode(val, row) {
