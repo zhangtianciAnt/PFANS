@@ -1538,7 +1538,6 @@
                   o.workinghours = response.projectcontract[i].workinghours;
                   o.rowindex = response.projectcontract[i].rowindex;
                   this.tableD.push(o);
-
                 }
               }
             }
@@ -1612,6 +1611,7 @@
         this.$store
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
+            console.log(response);
             this.gridData3 = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
               var vote2 = {};

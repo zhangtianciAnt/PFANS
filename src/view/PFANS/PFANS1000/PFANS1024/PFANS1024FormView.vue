@@ -1512,6 +1512,13 @@
             } else if (this.form.contracttype === 'HT014004') {
               this.tabledata[i].maketype = '4';
             }
+            if(this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
+              let letclaimamount = 0;
+              for (let j = 0; j < this.tableclaimtype.length; j++) {
+                letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
+              }
+              this.tabledata[i].claimamount = letclaimamount;
+            }
           }
           baseInfo.contractapplication = this.tabledata;
           baseInfo.contractnumbercount = this.tableclaimtype;
