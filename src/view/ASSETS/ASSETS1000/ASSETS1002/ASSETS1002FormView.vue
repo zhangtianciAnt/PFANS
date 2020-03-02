@@ -322,6 +322,12 @@
                   response[j].typeassets = letErrortype.value1;
                 }
               }
+              if (response[j].bartype !== null && response[j].bartype !== '') {
+                let letBartype = getDictionaryInfo(response[j].bartype);
+                if (letBartype != null) {
+                  response[j].bartype = letBartype.value1;
+                }
+              }
             }
             this.tableD = response;
             this.loading = false;
