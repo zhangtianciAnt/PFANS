@@ -172,6 +172,13 @@
             width: 120,
             fix: false,
             filter: false,
+          },
+          {
+            code: 'bartype',
+            label: 'label.ASSETS1002VIEW_BARTYPE',
+            width: 120,
+            fix: false,
+            filter: false,
           }
         ],
         buttonList:[],
@@ -267,6 +274,12 @@
                   let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
                   if (letErrortype != null) {
                     response.inventoryRange[j].typeassets = letErrortype.value1;
+                  }
+                }
+                if (response.inventoryRange[j].bartype !== null && response.inventoryRange[j].bartype !== '') {
+                  let letBartype = getDictionaryInfo(response.inventoryRange[j].bartype);
+                  if (letBartype != null) {
+                    response.inventoryRange[j].bartype = letBartype.value1;
                   }
                 }
               }
