@@ -186,6 +186,8 @@
                   <el-table
                     :data="tablethird1"
                     :span-method="objectSpanMethod"
+                    :summary-method="getsummaries"
+                    show-summary
                     border
                     style="width: 100%; margin-top: 20px"
                     stripe header-cell-class-name="sub_bg_color_grey height">
@@ -903,6 +905,31 @@
               fruition: '',
             });
           },
+          getsummaries(param) {
+            const {columns, data} = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+              if (index === 1) {
+                sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                sums[index] = values.reduce((prev, curr) => {
+                  const value = Number(curr);
+                  if (!isNaN(value)) {
+                    return prev + curr;
+                  } else {
+                    return prev;
+                  }
+                }, 0);
+              } else {
+                sums[index] = '--'
+              }
+            });
+            return sums;
+          },
+
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
