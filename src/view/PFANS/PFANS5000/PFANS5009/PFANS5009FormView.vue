@@ -153,13 +153,15 @@
                   </template>
                 </el-collapse-item>
               </el-collapse>
-              <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_CONTRACT')}}</span>
-                  </template>
-                </el-collapse-item>
-              </el-collapse>
+
+              <!--              &lt;!&ndash;              合同&ndash;&gt;-->
+              <!--              <el-collapse>-->
+              <!--                <el-collapse-item>-->
+              <!--                  <template slot="title">-->
+              <!--                    <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_CONTRACT')}}</span>-->
+              <!--                  </template>-->
+              <!--                </el-collapse-item>-->
+              <!--              </el-collapse>-->
             </el-tab-pane>
 
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_STAGEINFORMATION')" name="second">
@@ -179,11 +181,11 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')" align="center" width="100">
                         <template slot-scope="scope">
-<!--                          <el-input :disabled="true" style="width: 100%"-->
-<!--                                    maxlength="20"-->
-<!--                                    v-model="scope.row.stageproduct"-->
-<!--                                    v-show="scope.row.showrow">-->
-<!--                          </el-input>-->
+                          <!--                          <el-input :disabled="true" style="width: 100%"-->
+                          <!--                                    maxlength="20"-->
+                          <!--                                    v-model="scope.row.stageproduct"-->
+                          <!--                                    v-show="scope.row.showrow">-->
+                          <!--                          </el-input>-->
                           <dicselect :code="code2"
                                      :data="scope.row.stageproduct"
                                      :disabled="true"
@@ -554,73 +556,118 @@
                 </el-row>
               </el-form-item>
             </el-tab-pane>
-<!--            工时统计-->
-            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')" name="forth">
+
+            <!--            合同-->
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
-                <el-row>
-                  <el-col :span="24">
-                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue" stripe border>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_MONTH')" align="center" width="100">
-                        <template slot-scope="scope">
-                          <el-input
-                            :no="scope.row"
-                            :disabled="!disabled"
-                            v-model="scope.row.month"
-                            style="width: 100%">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input
-                            :no="scope.row"
-                            :disabled="!disabled"
-                            v-model="scope.row.estimatedwork"
-                            style="width: 100%">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALWORK')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input
-                            :no="scope.row"
-                            :disabled="!disabled"
-                            v-model="scope.row.actualwork"
-                            style="width: 100%">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disabled"
-                            @click.native.prevent="deleteRow(scope.$index, tableA)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}
-                          </el-button>
-                          <el-button
-                            :disabled="!disabled"
-                            @click="addRow()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}
-                          </el-button>
-                        </template>
-                      </el-table-column>
-
-                    </el-table>
-                  </el-col>
-                </el-row>
+                <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="width: 90vw">
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_THEME')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="true"
+                        v-model="scope.row.contract"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_THEME')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="true"
+                        v-model="scope.row.theme"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-input
+                        :no="scope.row"
+                        :disabled="true"
+                        v-model="scope.row.workinghours"
+                        style="width: 100%">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-form-item>
+            </el-tab-pane>
+            <!--&lt;!&ndash;            工时统计&ndash;&gt;-->
+            <!--            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')" name="forth">-->
+            <!--              <el-form-item>-->
+            <!--                <el-row>-->
+            <!--                  <el-col :span="24">-->
+            <!--                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue" stripe border>-->
+            <!--                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_MONTH')" align="center" width="100">-->
+            <!--                        <template slot-scope="scope">-->
+            <!--                          <el-input-->
+            <!--                            :no="scope.row"-->
+            <!--                            :disabled="!disabled"-->
+            <!--                            v-model="scope.row.month"-->
+            <!--                            style="width: 100%">-->
+            <!--                          </el-input>-->
+            <!--                        </template>-->
+            <!--                      </el-table-column>-->
+            <!--                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="200">-->
+            <!--                        <template slot-scope="scope">-->
+            <!--                          <el-input-->
+            <!--                            :no="scope.row"-->
+            <!--                            :disabled="!disabled"-->
+            <!--                            v-model="scope.row.estimatedwork"-->
+            <!--                            style="width: 100%">-->
+            <!--                          </el-input>-->
+            <!--                        </template>-->
+            <!--                      </el-table-column>-->
+            <!--                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALWORK')" align="center" width="200">-->
+            <!--                        <template slot-scope="scope">-->
+            <!--                          <el-input-->
+            <!--                            :no="scope.row"-->
+            <!--                            :disabled="!disabled"-->
+            <!--                            v-model="scope.row.actualwork"-->
+            <!--                            style="width: 100%">-->
+            <!--                          </el-input>-->
+            <!--                        </template>-->
+            <!--                      </el-table-column>-->
+            <!--                      <el-table-column :label="$t('label.operation')" align="center" width="200">-->
+            <!--                        <template slot-scope="scope">-->
+            <!--                          <el-button-->
+            <!--                            :disabled="!disabled"-->
+            <!--                            @click.native.prevent="deleteRow(scope.$index, tableA)"-->
+            <!--                            plain-->
+            <!--                            size="small"-->
+            <!--                            type="danger"-->
+            <!--                          >{{$t('button.delete')}}-->
+            <!--                          </el-button>-->
+            <!--                          <el-button-->
+            <!--                            :disabled="!disabled"-->
+            <!--                            @click="addRow()"-->
+            <!--                            plain-->
+            <!--                            size="small"-->
+            <!--                            type="primary"-->
+            <!--                          >{{$t('button.insert')}}-->
+            <!--                          </el-button>-->
+            <!--                        </template>-->
+            <!--                      </el-table-column>-->
 
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTANALYSIS')" name="fifth">
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTQCD')" name="sixth">
-            </el-tab-pane>
+            <!--                    </el-table>-->
+            <!--                  </el-col>-->
+            <!--                </el-row>-->
+            <!--              </el-form-item>-->
+
+            <!--            </el-tab-pane>-->
+            <!--            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTANALYSIS')" name="fifth">-->
+            <!--            </el-tab-pane>-->
+            <!--            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTQCD')" name="sixth">-->
+            <!--            </el-tab-pane>-->
           </el-tabs>
         </el-form>
       </div>
@@ -720,10 +767,10 @@
         activeName2: 'first',
         title: 'title.PFANS5009VIEW',
         buttonList: [],
-        currentRow : '',
-        currentRow1 : '',
-        currentRow2 : '',
-        currentRow3 : '',
+        currentRow: '',
+        currentRow1: '',
+        currentRow2: '',
+        currentRow3: '',
         tabIndex: 0,
         multiple1: false,
 
@@ -793,7 +840,7 @@
             number: '',
             company: '',
             name: '',
-            position:'',
+            position: '',
             admissiontime: '',
             exittime: '',
             rowindex: '',
@@ -808,6 +855,18 @@
             month: '',
             estimatedwork: '',
             actualwork: '',
+            rowindex: '',
+          },
+        ],
+
+        //合同
+        tableD: [
+          {
+            projectcontract_id: '',
+            companyprojects_id: '',
+            contract: '',
+            theme: '',
+            workinghours: '',
             rowindex: '',
           },
         ],
@@ -939,7 +998,7 @@
             if (response.stageinformation.length > 0) {
               this.tableP = [];
               //阶段信息
-              for(let h = 0; h < response.stageinformation.length; h ++){
+              for (let h = 0; h < response.stageinformation.length; h++) {
                 let o = {};
                 o.phase = response.stageinformation[h].phase;
                 o.stageproduct = response.stageinformation[h].stageproduct;
@@ -953,6 +1012,23 @@
                 o.actualendtime = response.stageinformation[h].actualendtime;
                 o.product = response.stageinformation[h].product;
                 this.tableP.push(o);
+              }
+            }
+            //项目合同
+            if (response.projectcontract.length > 0) {
+              this.tableD = response.projectcontract;
+              this.tableB = [];
+              for (var i = 0; i < response.projectcontract.length; i++) {
+                if (response.projectcontract[i].type === '0') {
+                  let o = {};
+                  o.name = response.projectcontract[i].projectcontract_id;
+                  o.companyprojects_id = response.projectcontract[i].companyprojects_id;
+                  o.contract = response.projectcontract[i].contract;
+                  o.theme = response.projectcontract[i].theme;
+                  o.workinghours = response.projectcontract[i].workinghours;
+                  o.rowindex = response.projectcontract[i].rowindex;
+                  this.tableD.push(o);
+                }
               }
             }
             if (response.projectsystem.length > 0) {
@@ -1004,7 +1080,8 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         this.userlist1 = this.$store.getters.userinfo.userid;
-      }this.$store
+      }
+      this.$store
         .dispatch('PFANS5001Store/getcustomer', {})
         .then(response => {
           for (let i = 0; i < response.length; i++) {
@@ -1036,6 +1113,12 @@
             name: 'button.save',
             disabled: false,
             icon: 'el-icon-check',
+          },
+          {
+            key: 'edit',
+            name: 'button.update',
+            disabled: false,
+            icon: 'el-icon-edit',
           },
         ];
       }
@@ -1297,6 +1380,24 @@
             }
           }
         });
+        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        if (val === 'edit') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS5001FormView',
+            params: {
+              _id: this.$route.params._id,
+              disabled: true,
+            },
+          });
+        }
       },
     },
   };
