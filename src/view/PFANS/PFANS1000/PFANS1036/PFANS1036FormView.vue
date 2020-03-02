@@ -2559,7 +2559,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <AssetsComponent></AssetsComponent>
+                <AssetsComponent :tableNewYear="equipmentNewyear" :tableLastYear="equipmentLastyear"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" name="forth">
@@ -2594,9 +2594,7 @@
                     <el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="110">
                         <template slot-scope="scope">
-
                           {{scope.row.jjj}}
-
                         </template>
                       </el-table-column>
                     </el-table-column>
@@ -2604,18 +2602,14 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center"
                                        width="120">
                         <template slot-scope="scope">
-
                           {{scope.row.jjj2}}
-
                         </template>
                       </el-table-column>
                     </el-table-column>
                     <el-table-column>
                       <el-table-column align="center" width="110">
                         <template slot-scope="scope">
-
                           {{scope.row.jjj3}}
-
                         </template>
                       </el-table-column>
                     </el-table-column>
@@ -5103,24 +5097,8 @@
       };
       return {
         month:"",
-        pickerOptions: {
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', ["社外"]);
-            }
-          }]
-        },
-        options1: [{
-          value: '1',
-          label: '1年'
-        }, {
-          value: '2',
-          label: '3年'
-        }, {
-          value: '3',
-          label: '5年'
-        }],
+        equipment_newyear: [{assetstype:"0"},{assetstype:"1"}],
+        equipment_lastyear: [{assetstype:"0"},{assetstype:"1"}],
         tableTValue: '',
         tablePValue: '',
         tableZValue: '',
@@ -5563,7 +5541,6 @@
             row.moneyAnnual = row.moneyfirsthalf + row.moneysecondhalf;
           },
       formatterColumn(row,column,cellValue, index){
-        debugger
         if(column.property === "type"){
           if(index === 0){
             return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
@@ -5899,8 +5876,6 @@
             if (valid) {
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-
-
               this.baseInfo.totalplan = [];
               this.baseInfo.pieceworktotal = [];
 
