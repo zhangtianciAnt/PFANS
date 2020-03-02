@@ -240,12 +240,16 @@
                   </el-table>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('label.PFANS1027FORMVIEW_OTHER')" name="third2">
+                  <el-row >
+                    <el-col :span="24">
                   <el-table
                     :data="tablethird2"
                     :span-method="arraySpanMethod"
+                    stripe
+                    :summary-method="getSummaries"
                     border
                     style="width: 100%; margin-top: 20px"
-                    stripe header-cell-class-name="sub_bg_color_grey height">
+                    header-cell-class-name="sub_bg_color_grey height">
                     <el-table-column
                       prop="name"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER1')"
@@ -255,14 +259,14 @@
                       :label="$t('label.PFANS1027FORMVIEW_OTHER4')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.detailed1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.detailed1" @change="changedetailed1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS1027FORMVIEW_OTHER5')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.cost1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.cost1" @change="changecost1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -284,10 +288,12 @@
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.amount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.amount1" @change="changeamount1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                   </el-table>
+                    </el-col>
+                  </el-row>
                 </el-tab-pane>
               </el-tabs>
             </el-tab-pane>
@@ -315,7 +321,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1027FORMVIEW_SYSTEM')" prop="system">
-                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 72vw"></el-input>
+                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 70vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -396,6 +402,18 @@
             org
         },
         data() {
+          var checktele = (rule, value, callback) => {
+            this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
+            if (this.form.tel !== null && this.form.tel !== '') {
+              if (!this.regExp.test(value)) {
+                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
+              } else {
+                callback();
+              }
+            } else {
+              callback();
+            }
+          };
             return {
                 radio1: 1,
                 radio2: 1,
@@ -645,19 +663,22 @@
                   detailed1: '',
                   cost1: '',
                   unit1: '',
-                  amount1: ''
+                  amount1: '',
+                  display: true
                 },{
                   name: this.$t('label.PFANS1027FORMVIEW_OTHER3'),
                   detailed2: '',
                   cost2: '',
                   unit2: '',
-                  amount2: ''
+                  amount2: '',
+                  display: true
                 },{
                   name: this.$t('label.PFANS1027FORMVIEW_OTHER4'),
                   detailed3: '',
                   cost3: '',
                   unit3: '',
-                  amount3: ''
+                  amount3: '',
+                  display: true
                 },
                 // {
                 //   othpersonfeeid: '',
@@ -684,7 +705,12 @@
                 disabled: true,
                 disabled1: false,
                 menuList: [],
-                rules: {},
+                rules: {
+                  tel: [{
+                    validator: checktele,
+                    trigger: 'change'
+                  }],
+                },
                 canStart: false,
                 qualifications: '',
                 fileList: [],
@@ -861,6 +887,79 @@
           },
           getUnit1(val,row){
             row.unit1 = val;
+          },
+          getSummaries(param) {
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+              if (index === 0) {
+                sums[index] = '总价';
+                return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                sums[index] = values.reduce((prev, curr) => {
+                  const value = Number(curr);
+                  if (!isNaN(value)) {
+                    return prev + curr;
+                  } else {
+                    return prev;
+                  }
+                }, 0);
+                sums[index] += ' 元';
+              } else {
+                sums[index] = 'N/A';
+              }
+            });
+
+            return sums;
+          },
+          // getTsummaries(param) {
+          //   const {columns, data} = param;
+          //   const sums = [];
+          //   columns.forEach((column, index) => {
+          //     if (index === 0) {
+          //       sums[index] = this.$t('label.PFANS2005FORMVIEW_HJ');
+          //       return;
+          //     }
+          //     const values = data.map(item => Number(item[column.property]));
+          //     if (!values.every(value => isNaN(value))) {
+          //       sums[index] = values.reduce((prev, curr) => {
+          //         const value = Number(curr);
+          //         if (!isNaN(value)) {
+          //           return prev + curr;
+          //         } else {
+          //           return prev;
+          //         }
+          //       }, 0);
+          //       sums[index] += ' ';
+          //     }
+          //   });
+          //   return sums;
+          // },
+          changedetailed1(newValue) {
+            if (newValue.detailed1 > 0) {
+              newValue.display = false;
+              this.$nextTick(() => {
+                newValue.display = true
+              })
+            }
+          },
+          changecost1(newValue) {
+            if (newValue.cost1 > 0) {
+              newValue.display = false;
+              this.$nextTick(() => {
+                newValue.display = true
+              })
+            }
+          },
+          changeamount1(newValue) {
+            if (newValue.amount1 > 0) {
+              newValue.display = false;
+              this.$nextTick(() => {
+                newValue.display = true
+              })
+            }
           },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
