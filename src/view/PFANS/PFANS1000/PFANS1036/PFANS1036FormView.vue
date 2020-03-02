@@ -5375,9 +5375,7 @@
         ],
         tableN: [
           {
-              businessplandet_id:'',
               businessplan_id:'',
-              plantype:'4',
               companyname:'',
               commission:'',
               prices:'',
@@ -5502,9 +5500,46 @@
             if (response.totalplan.length > 0) {
               this.tableA = response.totalplan;
             }
-
-            if (response.businessplandets.length > 0) {
-                this.tableN = response.businessplandets;
+            console.log("response.form.trustb3",response.form.trustb3)
+              debugger;
+            if (response.businessplan.trustb3 !=='' && response.businessplan.trustb3 !== null) {
+                // this.tableN = response.businessplan.trustb3;
+                for (let i = 0; i < JSON.parse(response.businessplan.trustb3).length; i++) {
+                    let aa = JSON.parse(response.businessplan.trustb3)[i];
+                        this.tableN[i].businessplan_id = aa.m0;
+                        this.tableN[i].companyname = aa.m1;
+                        this.tableN[i].commission = aa.m2;
+                        this.tableN[i].prices = aa.m3;
+                        this.tableN[i].number4 = aa.m4;
+                        this.tableN[i].money4 = aa.m5;
+                        this.tableN[i].number5 = aa.m6;
+                        this.tableN[i].money5 = aa.m7;
+                        this.tableN[i].number6 = aa.m8;
+                        this.tableN[i].money6 = aa.m9;
+                        this.tableN[i].number7 = aa.m10;
+                        this.tableN[i].money7 = aa.m11;
+                        this.tableN[i].number8 = aa.m12;
+                        this.tableN[i].money8 = aa.m13;
+                        this.tableN[i].number9 = aa.m14;
+                        this.tableN[i].money9 = aa.m15;
+                        this.tableN[i].number10 = aa.m16;
+                        this.tableN[i].money10 = aa.m17;
+                        this.tableN[i].number11 = aa.m18;
+                        this.tableN[i].money11 = aa.m19;
+                        this.tableN[i].number12 = aa.m20;
+                        this.tableN[i].money12 = aa.m21;
+                        this.tableN[i].number1 = aa.m22;
+                        this.tableN[i].money1 = aa.m23;
+                        this.tableN[i].money2 = aa.m24;
+                        this.tableN[i].number3 = aa.m25;
+                        this.tableN[i].money3 = aa.m26;
+                        this.tableN[i].numberfirsthalf = aa.m27;
+                        this.tableN[i].moneyfirsthalf = aa.m28;
+                        this.tableN[i].numbersecondhalf = aa.m29;
+                        this.tableN[i].moneysecondhalf = aa.m30;
+                        this.tableN[i].numberAnnual = aa.m31;
+                        this.tableN[i].moneyAnnual = aa.m32;
+                }
             }
 
             if (response.pieceworktotal.length > 0) {

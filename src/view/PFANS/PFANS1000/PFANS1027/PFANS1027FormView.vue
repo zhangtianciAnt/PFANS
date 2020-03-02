@@ -204,6 +204,7 @@
                       width="200">
                     </el-table-column>
                     <el-table-column
+                      prop="functionsprice1"
                       :label="$t('label.PFANS1027VIEW_UNITPRICE')"
                       width="200">
                       <template slot-scope="scope">
@@ -211,6 +212,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="functionhour1"
                       :label="$t('label.PFANS1027VIEW_MANHOUR')"
                       width="200">
                       <template slot-scope="scope">
@@ -233,6 +235,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="functionamount1"
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
@@ -249,6 +252,7 @@
                     :span-method="arraySpanMethod"
                     stripe
                     :summary-method="getSummaries"
+                    show-summary
                     border
                     style="width: 100%; margin-top: 20px"
                     header-cell-class-name="sub_bg_color_grey height">
@@ -258,17 +262,19 @@
                       width="200">
                     </el-table-column>
                     <el-table-column
+                      prop="detailed1"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER4')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.detailed1" @change="changedetailed1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.detailed1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="cost1"
                       :label="$t('label.PFANS1027FORMVIEW_OTHER5')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.cost1" @change="changecost1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.cost1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -287,10 +293,11 @@
                       </template>
                     </el-table-column>
                     <el-table-column
+                      prop="amount1"
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.amount1" @change="changeamount1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.amount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -891,11 +898,11 @@
             row.unit1 = val;
           },
           getSummaries(param) {
-            const { columns, data } = param;
+            const {columns, data} = param;
             const sums = [];
             columns.forEach((column, index) => {
               if (index === 0) {
-                sums[index] = '总价';
+                sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
                 return;
               }
               const values = data.map(item => Number(item[column.property]));
@@ -908,12 +915,10 @@
                     return prev;
                   }
                 }, 0);
-                sums[index] += ' 元';
               } else {
-                sums[index] = 'N/A';
+                sums[index] = '--'
               }
             });
-
             return sums;
           },
           // getTsummaries(param) {
@@ -939,30 +944,6 @@
           //   });
           //   return sums;
           // },
-          changedetailed1(newValue) {
-            if (newValue.detailed1 > 0) {
-              newValue.display = false;
-              this.$nextTick(() => {
-                newValue.display = true
-              })
-            }
-          },
-          changecost1(newValue) {
-            if (newValue.cost1 > 0) {
-              newValue.display = false;
-              this.$nextTick(() => {
-                newValue.display = true
-              })
-            }
-          },
-          changeamount1(newValue) {
-            if (newValue.amount1 > 0) {
-              newValue.display = false;
-              this.$nextTick(() => {
-                newValue.display = true
-              })
-            }
-          },
           objectSpanMethod({ row, column, rowIndex, columnIndex }) {
             if (columnIndex === 0 ) {
               if (rowIndex % 6 === 0) {
@@ -1028,7 +1009,6 @@
             });
             return sums;
           },
-
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
