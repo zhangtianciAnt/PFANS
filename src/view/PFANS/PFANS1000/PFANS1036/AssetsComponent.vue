@@ -794,7 +794,7 @@
           totalExpect[val] = (parseFloat(this.tableNewYearTotal[0][val]) + parseFloat((this.tableLastYearTotal[0][val]||0))).toFixed(5);
         }
         for(let val in this.tableNewYearTotal[1]){
-          totalActual[val] = parseFloat(this.tableNewYearTotal[1][val]) + parseFloat((this.tableLastYearTotal[1][val]||0)).toFixed(5);
+          totalActual[val] = (parseFloat(this.tableNewYearTotal[1][val]) + parseFloat((this.tableLastYearTotal[1][val]||0))).toFixed(5);
         }
        this.tableTotal = [totalExpect,totalActual];
       },
@@ -811,6 +811,14 @@
           this.tableLastYear.push({assetstype:"0"});
           this.tableLastYear.push({assetstype:"1"});
         }
+      }
+    },
+    watch:{
+      tableNewYear:{
+        handler(newValue,oldValue){
+          this.tableNewYear = newValue;
+        },
+        deep:true
       }
     }
   };
