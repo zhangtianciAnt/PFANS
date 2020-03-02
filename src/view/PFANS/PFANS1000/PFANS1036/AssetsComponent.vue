@@ -569,11 +569,14 @@
       }
     },
     props: {
+//      tableNewYear: {
+//        type: Array,
+//        default: function () {
+//          return [{},{}]
+//        }
+//      },
       tableNewYear: {
-        type: Array,
-        default: function () {
-          return [{},{}]
-        }
+        type: Function
       },
       tableLastYear: {
         type: Array,
