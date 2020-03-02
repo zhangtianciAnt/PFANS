@@ -489,7 +489,6 @@
               </el-row>
               <el-row >
                 <el-table :data="tableD"
-<!--                          :span-method="objectSpanMethod"-->
                           border
                           header-cell-class-name="sub_bg_color_blue" stripe>
                   <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTF')" align="center" width="150">
@@ -716,11 +715,13 @@
             attfnumber: ''
           },
           {
-            attf: '1111111',
+            attf: '社員合計人数',
+            attfmoth: '',
             attfnumber: ''
           },
           {
-            attf: '222222',
+            attf: '社員コスト（元）',
+            attfmoth: '',
             attfnumber: ''
           },
 
