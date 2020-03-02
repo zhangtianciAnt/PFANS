@@ -82,23 +82,24 @@
                 .dispatch('PFANS1026Store/get',{'type': '1'})
                 .then(response => {
                     let letcontractnumber = [];
-                    for (let i = 0; i < response.length; i++) {
-                        response[i].status = getStatus(response[i].status);
-                        let user = getUserInfo(response[i].user_id);
+                    let tabledata = response.contractapplication;
+                    for (let i = 0; i < tabledata.length; i++) {
+                        tabledata[i].status = getStatus(tabledata[i].status);
+                        let user = getUserInfo(tabledata[i].user_id);
                         if (user) {
-                            response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
+                            tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
                         }
-                        if (response[i].applicationdate !== null && response[i].applicationdate !== "") {
-                            response[i].applicationdate = moment(response[i].applicationdate).format("YYYY-MM-DD");
+                        if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
+                            tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
                         }
-                        if (response[i].contracttype !== null && response[i].contracttype !== "") {
-                            let letContracttype = getDictionaryInfo(response[i].contracttype);
+                        if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
+                            let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
                             if (letContracttype != null) {
-                                response[i].contracttype = letContracttype.value1;
+                                tabledata[i].contracttype = letContracttype.value1;
                             }
                         }
-                        if(response[i].contractnumber != ""){
-                            letcontractnumber.push(response[i].contractnumber);
+                        if(tabledata[i].contractnumber != ""){
+                            letcontractnumber.push(tabledata[i].contractnumber);
                         }
                     }
                     var arr= new Array();
@@ -106,7 +107,7 @@
                     for(var i = 0; i < letcontractnumber.length; i++){
                         if(arr.indexOf(letcontractnumber[i]) == -1){
                             arr.push(letcontractnumber[i]);
-                            o = Object.assign([], response[i]);
+                            o = Object.assign([], tabledata[i]);
                             this.data.push(o);
                         }
                     }

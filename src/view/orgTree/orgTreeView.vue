@@ -162,7 +162,6 @@
           })
       },
       handleNodeClick (data) {
-        debugger;
         let temp = []
         this.companyFormcheck = Object.assign(
           {},
@@ -275,7 +274,6 @@
           this.companyFormcheck = Object.assign({}, this.currentNode)
           this.loading = true
           this.currentNode.title = this.currentNode.type === '1' ? this.currentNode.companyshortname : this.currentNode.departmentname
-          debugger
           this.$store
             .dispatch('orgTreeStore/saveTree', dataArray[0])
             .then((response) => {

@@ -10,115 +10,133 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.contractnumber"></el-input>
+              <el-form-item  :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')">
+                <el-input  :disabled="true" maxlength="20" style="width:20vw" v-model="form.contractnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
-                <el-input   :disabled="!disable"maxlength="20" style="width:20vw" v-model="form.contracttype"></el-input>
+                <dicselect :code="code1"
+                           :data="form.contracttype"
+                           :disabled="true"
+                           style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYENGLISH')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.custoenglish"></el-input>
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.custoenglish"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.custochinese"></el-input>
+              <el-form-item  :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')">
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.custochinese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPERSON')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.responerglish"></el-input>
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.responerglish"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACEENGLISH')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.placeenglish"></el-input>
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.placeenglish"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.placechinese"></el-input>
+              <el-form-item  :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.placechinese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.pjnamechinese"></el-input>
+                <el-input   :disabled="true" maxlength="20" style="width:20vw" v-model="form.pjnamechinese"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1025VIEW_DEVELOPDATE')" >
+                <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')">
+                  <el-date-picker
+                    :disabled="true"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.openingdate">
+                  </el-date-picker>
+                </el-form-item>
+              </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')">
                 <el-date-picker
-                  v-model="form.claimdatetime"
-                  type="daterange"
-                  :disabled="!disable"
-                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                  :start-placeholder="$t('label.startdate')"
-                  :end-placeholder="$t('label.enddate')"
-                  style="width:20vw">
+                  :disabled="true"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.enddate">
                 </el-date-picker>
               </el-form-item>
             </el-col>
-          </el-row>
-
-          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.businesscode"></el-input>
+                <el-input  :disabled="true" maxlength="20" style="width:20vw" v-model="form.businesscode"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+            <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
-                <el-input   :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.deliveryfinshdate"></el-input>
+              <el-form-item  :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
+                <el-date-picker
+                  :disabled="true"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.deliveryfinshdate">
+                </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.claimamount"></el-input>
+                <el-input  :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimamount"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYPHONE')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.responphone"></el-input>
+                <el-input  :disabled="true" maxlength="20" style="width:20vw" v-model="form.responphone"></el-input>
               </el-form-item>
             </el-col>
+            </el-row>
+
+            <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.claimnumber"></el-input>
+              <el-form-item  :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
+                <el-input  :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMTYPE')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimtype"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimtype" ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
+                <dicselect :code="code2"
+                           :data="form.currencyposition"
+                           :disabled="true"
+                           style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
 
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                <el-input  :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.currencyposition"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -129,15 +147,14 @@
 
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import user from "../../../components/user.vue";
   import {Message} from 'element-ui'
-  import moment from "moment";
-  import {getUserInfo} from '@/utils/customize'
+  import dicselect from '../../../components/dicselect';
+  import {getDictionaryInfo} from '@/utils/customize'
 
   export default {
     name: "PFANS1032FormView",
     components: {
-      EasyNormalContainer, user,
+      EasyNormalContainer, dicselect,
     },
     data(){
       return{
@@ -145,6 +162,8 @@
         buttonList: [],
         loading: false,
         disabled: true,
+        code1: 'HT008',
+        code2: 'HT006',
         error: '',
         form: {
           contractnumber:'',
@@ -156,14 +175,16 @@
           placechinese:'',
           pjnamejapanese:'',
           pjnamechinese:'',
-        claimdatetime:[],
+          openingdate:'',
+          enddate:'',
           businesscode:'',
-        deliveryfinshdate:'',
+          deliveryfinshdate:'',
       claimamount:'',
       responphone:'',
       claimnumber:'',
           claimtype:'',
         currencyposition:'',
+          claimdatetime:[],
         },
         rules: {},
       }
@@ -175,10 +196,9 @@
           .dispatch('PFANS1032Store/one', {"petition_id": this.$route.params._id})
           .then(response => {
             this.form=response;
-            if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-              let sertdate=this.form.claimdatetime.slice(0,10);
-              let enddate =this.form.claimdatetime.slice(this.form.developdate.length-10);
-              this.form.claimdatetime=[sertdate,enddate];
+            if(response.claimdatetime !== null && response.claimdatetime !== ""){
+              this.form.openingdate=this.form.claimdatetime.slice(0,10);
+              this.form.enddate=this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
             }
             this.loading=false;
           })
@@ -192,24 +212,9 @@
           })
       }
     },
-    created(){
-      if(!this.$route.params.disabled){
-        this.buttonList=[
-          {
-            key: 'generate',
-            name: 'button.generate',
-            disabled: false,
-          }
-        ]
-      }else {
-        this.buttonList=[
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ]
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
     },
@@ -218,7 +223,6 @@
         this.$refs["reff"].validate(valid =>{
           if(valid){
             this.loading = true;
-            this.form.claimdatetime=moment(this.form.claimdatetime[0]).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetime[1]).format('YYYY-MM-DD');
             if(this.$route.params._id){     //编辑
               this.$store
                 .dispatch('PFANS1032Store/update',this.form)

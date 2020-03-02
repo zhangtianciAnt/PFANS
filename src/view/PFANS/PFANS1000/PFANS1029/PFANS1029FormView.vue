@@ -12,7 +12,7 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName1" type="border-card">
             <!--技術契約書(受託)-->
-            <el-tab-pane :label="$t('label.PFANS1029FROM_TECHNICAL')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1029FROM_TECHNICAL')" name="first" :disabled="tabDisabled">
               <div>
                 <el-tabs v-model="activeName2" type="border-card">
                   <!--info1-->
@@ -28,7 +28,7 @@
                         <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
                           <dicselect :code="code1"
                                      :data="form.contracttype"
-                                     :disabled="!disable"
+                                     :disabled="true"
                                      :multiple="multiple"
                                      @change="getcontracttype"
                                      style="width:20vw">
@@ -37,7 +37,7 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_DEPOSITJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.depositjapanese"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.depositjapanese"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -45,17 +45,17 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_DEPOSITJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                          <el-input  :disabled="!disable"style="width:20vw" v-model="form.depositchinese"></el-input>
+                          <el-input  :disabled="true"style="width:20vw" v-model="form.depositchinese"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_PRPLACEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.prplacejapanese"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.prplacejapanese"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_PRPLACEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.prplacechinese"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.prplacechinese"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -64,17 +64,17 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_DEPLOYMENT')">
-                          <el-input  :disabled="!disable"style="width:20vw" v-model="form.deployment"></el-input>
+                          <el-input  :disabled="true"style="width:20vw" v-model="form.deployment"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.pjnamechinese"></el-input>
+                          <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -85,14 +85,14 @@
                         <el-form-item :label="$t('label.PFANS1029VIEW_OPENINGDATE')" >
                           <el-date-picker
                             v-model="form.openingdate"
-                            :disabled="!disable"
+                            :disabled="true"
                             style="width:20vw">
                           </el-date-picker>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_ENDDATE')">
-                          <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.enddate">
+                          <el-date-picker :disabled="true" style="width:20vw" v-model="form.enddate">
                           </el-date-picker>
                         </el-form-item>
                       </el-col>
@@ -100,7 +100,7 @@
                         <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
                           <dicselect :code="code2"
                                      :data="form.currencyposition"
-                                     :disabled="!disable"
+                                     :disabled="true"
                                      :multiple="multiple"
                                      @change="getcurrencyformat"
                                      style="width:20vw">
@@ -113,7 +113,7 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                          <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form.claimamount"></el-input-number>
+                          <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form.claimamount"></el-input-number>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -122,18 +122,6 @@
                       <el-table
                         :data="tableData"
                         style="width: 100%">
-                        <el-table-column
-                          prop="project_NAMEJP"
-                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
-                          width="150" />
-                        <el-table-column
-                          prop="project_NAME"
-                          :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
-                          width="150" />
-                        <el-table-column
-                          prop="deployment"
-                          :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
-                          width="150" />
                         <el-table-column
                           prop="claimtype"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
@@ -162,6 +150,11 @@
                         <el-table-column
                           prop="claimamount"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
+                          width="150">
+                        </el-table-column>
+                        <el-table-column
+                          prop="currencyposition"
+                          :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
                           width="150">
                         </el-table-column>
                       </el-table>
@@ -251,7 +244,7 @@
             </el-tab-pane>
 
             <!--役務契約書(受託)-->
-            <el-tab-pane :label="$t('label.PFANS1029FROM_LABOR')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1029FROM_LABOR')" name="second" :disabled="tab2Disabled">
               <!--1-->
 
               <el-row>
@@ -264,7 +257,7 @@
                   <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
                     <dicselect :code="code1"
                                :data="form2.contracttype"
-                               :disabled="!disable"
+                               :disabled="true"
                                :multiple="multiple"
                                @change="getcontracttype"
                                style="width:20vw">
@@ -273,7 +266,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_DEPOSITJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.depositjapanese"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.depositjapanese"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -281,17 +274,17 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_DEPOSITJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                    <el-input  :disabled="!disable"style="width:20vw" v-model="form2.depositchinese"></el-input>
+                    <el-input  :disabled="true"style="width:20vw" v-model="form2.depositchinese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_PRPLACEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.prplacejapanese"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.prplacejapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_PRPLACEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.prplacechinese"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.prplacechinese"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -300,17 +293,17 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_DEPLOYMENT')">
-                    <el-input  :disabled="!disable"style="width:20vw" v-model="form2.deployment"></el-input>
+                    <el-input  :disabled="true"style="width:20vw" v-model="form2.deployment"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.pjnamejapanese"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.pjnamejapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.pjnamechinese"></el-input>
+                    <el-input  :disabled="true" style="width:20vw" v-model="form2.pjnamechinese"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -321,14 +314,14 @@
                   <el-form-item :label="$t('label.PFANS1029VIEW_OPENINGDATE')" >
                     <el-date-picker
                       v-model="form2.openingdate"
-                      :disabled="!disable"
+                      :disabled="true"
                       style="width:20vw">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_ENDDATE')">
-                    <el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.enddate">
+                    <el-date-picker :disabled="true" style="width:20vw" v-model="form2.enddate">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -336,7 +329,7 @@
                   <el-form-item :label="$t('label.PFANS1029VIEW_CURRENCYFORMAT')">
                     <dicselect :code="code2"
                                :data="form2.currencyposition"
-                               :disabled="!disable"
+                               :disabled="true"
                                :multiple="multiple"
                                @change="getcurrencyformat"
                                style="width:20vw">
@@ -349,27 +342,15 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                    <el-input-number :disabled="!disable" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
+                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
 
               <template>
                 <el-table
-                  :data="tableData"
+                  :data="tableData2"
                   style="width: 100%">
-                  <el-table-column
-                    prop="project_NAMEJP"
-                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
-                    width="150" />
-                  <el-table-column
-                    prop="project_NAME"
-                    :label="$t('label.PFANS1029VIEW_PJNAMEJAPANESE')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')"
-                    width="150" />
-                  <el-table-column
-                    prop="deployment"
-                    :label="$t('label.PFANS1029VIEW_DEPLOYMENT')"
-                    width="150" />
                   <el-table-column
                     prop="claimtype"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
@@ -400,6 +381,11 @@
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">
                   </el-table-column>
+                  <el-table-column
+                    prop="currencyposition"
+                    :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
+                    width="150">
+                  </el-table-column>
                 </el-table>
               </template>
               <!--6-->
@@ -415,7 +401,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1029FROM_SIGNINGDATE')">
+                  <el-form-item :label="$t('label.PFANS1029FROM_SIGNINGDATE2')">
                     <el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
                     </el-date-picker>
                   </el-form-item>
@@ -437,7 +423,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
 
   export default {
@@ -474,13 +460,15 @@
       return {
         activeName1: 'first',
         activeName2: 'third',
+        tabDisabled: true,
+        tab2Disabled: true,
         disabled: true,
         tableAValue:'',
         error_typeoffees: '',
         error: '',
         userlist: '',
-        code1: 'PJ078',
-        code2: 'PJ079',
+        code1: 'HT008',
+        code2: 'HT006',
         code3: 'PJ080',
         errorgroup:'',
         selectType: "Single",
@@ -492,6 +480,7 @@
         baseInfo: {},
         flag: 0,
         tableData: [],
+        tableData2: [],
         form: {
             contract_id:'',
             contractnumber:'',
@@ -568,16 +557,52 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
-              if(response.contracttype === 'PJ078001'||response.contracttype === 'PJ078002'||response.contracttype === 'PJ078005'||response.contracttype === 'PJ078006')
+            for (let i = 0; i < response.numberCount.length; i++) {
+              if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
+                let letCurrencyposition = getDictionaryInfo(response.numberCount[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numberCount[i].currencyposition = letCurrencyposition.value1;
+                }
+              }
+
+              let deliverydate = response.numberCount[i].deliverydate;
+              let completiondate = response.numberCount[i].completiondate;
+              let claimdate = response.numberCount[i].claimdate;
+              let supportdate = response.numberCount[i].supportdate;
+
+              if ( deliverydate !== "" && deliverydate!=null) {
+                response.numberCount[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+              }
+              if (completiondate!== "" && completiondate!=null) {
+                response.numberCount[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+              }
+              if (claimdate!==""&& claimdate!=null) {
+                response.numberCount[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+              }
+              if (supportdate!==""&& supportdate!=null) {
+                response.numberCount[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+              }
+            }
+
+            if (response.depositjapanese !== null && response.depositjapanese !== "") {
+              let letUser = getUserInfo(response.depositjapanese);
+              if (letUser != null) {
+                response.depositjapanese = letUser.userinfo.customername;
+              }
+            }
+              if(response.contracttype === 'HT008001'||response.contracttype === 'HT008002'||response.contracttype === 'HT008005'||response.contracttype === 'HT008006')
               {
                 this.flag = 0;//技术类型
                 this.activeName1 = 'first',
+                  this.tabDisabled = false;
                 this.form = response;
-
+                this.tableData = response.numberCount;
               }else{
                 this.flag = 1;//业务类型
                 this.activeName1 = 'second',
+                  this.tab2Disabled = false;
                 this.form2 = response;
+                this.tableData2 = response.numberCount;
               }
             this.loading = false;
 
@@ -590,7 +615,6 @@
             });
             this.loading = false;
           });
-        this.getContractList(this.$route.params._id)
       }
     },
     created(){
@@ -615,21 +639,6 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      getContractList(contract_id) {
-        this.$store
-          .dispatch('PFANS1029Store/getContractList', {"contractId": contract_id})
-          .then(response => {
-            this.tableData = response
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -761,9 +770,6 @@
       gettotal(val){
         this.form.total= this.form.number*this.form.price;
       },
-
-
-
       buttonClick(val) {
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
@@ -772,9 +778,15 @@
               if(this.flag === 0){
                   //this.baseInfo={};
                   this.form.user_id=this.userlist;
-                  this.form.openingdate=moment(this.form.openingdate).format('YYYY-MM-DD');
-                  this.form.enddate=moment(this.form.enddate).format('YYYY-MM-DD');
-                  this.form.signingdate=moment(this.form.signingdate).format('YYYY-MM-DD');
+                  if(this.form.openingdate != null && this.form.openingdate != "") {
+                    this.form.openingdate=moment(this.form.openingdate).format('YYYY-MM-DD');
+                  }
+                  if(this.form.enddate != null && this.form.enddate != "") {
+                    this.form.enddate=moment(this.form.enddate).format('YYYY-MM-DD');
+                  }
+                  if(this.form.signingdate != null && this.form.signingdate != "") {
+                    this.form.signingdate=moment(this.form.signingdate).format('YYYY-MM-DD');
+                  }
                   if(this.$route.params._id){     //编辑
                       this.form.contract_id = this.$route.params._id;
                       this.$store
@@ -804,9 +816,15 @@
                   }
               }else{
                   this.form2.user_id=this.userlist;
-                  this.form2.openingdate=moment(this.form2.openingdate).format('YYYY-MM-DD');
-                  this.form2.enddate=moment(this.form2.enddate).format('YYYY-MM-DD');
-                  this.form2.signingdate=moment(this.form2.signingdate).format('YYYY-MM-DD');
+                  if(this.form2.openingdate != null && this.form2.openingdate != "") {
+                    this.form2.openingdate=moment(this.form2.openingdate).format('YYYY-MM-DD');
+                  }
+                  if(this.form2.enddate != null && this.form2.enddate != ""){
+                    this.form2.enddate=moment(this.form2.enddate).format('YYYY-MM-DD');
+                  }
+                  if(this.form2.signingdate != null && this.form2.signingdate != ""){
+                    this.form2.signingdate=moment(this.form2.signingdate).format('YYYY-MM-DD');
+                  }
                   if(this.$route.params._id){     //编辑
                       this.form2.contract_id = this.$route.params._id;
                       this.$store

@@ -267,7 +267,6 @@ export function getDictionaryInfode(value1,value2,value3) {
 export function getCooperinterviewList(cooperuserid) {
   let info = null;
   if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
-    debugger;
     console.log(store.getters);
     for (let cooperinterview of store.getters.cooperinterviewList) {
       if (cooperinterview.cooperuserid === cooperuserid) {

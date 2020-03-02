@@ -32,7 +32,6 @@ service.interceptors.request.use(config => {
 // respone interceptor
 service.interceptors.response.use(
   response => {
-    debugger
     if (response.status >= 200 && response.status < 300) {
       if("msSaveOrOpenBlob" in navigator){
         window.navigator.msSaveOrOpenBlob(
