@@ -6290,6 +6290,7 @@
               plantype:'4',
               companyname:'',
               commission:'',
+              prices:'',
               number4:'',
               money4:'',
               number5:'',
@@ -6372,11 +6373,15 @@
           {},
         ],
         baseInfo: {},
+
+        arrayMonth: [],
+
         form: {
           centerid: '',
           groupid: '',
           teamid: '',
           user_id: '',
+          trustb3: '',
         },
         rules: {
           user_id: [{
@@ -6824,7 +6829,7 @@
       addRowN() {
         this.tableN.push({
             businessplandet_id:'',
-            plantype:'4',
+            plantype:'',
             companyname:'',
             commission:'',
             number4:'',
@@ -6896,9 +6901,11 @@
             if (valid) {
               this.baseInfo = {};
               this.form.user_id = this.userlist;
-              this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+
+
               this.baseInfo.totalplan = [];
               this.baseInfo.pieceworktotal = [];
+
               // for (let i = 0; i < this.tableT.length; i++) {
               //   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
               //     || this.tableT[i].rmb !== '' || this.tableT[i].foreigncurrency !== '' || this.tableT[i].annexno !== '') {
@@ -6955,7 +6962,6 @@
               //   }
               // }
 
-                this.baseInfo.businessplandets = [];
                 for(let i =0; i < this.tableN.length; i++){
                     if(this.tableN[i].companyname !=null || this.tableN[i].commission !=null || this.table[i].number4 != null || this.table[i].money4 != null ||
                         this.tableN[i].number5 !=null || this.tableN[i].money5 !=null || this.table[i].number6 != null || this.table[i].money6 != null ||
@@ -6968,47 +6974,49 @@
                         this.tableN[i].numberfirsthalf !=null || this.tableN[i].moneyfirsthalf !=null || this.table[i].numbersecondhalf != null ||
                         this.tableN[i].moneysecondhalf !=null || this.tableN[i].numberAnnual !=null || this.table[i].moneyAnnual != null)
                     {
-                        this.baseInfo.businessplandets.push(
-                            {
-                                businessplandet_id:this.tableN[i].businessplandet_id,
-                                businessplan_id:this.tableN[i].businessplan_id,
-                                plantype:'4',
-                                companyname: this.tableN[i].companyname,
-                                commission:this.tableN[i].commission,
-                                number4:this.tableN[i].number4,
-                                money4:this.tableN[i].money4,
-                                number5:this.tableN[i].number5,
-                                money5:this.tableN[i].money5,
-                                number6:this.tableN[i].number6,
-                                money6:this.tableN[i].money6,
-                                number7:this.tableN[i].number7,
-                                money7:this.tableN[i].money7,
-                                number8:this.tableN[i].number8,
-                                money8:this.tableN[i].money8,
-                                number9:this.tableN[i].number9,
-                                money9:this.tableN[i].money9,
-                                number10:this.tableN[i].number10,
-                                money10:this.tableN[i].money10,
-                                number11:this.tableN[i].number11,
-                                money11:this.tableN[i].money11,
-                                number12:this.tableN[i].number12,
-                                money12:this.tableN[i].money12,
-                                number1:this.tableN[i].number1,
-                                money1:this.tableN[i].money1,
-                                number2:this.tableN[i].number2,
-                                money2:this.tableN[i].money2,
-                                number3:this.tableN[i].number3,
-                                money3:this.tableN[i].money3,
-                                numberfirsthalf:this.tableN[i].numberfirsthalf,
-                                moneyfirsthalf:this.tableN[i].moneyfirsthalf,
-                                numbersecondhalf:this.tableN[i].numbersecondhalf,
-                                moneysecondhalf:this.tableN[i].moneysecondhalf,
-                                numberAnnual:this.tableN[i].numberAnnual,
-                                moneyAnnual:this.tableN[i].moneyAnnual,
-                            }
-                        );
+                        for(let i = 0;i < this.tableN.length; i++){
+                            this.arrayMonth.push({
+                                m0:this.tableN[i].businessplan_id,
+                                m1: this.tableN[i].companyname,
+                                m2: this.tableN[i].commission,
+                                m3: this.tableN[i].prices,
+                                m4: this.tableN[i].number4,
+                                m5: this.tableN[i].money4,
+                                m6: this.tableN[i].number5,
+                                m7: this.tableN[i].money5,
+                                m8: this.tableN[i].number6,
+                                m9: this.tableN[i].money6,
+                                m10: this.tableN[i].number7,
+                                m11: this.tableN[i].money7,
+                                m12: this.tableN[i].number8,
+                                m13: this.tableN[i].money8,
+                                m14: this.tableN[i].number9,
+                                m15: this.tableN[i].money9,
+                                m16: this.tableN[i].number10,
+                                m17: this.tableN[i].money10,
+                                m18: this.tableN[i].number11,
+                                m19: this.tableN[i].money11,
+                                m20: this.tableN[i].number12,
+                                m21: this.tableN[i].money12,
+                                m22: this.tableN[i].number1,
+                                m23: this.tableN[i].money1,
+                                m24: this.tableN[i].money2,
+                                m25: this.tableN[i].number3,
+                                m26: this.tableN[i].money3,
+                                m27: this.tableN[i].numberfirsthalf,
+                                m28: this.tableN[i].moneyfirsthalf,
+                                m28: this.tableN[i].numbersecondhalf,
+                                m29: this.tableN[i].moneysecondhalf,
+                                m30: this.tableN[i].numberAnnual,
+                                m31: this.tableN[i].moneyAnnual,
+
+                            })
+                        }
+                        this.form.trustb3 = JSON.stringify(this.arrayMonth);
                     }
                 }
+              this.baseInfo.businessplan = JSON.parse(JSON.stringify(this.form));
+
               if (this.$route.params._id) {
                 this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
