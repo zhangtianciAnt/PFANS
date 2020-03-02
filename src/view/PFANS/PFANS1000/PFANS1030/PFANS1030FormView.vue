@@ -489,6 +489,7 @@
               </el-row>
               <el-row >
                 <el-table :data="tableD"
+                          :span-method="objectSpanMethod"
                           border
                           header-cell-class-name="sub_bg_color_blue" stripe>
                   <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTF')" align="center" width="150">
@@ -832,22 +833,22 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      // objectSpanMethod({row, column, rowIndex, columnIndex}) {
-      //   if (columnIndex === 0 || columnIndex === 1) {
-      //     if (rowIndex === 13 || rowIndex === 14) {
-      //       return {
-      //         rowspan: 1,
-      //         colspan: 2
-      //       };
-      //       this.rowIndex.disable = false;
-      //     } else {
-      //       return {
-      //         rowspan: 1,
-      //         colspan: 1
-      //       };
-      //     }
-      //   }
-      // },
+      objectSpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 1) {
+          if (rowIndex === 13 || rowIndex === 14) {
+            return {
+              rowspan: 1,
+              colspan: 2
+            };
+            this.rowIndex.disable = false;
+          } else {
+            return {
+              rowspan: 1,
+              colspan: 1
+            };
+          }
+        }
+      },
       changePro(val, row) {
         row.projects = val;
       },
