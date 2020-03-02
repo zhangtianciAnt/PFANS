@@ -1488,12 +1488,12 @@
                 }
               }
             }
+
             //项目体制
             if (response.projectsystem.length > 0) {
-              this.tableB = [];
-              this.tableC = [];
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
+                  this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1506,7 +1506,9 @@
                   o.exittime = response.projectsystem[i].exittime;
                   o.rowindex = response.projectsystem[i].rowindex;
                   this.tableB.push(o);
+
                 } else {
+                  this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1611,13 +1613,13 @@
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
             this.gridData3 = [];
-            for (let i = 0; i < response.length; i++) {
+            for (let i = 0; i < response.contractapplication.length; i++) {
               var vote2 = {};
-              vote2.contract = response[i].contractnumber;
-              vote2.deployment = response[i].deployment;
-              vote2.contracttype = getDictionaryInfo(response[i].contracttype).value1;
-              vote2.applicationdate = moment(response[i].applicationdate).format('YYYY-MM-DD');
-              vote2.state = response[i].state;
+              vote2.contract = response.contractapplication[i].contractnumber;
+              vote2.deployment = response.contractapplication[i].deployment;
+              vote2.contracttype = getDictionaryInfo(response.contractapplication[i].contracttype).value1;
+              vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
+              vote2.state = response.contractapplication[i].state;
               this.gridData3.push(vote2);
             }
             this.loading = false;
@@ -2049,7 +2051,6 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor', {})
           .then(response => {
-            console.log(response);
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
@@ -2057,7 +2058,7 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               vote1.post = response[i].post;
-              vote1.suppliernameid = response[i].cooperuserid;
+              vote1.suppliernameid = response[i].expatriatesinfor_id;
               this.gridData1.push(vote1);
             }
             this.centerorglist = this.form.center_id;

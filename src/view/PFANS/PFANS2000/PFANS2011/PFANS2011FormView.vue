@@ -401,7 +401,6 @@
             overtimeid: this.$route.params._id
           })
           .then(response => {
-            debugger;
             this.form = response;
             this.loading = false;
             this.userlist = this.form.userid;

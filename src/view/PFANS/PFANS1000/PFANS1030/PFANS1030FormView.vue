@@ -558,7 +558,12 @@
         multiple: false,
         orglist:'',
         baseInfo: {},
+        arrAttf: [],
         form: {
+          number: '',
+          total: '',
+          price: '',
+          rate: '',
           sarmb: '',
           exchangerate: '',
           contractnumber: '',
@@ -586,6 +591,7 @@
           valuationnumber: '',
           remarks: '',
           maketype: '',
+          tablecommunt: '',
         },
         tableT: [{
           awarddetail_id: '',
@@ -699,6 +705,13 @@
               this.tableT = response.awardDetail
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist=this.tableT[i].depart;
+              }
+            }
+            if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
+              for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
+                let aa = JSON.parse(response.award.tablecommunt)[i];
+                this.tableD[i].attfmoth = aa.attf1;
+                this.tableD[i].attfnumber = aa.attf2;
               }
             }
             if ( response.numbercounts.length > 0 ) {
@@ -911,12 +924,19 @@
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.maketype='1',
+              this.form.maketype='4',
               this.baseInfo={};
               this.form.user_id=this.userlist;
               if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
                 this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
               }
+              for (let i = 0; i < this.tableD.length; i++) {
+                this.arrAttf.push({
+                  attf1: this.tableD[i].attfmoth,
+                  attf2: this.tableD[i].attfnumber,
+                });
+              }
+              this.form.tablecommunt = JSON.stringify(this.arrAttf);
               this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail=[];
               for(let i=0;i<this.tableT.length;i++){
