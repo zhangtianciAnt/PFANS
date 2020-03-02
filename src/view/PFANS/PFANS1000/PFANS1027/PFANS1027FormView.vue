@@ -321,7 +321,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="TEL">
+                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="tel">
                   <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                             v-model="form.tel"></el-input>
                 </el-form-item>
@@ -720,6 +720,12 @@
                     trigger: 'change'
                   }],
                 },
+              buttonList: [{
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              }],
                 canStart: false,
                 qualifications: '',
                 fileList: [],
@@ -835,40 +841,43 @@
                 this.loading = false;
             }
         },
-      created() {
-        this.disable = this.$route.params.disabled;
-        if (this.disabled) {
-          this.buttonList = [
-            {
-              key: "save",
-              name: "button.save",
-              disabled: false,
-              icon: "el-icon-check"
-            }
-          ];
-        }
-      },
-        // created(){
-        //     if(!this.$route.params.disabled){
-        //         this.buttonList=[
-        //             {
-        //                 key: 'generate',
-        //                 name: 'button.generate',
-        //                 disabled: false,
-        //             }
-        //         ]
-        //     }else {
-        //         this.buttonList=[
-        //             {
-        //                 key: 'save',
-        //                 name: 'button.save',
-        //                 disabled: false,
-        //                 icon: 'el-icon-check',
-        //             },
-        //         ]
-        //     }
-        //     this.disable = this.$route.params.disabled;
-        // },
+      // created() {
+      //   this.disable = this.$route.params.disabled;
+      //   if (this.disabled) {
+      //     this.buttonList = [
+      //       {
+      //         key: "save",
+      //         name: "button.save",
+      //         disabled: false,
+      //         icon: "el-icon-check"
+      //       }
+      //     ];
+      //   }
+      // },
+        created(){
+            // if(!this.$route.params.disabled){
+            //     this.buttonList=[
+            //         {
+            //             key: 'generate',
+            //             name: 'button.generate',
+            //             disabled: false,
+            //         }
+            //     ]
+            // }else {
+            //     this.buttonList=[
+            //         {
+            //             key: 'save',
+            //             name: 'button.save',
+            //             disabled: false,
+            //             icon: 'el-icon-check',
+            //         },
+            //     ]
+            // }
+          if (!this.$route.params.disabled) {
+            this.buttonList = [];
+          }
+            this.disable = this.$route.params.disabled;
+        },
         methods: {
           getCenterId(val) {
             this.form.deploy = val;
