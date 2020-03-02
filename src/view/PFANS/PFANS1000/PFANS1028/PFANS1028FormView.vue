@@ -2648,6 +2648,9 @@
     created() {
       if (!this.$route.params.disabled) {
         this.buttonList = [];
+        this.disabled1 = true;
+        this.disabled2 = true;
+        this.disabled3 = true;
       }
       this.disable = this.$route.params.disabled;
     },
