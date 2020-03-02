@@ -331,7 +331,6 @@
         this.$store
           .dispatch('ASSETS1001Store/getList', {})
           .then(response => {
-              debugger
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
               if (user) {
@@ -381,7 +380,6 @@
           });
       },
       rowClick(row) {
-          debugger
         this.rowid = row.assets_id;
       },
       handleSizeChange(val) {
@@ -475,7 +473,6 @@
           });
         }
         if (val === 'edit') {
-            debugger
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -496,7 +493,6 @@
           this.daoru = true;
         }
         if (val === 'export') {
-            debugger
           this.selectedlist = this.$refs.roletable.selectedList;
             if(this.selectedlist.length === 0){
                 Message({
@@ -539,7 +535,6 @@
         }
       },
       export(selectedList){
-          debugger;
           let tHeader = "";
           let filterVal = "";
           let arr1 = ["PA001001"];
@@ -618,7 +613,6 @@
           })){
               selectedList.forEach(
                   list => {
-                      debugger
                       if(list.outparams12 && getUserInfo(list.outparams12)){
                           list.outparams12 = getUserInfo(list.outparams12).userinfo.customername;
                       }if(list.outparams11 && getUserInfo(list.outparams11)){

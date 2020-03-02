@@ -119,8 +119,8 @@
                   :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  prop="supportdate" width="150" />
                 <el-table-column
                   :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount" width="150" />
-                <el-table-column
-                  prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />
+                <!--<el-table-column-->
+                  <!--prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />-->
               </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
@@ -308,7 +308,7 @@
                 <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="TEL">
                   <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
-                            v-model="form.TEL"></el-input>
+                            v-model="form.tel"></el-input>
                 </el-form-item>
               </el-col>
                </el-row>
@@ -699,6 +699,28 @@
                     .dispatch('PFANS1027Store/selectById', {"quotationid": this.$route.params._id})
                     .then(response => {
                       this.form = response.quotation;
+                      this.centerorglist = this.form.deploy;
+                      if (this.form.batch === '1') {
+                        this.radio1 = 1;
+                      }
+                      if (this.form.batch === '2') {
+                        this.radio1 = 2;
+                      }
+                      if (this.form.settlement === '1') {
+                        this.radio2 = 1;
+                      }
+                      if (this.form.settlement === '2') {
+                        this.radio2 = 2;
+                      }
+                      if (this.form.settlement === '3') {
+                        this.radio2 = 3;
+                      }
+                      if (this.form.contract === '1') {
+                        this.radio3 = 1;
+                      }
+                      if (this.form.contract === '2') {
+                        this.radio3 = 2;
+                      }
 //                      //契約種類
 //                      let letabbreviation = getDictionaryInfo(response[i].contracttype);
 //                     if (letabbreviation != null) {
@@ -731,7 +753,7 @@
                           let deliverydate = response.numbercounts[i].deliverydate;
                           let completiondate = response.numbercounts[i].completiondate;
                           let claimdate = response.numbercounts[i].claimdate;
-                          let supportdate = response.numbercounts[i].supportdate
+                          let supportdate = response.numbercounts[i].supportdate;
 
                           if ( deliverydate !== "" && deliverydate!=null) {
                             response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
@@ -747,7 +769,7 @@
                           }
                         }
                       }
-                      this.tablefirst = response.numbercounts
+                      this.tablefirst = response.numbercounts;
                       if (response.personfee.length > 0) {
                         for (let index = 0; index < response.personfee.length; index++) {
                           response.personfee[index].name1 = this.tablethird1[index].name1;
@@ -816,6 +838,11 @@
           getCenterId(val) {
             this.form.deploy = val;
             this.centerorglist = val;
+            if (!this.form.deploy || this.form.deploy === '' || val === "undefined") {
+              this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+            } else {
+              this.errorcenter = "";
+            }
           },
           getContracttype(val){
             this.form.contracttype = val;
@@ -1043,6 +1070,7 @@
                           );
                       }
                         if (this.$route.params._id) {
+                          this.form.deploy = this.centerorglist;
                           this.form.quotationid = this.$route.params._id;
                           this.loading = true;
                           this.$store

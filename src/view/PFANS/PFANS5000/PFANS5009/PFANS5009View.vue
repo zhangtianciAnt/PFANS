@@ -101,7 +101,7 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
@@ -215,15 +215,15 @@
             }
           })
         }
-        if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS5009FormView',
-            params: {
-              _id: '',
-              disabled: true
-            }
-          })
-        }
+        // if (val === 'insert') {
+        //   this.$router.push({
+        //     name: 'PFANS5009FormView',
+        //     params: {
+        //       _id: '',
+        //       disabled: true
+        //     }
+        //   })
+        // }
         if (val === 'edit') {
           if (this.rowid === '') {
             Message({
@@ -234,7 +234,7 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS5001FormView',
+            name: 'PFANS50FormView',
             params: {
               _id: this.rowid,
               disabled: true

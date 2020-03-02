@@ -398,7 +398,7 @@
                         :data="scope.row.groupid"
                         :disabled="gettrue(scope.row)"
                         :no="scope.row"
-                        @change="getgroup"
+                        @change="getGroupId"
                       ></dicselect>
                     </template>
                   </el-table-column>
@@ -883,8 +883,9 @@
             }
             else{
                 if(month === ""){
-                    if(this.tableA.length === 0){
-                      this.addRowF();
+                    this.tableA = [];
+                    if(year === moment(new Date()).format('YYYY')){
+                        this.addRowF();
                     }
                     this.tableB = [];
                 }
@@ -927,9 +928,6 @@
         else{
           return false;
         }
-      },
-      getgroup(val, row) {
-        row.groupid = val;
       },
       getGroupId(val, row) {
         row.groupid = val;

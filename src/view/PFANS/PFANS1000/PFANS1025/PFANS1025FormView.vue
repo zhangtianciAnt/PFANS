@@ -469,7 +469,7 @@
         disabled: true,
         error: '',
         userlist: '',
-        code1: 'PJ010',
+        code1: 'HT008',
         code2: 'HT005',
         code3: 'HT006',
         code4: 'HT018',

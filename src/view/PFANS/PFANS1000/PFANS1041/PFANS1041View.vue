@@ -881,46 +881,47 @@
           .then(response => {
             if (response.length > 0) {
               if(month != ""){
-                this.tableB = response;
+                  this.tableB = response;
               }
               else{
                 this.tableA = [];
                 this.tableB = [];
                 this.tableA = response;
                 if(this.tableA[0].status === '2'){
-                  this.disabled = true;
-                  this.tableB = response;
-                  var monthCurrent = Number(moment(new Date()).format('MM'));
-                  for (var i = 0; i < 12; i++) {
-                    if (i > monthCurrent - 5) {
-                      this.arrays[i].disabled = false;
+                    this.disabled = true;
+                    this.tableB = response;
+                    var monthCurrent = Number(moment(new Date()).format('MM'));
+                    for (var i = 0; i < 12; i++) {
+                        if (i > monthCurrent - 5) {
+                          this.arrays[i].disabled = false;
+                        }
                     }
-                  }
                 }
               }
             }
             else{
-              if(month === ""){
-                if(this.tableA.length === 0){
-                    this.addRowF();
-                }
-                this.tableB = [];
-              }
-              else{
-                this.tableB = [];
-                if(this.tableA.length > 0){
-                  if(this.tableA[0].status === '2'){
-                    this.disabled = true;
-                    this.tableB = this.tableA;
-                    var monthCurrent = Number(month.substr(5,2));
-                    for (var i = 0; i < 12; i++) {
-                      if (i > monthCurrent - 5) {
-                        this.arrays[i].disabled = false;
-                      }
+                if(month === ""){
+                    this.tableA = [];
+                    if(year === moment(new Date()).format('YYYY')){
+                        this.addRowF();
                     }
+                    this.tableB = [];
+                }
+                else{
+                  this.tableB = [];
+                  if(this.tableA.length > 0){
+                      if(this.tableA[0].status === '2'){
+                          this.disabled = true;
+                          this.tableB = this.tableA;
+                          var monthCurrent = Number(month.substr(5,2));
+                          for (var i = 0; i < 12; i++) {
+                              if (i > monthCurrent - 5) {
+                                  this.arrays[i].disabled = false;
+                              }
+                          }
+                      }
                   }
                 }
-              }
             }
             if(flg === 0){
               this.loading = false;
