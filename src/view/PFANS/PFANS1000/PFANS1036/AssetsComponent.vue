@@ -1,7 +1,7 @@
 <template>
   <el-tabs v-model="activeName4" type="border-card">
     <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTALDEPRECIATION')" name="first">
-      <el-table :data="tableE2" header-cell-class-name="sub_bg_color_blue" stripe>
+      <el-table :data="tableTotal" header-cell-class-name="sub_bg_color_blue" stripe>
         <el-table-column>
           <el-table-column align="center" width="110">
             <template slot-scope="scope">
