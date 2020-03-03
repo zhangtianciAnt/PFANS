@@ -101,9 +101,9 @@ const PFANS5001Store = {
         })
       })
     },
-    getPjList({commit}) {
+    getPjList({commit}, data) {
       return new Promise((resolve, reject) => {
-        getPjList().then(response => {
+        getPjList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
