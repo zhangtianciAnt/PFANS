@@ -351,7 +351,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
               <el-collapse>
-                <el-collapse-item>
+                <el-collapse-item v-if="show9">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
                   </template>
@@ -378,16 +378,6 @@
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <dicselect :code="code10"
-                                       :data="scope.row.costitem"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getcostitem" style="width: 100%">
-                            </dicselect>
-                          </template>
-                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
@@ -396,6 +386,28 @@
                                  style="width: 100%"
                                  :no="scope.row"
                                  @getOrgids="getGroupId"></org>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
+                            </el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_YGBXXM')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <dicselect :code="code12"
+                                       :data="scope.row.costitem"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       @change="getcostitem" style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                            </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
@@ -521,6 +533,12 @@
                                  @getOrgids="getGroupId"></org>
                           </template>
                         </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
+                            </el-input>
+                          </template>
+                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_PROCUREMENTPROJECT')" align="center"
                                          width="150">
                           <template slot-scope="scope">
@@ -565,6 +583,13 @@
                                        @change="setprocurementdetails"
                                        style="width: 100%" v-show="scope.row.showrow3">
                             </dicselect>
+
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                            </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
@@ -667,6 +692,12 @@
                                  @getOrgids="getGroupId"></org>
                           </template>
                         </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                          <template slot-scope="scope">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
+                            </el-input>
+                          </template>
+                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code10"
@@ -688,21 +719,12 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                             </el-input>
                           </template>
                         </el-table-column>
-
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
-                            </el-input>
-                          </template>
-                        </el-table-column>
-
                         <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" style="width: 100%" maxlength="20"
@@ -710,7 +732,6 @@
                             </el-input>
                           </template>
                         </el-table-column>
-
                         <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
                           <template slot-scope="scope">
                             <el-input-number
@@ -725,7 +746,6 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
-
                         <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                          prop="foreigncurrency"
                                          width="150">
@@ -783,6 +803,7 @@
 
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
+    import {getToken} from '@/utils/auth'
     import user from "../../../components/user.vue";
     import {Message} from 'element-ui';
     import moment from "moment";
@@ -961,6 +982,8 @@
                     invoicenumber: "",
                     costitem: "",
                     departmentname: "",
+                    budgetcoding: "",
+                    subjectnumber: "",
                     region: "",
                     vehicle: "",
                     startingpoint: "",
@@ -985,9 +1008,11 @@
                     purchasedetails_id: "",
                     invoicenumber: "",
                     departmentname: "",
+                    budgetcoding: "",
                     purchasedetailsdate: "",
                     procurementdetails: "",
                     procurementproject: "",
+                    subjectnumber: "",
                     rmb: "",
                     foreigncurrency: "",
                     annexno: "",
@@ -1137,6 +1162,7 @@
                 code9: 'PJ068',
                 code10: 'PJ057',
                 code11: '',
+                code12: 'PJ069',
                 invoicenumber: '',
                 checkStatus: false,
                 errorgroup: '',
@@ -1150,6 +1176,7 @@
                 show5: false,
                 show6: false,
                 show7: false,
+                show9: false,
                 show: false,
                 showrow: true,
                 showrow1: false,
@@ -1244,12 +1271,15 @@
                             this.show5 = true;
                         }
                         if (this.form.type === 'PJ001001') {
+                            this.show9 = true;
                             this.show6 = false;
                             this.show7 = false;
                         } else if (this.form.type === 'PJ001002') {
+                            this.show9 = false;
                             this.show6 = true;
                             this.show7 = false;
                         } else if (this.form.type === 'PJ001003') {
+                            this.show9 = false;
                             this.show6 = true;
                             this.show7 = true;
                         }
@@ -1279,12 +1309,15 @@
                 this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
                 this.form.type = this.$route.params._type;
                 if (this.form.type === 'PJ001001') {
+                    this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
                 } else if (this.form.type === 'PJ001002') {
+                    this.show9 = false;
                     this.show6 = true;
                     this.show7 = false;
                 } else if (this.form.type === 'PJ001003') {
+                    this.show9 = false;
                     this.show6 = true;
                     this.show7 = true;
                 }
@@ -1529,7 +1562,9 @@
                         invoicenumber: '',
                         costitem: '',
                         departmentname: '',
+                        budgetcoding: '',
                         region: '',
+                        subjectnumber: '',
                         vehicle: '',
                         startingpoint: '',
                         rmb: '',
@@ -1544,10 +1579,12 @@
                 } else {
                     this.tableP = [{
                         departmentname: '',
+                        budgetcoding: '',
                         invoicenumber: '',
                         purchasedetailsdate: '',
                         procurementdetails: '',
                         procurementproject: ' ',
+                        subjectnumber: ' ',
                         rmb: '',
                         foreigncurrency: '',
                         annexno: '',
@@ -1603,6 +1640,8 @@
                     invoicenumber: "",
                     costitem: "",
                     departmentname: "",
+                    budgetcoding: "",
+                    subjectnumber: "",
                     region: "",
                     vehicle: "",
                     startingpoint: "",
@@ -1649,9 +1688,11 @@
                     purchasedetails_id: "",
                     invoicenumber: "",
                     departmentname: "",
+                    budgetcoding: "",
                     purchasedetailsdate: "",
                     procurementdetails: "",
                     procurementproject: "",
+                    subjectnumber: "",
                     rmb: "",
                     foreigncurrency: "",
                     annexno: "",
@@ -1684,6 +1725,7 @@
             },
             getprocurementproject(val, row) {
                 row.procurementproject = val;
+                this.getCompanyen(val, row);
                 row.procurementdetails = ' ';
                 if (val === 'PJ005001' || val === 'PJ005002' || val === 'PJ005006') {
                     row.showrow = true;
@@ -1706,11 +1748,13 @@
                     row.showrow2 = false;
                     row.showrow3 = true;
                 }
+
             },
             setprocurementdetails(val, row) {
                 row.procurementdetails = val;
             },
             getTsummaries(param) {
+                debugger
                 const {columns, data} = param;
                 const sums = [];
                 columns.forEach((column, index) => {
@@ -1738,6 +1782,7 @@
                         sums[index] = '--'
                     }
                 });
+                debugger
                 this.getMoney(sums);
                 this.getforeigncurrency(sums);
                 return sums;
@@ -1771,6 +1816,8 @@
                     }
                 });
                 this.tablePValue = sums;
+                this.getMoney(sums);
+                this.getforeigncurrency(sums);
                 return sums;
             },
             getRsummaries(param) {
@@ -1802,24 +1849,28 @@
                     }
                 });
                 this.tableRValue = sums;
+                this.getMoney(sums);
+                this.getforeigncurrency(sums);
                 return sums;
             },
             getMoney(sums) {
+                debugger
                 if (this.form.type === 'PJ001001') {
-                    this.form.rmbexpenditure = sums[7];
+                    this.form.rmbexpenditure = sums[9];
                 } else if (this.accountcodeValue != "") {
-                    this.form.rmbexpenditure = sums[7] + this.tablePValue[5] + this.tableRValue[8];
+                    this.form.rmbexpenditure = this.tablePValue[7] + this.tableRValue[8];
                 } else {
-                    this.form.rmbexpenditure = sums[7] + this.tablePValue[5] + this.tableRValue[7];
+                    this.form.rmbexpenditure = this.tablePValue[7] + this.tableRValue[7];
                 }
             },
             getforeigncurrency(sums) {
+                debugger
                 if (this.form.type === 'PJ001001') {
-                    this.form.foreigncurrency = sums[8];
+                    this.form.foreigncurrency = sums[10];
                 } else if (this.accountcodeValue != "") {
-                    this.form.foreigncurrency = sums[8] + this.tablePValue[6] + this.tableRValue[9];
+                    this.form.foreigncurrency = this.tablePValue[8] + this.tableRValue[9];
                 } else {
-                    this.form.foreigncurrency = sums[8] + this.tablePValue[6] + this.tableRValue[8];
+                    this.form.foreigncurrency = this.tablePValue[8] + this.tableRValue[8];
                 }
             },
             changeRMB(newValue) {
@@ -1916,7 +1967,7 @@
                             }
                             this.invoiceamountsum = sum;
                             for (let i = 0; i < this.tableT.length; i++) {
-                                if (this.tableT[i].trafficdate !== "" || this.tableT[i].invoicenumber !== "" || this.tableT[i].costitem !== "" || this.tableT[i].departmentname !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
+                                if (this.tableT[i].trafficdate !== "" ||this.tableT[i].subjectnumber !== "" || this.tableT[i].invoicenumber !== "" || this.tableT[i].costitem !== "" || this.tableT[i].departmentname !== "" || this.tableT[i].budgetcoding !== ""|| this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
                                     || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== "") {
                                     this.baseInfo.trafficdetails.push(
                                         {
@@ -1926,6 +1977,8 @@
                                             invoicenumber: this.tableT[i].invoicenumber,
                                             costitem: this.tableT[i].costitem,
                                             departmentname: this.tableT[i].departmentname,
+                                            budgetcoding: this.tableT[i].budgetcoding,
+                                            subjectnumber: this.tableT[i].subjectnumber,
                                             region: this.tableT[i].region,
                                             vehicle: this.tableT[i].vehicle,
                                             startingpoint: this.tableT[i].startingpoint,
@@ -1937,8 +1990,8 @@
                                 }
                             }
                             for (let i = 0; i < this.tableP.length; i++) {
-                                if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].invoicenumber !== "" || this.tableP[i].departmentname !== "" || this.tableP[i].procurementproject !== ""
-                                    || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== "") {
+                                if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].invoicenumber !== "" || this.tableP[i].departmentname !== "" || this.tableP[i].budgetcoding !== "" ||this.tableP[i].procurementproject !== ""
+                                    || this.tableP[i].subjectnumber !== ""|| this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== "") {
                                     if (this.tableP[i].procurementdetails === ' ') {
                                         this.tableP[i].procurementdetails = '';
                                     }
@@ -1948,9 +2001,11 @@
                                             publicexpenseid: this.tableP[i].publicexpenseid,
                                             invoicenumber: this.tableP[i].invoicenumber,
                                             departmentname: this.tableP[i].departmentname,
+                                            budgetcoding: this.tableP[i].budgetcoding,
                                             purchasedetailsdate: this.tableP[i].purchasedetailsdate,
                                             procurementdetails: this.tableP[i].procurementdetails,
                                             procurementproject: this.tableP[i].procurementproject,
+                                            subjectnumber: this.tableP[i].subjectnumber,
                                             rmb: this.tableP[i].rmb,
                                             foreigncurrency: this.tableP[i].foreigncurrency,
                                             annexno: this.tableP[i].annexno,
@@ -1980,6 +2035,9 @@
                                     );
                                 }
                             }
+                            debugger
+                            console.log("aaa",this.form.rmbexpenditure)
+                            console.log("bbb",this.invoiceamountsum)
                             if (this.form.rmbexpenditure != '0') {
                                 if (this.form.rmbexpenditure != this.invoiceamountsum) {
                                     Message({
