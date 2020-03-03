@@ -984,17 +984,6 @@
       deleteRow(index, rows) {
         if (rows.length > 2) {
           rows.splice(index, 1);
-        } else {
-          this.tableT = [{
-            budgetcode: '',
-            depart: '',
-            member: '',
-            community: '',
-            outsource: '',
-            outcommunity: '',
-            worknumber: '',
-            awardmoney: '',
-          }]
         }
       },
       addRow() {
