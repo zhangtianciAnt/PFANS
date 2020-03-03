@@ -982,7 +982,7 @@
         this.buttonClick("save");
       },
       deleteRow(index, rows) {
-        if (rows.length > 1) {
+        if (rows.length > 2) {
           rows.splice(index, 1);
         } else {
           this.tableT = [{
