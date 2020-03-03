@@ -643,11 +643,18 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforthisyear', {})
           .then(response => {
+            console.log(response);
             for (let j = 0; j < response.length; j++) {
               if (response[j].expname !== null && response[j].expname !== "") {
                 let expname = getCooperinterviewList(response[j].expname);
                 if (expname) {
                   response[j].expname = expname.coopername;
+                }
+              }
+              if (response[j].managerid !== null && response[j].managerid !== '') {
+                let user = getUserInfo(response[j].managerid);
+                if (user) {
+                  response[j].managerid = user.userinfo.customername;
                 }
               }
               if (response[j].suppliername !== null && response[j].suppliername !== "") {
