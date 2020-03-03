@@ -9,12 +9,13 @@
       @end="end"
       @start="start"
       @workflowState="workflowState"
+      :workflowCode="workflowCode"
       ref="container"
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="refform" :model="refform"
                  style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1039FORMVIEW_PLAN')" name="first">
               <el-row style="padding-top: 2%;padding-bottom: 2%">
                 <el-col :span="8">
@@ -40,10 +41,15 @@
                            orgtype="2" style="width:13vw"></org>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="150">
                     <template slot-scope="scope">
-                      <org :disabled="disabled" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
-                           orgtype="2" style="width:13vw"></org>
+                      <dicselect
+                        :code="code2"
+                        :data="scope.row.entrustgroupid"
+                        :disabled="gettrue(scope.row)"
+                        :no="scope.row"
+                        @change="getEntrustgroupId"
+                      ></dicselect>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="230">
@@ -355,7 +361,7 @@
                       </el-button>
                       <el-button
                         :disabled="disabled"
-                        @click="addRowF()"
+                        @click="addRowA()"
                         plain
                         size="small"
                         type="primary"
@@ -397,26 +403,10 @@
                       ></dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code2"
-                        :data="scope.row.groupid"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getGroupId"
-                      ></dicselect>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="150">
-                    <template slot-scope="scope">
-                      <dicselect
-                        :code="code2"
-                        :data="scope.row.entrustgroupid"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getEntrustgroupId"
-                      ></dicselect>
+                      <org :disabled="true" :no="scope.row" :orglist="scope.row.groupid" @getOrgids="getGroupId"
+                           orgtype="2" style="width:13vw"></org>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="150">
@@ -727,8 +717,8 @@
                       >{{$t('button.delete')}}
                       </el-button>
                       <el-button
-                        :disabled="disabled"
-                        @click="addRowF()"
+                        :disabled="false"
+                        @click="addRowB()"
                         plain
                         size="small"
                         type="primary"
@@ -768,10 +758,12 @@
         months: moment(new Date()).format("YYYY-MM"),
         title: 'title.PFANS1041VIEW',
         activeName: 'first',
+        workflowCode: "W0052",
+        status: '0',
         loading: false,
         disabled: false,
         refform: {},
-        years:moment(new Date()).format("YYYY"),
+        years: this.$route.params._id,
         groupId:'',
         arrays: [
           {disabled: true},
@@ -840,7 +832,7 @@
             amount2: '',
             personnel3: '',
             amount3: '',
-            type: '1',
+            type: '3',
             rowindex: '',
             status: '',
           },
@@ -859,8 +851,8 @@
     mounted() {
       let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
       this.groupId = lst.groupId;
-      this.tableA[0].groupid = this.groupId
-      this.getdata(this.years,"",0);
+      this.tableA[0].groupid = this.groupId;
+      this.getdata(this.years,"",'0',0);
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -869,62 +861,86 @@
       }
       let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
       this.groupId = lst.groupId;
-      // this.$store.commit('global/SET_OPERATEID', this.years)
-      // this.$refs.workflow.isStartWorkflow();
-
     },
     methods: {
-      getdata(year,month,flg){
+      getdata(year,month,type,flg){
+        //datainfo = {'centerid':this.groupId,'type': '0','months': month};
+        let datainfo = {};
+        if(type === '0'){
+            datainfo = {'type': type,'years': year,'months':''};
+        }
+        else{
+          //datainfo = {'type': type,'years': month.substring(0,4),'months': month,'status': '4'};
+          datainfo = {'type': type,'years': month.substring(0,4),'status': '4'};
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS1040Store/get', {'type': '1','years': year,'months': month,})
+          .dispatch('PFANS1041Store/get', datainfo)
           .then(response => {
             if (response.length > 0) {
-              if(month != ""){
-                  this.tableB = response;
+              if(type === "0"){
+                  this.tableA = response;
+                  if(this.tableA[0].status === '4'){
+                      this.disabled = true;
+                      this.status = '4';
+                  }
               }
               else{
-                this.tableA = [];
-                this.tableB = [];
-                this.tableA = response;
-                if(this.tableA[0].status === '2'){
-                    this.disabled = true;
-                    this.tableB = response;
-                    var monthCurrent = Number(moment(new Date()).format('MM'));
-                    for (var i = 0; i < 12; i++) {
-                        if (i > monthCurrent - 5) {
-                          this.arrays[i].disabled = false;
-                        }
+                  this.tableB = [];
+                  let months = response[0].months;
+                  for (let j = 0; j < response.length; j++) {
+                      if(months === response[j].months){
+                        this.tableB.push(response[j]);
+                      }
+                  }
+                  var monthCurrent = Number(moment(new Date()).format('MM'));
+                  for (var j = 0; j < 12; j++) {
+                    if (j > monthCurrent - 5) {
+                      this.arrays[j].disabled = false;
                     }
-                }
+                  }
               }
             }
             else{
-                if(month === ""){
+                if(type === "0"){
                     this.tableA = [];
                     if(year === moment(new Date()).format('YYYY')){
-                        this.addRowF();
+                      this.addRowA();
                     }
-                    this.tableB = [];
                 }
                 else{
-                  this.tableB = [];
-                  if(this.tableA.length > 0){
-                      if(this.tableA[0].status === '2'){
-                          this.disabled = true;
-                          this.tableB = this.tableA;
-                          var monthCurrent = Number(month.substr(5,2));
-                          for (var i = 0; i < 12; i++) {
-                              if (i > monthCurrent - 5) {
-                                  this.arrays[i].disabled = false;
-                              }
+                    this.tableB = [];
+                    if(this.tableA.length > 0){
+                      if(this.status === '4'){
+                        this.disabled = true;
+                        this.tableB = this.tableA;
+                        var monthCurrent = Number(month.substr(5,2));
+                        for (var i = 0; i < 12; i++) {
+                          if (i > monthCurrent - 5) {
+                            this.arrays[i].disabled = false;
                           }
+                        }
                       }
-                  }
+                    }
                 }
+                // else{
+                //     this.tableB = [];
+                //     if(this.tableA.length > 0){
+                //         if(this.status === '4'){
+                //           this.disabled = true;
+                //           this.tableB = this.tableA;
+                //           var monthCurrent = Number(month.substr(5,2));
+                //           for (var i = 0; i < 12; i++) {
+                //             if (i > monthCurrent - 5) {
+                //               this.arrays[i].disabled = false;
+                //             }
+                //           }
+                //         }
+                //     }
+                // }
             }
             if(flg === 0){
-              this.loading = false;
+                this.loading = false;
             }
           })
           .catch(error => {
@@ -940,7 +956,7 @@
         row.center = val;
       },
       gettrue(val, row) {
-        if(val.status === '2'){
+        if(val.status === '4'){
           return true;
         }
         else{
@@ -970,18 +986,18 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          this.form.status = '3';
+          this.status = '3';
         } else if (val.state === '2') {
-          this.form.status = '4';
+          this.status = '4';
         }
         this.buttonClick('update');
       },
       start() {
-        this.form.status = '2';
+        this.status = '2';
         this.buttonClick('update');
       },
       end() {
-        this.form.status = '0';
+        this.status = '0';
         this.buttonClick('update');
       },
       deleteRowF(index, rows) {
@@ -989,9 +1005,9 @@
           rows.splice(index, 1);
         }
       },
-      yearChange(value){//111
+      yearChange(value){
         this.years = moment(value).format('YYYY');
-        this.getdata(this.years,"",0);
+        this.getdata(this.years,"",'0',0);
         if(this.years === moment(new Date()).format("YYYY")){
           this.disabled = false;
         }
@@ -999,8 +1015,24 @@
           this.disabled = true;
         }
       },
-      monthChange(value){//xxx
-        this.month = moment(value).format('YYYY-MM');
+      handleClick(tab, event) {//xx
+          this.activeName = tab.name;
+          this.workflowCode = "W0052";
+          this.canStart = false;
+          if(tab === 'first'){
+              this.getdata(this.years,"",'0',0);
+          }
+          else{
+              if(this.status === '4'){
+                this.workflowCode = "W0053";
+                this.canStart = true;
+              }
+              this.getdata("",this.months,'1',0);
+          }
+
+      },
+      monthChange(value){
+        this.months = moment(value).format('YYYY-MM');
         this.arrays = [
           {disabled: true},
           {disabled: true},
@@ -1021,14 +1053,14 @@
             this.arrays[i].disabled = false;
           }
         }
-        this.getdata(this.years,this.month,0);
+        this.getdata("",this.months,'1',0);
 
       },
-      addRowF() {
+      addRowA() {
         this.tableA.push({
           contractthemeid: '',
           months: '',
-          years: moment(new Date()).format('YYYY'),
+          years: this.$route.params._id,
           theme: '',
           center: '',
           entrustcenter_id: '',
@@ -1068,49 +1100,106 @@
           amount2: '',
           personnel3: '',
           amount3: '',
-          type: '1',
+          type: '3',
           rowindex: '',
+          status: '0',
         });
       },
-      buttonClick(val) {
-        if (val === 'save') {
+      addRowB() {
+        this.tableB.push({
+          contractthemeid: '',
+          months: this.months,
+          years: this.$route.params._id,
+          theme: '',
+          center: '',
+          entrustcenter_id: '',
+          groupid: this.groupId,
+          teamid: '',
+          kind: '',
+          contractform: '',
+          currencytype: '',
+          commission: '',
+          personnel191: '',
+          amount191: '',
+          personnel192: '',
+          amount192: '',
+          personnel193: '',
+          amount193: '',
+          personnel4: '',
+          amount4: '',
+          personnel5: '',
+          amount5: '',
+          personnel6: '',
+          amount6: '',
+          personnel7: '',
+          amount7: '',
+          personnel8: '',
+          amount8: '',
+          personnel9: '',
+          amount9: '',
+          personnel10: '',
+          amount10: '',
+          personnel11: '',
+          amount11: '',
+          personnel12: '',
+          amount12: '',
+          personnel1: '',
+          amount1: '',
+          personnel2: '',
+          amount2: '',
+          personnel3: '',
+          amount3: '',
+          type: '4',
+          rowindex: '',
+          status: '0',
+        });
+      },
+      buttonClick(val) {//111
+        if(this.disabled){
+          this.baseInfo = this.tableB;
+        }
+        else{
+          this.baseInfo = this.tableA;
+        }
+        for(let i = 0; i < this.baseInfo.length; i++){
           if(this.disabled){
-            for(let i = 0; i < this.tableB.length; i++){
-              this.tableB[i].months = moment(this.months).format('YYYY-MM');
-            }
-            this.baseInfo = this.tableB;
+            this.baseInfo[i].months = moment(this.months).format('YYYY-MM');
+            this.baseInfo[i].type = '1';
           }
-          else{
-            this.baseInfo = this.tableA;
-          }
-          this.loading = true;
-          this.$refs['refform'].validate(valid => {
-            if (valid) {
-              this.$store
-                .dispatch('PFANS1040Store/insert', this.baseInfo).then(response => {
-                this.data = response;
-                this.getdata(this.years,"",1);
-                this.loading = false;
+          this.baseInfo[i].status = this.status;
+        }
+        this.loading = true;
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            this.$store
+              .dispatch('PFANS1041Store/insert', this.baseInfo).then(response => {
+              this.data = response;
+              if(this.activeName === 'first'){
+                this.getdata(this.years,"",'0',1);
+              }
+              else{
+                this.getdata("",this.months,'1',1);
+              }
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.$router.push({
+                name: 'PFANS1041View',
+              });
+            })
+              .catch(error => {
                 Message({
-                  message: this.$t('normal.success_01'),
-                  type: 'success',
+                  message: error,
+                  type: 'error',
                   duration: 5 * 1000,
                 });
-                this.$router.push({
-                  name: 'PFANS1041View',
-                });
-              })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            }
-          });
-        }
+                this.loading = false;
+              });
+          }
+        });
       },
     },
   };
