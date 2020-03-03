@@ -1493,7 +1493,7 @@
             if (response.projectsystem.length > 0) {
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
-                  this.tableB = [];
+                  // this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1508,7 +1508,7 @@
                   this.tableB.push(o);
 
                 } else {
-                  this.tableC = [];
+                  // this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1527,19 +1527,18 @@
             //项目合同
             if (response.projectcontract.length > 0) {
               this.tableD = response.projectcontract;
-              this.tableB = [];
-              for (var i = 0; i < response.projectcontract.length; i++) {
-                if (response.projectcontract[i].type === '0') {
-                  let o = {};
-                  o.name = response.projectcontract[i].projectcontract_id;
-                  o.companyprojects_id = response.projectcontract[i].companyprojects_id;
-                  o.contract = response.projectcontract[i].contract;
-                  o.theme = response.projectcontract[i].theme;
-                  o.workinghours = response.projectcontract[i].workinghours;
-                  o.rowindex = response.projectcontract[i].rowindex;
-                  this.tableD.push(o);
-                }
-              }
+              // for (var i = 0; i < response.projectcontract.length; i++) {
+              //   if (response.projectcontract[i].type === '0') {
+              //     let o = {};
+              //     o.name = response.projectcontract[i].projectcontract_id;
+              //     o.companyprojects_id = response.projectcontract[i].companyprojects_id;
+              //     o.contract = response.projectcontract[i].contract;
+              //     o.theme = response.projectcontract[i].theme;
+              //     o.workinghours = response.projectcontract[i].workinghours;
+              //     o.rowindex = response.projectcontract[i].rowindex;
+              //     this.tableD.push(o);
+              //   }
+              // }
             }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
@@ -1748,6 +1747,7 @@
         row.name = userlist;
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
+          console.log("asxxxsw  " + lst)
           row.position = lst.userinfo.post;
           row.number = lst.userinfo.jobnumber;
           let lst1 = getOrgInfoByUserId(row.name);
