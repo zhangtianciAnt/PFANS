@@ -114,7 +114,7 @@
           {
             code: 'toto',
             label: 'label.PFANS1031FORMVIEW_TOTO',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
