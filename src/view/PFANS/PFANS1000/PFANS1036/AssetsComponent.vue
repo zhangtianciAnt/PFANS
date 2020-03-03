@@ -569,20 +569,16 @@
       }
     },
     props: {
-//      tableNewYear: {
-//        type: Array,
-//        default: function () {
-//          return [{},{}]
-//        }
-//      },
-      tableNewYear: {
-        type: Function
-      },
+    tableNewYear: {
+      type: Array,
+      default: []
+    },
+      // tableNewYear: {
+      //   type: Function
+      // },
       tableLastYear: {
         type: Array,
-        default: function () {
-          return [{},{}]
-        }
+        default: []
       }
     },
     mounted() {
@@ -819,7 +815,17 @@
     watch:{
       tableNewYear:{
         handler(newValue,oldValue){
+          debugger
           this.tableNewYear = newValue;
+          this.getSummaries(newValue);
+        },
+        deep:true
+      },
+      tableLastYear:{
+        handler(newValue,oldValue){
+          debugger
+          this.tableLastYear = newValue;
+          this.getLastYearSummaries(newValue);
         },
         deep:true
       }
