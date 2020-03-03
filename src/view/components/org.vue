@@ -226,7 +226,7 @@
         type: String,
         default:
           function () {
-            return 'Mult'
+            return 'Single'
           }
       }
       ,
