@@ -11,13 +11,13 @@
                   :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
                   align="center"
                   type="index"
-                  width="80">
+                  width="50">
                 </el-table-column>
                 <!-- 名前-->
                 <el-table-column
                   :label="$t('label.PFANS2007VIEW_NAME')"
                   align="center"
-                  width="120">
+                  width="80">
                   <template slot-scope="scope">
                   <el-input
                     :no="scope.row"
@@ -31,7 +31,7 @@
                 <el-table-column
                   :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
                   align="center"
-                  width="160">
+                  width="120">
                   <template slot-scope="scope">
                   <el-date-picker
                     :no="scope.row"
@@ -47,7 +47,7 @@
                   :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
                   align="center"
                   prop="company"
-                  width="150">
+                  width="80">
                   <template slot-scope="scope">
                   <el-input
                     :no="scope.row"
@@ -61,7 +61,7 @@
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_CHECKTIME')"
                   align="center"
-                  width="200">
+                  width="90">
                   <template slot-scope="scope">
                     <el-date-picker
                       style="width:12vw"
@@ -76,7 +76,7 @@
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGY')"
                   align="center"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -93,7 +93,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGYVALUE')"
                   align="center"
                   prop="technology"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -108,7 +108,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTSKILLS')"
                   align="center"
                   prop="management"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -125,7 +125,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTVALUE')"
                   align="center"
                   prop="value"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -140,7 +140,7 @@
                   :label="$t('label.PFANS2026FORMVIEW_FIELDSKILLS')"
                   align="center"
                   prop="fieldskills"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -157,7 +157,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_FIELDVALUE')"
                   align="center"
                   prop="field"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -172,7 +172,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_LANGUAGESKILLS')"
                   align="center"
                   prop="language"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -189,7 +189,7 @@
                   :label="$t('label.PFANS2026FORMVIEW_LANGUAGEVALUE')"
                   align="center"
                   prop="languagevalue"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -204,7 +204,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_JOBSKILLS')"
                   align="center"
                   prop="workskills"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -221,7 +221,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_WORKVALUE')"
                   align="center"
                   prop="service"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -236,7 +236,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_WORKTIME')"
                   align="center"
                   prop="evaluation"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <dicselect
                       :no="scope.row"
@@ -253,7 +253,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_WORKVALUE1')"
                   align="center"
                   prop="rvicevalue"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -267,13 +267,13 @@
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_INCENTIVELEADER')"
                   align="center"
-                  width="150">
+                  width="120">
                   <!-- PSDCD駐在規模-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_SERVINGSIZE')"
                     align="center"
                     prop="psdcdscale"
-                    width="150">
+                    width="130">
                     <template slot-scope="scope">
                       <dicselect
                         :no="scope.row"
@@ -290,7 +290,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
                     prop="scalevalue"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -305,7 +305,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_CONEVALUATION')"
                     align="center"
                     prop="contribution"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <dicselect
                         :no="scope.row"
@@ -322,7 +322,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
                     prop="coefficient"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -337,13 +337,13 @@
                 <el-table-column
                   :label="$t('label.PFANS6005FORMVIEW_OUTBOUNDMOTIVATION')"
                   align="center"
-                  width="150">
+                  width="120">
                 <!--出项者PSDCD相当ランク-->
                   <el-table-column
                     :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
                     align="center"
                     prop="staffpsdcdrank"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <dicselect
                         :no="scope.row"
@@ -360,7 +360,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
                     align="center"
                     prop="rankvalue"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -375,7 +375,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
                     align="center"
                     prop="butionevaluation"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <dicselect
                         :no="scope.row"
@@ -392,7 +392,7 @@
                     :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
                     align="center"
                     prop="butioncoefficient"
-                    width="150">
+                    width="100">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -408,7 +408,7 @@
                   :label="$t('label.PFANS6005VIEW_PRICEADJUST')"
                   align="center"
                   prop="unitprice"
-                  width="150">
+                  width="130">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -424,7 +424,7 @@
                   :label="$t('label.PFANS6005VIEW_SUMPRICE')"
                   align="center"
                   prop="totalunit"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -439,7 +439,7 @@
                   :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
                   align="center"
                   prop="common"
-                  width="150">
+                  width="100">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -471,7 +471,7 @@
                   :label="$t('label.PFANS6007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="150">
+                  width="80">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -486,7 +486,7 @@
                   :label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"
                   align="center"
                   prop="yearunit"
-                  width="150">
+                  width="90">
                   <template slot-scope="scope">
                     <el-input
                       :no="scope.row"
@@ -513,7 +513,7 @@
     import {getOrgInfoByUserId} from '@/utils/customize';
     import {validateEmail} from '@/utils/validate';
     import moment from 'moment';
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getCooperinterviewList} from '@/utils/customize';
     export default {
       name: "PFANS6005FormView",
       components: {
@@ -690,6 +690,12 @@
             .then(response => {
               for (let j = 0; j < response.length; j++) {
                 response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+                if(response[j].user_id !== null && response[j].user_id !== "") {
+                  let userInfo = getCooperinterviewList(response[j].user_id);
+                  if (userInfo) {
+                    response[j].user_id = userInfo.coopername;
+                  }
+                }
                     this.arr[j] = [];
                     this.arr[j][0] = parseInt(response[j].technology==null?0:response[j].technology)
                     this.arr[j][1] = parseInt(response[j].value==null?0:response[j].value)
@@ -836,7 +842,7 @@
           this.tableData[index].psdcdrank = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData[index].psdcdrank = dictionaryInfo.value2;
+            this.tableData[index].psdcdrank = dictionaryInfo.value1;
           }
         },
       },

@@ -69,6 +69,10 @@
       noback: {
         type: Boolean,
         default: false
+      },
+      enableSave: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
@@ -97,7 +101,7 @@
       },
       canStartWorkflow(val) {
         this.canStartWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal) {
+        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
           }
@@ -109,7 +113,7 @@
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal) {
+        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
           }

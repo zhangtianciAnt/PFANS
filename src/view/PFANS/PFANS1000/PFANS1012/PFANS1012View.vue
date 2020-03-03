@@ -126,6 +126,30 @@
       rowClick(row) {
         this.rowid = row.publicexpenseid;
       },
+        MyBrowserIsIE() {
+            let isIE = false;
+            if (
+                navigator.userAgent.indexOf("compatible") > -1 &&
+                navigator.userAgent.indexOf("MSIE") > -1
+            ) {
+                // ie浏览器
+                isIE = true;
+            }
+            if (navigator.userAgent.indexOf("Trident") > -1) {
+                // edge 浏览器
+                isIE = true;
+            }
+            return isIE;
+        },
+        formatJson(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => {
+                if (j === 'timestamp') {
+                    return parseTime(v[j])
+                } else {
+                    return v[j]
+                }
+            }))
+        },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === "view") {
@@ -153,14 +177,50 @@
             }
           })
         } else if (val === 'export') {
+            let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012VIEW_COSTITEM'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
+                this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
+                this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
+            let filterVal = ['trafficdate', 'invoicenumber', 'costitem', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'annexno'];
+            let csvData = [];
+            var tableTdata = this.tableT;
+            for (let i = 0; i < tableTdata.length; i++) {
+                if (tableTdata[i].costitem !== null && tableTdata[i].costitem !== "") {
+                    let letErrortype = getDictionaryInfo(tableTdata[i].costitem);
+                    if (letErrortype != null) {
+                        tableTdata[i].costitem = letErrortype.value1;
+                    }
+                }
+                if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== "") {
+                    let lettype = getOrgInfo(tableTdata[i].departmentname);
+                    if (lettype != null) {
+                        tableTdata[i].departmentname = lettype.departmentname;
+                    }
+                }
+                let obj = tableTdata[i];
+                csvData.push({
+                    [heads[0]]: obj.trafficdate,
+                    [heads[1]]: obj.invoicenumber,
+                    [heads[2]]: obj.costitem,
+                    [heads[3]]: obj.departmentname,
+                    [heads[4]]: obj.region,
+                    [heads[5]]: obj.vehicle,
+                    [heads[6]]: obj.startingpoint,
+                    [heads[7]]: obj.rmb,
+                    [heads[8]]: obj.foreigncurrency,
+                    [heads[9]]: obj.annexno,
+                })
+            }
+            const result = json2csv.parse(csvData, {
+                excelStrings: true
+            });
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + result;
+            const link = document.createElement("a");
+            link.href = csvContent;
+            link.download = this.$t('label.PFANS1012VIEW_TRAFFIC') + '.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
 
-            import('@/vendor/Export2Excel').then(excel => {
-                const tHeader = [this.$t('label.user_name'), this.$t('label.center'),  this.$t('label.group'),  this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.PFANS5008FORMVIEW_SC'),this.$t('label.PFANS5008VIEW_GZBZ')];
-                const filterVal = ['username', 'center_name', 'group_name', 'team_name', 'project_id', 'log_date', 'time_start', 'work_memo'];
-                const list = this.selectedlist;
-                const data = this.formatJson(filterVal, list);
-                excel.export_json_to_excel(tHeader, data,  this.$t('menu.PFANS5008'));
-            })
         }else if (val === "update") {
           if (this.rowid === '') {
             Message({

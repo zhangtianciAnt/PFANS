@@ -155,7 +155,6 @@
                         <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="海外発表、海外展示"></el-checkbox>
                         <el-checkbox label="委託元国へ"></el-checkbox>
-                        <el-checkbox label="その他の国へ"></el-checkbox>
                         <el-checkbox label="その他"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
@@ -817,7 +816,7 @@
                       <el-row>
                         <el-col :span="12">
                           <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
-                            <el-checkbox-group v-model="form.lijudegresult">
+                            <el-checkbox-group v-model="form.lijudegresult" :disabled="true">
                               <el-checkbox
                                 label="0"
                               >{{this.$t('label.PFANS1028VIEW_LIJUDEGRESULT1')}}
@@ -1211,16 +1210,19 @@
                       <el-form-item :label="$t('label.PFANS1028VIEW_JUDGMENTRESULT')">
                         <el-radio
                           label="0"
+                          :disabled="true"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT1')}}
                         </el-radio>
                         <el-radio
                           label="1"
+                          :disabled="true"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT2')}}
                         </el-radio>
                         <el-radio
                           label="2"
+                          :disabled="true"
                           v-model="form.sujudegresult"
                         >{{this.$t('label.PFANS1028VIEW_SUJUDEGRESULT3')}}
                         </el-radio>
@@ -1246,12 +1248,14 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo} from '@/utils/customize';
+  import dicselect from '../../../components/dicselect';
 
 
   export default {
     name: 'PFANS1028FormView',
     components: {
       EasyNormalContainer,
+      dicselect
     },
     data() {
       return {
@@ -2644,6 +2648,9 @@
     created() {
       if (!this.$route.params.disabled) {
         this.buttonList = [];
+        this.disabled1 = true;
+        this.disabled2 = true;
+        this.disabled3 = true;
       }
       this.disable = this.$route.params.disabled;
     },
@@ -2820,6 +2827,8 @@
           this.checked2 = false;
           this.checked3 = false;
           this.form.review = '';
+          this.form.requirements='0';
+          this.form.requirements='';
         }
       },
       getChecked3(val) {
@@ -2833,6 +2842,8 @@
         } else {
           this.disabled2 = false;
           this.form.review = '';
+          this.form.requirements='0';
+          this.form.requirements='';
         }
       },
       getChecked2(val) {
@@ -2844,8 +2855,13 @@
           } else {
             this.form.review = '4';
           }
-        } else {
+        } else if(val===false || this.checked1===true){
+          this.form.review='1';
+          this.form.requirements='1';
+        }else if(val===false || this.checked1===false){
           this.form.review = '';
+          this.form.requirements='0';
+          this.form.requirements='';
         }
       },
       workflowState(val) {

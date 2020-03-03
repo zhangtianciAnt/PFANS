@@ -1032,11 +1032,10 @@
               }
             }
             if (response.projectsystem.length > 0) {
-              this.tableB = [];
-              this.tableC = [];
               //项目体制
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
+                  this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1050,6 +1049,7 @@
                   o.rowindex = response.projectsystem[i].rowindex;
                   this.tableB.push(o);
                 } else {
+                  this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;

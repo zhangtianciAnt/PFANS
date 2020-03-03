@@ -46,7 +46,7 @@
       this.loading = true;
 
       this.$store
-        .dispatch('PFANS5001Store/getFpans5001List', {})
+        .dispatch('PFANS5009Store/getSiteList', {})
         .then(response => {
           for (let item of response) {
             let i = {};

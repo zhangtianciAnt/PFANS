@@ -1,7 +1,22 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     v-show="showTable1">
+      <el-select @change="changed" slot="customize" v-model="region">
+        <el-option :label="$t(title)" value="1"></el-option>
+        <el-option :label="$t(title2)" value="2"></el-option>
+      </el-select>
+    </EasyNormalTable>
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data2" :rowid="row_id" :title="title2"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     v-show="!showTable1">
+      <el-select @change="changed" slot="customize" v-model="region">
+        <el-option :label="$t(title)" value="1"></el-option>
+        <el-option :label="$t(title2)" value="2"></el-option>
+      </el-select>
+    </EasyNormalTable>
+  </div>
 </template>
 
 <script>
@@ -17,9 +32,13 @@
       },
       data(){
           return {
+            region: "1",
+            showTable1: true,
             loading:false,
             title:"title.PFANS5004VIEW",
+            title2: "title.PFANS5004VIEW2",
             data:[],
+            data2: [],
             submitted: this.$t('label.PFANS5009FORMVIEW_SUBMITTED'),
             notsubmitted: this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED'),
             contractstatus0: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS0'),
@@ -96,7 +115,7 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getSiteList')
+          .dispatch('PFANS5001Store/getPjList', {flag: "0"})
           .then(response => {
             if(response.length > 0) {
               // todo status 未定
@@ -141,8 +160,62 @@
             });
             this.loading = false;
           });
+
+        this.$store
+          .dispatch('PFANS5001Store/getPjList', {flag: "1"})
+          .then(response => {
+            if (response.length > 0) {
+              // todo status 未定
+              var response = response.filter(item => {
+                return item.status === "0" || item.status === "4"
+              })
+              for (let j = 0; j < response.length; j++) {
+                if (response[j].phase !== null && response[j].phase !== "") {
+                  let letPhase = getDictionaryInfo(response[j].phase);
+                  if (letPhase != null) {
+                    response[j].phase = letPhase.value1;
+                  }
+                }
+                if (response[j].productstatus !== null && response[j].productstatus !== "") {
+                  if (response[j].productstatus === "0") {
+                    response[j].productstatus = this.submitted
+                  } else {
+                    response[j].productstatus = this.notsubmitted
+                  }
+                }
+                if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+                  if (response[j].contractstatus === "0") {
+                    response[j].contractstatus = this.contractstatus0
+                  } else if (response[j].contractstatus === "1") {
+                    response[j].contractstatus = this.contractstatus1
+                  } else {
+                    response[j].contractstatus = this.contractstatus2
+                  }
+                }
+                response[j].status = getStatus(response[j].status);
+              }
+            }
+
+            this.data2 = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
       },
       methods: {
+        changed() {
+          if (this.region === '2') {
+            this.showTable1 = false;
+          } else if (this.region === '1') {
+            this.showTable1 = true;
+          }
+        },
         rowClick(row) {
           this.rowid = row.companyprojects_id;
         },

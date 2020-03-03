@@ -32,7 +32,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import png1 from "@/assets/png/1.png";
   import png2 from "@/assets/png/2.png";
-
+  import moment from "moment";
   export default {
     name: 'PFANS1039View',
     components: {
@@ -40,6 +40,7 @@
     },
     data() {
       return {
+        years: moment(new Date()).format("YYYY"),
         logo: {
           type: String,
         },
@@ -52,12 +53,14 @@
     methods: {
       submitForm(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        this.$store.commit("global/SET_OPERATEID", this.years);
         if (val === 1) {
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1040View");
           this.$router.push({
             name: 'PFANS1040View',
             params: {
               title: val,
+              _id: this.years
             },
           });
         }else if (val === 2) {
@@ -66,6 +69,7 @@
             name: 'PFANS1041View',
             params: {
               title: val,
+              _id: this.years
             },
           });
         }
