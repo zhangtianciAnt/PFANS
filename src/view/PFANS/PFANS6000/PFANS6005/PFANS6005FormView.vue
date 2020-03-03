@@ -836,7 +836,7 @@
           this.tableData[index].psdcdrank = val;
           let dictionaryInfo = getDictionaryInfo(val);
           if (dictionaryInfo) {
-            this.tableData[index].psdcdrank = dictionaryInfo.value2;
+            this.tableData[index].psdcdrank = dictionaryInfo.value1;
           }
         },
       },
