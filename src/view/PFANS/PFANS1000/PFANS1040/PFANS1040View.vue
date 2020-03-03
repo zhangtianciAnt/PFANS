@@ -1002,9 +1002,9 @@
       },
       handleClick(tab, event) {//xx
           this.activeName = tab.name;
+        if (tab.name === 'first') {
           this.workflowCode = "W0052";
           this.canStart = false;
-          if(tab === 'first'){
               this.getdata(this.years,"",'0',0);
           }
           else{
