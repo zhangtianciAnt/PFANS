@@ -239,24 +239,27 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
+                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode"
+                              v-if="scope.row.rowindex !== '999'">
                     </el-input>
+                    <div v-else>{{scope.row.budgetcode}}</div>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
-                    <org  :orglist="scope.row.depart"
-                          orgtype="2"
-                          :disabled="!disable"
-                          :error="errorgroup"
-                          style="width: 9rem"
-                          :no="scope.row"
-                          @getOrgids="getGroupId"></org>
+                    <org :orglist="scope.row.depart"
+                         orgtype="2"
+                         :disabled="!disable"
+                         :error="errorgroup"
+                         style="width: 9rem"
+                         :no="scope.row"
+                         @getOrgids="getGroupId" v-if="scope.row.rowindex !== '999'"></org>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
                   <template slot-scope="scope">
                     <project :disabled="!disable" style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                             v-if="scope.row.rowindex !== '999'"
                              @change="changePro">
                     </project>
                   </template>
@@ -264,107 +267,116 @@
                 <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="600">
                 <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disable"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.member"
-                      @change="changeSum(scope.row)"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="!disable"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     :precision="2"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.member"
+                                     @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"width="150">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disable"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.community"
-                      @change="changeSum(scope.row)"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="!disable"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.community"
+                                     @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"  width="150"  prop="outsource">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disable"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.outsource"
-                      @change="changeSum(scope.row)"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="!disable"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     :precision="2"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.outsource"
+                                     @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center"  width="150">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disable"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.outcommunity"
-                      @change="changeSum(scope.row)"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="!disable"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.outcommunity"
+                                     @change="changeSum(scope.row)"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="true"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.worknumber"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="true"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     :precision="2"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.worknumber"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
                   <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="true"
-                      :max="1000000000"
-                      :min="0"
-                      :no="scope.row"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.awardmoney"
+                    <el-input-number v-if="scope.row.rowindex !== '999'"
+                                     :disabled="true"
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     :precision="2"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.awardmoney"
+                    ></el-input-number>
+                    <el-input-number v-else
+                                     :max="1000000000"
+                                     :min="0"
+                                     :no="scope.row"
+                                     :precision="2"
+                                     controls-position="right"
+                                     style="width: 100%"
+                                     v-model="scope.row.awardmoney"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
-                    <el-button
-                      :disabled="!disable"
-                      @click.native.prevent="deleteRow(scope.$index, tableT)"
-                      plain
-                      size="small"
-                      type="danger"
+                    <el-button v-if="scope.row.rowindex !== '999'"
+                               :disabled="!disable"
+                               @click.native.prevent="deleteRow(scope.$index, tableT)"
+                               plain
+                               size="small"
+                               type="danger"
                     >{{$t('button.delete')}}
                     </el-button>
-                    <el-button
-                      :disabled="!disable"
-                      @click="addRow()"
-                      plain
-                      size="small"
-                      type="primary"
+                    <el-button v-if="scope.row.rowindex !== '999'"
+                               :disabled="!disable"
+                               @click="addRow()"
+                               plain
+                               size="small"
+                               type="primary"
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -491,6 +503,7 @@
                 <el-table :data="tableD" :summary-method="getTsummariesTableD"
                           :span-method="objectSpanMethod"
                           border
+                          show-summary
                           header-cell-class-name="sub_bg_color_blue" stripe>
                   <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTF')" align="center" width="150">
                     <template slot-scope="scope">
@@ -648,7 +661,21 @@
           worknumber: '',
           awardmoney: '',
           rowindex: '',
-        }],
+        },
+          {
+            awarddetail_id: '',
+            award_id: '',
+            budgetcode: '经费',
+            depart: '',
+            projects: '',
+            member: '',
+            community: '',
+            outsource: '',
+            outcommunity: '',
+            worknumber: '',
+            awardmoney: '',
+            rowindex: '999',
+          }],
         tableS:[],
         tableD:[{
           attf: 'R11B',
@@ -715,16 +742,16 @@
             attfmoth: '',
             attfnumber: ''
           },
-          {
-            attf: '社員合計人数',
-            attfmoth: '',
-            attfnumber: ''
-          },
-          {
-            attf: '社員コスト（元）',
-            attfmoth: '',
-            attfnumber: ''
-          },
+          // {
+          //   attf: '社員合計人数',
+          //   attfmoth: '',
+          //   attfnumber: ''
+          // },
+          // {
+          //   attf: '社員コスト（元）',
+          //   attfmoth: '',
+          //   attfnumber: ''
+          // },
 
         ],
 
@@ -855,6 +882,10 @@
         const {columns, data} = param;
         const sums = [];
         columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
           const values = data.map(item => Number(item[column.property]));
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
@@ -967,6 +998,8 @@
         }
       },
       addRow() {
+        let lastRow = this.tableT[this.tableT.length - 1];
+        this.tableT.pop();
         this.tableT.push({
           awarddetail_id: '',
           award_id: '',
@@ -979,7 +1012,8 @@
           worknumber: '',
           awardmoney: '',
           rowindex: '',
-        })
+        });
+        this.tableT.push(lastRow);
       },
       getTsummaries(param) {
         const {columns, data} = param;
