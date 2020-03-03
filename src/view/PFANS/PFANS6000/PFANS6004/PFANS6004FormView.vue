@@ -473,6 +473,8 @@
         title: 'title.PFANS6004VIEW',
         errorexpname: '',
         errorsuppliername: '',
+        erroradmissiontime: '',
+        errorexitime: '',
         disabled: false,
         buttonList: [],
         multiple: false,
