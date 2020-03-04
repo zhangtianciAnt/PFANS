@@ -381,11 +381,11 @@
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">
                   </el-table-column>
-                  <el-table-column
-                    prop="currencyposition"
-                    :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
-                    width="150">
-                  </el-table-column>
+                  <!--<el-table-column-->
+                    <!--prop="currencyposition"-->
+                    <!--:label="$t('label.PFANS1029FROM_TABLEHEADER7')"-->
+                    <!--width="150">-->
+                  <!--</el-table-column>-->
                 </el-table>
               </template>
               <!--6-->
