@@ -65,6 +65,14 @@ export function getPjList(data) {
   })
 }
 
+export function getProjectList(data) {
+  return request({
+    url: 'companyprojects/getProjectList',
+    method: 'get',
+    params: data
+  })
+}
+
 export function getTimestart(data) {
   return request({
     url: 'companyprojects/getTimestart',
@@ -72,6 +80,7 @@ export function getTimestart(data) {
     params: data
   })
 }
+
 export function updateTimestart(data) {
   return request({
     url: 'companyprojects/updateTimestart',

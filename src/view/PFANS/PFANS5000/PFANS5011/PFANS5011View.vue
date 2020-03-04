@@ -29,15 +29,16 @@
         columns:[
           //项目编号
           {
-            code: 'numbers',
+            code: 'projectid',
             label: 'label.PFANS5009VIEW_PROJECTNO',
             width: 120,
             fix: false,
-            filter: true
+            filter: true,
+            december:true
           },
           //项目名称
           {
-            code: 'project_name',
+            code: 'projectname',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
             width: 120,
             fix: false,
@@ -46,36 +47,43 @@
 
           //工数
           {
-            code: 'actualwork',
+            code: 'confirm',
             label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
             width: 130,
             fix: false,
             filter: true
           },
 
-            //状态
-            {
-                code: 'manmonth',
-                label: 'label.status',
-                width: 130,
-                fix: false,
-                filter: true
-            },
+          //状态
+          {
+              code: 'status',
+              label: 'label.status',
+              width: 130,
+              fix: false,
+              filter: true
+          },
         ],
         buttonList: [
           {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         rowid: '',
-        row_id: 'companyprojects_id'
+        row_id: 'projectid'
       };
     },
     mounted(){
       this.loading = true;
       this.$store
-        .dispatch('PFANS5011Store/getFpans5011List', {})
+        .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
         .then(response => {
+          for (let i = 0;i < response.length; i ++){
+              if(response[i].confirm === response[i].unconfirm){
+                  response[i].status = "已确认";
+              }
+              else{
+                  response[i].status = "未确认";
+              }
+          }
           this.data = response;
-            console.log("response",response)
           this.loading = false;
         })
         .catch(error => {
@@ -86,35 +94,10 @@
           });
           this.loading = false;
         });
-        for(let i =0; i<=this.data.length; i++ ){
-
-            this.worktime(this.data[i].companyprojects_id);
-        }
-
-
     },
     methods: {
-
-        worktime(val){
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS5001Store/getFpans5001List', val)
-                .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-        },
-
       rowClick(row) {
-        this.rowid = row.companyprojects_id
+        this.rowid = row.projectid
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
