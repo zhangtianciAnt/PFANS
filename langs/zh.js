@@ -60,7 +60,7 @@ module.exports = {
     recognition: '承认',
     application: '契約番号申請',
     cancellation: '契約番号廃棄',
-    makeinto: '書類作成',
+    makeinto: '保存并書類作成',
     handle: '处理',
     refuse: '拒绝',
   },

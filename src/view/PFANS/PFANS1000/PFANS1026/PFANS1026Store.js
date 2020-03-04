@@ -3,6 +3,7 @@ import {
   update,
   insert,
   insertBook,
+  existCheck
   } from './PFANS1026Api'
 import {selectById} from "../PFANS1020/PFANS1020Api";
 
@@ -53,6 +54,19 @@ import {selectById} from "../PFANS1020/PFANS1020Api";
       insertBook({ commit },data) {
         return new Promise((resolve, reject) => {
           insertBook(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      existCheck({ commit },data) {
+        return new Promise((resolve, reject) => {
+          existCheck(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
