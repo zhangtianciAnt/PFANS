@@ -75,7 +75,7 @@
           {
             code: 'openingdate',
             label: 'label.PFANS1029VIEW_OPENINGDATE',
-            width: 200,
+            width: 150,
             fix: false,
             filter: true
           },
@@ -83,7 +83,7 @@
           {
             code: 'enddate',
             label: 'label.PFANS1029VIEW_ENDDATE',
-            width: 120,
+            width: 150,
             fix: false,
             filter: true
           },

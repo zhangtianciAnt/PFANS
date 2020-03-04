@@ -74,7 +74,7 @@
                     },
                     {
                         code: 'status',
-                        label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
+                      label: 'label.PFANS5005VIEW_STATUS',
                         width: 150,
                         fix: false,
                         filter: true

@@ -1,7 +1,8 @@
 import {
   get,
   one,
-  update
+  update,
+  downLoad
 } from './PFANS1032Api'
 
 const PFANS1032Store = {
@@ -43,6 +44,15 @@ const PFANS1032Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    downLoad({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downLoad(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })
