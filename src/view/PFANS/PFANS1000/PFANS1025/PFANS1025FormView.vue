@@ -788,6 +788,13 @@
           });
         }
         if (val === 'generate') {
+          debugger;
+          this.loading = true;
+          this.form.maketype='7',
+          this.form.user_id=this.userlist;
+          if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+            this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+          }
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.form)
             .then(response => {
