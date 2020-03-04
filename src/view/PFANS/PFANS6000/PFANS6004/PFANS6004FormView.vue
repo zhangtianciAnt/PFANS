@@ -702,7 +702,9 @@
     },
     mounted() {
       this.getExpnameList();
-      this.selectById();
+      if(this.$route.params._id){
+          this.selectById();
+      }
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -930,10 +932,10 @@
             this.loading = false;
           });
       },
-      selectById() {
+      selectById(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName":this.$route.params._name})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].entrust !== null && response[j].entrust !== "") {
