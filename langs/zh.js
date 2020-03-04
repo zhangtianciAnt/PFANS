@@ -63,6 +63,7 @@ module.exports = {
     makeinto: '書類作成',
     handle: '处理',
     refuse: '拒绝',
+    exportQingQiuShu_GuoNei: '国内请求书',
   },
   table: {
     detail: '一览',
