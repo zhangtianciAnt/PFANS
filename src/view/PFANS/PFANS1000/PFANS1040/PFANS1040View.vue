@@ -881,12 +881,19 @@
                         this.tableB.push(response[j]);
                       }
                   }
-                  var monthCurrent = Number(moment(new Date()).format('MM'));
-                  for (var j = 0; j < 12; j++) {
-                    if (j > monthCurrent - 5) {
-                      this.arrays[j].disabled = false;
+                  //alert(month.substr(5,2));
+                  if(Number(month.substr(5,2) < Number(moment(new Date()).format('MM')))){
+
+                  }
+                  else{
+                    var monthCurrent = month.substr(5,2);//Number(moment(new Date()).format('MM'));
+                    for (var j = 0; j < 12; j++) {
+                      if (j > monthCurrent - 5) {
+                        this.arrays[j].disabled = false;
+                      }
                     }
                   }
+
               }
             }
             else{
@@ -1002,9 +1009,9 @@
       },
       handleClick(tab, event) {//xx
           this.activeName = tab.name;
-        if (tab.name === 'first') {
-          this.workflowCode = "W0052";
-          this.canStart = false;
+          if (tab.name === 'first') {
+              this.workflowCode = "W0052";
+              this.canStart = false;
               this.getdata(this.years,"",'0',0);
           }
           else{
@@ -1018,26 +1025,26 @@
       },
       monthChange(value){
         this.months = moment(value).format('YYYY-MM');
-        this.arrays = [
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-          {disabled: true},
-        ];
-        var monthCurrent = Number(moment(value).format('MM'));
-        for (var i = 0; i < 12; i++) {
-          if (i > monthCurrent - 5) {
-            this.arrays[i].disabled = false;
-          }
-        }
+        // this.arrays = [
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        //   {disabled: true},
+        // ];
+        // var monthCurrent = Number(moment(value).format('MM'));
+        // for (var i = 0; i < 12; i++) {
+        //   if (i > monthCurrent - 5) {
+        //     this.arrays[i].disabled = false;
+        //   }
+        // }
         this.getdata("",this.months,'1',0);
 
       },
