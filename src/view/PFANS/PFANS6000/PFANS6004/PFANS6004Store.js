@@ -6,9 +6,11 @@ import {
   createexpatriatesinforApply,
   updateexpatriatesinfor,
   getSupplierNameList,
-  download
+  download,
+  getCompanyProject
 } from './PFANS6004Api'
 import {updatepriceset} from '../PFANS6005/PFANS6005Api';
+import {getFpans5001List} from "../../PFANS5000/PFANS5001/PFANS5001Api";
 
 
 const PFANS6004Store = {
@@ -132,7 +134,22 @@ const PFANS6004Store = {
           reject(error);
         })
       })
-    }
+    },
+
+    getCompanyProject({commit},data) {
+      return new Promise((resolve, reject) => {
+        getCompanyProject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
   }
 };
 

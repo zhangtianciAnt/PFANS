@@ -21,7 +21,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png1" class="m-img">
+            <img :src="png2" class="m-img">
           </el-col>
         </div>
       </div>
@@ -30,8 +30,8 @@
 </template>
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import png1 from "@/assets/png/1.png";
-  import png2 from "@/assets/png/2.png";
+  import png1 from "@/assets/png/12.png";
+  import png2 from "@/assets/png/13.png";
   import moment from "moment";
   export default {
     name: 'PFANS1039View',

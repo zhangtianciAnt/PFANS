@@ -4,6 +4,14 @@
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
+      <el-select @change="changed" slot="customize" v-model="department">
+        <el-option
+          :key="item.code"
+          :label="item.code"
+          :value="item.code"
+          v-for="item in options">
+        </el-option>
+      </el-select>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" @close="closed" width="50%" destroy-on-close>
       <div>
@@ -113,6 +121,8 @@
     },
     data() {
       return {
+        department: '',
+        options: [],
         totaldata: [],
         listQuery: {
           page: 1,
@@ -247,7 +257,8 @@
       }
     },
     mounted() {
-      this.getListData();
+      // this.getListData();
+      this.getDepartmentData();
     },
     created() {
       this.initWebSocket();
@@ -326,10 +337,36 @@
       getTypeassets(val) {
         this.form.typeassets = val;
       },
+      getDepartmentData() {
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1001Store/getDepartment')
+          .then(response => {
+              this.loading = false;
+              for (let item of response) {
+                let i = {};
+                if (item) {
+                  i.code = item;
+                }
+                this.options.push(i);
+              }
+            }
+          ).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      changed() {
+        this.getListData();
+      },
       getListData() {
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1001Store/getList', {})
+          .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);

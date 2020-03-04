@@ -44,7 +44,16 @@
               <!--</el-table>-->
               <EasyNormalTable :columns="columns" :data="tableD" :rowid="row_id" :buttonShow="buttonShow"
                                :showSelection="showSelection" @rowClick="rowClick" :buttonList="buttonList"
-                               ref="roletable"></EasyNormalTable>
+                               ref="roletable">
+                <el-select @change="changed" slot="customize" v-model="department">
+                  <el-option
+                    :key="item.code"
+                    :label="item.code"
+                    :value="item.code"
+                    v-for="item in options">
+                  </el-option>
+                </el-select>
+              </EasyNormalTable>
             </el-col>
           </el-row>
         </el-form>
@@ -55,7 +64,7 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import EasyNormalTable from '@/components/EasyBigDataTable';
+  import EasyNormalTable from '@/components/EasyNormalTable';
   import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
@@ -113,6 +122,8 @@
         }
       };
       return {
+        department: '',
+        options: [],
         buttonShow:false,
         loading: false,
         error: '',
@@ -211,7 +222,7 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         this.form.userid = this.$store.getters.userinfo.userid;
-        this.getSelectAll();
+        this.getDepartmentData();
       }
     },
     created() {
@@ -245,6 +256,32 @@
       }
     },
     methods: {
+      getDepartmentData() {
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1001Store/getDepartment')
+          .then(response => {
+              this.loading = false;
+              for (let item of response) {
+                let i = {};
+                if (item) {
+                  i.code = item;
+                }
+                this.options.push(i);
+              }
+            }
+          ).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      changed() {
+        this.getSelectAll();
+      },
       rowClick(row) {
         this.rowid = row.assets_id;
       },
@@ -305,7 +342,7 @@
       getSelectAll() {
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1002Store/selectAll', {})
+          .dispatch('ASSETS1002Store/selectAll', {usedepartment: this.department})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
