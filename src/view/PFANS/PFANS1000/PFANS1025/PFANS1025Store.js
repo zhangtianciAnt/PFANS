@@ -1,4 +1,5 @@
-import {get, selectById, update} from './PFANS1025Api'
+import {get, selectById, update,generateJxls} from './PFANS1025Api'
+import {downLoad} from '../PFANS1032/PFANS1032Api';
 
 const PFANS1025Store = {
   namespaced: true,
@@ -44,7 +45,15 @@ const PFANS1025Store = {
         })
       })
     },
-
+    generateJxls({commit}, data) {
+      return new Promise((resolve, reject) => {
+        generateJxls(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 

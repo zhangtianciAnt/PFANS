@@ -386,8 +386,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.vehicle">
-                    </el-input>
+                    <dicselect
+                      :code="code5"
+                      :data="scope.row.vehicle"
+                      :disabled="!disable"
+                      :no="scope.row"
+                      @change="getvehicle"
+                    ></dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="200">
@@ -1711,6 +1716,9 @@
       },
       getactivitycontent(val, row) {
         row.activitycontent = val;
+      },
+      getvehicle(val, row) {
+        row.vehicle = val;
       },
       getvehicleon(val, row) {
         row.vehicleon = val;
