@@ -25,10 +25,11 @@ export function getUpdateInfo(data) {
   })
 }
 
-export function getList() {
+export function getList(data) {
   return request({
     url: 'assets/list',
-    method: 'post'
+    method: 'post',
+    data: data
   })
 }
 
@@ -46,5 +47,12 @@ export function download(data) {
     method: 'get',
     params: data,
     responseType: 'blob'
+  })
+}
+
+export function getDepartment() {
+  return request({
+    url: 'assets/getDepartment',
+    method: 'post'
   })
 }

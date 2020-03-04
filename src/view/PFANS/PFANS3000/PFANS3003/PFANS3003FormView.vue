@@ -33,10 +33,22 @@
           </el-row>
           <el-row >
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
+                <el-input v-model.trim="form.ecenter" :disabled="!disable" style="width:20vw"
+                          maxlength="20"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
+            </el-col>
+            <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS3003VIEW_EUSER_ID')" prop="euser_id">
+              <el-input v-model.trim="form.euser_id" :disabled="!disable" style="width:20vw"
+                        maxlength="20"></el-input>
+            </el-form-item>
             </el-col>
           </el-row>
           <el-row >
@@ -50,12 +62,22 @@
             </el-col>
             <el-col :span="8">
               <template>
+                <el-form-item :label="$t('label.PFANS3003VIEW_EOCCUPATIONAL')" prop="eoccupational">
+                  <el-input v-model.trim="form.eoccupational" :disabled="!disable" style="width:20vw"
+                            maxlength="20"></el-input>
+                </el-form-item>
+              </template>
+            </el-col>
+            <el-col :span="8">
+              <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
                   <el-input v-model.trim="form.insideline" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
             </el-col>
+          </el-row>
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
@@ -64,8 +86,6 @@
                 </el-form-item>
               </template>
             </el-col>
-          </el-row>
-          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_PLAN')" prop="plan">
                 <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
@@ -208,6 +228,9 @@
           centerid: '',
           groupid: '',
           teamid: '',
+          euser_id: '',
+          ecenter: '',
+          eoccupational: '',
           userid: '',
           occupational: '',
           insideline: '',
@@ -227,6 +250,21 @@
           occupational: [{
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_OCCUPATIONAL"),
+            trigger: "blur"
+          }],
+          euser_id: [{
+            required: true,
+            message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_EUSER_ID"),
+            trigger: "blur"
+          }],
+          ecenter: [{
+            required: true,
+            message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_ECENTER"),
+            trigger: "blur"
+          }],
+          eoccupational: [{
+            required: true,
+            message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_EOCCUPATIONAL"),
             trigger: "blur"
           }],
           insideline: [{

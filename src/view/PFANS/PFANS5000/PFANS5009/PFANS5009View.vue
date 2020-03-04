@@ -121,13 +121,6 @@
                  response[j].phase = letPhase.value1;
                }
              }
-             if (response[j].productstatus !== null && response[j].productstatus !== "") {
-               if(response[j].productstatus === "0") {
-                 response[j].productstatus = this.submitted
-               }else {
-                 response[j].productstatus = this.notsubmitted
-               }
-             }
              if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
                if(response[j].phasestatus === "0") {
                  response[j].phasestatus = this.phasestatus0
@@ -164,23 +157,6 @@
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'view') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS5001FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        }
         if (val === 'update') {
           if (this.rowid === '') {
             Message({
@@ -212,32 +188,6 @@
             params: {
               _id: this.rowid,
               disabled: false
-            }
-          })
-        }
-        // if (val === 'insert') {
-        //   this.$router.push({
-        //     name: 'PFANS5009FormView',
-        //     params: {
-        //       _id: '',
-        //       disabled: true
-        //     }
-        //   })
-        // }
-        if (val === 'edit') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS50FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true
             }
           })
         }

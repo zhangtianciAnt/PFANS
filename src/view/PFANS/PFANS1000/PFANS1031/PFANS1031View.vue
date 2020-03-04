@@ -114,7 +114,7 @@
           {
             code: 'toto',
             label: 'label.PFANS1031FORMVIEW_TOTO',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true
           },
@@ -215,7 +215,7 @@
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'error',
+              type: 'info',
               duration: 2 * 1000
             });
             return
@@ -232,7 +232,7 @@
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'error',
+              type: 'info',
               duration: 2 * 1000
             });
             return

@@ -156,6 +156,98 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
+                      <dicselect :code="code3"
+                                 :data="form.paymentmethod"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getPayment"
+                                 style="width:20vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                                v-model="form.payeename"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" type="email"
+                                v-model="form.payeecode"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
+                                  prop="payeebankaccountnumber">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                                v-model="form.payeebankaccountnumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
+                                  prop="payeebankaccount">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                                v-model="form.payeebankaccount"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                                v-model="form.receivables"></el-input>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show3" prop="payeecode">
+                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                                v-model="form.receivables"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
+                      <el-select :disabled="!disable" style="width:20vw" v-model="form.loan">
+                        <el-option
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          v-for="item in options">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
+                      <el-input :disabled="!disable" maxlength="20"
+                                style="width:20vw" v-model="form.fullname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
@@ -254,98 +346,6 @@
                       </el-table-column>
                     </el-table>
                   </el-form-item>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
-                      <dicselect :code="code3"
-                                 :data="form.paymentmethod"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getPayment"
-                                 style="width:20vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.payeename"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" type="email"
-                                v-model="form.payeecode"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
-                                  prop="payeebankaccountnumber">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.payeebankaccountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
-                                  prop="payeebankaccount">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.payeebankaccount"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.receivables"></el-input>
-                    </el-form-item>
-                  </el-col>
-
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show3" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.receivables"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
-                      <el-select :disabled="!disable" style="width:20vw" v-model="form.loan">
-                        <el-option
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                          v-for="item in options">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
-                      <el-input :disabled="!disable" maxlength="20"
-                                style="width:20vw" v-model="form.fullname"></el-input>
-                    </el-form-item>
-                  </el-col>
                 </el-row>
               </div>
             </el-tab-pane>
@@ -583,7 +583,6 @@
                                        @change="setprocurementdetails"
                                        style="width: 100%" v-show="scope.row.showrow3">
                             </dicselect>
-
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
@@ -719,6 +718,7 @@
                             </dicselect>
                           </template>
                         </el-table-column>
+
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
@@ -732,6 +732,7 @@
                             </el-input>
                           </template>
                         </el-table-column>
+
                         <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
                           <template slot-scope="scope">
                             <el-input-number
@@ -746,6 +747,7 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
+
                         <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                          prop="foreigncurrency"
                                          width="150">
@@ -803,7 +805,6 @@
 
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import {getToken} from '@/utils/auth'
     import user from "../../../components/user.vue";
     import {Message} from 'element-ui';
     import moment from "moment";
@@ -1248,10 +1249,17 @@
                             }
                         }
                         if (response.otherdetails.length > 0) {
-                            this.tableR = response.otherdetails;
-                            for (var i = 0; i < this.tableR.length; i++) {
-                                this.orglist = this.tableR[i].departmentname;
+                            for (let i = 0; i < response.otherdetails.length; i++) {
+                                this.orglist = response.otherdetails[i].departmentname;
+                                if (response.otherdetails[i].costitem === 'PJ057001') {
+                                    this.checkStatus = true;
+                                } else if (response.otherdetails[i].costitem === 'PJ057015') {
+                                    this.checkStatus = true;
+                                } else if (response.otherdetails[i].costitem === 'PJ057016') {
+                                    this.checkStatus = true;
+                                }
                             }
+                            this.tableR = response.otherdetails;
                         }
                         this.userlist = this.form.user_id;
                         this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
@@ -1359,19 +1367,18 @@
                 row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
                 if (group) {
-                    debugger;
                     this.companyen = group.companyen;
                     row.budgetcoding = group.encoding
 
                 }
             },
-            getcode(val, row) {
-                row.accountcode = val;
-                this.accountcodeValue = val;
-                this.getCompanyen(val, row);
-            },
+            // getcode(val, row) {
+            //     row.accountcode = val;
+            //     this.accountcodeValue = val;
+            //     this.getCompanyen(val, row);
+            // },
             getCompanyen(val, row) {
-                if (this.companyen) {
+                if (this.companyen != "") {
                     if (this.companyen == 'ADMN' || this.companyen == 'FPO' || this.companyen == 'DANP') {
                         let dic = getDictionaryInfo(val);
                         if (dic) {
@@ -1391,22 +1398,28 @@
                 }
             },
             getcostitem(val, row) {
-                if (val == 'PJ057001') {
-                    this.code11 = 'PJ058'
+                row.costitem = val;
+                if (val === 'PJ057001') {
+                    row.subjectnumber = "",
+                    this.code11 = 'PJ058';
                     this.checkStatus = true;
-                } else if (val == 'PJ057015') {
-                    this.code11 = 'PJ059'
+                } else if (val === 'PJ057015') {
+                    row.subjectnumber = "",
+                    this.code11 = 'PJ059';
                     this.checkStatus = true;
-                } else if (val == 'PJ057016') {
-                    this.code11 = 'PJ060'
+                } else if (val === 'PJ057016') {
+                    row.subjectnumber = "",
+                    this.code11 = 'PJ060';
                     this.checkStatus = true;
                 } else {
+                    row.subjectnumber = "",
                     this.checkStatus = false;
                     this.getCompanyen(val, row);
                 }
-                row.costitem = val;
             },
             getPaymentinvoicetype(val, row) {
+                row.excludingtax = "";
+                row.facetax= "";
                 let dic = getDictionaryInfo(val);
                 row.invoicetype = val;
                 if (dic) {
@@ -1420,7 +1433,12 @@
                 }
             },
             changeSum(row) {
-                row.facetax = row.invoiceamount - row.excludingtax;
+
+                if(row.taxrate == ""){
+                    row.facetax = ""
+                }else{
+                    row.facetax = row.invoiceamount - row.excludingtax;
+                }
             },
             getUserids(val) {
                 this.userlist = val;
@@ -1748,13 +1766,11 @@
                     row.showrow2 = false;
                     row.showrow3 = true;
                 }
-
             },
             setprocurementdetails(val, row) {
                 row.procurementdetails = val;
             },
             getTsummaries(param) {
-                debugger
                 const {columns, data} = param;
                 const sums = [];
                 columns.forEach((column, index) => {
@@ -1782,7 +1798,6 @@
                         sums[index] = '--'
                     }
                 });
-                debugger
                 this.getMoney(sums);
                 this.getforeigncurrency(sums);
                 return sums;
@@ -1816,8 +1831,6 @@
                     }
                 });
                 this.tablePValue = sums;
-                this.getMoney(sums);
-                this.getforeigncurrency(sums);
                 return sums;
             },
             getRsummaries(param) {
@@ -1849,12 +1862,11 @@
                     }
                 });
                 this.tableRValue = sums;
-                this.getMoney(sums);
-                this.getforeigncurrency(sums);
+                this.getMoney(this.tablePValue);
+                this.getforeigncurrency(this.tablePValue);
                 return sums;
             },
             getMoney(sums) {
-                debugger
                 if (this.form.type === 'PJ001001') {
                     this.form.rmbexpenditure = sums[9];
                 } else if (this.accountcodeValue != "") {
@@ -1864,7 +1876,6 @@
                 }
             },
             getforeigncurrency(sums) {
-                debugger
                 if (this.form.type === 'PJ001001') {
                     this.form.foreigncurrency = sums[10];
                 } else if (this.accountcodeValue != "") {
@@ -1891,24 +1902,24 @@
                     })
                 }
             },
-            // 判断是否IE浏览器
+            // 判断是否IE??器
             MyBrowserIsIE() {
                 let isIE = false;
                 if (
                     navigator.userAgent.indexOf("compatible") > -1 &&
                     navigator.userAgent.indexOf("MSIE") > -1
                 ) {
-                    // ie浏览器
+                    // ie??器
                     isIE = true;
                 }
                 if (navigator.userAgent.indexOf("Trident") > -1) {
-                    // edge 浏览器
+                    // edge ??器
                     isIE = true;
                 }
                 return isIE;
             },
 
-            //创建a标签下载
+            //?建a??下?
             // createDownLoadClick(content, fileName) {
             //   const link = document.createElement("a");
             //   link.href = encodeURI(content);
@@ -1967,7 +1978,7 @@
                             }
                             this.invoiceamountsum = sum;
                             for (let i = 0; i < this.tableT.length; i++) {
-                                if (this.tableT[i].trafficdate !== "" ||this.tableT[i].subjectnumber !== "" || this.tableT[i].invoicenumber !== "" || this.tableT[i].costitem !== "" || this.tableT[i].departmentname !== "" || this.tableT[i].budgetcoding !== ""|| this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
+                                if (this.tableT[i].trafficdate !== "" || this.tableT[i].subjectnumber !== "" || this.tableT[i].invoicenumber !== "" || this.tableT[i].costitem !== "" || this.tableT[i].departmentname !== "" || this.tableT[i].budgetcoding !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
                                     || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== "") {
                                     this.baseInfo.trafficdetails.push(
                                         {
@@ -1990,8 +2001,8 @@
                                 }
                             }
                             for (let i = 0; i < this.tableP.length; i++) {
-                                if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].invoicenumber !== "" || this.tableP[i].departmentname !== "" || this.tableP[i].budgetcoding !== "" ||this.tableP[i].procurementproject !== ""
-                                    || this.tableP[i].subjectnumber !== ""|| this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== "") {
+                                if (this.tableP[i].purchasedetailsdate !== "" || this.tableP[i].procurementdetails !== "" || this.tableP[i].invoicenumber !== "" || this.tableP[i].departmentname !== "" || this.tableP[i].budgetcoding !== "" || this.tableP[i].procurementproject !== ""
+                                    || this.tableP[i].subjectnumber !== "" || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== "") {
                                     if (this.tableP[i].procurementdetails === ' ') {
                                         this.tableP[i].procurementdetails = '';
                                     }
@@ -2035,9 +2046,6 @@
                                     );
                                 }
                             }
-                            debugger
-                            console.log("aaa",this.form.rmbexpenditure)
-                            console.log("bbb",this.invoiceamountsum)
                             if (this.form.rmbexpenditure != '0') {
                                 if (this.form.rmbexpenditure != this.invoiceamountsum) {
                                     Message({

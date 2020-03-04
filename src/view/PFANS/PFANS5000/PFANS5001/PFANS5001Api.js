@@ -65,3 +65,11 @@ export function getPjList(data) {
   })
 }
 
+export function getTimestart(data) {
+  return request({
+    url: 'companyprojects/getTimestart',
+    method: 'get',
+    params: data
+  })
+}
+
