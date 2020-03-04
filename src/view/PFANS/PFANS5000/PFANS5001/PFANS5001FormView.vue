@@ -718,7 +718,7 @@
                           <el-table-column
                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                             align="center"
-                            width="200">
+                            width="220">
                             <template slot-scope="scope">
                               <el-col :span="8">
                                 <div class="dpSupIndex" style="width:10vw" prop="expname">
@@ -1455,6 +1455,7 @@
         this.$store
           .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
           .then(response => {
+              debugger
             this.form = response.companyprojects;
             this.userlist = this.form.leaderid;
             this.userlist1 = this.form.managerid;
@@ -1491,38 +1492,39 @@
 
             //项目体制
             if (response.projectsystem.length > 0) {
+              let tablec = [];
+              let tableb = [];
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
-                  // this.tableB = [];
-                  let o = {};
-                  o.name = response.projectsystem[i].projectsystem_id;
-                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                  o.type = response.projectsystem[i].type;
-                  o.number = response.projectsystem[i].number;
-                  o.company = response.projectsystem[i].company;
-                  o.name = response.projectsystem[i].name;
-                  o.position = response.projectsystem[i].position;
-                  o.admissiontime = response.projectsystem[i].admissiontime;
-                  o.exittime = response.projectsystem[i].exittime;
-                  o.rowindex = response.projectsystem[i].rowindex;
-                  this.tableB.push(o);
-
-                } else {
-                  // this.tableC = [];
-                  let o = {};
-                  o.name = response.projectsystem[i].projectsystem_id;
-                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                  o.type = response.projectsystem[i].type;
-                  o.number = response.projectsystem[i].number;
-                  o.company = response.projectsystem[i].company;
-                  o.name = response.projectsystem[i].name;
-                  o.position = response.projectsystem[i].position;
-                  o.admissiontime = response.projectsystem[i].admissiontime;
-                  o.exittime = response.projectsystem[i].exittime;
-                  o.rowindex = response.projectsystem[i].rowindex;
-                  this.tableC.push(o);
+                    tableb.push({
+                        name: response.projectsystem[i].projectsystem_id,
+                        companyprojects_id: response.projectsystem[i].companyprojects_id,
+                        type: response.projectsystem[i].type,
+                        number: response.projectsystem[i].number,
+                        company: response.projectsystem[i].company,
+                        name: response.projectsystem[i].name,
+                        position: response.projectsystem[i].position,
+                        admissiontime: response.projectsystem[i].admissiontime,
+                        exittime: response.projectsystem[i].exittime,
+                        rowindex: response.projectsystem[i].rowindex,
+                    });
+                } else if(response.projectsystem[i].type === '1'){
+                    tablec.push({
+                        name: response.projectsystem[i].projectsystem_id,
+                        companyprojects_id: response.projectsystem[i].companyprojects_id,
+                        type: response.projectsystem[i].type,
+                        number: response.projectsystem[i].number,
+                        company: response.projectsystem[i].company,
+                        name: response.projectsystem[i].name,
+                        position: response.projectsystem[i].position,
+                        admissiontime: response.projectsystem[i].admissiontime,
+                        exittime: response.projectsystem[i].exittime,
+                        rowindex: response.projectsystem[i].rowindex,
+                    });
                 }
               }
+                this.tableB = tableb;
+                this.tableC=tablec;
             }
             //项目合同
             if (response.projectcontract.length > 0) {
@@ -1610,7 +1612,6 @@
         this.$store
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
-            console.log(response);
             this.gridData3 = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
               var vote2 = {};
@@ -1747,7 +1748,6 @@
         row.name = userlist;
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
-          console.log("asxxxsw  " + lst)
           row.position = lst.userinfo.post;
           row.number = lst.userinfo.jobnumber;
           let lst1 = getOrgInfoByUserId(row.name);

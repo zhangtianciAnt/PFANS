@@ -2933,13 +2933,12 @@ first<template>
             if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
                 this.buttonList = [];
             }
-            if(this.$route.params._id === ''){
-              this.buttonList.splice(3, 1);
-            }
+//            if(this.$route.params._id === ''){
+//              this.buttonList.splice(3, 1);
+//            }
         },
         methods: {
             getGroupId(val) {
-              debugger;
                 this.grouporglist = val;
                 let group = getOrgInfo(val);
                 if(group){
@@ -3788,8 +3787,7 @@ first<template>
                       duration: 5 * 1000
                     });
                   }else {
-                    this.handleSave();
-                    var tabledata = {'contractnumber': this.$route.params._id,'rowindex': index};
+                    var tabledata = {'contractnumber': contractNumber,'rowindex': index};
                     this.$refs["refform"].validate(valid => {
                       if (valid) {
                         this.loading = true;
@@ -3828,7 +3826,7 @@ first<template>
             },
             //書類作成
             clickData(val){
-                this.existCheck(this.$route.params._id,val);
+                this.existCheck(this.letcontractnumber,val);
             },
             paramsTitle(){
                 this.$router.push({
@@ -3839,7 +3837,7 @@ first<template>
                 });
             },
             //保存
-            handleSave(){
+            handleSave(value){
               let baseInfo = {};
               baseInfo.contractapplication = [];
               baseInfo.contractnumbercount = [];
@@ -3903,13 +3901,17 @@ first<template>
                     this.$store.dispatch('PFANS1026Store/update', baseInfo)
                       .then(response => {
                         this.data = response;
-                        this.loading = false;
                         Message({
                           message: this.$t("normal.success_02"),
                           type: 'success',
                           duration: 5 * 1000
                         });
-                        this.paramsTitle();
+                        this.loading = false;
+                        if(value === "makeinto") {
+                          this.handleIndexDisabled();
+                        }else if(value === "save") {
+                          this.paramsTitle();
+                        }
                       })
                       .catch(error => {
                         Message({
@@ -3924,13 +3926,18 @@ first<template>
                     this.$store.dispatch('PFANS1026Store/insert', baseInfo)
                       .then(response => {
                         this.data = response;
-                        this.loading = false;
                         Message({
                           message: this.$t("normal.success_01"),
                           type: 'success',
                           duration: 5 * 1000
                         });
-                        this.paramsTitle();
+
+                        this.loading = false;
+                        if(value === "makeinto") {
+                          this.handleIndexDisabled();
+                        }else if(value === "save") {
+                          this.paramsTitle();
+                        }
                       })
                       .catch(error => {
                         Message({
@@ -3944,6 +3951,94 @@ first<template>
                 }
               });
             },
+            //indexDisabled
+            handleIndexDisabled() {
+              this.loading = true;
+              this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
+                .then(response => {
+                  this.dialogBook = true;
+                  if(response.count1 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = true;
+                    this.disabledCount3 = true;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = true;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = false;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = false;
+                    this.disabledCount7 = false;
+                    this.loading = false;
+                    return
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            },
+
             buttonClick(val) {
                 if (val === "application") {
                     this.display = true;
@@ -3972,93 +4067,11 @@ first<template>
                     // this.form.contractnumber = this.$route.params._id;
                 }
                 if (val === "save") {
-                  this.handleSave();
+                  this.handleSave("save");
                 }
                 if (val === "makeinto") {
-                  this.loading = true;
-                  this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.$route.params._id})
-                    .then(response => {
-                      this.dialogBook = true;
-                      if(response.count1 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = true;
-                        this.disabledCount3 = true;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = true;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = false;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = false;
-                        this.disabledCount7 = false;
-                        this.loading = false;
-                        return
-                      }
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                      });
-                      this.loading = false;
-                    })
+                  console.log("aaa", this.letcontractnumber);
+                  this.handleSave("makeinto");
                 }
             }
         }

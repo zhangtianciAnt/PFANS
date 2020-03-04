@@ -25,6 +25,7 @@
         loading:false,
         title:"title.PFANS5011VIEW",
         data:[],
+          time_start:'',
         columns:[
           //项目编号
           {
@@ -42,14 +43,7 @@
             fix: false,
             filter: true
           },
-          //計画工数
-          {
-            code: 'manmonth',
-            label: 'label.PFANS5009VIEW_PLANNEDWH',
-            width: 130,
-            fix: false,
-            filter: true
-          },
+
           //工数
           {
             code: 'actualwork',
@@ -58,6 +52,15 @@
             fix: false,
             filter: true
           },
+
+            //状态
+            {
+                code: 'manmonth',
+                label: 'label.status',
+                width: 130,
+                fix: false,
+                filter: true
+            },
         ],
         buttonList: [
           {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
@@ -69,9 +72,10 @@
     mounted(){
       this.loading = true;
       this.$store
-        .dispatch('PFANS5001Store/getFpans5001List', {})
+        .dispatch('PFANS5011Store/getFpans5011List', {})
         .then(response => {
           this.data = response;
+            console.log("response",response)
           this.loading = false;
         })
         .catch(error => {
@@ -82,8 +86,33 @@
           });
           this.loading = false;
         });
+        for(let i =0; i<=this.data.length; i++ ){
+
+            this.worktime(this.data[i].companyprojects_id);
+        }
+
+
     },
     methods: {
+
+        worktime(val){
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5001Store/getFpans5001List', val)
+                .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+
       rowClick(row) {
         this.rowid = row.companyprojects_id
       },

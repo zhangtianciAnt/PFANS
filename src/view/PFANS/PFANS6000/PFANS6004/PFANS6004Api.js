@@ -79,3 +79,13 @@ export function download(data) {
     responseType: 'blob'
   })
 }
+
+export function getCompanyProject(data) {
+  debugger;
+  return request({
+    url: 'companyprojects/getCompanyProject',
+    method: 'get',
+    params: data,
+  })
+}
+

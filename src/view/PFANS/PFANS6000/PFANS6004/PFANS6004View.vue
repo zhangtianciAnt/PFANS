@@ -163,6 +163,7 @@
                 rowid: '',
                 row: 'expatriatesinfor_id',
                 isShow: true,
+                rowname:'',
             };
         },
         mounted() {
@@ -244,6 +245,7 @@
             },
             rowClick(row) {
                 this.rowid = row.expatriatesinfor_id;
+                this.rowname = row.expname;
             },
             handleSizeChange(val) {
                 this.listQuery.limit = val
@@ -399,6 +401,7 @@
                         name: 'PFANS6004FormView',
                         params: {
                             _id: this.rowid,
+                            _name:this.rowname,
                             disabled: true
                         }
                     })
