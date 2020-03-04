@@ -5,174 +5,140 @@
       :title="title"
       :noback="false"
       @buttonClick="buttonClick"
-      @rowClick="rowClick"
       v-loading="loading">
 
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
-            <el-table
-              :data="tableDataA" border stripe style="width: 100%" ref="multipleTable"
-              tooltip-effect="dark" @selection-change="handleSelectionChange" :header-cell-style="{background:'#005BAA',color:'white'}">
+            <el-row style="padding-top: 2%;padding-bottom: 2%">
+              <el-col :span="8">
+                <div class="block">
+                  <el-date-picker
+                    v-model="weeks"
+                    type="week"
+                    @change="weekChange"
+                    format="yyyy-WW"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
 
+                </div>
+              </el-col>
+            </el-row>
+            <el-table
+              :data="Datatable" border stripe style="width: 100%" ref="multipleTable"
+              tooltip-effect="dark" @selection-change="handleSelectionChange" :header-cell-style="{background:'#005BAA',color:'white'}">
               <!--checkbox-->
               <el-table-column
                 type="selection"
                 width="55">
               </el-table-column>
-
-              <!--                姓名-->
+              <!--姓名-->
               <el-table-column
                 :label="$t('label.user_name')"
                 align="center"
-                width="180">
+                width="130" v-if='false'>
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.name"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.userid}}</span>
                 </template>
               </el-table-column>
 
-              <!--                所属部门-->
+              <!--姓名-->
+              <el-table-column
+                :label="$t('label.user_name')"
+                align="center"
+                width="130">
+                <template slot-scope="scope">
+                  <span>{{scope.row.name}}</span>
+                </template>
+              </el-table-column>
+
+              <!--所属部门-->
               <el-table-column
                 :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.company"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.company}}</span>
                 </template>
               </el-table-column>
 
-              <!--                员工类型-->
+              <!--员工类型-->
               <el-table-column
                 :label="$t('label.PFANS6001VIEW_EMPLOYEETYPE')"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.employeetype}}</span>
                 </template>
               </el-table-column>
 
-              <!--            动态表头-->
-<!--            <el-table-column-->
-<!--              fixed-->
-<!--              :label="item.propName"-->
-<!--              :property="item.prop"-->
-<!--              v-for="item in tableColumnList"-->
-<!--              :key="item.prop"-->
-<!--              align="center">-->
-<!--              <template slot-scope="scope">-->
-<!--                <span>{{scope.row[scope.column.property]}}</span>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
+              <!--1-->
               <el-table-column
-                :label="weeks[0]"
+                :label="day1"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart1}}</span>
                 </template>
               </el-table-column>
 
+              <!--2-->
               <el-table-column
-                :label="weeks[1]"
+                :label="day2"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart2}}</span>
                 </template>
               </el-table-column>
 
+              <!--3-->
               <el-table-column
-                :label="weeks[2]"
+                :label="day3"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart3}}</span>
                 </template>
               </el-table-column>
 
+              <!--4-->
               <el-table-column
-                :label="weeks[3]"
+                :label="day4"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart4}}</span>
                 </template>
               </el-table-column>
 
+              <!--5-->
               <el-table-column
-                :label="weeks[4]"
+                :label="day5"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart5}}</span>
                 </template>
               </el-table-column>
 
+              <!--6-->
               <el-table-column
-                :label="weeks[5]"
+                :label="day6"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart6}}</span>
                 </template>
               </el-table-column>
 
+              <!--7-->
               <el-table-column
-                :label="weeks[6]"
+                :label="day7"
                 align="center"
-                width="180">
+                width="130">
                 <template slot-scope="scope">
-                  <el-input
-                    :no="scope.row"
-                    :disabled="!disabled"
-                    v-model="scope.row.employeetype"
-                    style="width: 100%">
-                  </el-input>
+                  <span>{{scope.row.timestart7}}</span>
                 </template>
               </el-table-column>
 
@@ -187,8 +153,8 @@
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {Message} from 'element-ui';
-  import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
-  import moment from 'moment';
+  import {getUserInfo,getCooperinterviewList,getOrgInfo} from '@/utils/customize';
+  import moment from "moment";
 
   export default {
     name: 'PFANS5011FormView',
@@ -199,17 +165,24 @@
     data() {
       return {
         loading: false,
-        title: 'title.PFANS5011FormView',
-          tableDataA: [],
+        title: 'title.PFANS5011FORMVIEW',
+        weeks:moment(new Date()).format("YYYY-MM-DD"),
         buttonList: [],
-        data: [],
-          weeks:[],
+        Data: [],
+        initial:[],
+        letinitial:[],
+        Datatable:[],
         disabled: false,
-
-        // tableColumnList: [{prop: 'id', propName: '编号'},
-        //   {prop: 'name', propName: '名字'},
-        //   {prop: 'age', propName: '保质期'},
-        //   {prop: 'remark', propName: '特点'}],
+        baseInfo:[],
+        day1: '',
+        day2: '',
+        day3: '',
+        day4: '',
+        day5: '',
+        day6: '',
+        day7: '',
+        starttime: '',
+        endtime: '',
         buttonList: [
           //承认
           {
@@ -228,21 +201,143 @@
         ],
       };
     },
-      // .dispatch('PFANS5011Store/getl', {companyprojectsid: this.$route.params._id})
+    methods: {
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        console.log(this.baseInfo);
+      },
+      getDateinitial(value){
+          //周
+          var week = value.getDay();
+          //返回date是一周中的某一天
+          var week = value.getDay();
+          //返回date是一个月中的某一天
+          var month = value.getDate();
+          //一天的毫秒数
+          var millisecond = 1000 * 60 * 60 * 24;
+          //减去的天数
+          var minusDay = week != 0 ? week - 1 : 6;
+          //本周 周一
+          var monday = new Date(value.getTime() - (minusDay * millisecond));
+          //本周 周日
+          var sunday = new Date(monday.getTime() + (6 * millisecond));
+          this.starttime = moment(monday).format('YYYY-MM-DD')
+          this.endtime = moment(sunday).format('YYYY-MM-DD');
+          let months = moment(monday).format('M') + this.$t("label.month");
+          this.day1 = months + moment(monday).format('D') + this.$t("label.day");
+          this.day2 = months + (monday.getDate() + 1) + this.$t("label.day");
+          this.day3 = months + (monday.getDate() + 2) + this.$t("label.day");
+          this.day4 = months + (monday.getDate() + 3) + this.$t("label.day");
+          this.day5 = months + (monday.getDate() + 4) + this.$t("label.day");
+          this.day6 = months + (monday.getDate() + 5) + this.$t("label.day");
+          this.day7 = months + (monday.getDate() + 6) + this.$t("label.day");
+          this.initial = [
+            {starttime: this.starttime,timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (1 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (2 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (3 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (4 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (5 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+            {starttime: moment(new Date(monday.getTime() + (6 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+          ];
+          console.log(this.initial);
+      },
+      weekChange(value){
+        this.weeks = moment(value).format('YYYY-MM-DD');
+        this.getDateinitial(value);
+      },
+      buttonClick(val) {
+        this.baseInfo = [];
+        if(val === 'recognition'){
+          //View页面的总工数增加，选择行消失
+          this.baseInfo.confirmstatus = '1';
+        }
+        if(val === 'refuse'){
+          //选择行消失，在仪表盘的改用户收到一条代办事项
+          this.baseInfo.confirmstatus = '2';
+        }
+        this.starttime = moment(monday).format('YYYY-MM-DD')
+        this.endtime = moment(sunday).format('YYYY-MM-DD');
+        this.baseInfo.starttime = this.starttime;
+        this.baseInfo.endtime = this.endtime;
+        this.loading = true;
+        this.$store
+          .dispatch('ASSETS1002Store/insert', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+    },
     mounted() {
+      this.getDateinitial(new Date());
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5011Store/getl', {companyprojectsid: '04b4cad2-b68f-47fe-9830-a8cfb3b8ea00'})
+          .dispatch('PFANS5001Store/getTimestart', {project_id: '04b4cad2-b68f-47fe-9830-a8cfb3b8ea00'})
           .then(response => {
-            this.data = response;
-            // for(let i = 0; i < response.length; i++){
-            //   if(response[i].type == 0){
-            //     response[i].employeetype = this.$t('label.PFANS5001FORMVIEW_INCOMMUNITY')
-            //   }else{
-            //     response[i].employeetype = this.$t('label.PFANS5004VIEW_ASSIST')
-            //   }
-            // }
+            this.Data = response;
+            this.Datatable = [];
+            for(let i = 0; i < response.length; i ++){
+                this.letinitial = [];
+                this.letinitial = this.initial;
+                let letdata = {};
+                letdata.userid = response[i].createby;
+                let user = getUserInfo(response[i].createby);
+                if(user){
+                  letdata.name = user.userinfo.customername;
+                  let group = getOrgInfo(user.userinfo.centerid);
+                  if(group){
+                    letdata.company = group.companyen;
+                  }
+                  if (this.$i18n) {
+                      letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_INCOMMUNITY");
+                  }
+                }
+                else{
+                  let co = getCooperinterviewList(response[i].createby);
+                  if(co){
+                    letdata.name = co.coopername;
+                    letdata.company = co.suppliername;
+                    if (this.$i18n) {
+                        letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_OUTCOMMUNITY");
+                    }
+                  }
+                }
+                let letlogdate  = response[i].logdate.split(",");
+                let lettimestart  = response[i].timestart.split(",");
+                if(letlogdate){
+                    for(let j = 0; j < letlogdate.length; j ++){
+                          for(let x = 0; x < this.letinitial.length; x ++){
+                              if(this.letinitial[x].starttime === letlogdate[j]){
+                                  this.letinitial[x].timestart = lettimestart[j];
+                              }
+                          }
+                    }
+                }
+                letdata.timestart1 = this.letinitial[0].timestart;
+                letdata.timestart2 = this.letinitial[1].timestart;
+                letdata.timestart3 = this.letinitial[2].timestart;
+                letdata.timestart4 = this.letinitial[3].timestart;
+                letdata.timestart5 = this.letinitial[4].timestart;
+                letdata.timestart6 = this.letinitial[5].timestart;
+                letdata.timestart7 = this.letinitial[6].timestart;
+                this.Datatable.push(letdata);
+            }
+            console.log(this.Datatable);
             this.loading = false;
           })
           .catch(error => {
@@ -254,65 +349,6 @@
           });
       }
     },
-      created() {
-          let data=[]
-          this.start=this.getDay(-7);
-          this.end=this.getDay(-1);
-          for(let i=7;i>0;i--){
-              data.push(this.getDay(-i))
-          }
-          this.weeks=data
-          let one = this.week[0]
-          let two = this.week[1]
-          let three =this.week[2]
-          let four = this.week[3]
-          let five = this.week[4]
-          let six = this.week[5]
-          let seven = this.week[6]
-
-          console.log("this.week",this.week)
-
-      },
-      methods: {
-
-          rowClick(row) {
-
-          },
-
-          getDay(day){
-              var today = new Date();
-              var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;
-              today.setTime(targetday_milliseconds);
-              var tYear = today.getFullYear();
-              var tMonth = today.getMonth();
-              var tDate = today.getDate();
-              tMonth = this.doHandleMonth(tMonth + 1);
-              tDate =  this.doHandleMonth(tDate);
-              return tMonth+"月"+tDate+"日";
-          },
-          doHandleMonth(month){
-              var m = month;
-              if(month.toString().length == 1){
-                  m = "0" + month;
-              }
-              return m;
-          },
-
-
-          handleSelectionChange(val) {
-              this.multipleSelection = val;
-          },
-
-          buttonClick(val) {
-              if(val === 'recognition'){
-                  //View页面的总工数增加，选择行消失
-              }
-              if(val === 'refuse'){
-                  //选择行消失，在仪表盘的改用户收到一条代办事项
-              }
-          },
-
-      },
   };
 </script>
 
