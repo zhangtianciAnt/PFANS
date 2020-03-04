@@ -84,15 +84,30 @@
         this.$store
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
           .then(response => {
-            for (let i = 0;i < response.length; i ++){
-              if(response[i].confirm === response[i].unconfirm){
-                response[i].status = "已确认";
-              }
-              else{
-                response[i].status = "未确认";
-              }
+            debugger;
+            console.log(this.$store.getters.userList);
+            let letuserList = this.$store.getters.userList;
+            for (let i = 0;i < letuserList.length; i ++){
+                let letdata = {};
+                //if(letuserList[i].userinfo.type === '0'){
+                  letdata.groupid = letuserList[i].userinfo.groupid;
+                  letdata.groupname = letuserList[i].userinfo.groupname;
+                  letdata.projectid = letuserList[i].userinfo.groupname;
+                  letdata.centerid = letuserList[i].userinfo.centerid;
+                  letdata.projectname = letuserList[i].userinfo.centername;
+                  //letdata.centername = letuserList[i].userinfo.centername;
+                  this.data.push(letdata);
+                //}
             }
-            this.data = response;
+            // for (let i = 0;i < response.length; i ++){
+            //   if(response[i].confirm === response[i].unconfirm){
+            //     response[i].status = "已确认";
+            //   }
+            //   else{
+            //     response[i].status = "未确认";
+            //   }
+            // }
+            //this.data = response;
             this.loading = false;
           })
           .catch(error => {
