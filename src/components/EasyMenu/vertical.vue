@@ -3,30 +3,36 @@
     <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
              :active-text-color="activeTextColor" :collapse="isCollapse"
              active-text-color="#005BAA">
-      <el-submenu v-for="ob in data" v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0" :index="ob._id" :key="ob._id" v-show="ob.menuvisible">
+      <el-submenu v-for="ob in data"
+                  v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0"
+                  :index="ob._id" :key="ob._id" v-show="ob.menuvisible" class="title1">
         <template slot="title">
           <!--<i :class="ob.menuicon" v-if="ob.menuicon"></i>-->
-          <span class="title1">{{$t(ob.name)}}</span>
+          <span>{{$t(ob.name)}}</span>
         </template>
-        <el-submenu v-for="obi in ob.children" v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0" :index="obi._id" :key="obi._id" v-show="obi.menuvisible">
+        <el-submenu v-for="obi in ob.children"
+                    v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0"
+                    :index="obi._id" :key="obi._id" v-show="obi.menuvisible" class="title2">
           <template slot="title">
-            <i :class="obi.menuicon" v-if="obi.menuicon"></i>
+            <!--<i :class="obi.menuicon" v-if="obi.menuicon"></i>-->
             <span>{{$t(obi.name)}}</span>
           </template>
 
-          <el-submenu v-for="cobi in obi.children" v-if="cobi && cobi.children && cobi.children.length > 0 && Object.keys(cobi.children[0]).length > 0" :index="cobi._id" :key="cobi._id" v-show="cobi.menuvisible">
+          <el-submenu v-for="cobi in obi.children"
+                      v-if="cobi && cobi.children && cobi.children.length > 0 && Object.keys(cobi.children[0]).length > 0"
+                      :index="cobi._id" :key="cobi._id" v-show="cobi.menuvisible" class="title2">
             <template slot="title">
-              <i :class="cobi.menuicon" v-if="cobi.menuicon"></i>
+              <!--<i :class="cobi.menuicon" v-if="cobi.menuicon"></i>-->
               <span>{{$t(cobi.name)}}</span>
             </template>
             <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" :key="cobii._id" :index="cobii.menuurl" v-show="cobii.menuvisible">
               <span>{{$t(cobii.name)}}</span>
-              <i class="el-icon-right"></i>
+              <!--<i class="el-icon-right"></i>-->
             </el-menu-item>
           </el-submenu>
           <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible">
             <span>{{$t(cobi.name)}}</span>
-            <i class="el-icon-right"></i>
+            <!--<i class="el-icon-right"></i>-->
           </el-menu-item>
         </el-submenu>
         <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible">
@@ -132,15 +138,22 @@
   }
   /deep/ .el-submenu__title{
     /*background-image: linear-gradient(to right, #005BAA , white);*/
-    background-color: #005BAA;
+    /*background-color: #005BAA;*/
     color: white;
     height: 38px;
     line-height: 38px;
     border: #005BAA 1px solid;
   }
 
-  /*.title1{*/
-  /*background-color: #005BAA;*/
+  /deep/ .el-submenu__title:hover {
+    background-color: transparent;
+  }
 
-  /*}*/
+  .title1 {
+    background-color: #005BAA;
+  }
+
+  .title2 {
+    background-color: #7ACAFF !important;
+  }
 </style>
