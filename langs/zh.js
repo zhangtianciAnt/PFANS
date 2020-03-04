@@ -345,6 +345,8 @@ module.exports = {
     PFANS5008: '日志填写',
     PFANS5008VIEW: '日志',
     PFANS5011VIEW: '项目工数',
+    PFANS5011FORMVIEW: '项目工数确认',
+    PFANS5012FORMVIEW: '共通工数确认',
     PFANS6001VIEW: '协力面试记录',
     PFANS6002VIEW: '客户信息',
     PFANS6003VIEW: '供应商信息',
