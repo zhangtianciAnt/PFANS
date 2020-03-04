@@ -71,34 +71,39 @@
       };
     },
     mounted(){
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
-        .then(response => {
-          for (let i = 0;i < response.length; i ++){
-              if(response[i].confirm === response[i].unconfirm){
-                  response[i].status = "已确认";
-              }
-              else{
-                  response[i].status = "未确认";
-              }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getProjectList();
     },
     methods: {
       rowClick(row) {
         this.rowid = row.projectid
       },
+
+      getProjectList(){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
+            .then(response => {
+              for (let i = 0;i < response.length; i ++){
+                if(response[i].confirm === response[i].unconfirm){
+                  response[i].status = "已确认";
+                }
+                else{
+                  response[i].status = "未确认";
+                }
+              }
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+      },
+
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'handle') {

@@ -10,7 +10,7 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
-            <el-row style="padding-top: 2%;padding-bottom: 2%">
+            <el-row style="padding-top: 1%;padding-bottom: 2%">
               <el-col :span="8">
                 <div class="block">
                   <el-date-picker
@@ -289,7 +289,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getTimestart', {project_id: '04b4cad2-b68f-47fe-9830-a8cfb3b8ea00'})
+          .dispatch('PFANS5001Store/getTimestart', {project_id: this.$route.params._id})
           .then(response => {
             this.Data = response;
             this.Datatable = [];
