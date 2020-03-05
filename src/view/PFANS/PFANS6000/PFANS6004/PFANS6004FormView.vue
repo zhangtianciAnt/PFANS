@@ -372,7 +372,7 @@
               >
 <!--                部门-->
                 <el-table-column
-                  prop="entrust"
+                  prop="departmentid"
                   :label="$t('label.department')"
                   width="150"
                 >
@@ -385,12 +385,12 @@
                 >
                 </el-table-column>
 <!--                客户-->
-                <el-table-column
-                  prop="deployment"
-                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                  width="150"
-                >
-                </el-table-column>
+<!--                <el-table-column-->
+<!--                  prop="deployment"-->
+<!--                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
+<!--                  width="150"-->
+<!--                >-->
+<!--                </el-table-column>-->
 <!--                项目类型-->
                 <el-table-column
                   prop="projecttype"
@@ -400,14 +400,14 @@
                 </el-table-column>
 <!--                开始时间-->
                 <el-table-column
-                  prop="startdate"
+                  prop="mintime"
                   :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
                   width="150"
                 >
                 </el-table-column>
 <!--                结束时间-->
                 <el-table-column
-                  prop="enddate"
+                  prop="maxtime"
                   :label="$t('label.end')"
                   width="150"
                 >
@@ -536,6 +536,7 @@
           projecttype: '',
           startdate: '',
           endtime: '',
+            mintime:'',
         }],
         //性别
         code1: 'BP001',
@@ -977,12 +978,13 @@
           .dispatch('PFANS6004Store/getCompanyProject', {"SyspName":this.$route.params._name})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].entrust !== null && response[j].entrust !== "") {
-                let entrust = getUserInfo(response[j].entrust);
-                if (entrust != null) {
-                  response[j].entrust = user.userinfo.entrust;
+                if (response[j].departmentid !== null && response[j].departmentid !== '') {
+                    let cooperInfo = getCooperinterviewList(response[j].departmentid);
+                    debugger;
+                    if (cooperInfo) {
+                        response[j].departmentid = cooperInfo.coopername;
+                    }
                 }
-              }
               if (response[j].project_name !== null && response[j].project_name !== "") {
                 let project_name = getUserInfo(response[j].project_name);
                 if (project_name) {
@@ -995,11 +997,11 @@
                   response[j].deployment = user.userinfo.deployment;
                 }
               }
-              if (response[j].startdate !== null && response[j].startdate !== "") {
-                response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+              if (response[j].mintime !== null && response[j].mintime !== "") {
+                response[j].mintime = moment(response[j].mintime).format("YYYY-MM-DD");
               }
-              if (response[j].enddate !== null && response[j].enddate !== "") {
-                response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+              if (response[j].maxtime !== null && response[j].maxtime !== "") {
+                response[j].maxtime = moment(response[j].maxtime).format("YYYY-MM-DD");
               }
               if (response[j].projecttype !== null && response[j].projecttype !== "") {
                 let projecttype = getDictionaryInfo(response[j].projecttype);
