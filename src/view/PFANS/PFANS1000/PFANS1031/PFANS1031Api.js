@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestDownload';
 
 export function get(data) {
   return request({
@@ -21,6 +22,15 @@ export function update(data) {
     url: 'napalm/update',
     method: 'post',
     data: data
+  })
+}
+
+export function downLoad(data) {
+  return requestDownload({
+    url: 'napalm/downLoad1',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
 
