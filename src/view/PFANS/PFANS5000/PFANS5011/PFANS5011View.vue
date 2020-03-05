@@ -84,11 +84,19 @@
             .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
             .then(response => {
               for (let i = 0;i < response.length; i ++){
-                if(response[i].confirm === response[i].unconfirm){
-                  response[i].status = "已确认";
+                response[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+                response[i].status = "未确认";
+                if(response[i].unconfirm != null){
+                  if(Number(response[i].unconfirm) > 0){
+                    response[i].status = "未确认";
+                  }
                 }
                 else{
-                  response[i].status = "未确认";
+                  if(response[i].confirm != null){
+                    if(Number(response[i].confirm) > 0){
+                      response[i].status = "确认";
+                    }
+                  }
                 }
               }
               this.data = response;

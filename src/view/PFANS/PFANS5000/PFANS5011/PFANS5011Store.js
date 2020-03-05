@@ -6,8 +6,6 @@ const PFANS5011Store = {
   state: {},
   mutations: {},
   actions: {
-
-
     //获取流程
     getFpans5011List({commit},data) {
       return new Promise((resolve, reject) => {
