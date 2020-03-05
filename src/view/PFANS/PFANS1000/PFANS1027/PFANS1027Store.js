@@ -49,6 +49,19 @@ import {
           })
         })
       },
+      one({commit}, data) {
+        return new Promise((resolve, reject) => {
+          one(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
       downLoad({commit}, data) {
         return new Promise((resolve, reject) => {
           downLoad(data).then(response => {
