@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestDownload';
 
 export function get(data) {
   return request({
@@ -21,6 +22,15 @@ export function update(data) {
     url: 'contract/update',
     method: 'post',
     data: data
+  })
+}
+
+export function generateJxls(data) {
+  return requestDownload({
+    url: 'contract/generateJxls',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
 
