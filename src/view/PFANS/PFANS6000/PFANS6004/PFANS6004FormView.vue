@@ -494,6 +494,7 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorexitime: '',
+        errorgroup: '',
         disabled: false,
         buttonList: [],
         multiple: false,
