@@ -10,7 +10,7 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
-            <el-row style="padding-top: 2%;padding-bottom: 2%">
+            <el-row style="padding-top: 1%;padding-bottom: 2%">
               <el-col :span="8">
                 <div class="block">
                   <el-date-picker
@@ -173,7 +173,7 @@
         letinitial:[],
         Datatable:[],
         disabled: false,
-        baseInfo:[],
+        baseInfo:{},
         day1: '',
         day2: '',
         day3: '',
@@ -204,7 +204,6 @@
     methods: {
       handleSelectionChange(val) {
         this.multipleSelection = val;
-        console.log(this.baseInfo);
       },
       getDateinitial(value){
           //周
@@ -240,14 +239,14 @@
             {starttime: moment(new Date(monday.getTime() + (5 * millisecond))).format('YYYY-MM-DD'),timestart:''},
             {starttime: moment(new Date(monday.getTime() + (6 * millisecond))).format('YYYY-MM-DD'),timestart:''},
           ];
-          console.log(this.initial);
       },
       weekChange(value){
         this.weeks = moment(value).format('YYYY-MM-DD');
         this.getDateinitial(value);
       },
       buttonClick(val) {
-        this.baseInfo = [];
+        this.baseInfo = {};
+        this.baseInfo.logmanagement = [];
         if(val === 'recognition'){
           //View页面的总工数增加，选择行消失
           this.baseInfo.confirmstatus = '1';
@@ -256,13 +255,16 @@
           //选择行消失，在仪表盘的改用户收到一条代办事项
           this.baseInfo.confirmstatus = '2';
         }
-        this.starttime = moment(monday).format('YYYY-MM-DD')
-        this.endtime = moment(sunday).format('YYYY-MM-DD');
         this.baseInfo.starttime = this.starttime;
         this.baseInfo.endtime = this.endtime;
+        for (let i = 0;i < this.multipleSelection.length;i++){
+          this.baseInfo.logmanagement.push({
+            createby: this.multipleSelection[i].userid
+            });
+        }
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1002Store/insert', this.baseInfo)
+          .dispatch('PFANS5001Store/updateTimestart', this.baseInfo)
           .then(response => {
             this.data = response;
             this.loading = false;
@@ -287,7 +289,7 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getTimestart', {project_id: '04b4cad2-b68f-47fe-9830-a8cfb3b8ea00'})
+          .dispatch('PFANS5001Store/getTimestart', {project_id: this.$route.params._id})
           .then(response => {
             this.Data = response;
             this.Datatable = [];
@@ -337,7 +339,6 @@
                 letdata.timestart7 = this.letinitial[6].timestart;
                 this.Datatable.push(letdata);
             }
-            console.log(this.Datatable);
             this.loading = false;
           })
           .catch(error => {

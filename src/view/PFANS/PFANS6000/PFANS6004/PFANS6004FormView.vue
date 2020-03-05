@@ -172,6 +172,14 @@
           </el-row>
           <!--          第四行-->
           <el-row>
+            <!--            所属部门-->
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
+
             <!--            技术分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
@@ -198,6 +206,10 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+
+          </el-row>
+          <!--          第五行-->
+          <el-row>
             <!--            作业形态-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
@@ -211,9 +223,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-          </el-row>
-          <!--          第五行-->
-          <el-row>
             <!--            作业分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')" prop="jobclassification">
@@ -430,6 +439,15 @@
       org,
     },
     data() {
+      var checkgroup = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        } else {
+          this.errorgroup = '';
+          return callback();
+        }
+      };
       var checksuppliername = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
           this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
@@ -474,7 +492,9 @@
         errorexpname: '',
         errorsuppliername: '',
         erroradmissiontime: '',
+        grouporglist: '',
         errorexitime: '',
+        errorgroup: '',
         disabled: false,
         buttonList: [],
         multiple: false,
@@ -485,6 +505,7 @@
           expname: '',
           cooperuserid: '',
           sex: '',
+          group_id: '',
           number: '',
           post: '',
           contactinformation: '',
@@ -564,6 +585,14 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.sex'),
+              trigger: 'change',
+            },
+          ],
+          //所属部门
+          group_id: [
+            {
+              required: true,
+              validator: checkgroup,
               trigger: 'change',
             },
           ],
@@ -702,13 +731,16 @@
     },
     mounted() {
       this.getExpnameList();
-      this.selectById();
+      if(this.$route.params._id){
+          this.selectById();
+      }
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.grouporglist = this.form.group_id;
             this.loading = false;
             if (this.form.exits === '1') {
               this.show = false;
@@ -803,6 +835,15 @@
       },
       handleCurrentChange1(val) {
         this.currentRow1 = val;
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.grouporglist = val;
+        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+        } else {
+          this.errorgroup = '';
+        }
       },
       changeexits(val) {
         this.form.exits = val;
@@ -930,10 +971,10 @@
             this.loading = false;
           });
       },
-      selectById() {
+      selectById(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName":this.$route.params._name})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].entrust !== null && response[j].entrust !== "") {

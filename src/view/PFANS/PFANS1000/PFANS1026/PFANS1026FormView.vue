@@ -2874,7 +2874,6 @@ first<template>
                                 this.form.applicationdate = contractapplication[i].careeryear;
                                 //上下期
                                 this.form.entrycondition = contractapplication[i].periods;
-                                debugger;
                                 //グループ
                                 this.getGroupId(contractapplication[i].group_id);
                                 //契約種類
@@ -2933,13 +2932,12 @@ first<template>
             if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
                 this.buttonList = [];
             }
-            if(this.$route.params._id === ''){
-              this.buttonList.splice(3, 1);
-            }
+//            if(this.$route.params._id === ''){
+//              this.buttonList.splice(3, 1);
+//            }
         },
         methods: {
             getGroupId(val) {
-              debugger;
                 this.grouporglist = val;
                 let group = getOrgInfo(val);
                 if(group){
@@ -3574,50 +3572,59 @@ first<template>
                     };
                 }
             },
-            addRowdata() {
-              this.tabledata.push({
-                contractapplication_id: '',
-                careeryear: this.form.applicationdate,
-                periods: this.form.entrycondition,
-                group_id: this.groupinfo[0],
-                department: this.groupinfo[1],
-                orgnumber: this.groupinfo[2],
-                deployment: this.groupinfo[3],
-                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
-                user_id: this.$store.getters.userinfo.userid,
-                contracttype: this.contracttype,
-                contractnumber: this.letcontractnumber,
-                entrycondition: '',
-                entrypayment: '',
-                deliverycondition: '',
-                delivery: '',
-                claimcondition: '',
-                claim: '',
-                deliveryfinshdate: '',
-                loadingjudge: '',
-                currencyposition: '',
-                custojapanese: '',
-                custoenglish: '',
-                custoabbreviation: '',
-                custochinese: '',
-                businesscode: '',
-                claimdatetime: [],
-                varto: '',
-                placejapanese: '',
-                placeenglish: '',
-                placechinese: '',
-                responjapanese: '',
-                responerglish: '',
-                responphone: '',
-                responemail: '',
-                conjapanese: '',
-                conenglish: '',
-                conchinese: '',
-                remarks: '',
-                state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
-                type: '1',
-                maketype: '',
-              });
+            addRowdata(isClone) {
+              //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+              if ( isClone ) {
+                let olddata = JSON.parse(JSON.stringify(this.tabledata[0]));//this.form.contractnumber
+                olddata.contractnumber = this.letcontractnumber;
+                olddata.state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+                this.tabledata.push(olddata)
+              } else {
+                this.tabledata.push({
+                  contractapplication_id: '',
+                  careeryear: this.form.applicationdate,
+                  periods: this.form.entrycondition,
+                  group_id: this.groupinfo[0],
+                  department: this.groupinfo[1],
+                  orgnumber: this.groupinfo[2],
+                  deployment: this.groupinfo[3],
+                  applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
+                  user_id: this.$store.getters.userinfo.userid,
+                  contracttype: this.contracttype,
+                  contractnumber: this.letcontractnumber,
+                  entrycondition: '',
+                  entrypayment: '',
+                  deliverycondition: '',
+                  delivery: '',
+                  claimcondition: '',
+                  claim: '',
+                  deliveryfinshdate: '',
+                  loadingjudge: '',
+                  currencyposition: '',
+                  custojapanese: '',
+                  custoenglish: '',
+                  custoabbreviation: '',
+                  custochinese: '',
+                  businesscode: '',
+                  claimdatetime: [],
+                  varto: '',
+                  placejapanese: '',
+                  placeenglish: '',
+                  placechinese: '',
+                  responjapanese: '',
+                  responerglish: '',
+                  responphone: '',
+                  responemail: '',
+                  conjapanese: '',
+                  conenglish: '',
+                  conchinese: '',
+                  remarks: '',
+                  state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
+                  type: '1',
+                  maketype: '',
+                });
+              }
+
             },
             addRowclaimtype() {
               this.tableclaimtype.push({
@@ -3693,12 +3700,18 @@ first<template>
                 else{
                     this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
                 }
+                //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+                let isClone = false;
                 if(this.checked){
                   for (let i = 0; i < this.tabledata.length; i++) {
                     this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                    if (this.tabledata[0].deliverycondition == 'HT009002') {
+                      isClone = true;
+                    }
                   }
                 }
-                this.addRowdata();
+
+                this.addRowdata(isClone);
                 this.tableclaimtype = [];
                 if(this.form.claimtype === "HT001001"){
                   this.addRowclaimtype();
@@ -3788,8 +3801,7 @@ first<template>
                       duration: 5 * 1000
                     });
                   }else {
-                    this.handleSave();
-                    var tabledata = {'contractnumber': this.$route.params._id,'rowindex': index};
+                    var tabledata = {'contractnumber': contractNumber,'rowindex': index};
                     this.$refs["refform"].validate(valid => {
                       if (valid) {
                         this.loading = true;
@@ -3828,7 +3840,7 @@ first<template>
             },
             //書類作成
             clickData(val){
-                this.existCheck(this.$route.params._id,val);
+                this.existCheck(this.letcontractnumber,val);
             },
             paramsTitle(){
                 this.$router.push({
@@ -3839,7 +3851,7 @@ first<template>
                 });
             },
             //保存
-            handleSave(){
+            handleSave(value){
               let baseInfo = {};
               baseInfo.contractapplication = [];
               baseInfo.contractnumbercount = [];
@@ -3882,7 +3894,7 @@ first<template>
                 else if(this.form.contracttype === 'HT008009'){
                   this.tabledata[i].maketype = '9';
                 }
-                if(this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
+                if(this.tabledata[i].state === this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
                   let letclaimamount = 0;
                   for (let j = 0; j < this.tableclaimtype.length; j++) {
                     letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
@@ -3903,13 +3915,17 @@ first<template>
                     this.$store.dispatch('PFANS1026Store/update', baseInfo)
                       .then(response => {
                         this.data = response;
-                        this.loading = false;
                         Message({
                           message: this.$t("normal.success_02"),
                           type: 'success',
                           duration: 5 * 1000
                         });
-                        this.paramsTitle();
+                        this.loading = false;
+                        if(value === "makeinto") {
+                          this.handleIndexDisabled();
+                        }else if(value === "save" || value === "cancellation") {
+                          this.paramsTitle();
+                        }
                       })
                       .catch(error => {
                         Message({
@@ -3924,13 +3940,18 @@ first<template>
                     this.$store.dispatch('PFANS1026Store/insert', baseInfo)
                       .then(response => {
                         this.data = response;
-                        this.loading = false;
                         Message({
                           message: this.$t("normal.success_01"),
                           type: 'success',
                           duration: 5 * 1000
                         });
-                        this.paramsTitle();
+
+                        this.loading = false;
+                        if(value === "makeinto") {
+                          this.handleIndexDisabled();
+                        }else if(value === "save") {
+                          this.paramsTitle();
+                        }
                       })
                       .catch(error => {
                         Message({
@@ -3944,6 +3965,94 @@ first<template>
                 }
               });
             },
+            //indexDisabled
+            handleIndexDisabled() {
+              this.loading = true;
+              this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
+                .then(response => {
+                  this.dialogBook = true;
+                  if(response.count1 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = true;
+                    this.disabledCount3 = true;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = true;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = true;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = true;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = true;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = false;
+                    this.disabledCount7 = true;
+                    this.loading = false;
+                    return
+                  }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
+                    this.disabledCount1 = false;
+                    this.disabledCount2 = false;
+                    this.disabledCount3 = false;
+                    this.disabledCount4 = false;
+                    this.disabledCount5 = false;
+                    this.disabledCount6 = false;
+                    this.disabledCount7 = false;
+                    this.loading = false;
+                    return
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            },
+
             buttonClick(val) {
                 if (val === "application") {
                     this.display = true;
@@ -3964,6 +4073,7 @@ first<template>
                     for (let i = 0; i < this.tabledata.length; i++) {
                       this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
+                    this.handleSave("cancellation");
                     // this.display = false;
                     // this.checkeddisplay = false;
                     // this.dialogFormVisible = true;
@@ -3972,93 +4082,11 @@ first<template>
                     // this.form.contractnumber = this.$route.params._id;
                 }
                 if (val === "save") {
-                  this.handleSave();
+                  this.handleSave("save");
                 }
                 if (val === "makeinto") {
-                  this.loading = true;
-                  this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.$route.params._id})
-                    .then(response => {
-                      this.dialogBook = true;
-                      if(response.count1 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = true;
-                        this.disabledCount3 = true;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = true;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = true;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = true;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = true;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = false;
-                        this.disabledCount7 = true;
-                        this.loading = false;
-                        return
-                      }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
-                        this.disabledCount1 = false;
-                        this.disabledCount2 = false;
-                        this.disabledCount3 = false;
-                        this.disabledCount4 = false;
-                        this.disabledCount5 = false;
-                        this.disabledCount6 = false;
-                        this.disabledCount7 = false;
-                        this.loading = false;
-                        return
-                      }
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                      });
-                      this.loading = false;
-                    })
+                  console.log("aaa", this.letcontractnumber);
+                  this.handleSave("makeinto");
                 }
             }
         }

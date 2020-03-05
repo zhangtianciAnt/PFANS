@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestDownload'
 
 export function get() {
   return request({
@@ -20,3 +21,13 @@ export function update(data) {
     data: data
   })
 }
+
+export function downLoad(data) {
+  return requestDownload({
+    url: 'quotation/downLoad',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
+  })
+}
+

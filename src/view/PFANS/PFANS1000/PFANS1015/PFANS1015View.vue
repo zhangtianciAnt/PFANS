@@ -21,7 +21,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png1" class="m-img">
+            <img :src="png2" class="m-img">
           </el-col>
         </div>
       </div>
@@ -33,7 +33,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png2" class="m-img">
+            <img :src="png3" class="m-img">
           </el-col>
         </div>
       </div>
@@ -45,7 +45,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png3" class="m-img">
+            <img :src="png4" class="m-img">
           </el-col>
         </div>
       </div>
@@ -57,7 +57,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png4" class="m-img">
+            <img :src="png5" class="m-img">
           </el-col>
         </div>
       </div>
@@ -69,7 +69,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png5" class="m-img">
+            <img :src="png6" class="m-img">
           </el-col>
         </div>
       </div>
@@ -81,7 +81,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png6" class="m-img">
+            <img :src="png7" class="m-img">
           </el-col>
         </div>
       </div>
@@ -93,7 +93,7 @@
             </div>
           </el-col>
           <el-col :span="6" class="m-div">
-            <img :src="png7" class="m-img">
+            <img :src="png8" class="m-img">
           </el-col>
         </div>
       </div>

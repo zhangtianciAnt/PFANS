@@ -20,7 +20,9 @@
             <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
               <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
+                v-if="checkeddisplay"
                 v-model="checked"
+                disabled
                 @change="getChecked"
               >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
             </el-form-item>
@@ -118,32 +120,32 @@
                       <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">
-                    <template slot-scope="scope">
-                      <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
-                      </el-input>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">
-                    <template slot-scope="scope">
-                      <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                    </template>
-                  </el-table-column>
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-input :disabled="!disabled3" v-model="scope.row.claimtype">-->
+                      <!--</el-input>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
                   <!-- 111111!-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                     <template slot-scope="scope">
@@ -158,11 +160,11 @@
                       </dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">
-                    <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                    </template>
-                  </el-table-column>
+                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
+                    <!--<template slot-scope="scope">-->
+                      <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>-->
+                    <!--</template>-->
+                  <!--</el-table-column>-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                    width="370">
                     <template slot-scope="scope">
@@ -319,32 +321,32 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
-                    </el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disabled3" v-model="scope.row.claimtype">-->
+                    <!--</el-input>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
@@ -359,11 +361,11 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -520,32 +522,32 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
-                    </el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disabled3" v-model="scope.row.claimtype">-->
+                    <!--</el-input>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
@@ -560,11 +562,11 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -745,32 +747,32 @@
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
-                    </el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input :disabled="!disabled3" v-model="scope.row.claimtype">-->
+                    <!--</el-input>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
@@ -785,11 +787,11 @@
                     </dicselect>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">
-                  <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 11rem" ></el-date-picker>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTDATE')" align="center" prop="contractdate"
                                  width="370">
                   <template slot-scope="scope">
@@ -917,6 +919,42 @@
               </el-table>
             </el-tab-pane>
           </el-tabs>
+
+          <el-table :data="tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
+                    :header-cell-style="getRowClass1" style="padding-top: 2vw">
+            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="130">
+              <template slot-scope="scope">
+                <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
+                </el-input>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="170">
+              <template slot-scope="scope">
+                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 9rem" ></el-date-picker>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="170">
+              <template slot-scope="scope">
+                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 9rem" ></el-date-picker>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="170">
+              <template slot-scope="scope">
+                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 9rem" ></el-date-picker>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="170">
+              <template slot-scope="scope">
+                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 9rem" ></el-date-picker>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="190">
+              <template slot-scope="scope">
+                <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+              </template>
+            </el-table-column>
+          </el-table>
+
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -992,11 +1030,11 @@
               name: 'button.save',
               disabled: false,
             },
-            {
-              key: 'makeinto',
-              name: 'button.makeinto',
-              disabled: false,
-            },
+//            {
+//              key: 'makeinto',
+//              name: 'button.makeinto',
+//              disabled: false,
+//            },
           ],
           form: {
               contractnumber: '',
@@ -1008,6 +1046,7 @@
               maketype: '',
           },
           formLabelWidth: '120px',
+            tableclaimtype: [],
             tablefirst: [],
             tablesecond: [],
             tablethird: [],
@@ -1033,31 +1072,33 @@
               this.$store
                   .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params._id})
                   .then(response => {
-                      if (response.length > 0) {
-                          for (let i = 0; i < response.length; i++) {
-                              this.maketype = response[i].maketype;
+                    let contractapplication = response.contractapplication;
+                    let contractnumbercount = response.contractnumbercount;
+                    if (contractapplication.length > 0) {
+                        for (let i = 0; i < contractapplication.length; i++) {
+                              this.maketype = contractapplication[i].maketype;
                               //契約書番号
-                              this.letcontractnumber = response[i].contractnumber;
+                              this.letcontractnumber = contractapplication[i].contractnumber;
                               //契約種類
-                              this.form.contracttype = response[i].contracttype;
+                              this.form.contracttype = contractapplication[i].contracttype;
                               //事業年度
-                              this.form.applicationdate = response[i].careeryear;
+                              this.form.applicationdate = contractapplication[i].careeryear;
                               //上下期
-                              this.form.entrycondition = response[i].periods;
+                              this.form.entrycondition = contractapplication[i].periods;
                               //グループ
-                              this.getGroupId(response[i].group_id);
+                              this.getGroupId(contractapplication[i].group_id);
                               //契約種類
-                              let letabbreviation = getDictionaryInfo(response[i].contracttype);
+                              let letabbreviation = getDictionaryInfo(contractapplication[i].contracttype);
                               if (letabbreviation != null) {
-                                  response[i].contracttype = letabbreviation.value1;
+                                  contractapplication[i].contracttype = letabbreviation.value1;
                               }
-                              if (response[i].contractdate !== '' && response[i].contractdate !== null) {
-                                  let contractdate = response[i].contractdate;
+                              if (contractapplication[i].contractdate !== '' && contractapplication[i].contractdate !== null) {
+                                  let contractdate = contractapplication[i].contractdate;
                                   let contractdat = contractdate.slice(0, 10);
                                   let contractdate1 = contractdate.slice(contractdate.length - 10);
-                                  response[i].claimdatetime = [contractdat, contractdate1];
+                                  contractapplication[i].contractdate = [contractdat, contractdate1];
                               }
-                              let o = Object.assign({}, response[i]);
+                              let o = Object.assign({}, contractapplication[i]);
                               if (this.maketype === '1') {
                                   this.activeName = 'first';
                                   this.tablefirst.push(o);
@@ -1072,6 +1113,9 @@
                                   this.tablefourth.push(o);
                               }
                           }
+                      }
+                      if (contractnumbercount.length > 0) {
+                        this.tableclaimtype = contractnumbercount;
                       }
                       this.loading = false;
                   })
@@ -1092,9 +1136,10 @@
           if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
               this.buttonList = [];
           }
-          if(this.$route.params._id === ''){
-              this.buttonList.splice(3, 1);
-          }
+          //画面没有 makeinto按钮，删除
+//          if(this.$route.params._id === ''){
+//              this.buttonList.splice(3, 1);
+//          }
         },
       methods: {
           getGroupId(val) {
@@ -1165,12 +1210,16 @@
           },
           //日期区组件处理
           getcontractdate(contractdate){
-              if(contractdate.length > 0){
-                  return moment(contractdate[0]).format('YYYY-MM-DD') + " ~ " + moment(contractdate[1]).format('YYYY-MM-DD');
+            if(contractdate != null) {
+              if (contractdate.length > 0) {
+                return moment(contractdate[0]).format('YYYY-MM-DD') + " ~ " + moment(contractdate[1]).format('YYYY-MM-DD');
               }
-              else{
-                  return '';
+              else {
+                return '';
               }
+            }else {
+              return '';
+            }
           },
           getRowClass1({row, column, rowIndex, columnIndex}) {
 
@@ -1508,6 +1557,21 @@
                   maketype: '4',
               });
           },
+          addRowclaimtype() {
+            this.tableclaimtype.push({
+              contractnumbercount_id: '',
+              contractnumber: this.letcontractnumber,
+              claimtype:'',
+              deliverydate:'',
+              completiondate:'',
+              claimdate: moment(new Date()).format("YYYY-MM-DD"),
+              claimamount:'',
+              supportdate:'',
+              type: '1',
+              maketype: '',
+              rowindex:'',
+            });
+          },
           //契約番号做成
           click() {
               //請求方式
@@ -1564,160 +1628,76 @@
               else{
                   this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
               }
-              let datacount = 0;
+
+              this.tableclaimtype = [];
+              if(this.form.claimtype === "HT001001"){
+                this.addRowclaimtype();
+                this.tableclaimtype[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.tableclaimtype[1].claimtype = letclaimtypetwo;
+
+              }
+              else if(this.form.claimtype === "HT001003"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.tableclaimtype[2].claimtype = letclaimtypethree;
+
+              }
+              else if(this.form.claimtype === "HT001004"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.tableclaimtype[2].claimtype = letclaimtypethree;
+                this.tableclaimtype[3].claimtype = letclaimtypefour;
+              }
+
+
               if(this.form.contracttype === 'HT015001'){
                   if(this.checked){
                     for (let i = 0; i < this.tablefirst.length; i++) {
-                      this.tablefirst[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
-                      datacount = datacount + 1;
+                      this.tablefirst[i].state === this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
                   }
+                  this.addRowfirst();
                   this.activeName = 'first';
-                  if(this.form.claimtype === "HT001001"){
-                      this.addRowfirst();
-                      this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
-                  }
-                  else if(this.form.claimtype === "HT001002"){
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
-                  }
-                  else if(this.form.claimtype === "HT001003"){
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablefirst[2 + datacount].claimtype = letclaimtypethree;
 
-                  }
-                  else if(this.form.claimtype === "HT001004"){
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.addRowfirst();
-                      this.tablefirst[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefirst[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablefirst[2 + datacount].claimtype = letclaimtypethree;
-                      this.tablefirst[3 + datacount].claimtype = letclaimtypefour;
-                  }
               }
               else if(this.form.contracttype === 'HT015002'){
                   if(this.checked){
                     for (let i = 0; i < this.tablesecond.length; i++) {
                       this.tablesecond[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
-                      datacount = datacount + 1;
                     }
                   }
+                  this.addRowsecond();
                   this.activeName = 'second';
-                  if(this.form.claimtype === "HT001001"){
-                      this.addRowsecond();
-                      this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
-                  }
-                  else if(this.form.claimtype === "HT001002"){
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
-                  }
-                  else if(this.form.claimtype === "HT001003"){
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablesecond[2 + datacount].claimtype = letclaimtypethree;
-
-                  }
-                  else if(this.form.claimtype === "HT001004"){
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.addRowsecond();
-                      this.tablesecond[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablesecond[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablesecond[2 + datacount].claimtype = letclaimtypethree;
-                      this.tablesecond[3 + datacount].claimtype = letclaimtypefour;
-                  }
               }
               else if(this.form.contracttype === 'HT015003'){
                   if(this.checked){
                     for (let i = 0; i < this.tablethird.length; i++) {
                       this.tablethird[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
-                      datacount = datacount + 1;
                     }
                   }
+                  this.addRowthird();
                   this.activeName = 'third';
-
-                  if(this.form.claimtype === "HT001001"){
-                      this.addRowthird();
-                      this.tablethird[0 + datacount].claimtype = letclaimtypeone;
-                  }
-                  else if(this.form.claimtype === "HT001002"){
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.tablethird[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
-                  }
-                  else if(this.form.claimtype === "HT001003"){
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.tablethird[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablethird[2 + datacount].claimtype = letclaimtypethree;
-
-                  }
-                  else if(this.form.claimtype === "HT001004"){
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.addRowthird();
-                      this.tablethird[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablethird[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablethird[2 + datacount].claimtype = letclaimtypethree;
-                      this.tablethird[3 + datacount].claimtype = letclaimtypefour;
-                  }
               }
               else if(this.form.contracttype === 'HT015004'){
                   if(this.checked){
                     for (let i = 0; i < this.tablefourth.length; i++) {
                       this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
-                      datacount = datacount + 1;
                     }
                   }
+                  this.addRowfourth();
                   this.activeName = 'fourth';
-
-                  if(this.form.claimtype === "HT001001"){
-                      this.addRowfourth();
-                      this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
-                  }
-                  else if(this.form.claimtype === "HT001002"){
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
-                  }
-                  else if(this.form.claimtype === "HT001003"){
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablefourth[2 + datacount].claimtype = letclaimtypethree;
-
-                  }
-                  else if(this.form.claimtype === "HT001004"){
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.addRowfourth();
-                      this.tablefourth[0 + datacount].claimtype = letclaimtypeone;
-                      this.tablefourth[1 + datacount].claimtype = letclaimtypetwo;
-                      this.tablefourth[2 + datacount].claimtype = letclaimtypethree;
-                      this.tablefourth[3 + datacount].claimtype = letclaimtypefour;
-                  }
               }
               this.getChecked(false);
           },
@@ -1754,6 +1734,79 @@
                   },
               });
           },
+          //保存
+          handleSave(){
+            let baseInfo = {};
+            baseInfo.contractapplication = [];
+            baseInfo.contractnumbercount = [];
+            let tabledata = [];
+            this.form.maketype = "2";
+            if(this.form.contracttype === 'HT015001'){
+              tabledata = this.tablefirst;
+            }
+            else if(this.form.contracttype === 'HT015002'){
+              tabledata = this.tablesecond;
+            }
+            else if(this.form.contracttype === 'HT015003'){
+              tabledata = this.tablethird;
+            }
+            else if(this.form.contracttype === 'HT015004'){
+              tabledata = this.tablefourth;
+            }
+            for (let i = 0; i < tabledata.length; i++) {
+              tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
+              tabledata[i].contracttype = this.form.contracttype
+            }
+            baseInfo.contractapplication = tabledata;
+            baseInfo.contractnumbercount = this.tableclaimtype;
+            this.$refs["refform"].validate(valid => {
+              if (valid) {
+                this.loading = true;
+                if (this.$route.params._id) {
+                  this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      this.paramsTitle();
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    })
+                }
+                else{
+                  this.$store.dispatch('PFANS1026Store/insert', baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t("normal.success_01"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      this.paramsTitle();
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    })
+                }
+              }
+            });
+          },
           buttonClick(val) {
             if (val === "application") {
                 this.display = true;
@@ -1766,6 +1819,8 @@
                     this.form.contracttype = 'HT015001';
                     this.form.applicationdate = 'HT007001';
                     this.form.entrycondition = 'HT003001';
+                }else {
+                  this.getChecked(true);
                 }
             }
             if (val === "cancellation") {
@@ -1789,73 +1844,10 @@
                     this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                   }
                 }
+                this.handleSave();
             }
             if (val === "save") {
-                let tabledata = [];
-                this.form.maketype = "2";
-                if(this.form.contracttype === 'HT015001'){
-                    tabledata = this.tablefirst;
-                }
-                else if(this.form.contracttype === 'HT015002'){
-                    tabledata = this.tablesecond;
-                }
-                else if(this.form.contracttype === 'HT015003'){
-                    tabledata = this.tablethird;
-                }
-                else if(this.form.contracttype === 'HT015004'){
-                    tabledata = this.tablefourth;
-                }
-                for (let i = 0; i < tabledata.length; i++) {
-                    tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
-                    tabledata[i].contracttype = this.form.contracttype
-                }
-                this.$refs["refform"].validate(valid => {
-                    if (valid) {
-                        this.loading = true;
-                        if (this.$route.params._id) {
-                            this.$store.dispatch('PFANS1026Store/update', tabledata)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_02"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    this.paramsTitle();
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
-                        else{
-                            this.$store.dispatch('PFANS1026Store/insert', tabledata)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    this.paramsTitle();
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
-                    }
-                });
+                this.handleSave();
             }
         }
       }

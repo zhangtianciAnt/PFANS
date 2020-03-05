@@ -1,7 +1,8 @@
 import {
   get,
   update,
-  selectById
+  selectById,
+  downLoad
   } from './PFANS1027Api'
 
   const PFANS1027Store = {
@@ -43,6 +44,15 @@ import {
             } else {
               reject(response.message)
             }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      downLoad({commit}, data) {
+        return new Promise((resolve, reject) => {
+          downLoad(data).then(response => {
+            resolve(response);
           }).catch(error => {
             reject(error);
           })

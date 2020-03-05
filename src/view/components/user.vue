@@ -189,25 +189,31 @@
       },
       getInitData () {
         this.loading = true;
-        this.$store
-          .dispatch('orgTreeStore/getOrgTree')
-          .then(response => {
-            if (response) {
-              this.data = [response];
-              this.departmentData = {};
-              this.buildDepartmentData(this.data);
-              this.handleNodeClick(this.data[0]);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            })
-            this.loading = false;
-          })
+        // this.$store
+        //   .dispatch('orgTreeStore/getOrgTree')
+        //   .then(response => {
+        //     if (response) {
+        //       this.data = [response];
+        //       this.departmentData = {};
+        //       this.buildDepartmentData(this.data);
+        //       this.handleNodeClick(this.data[0]);
+        //     }
+        //     this.loading = false;
+        //   })
+        //   .catch(error => {
+        //     Message({
+        //       message: error,
+        //       type: 'error',
+        //       duration: 5 * 1000
+        //     })
+        //     this.loading = false;
+        //   })
+
+        this.data = this.$store.getters.orgList;
+        this.departmentData = {};
+        this.buildDepartmentData(this.data);
+        this.handleNodeClick(this.data[0]);
+        this.loading = false;
       },
       buildDepartmentData(data) {
         for (var i in data) {
@@ -220,6 +226,13 @@
       // 点击树节点获取用户列表
       handleNodeClick (data) {
         this.loading = true;
+
+        if(this.$store.getters.orgId === data._id){
+          this.tableList = this.$store.getters.userTableList;
+          this.loading = false;
+          return;
+        }
+        this.$store.commit("global/SET_ORGID",data._id);
         this.currentNodeData = data;
         let params = {
           orgid: data._id,
@@ -248,6 +261,7 @@
               _tableList[j].status === "0" ? _tableList[j].statusname = "启用" : _tableList[j].statusname = "禁用";
             }
           }
+          this.$store.commit("global/SET_USERTABLELIST",_tableList);
           this.tableList = _tableList;
           this.loading = false;
         }).catch(err => {

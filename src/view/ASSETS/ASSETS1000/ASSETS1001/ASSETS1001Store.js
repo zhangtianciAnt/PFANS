@@ -1,4 +1,4 @@
-import {getInsertInfo, getUpdateInfo,getList,getOneInfo,download,insertlots} from './ASSETS1001Api'
+import {getInsertInfo, getUpdateInfo, getList, getOneInfo, download, insertlots, getDepartment} from './ASSETS1001Api'
 
 const ASSETS1001Store = {
   namespaced: true,
@@ -34,9 +34,9 @@ const ASSETS1001Store = {
       })
     },
 
-    getList({commit}) {
+    getList({commit}, data) {
       return new Promise((resolve, reject) => {
-        getList().then(response => {
+        getList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -48,7 +48,20 @@ const ASSETS1001Store = {
       })
     },
 
-    getOneInfo({ commit },data) {
+    getDepartment({commit}) {
+      return new Promise((resolve, reject) => {
+        getDepartment().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getOneInfo({commit}, data) {
       return new Promise((resolve, reject) => {
         getOneInfo(data).then(response => {
           if (response.code === 0) {
