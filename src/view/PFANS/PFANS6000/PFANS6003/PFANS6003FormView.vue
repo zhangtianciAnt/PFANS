@@ -51,25 +51,51 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <!--            第三行-->
+            </el-collapse-item>
+          </el-collapse>
+          <!--            银行账户信息-->
+          <el-collapse>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title">{{$t('label.PFANS6003FORMVIEW_BANKACCINFORMATION')}}</span>
+              </template>
               <el-row>
-                <!--            供应商编码-->
+                <!--                  收款方全称-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="vendornum">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" prop="payeename">
+                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                              v-model="form.payeename"></el-input>
+                  </el-form-item>
+                </el-col>
+                <!--                  收款方编码-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" prop="vendornum">
+                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw" type="email"
                               v-model="form.vendornum"></el-input>
                   </el-form-item>
                 </el-col>
-                <!--            所属公司-->
+                <!--                  收款方银行账号-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_BANKACCINFORMATION')" prop="thecompany">
-                    <el-input :disabled="!disabled" style="width:20vw"
-                              v-model="form.thecompany"></el-input>
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                prop="payeebankaccountnumber">
+                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                              v-model="form.payeebankaccountnumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--                收款方开户行-->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                prop="payeebankaccount">
+                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                              v-model="form.payeebankaccount"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-collapse-item>
           </el-collapse>
+
           <!--            第三行-->
           <el-collapse>
             <el-collapse-item>
@@ -312,8 +338,10 @@
           website: '',
           remarks: '',
           uploadfile: '',
+          payeename: '',
           vendornum: '',
-          thecompany: '',
+          payeebankaccountnumber: '',
+          payeebankaccount: '',
         },
         //人员规模
         code1: 'BP007',
@@ -440,6 +468,34 @@
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               trigger: 'change',
+            },
+          ],
+          payeename: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEENAME'),
+              trigger: 'blur',
+            },
+          ],
+          vendornum: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
+              trigger: 'blur',
+            },
+          ],
+          payeebankaccountnumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER'),
+              trigger: 'blur',
+            },
+          ],
+          payeebankaccount: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT'),
+              trigger: 'blur',
             },
           ],
           // 人员规模
