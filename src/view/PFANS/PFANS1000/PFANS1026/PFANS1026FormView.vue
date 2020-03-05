@@ -2874,7 +2874,6 @@ first<template>
                                 this.form.applicationdate = contractapplication[i].careeryear;
                                 //上下期
                                 this.form.entrycondition = contractapplication[i].periods;
-                                debugger;
                                 //グループ
                                 this.getGroupId(contractapplication[i].group_id);
                                 //契約種類
@@ -3573,50 +3572,59 @@ first<template>
                     };
                 }
             },
-            addRowdata() {
-              this.tabledata.push({
-                contractapplication_id: '',
-                careeryear: this.form.applicationdate,
-                periods: this.form.entrycondition,
-                group_id: this.groupinfo[0],
-                department: this.groupinfo[1],
-                orgnumber: this.groupinfo[2],
-                deployment: this.groupinfo[3],
-                applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
-                user_id: this.$store.getters.userinfo.userid,
-                contracttype: this.contracttype,
-                contractnumber: this.letcontractnumber,
-                entrycondition: '',
-                entrypayment: '',
-                deliverycondition: '',
-                delivery: '',
-                claimcondition: '',
-                claim: '',
-                deliveryfinshdate: '',
-                loadingjudge: '',
-                currencyposition: '',
-                custojapanese: '',
-                custoenglish: '',
-                custoabbreviation: '',
-                custochinese: '',
-                businesscode: '',
-                claimdatetime: [],
-                varto: '',
-                placejapanese: '',
-                placeenglish: '',
-                placechinese: '',
-                responjapanese: '',
-                responerglish: '',
-                responphone: '',
-                responemail: '',
-                conjapanese: '',
-                conenglish: '',
-                conchinese: '',
-                remarks: '',
-                state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
-                type: '1',
-                maketype: '',
-              });
+            addRowdata(isClone) {
+              //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+              if ( isClone ) {
+                let olddata = JSON.parse(JSON.stringify(this.tabledata[0]));//this.form.contractnumber
+                olddata.contractnumber = this.letcontractnumber;
+                olddata.state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+                this.tabledata.push(olddata)
+              } else {
+                this.tabledata.push({
+                  contractapplication_id: '',
+                  careeryear: this.form.applicationdate,
+                  periods: this.form.entrycondition,
+                  group_id: this.groupinfo[0],
+                  department: this.groupinfo[1],
+                  orgnumber: this.groupinfo[2],
+                  deployment: this.groupinfo[3],
+                  applicationdate:  moment(new Date()).format("YYYY-MM-DD"),
+                  user_id: this.$store.getters.userinfo.userid,
+                  contracttype: this.contracttype,
+                  contractnumber: this.letcontractnumber,
+                  entrycondition: '',
+                  entrypayment: '',
+                  deliverycondition: '',
+                  delivery: '',
+                  claimcondition: '',
+                  claim: '',
+                  deliveryfinshdate: '',
+                  loadingjudge: '',
+                  currencyposition: '',
+                  custojapanese: '',
+                  custoenglish: '',
+                  custoabbreviation: '',
+                  custochinese: '',
+                  businesscode: '',
+                  claimdatetime: [],
+                  varto: '',
+                  placejapanese: '',
+                  placeenglish: '',
+                  placechinese: '',
+                  responjapanese: '',
+                  responerglish: '',
+                  responphone: '',
+                  responemail: '',
+                  conjapanese: '',
+                  conenglish: '',
+                  conchinese: '',
+                  remarks: '',
+                  state: this.$t("label.PFANS8008FORMVIEW_EFFECTIVE"),
+                  type: '1',
+                  maketype: '',
+                });
+              }
+
             },
             addRowclaimtype() {
               this.tableclaimtype.push({
@@ -3692,12 +3700,18 @@ first<template>
                 else{
                     this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
                 }
+                //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+                let isClone = false;
                 if(this.checked){
                   for (let i = 0; i < this.tabledata.length; i++) {
                     this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                    if (this.tabledata[0].deliverycondition == 'HT009002') {
+                      isClone = true;
+                    }
                   }
                 }
-                this.addRowdata();
+
+                this.addRowdata(isClone);
                 this.tableclaimtype = [];
                 if(this.form.claimtype === "HT001001"){
                   this.addRowclaimtype();
