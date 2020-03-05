@@ -512,14 +512,7 @@
           remarks: '',
           maketype: '',
         },
-        tableS:[{
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-        }],
+        tableS:[],
         tableT: [{
           awarddetail_id: '',
           award_id: '',
@@ -568,6 +561,32 @@
                 this.orglist=this.tableT[i].depart;
               }
             }
+            if ( response.numbercounts.length > 0 ) {
+              for (let i = 0; i < response.numbercounts.length; i++) {
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                }
+                let deliverydate = response.numbercounts[i].deliverydate;
+                let completiondate = response.numbercounts[i].completiondate;
+                let claimdate = response.numbercounts[i].claimdate;
+                let supportdate = response.numbercounts[i].supportdate
+
+                if ( deliverydate !== "" && deliverydate!=null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate!== "" && completiondate!=null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate!==""&& claimdate!=null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate!==""&& supportdate!=null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+              }
+            }
+            this.tableS = response.numbercounts
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
