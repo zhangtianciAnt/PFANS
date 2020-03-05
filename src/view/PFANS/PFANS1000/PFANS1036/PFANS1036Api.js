@@ -14,6 +14,13 @@ export function selectById(data) {
     params: data
   })
 }
+export function getPersonPlan(data) {
+  return request({
+    url: 'businessplan/getpersonplan',
+    method: 'get',
+    params: data
+  })
+}
 
 export function updateBusinessplan(data) {
   return request({
