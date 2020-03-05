@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="isShow" :showIndex="isShow">
   </EasyNormalTable>
 </template>
 
@@ -80,10 +80,13 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
         rowid: '',
-        row : 'quotationid'
+        row : 'quotationid',
+        isShow: true,
+        selectedlist: [],
       };
     },
     mounted() {
@@ -149,8 +152,8 @@
         if (val === 'view') {
           if (this.rowid === '') {
             Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
+              message: this.$t('normal.info_01'),
+              type: 'info',
               duration: 2 * 1000
             });
             return;
@@ -163,7 +166,22 @@
             }
           })
         }
-      },
+        if (val === 'export') {
+          this.$store
+            .dispatch('PFANS1027Store/downLoad', this.form)
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
+        }
+      }
     }
   }
 </script>

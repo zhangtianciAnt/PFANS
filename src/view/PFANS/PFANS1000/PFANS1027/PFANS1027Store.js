@@ -1,8 +1,10 @@
 import {
   get,
   update,
-  selectById
+  selectById,
+  downLoad
   } from './PFANS1027Api'
+import {one} from '../PFANS1032/PFANS1032Api';
 
   const PFANS1027Store = {
     namespaced: true,
@@ -43,6 +45,28 @@ import {
             } else {
               reject(response.message)
             }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      one({commit}, data) {
+        return new Promise((resolve, reject) => {
+          one(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      downLoad({commit}, data) {
+        return new Promise((resolve, reject) => {
+          downLoad(data).then(response => {
+            resolve(response);
           }).catch(error => {
             reject(error);
           })
