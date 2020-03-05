@@ -23,6 +23,10 @@
       }
     },
     props: {
+      user:{
+        type:Boolean,
+        default:false
+      },
       multiple: {
         type: Boolean,
         default: false
