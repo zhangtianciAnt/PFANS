@@ -1,8 +1,7 @@
 <template>
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
-                         :canStart="canStart" @start="start" @end="end">
+                         v-loading="loading" :canStart="canStart">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2rem">
@@ -211,7 +210,13 @@
         selectType: 'Single',
         userlist: '',
         title: 'title.PFANS1031VIEW',
-        buttonList: [],
+        buttonList: [
+          {
+            key: 'export1',
+            name: 'button.exportNaPinShu_ShouTuo',
+            disabled: false,
+          },
+        ],
         form: {
           contractnumber:'',
           contracttype:'',
@@ -335,78 +340,93 @@
       getdetermination(val) {
         this.form.determination = val;
       },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('update');
-      },
-      start(val) {
-        this.form.status = '2';
-        this.buttonClick('update');
-      },
-      end(val) {
-        this.form.status = '0';
-        this.buttonClick('update');
-      },
+      // workflowState(val) {
+      //   if (val.state === '1') {
+      //     this.form.status = '3';
+      //   } else if (val.state === '2') {
+      //     this.form.status = '4';
+      //   }
+      //   this.buttonClick('update');
+      // },
+      // start(val) {
+      //   this.form.status = '2';
+      //   this.buttonClick('update');
+      // },
+      // end(val) {
+      //   this.form.status = '0';
+      //   this.buttonClick('update');
+      // },
       buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            if (this.$route.params._id) {
-              this.form.napalm_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS1031Store/update', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.$store
-                .dispatch('PFANS1031Store/one', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            }
-          }
-        });
+        // this.$refs['refform'].validate(valid => {
+        //   if (valid) {
+        //     this.loading = true;
+        //     if (this.$route.params._id) {
+        //       this.form.napalm_id = this.$route.params._id;
+        //       this.$store
+        //         .dispatch('PFANS1031Store/update', this.form)
+        //         .then(response => {
+        //           this.data = response;
+        //           this.loading = false;
+        //           if (val !== 'update') {
+        //             Message({
+        //               message: this.$t('normal.success_02'),
+        //               type: 'success',
+        //               duration: 5 * 1000,
+        //             });
+        //             if (this.$store.getters.historyUrl) {
+        //               this.$router.push(this.$store.getters.historyUrl);
+        //             }
+        //           }
+        //         })
+        //         .catch(error => {
+        //           Message({
+        //             message: error,
+        //             type: 'error',
+        //             duration: 5 * 1000,
+        //           });
+        //           this.loading = false;
+        //         });
+        //     } else {
+        //       this.$store
+        //         .dispatch('PFANS1031Store/one', this.form)
+        //         .then(response => {
+        //           this.data = response;
+        //           this.loading = false;
+        //           Message({
+        //             message: this.$t('normal.success_01'),
+        //             type: 'success',
+        //             duration: 5 * 1000,
+        //           });
+        //           if (this.$store.getters.historyUrl) {
+        //             this.$router.push(this.$store.getters.historyUrl);
+        //           }
+        //         })
+        //         .catch(error => {
+        //           Message({
+        //             message: error,
+        //             type: 'error',
+        //             duration: 5 * 1000,
+        //           });
+        //           this.loading = false;
+        //         });
+        //     }
+        //   }
+        // });
+        if (val === 'export1') {
+          this.$store
+            .dispatch('PFANS1031Store/downLoad', this.form)
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
+        }
       },
     },
   };
