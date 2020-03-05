@@ -344,6 +344,14 @@
                             trigger: 'change'
                         },
                     ],
+                  // 所属公司
+                  thecompany: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
+                      trigger: 'change',
+                    },
+                  ],
                     // 中文(项目联络人)
                     prochinese: [
                         {

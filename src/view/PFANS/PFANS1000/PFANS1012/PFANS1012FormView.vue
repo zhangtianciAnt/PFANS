@@ -38,8 +38,6 @@
                                 v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                       <dicselect :code="code1"
@@ -51,6 +49,8 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
                       <dicselect :code="code2"
@@ -68,14 +68,14 @@
                                 v-model="form.accountnumber"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.judgement')" v-if="show7">
                       <el-input :disabled="true" style="width:20vw" v-model="form.judgement">
@@ -97,8 +97,6 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYEXPENDITURE')">
                       <el-input-number
@@ -154,8 +152,6 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
                       <dicselect :code="code3"
@@ -168,32 +164,78 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+
                 <el-row>
+               <el-col :span="8">
+                 <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                               prop="suppliername" v-show="show1">
+                   <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                     <el-container>
+                       <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                              :disabled="true"></input>
+                       <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                                  size="small"></el-button>
+                       <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                                  top="8vh" lock-scroll
+                                  append-to-body>
+                         <div style="text-align: center">
+                           <el-row style="text-align: center;height: 90%;overflow: hidden">
+                             <el-table
+                               :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                               height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                               :span-method="arraySpanMethod" @row-click="handleClickChange">
+                               <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                                width="150"></el-table-column>
+                               <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                                width="100"></el-table-column>
+                               <el-table-column property="contactinformation"
+                                                :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                                width="150"></el-table-column>
+                               <el-table-column
+                                 align="right" width="230">
+                                 <template slot="header" slot-scope="scope">
+                                   <el-input
+                                     v-model="search"
+                                     size="mini"
+                                     placeholder="请输入供应商关键字搜索"/>
+                                 </template>
+                               </el-table-column>
+                             </el-table>
+                           </el-row>
+                           <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                         </div>
+                       </el-dialog>
+                     </el-container>
+                   </div>
+                 </el-form-item>
+               </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="20" style="width:20vw"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" type="email"
+                      <el-input :disabled="true" maxlength="20" style="width:20vw" type="email"
                                 v-model="form.payeecode"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
-                                  prop="payeebankaccountnumber">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.payeebankaccountnumber"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
+                                  prop="payeebankaccountnumber">
+                      <el-input :disabled="true" maxlength="20" style="width:20vw"
+                                v-model="form.payeebankaccountnumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
                                   prop="payeebankaccount">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="20" style="width:20vw"
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
                   </el-col>
@@ -212,12 +254,56 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
+                    <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                  prop="suppliername" v-show="show3">
+                      <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                        <el-container>
+                          <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                                 :disabled="true"></input>
+                          <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                                     size="small"></el-button>
+                          <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                                     top="8vh" lock-scroll
+                                     append-to-body>
+                            <div style="text-align: center">
+                              <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                <el-table
+                                  :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                                  height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                  :span-method="arraySpanMethod" @row-click="handleClickChange">
+                                  <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                                   width="100"></el-table-column>
+                                  <el-table-column property="contactinformation"
+                                                   :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column
+                                    align="right" width="230">
+                                    <template slot="header" slot-scope="scope">
+                                      <el-input
+                                        v-model="search"
+                                        size="mini"
+                                        placeholder="请输入供应商关键字搜索"/>
+                                    </template>
+                                  </el-table-column>
+                                </el-table>
+                              </el-row>
+                              <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                            </div>
+                          </el-dialog>
+                        </el-container>
+                      </div>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.receivables"></el-input>
                     </el-form-item>
                   </el-col>
-
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show3" prop="payeecode">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
@@ -240,6 +326,52 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="8">
+                    <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                  prop="suppliername" v-show="show5">
+                      <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                        <el-container>
+                          <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                                 :disabled="true"></input>
+                          <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                                     size="small"></el-button>
+                          <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
+                                     top="8vh" lock-scroll
+                                     append-to-body>
+                            <div style="text-align: center">
+                              <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                <el-table
+                                  :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                                  height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                  :span-method="arraySpanMethod" @row-click="handleClickChange">
+                                  <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                                   width="100"></el-table-column>
+                                  <el-table-column property="contactinformation"
+                                                   :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column
+                                    align="right" width="230">
+                                    <template slot="header" slot-scope="scope">
+                                      <el-input
+                                        v-model="search"
+                                        size="mini"
+                                        placeholder="请输入供应商关键字搜索"/>
+                                    </template>
+                                  </el-table-column>
+                                </el-table>
+                              </el-row>
+                              <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                            </div>
+                          </el-dialog>
+                        </el-container>
+                      </div>
+                    </el-form-item>
+                  </el-col>
+
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
                       <el-input :disabled="!disable" maxlength="20"
@@ -288,8 +420,13 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
                         <template slot-scope="scope">
-                          <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxrate">
-                          </el-input>
+                          <dicselect :code="code13"
+                                     :data="scope.row.taxrate"
+                                     :disabled="!disable"
+                                     :no="scope.row"
+                                     @change="getrate"
+                                     style="width: 100%">
+                          </dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
@@ -950,7 +1087,10 @@
                 accountcodeValue: "",
                 tablePValue: "",
                 tableRValue: "",
+              errorsuppliername: '',
                 error: '',
+              gridData: [],
+              dialogTableVisible: false,
                 selectedlist: [],
                 options: [],
                 jude: [],
@@ -997,7 +1137,7 @@
                 tableF: [{
                     invoice_id: "",
                     publicexpenseid: "",
-                    invoicenumber: 'DL4AP' + moment(new Date()).format("YYYYMMDD") + '01',
+                    invoicenumber: '1',
                     invoicetype: "",
                     invoiceamount: "",
                     taxrate: "",
@@ -1164,6 +1304,7 @@
                 code10: 'PJ057',
                 code11: '',
                 code12: 'PJ069',
+                code13: 'PJ071',
                 invoicenumber: '',
                 checkStatus: false,
                 errorgroup: '',
@@ -1190,13 +1331,13 @@
             };
         },
         mounted() {
-            this.optionsdata = [];
-            for (let i = 0; i < this.tableF.length; i++) {
-                var vote = {};
-                vote.value = this.tableF[i].invoicenumber,
-                    vote.lable = this.tableF[i].invoicenumber,
-                    this.optionsdata.push(vote);
-            }
+          this.optionsdata = [];
+          for (let i = 0; i < this.tableF.length; i++) {
+            var vote = {};
+            vote.value = this.tableF[i].invoicenumber,
+              vote.lable = this.tableF[i].invoicenumber,
+              this.optionsdata.push(vote);
+          }
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -1205,7 +1346,7 @@
                         this.form = response.publicexpense;
                         if (response.invoice.length > 0) {
                             this.tableF = response.invoice;
-                            this.optionsdata = [];
+                            this.optionsdata = [{"value":"","label":""}];
                             for (let i = 0; i < this.tableF.length; i++) {
                                 var vote = {};
                                 vote.value = this.tableF[i].invoicenumber,
@@ -1262,6 +1403,7 @@
                             this.tableR = response.otherdetails;
                         }
                         this.userlist = this.form.user_id;
+
                         this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
                         this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
@@ -1283,13 +1425,9 @@
                             this.show6 = false;
                             this.show7 = false;
                         } else if (this.form.type === 'PJ001002') {
-                            this.show9 = false;
-                            this.show6 = true;
-                            this.show7 = false;
-                        } else if (this.form.type === 'PJ001003') {
-                            this.show9 = false;
-                            this.show6 = true;
-                            this.show7 = true;
+                          this.show9 = false;
+                          this.show6 = true;
+                          this.show7 = true;
                         }
                         this.loading = false;
                     })
@@ -1321,13 +1459,9 @@
                     this.show6 = false;
                     this.show7 = false;
                 } else if (this.form.type === 'PJ001002') {
-                    this.show9 = false;
-                    this.show6 = true;
-                    this.show7 = false;
-                } else if (this.form.type === 'PJ001003') {
-                    this.show9 = false;
-                    this.show6 = true;
-                    this.show7 = true;
+                  this.show9 = false;
+                  this.show6 = true;
+                  this.show7 = true;
                 }
             }
             this.$store
@@ -1363,13 +1497,17 @@
             }
         },
         methods: {
+          arraySpanMethod({row, column, rowIndex, columnIndex}) {
+            if (columnIndex === 3) {
+              return [1, 2];
+            }
+          },
             getGroupId(orglist, row) {
                 row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
                 if (group) {
                     this.companyen = group.companyen;
                     row.budgetcoding = group.encoding
-
                 }
             },
             // getcode(val, row) {
@@ -1417,20 +1555,23 @@
                     this.getCompanyen(val, row);
                 }
             },
+          getrate(val,row){
+            row.taxrate=val;
+          },
             getPaymentinvoicetype(val, row) {
                 row.excludingtax = "";
                 row.facetax= "";
-                let dic = getDictionaryInfo(val);
                 row.invoicetype = val;
-                if (dic) {
-                    row.taxrate = dic.value2;
-                    if (row.taxrate == "") {
-                        this.disablde = false
-                    }
-                    if (row.taxrate == 0.06 || row.taxrate == 0.09) {
-                        this.disablde = true
-                    }
-                }
+                row.taxrate=" ";
+              //   if (dic) {
+              //       row.taxrate = dic.value2;
+              //       if (row.taxrate == "") {
+              //         this.disablde = false
+              //     }
+              //     if (row.taxrate == 0.06 || row.taxrate == 0.09) {
+              //         this.disablde = true
+              //     }
+              // }
             },
             changeSum(row) {
 
@@ -1671,34 +1812,27 @@
                 });
             },
             addRow7() {
-                let a, b;
-                if (this.tableF.length < 10) {
-                    if (this.tableF.length + 1 == 10) {
-                        b = this.tableF.length + 1;
-                    } else {
-                        a = this.tableF.length + 1
-                        b = '0' + a
+                let  b;
+                if (this.tableF.length > 0) {
+                        b = this.tableF.length + 1
                     }
-                } else {
-                    b = this.tableF.length + 1;
-                }
                 this.tableF.push({
                     invoice_id: "",
                     publicexpenseid: "",
-                    invoicenumber: 'DL4AP' + moment(new Date()).format("YYYYMMDD") + b,
+                    invoicenumber: b,
                     invoicetype: "",
                     invoiceamount: "",
                     taxrate: "",
                     excludingtax: "",
                     facetax: "",
                 });
-                this.optionsdata = [];
-                for (let i = 0; i < this.tableF.length; i++) {
-                    var vote = {};
-                    vote.value = this.tableF[i].invoicenumber,
-                        vote.lable = this.tableF[i].invoicenumber,
-                        this.optionsdata.push(vote);
-                }
+              this.optionsdata = [];
+              for (let i = 0; i < this.tableF.length; i++) {
+                var vote = {};
+                vote.value = this.tableF[i].invoicenumber,
+                  vote.lable = this.tableF[i].invoicenumber,
+                  this.optionsdata.push(vote);
+              }
             },
             addRow3() {
                 this.tableP.push({
@@ -1938,6 +2072,45 @@
                     }
                 }))
             },
+
+          submit() {
+            let val = this.currentRow;
+            let val1 = this.currentRow1;
+            this.dialogTableVisible = false;
+            this.form.suppliername = val;
+            this.form.suppliernameid = val1;
+          },
+          handleClickChange(val) {
+            this.currentRow = val.suppliername;
+            this.currentRow1 = val.suppliernameid;
+          },
+          getSupplierNameList() {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS6001Store/getSupplierNameList', {})
+              .then(response => {
+                console.log(response);
+                this.gridData = [];
+                for (let i = 0; i < response.length; i++) {
+                  var vote = {};
+                  vote.suppliername = response[i].supchinese;
+                  vote.userid = response[i].prochinese;
+                  vote.contactinformation = response[i].protelephone;
+                  vote.suppliernameid = response[i].supchineseid;
+                  this.gridData.push(vote);
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          },
+
             buttonClick(val) {
                 if (val === "back") {
                     this.$router.push({
