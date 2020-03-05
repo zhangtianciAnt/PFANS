@@ -381,11 +381,11 @@
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">
                   </el-table-column>
-                  <el-table-column
-                    prop="currencyposition"
-                    :label="$t('label.PFANS1029FROM_TABLEHEADER7')"
-                    width="150">
-                  </el-table-column>
+                  <!--<el-table-column-->
+                    <!--prop="currencyposition"-->
+                    <!--:label="$t('label.PFANS1029FROM_TABLEHEADER7')"-->
+                    <!--width="150">-->
+                  <!--</el-table-column>-->
                 </el-table>
               </template>
               <!--6-->
@@ -855,6 +855,21 @@
               }
             }
           });
+        } else if (val === "generate") {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1029Store/generateJxls', this.form)
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              })
         }
       }
     }

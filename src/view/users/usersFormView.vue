@@ -1292,13 +1292,18 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" prop="reason2">
+                    <el-input style="width:20vw" v-model="form.reason2" :disabled="true" type="textarea">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('title.PFANS2026VIEW')" v-if="this.form.staffexitprocedure !==''&& this.form.staffexitprocedure !==null">
                     <router-link :to="{ name: 'PFANS2026FormView',
                    params: { _id: this.form.staffexitprocedure, disabled: true}}" >{{this.$t('button.view')}}</router-link>
                   </el-form-item>
                 </el-col>
               </el-row>
-
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -1525,6 +1530,7 @@
           salary: "",
           caution: "",
           resignation_date:"",
+          reason2: '',
           staffexitprocedure:"",
           oldageinsurance: "",
           houseinsurance: "",

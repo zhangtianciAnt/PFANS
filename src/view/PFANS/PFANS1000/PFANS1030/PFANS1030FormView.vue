@@ -130,8 +130,8 @@
                       prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  width="150" />
                     <el-table-column
                       prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  width="150" />
-                    <el-table-column
-                      prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />
+                    <!--<el-table-column-->
+                      <!--prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />-->
                   </el-table>
                 </el-col>
               </el-row>
@@ -556,7 +556,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
 
@@ -596,7 +596,7 @@
         disabled: true,
         error: '',
         userlist: '',
-        code1: 'PJ010',
+        code1: 'HT008',
         code2: 'HT005',
         code3: 'HT006',
         code4: 'HT018',
@@ -776,6 +776,14 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+
+            if (response.award.custojapanese !== null && response.award.custojapanese !== "") {
+              let letUser = getUserInfo(response.award.custojapanese);
+              if (letUser != null) {
+                this.form.custojapanese = letUser.userinfo.customername;
+              }
+            }
+
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();
             myDate.setDate(myDate.getDate() + 2);
@@ -1109,6 +1117,20 @@
               }
             }
           });
+        } else if (val === 'generate') {
+          this.$store
+            .dispatch('PFANS1025Store/generateJxls', this.from)
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
         }
       }
     }

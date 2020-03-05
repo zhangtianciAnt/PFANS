@@ -22,25 +22,25 @@
                 <el-form-item :error="errorname" :label="$t('label.user_name')" prop="name">
                   <div class="dpSupIndex" style="width: 20vw" prop="name">
                     <el-container>
-                      <input class="content bg" v-model="form.name"  :error="errorname"
+                      <input class="content bg" v-model="form.name" :error="errorname"
                              :disabled="true"></input>
                       <!--<el-select-->
-                        <!--:disabled="disabled"-->
-                        <!--class="width"-->
-                        <!--v-model="form.sex"-->
-                        <!--style="width:20vw"-->
+                      <!--:disabled="disabled"-->
+                      <!--class="width"-->
+                      <!--v-model="form.sex"-->
+                      <!--style="width:20vw"-->
                       <!--&gt;-->
-                        <!--<el-option-->
-                          <!--:key="item.value"-->
-                          <!--:label="item.label"-->
-                          <!--:value="item.value"-->
-                          <!--v-for="item in options"-->
-                        <!--&gt;</el-option>-->
+                      <!--<el-option-->
+                      <!--:key="item.value"-->
+                      <!--:label="item.label"-->
+                      <!--:value="item.value"-->
+                      <!--v-for="item in options"-->
+                      <!--&gt;</el-option>-->
                       <!--</el-select>-->
 
                       <el-button :disabled="disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                  size="small"></el-button>
-                      <el-dialog  :visible.sync="dialogTableVisible" center size="50%"
+                      <el-dialog :visible.sync="dialogTableVisible" center size="50%"
                                  top="8vh" lock-scroll
                                  append-to-body>
                         <div style="text-align: center">
@@ -67,7 +67,7 @@
                             </el-table>
                           </el-row>
                           <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
                         </span>
                         </div>
                       </el-dialog>
@@ -104,53 +104,54 @@
             </el-row>
             <el-row>
               <el-col :span="24">
-              <el-table
-                :data="tableData3"
-                style="width:46vw;margin-top:1%"
-                border stripe
-                header-cell-class-name="sub_bg_color_blue"
-              >
-                <el-table-column
-                  :label="$t('label.PFANS2002VIEW_EDUCATION')"
-                  prop="education"
-                  align="center"
+                <el-table
+                  :data="tableData3"
+                  style="width:46vw;margin-top:1%"
+                  border stripe
+                  header-cell-class-name="sub_bg_color_blue"
                 >
-                  <template slot-scope="scope">
-                    <dicselect
-                      :data="scope.row.education"
-                      :disabled="disabled"
-                      @change="((val)=>{changeEducation(val,scope.$index)})"
-                      class="width"
-                      code="PR022"
-                      style="width:100%"
-                    ></dicselect>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
-                  prop="specialty"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input :disabled="disabled" class="width" v-model="scope.row.specialty" maxlength="20" style="width:100%"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2002FORMVIEW_QUITYEAR')"
-                  prop="quityear"
-                  align="center">
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      :disabled="disabled"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      type="date"
-                      style="width:100%"
-                      v-model="scope.row.quityear"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-              </el-table>
+                  <el-table-column
+                    :label="$t('label.PFANS2002VIEW_EDUCATION')"
+                    prop="education"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <dicselect
+                        :data="scope.row.education"
+                        :disabled="disabled"
+                        @change="((val)=>{changeEducation(val,scope.$index)})"
+                        class="width"
+                        code="PR022"
+                        style="width:100%"
+                      ></dicselect>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
+                    prop="specialty"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <el-input :disabled="disabled" class="width" v-model="scope.row.specialty" maxlength="20"
+                                style="width:100%"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2002FORMVIEW_QUITYEAR')"
+                    prop="quityear"
+                    align="center">
+                    <template slot-scope="scope">
+                      <el-date-picker
+                        :disabled="disabled"
+                        :placeholder="$t('normal.error_09')"
+                        class="width"
+                        type="date"
+                        style="width:100%"
+                        v-model="scope.row.quityear"
+                      ></el-date-picker>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-col>
             </el-row>
           </el-tab-pane>
@@ -233,7 +234,8 @@
                         prop="english_detail"
                         v-show="english_show"
                       >
-                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.english_detail"></el-input>
+                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw"
+                                  v-model="form.english_detail"></el-input>
                       </el-form-item>
                     </el-col>
 
@@ -255,7 +257,8 @@
                         prop="janpanese_detail"
                         v-show="janpanese_show"
                       >
-                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.janpanese_detail"></el-input>
+                        <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw"
+                                  v-model="form.janpanese_detail"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -305,7 +308,8 @@
                       drag
                       ref="upload">
                       <i class="el-icon-upload"></i>
-                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
                     </el-upload>
                   </el-row>
                 </div>
@@ -313,117 +317,115 @@
             </el-collapse>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_INTERVIEW')" name="third" style="padding-top:10px">
-           <el-row>
-             <el-col :span="8">
-               <el-form-item
-                 :label="$t('label.PFANS2002FORMVIEW_INTIME')"
-                 prop="intime"
-               >
-                 <el-date-picker
-                   :disabled="disabled"
-                   :placeholder="$t('normal.error_09')"
-                   class="width"
-                   type="date"
-                   style="width:20vw"
-                   v-model="form.intime"
-                 ></el-date-picker>
-               </el-form-item>
-             </el-col>
-             <el-col :span="8">
-               <el-form-item
-                 :label="$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')"  prop="expectedtime">
-                 <el-date-picker
-                   :disabled="disabled"
-                   :placeholder="$t('normal.error_09')"
-                   class="width"
-                   type="date"
-                   style="width:20vw"
-                   v-model="form.expectedtime"
-                 ></el-date-picker>
-               </el-form-item>
-             </el-col>
-             <el-col :span="8">
-               <el-form-item
-                 :label="$t('label.PFANS2026VIEW_ENTRYTIME')"  prop="entrytime">
-                 <el-date-picker
-                   :disabled="disabled"
-                   :placeholder="$t('normal.error_09')"
-                   class="width"
-                   type="date"
-                   style="width:20vw"
-                   v-model="form.entrytime"
-                 ></el-date-picker>
-               </el-form-item>
-             </el-col>
-           </el-row>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item
+                  :label="$t('label.PFANS2002FORMVIEW_INTIME')"
+                  prop="intime"
+                >
+                  <el-date-picker
+                    :disabled="disabled"
+                    :placeholder="$t('normal.error_09')"
+                    class="width"
+                    type="date"
+                    style="width:20vw"
+                    v-model="form.intime"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item
+                  :label="$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')" prop="expectedtime">
+                  <el-date-picker
+                    :disabled="disabled"
+                    :placeholder="$t('normal.error_09')"
+                    class="width"
+                    type="date"
+                    style="width:20vw"
+                    v-model="form.expectedtime"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item
+                  :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entrytime">
+                  <el-date-picker
+                    :disabled="disabled"
+                    :placeholder="$t('normal.error_09')"
+                    class="width"
+                    type="date"
+                    style="width:20vw"
+                    v-model="form.entrytime"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-row>
 
 
-
-
-            <el-row >
+            <el-row>
               <el-col :span="24">
-            <el-table
-              :data="tableData"
-              :summary-method="getAverage"
-              border stripe
-              show-summary
-              style="width:46vw"
-              header-cell-class-name="sub_bg_color_blue"
-            >
-              <el-table-column
-                :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
-                align="center"
-                prop="interviewer"
-              >
-                <template slot-scope="scope">
-                  <user
-                    :disabled="disabled"
-                    :no="scope.row"
-                    :userlist="scope.row.interviewer"
-                    @getUserids="getInterviewerids"
-                    selectType="Single"
-                    style="width:100%"
-                  ></user>
-                </template>
-              </el-table-column>
-              <el-table-column
-                :label="$t('label.PFANS2002FORMVIEW_SCORE')"
-                align="center"
-                prop="score"
-              >
-                <template slot-scope="scope">
-                  <el-input-number
-                    :disabled="disabled"
-                    :max="10"
-                    :min="0"
-                    :precision="1"
-                    :step="0.1"
-                    v-model="scope.row.score"
-                    style="width:100%"
-                  ></el-input-number>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="200">
-                <template slot-scope="scope">
-                  <el-button
-                    :disabled="disabled"
-                    @click.native.prevent="deleteRow(scope.$index, tableData)"
-                    plain
-                    size="small"
-                    type="danger"
-                  >{{$t('button.delete')}}
-                  </el-button>
-                  <el-button
-                    :disabled="disabled"
-                    @click="addRow()"
-                    plain
-                    size="small"
-                    type="primary"
-                  >{{$t('button.insert')}}
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+                <el-table
+                  :data="tableData"
+                  :summary-method="getAverage"
+                  border stripe
+                  show-summary
+                  style="width:46vw"
+                  header-cell-class-name="sub_bg_color_blue"
+                >
+                  <el-table-column
+                    :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
+                    align="center"
+                    prop="interviewer"
+                  >
+                    <template slot-scope="scope">
+                      <user
+                        :disabled="disabled"
+                        :no="scope.row"
+                        :userlist="scope.row.interviewer"
+                        @getUserids="getInterviewerids"
+                        selectType="Single"
+                        style="width:100%"
+                      ></user>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2002FORMVIEW_SCORE')"
+                    align="center"
+                    prop="score"
+                  >
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="disabled"
+                        :max="10"
+                        :min="0"
+                        :precision="1"
+                        :step="0.1"
+                        v-model="scope.row.score"
+                        style="width:100%"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="disabled"
+                        @click.native.prevent="deleteRow(scope.$index, tableData)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}
+                      </el-button>
+                      <el-button
+                        :disabled="disabled"
+                        @click="addRow()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-col>
             </el-row>
           </el-tab-pane>
@@ -435,7 +437,7 @@
           >
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.center')" >
+                <el-form-item :label="$t('label.center')">
                   <org
                     :disabled="disabled"
                     :orglist="form.center_id"
@@ -447,7 +449,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.group')" >
+                <el-form-item :label="$t('label.group')">
                   <org
                     :disabled="disabled"
                     :orglist="form.group_id"
@@ -459,7 +461,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.team')" >
+                <el-form-item :label="$t('label.team')">
                   <org
                     :disabled="disabled"
                     :orglist="form.team_id"
@@ -485,7 +487,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')">
                   <el-input-number
                     :disabled="disabled"
                     :max="1000000"
@@ -503,7 +505,7 @@
             <!--採用ルート-->
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')" >
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')">
                   <dicselect
                     :data="form.adoption"
                     :disabled="disabled"
@@ -520,7 +522,8 @@
                   prop="other3"
                   v-show="other3_show"
                 >
-                  <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw" v-model="form.other3"></el-input>
+                  <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw"
+                            v-model="form.other3"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8" v-if="display">
@@ -543,524 +546,527 @@
 </template>
 
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import dicselect from "../../../components/dicselect";
-    import user from "../../../components/user";
-    import org from "../../../components/org";
-    import {uploadUrl} from '../../../../utils/customize';
-    import {getDictionaryInfo} from '../../../../utils/customize';
-    import moment from "moment";
-    import {Message} from 'element-ui';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect';
+  import user from '../../../components/user';
+  import org from '../../../components/org';
+  import {uploadUrl} from '../../../../utils/customize';
+  import {getDictionaryInfo} from '../../../../utils/customize';
+  import moment from 'moment';
+  import {Message} from 'element-ui';
 
-    export default {
-        name: "PFANS2002FormView",
-        components: {EasyNormalContainer, dicselect, user, org},
-        data() {
-          var checkname = (rule, value, callback) => {
-            if (!value || value === '' || value === "undefined") {
-              this.errorname = this.$t('normal.error_09') + this.$t('label.user_name');
-              return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
-            } else {
-              this.errorname = "";
-              return callback();
-            }
-          };
-          var validexpected = (rule, value, callback) => {
-            if (this.form.expectedtime !== '' && this.form.expectedtime !== null && this.form.intime !== '' && this.form.intime !== null) {
-              if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.expectedtime).format('YYYY-MM-DD')) {
-                callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
-              }
-            }
-            callback();
-          };
-
-          var validentrytime = (rule, value, callback) => {
-            if (this.form.entrytime !== '' && this.form.entrytime !== null && this.form.intime !== '' && this.form.intime !== null) {
-              if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.entrytime).format('YYYY-MM-DD')) {
-                return  callback(new Error(this.$t('label.PFANS2026VIEW_ENTRYTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
-              }
-            }
-            callback();
-          };
-
-
-            return {
-                loading: false,
-                display: false,
-                disabled: false,
-                errorname:'',
-                english_show: false,
-                janpanese_show: false,
-                other3_show: false,
-               dialogTableVisible: false,
-              multiple: false,
-              search: '',
-              result: "",
-              gridData: [],
-                num: 0,
-                activeName: "first",
-                tableData: [
-                    {
-                        interviewer: "",
-                        score: 0
-                    }
-                ],
-                titles: "label.PFANS2002FORMVIEW",
-                tableData3: [
-                    {
-                        education: "",
-                        specialty: "",
-                        quityear: "",
-                    },
-                    {
-                        education: "",
-                        specialty: "",
-                        quityear: "",
-                    },
-                    {
-                        education: "",
-                        specialty: "",
-                        quityear: "",
-                    }
-                ],
-                form: {
-                    entry_enclosure: "",
-                    name: "",
-                    sex: "",
-                    birthday: "",
-
-                    education1: "",
-                    specialty1: "",
-                    quityear1: "",
-                    education2: "",
-                    specialty2: "",
-                    quityear2: "",
-                    education3: "",
-                    specialty3: "",
-                    quityear3: "",
-
-                    intime:"",
-                    expectedtime:"",
-                    entrytime:"",
-                    remark: "",
-                    center_id: "",
-                    group_id: "",
-                    team_id: "",
-                    level: "",
-                    english: "",
-                    english_detail: "",
-                    janpanese: "",
-                    janpanese_detail: "",
-                    other1: false,
-                    other2: false,
-                    other3: "",
-                    resume: false,
-                    identity: false,
-                    diploma: false,
-                    experience: false,
-                    entry: false,
-                    report: false,
-                    ticket: false,
-                    health: false,
-                    interview: "",
-                    giving: "0",
-                    adoption: "",
-                    others: "",
-                    status: "0"
-                },
-                disable: false,
-                buttonList: [],
-                fileList: [],
-                upload: uploadUrl(),
-                rules: {
-                    name: [{required: true, validator: checkname,trigger:'blur'}],
-                    sex: [{required: true, message: this.$t("normal.error_08")}],
-                    birthday: [{required: true, message: this.$t("normal.error_08")}],
-                    education: [{required: true, message: this.$t("normal.error_08")}],
-                    specialty: [{required: true, message: this.$t("normal.error_08")}],
-                    quityear: [{required: true, message: this.$t("normal.error_08")}],
-                  expectedtime: [{required: true, validator: validexpected,trigger:'change'}],
-                  intime: [
-                    {required: true,
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTIME'),
-                      trigger:'change'},
-                    {
-                      validator: validexpected,trigger:'change'
-                    },
-                    {
-                      validator: validentrytime,trigger:'change'
-                    }
-                  ],
-                  entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
-                }
-            };
-        },
-
-        created() {
-            this.disabled = this.$route.params.disabled;
-            if (!this.disabled) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        icon: "el-icon-check"
-                    }
-                ];
-            }
-        },
-        mounted() {
-          this.getNameList();
-            if (this.$route.params._id) {
-                this.getOne(this.$route.params._id);
-            }
-        },
-
-        methods: {
-          getNameList() {
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS2002Store/getNameList', {})
-              .then(response => {
-                this.gridData = [];
-                for (let i = 0; i < response.length; i++) {
-                  var vote = {};
-                  this.result=response;
-                  vote.name = response[i].name;
-                  vote.sex = getDictionaryInfo(response[i].sex).value1;
-                  vote.birthday=moment(response[i].birthday).format('YYYY-MM');
-                  this.gridData.push(vote)
-                }
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false;
-              })
-          },
-            changeEnglish(val){
-                if(val === 'PR053004'){
-                    this.form.english = val
-                    this.english_show = true
-                }else{
-                    this.form.english = val
-                    this.english_show = false
-                }
-            },
-            changeJanpanese(val){
-                if(val === 'PR054005'){
-                    this.form.janpanese = val
-                    this.janpanese_show = true
-                }else{
-                    this.form.janpanese = val
-                    this.janpanese_show = false
-                }
-            },
-            changeOption(form, method) {
-                let arr = [
-                    "other1",
-                    "other2",
-                    "resume",
-                    "identity",
-                    "diploma",
-                    "experience",
-                    "entry",
-                    "report",
-                    "ticket",
-                    "health"
-                ];
-                if (method === "save") {
-                    for (var i in form) {
-                        if (arr.includes(i)) {
-                            form[i] = form[i] === true ? "0" : "1";
-                        }
-                    }
-                } else if (method === "view") {
-                    for (var i in form) {
-                        if (i === "interview") {
-                            form[i] = JSON.parse(form[i]);
-                        }
-                        if (arr.includes(i)) {
-                            form[i] = form[i] === "0" ? true : false;
-                        }
-                    }
-                }
-            },
-          submit() {
-            let val = this.currentRow;
-            let lst=this.currentRow2;
-            let lst2=this.currentRow3;
-            this.dialogTableVisible = false;
-            this.form.name = val;
-            this.form.sex=lst;
-            this.form.birthday=lst2;
-          },
-          handleClickChange(val) {
-            this.currentRow = val.name;
-            this.currentRow2=val.sex;
-            this.currentRow3=val.birthday;
-          },
-          arraySpanMethod({row, column, rowIndex, columnIndex}) {
-            if (columnIndex === 3) {
-              return [1, 2];
-            }
-          },
-            getOne(id) {
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS2002Store/getOne", id)
-                    .then(response => {
-                        console.log(response[0]);
-                        if (response) {
-                            this.form = response[0];
-                            this.changeOption(this.form, "view");
-                            this.tableData = this.form.interview;
-                            this.tableData3[0].education=response[0].education1;
-                            this.tableData3[0].specialty=response[0].specialty1;
-                            this.tableData3[0].quityear=response[0].quityear1;
-                            this.tableData3[1].education=response[0].education2;
-                            this.tableData3[1].specialty=response[0].specialty2;
-                            this.tableData3[1].quityear=response[0].quityear2;
-                            this.tableData3[2].education=response[0].education3;
-                            this.tableData3[2].specialty=response[0].specialty3;
-                            this.tableData3[2].quityear=response[0].quityear3;
-                            this.changeUsing(this.form.adoption);
-                            if (this.form.entry_enclosure != "") {
-                                let uploadfile = this.form.entry_enclosure.split(";");
-                                for (var i = 0; i < uploadfile.length; i++) {
-                                    if (uploadfile[i].split(",")[0] != "") {
-                                        let o = {};
-                                        o.name = uploadfile[i].split(",")[0];
-                                        o.url = uploadfile[i].split(",")[1];
-                                        this.fileList.push(o)
-                                    }
-                                }
-                            }
-                            this.loading = false;
-                        }
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    });
-            },
-            getInterviewerids(userlist, row) {
-                row.interviewer = userlist;
-            },
-            getCenterId(val) {
-                this.form.center_id = val;
-            },
-            getGroupId(val) {
-                this.form.group_id = val;
-            },
-            getTeamId(val) {
-                this.form.team_id = val;
-            },
-            getUserids(val) {
-                this.form.others = val;
-            },
-            changeEducation(val,index) {
-                this.tableData3[index].education = val;
-            },
-            workflowState(val) {
-                if (val.state === "1") {
-                    this.form.status = "3";
-                } else if (val.state === "2") {
-                    this.form.status = "4";
-                }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = "2";
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = "0";
-                this.buttonClick("update");
-            },
-            changeUsing(val) {
-                if (val === "PR051004") {
-                    this.display = true;
-                } else {
-                    this.display = false;
-                    this.form.others = "";
-                }
-                this.form.adoption = val;
-                if(val === "PR051005"){
-                    this.other3_show = true
-                }else{
-                    this.other3_show = false
-                }
-            },
-            changeLevel(val) {
-                this.form.level = val;
-            },
-            getAverage(param) {
-                this.form.interview = JSON.stringify(this.tableData);
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t("label.PFANS2002FORMVIEW_AVESCORE");
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                    } else {
-                        sums[index] = "";
-                    }
-                });
-                sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
-                return sums;
-            },
-
-            deleteRow(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                } else {
-                    this.tableData[0].interviewer = "";
-                    this.tableData[0].score = 0;
-                }
-            },
-            addRow() {
-                this.tableData.push({
-                    interviewer: "",
-                    score: 0
-                });
-            },
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t("normal.error_04"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.entry_enclosure = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.entry_enclosure += item.name + "," + item.url + ";"
-                }
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
-
-            },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.entry_enclosure = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.form.entry_enclosure += o.name + "," + o.url + ";"
-                }
-            },
-
-            buttonClick(val) {
-                this.$refs["form"].validate(valid => {
-                    if (valid) {
-                        this.loading = true;
-                        if (!this.$route.params._id) {
-                            this.changeOption(this.form, "save");
-                            this.form.education1 = this.tableData3[0].education;
-                            this.form.quityear1 = this.tableData3[0].quityear;
-                            this.form.specialty1 = this.tableData3[0].specialty;
-
-                            this.form.education2 = this.tableData3[1].education;
-                            this.form.quityear2 = this.tableData3[1].quityear;
-                            this.form.specialty2 = this.tableData3[1].specialty;
-
-                            this.form.education3 = this.tableData3[2].education;
-                            this.form.quityear3 = this.tableData3[2].quityear;
-                            this.form.specialty3 = this.tableData3[2].specialty;
-
-                            this.$store
-                                .dispatch("PFANS2002Store/insert", this.form)
-                                .then(response => {
-                                    this.loading = false;
-                                    this.$message({
-                                        message: this.$t("normal.success_01"),
-                                        type: "success"
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(err => {
-                                    this.loading = false;
-                                    Message({
-                                        message: err,
-                                        type: "error",
-                                        duration: 5 * 1000
-                                    });
-                                });
-                        } else {
-                            this.loading = true;
-                            this.changeOption(this.form, "save");
-                            this.$store
-                                .dispatch("PFANS2002Store/update", this.form)
-                                .then(response => {
-                                    this.loading = false;
-                                    this.$message({
-                                        message: this.$t("normal.success_02"),
-                                        type: "success"
-                                    });
-                                    if (val !== "update") {
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(err => {
-                                    this.loading = false;
-                                    Message({
-                                        message: err,
-                                        type: "error",
-                                        duration: 5 * 1000
-                                    });
-                                });
-                        }
-                    } else {
-                        this.activeName = "first";
-                    }
-                });
-            }
+  export default {
+    name: 'PFANS2002FormView',
+    components: {EasyNormalContainer, dicselect, user, org},
+    data() {
+      var checkname = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorname = this.$t('normal.error_09') + this.$t('label.user_name');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+        } else {
+          this.errorname = '';
+          return callback();
         }
-    };
+      };
+      // var validexpected = (rule, value, callback) => {
+      //   if (this.form.expectedtime !== '' && this.form.expectedtime !== null && this.form.intime !== '' && this.form.intime !== null) {
+      //     if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.expectedtime).format('YYYY-MM-DD')) {
+      //       callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
+      //     }
+      //   }
+      //   callback();
+      // };
+      //
+      // var validentrytime = (rule, value, callback) => {
+      //   if (this.form.entrytime !== '' && this.form.entrytime !== null && this.form.intime !== '' && this.form.intime !== null) {
+      //     if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.entrytime).format('YYYY-MM-DD')) {
+      //       return  callback(new Error(this.$t('label.PFANS2026VIEW_ENTRYTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
+      //     }
+      //   }
+      //   callback();
+      // };
+
+
+      return {
+        loading: false,
+        display: false,
+        disabled: false,
+        errorname: '',
+        english_show: false,
+        janpanese_show: false,
+        other3_show: false,
+        dialogTableVisible: false,
+        multiple: false,
+        search: '',
+        result: '',
+        gridData: [],
+        num: 0,
+        activeName: 'first',
+        tableData: [
+          {
+            interviewer: '',
+            score: 0,
+          },
+        ],
+        titles: 'label.PFANS2002FORMVIEW',
+        tableData3: [
+          {
+            education: '',
+            specialty: '',
+            quityear: '',
+          },
+          {
+            education: '',
+            specialty: '',
+            quityear: '',
+          },
+          {
+            education: '',
+            specialty: '',
+            quityear: '',
+          },
+        ],
+        form: {
+          entry_enclosure: '',
+          name: '',
+          sex: '',
+          birthday: '',
+
+          education1: '',
+          specialty1: '',
+          quityear1: '',
+          education2: '',
+          specialty2: '',
+          quityear2: '',
+          education3: '',
+          specialty3: '',
+          quityear3: '',
+
+          intime: '',
+          expectedtime: '',
+          // entrytime:"",
+          remark: '',
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          level: '',
+          english: '',
+          english_detail: '',
+          janpanese: '',
+          janpanese_detail: '',
+          other1: false,
+          other2: false,
+          other3: '',
+          resume: false,
+          identity: false,
+          diploma: false,
+          experience: false,
+          entry: false,
+          report: false,
+          ticket: false,
+          health: false,
+          interview: '',
+          giving: '0',
+          adoption: '',
+          others: '',
+          status: '0',
+        },
+        disable: false,
+        buttonList: [],
+        fileList: [],
+        upload: uploadUrl(),
+        rules: {
+          name: [{required: true, validator: checkname, trigger: 'blur'}],
+          sex: [{required: true, message: this.$t('normal.error_08')}],
+          birthday: [{required: true, message: this.$t('normal.error_08')}],
+          education: [{required: true, message: this.$t('normal.error_08')}],
+          specialty: [{required: true, message: this.$t('normal.error_08')}],
+          quityear: [{required: true, message: this.$t('normal.error_08')}],
+          // expectedtime: [{required: true, validator: validexpected, trigger: 'change'}],
+          intime: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTIME'),
+              trigger: 'change',
+            },
+            // {
+            //   validator: validexpected,trigger:'change'
+            // },
+            // {
+            //   validator: validentrytime,trigger:'change'
+            // }
+          ],
+          // entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
+        },
+      };
+    },
+
+    created() {
+      this.disabled = this.$route.params.disabled;
+      if (!this.disabled) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    mounted() {
+      this.getNameList();
+      if (this.$route.params._id) {
+        this.getOne(this.$route.params._id);
+      }
+    },
+
+    methods: {
+      getNameList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2002Store/getNameList', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              this.result = response;
+              vote.name = response[i].name;
+              vote.sex = getDictionaryInfo(response[i].sex).value1;
+              vote.birthday = moment(response[i].birthday).format('YYYY-MM');
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      changeEnglish(val) {
+        if (val === 'PR053004') {
+          this.form.english = val;
+          this.english_show = true;
+        } else {
+          this.form.english = val;
+          this.english_show = false;
+        }
+      },
+      changeJanpanese(val) {
+        if (val === 'PR054005') {
+          this.form.janpanese = val;
+          this.janpanese_show = true;
+        } else {
+          this.form.janpanese = val;
+          this.janpanese_show = false;
+        }
+      },
+      changeOption(form, method) {
+        let arr = [
+          'other1',
+          'other2',
+          'resume',
+          'identity',
+          'diploma',
+          'experience',
+          'entry',
+          'report',
+          'ticket',
+          'health',
+        ];
+        if (method === 'save') {
+          for (var i in form) {
+            if (arr.includes(i)) {
+              form[i] = form[i] === true ? '0' : '1';
+            }
+          }
+        } else if (method === 'view') {
+          for (var i in form) {
+            if (i === 'interview') {
+              form[i] = JSON.parse(form[i]);
+            }
+            if (arr.includes(i)) {
+              form[i] = form[i] === '0' ? true : false;
+            }
+          }
+        }
+      },
+      submit() {
+        let val = this.currentRow;
+        let lst = this.currentRow2;
+        let lst2 = this.currentRow3;
+        this.dialogTableVisible = false;
+        this.form.name = val;
+        this.form.sex = lst;
+        this.form.birthday = lst2;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.name;
+        this.currentRow2 = val.sex;
+        this.currentRow3 = val.birthday;
+      },
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 3) {
+          return [1, 2];
+        }
+      },
+      getOne(id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2002Store/getOne', id)
+          .then(response => {
+            console.log(response[0]);
+            if (response) {
+              this.form = response[0];
+              this.changeOption(this.form, 'view');
+              this.tableData = this.form.interview;
+              this.tableData3[0].education = response[0].education1;
+              this.tableData3[0].specialty = response[0].specialty1;
+              this.tableData3[0].quityear = response[0].quityear1;
+              this.tableData3[1].education = response[0].education2;
+              this.tableData3[1].specialty = response[0].specialty2;
+              this.tableData3[1].quityear = response[0].quityear2;
+              this.tableData3[2].education = response[0].education3;
+              this.tableData3[2].specialty = response[0].specialty3;
+              this.tableData3[2].quityear = response[0].quityear3;
+              this.changeUsing(this.form.adoption);
+              if (this.form.entry_enclosure != '') {
+                let uploadfile = this.form.entry_enclosure.split(';');
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(',')[0] != '') {
+                    let o = {};
+                    o.name = uploadfile[i].split(',')[0];
+                    o.url = uploadfile[i].split(',')[1];
+                    this.fileList.push(o);
+                  }
+                }
+              }
+              this.loading = false;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      getInterviewerids(userlist, row) {
+        row.interviewer = userlist;
+      },
+      getCenterId(val) {
+        this.form.center_id = val;
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+      },
+      getTeamId(val) {
+        this.form.team_id = val;
+      },
+      getUserids(val) {
+        this.form.others = val;
+      },
+      changeEducation(val, index) {
+        this.tableData3[index].education = val;
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      start() {
+        this.form.status = '2';
+        this.buttonClick('update');
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick('update');
+      },
+      changeUsing(val) {
+        if (val === 'PR051004') {
+          this.display = true;
+        } else {
+          this.display = false;
+          this.form.others = '';
+        }
+        this.form.adoption = val;
+        if (val === 'PR051005') {
+          this.other3_show = true;
+        } else {
+          this.other3_show = false;
+        }
+      },
+      changeLevel(val) {
+        this.form.level = val;
+      },
+      getAverage(param) {
+        this.form.interview = JSON.stringify(this.tableData);
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '';
+          }
+        });
+        sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
+        return sums;
+      },
+
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableData[0].interviewer = '';
+          this.tableData[0].score = 0;
+        }
+      },
+      addRow() {
+        this.tableData.push({
+          interviewer: '',
+          score: 0,
+        });
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.entry_enclosure = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.entry_enclosure += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.entry_enclosure = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.entry_enclosure += o.name + ',' + o.url + ';';
+        }
+      },
+
+      buttonClick(val) {
+        this.$refs['form'].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            if (!this.$route.params._id) {
+              this.changeOption(this.form, 'save');
+              this.form.education1 = this.tableData3[0].education;
+              this.form.quityear1 = this.tableData3[0].quityear;
+              this.form.specialty1 = this.tableData3[0].specialty;
+
+              this.form.education2 = this.tableData3[1].education;
+              this.form.quityear2 = this.tableData3[1].quityear;
+              this.form.specialty2 = this.tableData3[1].specialty;
+
+              this.form.education3 = this.tableData3[2].education;
+              this.form.quityear3 = this.tableData3[2].quityear;
+              this.form.specialty3 = this.tableData3[2].specialty;
+
+              this.$store
+                .dispatch('PFANS2002Store/insert', this.form)
+                .then(response => {
+                  this.loading = false;
+                  this.$message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(err => {
+                  this.loading = false;
+                  Message({
+                    message: err,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                });
+            } else {
+              this.loading = true;
+              this.changeOption(this.form, 'save');
+              this.$store
+                .dispatch('PFANS2002Store/update', this.form)
+                .then(response => {
+                  this.loading = false;
+                  this.$message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                  });
+                  if (val !== 'update') {
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(err => {
+                  this.loading = false;
+                  Message({
+                    message: err,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                });
+            }
+          } else {
+            this.activeName = 'first';
+          }
+        });
+      },
+    },
+  };
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   .width {
     width: 11vw;
   }
+
   .dpSupIndex {
     .content {
       height: 34px;

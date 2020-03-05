@@ -415,6 +415,11 @@
         this.form.employed = JSON.stringify(this.tableData);
         this.form.newentry = JSON.stringify(this.newTableData);
         this.form.type = this.$route.params.type;
+        if (this.userlist !== null && this.userlist !== '') {
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.centerid = rst.centerId;
+          this.form.groupid = rst.groupId;
+        }
         if (!this.$route.params._id) {
           this.loading = true;
           this.$store

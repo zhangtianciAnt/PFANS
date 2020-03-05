@@ -30,36 +30,36 @@
         selectedlist: [],
         columns: [
           {
-            code: 'center_name',
+            code: 'projectid',
             label: 'label.center',
             width: 140,
             fix: false,
             filter: true
           },
           {
-            code: 'group_name',
+            code: 'projectname',
             label: 'label.group',
             width: 140,
             fix: false,
             filter: true
           },
-          // {
-          //   code: 'project_id',
-          //   label: 'label.PFANS5008VIEW_PROGRAM',
-          //   width: 120,
-          //   fix: false,
-          //   filter: true
-          // },
           {
-            code: 'log_date',
-            label: 'label.PFANS5008VIEW_RIQI',
+            code: 'numbers',
+            label: 'label.PFANS2009VIEW_JUNE',
             width: 140,
             fix: false,
             filter: true
           },
           {
-            code: 'time_start',
-            label: 'label.PFANS5008FORMVIEW_SC',
+            code: 'confirm',
+            label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
+            width: 140,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'status',
+            label: 'label.status',
             width: 140,
             fix: false,
             filter: true
@@ -69,7 +69,7 @@
           {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         rowid: '',
-        row_id: 'logmanagement_id'
+        row_id: 'projectname'
       };
     },
     mounted() {
@@ -77,41 +77,49 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.logmanagement_id;
+        this.rowid = row.projectname;
       },
-      getProjectList() {
+      getProjectList(){
         this.loading = true;
-            this.$store
-              .dispatch('PFANS5008Store/gettlist', {})
-              .then(response => {
-                  for (let j = 0; j < response.length; j++) {
-                    let lst = getOrgInfoByUserId(response[j].createby);
-                    response[j].center_name = lst.centerNmae;
-                    response[j].group_name = lst.groupNmae;
-                    response[j].log_date = moment(response[j].log_date).format("MM")+"月";
-                  }
-                  this.data = response;
-                  this.loading = false;
-                }
-              )
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false;
-              })
+        this.$store
+          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
+          .then(response => {
+            debugger;
+            console.log(this.$store.getters.userList);
+            let letuserList = this.$store.getters.userList;
+            for (let i = 0;i < letuserList.length; i ++){
+                let letdata = {};
+                //if(letuserList[i].userinfo.type === '0'){
+                  letdata.groupid = letuserList[i].userinfo.groupid;
+                  letdata.groupname = letuserList[i].userinfo.groupname;
+                  letdata.projectid = letuserList[i].userinfo.groupname;
+                  letdata.centerid = letuserList[i].userinfo.centerid;
+                  letdata.projectname = letuserList[i].userinfo.centername;
+                  //letdata.centername = letuserList[i].userinfo.centername;
+                  this.data.push(letdata);
+                //}
+            }
+            // for (let i = 0;i < response.length; i ++){
+            //   if(response[i].confirm === response[i].unconfirm){
+            //     response[i].status = "已确认";
+            //   }
+            //   else{
+            //     response[i].status = "未确认";
+            //   }
+            // }
+            //this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
       },
-      // formatJson(filterVal, jsonData) {
-      //   return jsonData.map(v => filterVal.map(j => {
-      //     if (j === 'timestamp') {
-      //       return parseTime(v[j])
-      //     } else {
-      //       return v[j]
-      //     }
-      //   }))
-      // },
+
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'handle') {

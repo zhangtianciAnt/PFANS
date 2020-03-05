@@ -139,19 +139,31 @@
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
               <el-row >
                 <el-col :span="24">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
-                <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE2')" align="center">
-                  <template slot-scope="scope">
-                    <div class="block">
-                      <el-date-picker
-                        :disabled="!disable"
-                        style="width:100%"
-                        type="date"
-                        v-model="scope.row.travelcontentdate">
-                      </el-date-picker>
-                    </div>
-                  </template>
-                </el-table-column>
+                  <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                    <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELSTARTDATE2')" align="center">
+                      <template slot-scope="scope">
+                        <div class="block">
+                          <el-date-picker
+                            :disabled="!disable"
+                            style="width:100%"
+                            type="date"
+                            v-model="scope.row.travelstartdate">
+                          </el-date-picker>
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELENDDATE2')" align="center">
+                      <template slot-scope="scope">
+                        <div class="block">
+                          <el-date-picker
+                            :disabled="!disable"
+                            style="width:100%"
+                            type="date"
+                            v-model="scope.row.travelenddate">
+                          </el-date-picker>
+                        </div>
+                      </template>
+                    </el-table-column>
                 <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
@@ -523,7 +535,8 @@
         tableP: [{
           travelcontent_id: '',
           businessid: '',
-          travelcontentdate: '',
+          travelstartdate: moment(new Date()).format('YYYY-MM-DD'),
+          travelenddate: '',
           place: '',
           content: '',
           rowindex: '',
@@ -829,7 +842,8 @@
       },
       addRow() {
         this.tableP.push({
-          travelcontentdate: '',
+          travelstartdate: moment(new Date()).format('YYYY-MM-DD'),
+          travelenddate: '',
           place: '',
           content: '',
           rowindex: '',
@@ -841,7 +855,8 @@
           rows.splice(index, 1);
         } else {
           this.tableP = [{
-            travelcontentdate: '',
+            travelstartdate: '',
+            travelenddate: '',
             place: '',
             content: '',
           }];
@@ -963,13 +978,16 @@
               this.form.user_id = this.userlist;
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.travelcontent = [];
+              this.tableP.travelstartdate = moment(this.tableP.travelstartdate).format('YYYY-MM-DD');
+              this.tableP.travelenddate = moment(this.tableP.travelenddate).format('YYYY-MM-DD');
               for (let i = 0; i < this.tableP.length; i++) {
-                if (this.tableP[i].travelcontentdate !== '' || this.tableP[i].place !== '' || this.tableP[i].content !== '') {
+                if (this.tableP[i].travelstartdate !== '' || this.tableP[i].travelenddate !== '' || this.tableP[i].place !== '' || this.tableP[i].content !== '') {
                   this.baseInfo.travelcontent.push(
                     {
                       travelcontent_id: this.tableP[i].travelcontent_id,
                       businessid: this.tableP[i].businessid,
-                      travelcontentdate: this.tableP[i].travelcontentdate,
+                      travelstartdate: this.tableP[i].travelstartdate,
+                      travelenddate: this.tableP[i].travelenddate,
                       place: this.tableP[i].place,
                       content: this.tableP[i].content,
                     },

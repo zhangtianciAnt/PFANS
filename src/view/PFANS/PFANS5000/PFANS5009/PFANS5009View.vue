@@ -113,19 +113,13 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
+            debugger
           // todo status 未定
            for (let j = 0; j < response.length; j++) {
              if (response[j].phase !== null && response[j].phase !== "") {
                let letPhase = getDictionaryInfo(response[j].phase);
                if (letPhase != null) {
                  response[j].phase = letPhase.value1;
-               }
-             }
-             if (response[j].productstatus !== null && response[j].productstatus !== "") {
-               if(response[j].productstatus === "0") {
-                 response[j].productstatus = this.submitted
-               }else {
-                 response[j].productstatus = this.notsubmitted
                }
              }
              if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
@@ -135,6 +129,7 @@
                  response[j].phasestatus = this.phasestatus1
                }
              }
+             debugger
              if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
                if(response[j].contractstatus === "0") {
                  response[j].contractstatus = this.contractstatus0
@@ -164,23 +159,6 @@
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'view') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS5001FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        }
         if (val === 'update') {
           if (this.rowid === '') {
             Message({
@@ -212,32 +190,6 @@
             params: {
               _id: this.rowid,
               disabled: false
-            }
-          })
-        }
-        // if (val === 'insert') {
-        //   this.$router.push({
-        //     name: 'PFANS5009FormView',
-        //     params: {
-        //       _id: '',
-        //       disabled: true
-        //     }
-        //   })
-        // }
-        if (val === 'edit') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS50FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true
             }
           })
         }

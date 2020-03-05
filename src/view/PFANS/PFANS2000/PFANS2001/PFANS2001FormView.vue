@@ -165,6 +165,7 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
+
             <el-tab-pane :label="$t('label.PFANS2001VIEW_JOBREQUIREMENTS')" name="second">
               <el-collapse>
                   <el-collapse-item>
@@ -487,6 +488,27 @@
       }
     },
     methods: {
+      checkRequire() {
+        if (
+          !this.form.center_id ||
+          !this.form.group_id ||
+          !this.form.postname ||
+          !this.form.peoplerequired ||
+          !this.form.workplace ||
+          !this.form.applicationtime ||
+          !this.form.viewproject
+        ) {
+          this.activeName = 'first';
+        } else if (
+          !this.form.genderrequirements ||
+          !this.form.agerequirement ||
+          !this.form.requirements ||
+          !this.form.professional ||
+          !this.form.experience
+        ) {
+          this.activeName = 'second';
+        }
+      },
       getCenterId(val) {
         this.form.center_id = val;
         this.centerorglist = val;
@@ -591,6 +613,7 @@
           })
       },
       buttonClick(val) {
+        this.checkRequire();
         this.$refs["refform"].validate(valid => {
           if (valid) {
               this.form.recruitmentroute = this.form.recruitmentroute.join(",");

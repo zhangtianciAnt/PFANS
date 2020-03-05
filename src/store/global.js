@@ -16,6 +16,8 @@ const global = {
     fileToken:"",
     cooperinterviewList:[],
     supplierinforList:[],
+    orgId:"",
+    userTableList:[],
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -56,6 +58,12 @@ const global = {
     },
     SET_SUPPLIERINFOR(state, infos) {
       state.supplierinforList = infos
+    },
+    SET_ORGID(state, orgId) {
+      state.orgId = orgId
+    },
+    SET_USERTABLELIST(state, userTableList) {
+      state.userTableList = userTableList
     },
   }
 }

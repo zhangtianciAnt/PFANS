@@ -432,6 +432,7 @@
   import moment from "moment";
   import org from "../../../components/org";
   import project from '../../../components/project';
+  import {getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1025FormView",
@@ -512,14 +513,7 @@
           remarks: '',
           maketype: '',
         },
-        tableS:[{
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-        }],
+        tableS:[],
         tableT: [{
           awarddetail_id: '',
           award_id: '',
@@ -568,6 +562,32 @@
                 this.orglist=this.tableT[i].depart;
               }
             }
+            if ( response.numbercounts.length > 0 ) {
+              for (let i = 0; i < response.numbercounts.length; i++) {
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                }
+                let deliverydate = response.numbercounts[i].deliverydate;
+                let completiondate = response.numbercounts[i].completiondate;
+                let claimdate = response.numbercounts[i].claimdate;
+                let supportdate = response.numbercounts[i].supportdate
+
+                if ( deliverydate !== "" && deliverydate!=null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate!== "" && completiondate!=null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate!==""&& claimdate!=null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate!==""&& supportdate!=null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+              }
+            }
+            this.tableS = response.numbercounts
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -731,7 +751,7 @@
             if(valid){
               this.loading = true;
               this.form.maketype='7',
-              this.baseInfo={};
+                this.baseInfo={};
               this.form.user_id=this.userlist;
               if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
                 this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
@@ -786,6 +806,20 @@
               }
             }
           });
+        } else if (val === 'generate') {
+          this.$store
+            .dispatch('PFANS1025Store/generateJxls', this.from)
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
         }
       }
     }
