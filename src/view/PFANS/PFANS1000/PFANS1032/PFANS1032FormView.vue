@@ -134,8 +134,12 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1024VIEW_REMARKS')">
+                <el-input :disabled="true" type="textarea" :rows="3" style="width:71vw" v-model="form.remarks"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
-
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -189,6 +193,7 @@
           claimtype: '',
           currencyposition: '',
           claimdatetime: [],
+          remarks: '',
         },
         rules: {},
       }

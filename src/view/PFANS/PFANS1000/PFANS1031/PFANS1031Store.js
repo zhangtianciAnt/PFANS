@@ -1,7 +1,8 @@
 import {
   get,
   one,
-  update
+  update,
+  downLoad
 } from './PFANS1031Api'
 
 const PFANS1031Store = {
@@ -22,7 +23,6 @@ const PFANS1031Store = {
         })
       })
     },
-
     one({commit}, data) {
       return new Promise((resolve, reject) => {
         one(data).then(response => {
@@ -45,6 +45,16 @@ const PFANS1031Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    downLoad({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downLoad(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })

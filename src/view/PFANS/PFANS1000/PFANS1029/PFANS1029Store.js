@@ -1,8 +1,10 @@
 import {
   get,
   one,
-  update
+  update,
+  generateJxls
 } from './PFANS1029Api'
+import {downLoad} from '../PFANS1027/PFANS1027Api';
 
 const PFANS1029Store = {
   namespaced: true,
@@ -50,7 +52,15 @@ const PFANS1029Store = {
         })
       })
     },
-
+    generateJxls({commit}, data) {
+      return new Promise((resolve, reject) => {
+        generateJxls(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 }
 export default PFANS1029Store;
