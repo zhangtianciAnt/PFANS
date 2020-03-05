@@ -256,6 +256,7 @@
         //   }
         // })
         if (val === 'export1') {
+          this.loading = true;
           this.$store
             .dispatch('PFANS1032Store/downLoad', this.form)
             .then(response => {
