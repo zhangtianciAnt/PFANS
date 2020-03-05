@@ -62,7 +62,7 @@
                 </el-col>
                 <!--            所属公司-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" prop="thecompany">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_BANKACCINFORMATION')" prop="thecompany">
                     <el-input :disabled="!disabled" style="width:20vw"
                               v-model="form.thecompany"></el-input>
                   </el-form-item>
