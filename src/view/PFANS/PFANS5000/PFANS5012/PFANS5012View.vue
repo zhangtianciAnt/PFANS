@@ -8,7 +8,7 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
+  import {getorgGroupList} from "../../../../utils/customize";
   let moment = require("moment");
   export default {
     name: 'PFANS5012View',
@@ -85,19 +85,15 @@
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
           .then(response => {
             debugger;
-            console.log(this.$store.getters.userList);
-            let letuserList = this.$store.getters.userList;
+            let letuserList = this.$store.getters.orgGroupList;
             for (let i = 0;i < letuserList.length; i ++){
                 let letdata = {};
-                //if(letuserList[i].userinfo.type === '0'){
-                  letdata.groupid = letuserList[i].userinfo.groupid;
-                  letdata.groupname = letuserList[i].userinfo.groupname;
-                  letdata.projectid = letuserList[i].userinfo.groupname;
-                  letdata.centerid = letuserList[i].userinfo.centerid;
-                  letdata.projectname = letuserList[i].userinfo.centername;
-                  //letdata.centername = letuserList[i].userinfo.centername;
-                  this.data.push(letdata);
-                //}
+                debugger;
+                letdata.centerid = letuserList[i].centerid;
+                letdata.projectid = letuserList[i].centername;
+                letdata.groupid = letuserList[i].groupid;
+                letdata.projectname = letuserList[i].groupname;
+                this.data.push(letdata);
             }
             // for (let i = 0;i < response.length; i ++){
             //   if(response[i].confirm === response[i].unconfirm){

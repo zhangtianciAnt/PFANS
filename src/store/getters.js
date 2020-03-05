@@ -15,7 +15,8 @@ const getters = {
   cooperinterviewList: state => state.global.cooperinterviewList,
   supplierinforList: state => state.global.supplierinforList,
   orgId: state => state.global.orgId,
-  userTableList: state => state.global.userTableList,
+  orgCenterList: state => state.global.orgCenterList,
+  orgGroupList: state => state.global.orgGroupList,
 }
 
 export default getters
