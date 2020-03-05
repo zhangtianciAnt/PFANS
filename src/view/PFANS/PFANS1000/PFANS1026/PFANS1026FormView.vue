@@ -3894,7 +3894,7 @@ first<template>
                 else if(this.form.contracttype === 'HT008009'){
                   this.tabledata[i].maketype = '9';
                 }
-                if(this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
+                if(this.tabledata[i].state === this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
                   let letclaimamount = 0;
                   for (let j = 0; j < this.tableclaimtype.length; j++) {
                     letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
@@ -3923,7 +3923,7 @@ first<template>
                         this.loading = false;
                         if(value === "makeinto") {
                           this.handleIndexDisabled();
-                        }else if(value === "save") {
+                        }else if(value === "save" || value === "cancellation") {
                           this.paramsTitle();
                         }
                       })
@@ -4073,6 +4073,7 @@ first<template>
                     for (let i = 0; i < this.tabledata.length; i++) {
                       this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
+                    this.handleSave("cancellation");
                     // this.display = false;
                     // this.checkeddisplay = false;
                     // this.dialogFormVisible = true;
