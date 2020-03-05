@@ -14,6 +14,8 @@ const getters = {
   fileToken: state => state.global.fileToken,
   cooperinterviewList: state => state.global.cooperinterviewList,
   supplierinforList: state => state.global.supplierinforList,
+  orgId: state => state.global.orgId,
+  userTableList: state => state.global.userTableList,
 }
 
 export default getters

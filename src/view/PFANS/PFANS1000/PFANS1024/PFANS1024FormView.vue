@@ -20,7 +20,9 @@
             <el-form-item  :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
               <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
+                v-if="checkeddisplay"
                 v-model="checked"
+                disabled
                 @change="getChecked"
               >{{$t('label.PFANS1024VIEW_LETTERS')}}</el-checkbox>
             </el-form-item>
@@ -73,7 +75,7 @@
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
                   <el-button @click="dialogBook = false">
-                  <span style="margin-right: 86%;" @click="clickData(7)">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  <span style="margin-right: 86%;" @click="clickData(7)" :disabled=disabledCount7>{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
                 </el-col>
@@ -866,6 +868,7 @@
     },
     data(){
       return{
+        disabledCount7: false,
         checked: false,
         checkeddisplay: true,
         dialogBook: false,
@@ -1012,9 +1015,9 @@
       if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
         this.buttonList = [];
       }
-      if(this.$route.params._id === ''){
-        this.buttonList.splice(3, 1);
-      }
+//      if(this.$route.params._id === ''){
+//        this.buttonList.splice(3, 1);
+//      }
     },
     methods: {
       getGroupId(val) {
@@ -1261,7 +1264,14 @@
         }
 
       },
-      addRowdata() {
+      addRowdata(isClone) {
+        //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+        if ( isClone ) {
+          let olddata = JSON.parse(JSON.stringify(this.tabledata[0]));//this.form.contractnumber
+          olddata.contractnumber = this.letcontractnumber;
+          olddata.state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+          this.tabledata.push(olddata)
+        } else {
         this.tabledata.push({
           contractapplication_id: '',
           careeryear: this.form.applicationdate,
@@ -1305,6 +1315,7 @@
           type: '0',
           maketype: '',
         });
+        }
       },
       addRowclaimtype() {
         this.tableclaimtype.push({
@@ -1323,6 +1334,7 @@
       },
       //契約番号做成
       click() {
+
         //請求方式
         let letclaimtype = '';
         let letbook = '';
@@ -1383,12 +1395,17 @@
         else{
           this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
         }
+        //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+        let isClone = false;
         if(this.checked){
           for (let i = 0; i < this.tabledata.length; i++) {
             this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+            if (this.tabledata[0].deliverycondition == 'HT009002') {
+              isClone = true;
+            }
           }
         }
-        this.addRowdata();
+        this.addRowdata(isClone);
         this.tableclaimtype = [];
         if(this.form.claimtype === "HT001001"){
           this.addRowclaimtype();
@@ -1441,33 +1458,59 @@
           }
         }
       },
+      //存在check
+      existCheck(contractNumber, index) {
+        this.loading = true;
+        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
+          .then(response => {
+            let s = "count" + index;
+            if(response[s] > 0) {
+              Message({
+                message: "请先删除",
+                type: 'success',
+                duration: 5 * 1000
+              });
+            }else {
+              var tabledata = {'contractnumber': contractNumber,'rowindex': index};
+              this.$refs["refform"].validate(valid => {
+                if (valid) {
+                  this.loading = true;
+                  this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      this.paramsTitle();
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    })
+                }
+              });
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       //書類作成
       clickData(val){
-        var tabledata = {'contractnumber': this.$route.params._id,'rowindex': val};
-        this.$refs["refform"].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t("normal.success_02"),
-                  type: 'success',
-                  duration: 5 * 1000
-                });
-                this.paramsTitle();
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false;
-              })
-          }
-        });
+        this.existCheck(this.letcontractnumber,val);
       },
       paramsTitle(){
         this.$router.push({
@@ -1476,6 +1519,110 @@
             title: 10,
           },
         });
+      },
+      //保存
+      handleSave(value){
+        let baseInfo = {};
+        baseInfo.contractapplication = [];
+        baseInfo.contractnumbercount = [];
+        for (let i = 0; i < this.tabledata.length; i++) {
+          this.tabledata[i].contractdate = this.getcontractdate(this.tabledata[i].contractdate);
+          this.tabledata[i].contracttype = this.form.contracttype;
+          if (this.form.contracttype === 'HT014001') {
+            this.tabledata[i].maketype = '1';
+          } else if (this.form.contracttype === 'HT014002') {
+            this.tabledata[i].maketype = '2';
+          } else if (this.form.contracttype === 'HT014003') {
+            this.tabledata[i].maketype = '3';
+          } else if (this.form.contracttype === 'HT014004') {
+            this.tabledata[i].maketype = '4';
+          }
+          if(this.tabledata[i].state === this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
+            let letclaimamount = 0;
+            for (let j = 0; j < this.tableclaimtype.length; j++) {
+              letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
+            }
+            this.tabledata[i].claimamount = letclaimamount;
+          }
+        }
+        baseInfo.contractapplication = this.tabledata;
+        baseInfo.contractnumbercount = this.tableclaimtype;
+        this.$refs["refform"].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            if (this.$route.params._id) {
+              this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                .then(response => {
+                  this.data = response;
+                  Message({
+                    message: this.$t("normal.success_02"),
+                    type: 'success',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                  if(value === "makeinto") {
+                    this.handleIndexDisabled();
+                  }else if(value === "save" || value === "cancellation") {
+                    this.paramsTitle();
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            } else {
+              this.$store.dispatch('PFANS1026Store/insert', baseInfo)
+                .then(response => {
+                  this.data = response;
+                  Message({
+                    message: this.$t("normal.success_01"),
+                    type: 'success',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                  if(value === "makeinto") {
+                    this.handleIndexDisabled();
+                  }else if(value === "save") {
+                    this.paramsTitle();
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false;
+                })
+            }
+          }
+        });
+      },
+      //indexDisabled
+      handleIndexDisabled() {
+        this.loading = true;
+        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
+          .then(response => {
+            this.dialogBook = true;
+            if(response.count7 === 0) {
+              this.disabledCount7 = false;
+            }else {
+              this.disabledCount7 = true;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
       },
       buttonClick(val) {
         if (val === "application") {
@@ -1489,88 +1636,21 @@
             this.form.contracttype = 'HT014001';
             this.form.applicationdate = 'HT007001';
             this.form.entrycondition = 'HT003001';
+          }else {
+            this.getChecked(true);
           }
         }
         if (val === "cancellation") {
           for (let i = 0; i < this.tabledata.length; i++) {
             this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
           }
+          this.handleSave("cancellation");
         }
         if (val === "save") {
-          let baseInfo = {};
-          baseInfo.contractapplication = [];
-          baseInfo.contractnumbercount = [];
-          for (let i = 0; i < this.tabledata.length; i++) {
-            this.tabledata[i].contractdate = this.getcontractdate(this.tabledata[i].contractdate);
-            this.tabledata[i].contracttype = this.form.contracttype;
-            if (this.form.contracttype === 'HT014001') {
-              this.tabledata[i].maketype = '1';
-            } else if (this.form.contracttype === 'HT014002') {
-              this.tabledata[i].maketype = '2';
-            } else if (this.form.contracttype === 'HT014003') {
-              this.tabledata[i].maketype = '3';
-            } else if (this.form.contracttype === 'HT014004') {
-              this.tabledata[i].maketype = '4';
-            }
-            if(this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")){
-              let letclaimamount = 0;
-              for (let j = 0; j < this.tableclaimtype.length; j++) {
-                letclaimamount = letclaimamount + Number(this.tableclaimtype[j].claimamount);
-              }
-              this.tabledata[i].claimamount = letclaimamount;
-            }
-          }
-          baseInfo.contractapplication = this.tabledata;
-          baseInfo.contractnumbercount = this.tableclaimtype;
-          this.$refs["refform"].validate(valid => {
-            if (valid) {
-              this.loading = true;
-              if (this.$route.params._id) {
-                this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t("normal.success_02"),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                  })
-              } else {
-                this.$store.dispatch('PFANS1026Store/insert', baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t("normal.success_01"),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                  })
-              }
-            }
-          });
+          this.handleSave("save");
         }
         if (val === "makeinto") {
-          this.dialogBook = true;
+          this.handleSave("makeinto");
         }
       }
     }
