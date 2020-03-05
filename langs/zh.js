@@ -1151,8 +1151,6 @@ module.exports = {
     PFANS1028VIEW_SUMMARY: '概要',
     PFANS1028VIEW_PAYMENT: '税関コード',
     PFANS1028VIEW_BIT: '単位',
-
-
     PFANS1028VIEW_TRADENAME9: 'ロール成形機とロール機能を持つスパイラル加工機と\n' +
       '芯軸用に設計されたソフトウェア',
     PFANS1028VIEW_TRADENAME10: '核両用品及び関連技術規制リスト工業設備の「数値制御」ユニットや\n' +
@@ -1291,7 +1289,6 @@ module.exports = {
       '      (1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011RAD(SI)-SのCMOS/SOS[SI-ON SAPPHIRE/補完型金属酸化物半導体]部品の製造技術"\t\t\t\n' +
       '(2) 耐静電気≧3,000V、耐瞬時線量率1×1011RAD(SI)-Sの双電極部品製造技術',
     PFANS1028VIEW_POINTS2: '遠隔操作型核武装偵察ロボット製造技術',
-
     PFANS1028VIEW_POINTS3: '"1. 広帯域小型化セパレータ製造技術\n' +
       '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程"\t\t\t\n' +
       '　(2) 極狭FERROMAGNETIC共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程\t\t\t\n' +
