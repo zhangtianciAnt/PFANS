@@ -203,7 +203,12 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_TECHNICALCONTENT')+$t(' (')+$t('label.PFANS1024VIEW_JAPANESE')+$t(') ')">
-                          <el-input type="textarea" :disabled="!disable" v-model="form.technicalcontentjapanese"></el-input>
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.technicalcontentjapanese"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_JAPANESE')+$t(') ')">
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermsjapanese"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -211,7 +216,12 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_TECHNICALCONTENT')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
-                          <el-input type="textarea" :disabled="!disable" v-model="form.technicalcontentchinese"></el-input>
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.technicalcontentchinese"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermschinese"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -228,12 +238,28 @@
                           </dicselect>
                         </el-form-item>
                       </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_SUBCONTRACT')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
+                          <dicselect :code="code4"
+                                     :data="form.subcontract"
+                                     :disabled="!disable"
+                                     :multiple="multiple"
+                                     @change="getsubcontract"
+                                     style="width:20vw">
+                          </dicselect>
+                        </el-form-item>
+                      </el-col>
                     </el-row>
 
                     <el-row>
                       <el-col :span="8">
                         <el-form-item label="">
-                          <el-input type="textarea" :disabled="!disable" v-model="form.redelegatecontent"></el-input>
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.redelegatecontent"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item label="">
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.subcontractcontent"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -470,6 +496,7 @@
         code1: 'HT008',
         code2: 'HT006',
         code3: 'PJ080',
+        code4: 'PJ010',
         errorgroup:'',
         selectType: "Single",
         loading: false,
@@ -507,6 +534,10 @@
             redelegatecontent:'',
             companyleaderjapanese:'',
             companyleaderchinese:'',
+            othertermsjapanese:'',
+            othertermschinese:'',
+            subcontract:'',
+            subcontractcontent:'',
         },
         form2: {
               contract_id:'',
@@ -668,6 +699,13 @@
                 this.form.redelegate = val;
             }else{
                 this.form2.redelegate = val;
+            }
+        },
+      getsubcontract(val){
+            if(this.flag === 0){
+                this.form.subcontract = val;
+            }else{
+                this.form2.subcontract = val;
             }
         },
       getextrinsic(val) {

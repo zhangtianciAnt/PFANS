@@ -808,7 +808,7 @@
           });
         } else if (val === 'generate') {
           this.$store
-            .dispatch('PFANS1025Store/generateJxls', this.from)
+            .dispatch('PFANS1025Store/generateJxls', this.form)
             .then(response => {
               this.loading = false;
             })
