@@ -340,10 +340,10 @@
                   width="120">
                 <!--出项者PSDCD相当ランク-->
                   <el-table-column
-                    :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
+                    :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
                     align="center"
                     prop="staffpsdcdrank"
-                    width="100">
+                    width="150">
                     <template slot-scope="scope">
                       <dicselect
                         :no="scope.row"
