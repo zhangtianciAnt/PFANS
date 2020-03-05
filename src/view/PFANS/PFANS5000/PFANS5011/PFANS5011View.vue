@@ -77,7 +77,6 @@
       rowClick(row) {
         this.rowid = row.projectid
       },
-
       getProjectList(){
           this.loading = true;
           this.$store
