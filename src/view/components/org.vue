@@ -37,21 +37,22 @@
       EasyTree
     },
     mounted () {
-      this.$store
-        .dispatch('orgTreeStore/getOrgTree')
-        .then(response => {
-          if(response){
-
-          this.data = [response]
-          }
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        })
+      // this.$store
+      //   .dispatch('orgTreeStore/getOrgTree')
+      //   .then(response => {
+      //     if(response){
+      //
+      //     this.data = [response]
+      //     }
+      //   })
+      //   .catch(error => {
+      //     Message({
+      //       message: error,
+      //       type: 'error',
+      //       duration: 5 * 1000
+      //     })
+      //   })
+      this.data = this.$store.getters.orgList;
       this.orglistids = this.orglist
 
       if (!Array.isArray(this.orglistids)) {
