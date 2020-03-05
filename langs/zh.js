@@ -353,7 +353,7 @@ module.exports = {
     PFANS6001VIEW: '协力面试记录',
     PFANS6002VIEW: '客户信息',
     PFANS6003VIEW: '供应商信息',
-    PFANS6004VIEW: '外驻人员登记表',
+    PFANS6004VIEW: '外驻人员信息',
     PFANS6005VIEW: '単価設定',
     PFANS6006VIEW_TITLE: '活用情报',
     PFANS6007VIEW: '各種経費',
