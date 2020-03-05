@@ -65,6 +65,7 @@ module.exports = {
     refuse: '拒绝',
     exportQingQiuShu_GuoNei: '国内请求书',
     exportJianJiShu: '見積書',
+    exportNaPinShu_ShouTuo: '納品書作成',
   },
   table: {
     detail: '一览',
