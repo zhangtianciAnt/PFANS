@@ -95,13 +95,21 @@
                         filter: true,
                     },
                     {
-                        //负责人
-                        code: 'liableperson',
-                        label: 'label.ASSETS1002VIEW_USERID',
-                        width: 120,
-                        fix: false,
-                        filter: true,
+                      //所属公司
+                      code: 'thecompany',
+                      label: 'label.PFANS6003FORMVIEW_THECOMPANY',
+                      width: 120,
+                      fix: false,
+                      filter: true,
                     },
+                  {
+                    //负责人
+                    code: 'liableperson',
+                    label: 'label.ASSETS1002VIEW_USERID',
+                    width: 120,
+                    fix: false,
+                    filter: true,
+                  },
                     {
                         //项目联络人
                         code: 'prochinese',
