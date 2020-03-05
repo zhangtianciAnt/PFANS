@@ -31,3 +31,11 @@ export function insertBook(data) {
     data: data
   })
 }
+
+export function existCheck(data) {
+  return request({
+    url: 'contractapplication/existCheck',
+    method: 'get',
+    params: data
+  })
+}

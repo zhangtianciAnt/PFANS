@@ -1,5 +1,5 @@
 import request from '../../../../utils/request'
-
+import requestDownload from '../../../../utils/requestDownload'
 
 export function get() {
   return request({
@@ -19,6 +19,15 @@ export function update(data) {
     url: 'petition/update',
     method: 'post',
     data: data
+  })
+}
+
+export function downLoad(data) {
+  return requestDownload({
+    url: 'petition/downLoad1',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
 

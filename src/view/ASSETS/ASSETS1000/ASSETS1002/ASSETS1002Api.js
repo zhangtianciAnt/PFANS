@@ -9,9 +9,9 @@ export function getInventoryplan() {
 
 export function selectAll(data) {
   return request({
-    url: 'inventoryplan/selectAll',
-    method: 'get',
-    params: data,
+    url: 'assets/list',
+    method: 'post',
+    data: data,
   });
 }
 
