@@ -84,7 +84,7 @@
           </el-table-column>
         </el-table-column>
         <el-table-column>
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETTYPE')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETTYPE')" align="center" width="120">
             <template slot-scope="scope">
               <el-select v-model="scope.row.assetstype1" @change="(val) => getSummaries(tableNewYear)">
                 <el-option
@@ -390,7 +390,7 @@
           </el-table-column>
         </el-table-column>
         <el-table-column>
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETTYPE')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETTYPE')" align="center" width="120">
             <template slot-scope="scope">
               <el-select v-model="scope.row.assetstype1" @change="(val) => getLastYearSummaries(tableLastYear)">
                 <el-option
@@ -638,7 +638,6 @@
         }
       },
       handleChange(scope,index){
-        debugger
         if(scope.prices > 0 ){
           scope["money" + index] = scope.prices * scope["number" + index];
           if(index >= 4 && index <= 9){
@@ -665,7 +664,6 @@
         this.getSummaries(this.tableNewYear);
       },
       handleLastYearChange(scope,index){
-        debugger
         if(scope.prices > 0 ){
           scope["money" + index] = scope.prices * scope["number" + index];
          if((index >= 9 && index <= 12) || (index >= 1 && index <= 3)){
@@ -690,7 +688,6 @@
         let totalActual = {};
         table.forEach(
           row =>{
-            debugger
             let sum = 0;
             for (let i = 1;i <= 12; i++){
               if(row.assetstype1 === "1"){
@@ -734,18 +731,15 @@
         totalActual.moneysecondhalf = (totalActual.money10 + totalActual.money11 + totalActual.money12 + totalActual.money1 + totalActual.money2 + totalActual.money3).toFixed(5);
         totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
         totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf)).toFixed(5);
-        debugger
         this.tableNewYearTotal = [totalExpect,totalActual];
         this.getTableTotal();
       },
       getLastYearSummaries(table) {
-        debugger
         let months = [1,2,3,12];
         let totalExpect = {};
         let totalActual = {};
         table.forEach(
           row =>{
-            debugger
             let sum = 0;
             for (let i = 0;i <= months.length; i++){
               if(row.assetstype1 === "1"){
@@ -782,7 +776,6 @@
         totalActual.moneysecondhalf = (totalActual.money12 + totalActual.money1 + totalActual.money2 + totalActual.money3).toFixed(5);
         totalExpect.moneyAnnual = totalExpect.moneysecondhalf;
         totalActual.moneyAnnual = totalActual.moneysecondhalf;
-        debugger
         this.tableLastYearTotal = [totalExpect,totalActual];
         this.getTableTotal();
       },
@@ -815,7 +808,6 @@
     watch:{
       tableNewYear:{
         handler(newValue,oldValue){
-          debugger
           this.tableNewYear = newValue;
           this.getSummaries(newValue);
         },
@@ -823,7 +815,6 @@
       },
       tableLastYear:{
         handler(newValue,oldValue){
-          debugger
           this.tableLastYear = newValue;
           this.getLastYearSummaries(newValue);
         },

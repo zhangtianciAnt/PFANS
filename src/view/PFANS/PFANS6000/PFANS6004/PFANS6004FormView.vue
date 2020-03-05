@@ -172,6 +172,14 @@
           </el-row>
           <!--          第四行-->
           <el-row>
+            <!--            所属部门-->
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
+
             <!--            技术分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
@@ -198,6 +206,10 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+
+          </el-row>
+          <!--          第五行-->
+          <el-row>
             <!--            作业形态-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
@@ -211,9 +223,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-          </el-row>
-          <!--          第五行-->
-          <el-row>
             <!--            作业分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')" prop="jobclassification">
@@ -363,7 +372,7 @@
               >
 <!--                部门-->
                 <el-table-column
-                  prop="entrust"
+                  prop="departmentid"
                   :label="$t('label.department')"
                   width="150"
                 >
@@ -376,12 +385,12 @@
                 >
                 </el-table-column>
 <!--                客户-->
-                <el-table-column
-                  prop="deployment"
-                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                  width="150"
-                >
-                </el-table-column>
+<!--                <el-table-column-->
+<!--                  prop="deployment"-->
+<!--                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
+<!--                  width="150"-->
+<!--                >-->
+<!--                </el-table-column>-->
 <!--                项目类型-->
                 <el-table-column
                   prop="projecttype"
@@ -391,14 +400,14 @@
                 </el-table-column>
 <!--                开始时间-->
                 <el-table-column
-                  prop="startdate"
+                  prop="mintime"
                   :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
                   width="150"
                 >
                 </el-table-column>
 <!--                结束时间-->
                 <el-table-column
-                  prop="enddate"
+                  prop="maxtime"
                   :label="$t('label.end')"
                   width="150"
                 >
@@ -430,6 +439,15 @@
       org,
     },
     data() {
+      var checkgroup = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        } else {
+          this.errorgroup = '';
+          return callback();
+        }
+      };
       var checksuppliername = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
           this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
@@ -474,7 +492,9 @@
         errorexpname: '',
         errorsuppliername: '',
         erroradmissiontime: '',
+        grouporglist: '',
         errorexitime: '',
+        errorgroup: '',
         disabled: false,
         buttonList: [],
         multiple: false,
@@ -485,6 +505,7 @@
           expname: '',
           cooperuserid: '',
           sex: '',
+          group_id: '',
           number: '',
           post: '',
           contactinformation: '',
@@ -515,6 +536,7 @@
           projecttype: '',
           startdate: '',
           endtime: '',
+            mintime:'',
         }],
         //性别
         code1: 'BP001',
@@ -564,6 +586,14 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.sex'),
+              trigger: 'change',
+            },
+          ],
+          //所属部门
+          group_id: [
+            {
+              required: true,
+              validator: checkgroup,
               trigger: 'change',
             },
           ],
@@ -711,6 +741,7 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.grouporglist = this.form.group_id;
             this.loading = false;
             if (this.form.exits === '1') {
               this.show = false;
@@ -805,6 +836,15 @@
       },
       handleCurrentChange1(val) {
         this.currentRow1 = val;
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.grouporglist = val;
+        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+        } else {
+          this.errorgroup = '';
+        }
       },
       changeexits(val) {
         this.form.exits = val;
@@ -938,12 +978,13 @@
           .dispatch('PFANS6004Store/getCompanyProject', {"SyspName":this.$route.params._name})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].entrust !== null && response[j].entrust !== "") {
-                let entrust = getUserInfo(response[j].entrust);
-                if (entrust != null) {
-                  response[j].entrust = user.userinfo.entrust;
+                if (response[j].departmentid !== null && response[j].departmentid !== '') {
+                    let cooperInfo = getCooperinterviewList(response[j].departmentid);
+                    debugger;
+                    if (cooperInfo) {
+                        response[j].departmentid = cooperInfo.coopername;
+                    }
                 }
-              }
               if (response[j].project_name !== null && response[j].project_name !== "") {
                 let project_name = getUserInfo(response[j].project_name);
                 if (project_name) {
@@ -956,11 +997,11 @@
                   response[j].deployment = user.userinfo.deployment;
                 }
               }
-              if (response[j].startdate !== null && response[j].startdate !== "") {
-                response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+              if (response[j].mintime !== null && response[j].mintime !== "") {
+                response[j].mintime = moment(response[j].mintime).format("YYYY-MM-DD");
               }
-              if (response[j].enddate !== null && response[j].enddate !== "") {
-                response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+              if (response[j].maxtime !== null && response[j].maxtime !== "") {
+                response[j].maxtime = moment(response[j].maxtime).format("YYYY-MM-DD");
               }
               if (response[j].projecttype !== null && response[j].projecttype !== "") {
                 let projecttype = getDictionaryInfo(response[j].projecttype);

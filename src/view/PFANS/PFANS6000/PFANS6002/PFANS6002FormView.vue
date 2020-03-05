@@ -50,6 +50,13 @@
                           v-model="form.liableperson"></el-input>
               </el-form-item>
             </el-col>
+            <!--            所属公司-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" prop="thecompany">
+                <el-input :disabled="!disabled" style="width:20vw"
+                          v-model="form.thecompany"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -293,6 +300,7 @@
                     website: '',
                     remarks: '',
                     uploadfile: '',
+                  thecompany: '',
                 },
                 //人员规模
                 code1: 'BP007',

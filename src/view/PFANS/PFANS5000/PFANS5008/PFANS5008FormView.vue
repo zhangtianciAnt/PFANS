@@ -34,7 +34,7 @@
                   <div v-show="isShow">
                     <el-col :span="6">
                       <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')" prop="project_id">
-                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw">
+                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable >
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -638,12 +638,15 @@
           .then(response => {
             const data = [];
             for (let i = 0; i < response.length; i++) {
-              data.push({
-                key: response[i].companyprojects_id,
-                label: response[i].project_name,
-              });
+                if(response[i].status=='5'||response[i].status=='6'||response[i].status=='7'||response[i].status=='8'){
+                    data.push({
+                        key: response[i].companyprojects_id,
+                        label: response[i].project_name,
+                    });
+                }
             }
             this.transfer = data;
+            console.log("aaa",this.transfer)
             this.loading = false;
           })
           .catch(error => {

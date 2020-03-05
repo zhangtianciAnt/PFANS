@@ -113,6 +113,7 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
+            debugger
           // todo status 未定
            for (let j = 0; j < response.length; j++) {
              if (response[j].phase !== null && response[j].phase !== "") {
@@ -128,6 +129,7 @@
                  response[j].phasestatus = this.phasestatus1
                }
              }
+             debugger
              if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
                if(response[j].contractstatus === "0") {
                  response[j].contractstatus = this.contractstatus0
