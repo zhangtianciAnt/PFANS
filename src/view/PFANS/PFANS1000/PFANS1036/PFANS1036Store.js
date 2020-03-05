@@ -1,4 +1,4 @@
-import {createBusinessplan, get, selectById, updateBusinessplan} from './PFANS1036Api'
+import {createBusinessplan, get, selectById, updateBusinessplan, getPersonPlan} from './PFANS1036Api'
 
 const PFANS1036Store = {
   namespaced: true,
@@ -21,6 +21,19 @@ const PFANS1036Store = {
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getPersonPlan({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getPersonPlan(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
