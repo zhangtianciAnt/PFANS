@@ -2,7 +2,7 @@ import {
   get,
   one,
   update,
-  downLoad
+  downLoad,
 } from './PFANS1032Api'
 
 const PFANS1032Store = {
@@ -59,7 +59,7 @@ const PFANS1032Store = {
       })
     },
   }
-}
+};
 export default PFANS1032Store;
 
 

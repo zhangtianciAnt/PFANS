@@ -121,6 +121,85 @@
                 <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 72vw"></el-input>
               </el-form-item>
           </el-row>
+
+<!--          //表格-->
+
+          <el-row>
+            <el-col :span="22">
+              <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
+                        style="width: 90vw">
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_DEVICENAME')"
+                  align="center" >
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.devicename"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS3005VIEW_QUANTITY')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.quantity"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_UNPRICE')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.unitprice"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_PRICE')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.price"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="!disabled"
+                      @click.native.prevent="deleteRow(scope.$index, tableA)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="!disabled"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport">
@@ -298,6 +377,18 @@
           equipment:'',
           uploadfile: '',
         },
+        baseInfo: {},
+        tableA: [
+          {
+          unusedeviceid: '',
+          judgementid: '',
+          devicename: '',
+          price: '',
+          unitprice: '',
+          quantity: '',
+          rowindex: '',
+        },
+    ],
         code: 'PR002',
         code1: 'PR003',
         code2: 'PJ010',
@@ -424,10 +515,13 @@
         this.loading = true;
       if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1003Store/getJudgementOne', {"judgementid": this.$route.params._id})
+          .dispatch('PFANS1003Store/getJudgementOne', {judgementid: this.$route.params._id})
           .then(response => {
-            this.form = response;
+            this.form = response.judgement;
             this.userlist = this.form.user_id;
+            if(response.unusedevice.length > 0){
+              this.tableA = response.unusedevice;
+            }
               if (this.form.careerplan === '0'){
                   this.show = false;
                   this.show1 = false;
@@ -518,6 +612,35 @@
       }
     },
     methods: {
+
+      //设备
+      addRow() {
+        this.tableA.push({
+          unusedeviceid: '',
+          judgementid: '',
+          devicename: '',
+          price: '',
+          unitprice: '',
+          quantity: '',
+          rowindex: '',
+        });
+      },
+      // 开发计划
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableA = [{
+            unusedeviceid: '',
+            judgementid: '',
+            devicename: '',
+            price: '',
+            unitprice: '',
+            quantity: '',
+            rowindex: '',
+          }];
+        }
+      },
       getUserids(val) {
         this.form.user_id = val;
         let lst = getOrgInfoByUserId(val);
@@ -682,6 +805,25 @@
           this.$refs["refform"].validate(valid => {
             if (valid) {
                 this.loading = true;
+                this.baseInfo = {};
+                this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.unusedevice = [];
+              //设备
+              for (let i = 0; i < this.tableA.length; i++) {
+                if (
+                  this.tableA[i].devicename !== '' ||
+                  this.tableA[i].price !== '' ||
+                  this.tableA[i].unitprice !== '' ||
+                  this.tableA[i].quantity !== ''
+                ) {
+                  this.baseInfo.unusedevice.push({
+                    devicename: this.tableA[i].devicename,
+                    price: this.tableA[i].price,
+                    unitprice: this.tableA[i].unitprice,
+                    quantity: this.tableA[i].quantity,
+                  });
+                }
+              }
                 if (this.form.careerplan === '0') {
                     this.form.businessplantype = "";
                     this.form.businessplanbalance = "";
@@ -700,7 +842,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1003Store/updateJudgement', this.form)
+                  .dispatch('PFANS1003Store/updateJudgement', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -724,7 +866,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1003Store/createJudgement', this.form)
+                  .dispatch('PFANS1003Store/createJudgement', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
