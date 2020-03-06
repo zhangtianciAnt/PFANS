@@ -91,6 +91,14 @@ export function getTimestart(data) {
   })
 }
 
+export function getGroupTimestart(data) {
+  return request({
+    url: 'companyprojects/getGroupTimestart',
+    method: 'get',
+    params: data
+  })
+}
+
 export function updateTimestart(data) {
   return request({
     url: 'companyprojects/updateTimestart',

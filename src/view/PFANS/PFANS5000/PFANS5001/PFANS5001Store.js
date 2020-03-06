@@ -154,6 +154,19 @@ const PFANS5001Store = {
         })
       })
     },
+    getGroupTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getGroupTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     updateTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
         updateTimestart(data).then(response => {
