@@ -130,17 +130,19 @@
                         if(response[j].projectid === usernameList[x].userid){
                             let letdata = {};
                             this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-                            this.data[i].status = "未确认";
-                            if(response[i].unconfirm != null){
-                                if(Number(response[i].unconfirm) > 0){
-                                  this.data[i].status = "未确认";
+                            if (this.$i18n) {
+                                this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                                if(response[i].unconfirm != null){
+                                  if(Number(response[i].unconfirm) > 0){
+                                    this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                                  }
                                 }
-                            }
-                            else{
-                                if(response[i].confirm != null){
+                                else{
+                                  if(response[i].confirm != null){
                                     if(Number(response[i].confirm) > 0){
-                                      this.data[i].status = "确认";
+                                      this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
                                     }
+                                  }
                                 }
                             }
                         }
