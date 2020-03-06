@@ -1913,8 +1913,8 @@
               disaccommod: false,
               showtick: true,
             }],
-              this.tableT[0].trafficdate=this.form.startdate;
-            this.tableT[1].trafficdate=this.form.enddate;
+            //   this.tableT[0].trafficdate=this.form.startdate;
+            // this.tableT[1].trafficdate=this.form.enddate;
               this.form.place = res.city,
               this.form.startdate = res.startdate,
               this.form.enddate = res.enddate,
