@@ -52,7 +52,10 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList', {})
         .then(response => {
-          for (let item of response) {
+          var result = response.filter(value => {
+            return value.status === "4";
+          });
+          for (let item of result) {
             let i = {};
             i.value1 = item.project_name;
             i.code = item.companyprojects_id;

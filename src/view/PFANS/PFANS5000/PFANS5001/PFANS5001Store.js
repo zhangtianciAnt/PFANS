@@ -1,5 +1,5 @@
 import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,
-        select,getPjList,getProjectList,getTimestart,updateTimestart} from './PFANS5001Api'
+        select,getPjList,getProjectList,getTimestart,updateTimestart,getList2} from './PFANS5001Api'
 
 
 const PFANS5001Store = {
@@ -105,6 +105,19 @@ const PFANS5001Store = {
     getPjList({commit}, data) {
       return new Promise((resolve, reject) => {
         getPjList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getList2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getList2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
