@@ -97,14 +97,7 @@
       this.$store
         .dispatch('PFANS6001Store/getcooperinterview')
         .then(response => {
-          console.log(response);
           for (let j = 0; j < response.length; j++) {
-            if (response[j].cooperuserid !== null && response[j].cooperuserid !== '') {
-              let cooperInfo = getCooperinterviewList(response[j].cooperuserid);
-              if (cooperInfo) {
-                response[j].coopername = cooperInfo.coopername;
-              }
-            }
             if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
               let graduateschool = getUserInfo(response[j].graduateschool);
               if (graduateschool) {

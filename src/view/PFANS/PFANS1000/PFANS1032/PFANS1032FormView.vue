@@ -161,13 +161,7 @@
     data() {
       return {
         title: "title.PFANS1032VIEW",
-        buttonList: [
-          {
-            key: 'export1',
-            name: 'button.exportQingQiuShu_GuoNei',
-            disabled: false,
-          },
-        ],
+        buttonList: [],
         loading: false,
         disabled: true,
         code1: 'HT008',
@@ -223,7 +217,14 @@
     },
     created() {
       if (!this.$route.params.disabled) {
-        this.buttonList = [];
+        this.buttonList = [
+          {
+            key: 'export1',
+            name: 'button.exportQingQiuShu_GuoNei',
+            disabled: false,
+          },
+        ];
+        this.disabled = true;
       }
       this.disable = this.$route.params.disabled;
     },

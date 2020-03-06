@@ -8,7 +8,7 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
-  import {getorgGroupList,getUserInfo} from "../../../../utils/customize";
+  import {getUserInfo} from "../../../../utils/customize";
   let moment = require("moment");
   export default {
     name: 'PFANS5012View',
@@ -82,10 +82,7 @@
         let userinfo =  this.$store.getters.userList;
         for (let i = 0;i < userinfo.length; i ++){
             if(userinfo[i].userinfo.groupid === groupid){
-                groupuser.push({
-                  userid: userinfo[i].userid,
-                  username: userinfo[i].userinfo.customername
-                });
+                groupuser.push(userinfo[i].userid);
             }
         }
       }
@@ -107,11 +104,14 @@
             group.groupid = groupid;
             group.confirm = '';
             group.status = '';
-            group.usernameList = groupuser;
+            group.groupuser = groupuser;
+            group.groupuserlist = groupuser.join("','");
             group.cooperinterviewList = groupcooperinterview;
             this.data.push(group);
           }
       }
+      debugger;
+      console.log(this.data);
       this.getProjectList();
     },
     methods: {
@@ -124,23 +124,25 @@
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
           .then(response => {
             for (let i = 0;i < this.data.length; i ++){
-                let usernameList = this.data[i].usernameList;
+                let groupuser = this.data[i].groupuser;
                 for (let j = 0;j < response.length; j ++){
-                    for (let x = 0;x < usernameList.length; x ++){
-                        if(response[j].projectid === usernameList[x].userid){
+                    for (let x = 0;x < groupuser.length; x ++){
+                        if(response[j].projectid === groupuser[x]){
                             let letdata = {};
                             this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-                            this.data[i].status = "未确认";
-                            if(response[i].unconfirm != null){
-                                if(Number(response[i].unconfirm) > 0){
-                                  this.data[i].status = "未确认";
+                            if (this.$i18n) {
+                                this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                                if(response[i].unconfirm != null){
+                                  if(Number(response[i].unconfirm) > 0){
+                                    this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                                  }
                                 }
-                            }
-                            else{
-                                if(response[i].confirm != null){
+                                else{
+                                  if(response[i].confirm != null){
                                     if(Number(response[i].confirm) > 0){
-                                      this.data[i].status = "确认";
+                                      this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
                                     }
+                                  }
                                 }
                             }
                         }

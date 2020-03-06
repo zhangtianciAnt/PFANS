@@ -732,7 +732,7 @@
               this.result = response;
               vote.name = response[i].name;
               vote.sex = getDictionaryInfo(response[i].sex).value1;
-              vote.birthday = moment(response[i].birthday).format('YYYY-MM');
+              vote.birthday = moment(response[i].birthday).format('YYYY-MM-DD');
               this.gridData.push(vote);
             }
             this.loading = false;
