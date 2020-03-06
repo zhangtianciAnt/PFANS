@@ -10,160 +10,141 @@
                  style="padding: 2rem">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_PROJECTINFORMATION')" name="first">
-              <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_PROJECTBASICINFORMATION')}}</span>
-                  </template>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
-                        <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist"
-                             @getOrgids="getCenterId"
-                             orgtype="1" style="width:20vw"></org>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                        <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                             orgtype="2" style="width:20vw"></org>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.team')">
-                        <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
-                             style="width:20vw"></org>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
-                        <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
-                                  v-model="form.project_name"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
-                        <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
-                                  v-model="form.project_namejp"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :error="errorLeader" :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
-                        <user
-                          :disabled="!disabled"
-                          :error="errorLeader"
-                          :selectType="selectType"
-                          :userlist="userlist"
-                          @getUserids="getUserids"
-                          style="width: 20vw"
-                        ></user>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
-                        <user
-                          :disabled="!disabled"
-                          :error="errorManager"
-                          :selectType="selectType"
-                          :userlist="userlist1"
-                          @getUserids="getUserids1"
-                          style="width: 20vw"
-                        ></user>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_TYPE')" prop="projecttype">
-                        <dicselect
-                          :code="code"
-                          :data="form.projecttype"
-                          :disabled="!disabled"
-                          :multiple="multiple1"
-                          @change="getType"
-                          style="width:20vw">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_AREA')" prop="field">
-                        <dicselect
-                          :code="code1"
-                          :data="form.field"
-                          :disabled="!disabled"
-                          :multiple="multiple1"
-                          @change="getArea"
-                          style="width:20vw">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_LANGUAGE')" prop="languages">
-                        <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
-                                  v-model="form.languages"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_STARTTIME')" prop="startdate">
-                        <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
-                                        v-model="form.startdate"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_ENDTIME')" prop="enddate">
-                        <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
-                                        v-model="form.enddate"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
-                        <el-input-number
-                          :disabled="!disabled"
-                          :max="99999"
-                          :min="0"
-                          :precision="0"
-                          :step="1"
-                          controls-position="right"
-                          style="width:20vw"
-                          v-model.trim="form.work">
-                        </el-input-number>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_DEADLINE')" prop="deadline">
-                        <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
-                                        v-model="form.deadline"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                </el-collapse-item>
-              </el-collapse>
-              <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_THEME')}}</span>
-                  </template>
-                </el-collapse-item>
-              </el-collapse>
 
-              <!--              &lt;!&ndash;              合同&ndash;&gt;-->
-              <!--              <el-collapse>-->
-              <!--                <el-collapse-item>-->
-              <!--                  <template slot="title">-->
-              <!--                    <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_CONTRACT')}}</span>-->
-              <!--                  </template>-->
-              <!--                </el-collapse-item>-->
-              <!--              </el-collapse>-->
+
+              <template slot="title">
+                <span class="collapse_Title">{{$t('label.PFANS5009FORMVIEW_PROJECTBASICINFORMATION')}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                    <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist"
+                         @getOrgids="getCenterId"
+                         orgtype="1" style="width:20vw"></org>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                    <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                         orgtype="2" style="width:20vw"></org>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
+                         style="width:20vw"></org>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                              v-model="form.project_name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
+                    <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
+                              v-model="form.project_namejp"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="errorLeader" :label="$t('label.PFANS5009FORMVIEW_PL')" prop="leaderid">
+                    <user
+                      :disabled="!disabled"
+                      :error="errorLeader"
+                      :selectType="selectType"
+                      :userlist="userlist"
+                      @getUserids="getUserids"
+                      style="width: 20vw"
+                    ></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :error="errorManager" :label="$t('label.PFANS5009FORMVIEW_TL')" prop="managerid">
+                    <user
+                      :disabled="!disabled"
+                      :error="errorManager"
+                      :selectType="selectType"
+                      :userlist="userlist1"
+                      @getUserids="getUserids1"
+                      style="width: 20vw"
+                    ></user>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_TYPE')" prop="projecttype">
+                    <dicselect
+                      :code="code"
+                      :data="form.projecttype"
+                      :disabled="!disabled"
+                      :multiple="multiple1"
+                      @change="getType"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_AREA')" prop="field">
+                    <dicselect
+                      :code="code1"
+                      :data="form.field"
+                      :disabled="!disabled"
+                      :multiple="multiple1"
+                      @change="getArea"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_LANGUAGE')" prop="languages">
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                              v-model="form.languages"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_STARTTIME')" prop="startdate">
+                    <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
+                                    v-model="form.startdate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_ENDTIME')" prop="enddate">
+                    <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
+                                    v-model="form.enddate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
+                    <el-input-number
+                      :disabled="!disabled"
+                      :max="99999"
+                      :min="0"
+                      :precision="0"
+                      :step="1"
+                      controls-position="right"
+                      style="width:20vw"
+                      v-model.trim="form.work">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_DEADLINE')" prop="deadline">
+                    <el-date-picker :disabled="!disabled" style="width:20vw" type="date"
+                                    v-model="form.deadline"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-tab-pane>
-
             <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_STAGEINFORMATION')" name="second">
               <el-form-item>
                 <el-row>
@@ -557,21 +538,69 @@
               </el-form-item>
             </el-tab-pane>
 
-            <!--            合同-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
                 <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
                           style="width: 90vw">
                   <el-table-column
-                    :label="$t('label.PFANS5009FORMVIEW_THEME')"
+                    :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center">
                     <template slot-scope="scope">
-                      <el-input
-                        :no="scope.row"
-                        :disabled="true"
-                        v-model="scope.row.contract"
-                        style="width: 100%">
-                      </el-input>
+                      <el-col :span="8">
+                        <div class="dpSupIndex" style="width:20vw">
+                          <el-container>
+                            <input class="content bg" v-model="scope.row.contract"
+                                   :disabled="scope.row.type === '0' ? true : false"></input>
+                            <el-button  :disabled="scope.row.type === '0' ? true : false" icon="el-icon-search" @click="dialogTableVisible3 = true"
+                                       size="small"></el-button>
+                            <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
+                                       size="50%"
+                                       top="8vh" lock-scroll
+                                       append-to-body>
+                              <div style="text-align: center">
+                                <el-row style="text-align: center;height: 90%;overflow: hidden">
+
+                                  <el-table
+                                    :data="gridData3.filter(data => !search || data.contract.toLowerCase().includes(search.toLowerCase()))"
+                                    height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                    @row-click="handleClickChange2">
+                                    <el-table-column property="contract"
+                                                     :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="deployment" :label="$t('label.group')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="contracttype"
+                                                     :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
+                                                     width="150"></el-table-column>
+                                    <el-table-column property="applicationdate"
+                                                     :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="state"
+                                                     :label="$t('label.approval_status')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column property="claimdatetime"
+                                                     :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
+                                                     width="100"></el-table-column>
+                                    <el-table-column
+                                      align="right" width="230">
+                                      <template slot="header" slot-scope="scope">
+                                        <el-input
+                                          v-model="search"
+                                          size="mini"
+                                          placeholder="请输入姓名关键字搜索"/>
+                                      </template>
+                                    </el-table-column>
+                                  </el-table>
+                                </el-row>
+                                <span slot="footer" class="dialog-footer">
+                                  <el-button type="primary"
+                                             @click="submit2(scope.row)">{{$t('button.confirm')}}</el-button>
+                                </span>
+                              </div>
+                            </el-dialog>
+                          </el-container>
+                        </div>
+                      </el-col>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -586,21 +615,46 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column
-                    :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')"
-                    align="center">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
+                                   width="370">
                     <template slot-scope="scope">
-                      <el-input
-                        :no="scope.row"
-                        :disabled="true"
-                        v-model="scope.row.workinghours"
-                        style="width: 100%">
-                      </el-input>
+                      <el-date-picker unlink-panels
+                                      class="bigWidth"
+                                      :disabled="true"
+                                      v-model.trim="scope.row.workinghours"
+                                      type="daterange"
+                                      :end-placeholder="$t('label.enddate')"
+                                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                      :start-placeholder="$t('label.startdate')"
+                      ></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="scope.row.type === '0' ? true : false"
+                        @click.native.prevent="deleteRow3(scope.$index, tableD)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}
+                      </el-button>
+
+                      <el-button
+                        :disabled="adddisabled"
+                        @click="addRow3()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
                     </template>
                   </el-table-column>
                 </el-table>
               </el-form-item>
             </el-tab-pane>
+
+
             <!--&lt;!&ndash;            工时统计&ndash;&gt;-->
             <!--            <el-tab-pane :label="$t('label.PFANS5009FORMVIEW_WORKSTATISTICS')" name="forth">-->
             <!--              <el-form-item>-->
@@ -683,7 +737,7 @@
     import moment from 'moment';
     import {getOrgInfoByUserId} from '@/utils/customize';
     import org from '../../../components/org';
-
+    import {getDictionaryInfo} from '../../../../utils/customize';
     export default {
         name: 'PFANS5009FormView',
         components: {
@@ -746,11 +800,14 @@
                 }
             };
             return {
+                adddisabled: false,
+                disable: true,
                 centerorglist: '',
                 grouporglist: '',
                 teamorglist: '',
                 userlist: '',
                 userlist1: '',
+                dialogTableVisible3: false,
                 loading: false,
                 errorLeader: '',
                 errorManager: '',
@@ -868,10 +925,12 @@
                         theme: '',
                         workinghours: '',
                         rowindex: '',
+                        type:'0',
                     },
                 ],
 
                 data: [],
+                gridData3: [],
                 code: 'PP001',
                 code1: 'PP002',
                 code2: 'PP013',
@@ -983,6 +1042,7 @@
             };
         },
         mounted() {
+            this.getcontract();
             // this.getexpatriatesinfor();
             if (this.$route.params._id) {
                 this.loading = true;
@@ -1016,20 +1076,22 @@
                         }
                         //项目合同
                         if (response.projectcontract.length > 0) {
-                            this.tableD = response.projectcontract;
-                            this.tableB = [];
+                            let tabled = [];
                             for (var i = 0; i < response.projectcontract.length; i++) {
-                                if (response.projectcontract[i].type === '0') {
-                                    let o = {};
-                                    o.name = response.projectcontract[i].projectcontract_id;
-                                    o.companyprojects_id = response.projectcontract[i].companyprojects_id;
-                                    o.contract = response.projectcontract[i].contract;
-                                    o.theme = response.projectcontract[i].theme;
-                                    o.workinghours = response.projectcontract[i].workinghours;
-                                    o.rowindex = response.projectcontract[i].rowindex;
-                                    this.tableD.push(o);
+                                if (response.projectcontract[i].workinghours !== '' && response.projectcontract[i].workinghours !== null) {
+                                    let claimdatetime = response.projectcontract[i].workinghours;
+                                    let claimdatetim = claimdatetime.slice(0, 10);
+                                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                    response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                                 }
+                                tabled.push({
+                                    contract: response.projectcontract[i].contract,
+                                    theme: response.projectcontract[i].theme,
+                                    workinghours: response.projectcontract[i].workinghours,
+                                    type:'0',
+                                })
                             }
+                            this.tableD = tabled;
                         }
                         if (response.projectsystem.length > 0) {
                             //项目体制
@@ -1106,6 +1168,7 @@
         },
         created() {
             this.disabled = this.$route.params.disabled;
+            this.adddisabled = this.$route.params.adddisabled;
             if (this.disabled) {
                 this.buttonList = [
                     {
@@ -1124,6 +1187,80 @@
             }
         },
         methods: {
+            addRow3() {
+                this.tableD.push({
+                    projectcontract_id: '',
+                    companyprojects_id: '',
+                    contract: '',
+                    theme: '',
+                    workinghours: '',
+                    rowindex: '',
+                    type: '1',
+                });
+            },
+            deleteRow3(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableD = [{
+                        projectcontract_id: '',
+                        companyprojects_id: '',
+                        contract: '',
+                        theme: '',
+                        workinghours: '',
+                        rowindex: '',
+                        type: '1',
+                    }];
+                }
+            },
+            getcontract() {
+                this.contractapplication = {};
+                this.contractapplication.entrycondition = [];
+                this.contractapplication.entrycondition = 'HT004007';
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1026Store/get', this.contractapplication)
+                    .then(response => {
+                        this.gridData3 = [];
+                        for (let i = 0; i < response.contractapplication.length; i++) {
+                            if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null) {
+                                let claimdatetime = response.contractapplication[i].claimdatetime;
+                                let claimdatetim = claimdatetime.slice(0, 10);
+                                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                                response.contractapplication[i].claimdatetime = [claimdatetim, claimdatetime1];
+                            }
+                            var vote2 = {};
+                            vote2.contract = response.contractapplication[i].contractnumber;
+                            vote2.deployment = response.contractapplication[i].deployment;
+                            vote2.contracttype = getDictionaryInfo(response.contractapplication[i].contracttype).value1;
+                            vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
+                            vote2.state = response.contractapplication[i].state;
+                            vote2.claimdatetime= response.contractapplication[i].claimdatetime;
+                            this.gridData3.push(vote2);
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            handleClickChange2(val) {
+                this.currentRow = val.contract;
+                this.themeRow= val.contract;
+                this.workinghoursRow= val.claimdatetime;
+                this.getCompanyprojects();
+            },
+            submit2(row) {
+                row.contract = this.currentRow;
+                row.theme = this.themeRow;
+                row.workinghours = this.workinghoursRow;
+                this.dialogTableVisible3 = false;
+            },
             getUserids(val) {
                 this.userlist = val;
                 this.form.leaderid = val;
