@@ -508,6 +508,7 @@
         flag: 0,
         tableData: [],
         tableData2: [],
+        for: {},
         form: {
             contract_id:'',
             contractnumber:'',
@@ -895,8 +896,13 @@
           });
         } else if (val === "generate") {
             this.loading = true;
+          if(this.flag === 0){
+            this.for = this.form;
+          } else {
+            this.for = this.form2;
+          }
             this.$store
-              .dispatch('PFANS1029Store/generateJxls', this.form)
+              .dispatch('PFANS1029Store/generateJxls', this.for)
               .then(response => {
                 this.loading = false;
               })
