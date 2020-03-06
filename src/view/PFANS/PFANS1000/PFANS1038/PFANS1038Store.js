@@ -18,9 +18,10 @@ const PFANS1038Store = {
         })
       })
     },
-    getExpatriatesinfor() {
+    getExpatriatesinfor({ commit },id) {
+      debugger
       return new Promise((resolve, reject) => {
-        getExpatriatesinfor().then(response => {
+        getExpatriatesinfor(id).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -1761,7 +1761,7 @@
             },
             //合同
             handleClickChange2(val) {
-                this.currentRow = val.contracttype;
+                this.currentRow = val.contract;
                 this.themeRow= val.contract;
                 this.workinghoursRow= val.claimdatetime;
                 this.getCompanyprojects();
@@ -2261,6 +2261,8 @@
                             }
                         }
                         for (let i = 0; i < this.tableD.length; i++) {
+                            debugger
+                            console.log("aaa",this.tableD[i].contract)
                             this.tableD[i].workinghours = this.getworkinghours(this.tableD[i].workinghours);
                             if (
                                 this.tableD[i].contract !== '' ||
