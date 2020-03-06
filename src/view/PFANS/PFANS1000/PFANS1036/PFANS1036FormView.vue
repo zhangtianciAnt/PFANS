@@ -868,10 +868,9 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A1')" name="sixth">
-                    <TrustComponent></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="seventh">
-
+                    <TrustComponent :tableTrust="groupA2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
 
@@ -2692,6 +2691,7 @@
       };
       return {
         month:"",
+        groupA2:[],
         equipment_newyear: [{assetstype:"0"},{assetstype:"1"}],
         equipment_lastyear: [{assetstype:"0"},{assetstype:"1"}],
         assets_newyear: [{assetstype:"0"},{assetstype:"1"}],
@@ -3009,7 +3009,13 @@
       } else {
         debugger
         this.userlist = this.$store.getters.userinfo.userid;
-        this.group = this.$store.getters.orgGroupList;
+        if(this.$store.getters.orgGroupList.length > 0 ){
+          this.groupA2  =  this.$store.getters.orgGroupList.map(
+             group => {
+               return {groupid:group.groupid,groupname:group.companyen}
+             }
+          )
+        }
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.centerid = rst.centerNmae;

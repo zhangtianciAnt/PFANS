@@ -2,155 +2,155 @@
   <el-table :data="tableTrust" :summary-method="getSummaries" show-summary stripe
             header-cell-class-name="sub_bg_color_blue">
     <el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110" prop="company">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110" prop="groupname">
       </el-table-column>
     </el-table-column>
     <el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
-                       width="210">
+                       width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled" :min="0" controls-position="right"  @change="changeSum(scope.row)"
                            :step="1000" v-model.trim="scope.row.commission" ></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
-    <el-table-column :label="$t('label.April')" align="center" width="210">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+    <el-table-column :label="$t('label.April')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,4)" :step="1"
                            v-model.trim="scope.row.number4">
           </el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money4">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money4">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.May')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1" @change="changeSum(scope.row,5)" :step="1"
                            v-model.trim="scope.row.number5"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money5">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money5">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.June')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,6)" :step="1"
                            v-model.trim="scope.row.number6"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money6">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money6">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.July')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,7)" :step="1"
                            v-model.trim="scope.row.number7"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money7">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money7">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.August')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,8)" :step="1"
                            v-model.trim="scope.row.number8"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money8">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money8">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.September')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,9)" :step="1"
                            v-model.trim="scope.row.number9"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money9">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money9">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210" prop="numberfirst">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numberfirst">
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="moneyfirst">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneyfirst">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.October')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,10)" :step="1"
                            v-model.trim="scope.row.number10"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money10">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money10">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.November')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,11)" :step="1"
                            v-model.trim="scope.row.number11"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money11">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money11">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.December')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,12)" :step="1"
                            v-model.trim="scope.row.number12"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money12">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money12">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.January')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,1)" :step="1"
                            v-model.trim="scope.row.number1"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money1">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money1">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.February')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,2)" :step="1"
                            v-model.trim="scope.row.number2"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money2">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money2">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.March')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
         <template slot-scope="scope">
           <el-input-number :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,3)" :step="1"
                            v-model.trim="scope.row.number3"></el-input-number>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="money3">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money3">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210" prop="numbersecond">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbersecond">
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="moneysecond">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneysecond">
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210" prop="numbertotal">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbertotal">
       </el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210" prop="moneytotal">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneytotal">
       </el-table-column>
     </el-table-column>
   </el-table>
