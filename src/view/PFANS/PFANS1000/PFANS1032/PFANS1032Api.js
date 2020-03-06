@@ -30,4 +30,3 @@ export function downLoad(data) {
     responseType: 'blob'
   })
 }
-
