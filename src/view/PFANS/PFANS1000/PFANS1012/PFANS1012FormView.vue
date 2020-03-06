@@ -1340,6 +1340,7 @@
       };
     },
     mounted() {
+      this.getSupplierNameList();
       this.optionsdata = [];
       for (let i = 0; i < this.tableF.length; i++) {
         var vote = {};
@@ -2087,20 +2088,30 @@
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
+        let val2= this.currentRow2;
+        let val3 = this.currentRow3;
+        //let val4 = this.currentRow4;
         this.dialogTableVisible = false;
-        this.form.suppliername = val;
-        this.form.suppliernameid = val1;
+        this.form.payeename = val;
+        this.form.payeebankaccountnumber = val1;
+        this.form.payeebankaccount = val2;
+        this.form. payeecode = val3;
+        //this.form. fullname = val4;
+
       },
       handleClickChange(val) {
-        this.currentRow = val.suppliername;
-        this.currentRow1 = val.suppliernameid;
+        this.currentRow = val.payeename;
+        this.currentRow1 = val.payeebankaccountnumber;
+        this.currentRow2 = val.payeebankaccount;
+        this.currentRow3 = val.vendornum;
+        //this.currentRow3 = val.vendornum;
       },
       getSupplierNameList() {
         this.loading = true;
         this.$store
           .dispatch('PFANS6001Store/getSupplierNameList', {})
           .then(response => {
-            console.log(response);
+            debugger
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
