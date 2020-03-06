@@ -66,7 +66,7 @@
                         filter: true
                     },
                     {
-                        code: 'CREATEON ',
+                        code: 'createon',
                         label: 'label.PFANS2001VIEW_APPLICATIONTIME',
                         width: 150,
                         fix: false,
@@ -74,7 +74,7 @@
                     },
                     {
                         code: 'status',
-                      label: 'label.PFANS5005VIEW_STATUS',
+                        label: 'label.PFANS5005VIEW_STATUS',
                         width: 150,
                         fix: false,
                         filter: true
@@ -127,8 +127,8 @@
                             response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
                         }
                         //申请时间
-                        if (response[j].CREATEON !== null && response[j].CREATEON !== "") {
-                            response[j].CREATEON = moment(response[j].CREATEON).format("YYYY-MM-DD");
+                        if (response[j].createon !== null && response[j].createon !== "") {
+                            response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
                         }
                     }
                     this.data = response;
