@@ -10,10 +10,13 @@ export function getCustomerInfo(id) {
   })
 }
 
-export function getExpatriatesinfor() {
+export function getExpatriatesinfor(id) {
   return request({
     url: 'personnelplan/getexpatriatesinfor',
-    method: 'get'
+    method: 'get',
+    params: {
+      groupid:id
+    }
   })
 }
 

@@ -11,126 +11,126 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
+          <el-row v-show="false">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
+                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
+                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
+                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" style="margin-top: 2%" name="first">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <el-tabs v-model="activeName2" type="border-card">
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue" stripe>
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first" >
+                    <el-table :data="tableA" header-cell-class-name="sub_bg_color_blue"  stripe style="margin-top: 2%">
                       <el-table-column>
-                        <el-table-column align="center" width="120" prop="total" :label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">
+                        <el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn" :label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.April')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number4">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours4">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour4">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.May')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number5">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours5">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour5">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.June')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number6">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours6">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour6">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.July')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number7">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours7">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour7">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.August')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number8">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours8">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour8">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.September')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number9">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours9">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour9">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="numberfirsthalf">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amountfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghoursfirsthalf">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghourfirst">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.October')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number10">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours10">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour10">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.November')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number11">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours11">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour11">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.December')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number12">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours12">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour12">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.January')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number1">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours1">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour1">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.February')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number2">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours2">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour2">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.March')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="number3">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amount3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghours3">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghour3">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="numbersecondhalf">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amountsecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghourssecondhalf">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghoursecond">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="numberannual">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110" prop="amounttotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghoursannual">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110" prop="workinghourtotal">
                         </el-table-column>
                       </el-table-column>
                     </el-table>
-                    <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" style="padding-top: 2%"  stripe>
+                    <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" :summary-method="getPrecent" show-summary style="padding-top: 4%"  stripe>
                       <el-table-column>
                         <el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn" :label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">
                         </el-table-column>
@@ -138,91 +138,91 @@
                       <el-table-column :label="$t('label.April')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay4">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving4">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.May')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay5">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving5">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.June')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay6">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving6">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.July')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay7">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving7">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.August')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay8">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving8">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.September')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay9">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving9">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="payupper">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="payfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepayupper">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="givingfirst">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.October')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay10">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving10">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.November')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay11">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving11">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.December')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay12">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving12">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.January')" align="center" width="110" >
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay1">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving1">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.February')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay2">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving2">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.March')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="pay3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepay3">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="giving3">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="paylower">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="paysecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepaylower">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="givingsecond">
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="payyear">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110" prop="paytotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="overtimepayyear">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110" prop="givingtotal">
                         </el-table-column>
                       </el-table-column>
                     </el-table>
@@ -564,86 +564,18 @@
                 </el-tabs>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')" style="margin-top: 2%" name="second">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_TEAM')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <AssetsComponent :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear"></AssetsComponent>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" name="third">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear"></AssetsComponent>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" name="forth">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_TEAM')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <el-tabs v-model="activeName5" type="border-card">
                   <el-table :data="tableJ" header-cell-class-name="sub_bg_color_blue" stripe>
                     <el-table-column>
@@ -882,33 +814,8 @@
                 </el-tabs>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PROJECTPLAN')" name="fifth">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PROJECTPLAN')" style="margin-top: 2%" name="fifth">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_TEAM')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <el-tabs v-model="activeName6" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
                     <el-table :data="tableK" header-cell-class-name="sub_bg_color_blue" stripe>
@@ -960,264 +867,17 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A1')" name="sixth">
+                    <TrustComponent></TrustComponent>
+                  </el-tab-pane>
+                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="seventh">
 
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A1')" name="first"></el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="first"></el-tab-pane>
+                  </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
-                    <el-table :data="tableL" :summary-method="getNSummaries" show-summary stripe
-                              header-cell-class-name="sub_bg_color_blue">
-                      <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110">
-                          <template slot-scope="scope">
-                            <el-input :disabled="false"  maxlength="20" style="width: 100%;"
-                                      v-model.trim="scope.row.companyname"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
-                                         width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false" :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)"
-                                             :step="1" v-model.trim="scope.row.commission" :no="scope.row" ></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.April')" align="center" width="210">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1"
-                                             v-model.trim="scope.row.number4" :no="scope.row" >
-                            </el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money4"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.May')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number5"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money5"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.June')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number6"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money6"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.July')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number7"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money7"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.August')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number8"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money8"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.September')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number9"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money9"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" @change="changeSum(scope.row)" :no="scope.row"
-                                             v-model.trim="scope.row.numberfirsthalf"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.moneyfirsthalf"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.October')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number10"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money10"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.November')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number11"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money11"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.December')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number12"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money12"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.January')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number1"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money1"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.February')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number2"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money2"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.March')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="false"  :min="0" :precision="0" :max="99999" @change="changeSum(scope.row)" :step="1" :no="scope.row"
-                                             v-model.trim="scope.row.number3"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.money3"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;" :no="scope.row"
-                                             v-model.trim="scope.row.numbersecondhalf"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;"
-                                             v-model.trim="scope.row.moneysecondhalf"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;"
-                                             v-model.trim="scope.row.numberAnnual"></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="210">
-                          <template slot-scope="scope">
-                            <el-input-number :disabled="true"  maxlength="20" style="width: 100%;"
-                                             v-model.trim="scope.row.moneyAnnual"></el-input-number>
-                          </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRowN(scope.$index, tableN)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}
-                          </el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRowN()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}
-                          </el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B2')" name="third">
-                    <el-table :data="tableM" :summary-method="getNSummaries" show-summary stripe
+                    <el-table :data="tableM" :summary-method="getSummaries" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110">
@@ -1470,7 +1130,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
-                    <el-table :data="tableN" :summary-method="getNSummaries" show-summary stripe
+                    <el-table :data="tableN" :summary-method="getSummaries" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_BUSHU')" align="center" width="110">
@@ -1723,7 +1383,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B4')" name="fifth">
-                    <el-table :data="tableO" :summary-method="getNSummaries" show-summary stripe
+                    <el-table :data="tableO" :summary-method="getSummaries" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="110">
@@ -1979,35 +1639,10 @@
                 </el-tabs>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_VARIOUSFUNDS')" name="sixth">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_VARIOUSFUNDS')" style="margin-top: 2%" name="sixth">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_TEAM')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <el-tabs v-model="activeName7" type="border-card">
-                  <el-table :data="tableO" :summary-method="getOSummaries" show-summary stripe
+                  <el-table :data="tableO" :summary-method="getSummaries" show-summary stripe
                             header-cell-class-name="sub_bg_color_blue">
                     <el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110">
@@ -2271,33 +1906,8 @@
                 </el-tabs>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" name="seventh">
+            <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_GROUP')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1036FORMVIEW_TEAM')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.PFANS1036FORMVIEW_APPLICANT')" prop="user_id">
-                      <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                            @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
                 <el-tabs v-model="activeName8" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLTOTAL')" name="first">
                     <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe>
@@ -2545,7 +2155,7 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLDETAILED')" name="second">
-                    <el-table :data="tableQ" :summary-method="getQSummaries" show-summary stripe
+                    <el-table :data="tableQ" :summary-method="getSummaries" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110">
@@ -3060,13 +2670,15 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import AssetsComponent from './AssetsComponent';
+  import TrustComponent from './TrustComponent';
   export default {
     name: 'PFANS1012FormView',
     components: {
       dicselect,
       EasyNormalContainer,
       user,
-      AssetsComponent
+      AssetsComponent,
+      TrustComponent
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -3115,7 +2727,6 @@
         tableA:[],
         tableB: [],
         tableC: [
-          {},{},{},{},{},{},{},{},{},{},{},{},{}
         ],
         tableD: [
         ],
@@ -3385,46 +2996,6 @@
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
               this.assets_newyear = JSON.parse(this.form.assets_newyear);
               this.assets_lastyear = JSON.parse(this.form.assets_lastyear);
-            //   debugger;
-            // if (response.businessplan.trustb3 !=='' && response.businessplan.trustb3 !== null) {
-            //     for (let i = 0; i < JSON.parse(response.businessplan.trustb3).length; i++) {
-            //         let aa = JSON.parse(response.businessplan.trustb3)[i];
-            //             this.tableN[i].businessplan_id = aa.m0;
-            //             this.tableN[i].companyname = aa.m1;
-            //             this.tableN[i].commission = aa.m2;
-            //             this.tableN[i].prices = aa.m3;
-            //             this.tableN[i].number4 = aa.m4;
-            //             this.tableN[i].money4 = aa.m5;
-            //             this.tableN[i].number5 = aa.m6;
-            //             this.tableN[i].money5 = aa.m7;
-            //             this.tableN[i].number6 = aa.m8;
-            //             this.tableN[i].money6 = aa.m9;
-            //             this.tableN[i].number7 = aa.m10;
-            //             this.tableN[i].money7 = aa.m11;
-            //             this.tableN[i].number8 = aa.m12;
-            //             this.tableN[i].money8 = aa.m13;
-            //             this.tableN[i].number9 = aa.m14;
-            //             this.tableN[i].money9 = aa.m15;
-            //             this.tableN[i].number10 = aa.m16;
-            //             this.tableN[i].money10 = aa.m17;
-            //             this.tableN[i].number11 = aa.m18;
-            //             this.tableN[i].money11 = aa.m19;
-            //             this.tableN[i].number12 = aa.m20;
-            //             this.tableN[i].money12 = aa.m21;
-            //             this.tableN[i].number1 = aa.m22;
-            //             this.tableN[i].money1 = aa.m23;
-            //             this.tableN[i].money2 = aa.m24;
-            //             this.tableN[i].number3 = aa.m25;
-            //             this.tableN[i].money3 = aa.m26;
-            //             this.tableN[i].numberfirsthalf = aa.m27;
-            //             this.tableN[i].moneyfirsthalf = aa.m28;
-            //             this.tableN[i].numbersecondhalf = aa.m29;
-            //             this.tableN[i].moneysecondhalf = aa.m30;
-            //             this.tableN[i].numberAnnual = aa.m31;
-            //             this.tableN[i].moneyAnnual = aa.m32;
-            //     }
-            // }
-
             this.loading = false;
           })
           .catch(error => {
@@ -3436,7 +3007,9 @@
             this.loading = false;
           });
       } else {
+        debugger
         this.userlist = this.$store.getters.userinfo.userid;
+        this.group = this.$store.getters.orgGroupList;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           this.form.centerid = rst.centerNmae;
@@ -3448,10 +3021,12 @@
         }
         this.$store
           .dispatch('PFANS1036Store/getPersonPlan', {'groupid': '2BD452FF945B318992D198D7B7C5D159ED67','year':2019})
-          .then(response => {
-            this.tableC = JSON.parse(response[0]);
-            this.tableD = JSON.parse(response[1]);
-            this.loading = false;
+        .then( response => {
+          if(JSON.parse(response[0]))  this.tableC = JSON.parse(response[0]);
+            if(JSON.parse(response[1]))  this.tableD = JSON.parse(response[1]);
+            this.tableA = [JSON.parse(response[2])];
+            this.tableB = [JSON.parse(response[2])];
+             this.loading = false;
           })
           .catch(error => {
             Message({
@@ -3464,26 +3039,6 @@
       }
     },
     methods: {
-    changeSum(row) {
-      row.money4 = row.commission * row.number4 / 1000;
-      row.money5 = row.commission * row.number5 / 1000;
-      row.money6 = row.commission * row.number6 / 1000;
-      row.money7 = row.commission * row.number7 / 1000;
-      row.money8 = row.commission * row.number8 / 1000;
-      row.money9 = row.commission * row.number9 / 1000;
-      row.money10 = row.commission * row.number10 / 1000;
-      row.money11 = row.commission * row.number11 / 1000;
-      row.money12 = row.commission * row.number12 / 1000;
-      row.money1 = row.commission * row.number1 / 1000;
-      row.money2 = row.commission * row.number2 / 1000;
-      row.money3 = row.commission * row.number3 / 1000;
-      row.numberfirsthalf = (row.number4 + row.number5 + row.number6 + row.number7 + row.number8 + row.number9);
-      row.moneyfirsthalf = row.money4 + row.money5 + row.money6 + row.money7 + row.money8 + row.money9;
-      row.numbersecondhalf = row.number10 + row.number11 + row.number12 + row.number1 + row.number2 + row.number3;
-      row.moneysecondhalf = row.money10 + row.money11 + row.money12 + row.money1 + row.money2 + row.money3;
-      row.numberAnnual = row.numberfirsthalf + row.numbersecondhalf;
-      row.moneyAnnual = row.moneyfirsthalf + row.moneysecondhalf;
-    },
       formatterColumn(row,column,cellValue, index){
         if(column.property === "total1"){
        if(index === 0){
@@ -3541,6 +3096,30 @@
           }
         }
       },
+      getPrecent(param){
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_STOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return (prev + curr)/1000;
+              } else {
+                return prev/1000;
+              }
+            }, 0);
+          } else {
+            sums[index] = '';
+          }
+        });
+        return sums;
+      },
       getSummaries(param,table) {
         const {columns, data} = param;
         const sums = [];
@@ -3566,19 +3145,7 @@
             sums[index] = '';
           }
         });
-        if(table === "C"){
-           this.sumC = sums;
-        }else if(table === "D"){
-           this.sumD = sums;
-        }
-       // this.sumsTotal();
         return sums;
-      },
-      sumsTotal(){
-           if(this.sumC.length > 0 && this.sumD.length > 0){
-             debugger
-             this.tableA = this.sumC[6] + this.sumD[6];
-           }
       },
       getUserids(val) {
         this.userlist = val;
@@ -3698,60 +3265,6 @@
               this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
               this.form.assets_newyear = JSON.stringify(this.assets_newyear);
               this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
-                // for(let i =0; i < this.tableN.length; i++){
-                //     if(this.tableN[i].companyname !=null || this.tableN[i].commission !=null || this.table[i].number4 != null || this.table[i].money4 != null ||
-                //         this.tableN[i].number5 !=null || this.tableN[i].money5 !=null || this.table[i].number6 != null || this.table[i].money6 != null ||
-                //         this.tableN[i].number7 !=null || this.tableN[i].money7 !=null || this.table[i].number8 != null ||
-                //         this.tableN[i].money8 !=null || this.tableN[i].number9 !=null || this.table[i].money9 != null ||
-                //         this.tableN[i].number10 !=null || this.tableN[i].money10 !=null || this.table[i].number11 != null ||
-                //         this.tableN[i].money11 !=null || this.tableN[i].number12 !=null || this.table[i].money12 != null ||
-                //         this.tableN[i].number1 !=null || this.tableN[i].money1 !=null || this.table[i].number2 != null ||
-                //         this.tableN[i].money2 !=null || this.tableN[i].number3 !=null || this.table[i].money3 != null ||
-                //         this.tableN[i].numberfirsthalf !=null || this.tableN[i].moneyfirsthalf !=null || this.table[i].numbersecondhalf != null ||
-                //         this.tableN[i].moneysecondhalf !=null || this.tableN[i].numberAnnual !=null || this.table[i].moneyAnnual != null)
-                //     {
-                //         for(let i = 0;i < this.tableN.length; i++){
-                //             this.arrayMonth.push({
-                //                 m0:this.tableN[i].businessplan_id,
-                //                 m1: this.tableN[i].companyname,
-                //                 m2: this.tableN[i].commission,
-                //                 m3: this.tableN[i].prices,
-                //                 m4: this.tableN[i].number4,
-                //                 m5: this.tableN[i].money4,
-                //                 m6: this.tableN[i].number5,
-                //                 m7: this.tableN[i].money5,
-                //                 m8: this.tableN[i].number6,
-                //                 m9: this.tableN[i].money6,
-                //                 m10: this.tableN[i].number7,
-                //                 m11: this.tableN[i].money7,
-                //                 m12: this.tableN[i].number8,
-                //                 m13: this.tableN[i].money8,
-                //                 m14: this.tableN[i].number9,
-                //                 m15: this.tableN[i].money9,
-                //                 m16: this.tableN[i].number10,
-                //                 m17: this.tableN[i].money10,
-                //                 m18: this.tableN[i].number11,
-                //                 m19: this.tableN[i].money11,
-                //                 m20: this.tableN[i].number12,
-                //                 m21: this.tableN[i].money12,
-                //                 m22: this.tableN[i].number1,
-                //                 m23: this.tableN[i].money1,
-                //                 m24: this.tableN[i].money2,
-                //                 m25: this.tableN[i].number3,
-                //                 m26: this.tableN[i].money3,
-                //                 m27: this.tableN[i].numberfirsthalf,
-                //                 m28: this.tableN[i].moneyfirsthalf,
-                //                 m28: this.tableN[i].numbersecondhalf,
-                //                 m29: this.tableN[i].moneysecondhalf,
-                //                 m30: this.tableN[i].numberAnnual,
-                //                 m31: this.tableN[i].moneyAnnual,
-                //
-                //             })
-                //         }
-                //         this.form.trustb3 = JSON.stringify(this.arrayMonth);
-                //     }
-                // }
-
               if (this.$route.params._id) {
                 this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
