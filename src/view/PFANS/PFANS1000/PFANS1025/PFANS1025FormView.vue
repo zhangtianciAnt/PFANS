@@ -432,6 +432,7 @@
   import moment from "moment";
   import org from "../../../components/org";
   import project from '../../../components/project';
+  import {getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1025FormView",
@@ -512,14 +513,7 @@
           remarks: '',
           maketype: '',
         },
-        tableS:[{
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-        }],
+        tableS:[],
         tableT: [{
           awarddetail_id: '',
           award_id: '',
@@ -568,6 +562,32 @@
                 this.orglist=this.tableT[i].depart;
               }
             }
+            if ( response.numbercounts.length > 0 ) {
+              for (let i = 0; i < response.numbercounts.length; i++) {
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                }
+                let deliverydate = response.numbercounts[i].deliverydate;
+                let completiondate = response.numbercounts[i].completiondate;
+                let claimdate = response.numbercounts[i].claimdate;
+                let supportdate = response.numbercounts[i].supportdate
+
+                if ( deliverydate !== "" && deliverydate!=null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate!== "" && completiondate!=null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate!==""&& claimdate!=null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate!==""&& supportdate!=null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+              }
+            }
+            this.tableS = response.numbercounts
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -726,38 +746,37 @@
         return sums;
       },
       buttonClick(val) {
-        this.loading = true;
-        this.form.maketype='7',
-          this.baseInfo={};
-        this.form.user_id=this.userlist;
-        if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
-          this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
-        }
-        this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
-        this.baseInfo.awardDetail=[];
-        for(let i=0;i<this.tableT.length;i++){
-          if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
-            ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
-            this.baseInfo.awardDetail.push({
-              awarddetail_id:this.tableT[i].awarddetail_id,
-              award_id:this.tableT[i].award_id,
-              budgetcode:this.tableT[i].budgetcode,
-              depart:this.tableT[i].depart,
-              member:this.tableT[i].member,
-              projects:this.tableT[i].projects,
-              community:this.tableT[i].community,
-              outsource:this.tableT[i].outsource,
-              outcommunity:this.tableT[i].outcommunity,
-              worknumber:this.tableT[i].worknumber,
-              awardmoney:this.tableT[i].awardmoney,
-              rowindex:this.tableT[i].rowindex,
-            })
-          }
-        }
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
             if(valid){
-
+              this.loading = true;
+              this.form.maketype='7',
+                this.baseInfo={};
+              this.form.user_id=this.userlist;
+              if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+                this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+              }
+              this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.awardDetail=[];
+              for(let i=0;i<this.tableT.length;i++){
+                if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
+                  ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
+                  this.baseInfo.awardDetail.push({
+                    awarddetail_id:this.tableT[i].awarddetail_id,
+                    award_id:this.tableT[i].award_id,
+                    budgetcode:this.tableT[i].budgetcode,
+                    depart:this.tableT[i].depart,
+                    member:this.tableT[i].member,
+                    projects:this.tableT[i].projects,
+                    community:this.tableT[i].community,
+                    outsource:this.tableT[i].outsource,
+                    outcommunity:this.tableT[i].outcommunity,
+                    worknumber:this.tableT[i].worknumber,
+                    awardmoney:this.tableT[i].awardmoney,
+                    rowindex:this.tableT[i].rowindex,
+                  })
+                }
+              }
               if(this.$route.params._id){     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
@@ -787,10 +806,9 @@
               }
             }
           });
-        }
-        if (val === 'generate') {
+        } else if (val === 'generate') {
           this.$store
-            .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
+            .dispatch('PFANS1025Store/generateJxls', this.form)
             .then(response => {
               this.loading = false;
             })

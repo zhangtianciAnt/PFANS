@@ -238,12 +238,12 @@
             getProjectList() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS5008Store/getProjectList', {})
+                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         const data = [];
                         for (let i = 0; i < response.length; i++) {
                             data.push({
-                                key: response[i].project_id,
+                                key: response[i].companyprojects_id,
                                 label: response[i].project_name,
                             });
                         }

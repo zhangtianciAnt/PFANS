@@ -201,7 +201,7 @@
                       :label="$t('label.PFANS1027VIEW_UNITPRICE')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.functionsprice1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.functionsprice1" @change="changeSum1(scope.row)" :step="1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -209,22 +209,7 @@
                       :label="$t('label.PFANS1027VIEW_MANHOUR')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.functionhour1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      :label="$t('label.PFANS1027VIEW_UNIT')"
-                      width="200">
-                      <template slot-scope="scope">
-                        <dicselect
-                          :no="scope.row"
-                          :code="code1"
-                          :data="scope.row.functionunit1"
-                          :multiple="multiple"
-                          @change="getFunctionunit1"
-                          style="width: 11rem"
-                          :disabled="!disabled">
-                        </dicselect>
+                        <el-input-number v-model="scope.row.functionhour1" @change="changeSum1(scope.row)" :step="1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -232,7 +217,7 @@
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.functionamount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.functionamount1" @change="changeSum1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled1" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -259,7 +244,7 @@
                       :label="$t('label.PFANS1027FORMVIEW_OTHER4')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.detailed1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.detailed1" @change="changeSum(scope.row)" :step="1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -267,22 +252,7 @@
                       :label="$t('label.PFANS1027FORMVIEW_OTHER5')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.cost1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      :label="$t('label.PFANS1027VIEW_UNIT')"
-                      width="200">
-                      <template slot-scope="scope">
-                        <dicselect
-                          :no="scope.row"
-                          :code="code1"
-                          :data="scope.row.unit1"
-                          :multiple="multiple"
-                          @change="getUnit1"
-                          style="width: 11rem"
-                          :disabled="!disabled">
-                        </dicselect>
+                        <el-input-number v-model="scope.row.cost1" @change="changeSum(scope.row)" :step="1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -290,7 +260,7 @@
                       :label="$t('label.PFANS1027VIEW_COST')"
                       width="200">
                       <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.amount1" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                        <el-input-number v-model="scope.row.amount1"  @change="changeSum(scope.row)":precision="2"  controls-position="right" style="width: 11rem" :disabled="!disabled1" :min="0" :max="1000000000"></el-input-number>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -750,6 +720,12 @@
             } else {
               this.errorcenter = "";
             }
+          },
+          changeSum(row) {
+            row.amount1 = row.cost1 * row.detailed1;
+          },
+          changeSum1(row) {
+            row.functionamount1 = row.functionsprice1 * row.functionhour1;
           },
           getContracttype(val){
             this.form.contracttype = val;

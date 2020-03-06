@@ -8,7 +8,7 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
+  import {getorgGroupList,getUserInfo} from "../../../../utils/customize";
   let moment = require("moment");
   export default {
     name: 'PFANS5012View',
@@ -30,26 +30,26 @@
         selectedlist: [],
         columns: [
           {
-            code: 'projectid',
+            code: 'centername',
             label: 'label.center',
             width: 140,
             fix: false,
             filter: true
           },
           {
-            code: 'projectname',
+            code: 'groupname',
             label: 'label.group',
             width: 140,
             fix: false,
             filter: true
           },
-          {
-            code: 'numbers',
-            label: 'label.PFANS2009VIEW_JUNE',
-            width: 140,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'numbers',
+          //   label: 'label.PFANS2009VIEW_JUNE',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'confirm',
             label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
@@ -73,6 +73,45 @@
       };
     },
     mounted() {
+      let groupid;
+      let groupuser = [];
+      let groupcooperinterview = [];
+      let user = getUserInfo(this.$store.getters.userinfo.userid);
+      if (user) {
+        groupid = user.userinfo.groupid;
+        let userinfo =  this.$store.getters.userList;
+        for (let i = 0;i < userinfo.length; i ++){
+            if(userinfo[i].userinfo.groupid === groupid){
+                groupuser.push({
+                  userid: userinfo[i].userid,
+                  username: userinfo[i].userinfo.customername
+                });
+            }
+        }
+      }
+      // let cooperinterviewList =  this.$store.getters.cooperinterviewList;
+      // for (let i = 0;i < cooperinterviewList.length; i ++){
+      //   if(cooperinterviewList[i].groupid === groupid){
+      //     groupcooperinterview.push({
+      //       username: groupcooperinterview[i].customername
+      //     });
+      //   }
+      // }
+      //
+      let letorgGroupList = this.$store.getters.orgGroupList;
+      for (let i = 0;i < letorgGroupList.length; i ++){
+          if(letorgGroupList[i].groupid === groupid){
+            let group = {};
+            group.centername = letorgGroupList[i].centername;
+            group.groupname = letorgGroupList[i].groupname;
+            group.groupid = groupid;
+            group.confirm = '';
+            group.status = '';
+            group.usernameList = groupuser;
+            group.cooperinterviewList = groupcooperinterview;
+            this.data.push(group);
+          }
+      }
       this.getProjectList();
     },
     methods: {
@@ -82,32 +121,32 @@
       getProjectList(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
+          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
           .then(response => {
-            debugger;
-            console.log(this.$store.getters.userList);
-            let letuserList = this.$store.getters.userList;
-            for (let i = 0;i < letuserList.length; i ++){
-                let letdata = {};
-                //if(letuserList[i].userinfo.type === '0'){
-                  letdata.groupid = letuserList[i].userinfo.groupid;
-                  letdata.groupname = letuserList[i].userinfo.groupname;
-                  letdata.projectid = letuserList[i].userinfo.groupname;
-                  letdata.centerid = letuserList[i].userinfo.centerid;
-                  letdata.projectname = letuserList[i].userinfo.centername;
-                  //letdata.centername = letuserList[i].userinfo.centername;
-                  this.data.push(letdata);
-                //}
+            for (let i = 0;i < this.data.length; i ++){
+                let usernameList = this.data[i].usernameList;
+                for (let j = 0;j < response.length; j ++){
+                    for (let x = 0;x < usernameList.length; x ++){
+                        if(response[j].projectid === usernameList[x].userid){
+                            let letdata = {};
+                            this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+                            this.data[i].status = "未确认";
+                            if(response[i].unconfirm != null){
+                                if(Number(response[i].unconfirm) > 0){
+                                  this.data[i].status = "未确认";
+                                }
+                            }
+                            else{
+                                if(response[i].confirm != null){
+                                    if(Number(response[i].confirm) > 0){
+                                      this.data[i].status = "确认";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // for (let i = 0;i < response.length; i ++){
-            //   if(response[i].confirm === response[i].unconfirm){
-            //     response[i].status = "已确认";
-            //   }
-            //   else{
-            //     response[i].status = "未确认";
-            //   }
-            // }
-            //this.data = response;
             this.loading = false;
           })
           .catch(error => {

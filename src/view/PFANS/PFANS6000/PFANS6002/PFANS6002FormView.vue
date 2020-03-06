@@ -50,6 +50,13 @@
                           v-model="form.liableperson"></el-input>
               </el-form-item>
             </el-col>
+            <!--            所属公司-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" prop="thecompany">
+                <el-input :disabled="!disabled" style="width:20vw"
+                          v-model="form.thecompany"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -293,6 +300,7 @@
                     website: '',
                     remarks: '',
                     uploadfile: '',
+                  thecompany: '',
                 },
                 //人员规模
                 code1: 'BP007',
@@ -336,6 +344,14 @@
                             trigger: 'change'
                         },
                     ],
+                  // 所属公司
+                  thecompany: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
+                      trigger: 'change',
+                    },
+                  ],
                     // 中文(项目联络人)
                     prochinese: [
                         {

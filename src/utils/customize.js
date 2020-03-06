@@ -278,6 +278,20 @@ export function getCooperinterviewList(cooperuserid) {
   return info
 }
 
+export function getorgGroupList(groupid) {
+  let info = null;
+  if (store.getters.orgGroupList && store.getters.orgGroupList.length > 0) {
+    console.log(store.getters);
+    for (let cooperinterview of store.getters.orgGroupList) {
+      if (cooperinterview.groupid === groupid) {
+        info = cooperinterview;
+        break
+      }
+    }
+  }
+  return info
+}
+
 export function getSupplierinfor(id) {
   let info = null;
   if (store.getters.supplierinforList && store.getters.supplierinforList.length > 0) {

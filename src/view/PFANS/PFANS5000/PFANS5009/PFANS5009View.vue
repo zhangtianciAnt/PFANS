@@ -187,7 +187,8 @@
             name: 'PFANS5009FormView',
             params: {
               _id: this.rowid,
-              disabled: false
+              disabled: false,
+              adddisabled: true,
             }
           })
         }

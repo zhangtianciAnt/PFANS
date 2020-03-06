@@ -77,9 +77,9 @@
           .then(response => {
             this.form = response.publicexpense;
             this.getValue(this.form.type);
-            if (this.form.type === 'PJ001001' || this.form.type === 'PJ001002') {
+            if (this.form.type === 'PJ001001') {
               this.show = false;
-            } else {
+            } else if( this.form.type === 'PJ001002'){
               this.show = true;
             }
             this.loading = false
@@ -132,10 +132,10 @@
       },
       getValue(val) {
         this.form.type = val;
-        if (val === 'PJ001001' || val === 'PJ001002') {
+        if (val === 'PJ001001') {
           this.show = false;
           this.buttonList[0].disabled = false;
-        } else {
+        } else if( val === 'PJ001002'){
           this.buttonList[0].disabled = true;
           this.show = true;
         }
