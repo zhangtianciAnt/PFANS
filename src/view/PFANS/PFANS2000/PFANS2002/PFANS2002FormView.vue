@@ -80,7 +80,8 @@
                 <el-form-item :label="$t('label.sex')" prop="sex">
                   <dicselect
                     :data="form.sex"
-                    :disabled="!disabled"
+                    :disabled="disabled"
+                    :code="code_sex"
                     :multiple="multiple"
                     style="width: 20vw">
                   </dicselect>
@@ -599,6 +600,7 @@
         multiple: false,
         search: '',
         result: '',
+          code_sex: 'BP001',
         gridData: [],
         num: 0,
         activeName: 'first',
