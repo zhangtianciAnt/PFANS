@@ -372,7 +372,7 @@
               >
 <!--                部门-->
                 <el-table-column
-                  prop="departmentid"
+                  prop="group_id"
                   :label="$t('label.department')"
                   width="150"
                 >
@@ -427,7 +427,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo,getUserInfo,getCooperinterviewList,getSupplierinfor} from '../../../../utils/customize';
+  import {getDictionaryInfo,getUserInfo,getCooperinterviewList,getSupplierinfor,getOrgInfoByUserId,getorgGroupList} from '../../../../utils/customize';
   import org from '../../../components/org';
 
   export default {
@@ -978,11 +978,10 @@
           .dispatch('PFANS6004Store/getCompanyProject', {"SyspName":this.$route.params._name})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-                if (response[j].departmentid !== null && response[j].departmentid !== '') {
-                    let cooperInfo = getCooperinterviewList(response[j].departmentid);
-                    debugger;
-                    if (cooperInfo) {
-                        response[j].departmentid = cooperInfo.coopername;
+                if (response[j].group_id !== null && response[j].group_id !== '') {
+                    let group = getorgGroupList(response[j].group_id);
+                    if(group){
+                        response[j].group_id = group.groupname;
                     }
                 }
               if (response[j].project_name !== null && response[j].project_name !== "") {
