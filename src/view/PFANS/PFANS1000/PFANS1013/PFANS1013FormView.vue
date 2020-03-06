@@ -1210,11 +1210,9 @@
           publicexpenseid:"",
           trafficdate: "",
           invoicenumber: "",
-          departmentname: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: "",
           costitem:"",
-          budgetcoding: "",
-          subjectnumber: "",
           region: "",
           vehicle: "",
           startingpoint: "",
@@ -1229,7 +1227,7 @@
           accommodationdetails_id: "",
           accommodationdate: "",
           invoicenumber: "",
-          departmentname: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: "",
           vehicleon: "",
           vehiclein: "",
@@ -1259,7 +1257,7 @@
           otherdetails_id: "",
           otherdetailsdate: "",
           invoicenumber: "",
-          departmentname: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: "",
           remarks: "",
           rmb: "",
@@ -1477,6 +1475,7 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          var groupid = lst.groupId;
           this.form.centerid = lst.centerNmae;
           this.form.groupid = lst.groupNmae;
           this.form.teamid = lst.teamNmae;
@@ -1688,8 +1687,6 @@
             departmentname: "",
             taxes: "",
             costitem:"",
-            budgetcoding: "",
-            subjectnumber: "",
             region: "",
             vehicle: "",
             startingpoint: "",
@@ -1769,11 +1766,9 @@
           publicexpenseid:"",
           trafficdate: "",
           invoicenumber: "",
-          departmentname: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: "",
           costitem:"",
-          budgetcoding: "",
-          subjectnumber: "",
           region: "",
           vehicle: "",
           startingpoint: "",
@@ -1789,6 +1784,8 @@
           evectionid: "",
           accommodationdetails_id: "",
           accommodationdate: "",
+          invoicenumber: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: "",
           vehicleon: "",
           vehiclein: "",
@@ -1804,11 +1801,14 @@
           travel: "",
           relatives: "",
           train: "",
+          traintick: 0,
           plane: "",
           annexno: "",
           rowindex: "",
+          taxes: "",
+          costitem:"",
           disaccommod: false,
-          showtick: true
+          showtick: true,
         });
       },
       addRow4() {
@@ -1816,12 +1816,16 @@
           evectionid: "",
           otherdetails_id: "",
           otherdetailsdate: "",
+          invoicenumber: "",
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: "",
           remarks: "",
           rmb: "",
+          taxrate: "",
           foreigncurrency: "",
           annexno: "",
-          rowindex: ""
+          taxes: "",
+          rowindex: "",
         });
       },
       addRow5() {
@@ -2427,12 +2431,19 @@
               this.baseInfo.otherdetails = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
-                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== "") {
+                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ""
+                  || this.tableT[i].invoicenumber !=="" || this.tableT[i].departmentname !=="" || this.tableT[i].taxes !== "" || this.tableT[i].costitem !== "") {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
                       evectionid: this.tableT[i].evectionid,
+                      publicexpenseid:this.tableT[i].publicexpenseid,
                       trafficdate: this.tableT[i].trafficdate,
+                      invoicenumber: this.tableT[i].invoicenumber,
+                      departmentname: this.tableT[i].departmentname,
+                      taxes:this.tableT[i].taxes,
+                      costitem:this.tableT[i].costitem,
+                      taxrate: this.tableT[i].taxrate,
                       region: this.tableT[i].region,
                       vehicle: this.tableT[i].vehicle,
                       startingpoint: this.tableT[i].startingpoint,
@@ -2447,7 +2458,8 @@
                 if (this.tableA[i].accommodationdate !== "" || this.tableA[i].activitycontent !== "" || this.tableA[i].vehicle !== "" ||this.tableA[i].region !== ""
                   || this.tableA[i].movementtime !== "" || this.tableA[i].city !== "" || this.tableA[i].facilitytype !== "" || this.tableA[i].facilityname !== "" || this.tableA[i].accommodationallowance > 0
                   || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0 || this.tableA[i].relatives > 0 || this.tableA[i].train > 0
-                  || this.tableA[i].plane > 0 || this.tableA[i].annexno !== "") {
+                  || this.tableA[i].plane > 0 || this.tableA[i].annexno !== ""
+                  || this.tableA[i].invoicenumber !=="" || this.tableA[i].departmentname !=="" || this.tableA[i].taxes !== "" || this.tableA[i].costitem !== "") {
                   var varvehiclein;
                   var varfacilitytypein;
                   if (this.form.type === "0") {
@@ -2476,6 +2488,10 @@
                       relatives: this.tableA[i].facilitytype,
                       train: this.tableA[i].train,
                       plane: this.tableA[i].plane,
+                      invoicenumber: this.tableA[i].invoicenumber,
+                      departmentname: this.tableA[i].departmentname,
+                      taxes:this.tableA[i].taxes,
+                      costitem:this.tableA[i].costitem,
                       annexno: this.tableA[i].annexno,
                     }
                   );
@@ -2483,7 +2499,8 @@
               }
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== "" || this.tableR[i].costitem !== "" || this.tableR[i].remarks !== ""
-                  || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== "") {
+                  || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ""
+                  || this.tableR[i].invoicenumber !=="" || this.tableR[i].departmentname !=="" || this.tableR[i].taxes !== "" ) {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2492,6 +2509,9 @@
                       costitem: this.tableR[i].costitem,
                       remarks: this.tableR[i].remarks,
                       rmb: this.tableR[i].rmb,
+                      invoicenumber: this.tableR[i].invoicenumber,
+                      departmentname: this.tableR[i].departmentname,
+                      taxes:this.tableR[i].taxes,
                       foreigncurrency: this.tableR[i].foreigncurrency,
                       annexno: this.tableR[i].annexno,
                     }
