@@ -258,7 +258,7 @@
         }],
         loading:false,
         externalOption:"",
-        newTableData:[{name:"123",isoutside:false}],
+        newTableData:[{isoutside:false}],
         tableData:[],
         activeName:"first",
         buttonList:[],
@@ -302,7 +302,7 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.$route.params.type === 0?this.getCustomerInfo(rst.groupId||""):this.getExpatriatesinfor();
+          this.$route.params.type === 0?this.getCustomerInfo(rst.groupId||""):this.getExpatriatesinfor(rst.groupId||"");
         }
       }
     },
@@ -328,9 +328,9 @@
             });
           })
       },
-      getExpatriatesinfor() {
+      getExpatriatesinfor(id) {
         this.$store
-          .dispatch('PFANS1038Store/getExpatriatesinfor')
+          .dispatch('PFANS1038Store/getExpatriatesinfor',id)
           .then(response => {
             debugger
             if (response.length > 0) {
@@ -404,7 +404,7 @@
         }
       },
       addRow() {
-        this.newTableData.push({});
+        this.newTableData.push({"isoutside":false});
       },
       changeOption(val, row) {
         if (val) {
