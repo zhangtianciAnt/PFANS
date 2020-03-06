@@ -1583,7 +1583,7 @@ export function menu() {
                   '_id': 'PFANS6005',
                   'name': 'menu.PFANS6005',
                   'menuvisible': true,
-                  'menuurl': '/PFANS6005View',
+                  'menuurl': '/PFANS6005FormView',
                   'menuicon': '',
                   'children': [],
                   'actions': [
