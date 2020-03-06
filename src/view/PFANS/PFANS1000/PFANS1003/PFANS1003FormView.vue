@@ -381,7 +381,7 @@
         tableA: [
           {
           unusedeviceid: '',
-          judgement_id: '',
+          judgementid: '',
           devicename: '',
           price: '',
           unitprice: '',
@@ -617,7 +617,7 @@
       addRow() {
         this.tableA.push({
           unusedeviceid: '',
-          judgement_id: '',
+          judgementid: '',
           devicename: '',
           price: '',
           unitprice: '',
@@ -632,7 +632,7 @@
         } else {
           this.tableA = [{
             unusedeviceid: '',
-            judgement_id: '',
+            judgementid: '',
             devicename: '',
             price: '',
             unitprice: '',
