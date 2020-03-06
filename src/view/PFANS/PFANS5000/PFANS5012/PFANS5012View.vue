@@ -81,9 +81,9 @@
         groupid = user.userinfo.groupid;
         let userinfo =  this.$store.getters.userList;
         for (let i = 0;i < userinfo.length; i ++){
-            if(userinfo[i].userinfo.groupid === groupid){
-                groupuser.push(userinfo[i].userid);
-            }
+          if(userinfo[i].userinfo.groupid === groupid){
+            groupuser.push(userinfo[i].userid);
+          }
         }
       }
       // let cooperinterviewList =  this.$store.getters.cooperinterviewList;
@@ -97,26 +97,25 @@
       //
       let letorgGroupList = this.$store.getters.orgGroupList;
       for (let i = 0;i < letorgGroupList.length; i ++){
-          if(letorgGroupList[i].groupid === groupid){
-            let group = {};
-            group.centername = letorgGroupList[i].centername;
-            group.groupname = letorgGroupList[i].groupname;
-            group.groupid = groupid;
-            group.confirm = '';
-            group.status = '';
-            group.groupuser = groupuser;
-            group.groupuserlist = groupuser.join("','");
-            group.cooperinterviewList = groupcooperinterview;
-            this.data.push(group);
-          }
+        if(letorgGroupList[i].groupid === groupid){
+          let group = {};
+          group.centername = letorgGroupList[i].centername;
+          group.groupname = letorgGroupList[i].groupname;
+          group.groupid = groupid;
+          group.confirm = '';
+          group.status = '';
+          group.groupuser = groupuser;
+          group.groupuserlist = groupuser;
+          group.cooperinterviewList = groupcooperinterview;
+          this.data.push(group);
+        }
       }
-      debugger;
-      console.log(this.data);
+      //group.groupuserlist = groupuser.join("','");
       this.getProjectList();
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.projectname;
+        this.rowid = row.groupuserlist;
       },
       getProjectList(){
         this.loading = true;
@@ -124,30 +123,30 @@
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
           .then(response => {
             for (let i = 0;i < this.data.length; i ++){
-                let groupuser = this.data[i].groupuser;
-                for (let j = 0;j < response.length; j ++){
-                    for (let x = 0;x < groupuser.length; x ++){
-                        if(response[j].projectid === groupuser[x]){
-                            let letdata = {};
-                            this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-                            if (this.$i18n) {
-                                this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                                if(response[i].unconfirm != null){
-                                  if(Number(response[i].unconfirm) > 0){
-                                    this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                                  }
-                                }
-                                else{
-                                  if(response[i].confirm != null){
-                                    if(Number(response[i].confirm) > 0){
-                                      this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
-                                    }
-                                  }
-                                }
-                            }
+              let groupuser = this.data[i].groupuser;
+              for (let j = 0;j < response.length; j ++){
+                for (let x = 0;x < groupuser.length; x ++){
+                  if(response[j].projectid === groupuser[x]){
+                    let letdata = {};
+                    this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+                    if (this.$i18n) {
+                      this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                      if(response[i].unconfirm != null){
+                        if(Number(response[i].unconfirm) > 0){
+                          this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
                         }
+                      }
+                      else{
+                        if(response[i].confirm != null){
+                          if(Number(response[i].confirm) > 0){
+                            this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
+                          }
+                        }
+                      }
                     }
+                  }
                 }
+              }
             }
             this.loading = false;
           })
