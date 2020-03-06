@@ -267,7 +267,7 @@
                     <el-col>
                       <!--手动说明备注项-->
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_REMARK')">
-                        <el-input type="textarea" v-model="form.remark"></el-input>
+                        <el-input type="textarea" v-model="form.remark" :disabled="true"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -527,8 +527,8 @@
                             v-model="form.other3"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="8" v-if="display">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHERS')">
+              <el-col :span="8">
+                <el-form-item v-show="display" :label="$t('label.PFANS2002FORMVIEW_OTHERS')">
                   <user
                     :disabled="disabled"
                     :userlist="form.others"
@@ -596,6 +596,7 @@
         english_show: false,
         janpanese_show: false,
         other3_show: false,
+        other4_show: false,
         dialogTableVisible: false,
         multiple: false,
         search: '',
@@ -719,6 +720,8 @@
       this.getNameList();
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
+          this.display = false;
+
       }
     },
 
@@ -834,7 +837,7 @@
               this.tableData3[2].education = response[0].education3;
               this.tableData3[2].specialty = response[0].specialty3;
               this.tableData3[2].quityear = response[0].quityear3;
-              this.changeUsing(this.form.adoption);
+              //this.changeUsing(this.form.adoption);
               if (this.form.entry_enclosure != '') {
                 let uploadfile = this.form.entry_enclosure.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
@@ -893,6 +896,7 @@
         this.buttonClick('update');
       },
       changeUsing(val) {
+          console.log(val);
         if (val === 'PR051004') {
           this.display = true;
         } else {
