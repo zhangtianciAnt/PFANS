@@ -57,9 +57,9 @@
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                <div class="dpSupIndex" style="width: 19vw" prop="suppliername">
                   <el-container>
-                    <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                    <input  class="content bg" v-model="form.suppliername" :error="errorsuppliername"
                            :disabled="true"></input>
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
@@ -140,7 +140,7 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
                           v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
@@ -234,7 +234,7 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -486,6 +486,13 @@
         ];
       }
     },
+      /*computed: {
+        check(){
+            if(this.form.suppliername){
+                this.rules.suppliername.required = false;
+            }
+        }
+      },*/
     methods: {
       getInterviewDep(val) {
         this.form.interviewdep = val;
@@ -503,6 +510,12 @@
           this.errorsuppliername = '';
         }
       },
+        /*suppliernameChange(val){
+          console.log(val);
+          if(val != null && val !=""){
+              this.rules.suppliername.required = false;
+          }
+        },*/
       changesex(val) {
         this.form.sex = val;
       },
