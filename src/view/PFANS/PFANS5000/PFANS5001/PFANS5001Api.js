@@ -64,6 +64,16 @@ export function getPjList(data) {
     params: data
   })
 }
+export function getList2(data) {
+  return request({
+    url: 'companyprojects/getList2',
+    method: 'get',
+    params: data
+  })
+}
+
+
+
 
 export function getProjectList(data) {
   return request({

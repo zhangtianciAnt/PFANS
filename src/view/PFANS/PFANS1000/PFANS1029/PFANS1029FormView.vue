@@ -368,7 +368,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
+                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount" style="width:20vw"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>

@@ -272,7 +272,6 @@
         } else {
           callback();
         }
-        ;
       };
       var checksuppliername = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
