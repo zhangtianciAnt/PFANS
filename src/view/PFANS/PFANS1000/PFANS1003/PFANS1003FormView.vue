@@ -121,7 +121,66 @@
                 <el-input v-model="form.gist" type="textarea" :disabled="!disabled" :rows="16" style="width: 72vw"></el-input>
               </el-form-item>
           </el-row>
+
+          //表格
           <el-row>
+            <el-col :span="22">
+              <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
+                        style="width: 90vw">
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_DEVICENAME')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.devicename"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS3005VIEW_QUANTITY')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.quantity"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_UNPRICE')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.unitprice"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS1004VIEW_PRICE')"
+                  align="center">
+                  <template slot-scope="scope">
+                    <el-input
+                      :no="scope.row"
+                      :disabled="!disabled"
+                      v-model="scope.row.price"
+                      style="width: 100%">
+                    </el-input>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+
+
+              <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport">
                 <el-input v-model="form.purchassupport" type="textarea" :rows="3" :disabled="!disabled" style="width: 72vw"></el-input>
@@ -298,6 +357,14 @@
           equipment:'',
           uploadfile: '',
         },
+        tableA: {
+          unusedeviceid: '',
+          judgement_id: '',
+          devicename: '',
+          price: '',
+          unitprice: '',
+          quantity: '',
+        },
         code: 'PR002',
         code1: 'PR003',
         code2: 'PJ010',
@@ -424,7 +491,7 @@
         this.loading = true;
       if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1003Store/getJudgementOne', {"judgementid": this.$route.params._id})
+          .dispatch('PFANS1003Store/getJudgementOne', {"judgement_id": this.$route.params._id})
           .then(response => {
             this.form = response;
             this.userlist = this.form.user_id;
