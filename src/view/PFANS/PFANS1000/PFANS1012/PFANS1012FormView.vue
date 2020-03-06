@@ -514,7 +514,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber">
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
                                 v-for="item in optionsdata"
                                 :key="item.value"
@@ -659,7 +659,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber">
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
                                 v-for="item in optionsdata"
                                 :key="item.value"
@@ -817,7 +817,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber">
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
                                 v-for="item in optionsdata"
                                 :key="item.value"
