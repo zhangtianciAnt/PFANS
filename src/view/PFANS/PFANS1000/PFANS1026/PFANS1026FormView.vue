@@ -267,13 +267,16 @@ first<template>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
-                  <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="400" :error="errorcusto">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
                       <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
                             <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
-                      <div class="dpSupIndex">
-                        <input style="width: 8.15rem" :disabled="true" class="content bg"  v-model="scope.row.custojapanese"/>
-                        <el-button :disabled="!disabled" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
                       </div>
 
                     <el-dialog :visible.sync="dialogVisibleA"
@@ -460,28 +463,32 @@ first<template>
                   <!--</el-table-column>-->
                 <!--</el-table-column>-->
 
-                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="400">
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
                   <template slot-scope="scope">
-                    <div class="dpSupIndex">
-                      <input style="width: 8.15rem" :disabled="true" class="content bg"  v-model="scope.row.theme"/>
-                      <el-button :disabled="!disabled" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
                     </div>
 
                     <el-dialog :visible.sync="dialogVisibleB"
                                top="8vh"
+                               width="30%"
                                append-to-body>
                       <div>
                       <el-select @change="changed" v-model="region">
                         <el-option :label="$t(titleB)" value="1"></el-option>
                         <el-option :label="$t(titleC)" value="2"></el-option>
                       </el-select>
-                      <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" v-loading='loading' v-show="showTable1">
-                        <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="120"></el-table-column>
-                        <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="120"></el-table-column>
+                      <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                        <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                        <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
                       </el-table>
-                      <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" v-loading='loading' v-show="!showTable1">
-                        <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="120"></el-table-column>
-                        <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="120"></el-table-column>
+                      <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                        <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                        <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
                       </el-table>
                       </div>
                     </el-dialog>
@@ -2793,11 +2800,13 @@ first<template>
     import org from "../../../components/org";
     import moment from "moment";
     import project from '../../../components/project';
+    import ElInput from "../../../../../node_modules/element-ui/packages/input/src/input.vue";
 
     export default {
         name: 'PFANS1026View',
         components: {
-            EasyNormalContainer,
+          ElInput,
+          EasyNormalContainer,
             dicselect,
             user,
             org,
@@ -2916,8 +2925,8 @@ first<template>
               recordData: [],
               recordDataB: [],
               region: "1",
-              titleB:"title.PFANS1040",
-              titleC: "title.PFANS1041",
+              titleB:"menu.PFANS1040",
+              titleC: "menu.PFANS1041",
               projectResult:[]
             };
         },
