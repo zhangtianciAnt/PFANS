@@ -1,7 +1,24 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" >
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" v-show="showTable">
+      <el-date-picker
+        v-model="months"
+        type="month"
+        style="width:10vw"
+        :placeholder="$t('normal.error_09')"
+        size="small">
+      </el-date-picker>
+    </EasyNormalTable>
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" v-show="!showTable">
+      <el-date-picker
+        v-model="months"
+        type="month"
+        style="width:10vw"
+        :placeholder="$t('normal.error_09')"
+        size="small">
+      </el-date-picker>
     </EasyNormalTable>
   </div>
 </template>
@@ -18,6 +35,8 @@
     data() {
       return {
         totaldata: [],
+        showTable: true,
+        months:moment(new Date()).format("YYYY-MM"),
         total: 0,
         checkTableData: [],
         addActionUrl: '',
@@ -122,6 +141,7 @@
         this.$store
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
           .then(response => {
+            debugger;
             for (let i = 0;i < this.data.length; i ++){
               let groupuser = this.data[i].groupuser;
               for (let j = 0;j < response.length; j ++){
@@ -138,6 +158,7 @@
                       }
                       else{
                         if(response[i].confirm != null){
+                          debugger;
                           if(Number(response[i].confirm) > 0){
                             this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
                           }

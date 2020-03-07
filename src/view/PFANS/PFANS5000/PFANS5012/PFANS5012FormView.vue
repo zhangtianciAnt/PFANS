@@ -20,7 +20,6 @@
                     format="yyyy-WW"
                     :placeholder="$t('normal.error_09')">
                   </el-date-picker>
-
                 </div>
               </el-col>
             </el-row>
@@ -239,7 +238,10 @@
 
       selectData(val){
         this.getDateinitial(val);
-        let info = {createbylist: this.$route.params._id,starttime: this.starttime,endtime: this.endtime}
+        let info = [
+          this.$route.params._id,
+          [this.starttime,this.endtime]
+        ];
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
