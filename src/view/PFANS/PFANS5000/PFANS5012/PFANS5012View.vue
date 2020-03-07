@@ -17,7 +17,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import {getUserInfo} from "../../../../utils/customize";
-  import moment from 'moment'
+  import moment from 'moment';
   export default {
     name: 'PFANS5012View',
     components: {
@@ -83,7 +83,7 @@
     },
     mounted() {
       let groupid;
-      let groupuser = [];
+      let groupuserlist = [];
       let groupcooperinterview = [];
       let user = getUserInfo(this.$store.getters.userinfo.userid);
       if (user) {
@@ -91,7 +91,7 @@
         let userinfo =  this.$store.getters.userList;
         for (let i = 0;i < userinfo.length; i ++){
           if(userinfo[i].userinfo.groupid === groupid){
-            groupuser.push(userinfo[i].userid);
+            groupuserlist.push(userinfo[i].userid);
           }
         }
       }
@@ -111,15 +111,13 @@
           group.centername = letorgGroupList[i].centername;
           group.groupname = letorgGroupList[i].groupname;
           group.groupid = groupid;
-          group.confirm = '';
+          group.confirm = '0';
           group.status = '';
-          group.groupuser = groupuser;
-          group.groupuserlist = groupuser;
+          group.groupuserlist = groupuserlist;
           group.cooperinterviewList = groupcooperinterview;
           this.data.push(group);
         }
       }
-      //group.groupuserlist = groupuser.join("','");
       this.getProjectList();
     },
     methods: {
@@ -136,31 +134,28 @@
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:this.months})
           .then(response => {
             for (let i = 0;i < this.data.length; i ++){
-              // let groupuser = this.data[i].groupuser;
-              // for (let j = 0;j < response.length; j ++){
-              //   for (let x = 0;x < groupuser.length; x ++){
-              //     if(response[j].projectid === groupuser[x]){
-              //       let letdata = {};
-              //       this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-              //       if (this.$i18n) {
-              //         this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-              //         if(response[i].unconfirm != null){
-              //           if(Number(response[i].unconfirm) > 0){
-              //             this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-              //           }
-              //         }
-              //         else{
-              //           if(response[i].confirm != null){
-              //             debugger;
-              //             if(Number(response[i].confirm) > 0){
-              //               this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
-              //             }
-              //           }
-              //         }
-              //       }
-              //     }
-              //   }
-              // }
+              let groupuserlist = this.data[i].groupuserlist;
+              let confirm = 0;
+              if (this.$i18n) {
+                 let status = this.$t('label.PFANS5012VIEW_CONFIRM');
+              }
+              for (let j = 0;j < response.length; j ++){
+                for (let x = 0;x < groupuserlist.length; x ++){
+                  if(response[j].projectid === groupuserlist[x]){
+                    let letconfirm = response[j].confirm === null || response[j].confirm === "" ? 0 : Number(response[j].confirm);
+                    confirm = Number(confirm) + Number(letconfirm);
+                    if (this.$i18n) {
+                      if(response[j].unconfirm != null){
+                        if(Number(response[j].unconfirm) > 0){
+                          status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              this.data[i].confirm = confirm;
+              this.data[i].status = status;
             }
             this.loading = false;
           })
