@@ -20,7 +20,6 @@
                     format="yyyy-WW"
                     :placeholder="$t('normal.error_09')">
                   </el-date-picker>
-
                 </div>
               </el-col>
             </el-row>
@@ -168,9 +167,9 @@
         title: 'title.PFANS5012FORMVIEW',
         weeks:moment(new Date()).format("YYYY-MM-DD"),
         buttonList: [],
-        Data: [],
-        initial:[],
-        letinitial:[],
+        //一天的毫秒数
+        millisecond: 1000 * 60 * 60 * 24,
+        monday: '',
         Datatable:[],
         disabled: false,
         baseInfo:{},
@@ -205,6 +204,12 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
+
+      weekChange(value){
+        this.weeks = moment(value).format('YYYY-MM-DD');
+        this.selectData(value);
+      },
+
       getDateinitial(value){
         //周
         var week = value.getDay();
@@ -212,14 +217,13 @@
         var week = value.getDay();
         //返回date是一个月中的某一天
         var month = value.getDate();
-        //一天的毫秒数
-        var millisecond = 1000 * 60 * 60 * 24;
         //减去的天数
         var minusDay = week != 0 ? week - 1 : 6;
         //本周 周一
-        var monday = new Date(value.getTime() - (minusDay * millisecond));
+        var monday = new Date(value.getTime() - (minusDay * this.millisecond));
+        this.monday = new Date(value.getTime() - (minusDay * this.millisecond));
         //本周 周日
-        var sunday = new Date(monday.getTime() + (6 * millisecond));
+        var sunday = new Date(monday.getTime() + (6 * this.millisecond));
         this.starttime = moment(monday).format('YYYY-MM-DD')
         this.endtime = moment(sunday).format('YYYY-MM-DD');
         let months = moment(monday).format('M') + this.$t("label.month");
@@ -230,20 +234,85 @@
         this.day5 = months + (monday.getDate() + 4) + this.$t("label.day");
         this.day6 = months + (monday.getDate() + 5) + this.$t("label.day");
         this.day7 = months + (monday.getDate() + 6) + this.$t("label.day");
-        this.initial = [
-          {starttime: this.starttime,timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (1 * millisecond))).format('YYYY-MM-DD'),timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (2 * millisecond))).format('YYYY-MM-DD'),timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (3 * millisecond))).format('YYYY-MM-DD'),timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (4 * millisecond))).format('YYYY-MM-DD'),timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (5 * millisecond))).format('YYYY-MM-DD'),timestart:''},
-          {starttime: moment(new Date(monday.getTime() + (6 * millisecond))).format('YYYY-MM-DD'),timestart:''},
+      },
+
+      selectData(val){
+        this.getDateinitial(val);
+        let info = [
+          this.$route.params._id,
+          [this.starttime,this.endtime]
         ];
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5001Store/getGroupTimestart', info)
+            .then(response => {
+              this.Datatable = [];
+              for(let i = 0; i < response.length; i ++){
+                let letinitial = [
+                  {starttime: this.starttime,timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (1 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (2 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (3 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (4 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (5 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                  {starttime: moment(new Date(this.monday.getTime() + (6 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
+                ];
+                let letdata = {};
+                letdata.userid = response[i].createby;
+                let user = getUserInfo(response[i].createby);
+                if(user){
+                  letdata.name = user.userinfo.customername;
+                  let group = getOrgInfo(user.userinfo.centerid);
+                  if(group){
+                    letdata.company = group.companyen;
+                  }
+                  if (this.$i18n) {
+                    letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_INCOMMUNITY");
+                  }
+                }
+                else{
+                  let co = getCooperinterviewList(response[i].createby);
+                  if(co){
+                    letdata.name = co.coopername;
+                    letdata.company = co.suppliername;
+                    if (this.$i18n) {
+                      letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_OUTCOMMUNITY");
+                    }
+                  }
+                }
+                let letlogdate  = response[i].logdate.split(",");
+                let lettimestart  = response[i].timestart.split(",");
+                if(letlogdate){
+                  for(let j = 0; j < letlogdate.length; j ++){
+                    for(let x = 0; x < letinitial.length; x ++){
+                      if(letinitial[x].starttime === letlogdate[j]){
+                        letinitial[x].timestart = lettimestart[j];
+                      }
+                    }
+                  }
+                }
+                letdata.timestart1 = letinitial[0].timestart;
+                letdata.timestart2 = letinitial[1].timestart;
+                letdata.timestart3 = letinitial[2].timestart;
+                letdata.timestart4 = letinitial[3].timestart;
+                letdata.timestart5 = letinitial[4].timestart;
+                letdata.timestart6 = letinitial[5].timestart;
+                letdata.timestart7 = letinitial[6].timestart;
+                this.Datatable.push(letdata);
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            });
+        }
       },
-      weekChange(value){
-        this.weeks = moment(value).format('YYYY-MM-DD');
-        this.getDateinitial(value);
-      },
+
       buttonClick(val) {
         this.baseInfo = {};
         this.baseInfo.logmanagement = [];
@@ -285,70 +354,7 @@
       },
     },
     mounted() {
-      this.getDateinitial(new Date());
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5001Store/getTimestart', {project_id: this.$route.params._id})
-          .then(response => {
-            this.Data = response;
-            this.Datatable = [];
-            for(let i = 0; i < response.length; i ++){
-              this.letinitial = [];
-              this.letinitial = this.initial;
-              let letdata = {};
-              letdata.userid = response[i].createby;
-              let user = getUserInfo(response[i].createby);
-              if(user){
-                letdata.name = user.userinfo.customername;
-                let group = getOrgInfo(user.userinfo.centerid);
-                if(group){
-                  letdata.company = group.companyen;
-                }
-                if (this.$i18n) {
-                  letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_INCOMMUNITY");
-                }
-              }
-              else{
-                let co = getCooperinterviewList(response[i].createby);
-                if(co){
-                  letdata.name = co.coopername;
-                  letdata.company = co.suppliername;
-                  if (this.$i18n) {
-                    letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_OUTCOMMUNITY");
-                  }
-                }
-              }
-              let letlogdate  = response[i].logdate.split(",");
-              let lettimestart  = response[i].timestart.split(",");
-              if(letlogdate){
-                for(let j = 0; j < letlogdate.length; j ++){
-                  for(let x = 0; x < this.letinitial.length; x ++){
-                    if(this.letinitial[x].starttime === letlogdate[j]){
-                      this.letinitial[x].timestart = lettimestart[j];
-                    }
-                  }
-                }
-              }
-              letdata.timestart1 = this.letinitial[0].timestart;
-              letdata.timestart2 = this.letinitial[1].timestart;
-              letdata.timestart3 = this.letinitial[2].timestart;
-              letdata.timestart4 = this.letinitial[3].timestart;
-              letdata.timestart5 = this.letinitial[4].timestart;
-              letdata.timestart6 = this.letinitial[5].timestart;
-              letdata.timestart7 = this.letinitial[6].timestart;
-              this.Datatable.push(letdata);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          });
-      }
+      this.selectData(new Date());
     },
   };
 </script>
