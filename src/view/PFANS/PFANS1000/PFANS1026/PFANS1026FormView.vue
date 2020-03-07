@@ -387,7 +387,7 @@ first<template>
                     <template slot-scope="scope">
                       <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
                       <!--</el-input>-->
-                      <project style="width: 100%" :data="scope.row.projects" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
                                @change="changePro">
                       </project>
                     </template>
@@ -758,8 +758,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
+                      <!--</el-input>-->
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1089,8 +1091,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
+                      <!--</el-input>-->
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1363,8 +1367,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1637,8 +1643,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1911,8 +1919,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2185,8 +2195,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2454,8 +2466,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2728,8 +2742,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2964,6 +2980,15 @@ first<template>
                                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                                     contractapplication[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
+                                if ( contractapplication[i].conchinese !=null && contractapplication[i].conchinese !='') {
+//                                  debugger
+                                  let conchinese = contractapplication[i].conchinese;
+                                  if ( typeof conchinese == "string" ) {
+                                    conchinese = conchinese.split(",");
+                                    contractapplication[i].conchinese = conchinese;
+                                  }
+                                }
+                                console.log(contractapplication[i]);
                                 let o = Object.assign({}, contractapplication[i]);
                                 this.tabledata.push(o);
                                 if (this.maketype === '1') {
@@ -3050,7 +3075,7 @@ first<template>
             }
 
             row.conjapanese = nameJA.substring(0, nameJA.length -1);
-            row.conchinese = val.join(",");
+//            row.conchinese = val.join(",");
           },
           changed() {
             if (this.region === '2') {
