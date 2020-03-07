@@ -1,23 +1,14 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" v-show="showTable">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id">
       <el-date-picker
         v-model="months"
+        slot="customize"
         type="month"
-        style="width:10vw"
-        :placeholder="$t('normal.error_09')"
-        size="small">
-      </el-date-picker>
-    </EasyNormalTable>
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" v-show="!showTable">
-      <el-date-picker
-        v-model="months"
-        type="month"
-        style="width:10vw"
-        :placeholder="$t('normal.error_09')"
-        size="small">
+        style="width:11vw"
+        @change="changed"
+        :placeholder="$t('normal.error_09')">
       </el-date-picker>
     </EasyNormalTable>
   </div>
@@ -26,7 +17,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import {getUserInfo} from "../../../../utils/customize";
-  let moment = require("moment");
+  import moment from 'moment'
   export default {
     name: 'PFANS5012View',
     components: {
@@ -35,7 +26,6 @@
     data() {
       return {
         totaldata: [],
-        showTable: true,
         months:moment(new Date()).format("YYYY-MM"),
         total: 0,
         checkTableData: [],
@@ -136,38 +126,41 @@
       rowClick(row) {
         this.rowid = row.groupuserlist;
       },
+      changed(val){
+        this.months = moment(val).format('YYYY-MM');
+        this.getProjectList();
+      },
       getProjectList(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
+          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:this.months})
           .then(response => {
-            debugger;
             for (let i = 0;i < this.data.length; i ++){
-              let groupuser = this.data[i].groupuser;
-              for (let j = 0;j < response.length; j ++){
-                for (let x = 0;x < groupuser.length; x ++){
-                  if(response[j].projectid === groupuser[x]){
-                    let letdata = {};
-                    this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-                    if (this.$i18n) {
-                      this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                      if(response[i].unconfirm != null){
-                        if(Number(response[i].unconfirm) > 0){
-                          this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                        }
-                      }
-                      else{
-                        if(response[i].confirm != null){
-                          debugger;
-                          if(Number(response[i].confirm) > 0){
-                            this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
+              // let groupuser = this.data[i].groupuser;
+              // for (let j = 0;j < response.length; j ++){
+              //   for (let x = 0;x < groupuser.length; x ++){
+              //     if(response[j].projectid === groupuser[x]){
+              //       let letdata = {};
+              //       this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+              //       if (this.$i18n) {
+              //         this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+              //         if(response[i].unconfirm != null){
+              //           if(Number(response[i].unconfirm) > 0){
+              //             this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+              //           }
+              //         }
+              //         else{
+              //           if(response[i].confirm != null){
+              //             debugger;
+              //             if(Number(response[i].confirm) > 0){
+              //               this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
+              //             }
+              //           }
+              //         }
+              //       }
+              //     }
+              //   }
+              // }
             }
             this.loading = false;
           })
