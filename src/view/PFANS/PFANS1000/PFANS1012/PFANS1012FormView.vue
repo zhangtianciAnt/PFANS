@@ -85,7 +85,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
                       <el-input-number
                         :disabled="true"
                         :min="0"
@@ -990,6 +990,15 @@
           callback();
         }
       };
+      // var checkrmb=(rule, value, callback) => {
+      //   if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
+      //     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+      //     return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+      //   } else {
+      //     this.error = '';
+      //     return callback();
+      //   }
+      // };
       var validatepayeename = (rule, value, callback) => {
         if (this.show1) {
           if (value) {
@@ -1245,6 +1254,11 @@
             message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
             trigger: 'change',
           }],
+          // rmbexpenditure:[{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_RMBEXPENDITURE'),
+          //   trigger: 'change',
+          // }],
           paymentmethod: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYMENTMETHOD'),
