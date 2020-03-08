@@ -172,7 +172,7 @@
                       <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
                         <el-container>
                           <input class="content bg" v-model="form.suppliername" :error="errorsuppliername"
-                                 :disabled="true"></input>
+                                 :disabled="true">
                           <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
                                      size="small"></el-button>
                           <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center
@@ -341,8 +341,9 @@
                                  :disabled="true"></input>
                           <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
                                      size="small"></el-button>
-                          <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center
-                                     size="50%"
+                          <el-dialog :title="$t('title.PFANS6003VIEW')"
+                                     :visible.sync="dialogTableVisible"
+                                     center size="50%"
                                      top="8vh" lock-scroll
                                      append-to-body>
                             <div style="text-align: center">
@@ -354,11 +355,17 @@
                                   <el-table-column property="suppliername"
                                                    :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="userid"
-                                                   :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                  <el-table-column property="payeename"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="vendornum"
+                                                   :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
-                                  <el-table-column property="contactinformation"
-                                                   :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                  <el-table-column property="payeebankaccountnumber"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="payeebankaccount"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
                                                    width="150"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
@@ -952,10 +959,10 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
+  import dicselect from '../../../components/dicselect';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
   import json2csv from 'json2csv';
   import org from '../../../components/org';
 
@@ -964,6 +971,7 @@
     components: {
       dicselect,
       EasyNormalContainer,
+      getOrgInfoByUserId,
       user,
       org,
     },
@@ -990,19 +998,19 @@
           callback();
         }
       };
-      /*人民币支出与明细check*/
-      var checkrmb=(rule, value, callback) => {
-        if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
-          if( ! (this.form.moneys-this.form.tormb)===rmbexpenditure){
-            this.error = this.$t('label.PFANS1012VIEW_CHECK');
-            return callback(new Error(this.$t('label.PFANS1012VIEW_CHECK')));
-          }
-
-        } else {
-          this.error = '';
-          return callback();
-        }
-      };
+      // /*人民币支出与明细check*/
+      // var checkrmb=(rule, value, callback) => {
+      //   if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
+      //     if( ! (this.form.moneys-this.form.tormb)===rmbexpenditure){
+      //       this.error = this.$t('label.PFANS1012VIEW_CHECK');
+      //       return callback(new Error(this.$t('label.PFANS1012VIEW_CHECK')));
+      //     }
+      //
+      //   } else {
+      //     this.error = '';
+      //     return callback();
+      //   }
+      // };
       var validatepayeename = (rule, value, callback) => {
         if (this.show1) {
           if (value) {
@@ -1103,6 +1111,7 @@
         }
       };
       return {
+        search: '',
         companyen: '',
         invoiceamountsum: '',
         tableTValue: '',
@@ -1258,11 +1267,11 @@
             message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
             trigger: 'change',
           }],
-          rmbexpenditure:[{
-            required: true,
-            validator: checkrmb,
-            trigger: 'change',
-          }],
+          // rmbexpenditure:[{
+          //   required: true,
+          //   validator: checkrmb,
+          //   trigger: 'change',
+          // }],
           paymentmethod: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYMENTMETHOD'),
@@ -2103,26 +2112,26 @@
         }));
       },
 
+      handleClickChange(val) {
+        this.currentRow = val.suppliername;
+        this.currentRow1 = val.payeename;
+        this.currentRow2 = val.vendornum;
+        this.currentRow3 = val.payeebankaccountnumber;
+        this.currentRow4 = val.payeebankaccount;
+      },
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
         let val2= this.currentRow2;
         let val3 = this.currentRow3;
-        //let val4 = this.currentRow4;
+        let val4 = this.currentRow4;
         this.dialogTableVisible = false;
-        this.form.payeename = val;
-        this.form.payeebankaccountnumber = val1;
-        this.form.payeebankaccount = val2;
-        this.form. payeecode = val3;
-        //this.form. fullname = val4;
+        this.form.suppliername = val;
+        this.form.payeename = val1;
+        this.form.payeecode = val2;
+        this.form. payeebankaccountnumber = val3;
+        this.form. payeebankaccount = val4;
 
-      },
-      handleClickChange(val) {
-        this.currentRow = val.payeename;
-        this.currentRow1 = val.payeebankaccountnumber;
-        this.currentRow2 = val.payeebankaccount;
-        this.currentRow3 = val.vendornum;
-        //this.currentRow3 = val.vendornum;
       },
       getsupplierinfor() {
         this.loading = true;
@@ -2133,9 +2142,10 @@
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.suppliername = response[i].supchinese;
-              vote.userid = response[i].prochinese;
-              vote.contactinformation = response[i].protelephone;
-              //vote.suppliernameid = response[i].supchineseid;
+              vote.payeename = response[i].payeename;
+              vote.vendornum = response[i].vendornum;
+              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+              vote.payeebankaccount = response[i].payeebankaccount;
               this.gridData.push(vote);
             }
             this.loading = false;
