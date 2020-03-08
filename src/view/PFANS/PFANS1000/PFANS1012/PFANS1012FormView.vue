@@ -680,7 +680,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
-                                v-for="item in optionsdata"
+                                v-for="item in arryoption"
                                 :key="item.value"
                                 :label="item.lable"
                                 :value="item.value">
@@ -838,7 +838,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
-                                v-for="item in optionsdata"
+                                v-for="item in arryoption"
                                 :key="item.value"
                                 :label="item.lable"
                                 :value="item.value">
