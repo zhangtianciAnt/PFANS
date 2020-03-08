@@ -184,15 +184,21 @@
                                 <el-table
                                   :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                                   height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                  :span-method="arraySpanMethod" @row-click="handleClickChange">
+                                  @row-click="handleClickChange">
                                   <el-table-column property="suppliername"
                                                    :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="userid"
-                                                   :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                  <el-table-column property="payeename"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="vendornum"
+                                                   :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
-                                  <el-table-column property="contactinformation"
-                                                   :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                  <el-table-column property="payeebankaccountnumber"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="payeebankaccount"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
                                                    width="150"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
@@ -274,15 +280,21 @@
                                 <el-table
                                   :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                                   height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                  :span-method="arraySpanMethod" @row-click="handleClickChange">
+                                  @row-click="handleClickChange">
                                   <el-table-column property="suppliername"
                                                    :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="userid"
-                                                   :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                  <el-table-column property="payeename"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="vendornum"
+                                                   :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
-                                  <el-table-column property="contactinformation"
-                                                   :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                  <el-table-column property="payeebankaccountnumber"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                                   width="150"></el-table-column>
+                                  <el-table-column property="payeebankaccount"
+                                                   :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
                                                    width="150"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
@@ -305,15 +317,15 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="receivables">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="payeecode">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.receivables"></el-input>
+                                v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show3" prop="payeecode">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.receivables"></el-input>
+                                v-model="form.payeecode"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -351,7 +363,7 @@
                                 <el-table
                                   :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                                   height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                  :span-method="arraySpanMethod" @row-click="handleClickChange">
+                                  @row-click="handleClickChange">
                                   <el-table-column property="suppliername"
                                                    :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                                    width="150"></el-table-column>
@@ -523,7 +535,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
-                                v-for="item in optionsdata"
+                                v-for="item in arryoption"
                                 :key="item.value"
                                 :label="item.lable"
                                 :value="item.value">
@@ -1251,6 +1263,7 @@
           othersubjectnumber: '',
           othersubjectname: '',
           otherremarks: '',
+          suppliername:'',
         },
         rules: {
           user_id: [{
@@ -1346,6 +1359,8 @@
         errorgroup: '',
         orglist: '',
         optionsdata: [],
+        staroption: [{value:' ',label:' '}],
+        arryoption:[],
         multiple: false,
         show1: false,
         show2: false,
@@ -1368,22 +1383,30 @@
     },
     mounted() {
       this.getsupplierinfor();
+
       this.optionsdata = [];
-      for (let i = 0; i < this.tableF.length; i++) {
+      this.arryoption=[];
+      for (var i = 0; i < this.tableF.length; i++) {
         var vote = {};
         vote.value = this.tableF[i].invoicenumber,
           vote.lable = this.tableF[i].invoicenumber,
           this.optionsdata.push(vote);
+        this.arryoption = this.optionsdata.concat( this.staroption);
       }
+      //this.arryoption.push.apply(this.arryoption,this.optionsdata);
+
+
+
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
+            debugger
             this.form = response.publicexpense;
             if (response.invoice.length > 0) {
               this.tableF = response.invoice;
-              this.optionsdata = [{'value': '', 'label': ''}];
+              this.optionsdata = [];
               for (let i = 0; i < this.tableF.length; i++) {
                 var vote = {};
                 vote.value = this.tableF[i].invoicenumber,
@@ -1536,11 +1559,6 @@
       },
     },
     methods: {
-      arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 3) {
-          return [1, 2];
-        }
-      },
       getGroupId(orglist, row) {
         row.departmentname = orglist;
         let group = getOrgInfo(orglist);
@@ -1549,11 +1567,11 @@
           row.budgetcoding = group.encoding;
         }
       },
-      // getcode(val, row) {
-      //     row.accountcode = val;
-      //     this.accountcodeValue = val;
-      //     this.getCompanyen(val, row);
-      // },
+      getcode(val, row) {
+          row.accountcode = val;
+          this.accountcodeValue = val;
+          this.getCompanyen(val, row);
+      },
       getCompanyen(val, row) {
         if (this.companyen != '') {
           if (this.companyen == 'ADMN' || this.companyen == 'FPO' || this.companyen == 'DANP') {
@@ -1664,6 +1682,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.form.fullname = '';
+         // this.form.suppliername=' ';
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
@@ -1677,6 +1696,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.form.fullname = '';
+         this.form.suppliername=' ';
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
@@ -1691,6 +1711,7 @@
           this.form.code = '';
           this.form.loan = '';
           this.form.fullname = '';
+          //this.form.suppliername=' ';
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
@@ -1705,6 +1726,7 @@
           this.form.code = '';
           this.form.receivables = '';
           this.form.fullname = '';
+          this.form.suppliername=' ';
         } else {
           this.show1 = false;
           this.show2 = false;
@@ -1719,6 +1741,7 @@
           this.form.code = '';
           this.form.receivables = '';
           this.form.loan = '';
+          //this.form.suppliername=' ';
         }
       },
       getBudge(val) {
@@ -2125,6 +2148,7 @@
         let val2= this.currentRow2;
         let val3 = this.currentRow3;
         let val4 = this.currentRow4;
+
         this.dialogTableVisible = false;
         this.form.suppliername = val;
         this.form.payeename = val1;
