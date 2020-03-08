@@ -375,10 +375,15 @@
                       </dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                      </el-input>
+                      <el-input-number
+                        :disabled="!disable"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.taxes">
+                      </el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">
@@ -470,10 +475,15 @@
                                 </el-input-number>
                               </template>
                             </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="200">
                               <template slot-scope="scope">
-                                <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                                </el-input>
+                                <el-input-number
+                                  :disabled="!disable"
+                                  :precision="2"
+                                  controls-position="right"
+                                  style="width: 100%"
+                                  v-model="scope.row.taxes">
+                                </el-input-number>
                               </template>
                             </el-table-column>
                             <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total" width="200">
@@ -503,7 +513,7 @@
                 <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="200" prop="trafficdate">
+                <el-table-column :label="$t('label.date')" align="center" width="200" >
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
                                     v-model="scope.row.trafficdate"></el-date-picker>
@@ -584,10 +594,15 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                    </el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.taxes">
+                    </el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -991,10 +1006,15 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"  width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                    </el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.taxes">
+                    </el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
