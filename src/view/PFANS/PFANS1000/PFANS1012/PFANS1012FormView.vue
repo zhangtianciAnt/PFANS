@@ -1391,8 +1391,8 @@
         vote.value = this.tableF[i].invoicenumber,
           vote.lable = this.tableF[i].invoicenumber,
           this.optionsdata.push(vote);
-        this.arryoption = this.optionsdata.concat( this.staroption);
       }
+      this.arryoption = this.optionsdata.concat( this.staroption);
       //this.arryoption.push.apply(this.arryoption,this.optionsdata);
 
 
