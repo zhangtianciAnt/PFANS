@@ -1,4 +1,4 @@
-first<template>
+<template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container"
                          :title="title"
@@ -117,7 +117,7 @@ first<template>
           </el-dialog>
 
           <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first" :disabled="activeDisabledArrays[0].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
                                  type="index" width="50"></el-table-column>
@@ -267,26 +267,28 @@ first<template>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
-                  <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="400" :error="errorcusto">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
                       <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
                             <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
-                      <div class="dpSupIndex">
-                        <input style="width: 8.15rem" :disabled="true" class="content bg"  v-model="scope.row.custojapanese"/>
-                        <el-button :disabled="!disabled" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
                       </div>
-
-                    <el-dialog :visible.sync="dialogVisibleA"
-                               top="8vh"
-                               append-to-body>
-                      <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
-                        <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
-                        <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
-                        <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
-                        <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
-                        <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
-                      </el-table>
-                    </el-dialog>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -384,7 +386,7 @@ first<template>
                     <template slot-scope="scope">
                       <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
                       <!--</el-input>-->
-                      <project style="width: 100%" :data="scope.row.projects" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
                                @change="changePro">
                       </project>
                     </template>
@@ -460,11 +462,14 @@ first<template>
                   <!--</el-table-column>-->
                 <!--</el-table-column>-->
 
-                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="300">
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
                   <template slot-scope="scope">
-                    <div class="dpSupIndex">
-                      <input style="width: 8.15rem" :disabled="true" class="content bg"  v-model="scope.row.theme"/>
-                      <el-button :disabled="!disabled" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
                     </div>
 
                     <el-dialog :visible.sync="dialogVisibleB"
@@ -476,11 +481,11 @@ first<template>
                         <el-option :label="$t(titleB)" value="1"></el-option>
                         <el-option :label="$t(titleC)" value="2"></el-option>
                       </el-select>
-                      <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" style="width: 100%" ref="roletableA" v-loading='loading' v-show="showTable1">
+                      <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
                         <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
                         <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
                       </el-table>
-                      <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" style="width: 100%" ref="roletableA" v-loading='loading' v-show="!showTable1">
+                      <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
                         <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
                         <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
                       </el-table>
@@ -497,7 +502,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_TECHNICAL')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_TECHNICAL')" name="second" :disabled="activeDisabledArrays[1].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -649,8 +654,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -752,8 +775,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
+                      <!--</el-input>-->
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -820,6 +845,37 @@ first<template>
                     <!--</template>-->
                   <!--</el-table-column>-->
                 <!--</el-table-column>-->
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
+                  </template>
+                </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
                   <template slot-scope="scope">
                     <el-input :disabled="true" v-model="scope.row.state">
@@ -828,7 +884,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASTRUST')" name="third">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASTRUST')" name="third" :disabled="activeDisabledArrays[2].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -980,8 +1036,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -1083,8 +1157,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
+                      <!--</el-input>-->
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1092,6 +1168,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -1102,7 +1209,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASSERVICE')" name="fourth">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASSERVICE')" name="fourth" :disabled="activeDisabledArrays[3].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -1254,8 +1361,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -1357,8 +1482,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1366,6 +1493,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -1376,7 +1534,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTIC')" name="fifth">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTIC')" name="fifth" :disabled="activeDisabledArrays[4].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -1528,8 +1686,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -1631,8 +1807,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1640,6 +1818,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -1650,7 +1859,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICTRUST')" name="sixth">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICTRUST')" name="sixth" :disabled="activeDisabledArrays[5].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -1802,8 +2011,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -1905,8 +2132,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -1914,6 +2143,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -1924,7 +2184,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICSERVICE')" name="seventh">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICSERVICE')" name="seventh" :disabled="activeDisabledArrays[6].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -2076,8 +2336,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -2179,8 +2457,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2188,6 +2468,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -2198,7 +2509,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_TRUST')" name="eighth">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_TRUST')" name="eighth" :disabled="activeDisabledArrays[7].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -2345,8 +2656,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -2448,8 +2777,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2457,6 +2788,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -2467,7 +2829,7 @@ first<template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_SELL')" name="ninth">
+            <el-tab-pane :label="$t('label.PFANS1026VIEW_SELL')" name="ninth" :disabled="activeDisabledArrays[8].disabled">
               <el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                  type="index" width="50"></el-table-column>
@@ -2619,8 +2981,26 @@ first<template>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"
-                            @getUserids="getCusto" style="width: 10.15rem"></user>
+                      <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+                            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+                      <div class="">
+                        <el-input class="content bg"
+                                  :disabled="true"
+                                  v-model="scope.row.custojapanese">
+                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                        </el-input>
+                      </div>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
@@ -2722,8 +3102,10 @@ first<template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conchinese">
-                      </el-input>
+                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
+                      <!--</el-input>-->
+                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
+                               @change="changePro"></project>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -2731,6 +3113,37 @@ first<template>
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" v-model="scope.row.remarks">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+                  <template slot-scope="scope">
+                    <div class="">
+                      <el-input class="content bg"
+                                :disabled="true"
+                                v-model="scope.row.theme">
+                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                      </el-input>
+                    </div>
+
+                    <el-dialog :visible.sync="dialogVisibleB"
+                               top="8vh"
+                               width="30%"
+                               append-to-body>
+                      <div>
+                        <el-select @change="changed" v-model="region">
+                          <el-option :label="$t(titleB)" value="1"></el-option>
+                          <el-option :label="$t(titleC)" value="2"></el-option>
+                        </el-select>
+                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                        </el-table>
+                      </div>
+                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">
@@ -2794,11 +3207,13 @@ first<template>
     import org from "../../../components/org";
     import moment from "moment";
     import project from '../../../components/project';
+    import ElInput from "../../../../../node_modules/element-ui/packages/input/src/input.vue";
 
     export default {
         name: 'PFANS1026View',
         components: {
-            EasyNormalContainer,
+          ElInput,
+          EasyNormalContainer,
             dicselect,
             user,
             org,
@@ -2807,6 +3222,17 @@ first<template>
         },
         data() {
             return {
+              activeDisabledArrays: [
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true},
+                {disabled: true}
+              ],
               disabledCount1: false,
               disabledCount2: false,
               disabledCount3: false,
@@ -2956,26 +3382,43 @@ first<template>
                                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                                     contractapplication[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
+                                if ( contractapplication[i].conchinese !=null && contractapplication[i].conchinese !='') {
+                                  let conchinese = contractapplication[i].conchinese;
+                                  if ( typeof conchinese == "string" ) {
+                                    conchinese = conchinese.split(",");
+                                    contractapplication[i].conchinese = conchinese;
+                                  }
+                                }
+                                console.log(contractapplication[i]);
                                 let o = Object.assign({}, contractapplication[i]);
                                 this.tabledata.push(o);
                                 if (this.maketype === '1') {
                                     this.activeName = 'first';
+                                    this.activeDisabledArrays[0] = false;
                                 } else if (this.maketype === '2') {
                                     this.activeName = 'second';
+                                  this.activeDisabledArrays[1] = false;
                                 } else if (this.maketype === '3') {
                                     this.activeName = 'third';
+                                  this.activeDisabledArrays[2] = false;
                                 } else if (this.maketype === '4') {
                                     this.activeName = 'fourth';
+                                  this.activeDisabledArrays[3] = false;
                                 } else if (this.maketype === '5') {
                                     this.activeName = 'fifth';
+                                  this.activeDisabledArrays[4] = false;
                                 } else if (this.maketype === '6') {
                                     this.activeName = 'sixth';
+                                  this.activeDisabledArrays[5] = false;
                                 } else if (this.maketype === '7') {
                                     this.activeName = 'seventh';
+                                  this.activeDisabledArrays[6] = false;
                                 } else if (this.maketype === '8') {
                                     this.activeName = 'eighth';
+                                  this.activeDisabledArrays[7] = false;
                                 } else if (this.maketype === '9') {
                                     this.activeName = 'ninth';
+                                  this.activeDisabledArrays[8] = false;
                                 }
                             }
                         }
@@ -2994,12 +3437,16 @@ first<template>
                     })
             } else {
                 this.activeName = 'first';
+                for(var p=0; p<9; p++){
+                  this.activeDisabledArrays[p] = false;
+                }
             }
-            //TODO
+          //get customer
           this.getcustomerinfor();
-            //todo
+          //テーマ
           this.getdata("2");
           this.getdata("4");
+          //get project
           this.getProjectList();
         },
         created() {
@@ -3032,7 +3479,6 @@ first<template>
               })
           },
           changePro(val, row) {
-            let nameCH = "";
             let nameJA = "";
             for(let i=0;i<val.length;i++) {
               let result = this.projectResult.filter(value => {
@@ -3042,7 +3488,6 @@ first<template>
             }
 
             row.conjapanese = nameJA.substring(0, nameJA.length -1);
-            row.conchinese = val.join(",");
           },
           changed() {
             if (this.region === '2') {
@@ -3051,12 +3496,10 @@ first<template>
               this.showTable1 = true;
             }
           },
-          //todo
           handleClickA(row){
             this.recordData = row;
             this.dialogVisibleA = true;
           },
-          // TODO
           rowClick(row) {
             this.loading = true;
             this.recordData.custojapanese = row.custjapanese;
@@ -3078,17 +3521,12 @@ first<template>
           handleClickB(row){
             this.recordDataB = row;
             this.dialogVisibleB = true;
-            console.log("ROW",row);
           },
-          //todo
           rowClickB(row){
-            debugger;
             this.recordDataB.theme = row.theme;
             this.recordDataB.temaid = row.contractthemeid;
             this.dialogVisibleB = false;
           },
-
-          //TODO
           getdata(type){
             let datainfo = {};
             var myDate = new Date();
@@ -3110,7 +3548,6 @@ first<template>
                     }
                     this.tableB = this.tableBc;
                   }else {
-                    debugger;
                     this.tableBc = [];
                     let months = response[0].months;
                     for (let j = 0; j < response.length; j++) {
@@ -3133,8 +3570,6 @@ first<template>
                 this.loading = false;
               });
           },
-
-          // TODO
           getcustomerinfor() {
             this.loading = true;
             this.$store
@@ -3857,7 +4292,7 @@ first<template>
                   user_id: this.$store.getters.userinfo.userid,
                   contracttype: this.contracttype,
                   contractnumber: this.letcontractnumber,
-                  entrycondition: '',
+                  entrycondition: 'HT004002',
                   entrypayment: '',
                   deliverycondition: '',
                   delivery: '',
@@ -3971,7 +4406,7 @@ first<template>
                 let isClone = false;
                 if(this.checked){
                   for (let i = 0; i < this.tabledata.length; i++) {
-                    this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                    this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                     if (this.tabledata[0].deliverycondition == 'HT009002') {
                       isClone = true;
                     }
@@ -4338,7 +4773,8 @@ first<template>
                 }
                 if (val === "cancellation") {
                     for (let i = 0; i < this.tabledata.length; i++) {
-                      this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                      this.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+                      this.tabledata[i].entrycondition = 'HT004001';
                     }
                     this.handleSave("cancellation");
                     // this.display = false;
