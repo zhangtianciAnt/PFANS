@@ -990,15 +990,19 @@
           callback();
         }
       };
-      // var checkrmb=(rule, value, callback) => {
-      //   if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
-      //     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-      //     return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-      //   } else {
-      //     this.error = '';
-      //     return callback();
-      //   }
-      // };
+      /*人民币支出与明细check*/
+      var checkrmb=(rule, value, callback) => {
+        if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
+          if( ! (this.form.moneys-this.form.tormb)===rmbexpenditure){
+            this.error = this.$t('label.PFANS1012VIEW_CHECK');
+            return callback(new Error(this.$t('label.PFANS1012VIEW_CHECK')));
+          }
+
+        } else {
+          this.error = '';
+          return callback();
+        }
+      };
       var validatepayeename = (rule, value, callback) => {
         if (this.show1) {
           if (value) {
@@ -1254,11 +1258,11 @@
             message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
             trigger: 'change',
           }],
-          // rmbexpenditure:[{
-          //   required: true,
-          //   message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_RMBEXPENDITURE'),
-          //   trigger: 'change',
-          // }],
+          rmbexpenditure:[{
+            required: true,
+            validator: checkrmb,
+            trigger: 'change',
+          }],
           paymentmethod: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYMENTMETHOD'),
