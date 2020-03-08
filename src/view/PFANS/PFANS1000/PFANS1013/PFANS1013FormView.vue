@@ -503,7 +503,7 @@
                 <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="200">
+                <el-table-column :label="$t('label.date')" align="center" width="200" prop="trafficdate">
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
                                     v-model="scope.row.trafficdate"></el-date-picker>
@@ -1777,7 +1777,7 @@
           foreigncurrency: "",
           annexno: "",
           rowindex: "",
-        });
+      });
       },
       addRow3() {
         this.tableA.push({
@@ -1887,38 +1887,60 @@
       change(val) {
         this.result.forEach(res => {
           if (res.businessid === val) {
-            this.tableA = [{
-              evectionid: "",
-              accommodationdetails_id: "",
-              accommodationdate: "",
-              activitycontent: "",
-              vehicleon: "",
-              vehiclein: "",
-              movementtime: "",
-              city: "",
-              region: "",
-              facilitytypeon: "",
-              facilitytypein: "",
-              facilityname: "",
-              accommodationallowance: "",
-              accommodation: "",
-              travelallowance: "",
-              travel: "",
-              relatives: "",
-              train: "",
-              traintick: 0,
-              plane: "",
-              annexno: "",
-              rowindex: "",
-              disaccommod: false,
-              showtick: true,
-            }],
-            //   this.tableT[0].trafficdate=this.form.startdate;
-            // this.tableT[1].trafficdate=this.form.enddate;
+            // this.tableA = [{
+            //   evectionid: "",
+            //   accommodationdetails_id: "",
+            //   accommodationdate: "",
+            //   activitycontent: "",
+            //   vehicleon: "",
+            //   vehiclein: "",
+            //   movementtime: "",
+            //   city: "",
+            //   region: "",
+            //   facilitytypeon: "",
+            //   facilitytypein: "",
+            //   facilityname: "",
+            //   accommodationallowance: "",
+            //   accommodation: "",
+            //   travelallowance: "",
+            //   travel: "",
+            //   relatives: "",
+            //   train: "",
+            //   traintick: 0,
+            //   plane: "",
+            //   annexno: "",
+            //   rowindex: "",
+            //   disaccommod: false,
+            //   showtick: true,
+            // }],
+
               this.form.place = res.city,
               this.form.startdate = res.startdate,
-              this.form.enddate = res.enddate,
-              this.form.datenumber = res.datenumber
+              this.form.enddate = res.enddate;
+              this.form.datenumber = res.datenumber;
+            for(var i=0;i<1;i++){
+                  this.tableT.push({
+                    evectionid: "",
+                    trafficdetails_id: "",
+                    publicexpenseid:"",
+                    trafficdate: "",
+                    invoicenumber: "",
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    taxes: "",
+                    costitem:"",
+                    region: "",
+                    vehicle: "",
+                    startingpoint: "",
+                    rmb: "",
+                    taxrate: "",
+                    foreigncurrency: "",
+                    annexno: "",
+                    rowindex: "",
+                  });
+                  this.tableT[0].trafficdate=this.form.startdate;
+              this.tableT[1].trafficdate=this.form.enddate;
+               }
+
             for(var i=0;i<this.form.datenumber-1;i++){
               this.tableA.push({
                 evectionid: "",
