@@ -1358,7 +1358,7 @@
       };
     },
     mounted() {
-      this.getSupplierNameList();
+      this.getsupplierinfor();
       this.optionsdata = [];
       for (let i = 0; i < this.tableF.length; i++) {
         var vote = {};
@@ -2124,19 +2124,18 @@
         this.currentRow3 = val.vendornum;
         //this.currentRow3 = val.vendornum;
       },
-      getSupplierNameList() {
+      getsupplierinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6001Store/getSupplierNameList', {})
+          .dispatch('PFANS6003Store/getsupplierinfor')
           .then(response => {
-            debugger
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.suppliername = response[i].supchinese;
               vote.userid = response[i].prochinese;
               vote.contactinformation = response[i].protelephone;
-              vote.suppliernameid = response[i].supchineseid;
+              //vote.suppliernameid = response[i].supchineseid;
               this.gridData.push(vote);
             }
             this.loading = false;
