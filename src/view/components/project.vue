@@ -18,7 +18,7 @@
     data() {
       return {
         options: [],
-        value: '',
+        value: [],
         loading: false
       }
     },
@@ -71,7 +71,7 @@
             duration: 5 * 1000
           })
         })
-
+      this.value = this.data;
     }
     , methods: {
       change(val) {

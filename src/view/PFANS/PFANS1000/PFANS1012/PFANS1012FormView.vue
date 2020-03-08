@@ -85,7 +85,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
                       <el-input-number
                         :disabled="true"
                         :min="0"
@@ -990,6 +990,19 @@
           callback();
         }
       };
+      /*人民币支出与明细check*/
+      var checkrmb=(rule, value, callback) => {
+        if (!this.form.rmbexpenditure || this.form.rmbexpenditure === '' || this.form.rmbexpenditure === 'undefined') {
+          if( ! (this.form.moneys-this.form.tormb)===rmbexpenditure){
+            this.error = this.$t('label.PFANS1012VIEW_CHECK');
+            return callback(new Error(this.$t('label.PFANS1012VIEW_CHECK')));
+          }
+
+        } else {
+          this.error = '';
+          return callback();
+        }
+      };
       var validatepayeename = (rule, value, callback) => {
         if (this.show1) {
           if (value) {
@@ -1243,6 +1256,11 @@
           budgetunit: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+            trigger: 'change',
+          }],
+          rmbexpenditure:[{
+            required: true,
+            validator: checkrmb,
             trigger: 'change',
           }],
           paymentmethod: [{
