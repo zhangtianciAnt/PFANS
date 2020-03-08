@@ -1108,6 +1108,7 @@
         }
         this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
+        this.baseInfo.userN = this.$store.getters.userList;
         this.baseInfo.awardDetail=[];
         for(let i=0;i<this.tableT.length;i++){
           if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
