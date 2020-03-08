@@ -78,8 +78,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-<!--              出張事前面談事項（面談者で手書き記入)-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_IN3')}}</span>
+  <!--              出張事前面談事項（面談者で手書き記入)-->
               <el-row>
                 <!--                  1-->
                 <el-col :span="8">
