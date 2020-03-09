@@ -53,12 +53,12 @@
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
             <div  class="dialog-footer" align="center">
-              <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+              <el-button @click="click" v-if="show1">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
-                  <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+              <el-button  slot="reference" @click="clickDiscard" v-if="show2">
+                  <span style="margin-right: 86%;" >{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
             </div>
@@ -67,48 +67,48 @@
             <div  class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount1>
-                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
+                  <el-button @click="clickData(1)" :disabled=disabledCount1>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount2>
-                  <span style="margin-right: 86%;" @click="clickData(2)">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
+                  <el-button @click="clickData(2)" :disabled=disabledCount2>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount3>
-                  <span style="margin-right: 86%;" @click="clickData(3)">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
+                  <el-button @click="clickData(3)" :disabled=disabledCount3>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount4>
-                  <span style="margin-right: 86%;" @click="clickData(4)">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  <el-button @click="clickData(4)" :disabled=disabledCount4>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount5>
-                  <span style="margin-right: 86%;" @click="clickData(5)">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
+                  <el-button @click="clickData(5)" :disabled=disabledCount5>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount6>
-                  <span style="margin-right: 86%;" @click="clickData(6)">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
+                  <el-button @click="clickData(6)" :disabled=disabledCount6>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
                   </span>
                   </el-button>
                 </el-col>
@@ -260,7 +260,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">
                   <template slot-scope="scope">
                     <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                      <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
+                      <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                     </el-form-item>
                   </template>
@@ -1385,11 +1385,6 @@
             },
             getJudge(val, row) {
                 row.loadingjudge = val;
-                if (!row.loadingjudge || row.loadingjudge === '' || val === "undefined") {
-                    this.errorjudge = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.errorjudge = "";
-                }
             },
             getCusto(val, row) {
                 row.custojapanese = val;
@@ -1632,6 +1627,7 @@
                         type: 'info',
                         message: '已取消删除'
                       });
+                      this.dialogFormVisible = false;
                     });
                   }else {
                     this.handleClick();
@@ -1777,6 +1773,7 @@
               }
               this.getChecked(false);
               this.loading = false;
+              this.dialogFormVisible = false;
             },
             //契約番号廃棄
             clickDiscard(){
@@ -1785,10 +1782,21 @@
                       this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
                 }
+              this.dialogFormVisible = false
             },
             //存在check
             existCheck(contractNumber, index) {
               this.loading = true;
+              if ( contractNumber==null || contractNumber==undefined || contractNumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'success',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+                this.dialogBook = false
+                return;
+              }
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
                 .then(response => {
                   let s = "count" + index;
@@ -1807,6 +1815,7 @@
 
                   }
                   this.loading = false;
+                  this.dialogBook = false
                 })
                 .catch(error => {
                   Message({
@@ -1815,6 +1824,7 @@
                     duration: 5 * 1000
                   });
                   this.loading = false;
+                  this.dialogBook = false
                 })
             },
             //書類作成
@@ -1992,6 +2002,14 @@
           },
             //indexDisabled
             handleIndexDisabled() {
+              if ( this.letcontractnumber==null || this.letcontractnumber==undefined || this.letcontractnumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                return;
+              }
               this.loading = true;
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
                 .then(response => {

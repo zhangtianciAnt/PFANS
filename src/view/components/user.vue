@@ -9,6 +9,7 @@
             </span>
           </el-tooltip>
         </el-tag>
+        <div style="width: 1px; height: 1px; display: none;"><el-input v-model="userids"></el-input></div>
       </div>
       <el-button icon="el-icon-search" @click="show = true" :disabled="disabled" size="small"></el-button>
 
