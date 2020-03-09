@@ -790,10 +790,24 @@
             }
           };
           var validateConchinese = (rule, value, callback) => {
-            if (value === '' && value != null && value != undefined) {
-              callback(new Error('请输入项目中文'));
-            } else {
+            if ( Array.isArray(value)) {
+              if ( value.length ==0 ) {
+                callback(new Error('请输入项目中文'));
+                return
+              }
+              value.map(function(item){
+                if ( item === '' ) {
+                  callback(new Error('请输入项目中文'));
+                  return
+                }
+              });
               callback();
+            } else {
+              if (value === '' && value != null && value != undefined) {
+                callback(new Error('请输入项目中文'));
+              } else {
+                callback();
+              }
             }
           };
           var validateDeliverydate = (rule, value, callback) => {
