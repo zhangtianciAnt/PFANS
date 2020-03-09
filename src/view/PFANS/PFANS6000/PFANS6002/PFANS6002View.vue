@@ -130,7 +130,7 @@
                         //共同事务联络人
                         code: 'commontperson',
                         label: 'label.PFANS6002VIEW_COMMONTPERSON',
-                        width: 150,
+                        width: 160,
                         fix: false,
                         filter: true,
                     },
@@ -247,20 +247,20 @@
                 this.rowid = row.customerinfor_id;
             },
             handleSizeChange(val) {
-                this.listQuery.limit = val
+                this.listQuery.limit = val;
                 this.getList()
             },
             handleCurrentChange(val) {
-                this.listQuery.page = val
+                this.listQuery.page = val;
                 this.getList()
             },
             getList() {
-                this.loading = true
-                let start = (this.listQuery.page - 1) * this.listQuery.limit
-                let end = this.listQuery.page * this.listQuery.limit
+                this.loading = true;
+                let start = (this.listQuery.page - 1) * this.listQuery.limit;
+                let end = this.listQuery.page * this.listQuery.limit;
                 if (this.totaldata) {
-                    let pList = this.totaldata.slice(start, end)
-                    this.message = pList
+                    let pList = this.totaldata.slice(start, end);
+                    this.message = pList;
                     this.total = this.totaldata.length
                 }
                 this.loading = false
@@ -278,11 +278,11 @@
                         let error = response.data[c];
                         error = error.substring(0, 3);
                         if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
-                            this.errorCount = response.data[c].substring(4)
+                            this.errorCount = response.data[c].substring(4);
                             this.resultShow = true;
                         }
                         if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
-                            this.successCount = response.data[c].substring(4)
+                            this.successCount = response.data[c].substring(4);
                             this.resultShow = true;
                         }
                         if (error === this.$t("label.PFANS2017VIEW_D")) {

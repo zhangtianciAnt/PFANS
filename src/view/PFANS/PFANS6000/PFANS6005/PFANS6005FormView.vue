@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
+                         :noback="noback"
                          ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -524,6 +525,7 @@
       },
       data() {
         return {
+          noback: true,
           loading: false,
           buttonList: [],
           baseInfo: {},
@@ -626,7 +628,8 @@
         this.getpriceset();
       },
       created() {
-        this.disabled = this.$route.params.disabled;
+        // this.disabled = this.$route.params.disabled;
+        this.disabled = true;
         if (this.disable) {
           this.buttonList = [
             {

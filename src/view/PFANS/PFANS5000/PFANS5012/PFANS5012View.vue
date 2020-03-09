@@ -1,15 +1,23 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id" >
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="row_id">
+      <el-date-picker
+        v-model="months"
+        slot="customize"
+        type="month"
+        style="width:11vw"
+        @change="changed"
+        :placeholder="$t('normal.error_09')">
+      </el-date-picker>
     </EasyNormalTable>
   </div>
 </template>
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
-  import {getorgGroupList,getUserInfo} from "../../../../utils/customize";
-  let moment = require("moment");
+  import {getUserInfo} from "../../../../utils/customize";
+  import moment from 'moment';
   export default {
     name: 'PFANS5012View',
     components: {
@@ -18,6 +26,7 @@
     data() {
       return {
         totaldata: [],
+        months:moment(new Date()).format("YYYY-MM"),
         total: 0,
         checkTableData: [],
         addActionUrl: '',
@@ -74,19 +83,16 @@
     },
     mounted() {
       let groupid;
-      let groupuser = [];
+      let groupuserlist = [];
       let groupcooperinterview = [];
       let user = getUserInfo(this.$store.getters.userinfo.userid);
       if (user) {
         groupid = user.userinfo.groupid;
         let userinfo =  this.$store.getters.userList;
         for (let i = 0;i < userinfo.length; i ++){
-            if(userinfo[i].userinfo.groupid === groupid){
-                groupuser.push({
-                  userid: userinfo[i].userid,
-                  username: userinfo[i].userinfo.customername
-                });
-            }
+          if(userinfo[i].userinfo.groupid === groupid){
+            groupuserlist.push(userinfo[i].userid);
+          }
         }
       }
       // let cooperinterviewList =  this.$store.getters.cooperinterviewList;
@@ -100,54 +106,56 @@
       //
       let letorgGroupList = this.$store.getters.orgGroupList;
       for (let i = 0;i < letorgGroupList.length; i ++){
-          if(letorgGroupList[i].groupid === groupid){
-            let group = {};
-            group.centername = letorgGroupList[i].centername;
-            group.groupname = letorgGroupList[i].groupname;
-            group.groupid = groupid;
-            group.confirm = '';
-            group.status = '';
-            group.usernameList = groupuser;
-            group.cooperinterviewList = groupcooperinterview;
-            this.data.push(group);
-          }
+        if(letorgGroupList[i].groupid === groupid){
+          let group = {};
+          group.centername = letorgGroupList[i].centername;
+          group.groupname = letorgGroupList[i].groupname;
+          group.groupid = groupid;
+          group.confirm = '0';
+          group.status = '';
+          group.groupuserlist = groupuserlist;
+          group.cooperinterviewList = groupcooperinterview;
+          this.data.push(group);
+        }
       }
       this.getProjectList();
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.projectname;
+        this.rowid = row.groupuserlist;
+      },
+      changed(val){
+        this.months = moment(val).format('YYYY-MM');
+        this.getProjectList();
       },
       getProjectList(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:'2020-03'})
+          .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:this.months})
           .then(response => {
             for (let i = 0;i < this.data.length; i ++){
-                let usernameList = this.data[i].usernameList;
-                for (let j = 0;j < response.length; j ++){
-                    for (let x = 0;x < usernameList.length; x ++){
-                        if(response[j].projectid === usernameList[x].userid){
-                            let letdata = {};
-                            this.data[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
-                            if (this.$i18n) {
-                                this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                                if(response[i].unconfirm != null){
-                                  if(Number(response[i].unconfirm) > 0){
-                                    this.data[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                                  }
-                                }
-                                else{
-                                  if(response[i].confirm != null){
-                                    if(Number(response[i].confirm) > 0){
-                                      this.data[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
-                                    }
-                                  }
-                                }
-                            }
+              let groupuserlist = this.data[i].groupuserlist;
+              let confirm = 0;
+              if (this.$i18n) {
+                 let status = this.$t('label.PFANS5012VIEW_CONFIRM');
+              }
+              for (let j = 0;j < response.length; j ++){
+                for (let x = 0;x < groupuserlist.length; x ++){
+                  if(response[j].projectid === groupuserlist[x]){
+                    let letconfirm = response[j].confirm === null || response[j].confirm === "" ? 0 : Number(response[j].confirm);
+                    confirm = Number(confirm) + Number(letconfirm);
+                    if (this.$i18n) {
+                      if(response[j].unconfirm != null){
+                        if(Number(response[j].unconfirm) > 0){
+                          status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
                         }
+                      }
                     }
+                  }
                 }
+              }
+              this.data[i].confirm = confirm;
+              this.data[i].status = status;
             }
             this.loading = false;
           })

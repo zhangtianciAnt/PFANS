@@ -368,7 +368,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1029VIEW_CLAIMAMOUNT')">
-                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount"></el-input-number>
+                    <el-input-number :disabled="true" :precision="2" controls-position="right" v-model="form2.claimamount" style="width:20vw"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -508,6 +508,7 @@
         flag: 0,
         tableData: [],
         tableData2: [],
+        for: {},
         form: {
             contract_id:'',
             contractnumber:'',
@@ -895,8 +896,21 @@
           });
         } else if (val === "generate") {
             this.loading = true;
+          if(this.flag === 0){
+            let user = getUserInfo(this.form.user_id);
+            if (user) {
+              this.form.user_id= user.userinfo.customername;
+            }
+            this.for = this.form;
+          } else {
+            let user = getUserInfo(this.form.user_id);
+            if (user) {
+              this.form2.user_id= user.userinfo.customername;
+            }
+            this.for = this.form2;
+          }
             this.$store
-              .dispatch('PFANS1029Store/generateJxls', this.form)
+              .dispatch('PFANS1029Store/generateJxls', this.for)
               .then(response => {
                 this.loading = false;
               })

@@ -137,7 +137,7 @@
                            :data="form.currencyformat"
                            :disabled="disable"
                            :multiple="multiple"
-                           @change="getcurrencyformat"
+                           @change="getCurrencyformat"
                            style="width:20vw">
                 </dicselect>
               </el-form-item>
@@ -211,11 +211,6 @@
         userlist: '',
         title: 'title.PFANS1031VIEW',
         buttonList: [
-          {
-            key: 'export1',
-            name: 'button.exportNaPinShu_ShouTuo',
-            disabled: false,
-          },
         ],
         form: {
           contractnumber:'',
@@ -242,6 +237,7 @@
           takecharge:'',
           judgment:'',
           determination:'',
+          conjapanese:'',
         },
         code1: 'HT008',
         code2: 'PJ081',
@@ -261,15 +257,15 @@
     },
     created() {
       this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        /*this.buttonList = [
+      if(!this.$route.params.disabled){
+        this.buttonList=[
           {
-            key: 'save',
-            name: 'button.save',
+            key: 'export1',
+            name: 'button.exportNaPinShu_ShouTuo',
             disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];*/
+          }
+        ];
+        this.disable = true;
       }
     },
     mounted() {
@@ -328,7 +324,7 @@
       getclaimtype(val) {
         this.form.claimtype = val;
       },
-      getcurrencyformat(val) {
+      getCurrencyformat(val) {
         this.form.currencyformat = val;
       },
       gettoto(val) {

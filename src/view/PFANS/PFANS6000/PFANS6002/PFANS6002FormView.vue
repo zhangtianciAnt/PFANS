@@ -198,7 +198,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -257,7 +257,7 @@
                 } else {
                     callback();
                 }
-                ;
+
             };
             var checkemail = (rule, value, callback) => {
                 if (this.form.email !== null && this.form.email !== '') {

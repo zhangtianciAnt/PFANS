@@ -72,7 +72,7 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -109,7 +109,7 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -146,7 +146,7 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -157,33 +157,38 @@
           },
           {
             code: 'sixtotal',
+
             label: 'label.PFANS6008VIEW_SIX',
             child: [
               {
                 code: 'totalmanhours6',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                width: 90,
+                labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'totalcost6',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'expense6',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 80,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'contract6',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               }
@@ -220,7 +225,7 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -257,7 +262,7 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -294,7 +299,7 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -310,28 +315,32 @@
               {
                 code: 'totalmanhours9',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'totalcost9',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'expense9',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 80,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'contract9',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               }
@@ -368,7 +377,7 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -405,7 +414,7 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -442,7 +451,7 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -458,28 +467,32 @@
               {
                 code: 'totalmanhours12',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'totalcost12',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'expense12',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 80,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'contract12',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 105,
                 fix: false,
                 filter: true,
               }
@@ -516,7 +529,7 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -553,7 +566,7 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -590,7 +603,7 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 90,
+                width: 110,
                 fix: false,
                 filter: true,
               }
@@ -606,28 +619,32 @@
               {
                 code: 'totalmanhours3',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 100,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'totalcost3',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 100,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'expense3',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 80,
                 fix: false,
                 filter: true,
               },
               {
                 code: 'contract3',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                width: 90,
+                  labelClass: 'sixbackcolor',
+                width: 100,
                 fix: false,
                 filter: true,
               }
@@ -742,4 +759,8 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .sixbackcolor {
+    background: #99CCFF;
+    color: #ffffff;
+  }
 </style>
