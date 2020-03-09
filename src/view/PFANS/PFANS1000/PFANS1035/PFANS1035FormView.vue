@@ -188,7 +188,8 @@
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tablePD" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                  <el-table :data="tablePD" header-cell-class-name="sub_bg_color_blue" stripe border
+                            style="width: 70vw">
                     <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE2')" align="center"
                                      prop="startdate"
                                      width="370">
@@ -449,678 +450,683 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import {Message} from 'element-ui';
-    import moment from 'moment';
-    import {getOrgInfoByUserId} from '@/utils/customize';
-    import dicselect from '../../../components/dicselect';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import {getOrgInfoByUserId} from '@/utils/customize';
+  import dicselect from '../../../components/dicselect';
 
-    export default {
-        name: 'PFANS1035FormView',
-        components: {
-            dicselect,
-            EasyNormalContainer,
-            user,
+  export default {
+    name: 'PFANS1035FormView',
+    components: {
+      dicselect,
+      EasyNormalContainer,
+      user,
+    },
+    data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
+      var validatestartdate1 = (rule, value, callback) => {
+        if (this.form.startdate !== null && this.form.startdate !== '' && this.form.enddate !== '' && this.form.enddate !== null) {
+          if (moment(this.form.enddate).format('YYYY-MM-DD') < moment(this.form.startdate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS1002FORMVIEW_ERROR1')));
+          } else {
+            this.form.datenumber = moment(this.form.enddate).diff(moment(this.form.startdate), 'days') + 1;
+            callback();
+          }
+        } else {
+          this.form.datenumber = 0;
+          callback();
+        }
+      };
+      var validateenddate1 = (rule, value, callback) => {
+        if (this.form.startdate !== '' && this.form.startdate !== null && this.form.enddate !== '' && this.form.enddate !== null) {
+          if (moment(this.form.enddate).format('YYYY-MM-DD') < moment(this.form.startdate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS1002FORMVIEW_ERROR1')));
+          } else {
+            this.form.datenumber = moment(this.form.enddate).diff(moment(this.form.startdate), 'days') + 1;
+            callback();
+          }
+        } else {
+          this.form.datenumber = 0;
+          callback();
+        }
+      };
+      return {
+        disable: false,
+        error: '',
+        selectType: 'Single',
+        title: 'title.PFANS1035VIEW',
+        userlist: '',
+        activeName: 'first',
+        loading: false,
+        disabled: false,
+        code1: 'PJ018',
+        code2: 'PG002',
+        code3: 'PR002',
+        code4: 'PR003',
+        code5: 'PJ019',
+        code6: 'PJ020',
+        multiple: false,
+        search: '',
+        gridData: [],
+        form: {
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          user_id: '',
+          applicationdate: moment(new Date()).format('YYYY-MM-DD'),
+          businesstype: '',
+          condominiumcompany: '',
+          city: '',
+          startdate: '',
+          enddate: '',
+          datenumber: '0',
+          objectivetype: '',
+          objectivetypeother: this.$t('label.PFANS1002VIEW_OTHER'),
+          details: '',
+          budgetunit: '',
+          plan: '',
+          plantype: '',
+          classificationtype: '',
+          balance: '',
+          bookingday: '',
+          loanday: '',
+          projectname: '',
+          loanmoney: '',
+          accommodationcost: '',
+          accommodation: '',
+          passengers: '',
+          fixedassetsno: '',
+          external: '',
+          regulations: '',
+          reason: '',
+          otherexplanation: '',
         },
-        data() {
-            var validateUserid = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    callback();
-                    this.error = '';
-                }
-            };
-            var validatestartdate1 = (rule, value, callback) => {
-                if (this.form.startdate !== null && this.form.startdate !== '' && this.form.enddate !== '' && this.form.enddate !== null) {
-                    if (moment(this.form.enddate).format('YYYY-MM-DD') < moment(this.form.startdate).format('YYYY-MM-DD')) {
-                        callback(new Error(this.$t('label.PFANS1002FORMVIEW_ERROR1')));
-                    } else {
-                        this.form.datenumber = moment(this.form.enddate).diff(moment(this.form.startdate), 'days') + 1;
-                        callback();
-                    }
-                } else {
-                    this.form.datenumber = 0;
-                    callback();
-                }
-            };
-            var validateenddate1 = (rule, value, callback) => {
-                if (this.form.startdate !== '' && this.form.startdate !== null && this.form.enddate !== '' && this.form.enddate !== null) {
-                    if (moment(this.form.enddate).format('YYYY-MM-DD') < moment(this.form.startdate).format('YYYY-MM-DD')) {
-                        callback(new Error(this.$t('label.PFANS1002FORMVIEW_ERROR1')));
-                    } else {
-                        this.form.datenumber = moment(this.form.enddate).diff(moment(this.form.startdate), 'days') + 1;
-                        callback();
-                    }
-                } else {
-                    this.form.datenumber = 0;
-                    callback();
-                }
-            };
-            return {
-                disable: false,
-                error: '',
-                selectType: 'Single',
-                title: 'title.PFANS1035VIEW',
-                userlist: '',
-                activeName: 'first',
-                loading: false,
-                disabled: false,
-                code1: 'PJ018',
-                code2: 'PG002',
-                code3: 'PR002',
-                code4: 'PR003',
-                code5: 'PJ019',
-                code6: 'PJ020',
-                multiple: false,
-                search: '',
-                gridData: [],
-                form: {
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    user_id: '',
-                    applicationdate: moment(new Date()).format('YYYY-MM-DD'),
-                    businesstype: '',
-                    condominiumcompany: '',
-                    city: '',
-                    startdate: '',
-                    enddate: '',
-                    datenumber: '0',
-                    objectivetype: '',
-                    objectivetypeother: this.$t('label.PFANS1002VIEW_OTHER'),
-                    details: '',
-                    budgetunit: '',
-                    plan: '',
-                    plantype: '',
-                    classificationtype: '',
-                    balance: '',
-                    bookingday: '',
-                    loanday: '',
-                    projectname: '',
-                    loanmoney: '',
-                    accommodationcost: '',
-                    accommodation: '',
-                    passengers: '',
-                    fixedassetsno: '',
-                    external: '',
-                    regulations: '',
-                    reason: '',
-                    otherexplanation: '',
-                },
-                buttonList: [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ],
-                tableP: [{
-                    travelcontent_id: '',
-                    duringdate1: '',
-                    content1: '',
-                    duringdate2: '',
-                    content2: '',
-                    duringdate3: '',
-                    content3: '',
-                    rowindex: '',
-                }],
-                tablePD: [
-                    {
-                        duringdate: '',
-                        place: '',
-                        content: '',
-                    },
-                    {
-                        duringdate: '',
-                        place: '',
-                        content: '',
-                    },
-                    {
-                        duringdate: '',
-                        place: '',
-                        content: '',
-                    },
-                ],
-                baseInfo: {},
-                dialogTableVisible: false,
-                rules: {
-                    user_id: [
-                        {
-                            required: true,
-                            validator: validateUserid,
-                            trigger: 'change',
-                        },
-                    ],
-                    applicationdate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.application_date'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    condominiumcompany: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CONDOMINIUMCOMPANY2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    city: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CITY2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    startdate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_STARTDATE2'),
-                            trigger: 'blur',
-                        },
-                        {validator: validatestartdate1, trigger: 'blur'},
-                    ],
-                    enddate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ENDDATE2'),
-                            trigger: 'blur',
-                        },
-                        {validator: validateenddate1, trigger: 'blur'},
-                    ],
-                    objectivetype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_OBJECTIVETYPE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    objectivetypeother: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    details: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_DETAILS'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    budgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change',
-                        },
-                    ],
-                    plan: [
-                        {
-                            required: true,
-                        },
-                    ],
-                    plantype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_PLANTYPE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    classificationtype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    balance: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    bookingday: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    loanday: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    loanmoney: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_LOANMONEY2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    accommodationcost: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ACCOMMODATIONCOST2'),
-                            trigger: 'change',
-                        },
-                    ],
-                    accommodation: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ACCOMMODATION2'),
-                            trigger: 'change',
-                        },
-                    ],
-                    passengers: [
-                        {
-                            required: true,
-                        },
-                    ],
-                    fixedassetsno: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_FIXEDASSETSNO2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    external: [
-                        {
-                            required: true,
-                        },
-                    ],
-                    regulations: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_REGULATIONS'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    reason: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_REASON2'),
-                            trigger: 'blur',
-                        },
-                    ],
-                },
-                show: false,
-                show2: false,
-                show3: false,
-                show4: false,
-                show5: false,
-                canStart: false,
-            };
+        buttonList: [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ],
+        tableP: [{
+          travelcontent_id: '',
+          businessid: '',
+          duringdate1: '',
+          content1: '',
+          duringdate2: '',
+          content2: '',
+          duringdate3: '',
+          content3: '',
+          rowindex: '',
+        }],
+        tablePD: [
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+        ],
+        baseInfo: {},
+        dialogTableVisible: false,
+        rules: {
+          user_id: [
+            {
+              required: true,
+              validator: validateUserid,
+              trigger: 'change',
+            },
+          ],
+          applicationdate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.application_date'),
+              trigger: 'blur',
+            },
+          ],
+          condominiumcompany: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CONDOMINIUMCOMPANY2'),
+              trigger: 'blur',
+            },
+          ],
+          city: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CITY2'),
+              trigger: 'blur',
+            },
+          ],
+          startdate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_STARTDATE2'),
+              trigger: 'blur',
+            },
+            {validator: validatestartdate1, trigger: 'blur'},
+          ],
+          enddate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ENDDATE2'),
+              trigger: 'blur',
+            },
+            {validator: validateenddate1, trigger: 'blur'},
+          ],
+          objectivetype: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_OBJECTIVETYPE'),
+              trigger: 'change',
+            },
+          ],
+          objectivetypeother: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER'),
+              trigger: 'blur',
+            },
+          ],
+          details: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_DETAILS'),
+              trigger: 'blur',
+            },
+          ],
+          budgetunit: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+              trigger: 'change',
+            },
+          ],
+          plan: [
+            {
+              required: true,
+            },
+          ],
+          plantype: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_PLANTYPE'),
+              trigger: 'change',
+            },
+          ],
+          classificationtype: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
+          balance: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+              trigger: 'blur',
+            },
+          ],
+          bookingday: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
+              trigger: 'blur',
+            },
+          ],
+          loanday: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY2'),
+              trigger: 'blur',
+            },
+          ],
+          loanmoney: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_LOANMONEY2'),
+              trigger: 'blur',
+            },
+          ],
+          accommodationcost: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ACCOMMODATIONCOST2'),
+              trigger: 'change',
+            },
+          ],
+          accommodation: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_ACCOMMODATION2'),
+              trigger: 'change',
+            },
+          ],
+          passengers: [
+            {
+              required: true,
+            },
+          ],
+          fixedassetsno: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_FIXEDASSETSNO2'),
+              trigger: 'blur',
+            },
+          ],
+          external: [
+            {
+              required: true,
+            },
+          ],
+          regulations: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_REGULATIONS'),
+              trigger: 'blur',
+            },
+          ],
+          reason: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_REASON2'),
+              trigger: 'blur',
+            },
+          ],
         },
-        mounted() {
-            this.getProjectNames();
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1035Store/selectById', {'businessid': this.$route.params._id})
-                    .then(response => {
-                        if (!response.business) {
-                            this.loading = false;
-                            return;
-                        }
-                        this.form = response.business;
-                        if (response.travelcontent.length > 0) {
-                            this.tableP = response.travelcontent;
-                        }
-                        this.userlist = this.form.user_id;
-                        this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.travelcontent = JSON.parse(JSON.stringify(this.tableP));
-                        if (this.form.objectivetype === 'PJ018005') {
-                            this.show = true;
-                        } else {
-                            this.show = false;
-                        }
-                        if (this.form.plan === '1') {
-                            this.show2 = true;
-                        } else {
-                            this.show2 = false;
-                            this.show3 = false;
-                        }
-                        if (this.form.plantype === 'PR002005') {
-                            this.show3 = true;
-                        } else {
-                            this.show3 = false;
-                        }
-                        if (this.form.passengers === '1') {
-                            this.show4 = true;
-                        } else {
-                            this.show4 = false;
-                        }
-                        if (this.form.external === '1') {
-                            this.show5 = true;
-                        } else {
-                            this.show5 = false;
-                        }
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
+        show: false,
+        show2: false,
+        show3: false,
+        show4: false,
+        show5: false,
+        canStart: false,
+      };
+    },
+    mounted() {
+      this.getProjectNames();
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1035Store/selectById', {'businessid': this.$route.params._id})
+          .then(response => {
+            if (!response.business) {
+              this.loading = false;
+              return;
+            }
+            this.form = response.business;
+            if (response.travelcontent.length > 0) {
+              this.tableP = response.travelcontent;
+            }
+            this.userlist = this.form.user_id;
+            this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.travelcontent = JSON.parse(JSON.stringify(this.tableP));
+            if (this.form.objectivetype === 'PJ018005') {
+              this.show = true;
             } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.center_id = lst.centerNmae;
-                    this.form.group_id = lst.groupNmae;
-                    this.form.team_id = lst.teamNmae;
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                }
+              this.show = false;
             }
-        },
-        created() {
-            if (!this.$route.params.disabled) {
-                this.buttonList = [];
+            if (this.form.plan === '1') {
+              this.show2 = true;
+            } else {
+              this.show2 = false;
+              this.show3 = false;
             }
-            this.disable = this.$route.params.disabled;
-        },
-        methods: {
-            cityChange(){
-               this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-               this.tablePD[1].place = this.form.city;
-               this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-            },
-            startDateChange(){
-                let date = [];
-                date.push(this.form.startdate);
-                date.push(this.form.startdate);
-                this.tablePD[0].duringdate = date;
-            },
-            endDateChange(){
-                let date = [];
-                date.push(this.form.startdate);
-                date.push(this.form.enddate);
-                this.tablePD[1].duringdate = date;
-                let date1 = [];
-                date1.push(this.form.enddate);
-                date1.push(this.form.enddate);
-                this.tablePD[2].duringdate = date1;
-            },
-            checkRequire() {
-                if (
-                    !this.form.user_id ||
-                    !this.form.applicationdate ||
-                    !this.form.condominiumcompany ||
-                    !this.form.city ||
-                    !this.form.startdate ||
-                    !this.form.enddate
-                ) {
-                    this.activeName = 'first';
-                } else if (
-                    !this.form.objectivetype ||
-                    !this.form.details
-                ) {
-                    this.activeName = 'second';
-                } else if (
-                    !this.form.budgetunit ||
-                    (this.form.plan === '1' && (
-                            !this.form.plantype ||
-                            !this.form.classificationtype ||
-                            !this.form.balance)
-                    ) ||
-                    !this.form.bookingday ||
-                    !this.form.loanday ||
-                    !this.form.loanmoney ||
-                    !this.form.accommodationcost ||
-                    !this.form.accommodation
-                ) {
-                    this.activeName = 'fourth';
-                } else if (
-                    !this.form.fixedassetsno ||
-                    !this.form.regulations ||
-                    !this.form.reason
-                ) {
-                    this.activeName = 'fifth';
-                }
-            },
-            getUserids(val) {
-                this.form.user_id = val;
-                this.userlist = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.center_id = lst.centerNmae;
-                this.form.group_id = lst.groupNmae;
-                this.form.team_id = lst.teamNmae;
-                if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.error = '';
-                }
-            },
-            getobjectivetype(val) {
-                this.form.objectivetype = val;
-                if (val === 'PJ018005') {
-                    this.show = true;
-                    this.form.objectivetypeother = this.$t('label.PFANS1002VIEW_OTHER');
-                } else {
-                    this.show = false;
-                    this.form.objectivetypeother = null;
-                    this.rules.objectivetypeother[0].required = false;
-                }
-            },
-            getbudgetunit(val) {
-                this.form.budgetunit = val;
-            },
-            getplan1(val) {
-                this.form.plan = val;
-                if (val === '1') {
-                    this.show2 = true;
-                } else {
-                    this.show2 = false;
-                    this.form.plantype = null;
-                    this.show3 = false;
-                    this.form.classificationtype = null;
-                    this.form.balance = null;
-                }
-            },
-            getplantype(val) {
-                this.form.plantype = val;
-                if (val === 'PR002005') {
-                    this.show3 = true;
-                } else {
-                    this.show3 = false;
-                    this.form.classificationtype = null;
-                    this.form.balance = null;
-                }
-            },
-            getclassificationtype(val) {
-                this.form.classificationtype = val;
-            },
-            getaccommodationcost1(val) {
-                this.form.accommodationcost = val;
-            },
-            getaccommodation1(val) {
-                this.form.accommodation = val;
-            },
-            getpassengers1(val) {
-                this.form.passengers = val;
-                if (val === '1') {
-                    this.show4 = true;
-                } else {
-                    this.show4 = false;
-                    this.form.fixedassetsno = null;
-                }
-            },
-            getexternal(val) {
-                this.form.external = val;
-                if (val === '1') {
-                    this.show5 = true;
-                } else {
-                    this.show5 = false;
-                    this.form.reason = null;
-                    this.form.regulations = null;
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.update();
-            },
-            start() {
-                this.form.status = '2';
-                this.update();
-            },
-            end() {
-                this.form.status = '0';
-                this.update();
-            },
-            update() {
+            if (this.form.plantype === 'PR002005') {
+              this.show3 = true;
+            } else {
+              this.show3 = false;
+            }
+            if (this.form.passengers === '1') {
+              this.show4 = true;
+            } else {
+              this.show4 = false;
+            }
+            if (this.form.external === '1') {
+              this.show5 = true;
+            } else {
+              this.show5 = false;
+            }
+            if (this.form.status === '2') {
+              this.disable = false;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.center_id = lst.centerNmae;
+          this.form.group_id = lst.groupNmae;
+          this.form.team_id = lst.teamNmae;
+          this.form.user_id = this.$store.getters.userinfo.userid;
+        }
+      }
+    },
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [];
+      }
+      this.disable = this.$route.params.disabled;
+    },
+    methods: {
+      cityChange() {
+        this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+        this.tablePD[1].place = this.form.city;
+        this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+      },
+      startDateChange() {
+        let date = [];
+        date.push(this.form.startdate);
+        date.push(this.form.startdate);
+        this.tablePD[0].duringdate = date;
+      },
+      endDateChange() {
+        let date = [];
+        date.push(this.form.startdate);
+        date.push(this.form.enddate);
+        this.tablePD[1].duringdate = date;
+        let date1 = [];
+        date1.push(this.form.enddate);
+        date1.push(this.form.enddate);
+        this.tablePD[2].duringdate = date1;
+      },
+      checkRequire() {
+        if (
+          !this.form.user_id ||
+          !this.form.applicationdate ||
+          !this.form.condominiumcompany ||
+          !this.form.city ||
+          !this.form.startdate ||
+          !this.form.enddate
+        ) {
+          this.activeName = 'first';
+        } else if (
+          !this.form.objectivetype ||
+          !this.form.details
+        ) {
+          this.activeName = 'second';
+        } else if (
+          !this.form.budgetunit ||
+          (this.form.plan === '1' && (
+              !this.form.plantype ||
+              !this.form.classificationtype ||
+              !this.form.balance)
+          ) ||
+          !this.form.bookingday ||
+          !this.form.loanday ||
+          !this.form.loanmoney ||
+          !this.form.accommodationcost ||
+          !this.form.accommodation
+        ) {
+          this.activeName = 'fourth';
+        } else if (
+          !this.form.fixedassetsno ||
+          !this.form.regulations ||
+          !this.form.reason
+        ) {
+          this.activeName = 'fifth';
+        }
+      },
+      getUserids(val) {
+        this.form.user_id = val;
+        this.userlist = val;
+        let lst = getOrgInfoByUserId(val);
+        this.form.center_id = lst.centerNmae;
+        this.form.group_id = lst.groupNmae;
+        this.form.team_id = lst.teamNmae;
+        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+      getobjectivetype(val) {
+        this.form.objectivetype = val;
+        if (val === 'PJ018005') {
+          this.show = true;
+          this.form.objectivetypeother = this.$t('label.PFANS1002VIEW_OTHER');
+        } else {
+          this.show = false;
+          this.form.objectivetypeother = null;
+          this.rules.objectivetypeother[0].required = false;
+        }
+      },
+      getbudgetunit(val) {
+        this.form.budgetunit = val;
+      },
+      getplan1(val) {
+        this.form.plan = val;
+        if (val === '1') {
+          this.show2 = true;
+        } else {
+          this.show2 = false;
+          this.form.plantype = null;
+          this.show3 = false;
+          this.form.classificationtype = null;
+          this.form.balance = null;
+        }
+      },
+      getplantype(val) {
+        this.form.plantype = val;
+        if (val === 'PR002005') {
+          this.show3 = true;
+        } else {
+          this.show3 = false;
+          this.form.classificationtype = null;
+          this.form.balance = null;
+        }
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+      },
+      getaccommodationcost1(val) {
+        this.form.accommodationcost = val;
+      },
+      getaccommodation1(val) {
+        this.form.accommodation = val;
+      },
+      getpassengers1(val) {
+        this.form.passengers = val;
+        if (val === '1') {
+          this.show4 = true;
+        } else {
+          this.show4 = false;
+          this.form.fixedassetsno = null;
+        }
+      },
+      getexternal(val) {
+        this.form.external = val;
+        if (val === '1') {
+          this.show5 = true;
+        } else {
+          this.show5 = false;
+          this.form.reason = null;
+          this.form.regulations = null;
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.update();
+      },
+      start() {
+        this.form.status = '2';
+        this.update();
+      },
+      end() {
+        this.form.status = '0';
+        this.update();
+      },
+      update() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
+          .then(response => {
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1001FormView',
+          params: {
+            title: 2,
+          },
+        });
+      },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.projectname = val;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.projectname;
+      },
+      getProjectNames() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.projectname = response[i].project_name;
+              vote.numbers = response[i].numbers;
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      buttonClick(val) {
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          this.checkRequire();
+          this.$refs['refform'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              this.form.businesstype = '1';
+              this.form.user_id = this.userlist;
+              this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+              let dateInterval = moment(this.form.startdate).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.enddate).format('YYYY-MM-DD');
+              this.baseInfo.travelcontent = [];
+              this.baseInfo.travelcontent.push(
+                {
+                  travelcontent_id: this.tableP.travelcontent_id,
+                  businessid: this.tableP.businessid,
+                  // 开始日期
+                  // duringdate1: this.tablePD[0].duringdate,
+                  duringdate1: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content1: this.tablePD[0].content,
+                  duringdate2: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content2: this.tablePD[1].content,
+                  //结束日期
+                  duringdate3: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content3: this.tablePD[2].content,
+                },
+              );
+              if (this.$route.params._id) {
+                this.baseInfo.business.businessid = this.$route.params._id;
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
-                    .then(response => {
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+                  .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.paramsTitle();
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
-            },
-            paramsTitle() {
-                this.$router.push({
-                    name: 'PFANS1001FormView',
-                    params: {
-                        title: 2,
-                    },
-                });
-            },
-            submit() {
-                let val = this.currentRow;
-                this.dialogTableVisible = false;
-                this.form.projectname = val;
-            },
-            handleClickChange(val) {
-                this.currentRow = val.projectname;
-            },
-            getProjectNames() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5001Store/getFpans5001List', {})
-                    .then(response => {
-                        this.gridData = [];
-                        for (let i = 0; i < response.length; i++) {
-                            var vote = {};
-                            vote.projectname = response[i].project_name;
-                            vote.numbers = response[i].numbers;
-                            this.gridData.push(vote);
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            },
-            buttonClick(val) {
-                if (val === 'back') {
-                    this.paramsTitle();
-                } else {
-                    this.checkRequire();
-                    this.$refs['refform'].validate(valid => {
-                        if (valid) {
-                            this.loading = true;
-                            this.form.businesstype = '1';
-                            this.form.user_id = this.userlist;
-                            this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-                            this.baseInfo.travelcontent = [];
-                            for (let i = 0; i < this.tableP.length; i++) {
-                                if (this.tableP[i].place !== '' || this.tableP[i].content !== '') {
-                                    this.baseInfo.travelcontent.push(
-                                        {
-                                            travelcontent_id: this.tableP[i].travelcontent_id,
-                                            businessid: this.tableP[i].businessid,
-                                            place: this.tableP[i].place,
-                                            content: this.tableP[i].content,
-                                        },
-                                    );
-                                }
-                            }
-                            if (this.$route.params._id) {
-                                this.baseInfo.business.businessid = this.$route.params._id;
-                                this.loading = true;
-                                this.$store
-                                    .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if (val !== 'update') {
-                                            Message({
-                                                message: this.$t('normal.success_02'),
-                                                type: 'success',
-                                                duration: 5 * 1000,
-                                            });
-                                            this.paramsTitle();
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
-                                    });
+                    this.loading = false;
+                  });
 
-                            } else {
-                                this.loading = true;
-                                this.$store
-                                    .dispatch('PFANS1035Store/createBusiness', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        Message({
-                                            message: this.$t('normal.success_01'),
-                                            type: 'success',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.paramsTitle();
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
-                                    });
-                            }
-                        }
+              } else {
+                this.loading = true;
+                this.$store
+                  .dispatch('PFANS1035Store/createBusiness', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
                     });
-                }
-            },
-        },
-    };
+                    this.paramsTitle();
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            }
+          });
+        }
+      },
+    },
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
