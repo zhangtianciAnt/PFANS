@@ -1589,16 +1589,10 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div>
-                <el-tabs v-model="activeName8" type="border-card">
-                  <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PLTOTAL')" name="first">
                     <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe>
                       <el-table-column>
-                        <el-table-column align="center" width="110">
+                        <el-table-column align="center" width="110" prop="">
                           <el-table-column>
-                            <template slot-scope="scope">
-                              <el-input :disabled="true" maxlength="20" style="width: 100%;"
-                                        v-model.trim="scope.row.place"></el-input>
-                            </template>
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
@@ -1834,8 +1828,6 @@
                         </template>
                       </el-table-column>
                     </el-table>
-                  </el-tab-pane>
-                </el-tabs>
               </div>
             </el-tab-pane>
           </el-tabs>
