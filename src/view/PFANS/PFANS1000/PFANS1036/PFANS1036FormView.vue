@@ -1589,7 +1589,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div>
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe>
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe :span-method="objectSpanMethod">
                       <el-table-column >
                         <el-table-column >
                           <el-table-column prop="name" :formatter="formatterDir" align="center" width="110">
@@ -2137,39 +2137,52 @@
       }
     },
     methods: {
+      objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        if (columnIndex === 0) {
+            return {
+              rowspan: 6,
+              colspan:1
+            };
+          } else {
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        },
       formatterDir(row,column,cellValue,index){
         debugger
          if(column.property === "name"){
               switch (index) {
+                 case 0:
+                   return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
+                   break;
                  case 1:
-                   return this.$t('PFANS1036FORMVIEW_TAB1VALUE1');
+                   return this.$t('label.PFANS1036FORMVIEW_TAB2VALUE1');
                    break;
                  case 2:
-                   return this.$t('PFANS1036FORMVIEW_TAB2VALUE1');
+                   return this.$t('label.PFANS1036FORMVIEW_TAB3VALUE1');
                    break;
-                 case 3:
-                   return this.$t('PFANS1036FORMVIEW_TAB3VALUE1');
-                   break;
+                 case 6:
+                  return this.$t('label.PFANS1036FORMVIEW_TAB4VALUE1');
+                  break;
                  case 7:
-                  return this.$t('PFANS1036FORMVIEW_TAB4VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB5VALUE1');
                   break;
                  case 8:
-                  return this.$t('PFANS1036FORMVIEW_TAB5VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB6VALUE1');
                   break;
                  case 9:
-                  return this.$t('PFANS1036FORMVIEW_TAB6VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
                   break;
                  case 10:
-                  return this.$t('PFANS1036FORMVIEW_TAB7VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
                   break;
                  case 11:
-                  return this.$t('PFANS1036FORMVIEW_TAB8VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5');
                   break;
                  case 12:
-                  return this.$t('PFANS1036FORMVIEW_TAB9VALUE5');
-                  break;
-                 case 13:
-                  return this.$t('PFANS1036FORMVIEW_TAB10VALUE1');
+                  return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
                   break;
               }
          }
