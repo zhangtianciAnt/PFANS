@@ -37,6 +37,13 @@ export function createBusinessplan(data) {
     data: data
   })
 }
+export function getPlan(data) {
+  return request({
+    url: 'personnelplan/get',
+    method: 'post',
+    data: data
+  })
+}
 
 
 
