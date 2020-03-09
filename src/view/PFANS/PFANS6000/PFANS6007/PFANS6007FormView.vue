@@ -67,29 +67,24 @@
                 </div>
               </el-form-item>
             </el-col>
-
-
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
                 <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
+                  <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpclubname"></el-input>
+                </el-form-item>
+              </el-col>
             </el-col>
           </el-row>
+          <!--2-->
           <el-row>
-            <!--2-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpclubname"></el-input>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')">
                 <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpplayer"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
-            <!--3-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')" prop="year">
                 <el-date-picker
@@ -134,9 +129,6 @@
                 <el-input :disabled="!disabled" style="width:20vw" v-model="form.payment"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <!--5-->
-          <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS6007VIEW_REMARKS')">
                 <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
