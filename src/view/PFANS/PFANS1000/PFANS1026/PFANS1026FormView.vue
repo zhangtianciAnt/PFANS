@@ -53,12 +53,12 @@
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
             <div  class="dialog-footer" align="center">
-              <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+              <el-button @click="click" v-if="show1">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
-                  <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+              <el-button  slot="reference" @click="clickDiscard" v-if="show2">
+                  <span style="margin-right: 86%;" >{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
             </div>
@@ -67,48 +67,48 @@
             <div  class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount1>
-                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
+                  <el-button @click="clickData(1)" :disabled=disabledCount1>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount2>
-                  <span style="margin-right: 86%;" @click="clickData(2)">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
+                  <el-button @click="clickData(2)" :disabled=disabledCount2>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount3>
-                  <span style="margin-right: 86%;" @click="clickData(3)">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
+                  <el-button @click="clickData(3)" :disabled=disabledCount3>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount4>
-                  <span style="margin-right: 86%;" @click="clickData(4)">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  <el-button @click="clickData(4)" :disabled=disabledCount4>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount5>
-                  <span style="margin-right: 86%;" @click="clickData(5)">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
+                  <el-button @click="clickData(5)" :disabled=disabledCount5>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount6>
-                  <span style="margin-right: 86%;" @click="clickData(6)">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
+                  <el-button @click="clickData(6)" :disabled=disabledCount6>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
                   </span>
                   </el-button>
                 </el-col>
@@ -260,7 +260,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">
                   <template slot-scope="scope">
                     <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                      <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
+                      <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                     </el-form-item>
                   </template>
@@ -1385,11 +1385,6 @@
             },
             getJudge(val, row) {
                 row.loadingjudge = val;
-                if (!row.loadingjudge || row.loadingjudge === '' || val === "undefined") {
-                    this.errorjudge = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.errorjudge = "";
-                }
             },
             getCusto(val, row) {
                 row.custojapanese = val;
@@ -1615,142 +1610,170 @@
             },
             //契約番号做成
             click() {
-                //請求方式
-                let letclaimtype = '';
-                let letbook = '';
-                //覚書
-                if(this.checked){
-                    letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
-                    let letcontractnumber = this.form.contractnumber.split("-");
-                    if(letcontractnumber.length > 1){
-                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
-                    }
-                    else{
-                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
-                    }
-                    this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
-                }
-                let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
-                let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
-                let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
-                let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-                //契約種類简称
-                let abbreviation = '';
-                let letabbreviation = getDictionaryInfo(this.form.contracttype);
-                if (letabbreviation != null) {
-                    //契約種類
-                    this.contracttype = letabbreviation.value1;
-                    abbreviation = letabbreviation.value2;
-                }
-                //事業年度
-                let applicationdate = '';
-                let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
-                if (letapplicationdate != null) {
-                    applicationdate = letapplicationdate.value2;
-                }
-                //上下期
-                let entrycondition = '';
-                let letentrycondition = getDictionaryInfo(this.form.entrycondition);
-                if (letentrycondition != null) {
-                    entrycondition = letentrycondition.value2;
-                }
-                //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
-                //通し番号
-                let number = '0001';
-                if(this.contractnumbercount.toString().length === 1){
-                    number = '000' + this.contractnumbercount
-                }
-                else if(this.contractnumbercount.toString().length === 2){
-                    number = '00' + this.contractnumbercount
-                }
-                else if(this.contractnumbercount.toString().length === 3){
-                    number = '0' + this.contractnumbercount
-                }
-                if(this.checked){
-                    this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
-                }
-                else{
-                    this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
-                }
-                //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
-                let isClone = false;
-                if(this.checked){
-                  for (let i = 0; i < this.form.tabledata.length; i++) {
-                    this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
-                    if (this.form.tabledata[0].deliverycondition == 'HT009002') {
-                      isClone = true;
-                    }
+                if(this.$route.params._id){
+                  this.handleClick();
+                }else {
+                  if(this.form.tabledata.length > 0){
+                    this.$confirm('之前创建这条将要被删除, 是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      this.form.tabledata = [];
+                      this.form.tableclaimtype = [];
+                      this.handleClick();
+                    }).catch(() => {
+                      this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                      });
+                      this.dialogFormVisible = false;
+                    });
+                  }else {
+                    this.handleClick();
                   }
                 }
+            },
+            handleClick(){
+              this.loading = true;
+              //請求方式
+              let letclaimtype = '';
+              let letbook = '';
+              //覚書
+              if(this.checked){
+                letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
+                let letcontractnumber = this.form.contractnumber.split("-");
+                if(letcontractnumber.length > 1){
+                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
+                }
+                else{
+                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
+                }
+                this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
+              }
+              let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
+              let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
+              let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
+              let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+              //契約種類简称
+              let abbreviation = '';
+              let letabbreviation = getDictionaryInfo(this.form.contracttype);
+              if (letabbreviation != null) {
+                //契約種類
+                this.contracttype = letabbreviation.value1;
+                abbreviation = letabbreviation.value2;
+              }
+              //事業年度
+              let applicationdate = '';
+              let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+              if (letapplicationdate != null) {
+                applicationdate = letapplicationdate.value2;
+              }
+              //上下期
+              let entrycondition = '';
+              let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+              if (letentrycondition != null) {
+                entrycondition = letentrycondition.value2;
+              }
+              //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
+              //通し番号
+              let number = '0001';
+              if(this.contractnumbercount.toString().length === 1){
+                number = '000' + this.contractnumbercount
+              }
+              else if(this.contractnumbercount.toString().length === 2){
+                number = '00' + this.contractnumbercount
+              }
+              else if(this.contractnumbercount.toString().length === 3){
+                number = '0' + this.contractnumbercount
+              }
+              if(this.checked){
+                this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
+              }
+              else{
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
+              }
+              //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+              let isClone = false;
+              if(this.checked){
+                for (let i = 0; i < this.form.tabledata.length; i++) {
+                  this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+                  if (this.form.tabledata[0].deliverycondition == 'HT009002') {
+                    isClone = true;
+                  }
+                }
+              }
 
-                this.addRowdata(isClone);
-                this.form.tableclaimtype = [];
-                if(this.form.claimtype === "HT001001"){
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                }
-                else if(this.form.claimtype === "HT001002"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                }
-                else if(this.form.claimtype === "HT001003"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                  this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+              this.addRowdata(isClone);
+              this.form.tableclaimtype = [];
+              if(this.form.claimtype === "HT001001"){
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.form.tableclaimtype[2].claimtype = letclaimtypethree;
 
-                }
-                else if(this.form.claimtype === "HT001004"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                  this.form.tableclaimtype[2].claimtype = letclaimtypethree;
-                  this.form.tableclaimtype[3].claimtype = letclaimtypefour;
-                }
-                //海外受託 技術開発
-                if(this.form.contracttype === 'HT008001'){
-                  this.titleType = this.titleType1;
-                }
-                //海外複合受託 技術開発
-                else if(this.form.contracttype === 'HT008002'){
-                  this.titleType = this.titleType2;
-                }
-                //海外受託 役務
-                else if(this.form.contracttype === 'HT008003'){
-                  this.titleType = this.titleType3;
-                }
-                //海外複合受託 役務
-                else if(this.form.contracttype === 'HT008004'){
-                  this.titleType = this.titleType4;
-                }
-                //国内受託 技術開発
-                else if(this.form.contracttype === 'HT008005'){
-                  this.titleType = this.titleType5;
-                }
-                //国内複合受託 技術開発
-                else if(this.form.contracttype === 'HT008006'){
-                  this.titleType = this.titleType6;
-                }
-                //国内受託 役務
-                else if(this.form.contracttype === 'HT008007'){
-                  this.titleType = this.titleType7;
-                }
-                //国内複合受託 役務
-                else if(this.form.contracttype === 'HT008008'){
-                  this.titleType = this.titleType8;
-                }
-                //販売
-                else if(this.form.contracttype === 'HT008009'){
-                  this.titleType = this.titleType9;
-                }
-                this.getChecked(false);
+              }
+              else if(this.form.claimtype === "HT001004"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+                this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+              }
+              //海外受託 技術開発
+              if(this.form.contracttype === 'HT008001'){
+                this.titleType = this.titleType1;
+              }
+              //海外複合受託 技術開発
+              else if(this.form.contracttype === 'HT008002'){
+                this.titleType = this.titleType2;
+              }
+              //海外受託 役務
+              else if(this.form.contracttype === 'HT008003'){
+                this.titleType = this.titleType3;
+              }
+              //海外複合受託 役務
+              else if(this.form.contracttype === 'HT008004'){
+                this.titleType = this.titleType4;
+              }
+              //国内受託 技術開発
+              else if(this.form.contracttype === 'HT008005'){
+                this.titleType = this.titleType5;
+              }
+              //国内複合受託 技術開発
+              else if(this.form.contracttype === 'HT008006'){
+                this.titleType = this.titleType6;
+              }
+              //国内受託 役務
+              else if(this.form.contracttype === 'HT008007'){
+                this.titleType = this.titleType7;
+              }
+              //国内複合受託 役務
+              else if(this.form.contracttype === 'HT008008'){
+                this.titleType = this.titleType8;
+              }
+              //販売
+              else if(this.form.contracttype === 'HT008009'){
+                this.titleType = this.titleType9;
+              }
+              this.getChecked(false);
+              this.loading = false;
+              this.dialogFormVisible = false;
             },
             //契約番号廃棄
             clickDiscard(){
@@ -1759,10 +1782,21 @@
                       this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
                 }
+              this.dialogFormVisible = false
             },
             //存在check
             existCheck(contractNumber, index) {
               this.loading = true;
+              if ( contractNumber==null || contractNumber==undefined || contractNumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'success',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+                this.dialogBook = false
+                return;
+              }
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
                 .then(response => {
                   let s = "count" + index;
@@ -1781,6 +1815,7 @@
 
                   }
                   this.loading = false;
+                  this.dialogBook = false
                 })
                 .catch(error => {
                   Message({
@@ -1789,6 +1824,7 @@
                     duration: 5 * 1000
                   });
                   this.loading = false;
+                  this.dialogBook = false
                 })
             },
             //書類作成
@@ -1966,6 +2002,14 @@
           },
             //indexDisabled
             handleIndexDisabled() {
+              if ( this.letcontractnumber==null || this.letcontractnumber==undefined || this.letcontractnumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                return;
+              }
               this.loading = true;
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
                 .then(response => {
