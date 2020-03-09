@@ -1,5 +1,5 @@
 <template>
-  <div class="main_bg_color">
+  <div class="main_bg_color" style="overflow-x: hidden">
     <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
              :active-text-color="activeTextColor" :collapse="isCollapse"
              active-text-color="#005BAA">
