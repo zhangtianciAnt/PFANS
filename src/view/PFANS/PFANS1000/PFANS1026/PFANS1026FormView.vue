@@ -2183,9 +2183,18 @@
                 if ( ['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >=0 ) {
                   dataName = "tableclaimtype";
                   maxCount = rowCount2;
-                }
-                for ( var k = maxCount - 1; k<maxCount; k++ ) {
-                  var itIndex = dataName + "." + k + "." +item;
+                  for ( var k = 0; k<maxCount; k++ ) {
+                    var itIndex = dataName + "." + k + "." +item;
+                    console.log("va", itIndex);
+                    let pro = new Promise(function(resolve, reject){
+                      that.$refs["refform"].validateField(itIndex, function(msg){
+                        resolve(msg);
+                      });
+                    });
+                    pros.push(pro);
+                  }
+                } else if (rowCount > 0) {
+                  var itIndex = dataName + "." + (rowCount -1) + "." +item;
                   console.log("va", itIndex);
                   let pro = new Promise(function(resolve, reject){
                     that.$refs["refform"].validateField(itIndex, function(msg){
@@ -2194,6 +2203,7 @@
                   });
                   pros.push(pro);
                 }
+
               });
               if ( pros.length == 0 ) {
                 cb();
