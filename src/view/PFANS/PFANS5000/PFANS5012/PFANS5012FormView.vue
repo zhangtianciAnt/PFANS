@@ -20,7 +20,6 @@
                     format="yyyy-WW"
                     :placeholder="$t('normal.error_09')">
                   </el-date-picker>
-
                 </div>
               </el-col>
             </el-row>
@@ -239,7 +238,10 @@
 
       selectData(val){
         this.getDateinitial(val);
-        let info = {createbylist: this.$route.params._id,starttime: this.starttime,endtime: this.endtime}
+        let info = [
+          this.$route.params._id,
+          [this.starttime,this.endtime]
+        ];
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -285,7 +287,7 @@
                   for(let j = 0; j < letlogdate.length; j ++){
                     for(let x = 0; x < letinitial.length; x ++){
                       if(letinitial[x].starttime === letlogdate[j]){
-                        letinitial[x].timestart = lettimestart[j];
+                        letinitial[x].timestart = Number(letinitial[x].timestart) + Number(lettimestart[j]);
                       }
                     }
                   }
@@ -334,6 +336,13 @@
           .dispatch('PFANS5001Store/updateTimestart', this.baseInfo)
           .then(response => {
             this.data = response;
+            for (let i = 0;i < this.Datatable.length;i++){
+              for (let j = 0;j < this.multipleSelection.length;j++){
+                  if(this.Datatable[i].userid === this.multipleSelection[j].userid){
+                    this.Datatable.splice(i, 1);
+                  }
+              }
+            }
             this.loading = false;
             Message({
               message: this.$t('normal.success_02'),

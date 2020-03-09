@@ -71,10 +71,6 @@ export function getList2(data) {
     params: data
   })
 }
-
-
-
-
 export function getProjectList(data) {
   return request({
     url: 'companyprojects/getProjectList',
@@ -94,8 +90,8 @@ export function getTimestart(data) {
 export function getGroupTimestart(data) {
   return request({
     url: 'companyprojects/getGroupTimestart',
-    method: 'get',
-    params: data
+    method: 'post',
+    data: data
   })
 }
 

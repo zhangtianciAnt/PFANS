@@ -8,6 +8,8 @@
                  style="padding:2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESS')" name="first">
+<!--              境外出張予定者-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESS')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -39,8 +41,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_FACETOFACE')" name="second">
+<!--              面談者（記入者）-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_IN2')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -76,36 +78,9 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+  <!--              出張事前面談事項（面談者で手書き記入)-->
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23vw">
-                    <el-switch :disabled="!disable"
-                               v-model="form.healthofmembers"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24vw">
-                    <el-switch :disabled="!disable"
-                               v-model="form.customers"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23vw">
-                    <el-switch :disabled="!disable"
-                               v-model="form.objectchina"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
+                <!--                  1-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')" label-width="24vw">
                     <el-switch :disabled="!disable"
@@ -115,17 +90,7 @@
                     ></el-switch>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')" label-width="23vw">
-                    <el-switch :disabled="!disable"
-                               v-model="form.management"
-                               active-value="0"
-                               inactive-value="1"
-                    ></el-switch>
-                  </el-form-item>
-                </el-col>
+                <!--                2-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')" label-width="24vw">
                     <el-switch :disabled="!disable"
@@ -135,9 +100,53 @@
                     ></el-switch>
                   </el-form-item>
                 </el-col>
+                <!--                3-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')" label-width="23vw">
+                    <el-switch :disabled="!disable"
+                               v-model="form.management"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+<!--                4-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23vw">
+                    <el-switch :disabled="!disable"
+                               v-model="form.healthofmembers"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+<!--                5-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24vw">
+                    <el-switch :disabled="!disable"
+                               v-model="form.customers"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
+<!--                6-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23vw">
+                    <el-switch :disabled="!disable"
+                               v-model="form.objectchina"
+                               active-value="0"
+                               inactive-value="1"
+                    ></el-switch>
+                  </el-form-item>
+                </el-col>
               </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')" name="third">
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')" name="second">
+            <!--   境外出張にあたって-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
@@ -154,8 +163,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_HEALTHCONDITION')" name="fourth">
+              <!-- 健康状況-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_HEALTHCONDITION')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
@@ -181,7 +190,9 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_EMERGENCYCONTACT')" name="fifth">
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_EMERGENCYCONTACT')" name="third">
+            <!-- 緊急時の連絡先（家族）-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_EMERGENCYCONTACT1')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2007VIEW_NAME')" prop="name">
@@ -193,22 +204,27 @@
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.shank" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.address" maxlength="36"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenumber">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenumber"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')" name="Sixthly">
+              <!-- 出張先事業場と受入責任者-->
+              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')}}</span>
               <el-row style="padding-top:1.5vw">
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.domei" maxlength="20"></el-input>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_BUSINESSPLACE')" prop="businessplace">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.businessplace"
@@ -220,11 +236,6 @@
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.deploy" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.domei" maxlength="20"></el-input>
-                  </el-form-item>
-                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -233,14 +244,14 @@
                               maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')" prop="specialclass">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.specialclass"
                               maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phone">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.phone"></el-input>
@@ -260,13 +271,13 @@
                               maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_SPECIALCLASS')" prop="special">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.special" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenum">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenum"></el-input>
@@ -277,8 +288,6 @@
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.mail" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
               </el-row>
             </el-tab-pane>
           </el-tabs>
@@ -291,7 +300,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getUserInfo,getDictionaryInfo} from '@/utils/customize';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
 
@@ -600,7 +609,7 @@
           this.form.team_id = lst.teamNmae;
         }
         if (rst) {
-          this.form.serviceposition = rst.userinfo.post;
+          this.form.serviceposition = getDictionaryInfo(rst.userinfo.rank).value1;
         } else {
           this.form.serviceposition = '';
         }

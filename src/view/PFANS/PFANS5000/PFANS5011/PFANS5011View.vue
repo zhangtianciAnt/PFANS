@@ -29,7 +29,7 @@
         columns:[
           //项目编号
           {
-            code: 'projectid',
+            code: 'numbers',
             label: 'label.PFANS5009VIEW_PROJECTNO',
             width: 120,
             fix: false,

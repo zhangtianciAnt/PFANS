@@ -375,10 +375,15 @@
                       </dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                      </el-input>
+                      <el-input-number
+                        :disabled="!disable"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.taxes">
+                      </el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">
@@ -470,10 +475,15 @@
                                 </el-input-number>
                               </template>
                             </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="200">
                               <template slot-scope="scope">
-                                <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                                </el-input>
+                                <el-input-number
+                                  :disabled="!disable"
+                                  :precision="2"
+                                  controls-position="right"
+                                  style="width: 100%"
+                                  v-model="scope.row.taxes">
+                                </el-input-number>
                               </template>
                             </el-table-column>
                             <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total" width="200">
@@ -503,7 +513,7 @@
                 <el-col :span="24">
               <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
                         show-summary  stripe border>
-                <el-table-column :label="$t('label.date')" align="center" width="200">
+                <el-table-column :label="$t('label.date')" align="center" width="200" >
                   <template slot-scope="scope">
                     <el-date-picker :disabled="!disable" style="width: 100%"
                                     v-model="scope.row.trafficdate"></el-date-picker>
@@ -584,10 +594,15 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                    </el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.taxes">
+                    </el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -991,10 +1006,15 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"  width="200">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" style="width: 100%" v-model="scope.row.taxes">
-                    </el-input>
+                    <el-input-number
+                      :disabled="!disable"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.taxes">
+                    </el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -1298,7 +1318,7 @@
         code9: 'PJ017',
         code10: 'PJ035',
         code11: 'PJ036',
-        code12: 'PJ069',
+        code12: 'PJ068',
         code13: 'PJ071',
         code14:'PJ072',
         multiple: false,
@@ -1777,7 +1797,7 @@
           foreigncurrency: "",
           annexno: "",
           rowindex: "",
-        });
+      });
       },
       addRow3() {
         this.tableA.push({
@@ -1887,38 +1907,60 @@
       change(val) {
         this.result.forEach(res => {
           if (res.businessid === val) {
-            this.tableA = [{
-              evectionid: "",
-              accommodationdetails_id: "",
-              accommodationdate: "",
-              activitycontent: "",
-              vehicleon: "",
-              vehiclein: "",
-              movementtime: "",
-              city: "",
-              region: "",
-              facilitytypeon: "",
-              facilitytypein: "",
-              facilityname: "",
-              accommodationallowance: "",
-              accommodation: "",
-              travelallowance: "",
-              travel: "",
-              relatives: "",
-              train: "",
-              traintick: 0,
-              plane: "",
-              annexno: "",
-              rowindex: "",
-              disaccommod: false,
-              showtick: true,
-            }],
-            //   this.tableT[0].trafficdate=this.form.startdate;
-            // this.tableT[1].trafficdate=this.form.enddate;
+            // this.tableA = [{
+            //   evectionid: "",
+            //   accommodationdetails_id: "",
+            //   accommodationdate: "",
+            //   activitycontent: "",
+            //   vehicleon: "",
+            //   vehiclein: "",
+            //   movementtime: "",
+            //   city: "",
+            //   region: "",
+            //   facilitytypeon: "",
+            //   facilitytypein: "",
+            //   facilityname: "",
+            //   accommodationallowance: "",
+            //   accommodation: "",
+            //   travelallowance: "",
+            //   travel: "",
+            //   relatives: "",
+            //   train: "",
+            //   traintick: 0,
+            //   plane: "",
+            //   annexno: "",
+            //   rowindex: "",
+            //   disaccommod: false,
+            //   showtick: true,
+            // }],
+
               this.form.place = res.city,
               this.form.startdate = res.startdate,
-              this.form.enddate = res.enddate,
-              this.form.datenumber = res.datenumber
+              this.form.enddate = res.enddate;
+              this.form.datenumber = res.datenumber;
+            for(var i=0;i<1;i++){
+                  this.tableT.push({
+                    evectionid: "",
+                    trafficdetails_id: "",
+                    publicexpenseid:"",
+                    trafficdate: "",
+                    invoicenumber: "",
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    taxes: "",
+                    costitem:"",
+                    region: "",
+                    vehicle: "",
+                    startingpoint: "",
+                    rmb: "",
+                    taxrate: "",
+                    foreigncurrency: "",
+                    annexno: "",
+                    rowindex: "",
+                  });
+                  this.tableT[0].trafficdate=this.form.startdate;
+              this.tableT[1].trafficdate=this.form.enddate;
+               }
+
             for(var i=0;i<this.form.datenumber-1;i++){
               this.tableA.push({
                 evectionid: "",
