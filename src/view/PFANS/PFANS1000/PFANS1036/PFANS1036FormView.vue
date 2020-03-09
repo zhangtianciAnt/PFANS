@@ -1590,9 +1590,9 @@
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div>
                     <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe>
-                      <el-table-column>
-                        <el-table-column align="center" width="110" prop="">
-                          <el-table-column>
+                      <el-table-column >
+                        <el-table-column >
+                          <el-table-column prop="name" :formatter="formatterDir" align="center" width="110">
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
@@ -2033,8 +2033,7 @@
               moneyAnnual:'',
           },
         ],
-        tableP: [
-        ],
+        tableP: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
         tableQ: [
         ],
         tableR: [
@@ -2138,6 +2137,43 @@
       }
     },
     methods: {
+      formatterDir(row,column,cellValue,index){
+        debugger
+         if(column.property === "name"){
+              switch (index) {
+                 case 1:
+                   return this.$t('PFANS1036FORMVIEW_TAB1VALUE1');
+                   break;
+                 case 2:
+                   return this.$t('PFANS1036FORMVIEW_TAB2VALUE1');
+                   break;
+                 case 3:
+                   return this.$t('PFANS1036FORMVIEW_TAB3VALUE1');
+                   break;
+                 case 7:
+                  return this.$t('PFANS1036FORMVIEW_TAB4VALUE1');
+                  break;
+                 case 8:
+                  return this.$t('PFANS1036FORMVIEW_TAB5VALUE1');
+                  break;
+                 case 9:
+                  return this.$t('PFANS1036FORMVIEW_TAB6VALUE1');
+                  break;
+                 case 10:
+                  return this.$t('PFANS1036FORMVIEW_TAB7VALUE1');
+                  break;
+                 case 11:
+                  return this.$t('PFANS1036FORMVIEW_TAB8VALUE1');
+                  break;
+                 case 12:
+                  return this.$t('PFANS1036FORMVIEW_TAB9VALUE5');
+                  break;
+                 case 13:
+                  return this.$t('PFANS1036FORMVIEW_TAB10VALUE1');
+                  break;
+              }
+         }
+      },
       getGroupB2(id){
         this.$store
           .dispatch('PFANS1036Store/getPlan', {"years":2019,"groupid":id})
