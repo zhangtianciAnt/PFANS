@@ -790,25 +790,25 @@
             }
           };
           var validateConchinese = (rule, value, callback) => {
-            if ( Array.isArray(value)) {
-              if ( value.length ==0 ) {
-                callback(new Error('请输入项目中文'));
-                return
-              }
-              value.map(function(item){
-                if ( item === '' ) {
-                  callback(new Error('请输入项目中文'));
-                  return
-                }
-              });
+//            if ( Array.isArray(value)) {
+//              if ( value.length ==0 ) {
+//                callback(new Error('请输入项目中文'));
+//                return
+//              }
+//              value.map(function(item){
+//                if ( item === '' ) {
+//                  callback(new Error('请输入项目中文'));
+//                  return
+//                }
+//              });
               callback();
-            } else {
-              if (value === '' && value != null && value != undefined) {
-                callback(new Error('请输入项目中文'));
-              } else {
-                callback();
-              }
-            }
+//            } else {
+//              if (value === '' && value != null && value != undefined) {
+//                callback(new Error('请输入项目中文'));
+//              } else {
+//                callback();
+//              }
+//            }
           };
           var validateDeliverydate = (rule, value, callback) => {
             if (!value) {
@@ -2159,7 +2159,7 @@
             },
           validateByType: function(type, cb) {
               let that = this;
-              if(type==='6') {
+              if(type==6) {
                 if(this.maketype === '1' || this.maketype === '2'|| this.maketype === '3'|| this.maketype === '4'){
                   if(this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
                     type = '61'
@@ -2184,7 +2184,7 @@
                   dataName = "tableclaimtype";
                   maxCount = rowCount2;
                 }
-                for ( var k = 0; k<maxCount; k++ ) {
+                for ( var k = maxCount - 1; k<maxCount; k++ ) {
                   var itIndex = dataName + "." + k + "." +item;
                   console.log("va", itIndex);
                   let pro = new Promise(function(resolve, reject){
