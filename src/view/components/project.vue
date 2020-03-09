@@ -23,9 +23,9 @@
       }
     },
     props: {
-      user:{
-        type:Boolean,
-        default:false
+      user: {
+        type: Boolean,
+        default: false
       },
       multiple: {
         type: Boolean,
@@ -48,6 +48,9 @@
     },
     mounted() {
       this.loading = true;
+      if ( this.data && this.data!='' ) {
+        this.value = this.data;
+      }
 
       this.$store
         .dispatch('PFANS5009Store/getSiteList', {})
@@ -71,9 +74,8 @@
             duration: 5 * 1000
           })
         })
-      this.value = this.data;
-    }
-    , methods: {
+    },
+    methods: {
       change(val) {
         this.$emit("change", val, this.no);
       }

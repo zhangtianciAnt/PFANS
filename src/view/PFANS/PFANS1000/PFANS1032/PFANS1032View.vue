@@ -15,7 +15,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from "element-ui";
   import moment from "moment";
-  import {getDictionaryInfo,getStatus} from '@/utils/customize';
+  import {getDictionaryInfo,getStatus,getUserInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1032View",
@@ -57,7 +57,7 @@
             filter: true
           },
           {
-            code: 'pjnamechinese',
+            code: 'pjnamejapanese',
             label: 'label.PFANS1032FORMVIEW_PJNAME',
             width: 100,
             fix: false,
@@ -120,6 +120,12 @@
         .dispatch('PFANS1032Store/get', {})
         .then(response => {
           for (let j = 0; j < response.length; j++) {
+            if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== "") {
+              let letUser = getUserInfo(response[j].pjnamechinese);
+              if (letUser != null) {
+                response[j].pjnamechinese = letUser.userinfo.customername;
+              }
+            }
             if (response[j].user_id !== null && response[j].user_id !== "") {
               if (response[j].contracttype !== null && response[j].contracttype !== "") {
                 let letContracttype = getDictionaryInfo(response[j].contracttype);
