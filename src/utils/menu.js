@@ -492,306 +492,307 @@ export function menu() {
                 },
               ]
             },
+
+          ]
+        },
+        {
+          '_id': 'CONTRACT',
+          'name': 'menu.CONTRACT',
+          'menuvisible': true,
+          'menuurl': '',
+          'menuicon': '',
+          'children': [
             {
-              '_id': 'CONTRACT',
-              'name': 'menu.CONTRACT',
+              '_id': 'PFANS1024',
+              'name': 'menu.PFANS1024',
               'menuvisible': true,
               'menuurl': '',
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'PFANS1024',
-                  'name': 'menu.PFANS1024',
-                  'menuvisible': true,
-                  'menuurl': '',
-                  'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'COMMISSIONCONTRACTyouwenti',
-                      'name': 'menu.COMMISSIONCONTRACT',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1024View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1024_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1024_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1024_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1024_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1026',
-                      'name': 'menu.BROKERAGECONTRACT',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1026View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1026_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1026_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1026_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1026_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1033',
-                      'name': 'menu.OTHERCONTRACT',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1033View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1033_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1033_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1033_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1033_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                  ]
-                },
-                {
-                  '_id': 'COMMISSIONCONTRACT',
+                  '_id': 'COMMISSIONCONTRACTyouwenti',
                   'name': 'menu.COMMISSIONCONTRACT',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1024View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'PFANS1025',
-                      'name': 'menu.PFANS1025',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1025View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1025_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1025_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1025_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1025_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1024_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1024_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1024_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1024_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
-                  '_id': 'BROKERAGECONTRACT',
+                  '_id': 'PFANS1026',
                   'name': 'menu.BROKERAGECONTRACT',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1026View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'PFANS1027',
-                      'name': 'menu.PFANS1027',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1027View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1027_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1027_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1027_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1027_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1028',
-                      'name': 'menu.PFANS1028',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1028View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1028_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1028_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1028_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1028_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1029',
-                      'name': 'menu.PFANS1029',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1029View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1029_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1029_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1029_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1029_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },{
-                      '_id': 'PFANS1030',
-                      'name': 'menu.PFANS1030',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1030View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1030_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1030_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1030_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1030_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1031',
-                      'name': 'menu.PFANS1031',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1031View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1031_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1031_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1031_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1031_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'PFANS1032',
-                      'name': 'menu.PFANS1032',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1032View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1032_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1032_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1026_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1026_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1026_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1026_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1033',
+                  'name': 'menu.OTHERCONTRACT',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1033View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1033_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1033_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1033_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1033_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
               ]
             },
             {
-              '_id': 'ASSETS',
-              'name': 'menu.ASSETMANAG',
+              '_id': 'COMMISSIONCONTRACT',
+              'name': 'menu.COMMISSIONCONTRACT',
               'menuvisible': true,
               'menuurl': '',
               'menuicon': '',
               'children': [
                 {
-                  '_id': 'HARDASSETMANAG',
-                  'name': 'menu.HARDASSETMANAG',
+                  '_id': 'PFANS1025',
+                  'name': 'menu.PFANS1025',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1025View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'PFANS1037',
-                      'name': 'menu.PFANS1037',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1037View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1025_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1025_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1025_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1025_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+              ]
+            },
+            {
+              '_id': 'BROKERAGECONTRACT',
+              'name': 'menu.BROKERAGECONTRACT',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1027',
+                  'name': 'menu.PFANS1027',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1027View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1027_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1027_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1027_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1027_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
-                  '_id': 'ASSETS1',
-                  'name': 'menu.ASSETS',
+                  '_id': 'PFANS1028',
+                  'name': 'menu.PFANS1028',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1028View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'ASSETS1001,',
-                      'name': 'menu.ASSETS1001',
-                      'menuvisible': true,
-                      'menuurl': '/ASSETS1001View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    {
-                      '_id': 'ASSETS1002,',
-                      'name': 'menu.ASSETS1002',
-                      'menuvisible': true,
-                      'menuurl': '/ASSETS1002View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
-                    // {
-                    //   '_id': 'ASSETS1003,',
-                    //   'name': 'menu.ASSETS1003',
-                    //   'menuvisible': true,
-                    //   'menuurl': '/ASSETS1003View',
-                    //   'menuicon': '',
-                    //   'children': [],
-                    //   'actions': [
-                    //     {"_id": "ASSETS1003_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    //     {"_id": "ASSETS1003_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    //     {"_id": "ASSETS1003_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    //     {"_id": "ASSETS1003_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                    //   ]
-                    // },
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1028_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1028_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1028_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1028_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
-                  '_id': 'SOFTASSETMANAG',
-                  'name': 'menu.SOFTASSETMANAG',
+                  '_id': 'PFANS1029',
+                  'name': 'menu.PFANS1029',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1029View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'ASSETS1034,',
-                      'name': 'menu.PFANS1034',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1034View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "ASSETS1034_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "ASSETS1034_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "ASSETS1034_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "ASSETS1034_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    },
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1029_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1029_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1029_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1029_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },{
+                  '_id': 'PFANS1030',
+                  'name': 'menu.PFANS1030',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1030View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1030_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1030_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1030_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1030_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
-                  '_id': 'ITSECURITYMANAGEMENT',
+                  '_id': 'PFANS1031',
+                  'name': 'menu.PFANS1031',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1031View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1031_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1031_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1031_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1031_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1032',
+                  'name': 'menu.PFANS1032',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1032View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1032_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1032_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1032_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1032_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+              ]
+            },
+          ]
+        },
+        {
+          '_id': 'ASSETS',
+          'name': 'menu.ASSETMANAG',
+          'menuvisible': true,
+          'menuurl': '',
+          'menuicon': '',
+          'children': [
+            {
+              '_id': 'HARDASSETMANAG',
+              'name': 'menu.HARDASSETMANAG',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1037',
+                  'name': 'menu.PFANS1037',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1037View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+              ]
+            },
+            {
+              '_id': 'ASSETS1',
+              'name': 'menu.ASSETS',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'ASSETS1001,',
+                  'name': 'menu.ASSETS1001',
+                  'menuvisible': true,
+                  'menuurl': '/ASSETS1001View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "ASSETS1001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "ASSETS1001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "ASSETS1001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "ASSETS1001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'ASSETS1002,',
+                  'name': 'menu.ASSETS1002',
+                  'menuvisible': true,
+                  'menuurl': '/ASSETS1002View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "ASSETS1002_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "ASSETS1002_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "ASSETS1002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "ASSETS1002_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                // {
+                //   '_id': 'ASSETS1003,',
+                //   'name': 'menu.ASSETS1003',
+                //   'menuvisible': true,
+                //   'menuurl': '/ASSETS1003View',
+                //   'menuicon': '',
+                //   'children': [],
+                //   'actions': [
+                //     {"_id": "ASSETS1003_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                //     {"_id": "ASSETS1003_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                //     {"_id": "ASSETS1003_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                //     {"_id": "ASSETS1003_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                //   ]
+                // },
+              ]
+            },
+            {
+              '_id': 'SOFTASSETMANAG',
+              'name': 'menu.SOFTASSETMANAG',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'ASSETS1034,',
+                  'name': 'menu.PFANS1034',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1034View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "ASSETS1034_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "ASSETS1034_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "ASSETS1034_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "ASSETS1034_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+              ]
+            },
+            {
+              '_id': 'ITSECURITYMANAGEMENT',
+              'name': 'menu.ITSECURITYMANAGEMENT',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1015',
                   'name': 'menu.ITSECURITYMANAGEMENT',
                   'menuvisible': true,
-                  'menuurl': '',
+                  'menuurl': '/PFANS1015View',
                   'menuicon': '',
-                  'children': [
-                    {
-                      '_id': 'PFANS1015',
-                      'name': 'menu.ITSECURITYMANAGEMENT',
-                      'menuvisible': true,
-                      'menuurl': '/PFANS1015View',
-                      'menuicon': '',
-                      'children': [],
-                      'actions': [
-                        {"_id": "PFANS1015_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                        {"_id": "PFANS1015_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                        {"_id": "PFANS1015_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                        {"_id": "PFANS1015_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                      ]
-                    }
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1015_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1015_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1015_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1015_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 }
               ]
@@ -1151,20 +1152,6 @@ export function menu() {
             {
               '_id': 'WAGES', 'name': 'menu.WAGES', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
                 {
-                  '_id': 'PFANS2005',
-                  'name': 'menu.PFANS2005',
-                  'menuvisible': true,
-                  'menuurl': '/PFANS2005View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS2005_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS2005_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS2005_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS2005_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
                   '_id': 'PFANS2022',
                   'name': 'menu.PFANS2022',
                   'menuvisible': true,
@@ -1190,6 +1177,20 @@ export function menu() {
                     {"_id": "PFANS2006_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                     {"_id": "PFANS2006_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS2006_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS2005',
+                  'name': 'menu.PFANS2005',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2005View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2005_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2005_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2005_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2005_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
@@ -1503,20 +1504,6 @@ export function menu() {
           'menuicon': 'el-icon-s-cooperation',
           'children': [
             {
-              '_id': 'PFANS6001',
-              'name': 'menu.PFANS6001',
-              'menuvisible': true,
-              'menuurl': '/PFANS6001View',
-              'menuicon': '',
-              'children': [],
-              'actions': [
-                {"_id": "PFANS6001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                {"_id": "PFANS6001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                {"_id": "PFANS6001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                {"_id": "PFANS6001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-              ]
-            },
-            {
               '_id': 'PFANS6002',
               'name': 'menu.PFANS6002',
               'menuvisible': true,
@@ -1565,6 +1552,20 @@ export function menu() {
               'menuurl': '',
               'menuicon': '',
               'children': [
+                {
+                  '_id': 'PFANS6001',
+                  'name': 'menu.PFANS6001',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS6001View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS6001_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS6001_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS6001_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS6001_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
                 {
                   '_id': 'PFANS6007',
                   'name': 'menu.PFANS6007',

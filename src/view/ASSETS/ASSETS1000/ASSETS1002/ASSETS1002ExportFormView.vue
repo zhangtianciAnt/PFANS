@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
+  import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
