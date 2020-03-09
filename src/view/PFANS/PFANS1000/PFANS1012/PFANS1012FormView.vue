@@ -533,7 +533,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable >
                               <el-option
                                 v-for="item in arryoption"
                                 :key="item.value"
@@ -1281,7 +1281,6 @@
             trigger: 'change',
           }],
           // rmbexpenditure:[{
-          //   required: true,
           //   validator: checkrmb,
           //   trigger: 'change',
           // }],
@@ -2098,6 +2097,8 @@
           });
         }
       },
+
+
       // 判断是否IE??器
       MyBrowserIsIE() {
         let isIE = false;
@@ -2482,6 +2483,22 @@
 
   .el-table--scrollable-x .el-table__body-wrapper {
     overflow: visible;
+  }
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
   }
 
 </style>
