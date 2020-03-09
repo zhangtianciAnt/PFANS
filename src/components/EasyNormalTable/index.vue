@@ -389,6 +389,6 @@
   /*height: 359px !important*/
   /*}*/
   .el-table /deep/ .current-row{
-    background-color: #7ACAFF !important;
+    background-color: #BDD8EE !important;
   }
 </style>
