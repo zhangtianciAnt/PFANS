@@ -382,17 +382,6 @@
                                 v-model.trim="scope.row.theme"></el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="150">
-                    <template slot-scope="scope">
-                      <dicselect
-                        :code="code1"
-                        :data="scope.row.center"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getcenter"
-                      ></dicselect>
-                    </template>
-                  </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
                     <template slot-scope="scope">
                       <org :disabled="true" :no="scope.row" :orglist="scope.row.groupid" @getOrgids="getGroupId"
@@ -507,14 +496,14 @@
                   <el-table-column :label="$t('label.April')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[0].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[0].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel4"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount4" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[0].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[0].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -523,14 +512,14 @@
                   <el-table-column :label="$t('label.May')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[1].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[1].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel5"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount5" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[1].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[1].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -539,14 +528,14 @@
                   <el-table-column :label="$t('label.June')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[2].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[2].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel6"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount6" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[2].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[2].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -555,14 +544,14 @@
                   <el-table-column :label="$t('label.July')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[3].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[3].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel7"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount7" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[3].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[3].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -571,14 +560,14 @@
                   <el-table-column :label="$t('label.August')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[4].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[4].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel8"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount8" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[4].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[4].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -587,14 +576,14 @@
                   <el-table-column :label="$t('label.September')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[5].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[5].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel9"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount9" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[5].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[5].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -603,14 +592,14 @@
                   <el-table-column :label="$t('label.October')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[6].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[6].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel10"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount10" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[6].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[6].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -619,14 +608,14 @@
                   <el-table-column :label="$t('label.November')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[7].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[7].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel11"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount11" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[7].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[7].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -635,14 +624,14 @@
                   <el-table-column :label="$t('label.December')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[8].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[8].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel12"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount12" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[8].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[8].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -651,14 +640,14 @@
                   <el-table-column :label="$t('label.January')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[9].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[9].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel1"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount1" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[9].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[9].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -667,14 +656,14 @@
                   <el-table-column :label="$t('label.February')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[10].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[10].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel2"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount2" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[10].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[10].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -683,14 +672,14 @@
                   <el-table-column :label="$t('label.March')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="scope.row.status === '4'? true:arrays[11].disabled" maxlength="20" style="width: 100%"
+                        <el-input :disabled="gettrue(scope.row)? true:arrays[11].disabled" maxlength="20" style="width: 100%"
                                   v-model.trim="scope.row.personnel3"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input-number v-model="scope.row.amount3" controls-position="right"
-                                         style="width: 100%" :disabled="scope.row.status === '4'? true:arrays[11].disabled"
+                                         style="width: 100%" :disabled="gettrue(scope.row)? true:arrays[11].disabled"
                                          :min="0" :max="1000000000" :precision="2">
                         </el-input-number>
                       </template>
@@ -699,7 +688,7 @@
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
-                        :disabled="scope.row.status === '4'? true:false"
+                        :disabled="gettrue(scope.row)? true:false"
                         @click.native.prevent="deleteRowF(scope.$index, tableB)"
                         plain
                         size="small"
@@ -785,7 +774,6 @@
             months: '',
             years: moment(new Date()).format('YYYY'),
             theme: '',
-            center: '',
             groupid: this.groupId,
             teamid: '',
             kind: '',
@@ -822,7 +810,7 @@
             amount2: '',
             personnel3: '',
             amount3: '',
-            type: '0',
+            type: '1',
             rowindex: '',
             status: '0',
           },
@@ -854,14 +842,12 @@
     },
     methods: {
       getdata(year,month){
-        //datainfo = {'centerid':this.groupId,'type': '0','months': month};
         let datainfo = {};
         if(year != ''){
             datainfo = {'type': '1','years': year,'months':''};
         }
         else{
-          //datainfo = {'type': type,'years': month.substring(0,4),'months': month,'status': '4'};
-          datainfo = {'type': '2','years': month.substring(0,4)};
+          datainfo = {'type': '2','years': month.substring(0,4),'months': month};
         }
         this.loading = true;
         this.$store
@@ -876,34 +862,13 @@
               }
               else{
                   this.tableB = [];
-                  let flg = 0;
-                  for (let i = 0; i < response.length; i++) {
-                      if(month === response[i].months){
-                        this.tableB.push(response[i]);
-                        flg = 1;
-                      }
-                  }
-                  if(flg === 0){
-                      let months = response[0].months;
-                      for (let j = 0; j < response.length; j++) {
-                        if(months === response[j].months){
-                          this.tableB.push(response[j]);
-                        }
-                      }
-                  }
-
-                  if(Number(month.substr(5,2) < Number(moment(new Date()).format('MM')))){
-
-                  }
-                  else{
-                    var monthCurrent = month.substr(5,2);//Number(moment(new Date()).format('MM'));
-                    for (var j = 0; j < 12; j++) {
-                      if (j > monthCurrent - 5) {
-                        this.arrays[j].disabled = false;
-                      }
+                  this.tableB = response;
+                  var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
+                  for (var j = 0; j < 12; j++) {
+                    if (j > monthCurrent - 3) {
+                      this.arrays[j].disabled = false;
                     }
                   }
-
               }
             }
             else{
@@ -914,12 +879,9 @@
                     }
                 }
                 else{
-                    if(this.tableA.length > 0){
-                      this.status = this.tableA[0].status;
-                    }
                     this.tableB = [];
                     if(this.tableA.length > 0){
-                      if(this.status === '4'){
+                      if(this.tableA[0].status === '4'){
                         this.disabled = true;
                         this.tableB = this.tableA;
                         var monthCurrent = Number(month.substr(5,2));
@@ -950,7 +912,7 @@
         row.center = val;
       },
       gettrue(val, row) {
-        if(val.status === '4'){
+        if(val.status === '4' || val.status === '2'){
           return true;
         }
         else{
@@ -1016,10 +978,7 @@
               this.getdata(this.years,"");
           }
           else{
-              if(this.tableA.length > 0){
-                this.status = this.tableA[0].status;
-              }
-              if(this.status === '4'){
+              if(this.tableA[0].status === '4'){
                 this.workflowCode = "W0053";
                 this.canStart = true;
               }
@@ -1058,7 +1017,6 @@
           months: '',
           years: this.$route.params._id,
           theme: '',
-          center: '',
           groupid: this.groupId,
           teamid: '',
           kind: '',
@@ -1106,7 +1064,6 @@
           months: this.months,
           years: this.$route.params._id,
           theme: '',
-          center: '',
           groupid: this.groupId,
           teamid: '',
           kind: '',
@@ -1159,8 +1116,13 @@
           if(this.activeName === 'second'){
             this.baseInfo[i].months = moment(this.months).format('YYYY-MM');
             this.baseInfo[i].type = '2';
+            if(this.baseInfo[i].status != '4'){
+              this.baseInfo[i].status = this.status;
+            }
           }
-          this.baseInfo[i].status = this.status;
+          else{
+            this.baseInfo[i].status = this.status;
+          }
         }
         this.loading = true;
         this.$refs['refform'].validate(valid => {
