@@ -486,13 +486,7 @@
         ];
       }
     },
-      /*computed: {
-        check(){
-            if(this.form.suppliername){
-                this.rules.suppliername.required = false;
-            }
-        }
-      },*/
+
     methods: {
       getInterviewDep(val) {
         this.form.interviewdep = val;
@@ -502,20 +496,7 @@
           this.errorinterviewdep = '';
         }
       },
-      getSuppliername(val) {
-        this.form.suppliername = val;
-        if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
-          this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-        } else {
-          this.errorsuppliername = '';
-        }
-      },
-        /*suppliernameChange(val){
-          console.log(val);
-          if(val != null && val !=""){
-              this.rules.suppliername.required = false;
-          }
-        },*/
+
       changesex(val) {
         this.form.sex = val;
       },
@@ -556,6 +537,7 @@
         this.dialogTableVisible = false;
         this.form.suppliername = val;
         this.form.suppliernameid = val1;
+        this.errorsuppliername = '';
       },
       handleClickChange(val) {
         this.currentRow = val.suppliername;

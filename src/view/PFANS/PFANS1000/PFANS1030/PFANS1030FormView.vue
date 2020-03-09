@@ -1087,16 +1087,8 @@
         if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
           this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-        // for (let i = 0; i < this.tableD.length; i++) {
-        //   this.arrAttf.push({
-        //     attf1: this.tableD[i].budgetcode,
-        //     attf2: this.tableD[i].depart,
-        //   });
-        // }
-        // this.form.tablecommunt = JSON.stringify(this.arrAttf);
         this.baseInfo.staffDetail=[];
         for(let i=0;i<this.tableD.length;i++){
-          // if(this.tableD[i].attf!==""||this.tableD[i].budgetcode>"0"||this.tableD[i].depart>"0"){
             this.baseInfo.staffDetail.push({
               staffdetail_id:this.tableD[i].staffdetail_id,
               award_id:this.tableD[i].award_id,
@@ -1104,7 +1096,6 @@
               budgetcode:this.tableD[i].budgetcode,
               depart:this.tableD[i].depart,
             })
-          // }
         }
         this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
@@ -1163,6 +1154,11 @@
             }
           });
         } else if (val === 'generate') {
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id= user.userinfo.customername;
+          }
+          this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
