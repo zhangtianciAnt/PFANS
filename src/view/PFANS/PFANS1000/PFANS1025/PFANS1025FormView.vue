@@ -432,7 +432,7 @@
   import moment from "moment";
   import org from "../../../components/org";
   import project from '../../../components/project';
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1025FormView",
@@ -809,6 +809,11 @@
           });
         } else if (val === 'generate') {
           this.loading = true;
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id= user.userinfo.customername;
+          }
+          this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
