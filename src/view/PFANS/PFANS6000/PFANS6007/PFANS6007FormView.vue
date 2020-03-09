@@ -71,11 +71,11 @@
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
                 <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
+            </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
                   <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpclubname"></el-input>
                 </el-form-item>
-              </el-col>
             </el-col>
           </el-row>
           <!--2-->
