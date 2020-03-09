@@ -1643,6 +1643,7 @@
                             vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
                             vote2.state = response.contractapplication[i].state;
                             vote2.claimdatetime= response.contractapplication[i].claimdatetime;
+                            vote2.theme= response.contractapplication[i].theme;
                             this.gridData3.push(vote2);
                         }
                         this.loading = false;
@@ -1762,7 +1763,7 @@
             //合同
             handleClickChange2(val) {
                 this.currentRow = val.contract;
-                this.themeRow= val.contract;
+                this.themeRow= val.theme;
                 this.workinghoursRow= val.claimdatetime;
                 this.getCompanyprojects();
             },
