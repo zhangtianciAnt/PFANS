@@ -52,6 +52,13 @@
               //   fix: false,
               //   filter: true,
               // },
+                {
+                    code: 'numbers',
+                    label: 'label.PFANS5009VIEW_PROJECTNO',
+                    width: 110,
+                    fix: false,
+                    filter: true,
+                },
               {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
@@ -115,38 +122,34 @@
       mounted() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/getPjList', {flag: "0"})
+          .dispatch('PFANS5001Store/getList2', {flag: "0"})
           .then(response => {
             if(response.length > 0) {
-              // todo status 未定
-              var response = response.filter(item => {
-                return item.status === "0" || item.status === "4"
-              })
-              for (let j = 0; j < response.length; j++) {
-                if (response[j].phase !== null && response[j].phase !== "") {
-                  let letPhase = getDictionaryInfo(response[j].phase);
-                  if (letPhase != null) {
-                    response[j].phase = letPhase.value1;
-                  }
+                for (let j = 0; j < response.length; j++) {
+                    if (response[j].phase !== null && response[j].phase !== "") {
+                        let letPhase = getDictionaryInfo(response[j].phase);
+                        if (letPhase != null) {
+                            response[j].phase = letPhase.value1;
+                        }
+                    }
+                    if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
+                        if(response[j].phasestatus === "0") {
+                            response[j].phasestatus = this.phasestatus0
+                        }else {
+                            response[j].phasestatus = this.phasestatus1
+                        }
+                    }
+                    if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+                        if(response[j].contractstatus === "0") {
+                            response[j].contractstatus = this.contractstatus0
+                        }else if(response[j].contractstatus === "1"){
+                            response[j].contractstatus = this.contractstatus1
+                        }else {
+                            response[j].contractstatus = this.contractstatus2
+                        }
+                    }
+                    response[j] .status = getStatus(response[j] .status);
                 }
-                if (response[j].productstatus !== null && response[j].productstatus !== "") {
-                  if(response[j].productstatus === "0") {
-                    response[j].productstatus = this.submitted
-                  }else {
-                    response[j].productstatus = this.notsubmitted
-                  }
-                }
-                if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-                  if(response[j].contractstatus === "0") {
-                    response[j].contractstatus = this.contractstatus0
-                  }else if(response[j].contractstatus === "1"){
-                    response[j].contractstatus = this.contractstatus1
-                  }else {
-                    response[j].contractstatus = this.contractstatus2
-                  }
-                }
-                response[j] .status = getStatus(response[j] .status);
-              }
             }
 
             this.data = response;
@@ -162,38 +165,34 @@
           });
 
         this.$store
-          .dispatch('PFANS5001Store/getPjList', {flag: "1"})
+          .dispatch('PFANS5001Store/getList2', {flag: "1"})
           .then(response => {
             if (response.length > 0) {
-              // todo status 未定
-              var response = response.filter(item => {
-                return item.status === "0" || item.status === "4"
-              })
-              for (let j = 0; j < response.length; j++) {
-                if (response[j].phase !== null && response[j].phase !== "") {
-                  let letPhase = getDictionaryInfo(response[j].phase);
-                  if (letPhase != null) {
-                    response[j].phase = letPhase.value1;
-                  }
+                for (let j = 0; j < response.length; j++) {
+                    if (response[j].phase !== null && response[j].phase !== "") {
+                        let letPhase = getDictionaryInfo(response[j].phase);
+                        if (letPhase != null) {
+                            response[j].phase = letPhase.value1;
+                        }
+                    }
+                    if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
+                        if(response[j].phasestatus === "0") {
+                            response[j].phasestatus = this.phasestatus0
+                        }else {
+                            response[j].phasestatus = this.phasestatus1
+                        }
+                    }
+                    if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+                        if(response[j].contractstatus === "0") {
+                            response[j].contractstatus = this.contractstatus0
+                        }else if(response[j].contractstatus === "1"){
+                            response[j].contractstatus = this.contractstatus1
+                        }else {
+                            response[j].contractstatus = this.contractstatus2
+                        }
+                    }
+                    response[j] .status = getStatus(response[j] .status);
                 }
-                if (response[j].productstatus !== null && response[j].productstatus !== "") {
-                  if (response[j].productstatus === "0") {
-                    response[j].productstatus = this.submitted
-                  } else {
-                    response[j].productstatus = this.notsubmitted
-                  }
-                }
-                if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-                  if (response[j].contractstatus === "0") {
-                    response[j].contractstatus = this.contractstatus0
-                  } else if (response[j].contractstatus === "1") {
-                    response[j].contractstatus = this.contractstatus1
-                  } else {
-                    response[j].contractstatus = this.contractstatus2
-                  }
-                }
-                response[j].status = getStatus(response[j].status);
-              }
             }
 
             this.data2 = response;

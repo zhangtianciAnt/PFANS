@@ -1,9 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
-      <!--                         @end="end"-->
-      <!--                         @start="start" @workflowState="workflowState" >-->
+                         ref="container" v-loading="loading"  @end="end"
+                         @start="start"
+                         @workflowState="workflowState">
 
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -1177,16 +1177,26 @@
                         disabled: false,
                         icon: 'el-icon-check',
                     },
-                    {
-                        key: 'edit',
-                        name: 'button.update',
-                        disabled: false,
-                        icon: 'el-icon-edit',
-                    },
                 ];
             }
         },
         methods: {
+            workflowState(val) {
+                if (val.state === "1") {
+                    this.form.status = "6";
+                } else if (val.state === "2") {
+                    this.form.status = "4";
+                }
+                this.buttonClick("update");
+            },
+            start() {
+                this.form.status = "5";
+                this.buttonClick("update");
+            },
+            end() {
+                this.form.status = "0";
+                this.buttonClick("update");
+            },
             addRow3() {
                 this.tableD.push({
                     projectcontract_id: '',
@@ -1253,7 +1263,6 @@
                 this.currentRow = val.contract;
                 this.themeRow= val.contract;
                 this.workinghoursRow= val.claimdatetime;
-                this.getCompanyprojects();
             },
             submit2(row) {
                 row.contract = this.currentRow;
@@ -1443,6 +1452,17 @@
                 this.currentRow2 = val.suppliername;
                 this.currentRow3 = val.post;
             },
+            getworkinghours(workinghours) {
+                if (workinghours != null) {
+                    if (workinghours.length > 0) {
+                        return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
+                    } else {
+                        return '';
+                    }
+                } else {
+                    return '';
+                }
+            },
             buttonClick(val) {
                 this.form.leaderid = this.userlist;
                 this.form.managerid = this.userlist1;
@@ -1452,6 +1472,21 @@
                         this.baseInfo = {};
                         this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.stageinformation = [];
+                        this.baseInfo.projectcontract = [];
+                        for (let i = 0; i < this.tableD.length; i++) {
+                            this.tableD[i].workinghours = this.getworkinghours(this.tableD[i].workinghours);
+                            if (
+                                this.tableD[i].contract !== '' ||
+                                this.tableD[i].theme !== '' ||
+                                this.tableD[i].workinghours !== ''
+                            ) {
+                                this.baseInfo.projectcontract.push({
+                                    contract: this.tableD[i].contract,
+                                    theme: this.tableD[i].theme,
+                                    workinghours: this.tableD[i].workinghours,
+                                });
+                            }
+                        }
                         for (let i = 0; i < this.tableP.length; i++) {
                             if (
                                 this.tableP[i].phase !== '' ||
@@ -1504,7 +1539,7 @@
                                         this.$router.push({
                                             name: 'PFANS5009View',
                                         });
-                                    }
+                                        }
                                 })
                                 .catch(error => {
                                     Message({
@@ -1517,24 +1552,6 @@
                         }
                     }
                 });
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                if (val === 'edit') {
-                    if (this.rowid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000,
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: 'PFANS5001FormView',
-                        params: {
-                            _id: this.$route.params._id,
-                            disabled: true,
-                        },
-                    });
-                }
             },
         },
     };

@@ -511,7 +511,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="170" prop="attfmoth">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="170" prop="budgetcode">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -521,11 +521,11 @@
                         :precision="2"
                         controls-position="right"
                         style="width: 100%"
-                        v-model="scope.row.attfmoth"
+                        v-model="scope.row.budgetcode"
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')" align="center" width="150" prop="attfnumber">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')" align="center" width="150" prop="depart">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -535,7 +535,7 @@
                         :precision="2"
                         controls-position="right"
                         style="width: 100%"
-                        v-model="scope.row.attfnumber"
+                        v-model="scope.row.depart"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -610,6 +610,7 @@
         orglist:'',
         baseInfo: {},
         arrAttf: [],
+        groupN: '',
         form: {
           draftingdate: '',
           scheduleddate: '',
@@ -678,79 +679,105 @@
           }],
         tableS:[],
         tableD:[{
+          award_id: '',
+          staffdetail_id: '',
           attf: 'R11B',
-          attfmoth: '',
-          attfnumber: ''
+          budgetcode: '',
+          depart: ''
         },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R11A',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R10',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R9B',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R9A',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R8C',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R8B',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R8A',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R7',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R6',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R5',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R4',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           {
+            award_id: '',
+            staffdetail_id: '',
             attf: 'R3',
-            attfmoth: '',
-            attfnumber: ''
+            budgetcode: '',
+            depart: ''
           },
           // {
           //   attf: '社員合計人数',
-          //   attfmoth: '',
-          //   attfnumber: ''
+          //   budgetcode: '',
+          //   depart: ''
           // },
           // {
           //   attf: '社員コスト（元）',
-          //   attfmoth: '',
-          //   attfnumber: ''
+          //   budgetcode: '',
+          //   depart: ''
           // },
 
         ],
@@ -798,13 +825,17 @@
                 this.orglist=this.tableT[i].depart;
               }
             }
-            if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
-              for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
-                let aa = JSON.parse(response.award.tablecommunt)[i];
-                this.tableD[i].attfmoth = aa.attf1;
-                this.tableD[i].attfnumber = aa.attf2;
-              }
+            // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
+            //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
+            //     let aa = JSON.parse(response.award.tablecommunt)[i];
+            //     this.tableD[i].budgetcode = aa.attf1;
+            //     this.tableD[i].depart = aa.attf2;
+            //   }
+            // }
+            if (response.staffDetail.length > 0) {
+              this.tableD = response.staffDetail
             }
+
             if ( response.numbercounts.length > 0 ) {
               for (let i = 0; i < response.numbercounts.length; i++) {
                 let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
@@ -1050,44 +1081,49 @@
         return sums;
       },
       buttonClick(val) {
+        this.form.maketype='4',
+          this.baseInfo={};
+        this.form.user_id=this.userlist;
+        if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+          this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+        }
+        this.baseInfo.staffDetail=[];
+        for(let i=0;i<this.tableD.length;i++){
+            this.baseInfo.staffDetail.push({
+              staffdetail_id:this.tableD[i].staffdetail_id,
+              award_id:this.tableD[i].award_id,
+              attf:this.tableD[i].attf,
+              budgetcode:this.tableD[i].budgetcode,
+              depart:this.tableD[i].depart,
+            })
+        }
+        this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.groupN = this.$store.getters.orgGroupList;
+        this.baseInfo.awardDetail=[];
+        for(let i=0;i<this.tableT.length;i++){
+          if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
+            ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
+            this.baseInfo.awardDetail.push({
+              awarddetail_id:this.tableT[i].awarddetail_id,
+              award_id:this.tableT[i].award_id,
+              budgetcode:this.tableT[i].budgetcode,
+              depart:this.tableT[i].depart,
+              projects:this.tableT[i].projects,
+              member:this.tableT[i].member,
+              community:this.tableT[i].community,
+              outsource:this.tableT[i].outsource,
+              outcommunity:this.tableT[i].outcommunity,
+              worknumber:this.tableT[i].worknumber,
+              awardmoney:this.tableT[i].awardmoney,
+              rowindex:this.tableT[i].rowindex,
+            })
+          }
+        }
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.maketype='4',
-              this.baseInfo={};
-              this.form.user_id=this.userlist;
-              if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
-                this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
-              }
-              for (let i = 0; i < this.tableD.length; i++) {
-                this.arrAttf.push({
-                  attf1: this.tableD[i].attfmoth,
-                  attf2: this.tableD[i].attfnumber,
-                });
-              }
-              this.form.tablecommunt = JSON.stringify(this.arrAttf);
-              this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.awardDetail=[];
-              for(let i=0;i<this.tableT.length;i++){
-                if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
-                  ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
-                  this.baseInfo.awardDetail.push({
-                    awarddetail_id:this.tableT[i].awarddetail_id,
-                    award_id:this.tableT[i].award_id,
-                    budgetcode:this.tableT[i].budgetcode,
-                    depart:this.tableT[i].depart,
-                    projects:this.tableT[i].projects,
-                    member:this.tableT[i].member,
-                    community:this.tableT[i].community,
-                    outsource:this.tableT[i].outsource,
-                    outcommunity:this.tableT[i].outcommunity,
-                    worknumber:this.tableT[i].worknumber,
-                    awardmoney:this.tableT[i].awardmoney,
-                    rowindex:this.tableT[i].rowindex,
-                  })
-                }
-              }
+
               if(this.$route.params._id){     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
@@ -1118,8 +1154,13 @@
             }
           });
         } else if (val === 'generate') {
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id= user.userinfo.customername;
+          }
+          this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
           this.$store
-            .dispatch('PFANS1025Store/generateJxls', this.form)
+            .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
               this.loading = false;
             })

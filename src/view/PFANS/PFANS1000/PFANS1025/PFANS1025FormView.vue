@@ -432,7 +432,7 @@
   import moment from "moment";
   import org from "../../../components/org";
   import project from '../../../components/project';
-  import {getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
 
   export default {
     name: "PFANS1025FormView",
@@ -591,6 +591,7 @@
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
+            this.baseInfo.groupN = this.$store.getters.orgGroupList;
             this.loading = false;
           })
           .catch(error => {
@@ -746,37 +747,37 @@
         return sums;
       },
       buttonClick(val) {
+        this.form.maketype='7',
+          this.baseInfo={};
+        this.form.user_id=this.userlist;
+        if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
+          this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+        }
+        this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.awardDetail=[];
+        for(let i=0;i<this.tableT.length;i++){
+          if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
+            ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
+            this.baseInfo.awardDetail.push({
+              awarddetail_id:this.tableT[i].awarddetail_id,
+              award_id:this.tableT[i].award_id,
+              budgetcode:this.tableT[i].budgetcode,
+              depart:this.tableT[i].depart,
+              member:this.tableT[i].member,
+              projects:this.tableT[i].projects,
+              community:this.tableT[i].community,
+              outsource:this.tableT[i].outsource,
+              outcommunity:this.tableT[i].outcommunity,
+              worknumber:this.tableT[i].worknumber,
+              awardmoney:this.tableT[i].awardmoney,
+              rowindex:this.tableT[i].rowindex,
+            })
+          }
+        }
         if(val==="save"){
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
-              this.form.maketype='7',
-                this.baseInfo={};
-              this.form.user_id=this.userlist;
-              if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
-                this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
-              }
-              this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.awardDetail=[];
-              for(let i=0;i<this.tableT.length;i++){
-                if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
-                  ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
-                  this.baseInfo.awardDetail.push({
-                    awarddetail_id:this.tableT[i].awarddetail_id,
-                    award_id:this.tableT[i].award_id,
-                    budgetcode:this.tableT[i].budgetcode,
-                    depart:this.tableT[i].depart,
-                    member:this.tableT[i].member,
-                    projects:this.tableT[i].projects,
-                    community:this.tableT[i].community,
-                    outsource:this.tableT[i].outsource,
-                    outcommunity:this.tableT[i].outcommunity,
-                    worknumber:this.tableT[i].worknumber,
-                    awardmoney:this.tableT[i].awardmoney,
-                    rowindex:this.tableT[i].rowindex,
-                  })
-                }
-              }
               if(this.$route.params._id){     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
@@ -807,8 +808,14 @@
             }
           });
         } else if (val === 'generate') {
+          this.loading = true;
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id= user.userinfo.customername;
+          }
+          this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
           this.$store
-            .dispatch('PFANS1025Store/generateJxls', this.form)
+            .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
               this.loading = false;
             })

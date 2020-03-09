@@ -1,5 +1,5 @@
-import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,
-        select,getPjList,getProjectList,getTimestart,updateTimestart} from './PFANS5001Api'
+import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2} from './PFANS5001Api'
 
 
 const PFANS5001Store = {
@@ -115,6 +115,19 @@ const PFANS5001Store = {
         })
       })
     },
+    getList2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getList2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     getProjectList({commit}, data) {
       return new Promise((resolve, reject) => {
         getProjectList(data).then(response => {
@@ -131,6 +144,19 @@ const PFANS5001Store = {
     getTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
         getTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getGroupTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getGroupTimestart(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
