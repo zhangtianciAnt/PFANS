@@ -1055,14 +1055,12 @@
               this.form.businesstype = '1';
               this.form.user_id = this.userlist;
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-              let dateInterval = moment(this.form.startdate).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.enddate).format('YYYY-MM-DD');
               this.baseInfo.travelcontent = [];
               this.baseInfo.travelcontent.push(
                 {
                   travelcontent_id: this.tableP.travelcontent_id,
                   businessid: this.tableP.businessid,
                   // 开始日期
-                  // duringdate1: this.tablePD[0].duringdate,
                   duringdate1: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
                   content1: this.tablePD[0].content,
                   duringdate2: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
