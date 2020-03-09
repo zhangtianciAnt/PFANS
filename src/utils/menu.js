@@ -1152,20 +1152,6 @@ export function menu() {
             {
               '_id': 'WAGES', 'name': 'menu.WAGES', 'menuvisible': true, 'menuurl': '', 'menuicon': '', 'children': [
                 {
-                  '_id': 'PFANS2005',
-                  'name': 'menu.PFANS2005',
-                  'menuvisible': true,
-                  'menuurl': '/PFANS2005View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS2005_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS2005_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS2005_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS2005_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
                   '_id': 'PFANS2022',
                   'name': 'menu.PFANS2022',
                   'menuvisible': true,
@@ -1191,6 +1177,20 @@ export function menu() {
                     {"_id": "PFANS2006_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
                     {"_id": "PFANS2006_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS2006_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS2005',
+                  'name': 'menu.PFANS2005',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2005View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2005_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2005_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2005_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2005_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
                 {
