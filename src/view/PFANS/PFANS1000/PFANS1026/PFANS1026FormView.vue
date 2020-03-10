@@ -649,7 +649,7 @@
         data() {
           var validateDeployment = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入开发部署'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFBS')));
             } else {
               callback();
             }
@@ -657,19 +657,19 @@
           var validateClaimdatetime = (rule, value, callback) => {
             if ( Array.isArray(value)) {
               if ( value.length ==0 ) {
-                callback(new Error('请输入开发请求期间'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
                 return
               }
               value.map(function(item){
                 if ( item === '' ) {
-                  callback(new Error('请输入开发请求期间'));
+                  callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
                   return
                 }
               });
               callback();
             } else {
               if (value === '') {
-                callback(new Error('请输入开发请求期间'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
               } else {
                 callback();
               }
@@ -678,84 +678,84 @@
           };
           var validateCurrencyposition = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入通货单位'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
             } else {
               callback();
             }
           };
           var validateLoadingjudge = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入出荷判定实施者'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
             } else {
               callback();
             }
           };
           var validateDeliveryfinshdate = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入纳品作成日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
             } else {
               callback();
             }
           };
           var validateCustojapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名和文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMHW')));
             } else {
               callback();
             }
           };
           var validateCustoenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMYW')));
             } else {
               callback();
             }
           };
           var validateCustoabbreviation = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名略名'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMLM')));
             } else {
               callback();
             }
           };
           var validateCustochinese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名中文名'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMZWM')));
             } else {
               callback();
             }
           };
           var validateBusinesscode = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入事业场code'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
             } else {
               callback();
             }
           };
           var validateVarto = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入to'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_TO')));
             } else {
               callback();
             }
           };
           var validatePlacejapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所日文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
             } else {
               callback();
             }
           };
           var validatePlaceenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSYW')));
             } else {
               callback();
             }
           };
           var validatePlacechinese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所中文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
             } else {
               callback();
             }
@@ -763,28 +763,28 @@
 
           var validateResponerglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入担当者英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
             } else {
               callback();
             }
           };
           var validateResponphone = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入担当者电话'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZZW')));
             } else {
               callback();
             }
           };
           var validateConjapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入项目和文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
             } else {
               callback();
             }
           };
           var validateConenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入项目英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMYW')));
             } else {
               callback();
             }
@@ -792,19 +792,19 @@
           var validateConchinese = (rule, value, callback) => {
             if ( Array.isArray(value)) {
               if ( value.length ==0 ) {
-                callback(new Error('请输入项目中文'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
                 return
               }
               value.map(function(item){
                 if ( item === '' ) {
-                  callback(new Error('请输入项目中文'));
+                  callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
                   return
                 }
               });
               callback();
             } else {
               if (value === '' && value != null && value != undefined) {
-                callback(new Error('请输入项目中文'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
               } else {
                 callback();
               }
@@ -812,35 +812,35 @@
           };
           var validateDeliverydate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入纳品预定日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPYDR')));
             } else {
               callback();
             }
           };
           var validateCompletiondate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入检收完了日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_JSWLR')));
             } else {
               callback();
             }
           };
           var validateClaimdate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入请求日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQR')));
             } else {
               callback();
             }
           };
           var validateSupportdate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入支付日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZFR')));
             } else {
               callback();
             }
           };
           var validateClaimamount = (rule, value, callback) => {
             if (value === '' && value != null && value != undefined) {
-              callback(new Error('请输入请求金额'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQJE')));
             } else {
               callback();
             }
