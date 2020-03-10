@@ -186,7 +186,6 @@
                     </el-form-item>
                   </template>
                 </el-table-column>
-
                 <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                   <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                     <template slot-scope="scope">
@@ -650,7 +649,7 @@
         data() {
           var validateDeployment = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入开发部署'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFBS')));
             } else {
               callback();
             }
@@ -658,19 +657,19 @@
           var validateClaimdatetime = (rule, value, callback) => {
             if ( Array.isArray(value)) {
               if ( value.length ==0 ) {
-                callback(new Error('请输入开发请求期间'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
                 return
               }
               value.map(function(item){
                 if ( item === '' ) {
-                  callback(new Error('请输入开发请求期间'));
-
+                  callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
+                  return
                 }
               });
               callback();
             } else {
               if (value === '') {
-                callback(new Error('请输入开发请求期间'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
               } else {
                 callback();
               }
@@ -679,84 +678,84 @@
           };
           var validateCurrencyposition = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入通货单位'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
             } else {
               callback();
             }
           };
           var validateLoadingjudge = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入出荷判定实施者'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
             } else {
               callback();
             }
           };
           var validateDeliveryfinshdate = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入纳品作成日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
             } else {
               callback();
             }
           };
           var validateCustojapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名和文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMHW')));
             } else {
               callback();
             }
           };
           var validateCustoenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMYW')));
             } else {
               callback();
             }
           };
           var validateCustoabbreviation = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名略名'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMLM')));
             } else {
               callback();
             }
           };
           var validateCustochinese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入取引先会社名中文名'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMZWM')));
             } else {
               callback();
             }
           };
           var validateBusinesscode = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入事业场code'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
             } else {
               callback();
             }
           };
           var validateVarto = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入to'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_TO')));
             } else {
               callback();
             }
           };
           var validatePlacejapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所日文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
             } else {
               callback();
             }
           };
           var validatePlaceenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSYW')));
             } else {
               callback();
             }
           };
           var validatePlacechinese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入住所中文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
             } else {
               callback();
             }
@@ -764,28 +763,28 @@
 
           var validateResponerglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入担当者英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
             } else {
               callback();
             }
           };
           var validateResponphone = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入担当者电话'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZZW')));
             } else {
               callback();
             }
           };
           var validateConjapanese = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入项目和文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
             } else {
               callback();
             }
           };
           var validateConenglish = (rule, value, callback) => {
             if (value === '') {
-              callback(new Error('请输入项目英文'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMYW')));
             } else {
               callback();
             }
@@ -793,19 +792,19 @@
           var validateConchinese = (rule, value, callback) => {
             if ( Array.isArray(value)) {
               if ( value.length ==0 ) {
-                callback(new Error('请输入项目中文'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
                 return
               }
               value.map(function(item){
                 if ( item === '' ) {
-                  callback(new Error('请输入项目中文'));
-
+                  callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
+                  return
                 }
               });
               callback();
             } else {
               if (value === '' && value != null && value != undefined) {
-                callback(new Error('请输入项目中文'));
+                callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
               } else {
                 callback();
               }
@@ -813,35 +812,35 @@
           };
           var validateDeliverydate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入纳品预定日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPYDR')));
             } else {
               callback();
             }
           };
           var validateCompletiondate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入检收完了日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_JSWLR')));
             } else {
               callback();
             }
           };
           var validateClaimdate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入请求日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQR')));
             } else {
               callback();
             }
           };
           var validateSupportdate = (rule, value, callback) => {
             if (!value) {
-              callback(new Error('请输入支付日'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZFR')));
             } else {
               callback();
             }
           };
           var validateClaimamount = (rule, value, callback) => {
             if (value === '' && value != null && value != undefined) {
-              callback(new Error('请输入请求金额'));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQJE')));
             } else {
               callback();
             }
@@ -1416,7 +1415,7 @@
             getChecked(val){
                 this.checked = val;
                 if(val === true){
-                    this.form.contractnumber = this.letcontractnumber;
+                    this.form.contractnumber = this.letcontractnumber
                     this.disabled1 = true;
                     this.disabled2 = false;
                 }else{
@@ -1640,7 +1639,7 @@
                     }).catch(() => {
                       this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                       });
                       this.dialogFormVisible = false;
                     });
@@ -1804,12 +1803,12 @@
               this.loading = true;
               if ( contractNumber==null || contractNumber==undefined || contractNumber == '' ) {
                 Message({
-                  message: "请先申请番号",
+                  message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
                   type: 'success',
                   duration: 5 * 1000
                 });
                 this.loading = false;
-                this.dialogBook = false;
+                this.dialogBook = false
                 return;
               }
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
@@ -1817,7 +1816,7 @@
                   let s = "count" + index;
                   if(response[s] > 0) {
                     Message({
-                      message: "请先删除之前生成的契约书",
+                      message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
                       type: 'success',
                       duration: 5 * 1000
                     });
@@ -2019,7 +2018,7 @@
             handleIndexDisabled() {
               if ( this.letcontractnumber==null || this.letcontractnumber==undefined || this.letcontractnumber == '' ) {
                 Message({
-                  message: "请先申请番号",
+                  message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
                   type: 'error',
                   duration: 5 * 1000
                 });
@@ -2048,7 +2047,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2058,7 +2057,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2068,7 +2067,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2078,7 +2077,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2088,7 +2087,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2098,7 +2097,7 @@
                     this.disabledCount6 = false;
                     this.disabledCount7 = true;
                     this.loading = false;
-
+                    return
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2108,7 +2107,7 @@
                     this.disabledCount6 = false;
                     this.disabledCount7 = false;
                     this.loading = false;
-
+                    return
                   }
                 })
                 .catch(error => {
