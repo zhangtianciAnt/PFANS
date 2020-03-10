@@ -186,6 +186,7 @@
                     </el-form-item>
                   </template>
                 </el-table-column>
+
                 <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                   <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                     <template slot-scope="scope">
@@ -663,7 +664,7 @@
               value.map(function(item){
                 if ( item === '' ) {
                   callback(new Error('请输入开发请求期间'));
-                  return
+
                 }
               });
               callback();
@@ -798,7 +799,7 @@
               value.map(function(item){
                 if ( item === '' ) {
                   callback(new Error('请输入项目中文'));
-                  return
+
                 }
               });
               callback();
@@ -1415,7 +1416,7 @@
             getChecked(val){
                 this.checked = val;
                 if(val === true){
-                    this.form.contractnumber = this.letcontractnumber
+                    this.form.contractnumber = this.letcontractnumber;
                     this.disabled1 = true;
                     this.disabled2 = false;
                 }else{
@@ -1808,7 +1809,7 @@
                   duration: 5 * 1000
                 });
                 this.loading = false;
-                this.dialogBook = false
+                this.dialogBook = false;
                 return;
               }
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
@@ -2047,7 +2048,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2057,7 +2058,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2067,7 +2068,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2077,7 +2078,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2087,7 +2088,7 @@
                     this.disabledCount6 = true;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2097,7 +2098,7 @@
                     this.disabledCount6 = false;
                     this.disabledCount7 = true;
                     this.loading = false;
-                    return
+
                   }else if(response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
                     this.disabledCount1 = false;
                     this.disabledCount2 = false;
@@ -2107,7 +2108,7 @@
                     this.disabledCount6 = false;
                     this.disabledCount7 = false;
                     this.loading = false;
-                    return
+
                   }
                 })
                 .catch(error => {
