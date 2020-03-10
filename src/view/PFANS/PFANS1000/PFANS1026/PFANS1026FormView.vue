@@ -1639,7 +1639,7 @@
                     }).catch(() => {
                       this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                       });
                       this.dialogFormVisible = false;
                     });
@@ -1803,7 +1803,7 @@
               this.loading = true;
               if ( contractNumber==null || contractNumber==undefined || contractNumber == '' ) {
                 Message({
-                  message: "请先申请番号",
+                  message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
                   type: 'success',
                   duration: 5 * 1000
                 });
@@ -1816,7 +1816,7 @@
                   let s = "count" + index;
                   if(response[s] > 0) {
                     Message({
-                      message: "请先删除之前生成的契约书",
+                      message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
                       type: 'success',
                       duration: 5 * 1000
                     });
@@ -2018,7 +2018,7 @@
             handleIndexDisabled() {
               if ( this.letcontractnumber==null || this.letcontractnumber==undefined || this.letcontractnumber == '' ) {
                 Message({
-                  message: "请先申请番号",
+                  message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
                   type: 'error',
                   duration: 5 * 1000
                 });
