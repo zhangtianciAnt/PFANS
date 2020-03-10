@@ -48,3 +48,27 @@ export function getLoanApplication(data) {
     data: data
   })
 }
+
+export function selectJudgement(data) {
+  return request({
+    url: 'judgement/selectJudgement',
+    method: 'post',
+    data: data
+  })
+}
+
+export function selectPurchaseApply(data) {
+  return request({
+    url: 'purchaseApply/selectPurchaseApply',
+    method: 'post',
+    data: data
+  })
+}
+
+export function selectCommunication(data) {
+  return request({
+    url: 'communication/selectCommunication',
+    method: 'post',
+    data: data
+  })
+}
