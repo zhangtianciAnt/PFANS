@@ -548,7 +548,6 @@
         this.$store
           .dispatch('PFANS6001Store/getSupplierNameList', {})
           .then(response => {
-            console.log(response);
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};

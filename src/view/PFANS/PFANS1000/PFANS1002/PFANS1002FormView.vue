@@ -17,7 +17,7 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
                       <el-input :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
@@ -34,7 +34,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
@@ -54,20 +54,51 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')" prop="level">
-                      <dicselect
-                        :code="code1"
-                        :data="form.level"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getlevel"
-                        style="width: 20vw"
-                      >
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="projectname">
+                      <div class="dpSupIndex" style="width: 19vw" prop="projectname">
+                        <el-container>
+                          <input class="content bg" v-model="form.projectname"
+                                 :disabled="true"></input>
+                          <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                                     size="small"></el-button>
+                          <el-dialog :title="$t('label.PFANS5009VIEW_PROJECTNAME')" :visible.sync="dialogTableVisible"
+                                     center size="50%"
+                                     top="8vh" lock-scroll
+                                     append-to-body>
+                            <div style="text-align: center">
+                              <el-row style="text-align: center;height: 90%;overflow: hidden">
+                                <el-table
+                                  :data="gridData.filter(data => !search || data.projectname.toLowerCase().includes(search.toLowerCase()))"
+                                  height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                  @row-click="handleClickChange">
+                                  <el-table-column property="numbers"
+                                                   :label="$t('label.PFANS5004VIEW_PROJECTNUMBER')"
+                                                   width="200"></el-table-column>
+                                  <el-table-column property="projectname"
+                                                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
+                                                   width="200"></el-table-column>
+                                  <el-table-column
+                                    align="right" width="230">
+                                    <template slot="header" slot-scope="scope">
+                                      <el-input
+                                        v-model="search"
+                                        size="mini"
+                                        placeholder="请输入供应商关键字搜索"/>
+                                    </template>
+                                  </el-table-column>
+                                </el-table>
+                              </el-row>
+                              <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                            </div>
+                          </el-dialog>
+                        </el-container>
+                      </div>
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CONDOMINIUMCOMPANY1')" prop="condominiumcompany">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
@@ -90,11 +121,11 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CITY1')" prop="city">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.city"></el-input>
+                                v-model.trim="form.city" @change="cityChange"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_STARTDATE1')" prop="startdate">
@@ -103,7 +134,9 @@
                             :disabled="!disable"
                             style="width: 20vw"
                             type="date"
-                            v-model="form.startdate">
+                            v-model="form.startdate"
+                            @change="startDateChange"
+                          >
                           </el-date-picker>
                         </div>
                       </el-form-item>
@@ -116,7 +149,9 @@
                           :disabled="!disable"
                           style="width: 20vw"
                           type="date"
-                          v-model="form.enddate">
+                          v-model="form.enddate"
+                          @change="endDateChange"
+                        >
                         </el-date-picker>
                       </div>
                     </el-form-item>
@@ -127,7 +162,20 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')" prop="level">
+                      <dicselect
+                        :code="code1"
+                        :data="form.level"
+                        :disabled="!disable"
+                        :multiple="multiple"
+                        @change="getlevel"
+                        style="width: 20vw"
+                      >
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')" prop="abroadbusiness">
                       <el-switch
@@ -166,7 +214,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="24">
                     <el-form-item prop="details">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -177,72 +225,47 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_CONTENT')" name="third">
-              <el-row >
+              <el-row>
                 <el-col :span="24">
-              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
-                <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELSTARTDATE')" align="center">
-                  <template slot-scope="scope">
-                    <div class="block">
-                      <el-date-picker
-                        :disabled="!disable"
-                        style="width:100%"
-                        type="date"
-                        v-model="scope.row.travelstartdate">
-                      </el-date-picker>
-                    </div>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELENDDATE')" align="center">
-                  <template slot-scope="scope">
-                    <div class="block">
-                      <el-date-picker
-                        :disabled="!disable"
-                        style="width:100%"
-                        type="date"
-                        v-model="scope.row.travelenddate">
-                      </el-date-picker>
-                    </div>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_PLACE1')" align="center">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.place"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1002VIEW_CONTENT1')" align="center">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
-                              v-model.trim="scope.row.content"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" align="center" width="200">
-                  <template slot-scope="scope">
-                    <el-button
-                      :disabled="!disable"
-                      @click.native.prevent="deleteRow(scope.$index, tableP)"
-                      plain
-                      size="small"
-                      type="danger"
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      :disabled="!disable"
-                      @click="addRow()"
-                      plain
-                      size="small"
-                      type="primary"
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                  <el-table :data="tablePD" header-cell-class-name="sub_bg_color_blue" stripe border
+                            style="width: 70vw">
+                    <el-table-column :label="$t('label.PFANS1002VIEW_TRAVELCONTENTDATE2')" align="center"
+                                     prop="startdate"
+                                     width="370">
+                      <template slot-scope="scope">
+                        <el-date-picker
+                          v-model.trim="scope.row.duringdate"
+                          class="bigWidth"
+                          :disabled="!disable"
+                          type="daterange"
+                          unlink-panels
+                          style="width:20vw"
+                          :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                          :start-placeholder="$t('label.startdate')"
+                          :end-placeholder="$t('label.enddate')"
+                        >
+                        </el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                                  v-model.trim="scope.row.place"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1002VIEW_CONTENT2')" align="center">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
+                                  v-model.trim="scope.row.content"></el-input>
+                      </template>
+                    </el-table-column>
+                  </el-table>
                 </el-col>
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_RELATION')" name="fourth">
               <div>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                       <dicselect
@@ -257,7 +280,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PLAN1')" prop="plan">
                       <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
@@ -273,7 +296,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PLANTYPE')" prop="plantype" v-if="show2">
                       <dicselect
@@ -316,7 +339,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_MONEYS')" prop="moneys">
                       <el-input-number
@@ -347,7 +370,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
                       <dicselect :code="code7"
@@ -384,7 +407,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_BOOKINGDAY')" prop="bookingday">
@@ -425,7 +448,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1002VIEW_LOANDAY1')" prop="loanday">
@@ -455,7 +478,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ACCOMMODATIONCOST1')" prop="accommodationcost">
                       <dicselect :code="code8"
@@ -490,7 +513,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSPORTNO')" prop="passportno">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
@@ -524,7 +547,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_VISA')" prop="visa">
                       <dicselect :code="code10"
@@ -563,7 +586,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PERMIT')" prop="permit">
                       <dicselect :code="code11"
@@ -595,7 +618,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_MANAGEMENT')" name="fifth">
               <div>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PROVISION')" prop="provision">
                       <el-switch
@@ -609,7 +632,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_TECHNOLOGY')" prop="technology" v-if="show7">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -617,7 +640,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_JUDGMENT')" prop="judgment">
                       <dicselect
@@ -638,7 +661,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSENGERS1')" prop="passengers">
                       <el-switch
@@ -692,7 +715,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_REASON1')" prop="reason" v-if="show10">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -700,7 +723,7 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <el-row >
+                <el-row>
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OTHEREXPLANATION1')" prop="otherexplanation">
                       <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -823,6 +846,9 @@
         code11: 'PJ022',
         code12: 'PJ023',
         multiple: false,
+        search: '',
+        gridData: [],
+        dialogTableVisible: false,
         form: {
           center_id: '',
           group_id: '',
@@ -836,6 +862,7 @@
           city: '',
           startdate: '',
           enddate: '',
+          projectname: '',
           datenumber: '0',
           abroadbusiness: '',
           objectivetype: '',
@@ -890,12 +917,31 @@
         tableP: [{
           travelcontent_id: '',
           businessid: '',
-          travelstartdate: moment(new Date()).format('YYYY-MM-DD'),
-          travelenddate: '',
-          place: '',
-          content: '',
+          duringdate1: '',
+          content1: '',
+          duringdate2: '',
+          content2: '',
+          duringdate3: '',
+          content3: '',
           rowindex: '',
         }],
+        tablePD: [
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+          {
+            duringdate: '',
+            place: '',
+            content: '',
+          },
+        ],
         baseInfo: {},
         rules: {
           user_id: [
@@ -1222,6 +1268,7 @@
       };
     },
     mounted() {
+      this.getProjectNames();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1385,6 +1432,58 @@
           this.activeName = 'sixth';
         }
       },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.projectname = val;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.projectname;
+      },
+      getProjectNames() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.projectname = response[i].project_name;
+              vote.numbers = response[i].numbers;
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      cityChange() {
+        this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+        this.tablePD[1].place = getDictionaryInfo(this.form.region).value1 + this.form.city;
+        this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+      },
+      startDateChange() {
+        let date = [];
+        date.push(this.form.startdate);
+        date.push(this.form.startdate);
+        this.tablePD[0].duringdate = date;
+      },
+      endDateChange() {
+        let date = [];
+        date.push(this.form.startdate);
+        date.push(this.form.enddate);
+        this.tablePD[1].duringdate = date;
+        let date1 = [];
+        date1.push(this.form.enddate);
+        date1.push(this.form.enddate);
+        this.tablePD[2].duringdate = date1;
+      },
       getUserids(val) {
         this.form.user_id = val;
         this.userlist = val;
@@ -1403,28 +1502,6 @@
       },
       getregion(val) {
         this.form.region = val;
-      },
-      addRow() {
-        this.tableP.push({
-          travelstartdate: moment(new Date()).format('YYYY-MM-DD'),
-          travelenddate: '',
-          place: '',
-          content: '',
-          rowindex: '',
-          display: true,
-        });
-      },
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableP = [{
-            travelstartdate: '',
-            travelendtdate: '',
-            place: '',
-            content: '',
-          }];
-        }
       },
       getobjectivetype(val) {
         this.form.objectivetype = val;
@@ -1610,22 +1687,20 @@
                 this.form.user_id = this.userlist;
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.travelcontent = [];
-              this.tableP.travelstartdate = moment(this.tableP.travelstartdate).format('YYYY-MM-DD');
-              this.tableP.travelenddate = moment(this.tableP.travelenddate).format('YYYY-MM-DD');
-              for (let i = 0; i < this.tableP.length; i++) {
-                if (this.tableP[i].travelstartdate !== '' || this.tableP[i].travelenddate !== '' || this.tableP[i].place !== '' || this.tableP[i].content !== '') {
-                  this.baseInfo.travelcontent.push(
-                    {
-                      travelcontent_id: this.tableP[i].travelcontent_id,
-                      businessid: this.tableP[i].businessid,
-                      travelstartdate: this.tableP[i].travelstartdate,
-                      travelenddate: this.tableP[i].travelenddate,
-                      place: this.tableP[i].place,
-                      content: this.tableP[i].content,
-                    },
-                  );
-                }
-              }
+              this.baseInfo.travelcontent.push(
+                {
+                  travelcontent_id: this.tableP.travelcontent_id,
+                  businessid: this.tableP.businessid,
+                  // 开始日期
+                  duringdate1: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content1: this.tablePD[0].content,
+                  duringdate2: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content2: this.tablePD[1].content,
+                  //结束日期
+                  duringdate3: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
+                  content3: this.tablePD[2].content,
+                },
+              );
               if (this.$route.params._id) {
                 this.baseInfo.business.businessid = this.$route.params._id;
                 this.loading = true;
@@ -1684,8 +1759,25 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  .el-col el-col-8{
+  .el-col el-col-8 {
     padding-top: 20vw;
+  }
+
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
   }
 </style>
 

@@ -581,28 +581,28 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'" :rules='rules.completiondate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -790,25 +790,25 @@
             }
           };
           var validateConchinese = (rule, value, callback) => {
-            if ( Array.isArray(value)) {
-              if ( value.length ==0 ) {
-                callback(new Error('请输入项目中文'));
-                return
-              }
-              value.map(function(item){
-                if ( item === '' ) {
-                  callback(new Error('请输入项目中文'));
-                  return
-                }
-              });
+//            if ( Array.isArray(value)) {
+//              if ( value.length ==0 ) {
+//                callback(new Error('请输入项目中文'));
+//                return
+//              }
+//              value.map(function(item){
+//                if ( item === '' ) {
+//                  callback(new Error('请输入项目中文'));
+//                  return
+//                }
+//              });
               callback();
-            } else {
-              if (value === '' && value != null && value != undefined) {
-                callback(new Error('请输入项目中文'));
-              } else {
-                callback();
-              }
-            }
+//            } else {
+//              if (value === '' && value != null && value != undefined) {
+//                callback(new Error('请输入项目中文'));
+//              } else {
+//                callback();
+//              }
+//            }
           };
           var validateDeliverydate = (rule, value, callback) => {
             if (!value) {
@@ -990,16 +990,16 @@
                     { validator: validateConchinese }
                   ],
                   deliverydate: [
-                    { validator: validateDeliverydate }
+                    { validator: validateDeliverydate, trigger: 'blur' }
                   ],
                   completiondate: [
-                    { validator: validateCompletiondate }
+                    { validator: validateCompletiondate, trigger: 'blur' }
                   ],
                   claimdate: [
-                    { validator: validateClaimdate }
+                    { validator: validateClaimdate, trigger: 'blur' }
                   ],
                   supportdate: [
-                    { validator: validateSupportdate }
+                    { validator: validateSupportdate, trigger: 'blur'}
                   ],
                   claimamount: [
                     { validator: validateClaimamount }
@@ -2159,7 +2159,7 @@
             },
           validateByType: function(type, cb) {
               let that = this;
-              if(type==='6') {
+              if(type==6) {
                 if(this.maketype === '1' || this.maketype === '2'|| this.maketype === '3'|| this.maketype === '4'){
                   if(this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
                     type = '61'
@@ -2169,9 +2169,7 @@
                 }
               }
               let rowCount = that.form.tabledata.length || 0;
-              if ( rowCount <= 0  ) {
-                cb(true);
-              }
+              let rowCount2 = that.form.tableclaimtype.length || 0;
               let myRule = this.ruleSet[type] || [];
               console.log("vrules", myRule);
               if ( myRule.length <=0 ) {
@@ -2180,9 +2178,23 @@
               this.$refs["refform"].clearValidate();
               let pros = [];
               myRule.forEach(function (item, index, array) {
-                var dataName = ['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >=0 ? "tableclaimtype" : "tabledata";
-                for ( var k = 0; k<rowCount; k++ ) {
-                  var itIndex = dataName + "." + k + "." +item;
+                let dataName = "tabledata";
+                let maxCount = rowCount;
+                if ( ['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >=0 ) {
+                  dataName = "tableclaimtype";
+                  maxCount = rowCount2;
+                  for ( var k = 0; k<maxCount; k++ ) {
+                    var itIndex = dataName + "." + k + "." +item;
+                    console.log("va", itIndex);
+                    let pro = new Promise(function(resolve, reject){
+                      that.$refs["refform"].validateField(itIndex, function(msg){
+                        resolve(msg);
+                      });
+                    });
+                    pros.push(pro);
+                  }
+                } else if (rowCount > 0) {
+                  var itIndex = dataName + "." + (rowCount -1) + "." +item;
                   console.log("va", itIndex);
                   let pro = new Promise(function(resolve, reject){
                     that.$refs["refform"].validateField(itIndex, function(msg){
@@ -2191,7 +2203,12 @@
                   });
                   pros.push(pro);
                 }
+
               });
+              if ( pros.length == 0 ) {
+                cb();
+                return
+              }
               Promise.all(pros).then(function(values) {
                 console.log("va result ", values);
                 let isOk = true;
