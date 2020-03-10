@@ -790,25 +790,25 @@
             }
           };
           var validateConchinese = (rule, value, callback) => {
-//            if ( Array.isArray(value)) {
-//              if ( value.length ==0 ) {
-//                callback(new Error('请输入项目中文'));
-//                return
-//              }
-//              value.map(function(item){
-//                if ( item === '' ) {
-//                  callback(new Error('请输入项目中文'));
-//                  return
-//                }
-//              });
+            if ( Array.isArray(value)) {
+              if ( value.length ==0 ) {
+                callback(new Error('请输入项目中文'));
+                return
+              }
+              value.map(function(item){
+                if ( item === '' ) {
+                  callback(new Error('请输入项目中文'));
+                  return
+                }
+              });
               callback();
-//            } else {
-//              if (value === '' && value != null && value != undefined) {
-//                callback(new Error('请输入项目中文'));
-//              } else {
-//                callback();
-//              }
-//            }
+            } else {
+              if (value === '' && value != null && value != undefined) {
+                callback(new Error('请输入项目中文'));
+              } else {
+                callback();
+              }
+            }
           };
           var validateDeliverydate = (rule, value, callback) => {
             if (!value) {
@@ -1816,7 +1816,7 @@
                   let s = "count" + index;
                   if(response[s] > 0) {
                     Message({
-                      message: "请先删除",
+                      message: "请先删除之前生成的契约书",
                       type: 'success',
                       duration: 5 * 1000
                     });

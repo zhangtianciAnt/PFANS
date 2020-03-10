@@ -130,7 +130,7 @@
       rowClick(row) {
         this.rowid = row.publicexpenseid;
       },
-      handleSelectionChange(rows){
+      handleSelectionChange(val){
         // if (rows) {
         //   rows.forEach(row => {
         //     this.$refs.multipleTable.toggleRowSelection(row);
@@ -139,7 +139,7 @@
         this.multipleTable = val;
         for (var i = 0; i < this.multipleTable.length; i++) {
           //var halo = this.multipleTable[i];
-          this.$refs.multipleTable.toggleRowSelection(row);
+          this.$refs.multipleTable.toggleRowSelection(val);
         }
       },
         MyBrowserIsIE() {
