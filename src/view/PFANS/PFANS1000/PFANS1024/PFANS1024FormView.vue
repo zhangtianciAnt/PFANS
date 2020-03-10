@@ -616,26 +616,25 @@
         }
       };
       var validateConchinese = (rule, value, callback) => {
-        //todo
-//        if ( Array.isArray(value)) {
-//          if ( value.length ==0 ) {
-//            callback(new Error('请输入项目中文'));
-//            return
-//          }
-//          value.map(function(item){
-//            if ( item === '' ) {
-//              callback(new Error('请输入项目中文'));
-//              return
-//            }
-//          });
+        if ( Array.isArray(value)) {
+          if ( value.length ==0 ) {
+            callback(new Error('请输入项目中文'));
+            return
+          }
+          value.map(function(item){
+            if ( item === '' ) {
+              callback(new Error('请输入项目中文'));
+              return
+            }
+          });
           callback();
-//        } else {
-//          if (value === '' && value != null && value != undefined) {
-//            callback(new Error('请输入项目中文'));
-//          } else {
-//            callback();
-//          }
-//        }
+        } else {
+          if (value === '' && value != null && value != undefined) {
+            callback(new Error('请输入项目中文'));
+          } else {
+            callback();
+          }
+        }
       };
       var validateDeliverydate = (rule, value, callback) => {
         if (!value) {
@@ -913,6 +912,13 @@
                   let contractdat = contractdate.slice(0, 10);
                   let contractdate1 = contractdate.slice(contractdate.length - 10);
                   contractapplication[i].contractdate = [contractdat, contractdate1];
+                }
+                if ( contractapplication[i].conchinese !=null && contractapplication[i].conchinese !='') {
+                  let conchinese = contractapplication[i].conchinese;
+                  if ( typeof conchinese == "string" ) {
+                    conchinese = conchinese.split(",");
+                    contractapplication[i].conchinese = conchinese;
+                  }
                 }
                 let o = Object.assign({}, contractapplication[i]);
                 this.form.tabledata.push(o);
@@ -1406,7 +1412,6 @@
         }
       },
       handleClick(){
-        debugger;
         //請求方式
         let letclaimtype = '';
         let letbook = '';
