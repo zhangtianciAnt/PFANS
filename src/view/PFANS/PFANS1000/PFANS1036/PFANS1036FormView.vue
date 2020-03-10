@@ -1909,7 +1909,8 @@
               moneyAnnual:'',
           },
         ],
-        tableP: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
+        tableP: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+          {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},],
         tableQ: [
         ],
         tableR: [
@@ -2016,11 +2017,16 @@
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         debugger
         if (columnIndex === 0) {
-          if(rowIndex  === 0){
+          if(rowIndex  === 0) {
             return {
               rowspan: 6,
-              colspan:1
+              colspan: 1
             };
+          } else if(rowIndex  === 6){
+            return {
+              rowspan: 32,
+              colspan: 1
+            }
           }
           }
         },
@@ -2028,6 +2034,8 @@
          if(column.property === "name"){
              if(index===0 ) {
                return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
+             }else if(index === 6){
+               return "一般管理販売費";
              }
                  //   break;
                  // case 1:
