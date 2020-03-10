@@ -2014,24 +2014,19 @@
     },
     methods: {
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        debugger
         if (columnIndex === 0) {
-          if(rowIndex % 6 === 0){
+          if(rowIndex  === 0){
             return {
               rowspan: 6,
               colspan:1
             };
           }
-          } else {
-            return {
-              rowspan: 0,
-              colspan: 0
-            };
           }
         },
       formatterDir(row,column,cellValue,index){
-        debugger
          if(column.property === "name"){
-             if(index>=0 && index <=5) {
+             if(index===0 ) {
                return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
              }
                  //   break;
