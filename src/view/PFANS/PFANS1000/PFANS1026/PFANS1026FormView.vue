@@ -1816,7 +1816,7 @@
                   let s = "count" + index;
                   if(response[s] > 0) {
                     Message({
-                      message: "请先删除",
+                      message: "请先删除之前生成的契约书",
                       type: 'success',
                       duration: 5 * 1000
                     });
