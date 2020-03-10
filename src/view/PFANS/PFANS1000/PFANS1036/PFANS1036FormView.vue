@@ -2139,10 +2139,12 @@
     methods: {
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
+          if(rowIndex % 6 === 0){
             return {
               rowspan: 6,
               colspan:1
             };
+          }
           } else {
             return {
               rowspan: 0,
@@ -2153,40 +2155,39 @@
       formatterDir(row,column,cellValue,index){
         debugger
          if(column.property === "name"){
-              switch (index) {
-                 case 0:
-                   return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
-                   break;
-                 case 1:
-                   return this.$t('label.PFANS1036FORMVIEW_TAB2VALUE1');
-                   break;
-                 case 2:
-                   return this.$t('label.PFANS1036FORMVIEW_TAB3VALUE1');
-                   break;
-                 case 6:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB4VALUE1');
-                  break;
-                 case 7:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB5VALUE1');
-                  break;
-                 case 8:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB6VALUE1');
-                  break;
-                 case 9:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
-                  break;
-                 case 10:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-                  break;
-                 case 11:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5');
-                  break;
-                 case 12:
-                  return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
-                  break;
+             if(index>=0 && index <=5) {
+               return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
+             }
+                 //   break;
+                 // case 1:
+                 //   return this.$t('label.PFANS1036FORMVIEW_TAB2VALUE1');
+                 //   break;
+                 // case 2:
+                 //   return this.$t('label.PFANS1036FORMVIEW_TAB3VALUE1');
+                 //   break;
+                 // case 6:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB4VALUE1');
+                 //  break;
+                 // case 7:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB5VALUE1');
+                 //  break;
+                 // case 8:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB6VALUE1');
+                 //  break;
+                 // case 9:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
+                 //  break;
+                 // case 10:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
+                 //  break;
+                 // case 11:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5');
+                 //  break;
+                 // case 12:
+                 //  return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
+                 //  break;
               }
-         }
-      },
+         },
       getGroupB2(id){
         this.$store
           .dispatch('PFANS1036Store/getPlan', {"years":2019,"groupid":id})
