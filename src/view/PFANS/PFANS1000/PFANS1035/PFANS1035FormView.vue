@@ -541,6 +541,7 @@
           bookingday: '',
           loanday: '',
           projectname: '',
+            companyprojectsname: '',
           loanmoney: '',
           accommodationcost: '',
           accommodation: '',
@@ -1015,11 +1016,14 @@
       },
       submit() {
         let val = this.currentRow;
+        let val1 = this.currentRow1;
         this.dialogTableVisible = false;
         this.form.projectname = val;
+        this.form.companyprojectsname = val1;
       },
       handleClickChange(val) {
         this.currentRow = val.projectname;
+        this.currentRow1 = val.companyprojectsname;
       },
       getProjectNames() {
         this.loading = true;
@@ -1031,6 +1035,7 @@
               var vote = {};
               vote.projectname = response[i].project_name;
               vote.numbers = response[i].numbers;
+              vote.companyprojectsname = response[i].companyprojects_id;
               this.gridData.push(vote);
             }
             this.loading = false;
