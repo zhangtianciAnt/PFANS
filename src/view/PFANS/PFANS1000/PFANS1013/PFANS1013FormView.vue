@@ -1573,6 +1573,9 @@
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails
             }
+            if (response.currencyexchanges.length > 0) {
+              this.tableW = response.currencyexchanges
+            }
             if (this.form.type === '0') {
               this.showdata = true;
               this.showdata2 = false;
@@ -1617,6 +1620,7 @@
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
             this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
             this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+            this.baseInfo.currencyexchanges = JSON.parse(JSON.stringify(this.tableW));
             let user = getUserInfo(this.$store.getters.userinfo.userid);
             if (user) {
               this.rank = user.userinfo.rank;
@@ -2640,6 +2644,7 @@
               this.baseInfo.trafficdetails = [];
               this.baseInfo.accommodationdetails = [];
               this.baseInfo.otherdetails = [];
+              this.baseInfo.currencyexchanges = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== "" || this.tableT[i].region !== "" || this.tableT[i].vehicle !== "" || this.tableT[i].startingpoint !== ""
                   || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ""
@@ -2725,6 +2730,22 @@
                       taxes:this.tableR[i].taxes,
                       foreigncurrency: this.tableR[i].foreigncurrency,
                       annexno: this.tableR[i].annexno,
+                    }
+                  );
+                }
+              }
+              for (let i = 0; i < this.tableW.length; i++) {
+                if (this.tableW[i].currency !== "" || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
+                  || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== "") {
+                  this.baseInfo.currencyexchanges.push(
+                    {
+                      evectionid: this.tableW[i].evectionid,
+                      currencyexchangeid: this.tableW[i].currencyexchangeid,
+                      currency: this.tableW[i].currency,
+                      amount: this.tableW[i].amount,
+                      exchangerate: this.tableW[i].exchangerate,
+                      exchangermb: this.tableW[i].exchangermb,
+                      currencyexchangerate: this.tableW[i].currencyexchangerate,
                     }
                   );
                 }
