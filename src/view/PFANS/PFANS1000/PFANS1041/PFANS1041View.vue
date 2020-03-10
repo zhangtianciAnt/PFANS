@@ -24,7 +24,8 @@
                     v-model="years"
                     type="year"
                     @change="yearChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
@@ -376,13 +377,14 @@
                     v-model="months"
                     type="month"
                     @change="monthChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
               <div>
                 <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" stripe border>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="230">
                     <template slot-scope="scope">
                       <el-input :disabled="gettrue(scope.row)" :no="scope.row" maxlength="20" style="width: 100%"
                                 v-model.trim="scope.row.theme"></el-input>
@@ -868,44 +870,44 @@
           .then(response => {
             if (response.length > 0) {
               if(year != ''){
-                this.tableA = response;
-                if(this.tableA[0].status != '0'){
-                  this.disabled = true;
-                }
+                  this.tableA = response;
+                  if(this.tableA[0].status != '0'){
+                      this.disabled = true;
+                  }
               }
               else{
-                this.tableB = [];
-                this.tableB = response;
-                var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
-                for (var j = 0; j < 12; j++) {
-                  if (j > monthCurrent - 3) {
-                    this.arrays[j].disabled = false;
+                  this.tableB = [];
+                  this.tableB = response;
+                  var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
+                  for (var j = 0; j < 12; j++) {
+                    if (j > monthCurrent - 3) {
+                      this.arrays[j].disabled = false;
+                    }
                   }
-                }
               }
             }
             else{
-              if(year != ''){
-                this.tableA = [];
-                if(year === moment(new Date()).format('YYYY')){
-                  this.addRowA();
+                if(year != ''){
+                    this.tableA = [];
+                    if(year === moment(new Date()).format('YYYY')){
+                      this.addRowA();
+                    }
                 }
-              }
-              else{
-                this.tableB = [];
-                if(this.tableA.length > 0){
-                  if(this.tableA[0].status === '4'){
-                    this.disabled = true;
-                    this.tableB = this.tableA;
-                    var monthCurrent = Number(month.substr(5,2));
-                    for (var i = 0; i < 12; i++) {
-                      if (i > monthCurrent - 5) {
-                        this.arrays[i].disabled = false;
+                else{
+                    this.tableB = [];
+                    if(this.tableA.length > 0){
+                      if(this.tableA[0].status === '4' && this.tableA[0].years === month.substring(0,4)){
+                        this.disabled = true;
+                        this.tableB = this.tableA;
+                        var monthCurrent = Number(month.substr(5,2));
+                        for (var i = 0; i < 12; i++) {
+                          if (i > monthCurrent - 5) {
+                            this.arrays[i].disabled = false;
+                          }
+                        }
                       }
                     }
-                  }
                 }
-              }
             }
             // if(this.loadingflg === '1'){
             //     this.loading = false;
@@ -986,46 +988,25 @@
       },
       //el-tabsClick
       handleClick(tab, event) {
-        this.loadingflg = '0';
-        this.activeName = tab.name;
-        if (tab.name === 'first') {
-          this.workflowCode = "W0054";
-          this.canStart = false;
-          this.getdata(this.years,"");
-        }
-        else{
-          if(this.tableA[0].status === '4'){
-            this.workflowCode = "W0055";
-            this.canStart = true;
+          this.loadingflg = '0';
+          this.activeName = tab.name;
+          if (tab.name === 'first') {
+              this.workflowCode = "W0054";
+              this.canStart = false;
+              this.getdata(this.years,"");
           }
-          this.getdata("",this.months);
-        }
+          else{
+              if(this.tableA[0].status === '4'){
+                this.workflowCode = "W0055";
+                this.canStart = true;
+              }
+              this.getdata("",this.months);
+          }
 
       },
       monthChange(value){
         this.months = moment(value).format('YYYY-MM');
-        // this.arrays = [
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        // ];
-        // var monthCurrent = Number(moment(value).format('MM'));
-        // for (var i = 0; i < 12; i++) {
-        //   if (i > monthCurrent - 5) {
-        //     this.arrays[i].disabled = false;
-        //   }
-        // }
         this.getdata("",this.months);
-
       },
       addRowA() {
         this.tableA.push({
@@ -1124,9 +1105,8 @@
         });
       },
       buttonClick(val) {//111
-        debugger;
         if(this.activeName === 'first'){
-          this.baseInfo = this.tableA;
+            this.baseInfo = this.tableA;
         }
         else{
           this.baseInfo = this.tableB;
