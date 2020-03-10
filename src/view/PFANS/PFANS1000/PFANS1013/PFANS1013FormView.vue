@@ -153,71 +153,31 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_TOTALCURRENCY')" v-show="show2">
-                      <el-input-number
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        @change="getforeign"
-                        v-model="form.totalcurrency"
-                        style="width:20vw"
-                      ></el-input-number>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_CURRENCY')" prop="currency" v-show="show2">
-                      <dicselect
-                        :code="code3"
-                        :data="form.currency"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getCurrency"
-                        style="width:20vw"
-                      ></dicselect>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_JPY')" v-show="show3">
-                      <el-input-number
-                        :disabled="true"
-                        :precision="2"
-                        controls-position="right"
-                        v-model="form.jpyfxrate"
-                        style="width:20vw"
-                      ></el-input-number>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_USD')" v-show="show4">
-                      <el-input-number
-                        :disabled="true"
-                        :precision="2"
-                        controls-position="right"
-                        v-model="form.dollarfxrate"
-                        style="width:20vw"
-                      ></el-input-number>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_RATE')" v-show="show5">
-                      <el-input-number
-                        :disabled="!disable"
-                        :max="999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        v-model="form.otherfxrate"
-                        style="width:20vw"
-                      ></el-input-number>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_TOTALCURRENCY')" v-show="show2">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="true"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        @change="getforeign"-->
+<!--                        v-model="form.totalcurrency"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_CURRENCY')" prop="currency" v-show="show2">-->
+<!--                      <dicselect-->
+<!--                        :code="code3"-->
+<!--                        :data="form.currency"-->
+<!--                        :disabled="!disable"-->
+<!--                        :multiple="multiple"-->
+<!--                        @change="getCurrency"-->
+<!--                        style="width:20vw"-->
+<!--                      ></dicselect>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_TOTALPAY')">
                       <el-input-number
@@ -246,7 +206,176 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
+<!--                <el-row>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_JPY')" v-show="show3">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="true"-->
+<!--                        :precision="2"-->
+<!--                        controls-position="right"-->
+<!--                        v-model="form.jpyfxrate"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_USD')" v-show="show4">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="true"-->
+<!--                        :precision="2"-->
+<!--                        controls-position="right"-->
+<!--                        v-model="form.dollarfxrate"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_RATE')" v-show="show5">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="!disable"-->
+<!--                        :max="999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        v-model="form.otherfxrate"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--                <el-row>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_TOTALPAY')">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="true"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        @change="gettotal"-->
+<!--                        controls-position="right"-->
+<!--                        v-model="form.totalpay"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1013VIEW_BALANCE')">-->
+<!--                      <el-input-number-->
+<!--                        :disabled="true"-->
+<!--                        :max="9999999999"-->
+<!--                        :precision="2"-->
+<!--                        controls-position="right"-->
+<!--                        v-model="form.balance"-->
+<!--                        style="width:20vw"-->
+<!--                      ></el-input-number>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+                <!--外币兑换-->
+                <el-row v-show="show2">
+                  <el-collapse>
+                    <el-collapse-item >
+                      <template slot="title">
+                        <span class="collapse_Title">{{$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGE')}}</span>
+                      </template>
+                      <el-table :data="tableW"
+                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                        <el-table-column :label="$t('label.PFANS1002VIEW_CURRENCY')" align="center" width="180">
+                          <template slot-scope="scope">
+                            <dicselect :code="code3"
+                                       :data="scope.row.currency"
+                                       :disabled="!disable"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       @change="getCurrency"
+                                       style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1004VIEW_AMOUNT')" align="center" width="180">
+                          <template slot-scope="scope">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.amount" style="width: 100%">
+                            </el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERATE')" align="center" width="180">
+                          <template slot-scope="scope">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.exchangerate" style="width: 100%">
+                            </el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" width="180"
+                                         prop="exchangermb">
+                          <template slot-scope="scope">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.exchangermb" style="width: 100%">
+                            </el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGERATE')" align="center" width="180"
+                                         prop="currencyexchangerate">
+                          <template slot-scope="scope">
+                            <dicselect :code="code16"
+                                       :data="scope.row.currencyexchangerate"
+                                       :disabled="!disable"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       @change="getCurrencyexchangerate"
+                                       style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" align="center" width="180">
+                          <template slot-scope="scope">
+                            <el-button
+                              :disabled="!disable"
+                              @click.native.prevent="deleteRow6(scope.$index, tableW)"
+                              plain
+                              size="small"
+                              type="danger"
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              :disabled="!disable"
+                              @click="addRow6()"
+                              plain
+                              size="small"
+                              type="primary"
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1013FORMVIEW_USEXCHANGERATE')">
+<!--                          <el-select :disabled="!disable" @change="change2" style="width:20vw" v-model="form.usexchangerate">-->
+<!--                            <el-option-->
+<!--                              :key="item.value"-->
+<!--                              :label="item.label"-->
+<!--                              :value="item.value"-->
+<!--                              v-for="item in loans">-->
+<!--                            </el-option>-->
+<!--                          </el-select>-->
+                          <dicselect
+                            :code="code17"
+                            :data="form.usexchangerate"
+                            :disabled="!disable"
+                            :multiple="multiple"
+                            @change="getUsexchangerate"
+                            style="width: 20vw"
+                          ></dicselect>
+                        </el-form-item>
+                      </el-col>
+                    </el-collapse-item>
+                  </el-collapse>
+                </el-row>
                 <el-row>
                   <el-collapse>
                     <el-collapse-item >
@@ -348,8 +477,6 @@
                     </el-collapse-item>
                   </el-collapse>
                 </el-row>
-              </div>
-              <div>
                 <el-row >
                   <el-collapse>
                     <el-collapse-item >
@@ -561,7 +688,7 @@
                 <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">
                   <template slot-scope="scope">
                     <dicselect
-                      :code="code5"
+                      :code="code15"
                       :data="scope.row.vehicle"
                       :disabled="!disable"
                       :no="scope.row"
@@ -1206,6 +1333,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
+          usexchangerate: '',
         },
         buttonList: [
           {
@@ -1223,6 +1351,15 @@
           taxrate: "",
           excludingtax: "",
           facetax: "",
+        }],
+        tableW: [{
+          evectionid: "",
+          currencyexchangeid: "",
+          currency: "",
+          amount: '',
+          exchangerate: "",
+          exchangermb: "",
+          currencyexchangerate: "",
         }],
         tableT: [{
           evectionid: "",
@@ -1321,12 +1458,15 @@
         code12: 'PJ068',
         code13: 'PJ071',
         code14:'PJ072',
+        code15:'PJ083',
+        code16:'PJ084',
+        code17:'PJ085',
         multiple: false,
         show1: true,
         show2: false,
-        show3: false,
-        show4: false,
-        show5: false,
+        // show3: false,
+        // show4: false,
+        // show5: false,
         show: false,
         showrow: true,
         showrow2: false,
@@ -1346,10 +1486,11 @@
         invoicenumber: '',
         errorgroup: '',
           orglist: '',
-        optionsdata: [{value:' ',label:' '}],
+        optionsdata: [{value:'无发票',label:''}],
       };
     },
     mounted() {
+      this.checkOption();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1439,9 +1580,9 @@
               this.showAout = false;
               this.show = true;
               this.show2 = false;
-              this.show3 = false;
-              this.show4 = false;
-              this.show5 = false;
+              // this.show3 = false;
+              // this.show4 = false;
+              // this.show5 = false;
               this.showdata = true;
               this.showdata2 = false;
               this.showAinner = true;
@@ -1452,13 +1593,13 @@
               this.showrow2 = false;
               this.showrow4 = false;
             } else {
-              if (this.form.currency === 'PJ003001') {
-                this.show4 = true;
-              } else if (this.form.currency === 'PJ003002') {
-                this.show3 = true;
-              } else if (this.form.currency === 'PJ003003') {
-                this.show5 = true;
-              }
+              // if (this.form.currency === 'PJ003001') {
+              //   this.show4 = true;
+              // } else if (this.form.currency === 'PJ003002') {
+              //   this.show3 = true;
+              // } else if (this.form.currency === 'PJ003003') {
+              //   this.show5 = true;
+              // }
               this.showdata = false;
               this.showdata2 = true;
               this.showAinner = false;
@@ -1584,9 +1725,9 @@
          this.form.datenumber='';
           this.show = true;
           this.show2 = false;
-          this.show3 = false;
-          this.show4 = false;
-          this.show5 = false;
+          // this.show3 = false;
+          // this.show4 = false;
+          // this.show5 = false;
           this.showdata = true;
           this.showdata2 = false;
           this.showAinner = true;
@@ -1757,7 +1898,6 @@
           }]
         }
       },
-
       deleteRow5(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
@@ -1771,12 +1911,21 @@
             facetax: "",
           })
         }
-        this.optionsdata = [];
-        for (let i = 0; i < this.tableF.length; i++) {
-          var vote = {};
-          vote.value = this.tableF[i].invoicenumber,
-            vote.lable = this.tableF[i].invoicenumber,
-            this.optionsdata.push(vote);
+        this.checkOption();
+      },
+      deleteRow6(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableW = [{
+            evectionid: "",
+            currencyexchangeid: "",
+            currency: "",
+            amount: '',
+            exchangerate: "",
+            exchangermb: "",
+            currencyexchangerate: "",
+          }]
         }
       },
       addRow() {
@@ -1863,7 +2012,21 @@
           excludingtax: "",
           facetax: "",
         });
-        this.optionsdata = [];
+        this.checkOption();
+      },
+      addRow6() {
+        this.tableW.push({
+          evectionid: "",
+          currencyexchangeid: "",
+          currency: "",
+          amount: '',
+          exchangerate: "",
+          exchangermb: "",
+          currencyexchangerate: "",
+        });
+      },
+      checkOption(){
+        this.optionsdata = [{value:'无发票',label:''}];
         for (let i = 0; i < this.tableF.length; i++) {
           var vote = {};
           vote.value = this.tableF[i].invoicenumber,
@@ -2380,34 +2543,40 @@
           }
         }
       },
-      getCurrency(val) {
-        this.form.currency = val;
-        if (val === 'PJ003001') {
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            this.form.dollarfxrate = dictionaryInfo.value2;
-            this.show4 = true;
-            this.show3 = false;
-            this.show5 = false;
-          }
-        }
-        if (val === 'PJ003002') {
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            this.form.jpyfxrate = dictionaryInfo.value2;
-            this.show3 = true;
-            this.show4 = false;
-            this.show5 = false;
-          }
-        }
-        if (val === 'PJ003003') {
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            this.show3 = false;
-            this.show4 = false;
-            this.show5 = true;
-          }
-        }
+      getCurrency(val,row) {
+        row.currency = val;
+        // if (val === 'PJ003001') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.form.dollarfxrate = dictionaryInfo.value2;
+        //     this.show4 = true;
+        //     this.show3 = false;
+        //     this.show5 = false;
+        //   }
+        // }
+        // if (val === 'PJ003002') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.form.jpyfxrate = dictionaryInfo.value2;
+        //     this.show3 = true;
+        //     this.show4 = false;
+        //     this.show5 = false;
+        //   }
+        // }
+        // if (val === 'PJ003003') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.show3 = false;
+        //     this.show4 = false;
+        //     this.show5 = true;
+        //   }
+        // }
+      },
+      getCurrencyexchangerate(val,row){
+        row.currencyexchangerate = val;
+      },
+      getUsexchangerate(val){
+        this.from.usexchangerate = val;
       },
       workflowState(val) {
         if (val.state === '1') {
