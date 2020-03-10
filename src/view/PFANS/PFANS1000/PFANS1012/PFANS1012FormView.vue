@@ -331,13 +331,13 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="20" style="width:20vw"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show3" prop="payeecode">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="20" style="width:20vw"
                                 v-model="form.payeecode"></el-input>
                     </el-form-item>
                   </el-col>
@@ -427,8 +427,6 @@
                     </el-input>
                   </el-form-item>
                 </el-row>
-
-
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012FORMVIEW_INVOICEI')">
                     <el-table :data="tableF"
@@ -525,6 +523,101 @@
                     </el-table>
                   </el-form-item>
                 </el-row>
+
+                <!--                <el-row>-->
+                <!--                  <el-col :span="24">-->
+                <!--                    <el-form-item :label="$t('费用合计')">-->
+                <!--                      <el-table :data="tabledata"-->
+                <!--                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw"-->
+                <!--                                v-show="tabledatashow">-->
+                <!--                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200"-->
+                <!--                                         prop="invoicenumber">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+
+                <!--                        <el-table-column :label="$t('发票日期')" align="center" width="200">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicedate">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+
+                <!--                        <el-table-column :label="$t('供应商编码')" align="center" width="150">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.vendorcode">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+                <!--                        <el-table-column :label="$t('币种')" align="center" width="240">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.currency">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+
+
+                <!--                        <el-table-column :label="$t('发票金额')" align="center" width="150">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input-number-->
+                <!--                              :disabled="true"-->
+                <!--                              :min="0" :precision="2"-->
+                <!--                              :max="9999999"-->
+                <!--                              controls-position="right"-->
+                <!--                              :no="scope.row"-->
+                <!--                              :step="1"-->
+                <!--                              v-model="scope.row.invoiceamount"-->
+                <!--                              @change="getValue"-->
+                <!--                              style="width: 100%">-->
+                <!--                            </el-input-number>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+                <!--                        <el-table-column :label="$t('行金额')" align="center" width="150">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input-number-->
+                <!--                              :disabled="true"-->
+                <!--                              :min="0" :precision="2"-->
+                <!--                              :max="9999999"-->
+                <!--                              controls-position="right"-->
+                <!--                              :no="scope.row"-->
+                <!--                              :step="1"-->
+                <!--                              v-model="scope.row.lineamount"-->
+                <!--                              @change="changeSum(scope.row)"-->
+                <!--                              style="width: 100%">-->
+                <!--                            </el-input-number>-->
+                <!--                          </template>-->
+
+
+                <!--                        </el-table-column>-->
+                <!--                        <el-table-column :label="$t('部门段')" align="center" width="200">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+                <!--                        <el-table-column :label="$t('科目段')" align="center" width="200">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+
+                <!--                        <el-table-column :label="$t('发票说明')" align="center" width="200">-->
+                <!--                          <template slot-scope="scope">-->
+                <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.remarks">-->
+                <!--                            </el-input>-->
+                <!--                          </template>-->
+                <!--                        </el-table-column>-->
+
+
+                <!--                      </el-table>-->
+                <!--                    </el-form-item>-->
+
+
+                <!--                  </el-col>-->
+                <!--                </el-row>-->
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
@@ -1140,6 +1233,7 @@
                 errorsuppliername: '',
                 error: '',
                 gridData: [],
+                // tabledatashow: true,
                 dialogTableVisible: false,
                 selectedlist: [],
                 options: [],
@@ -1232,6 +1326,20 @@
                     display: true,
                 }],
                 baseInfo: {},
+                // tabledata: [{
+                //     invoicenumber: '',
+                //     invoicedate: moment(new Date()).format("YYYY-MM-DD"),
+                //     number: '',
+                //     conditiondate: moment(new Date()).format("YYYY-MM-DD"),
+                //     vendorcode: '',
+                //     vendorlocation: '',
+                //     currency: '',
+                //     invoiceamount: '',
+                //     lineamount: '',
+                //     budgetcoding: '',
+                //     subjectnumber: '',
+                //     remarks: '',
+                // }],
                 form: {
                     project_id: '',
                     centerid: '',
@@ -1491,7 +1599,6 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    console.log(getOrgInfoByUserId(this.$store.getters.userinfo.userid));
                     var groupid = rst.groupId;
                     this.form.centerid = rst.centerNmae;
                     this.form.groupid = rst.groupNmae;
@@ -1550,7 +1657,7 @@
             },
         },
         methods: {
-            checkoptionsdata(){
+            checkoptionsdata() {
                 this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), lable: ''}];
                 for (var i = 0; i < this.tableF.length; i++) {
                     var vote = {};
@@ -1559,7 +1666,7 @@
                         this.optionsdata.push(vote);
                 }
             },
-            getvehicle(val, row){
+            getvehicle(val, row) {
                 row.vehicle = val;
             },
             getCompanyProjectList() {
@@ -1637,7 +1744,7 @@
                     this.checkStatus = true;
                 } else {
                     row.subjectnumber = '',
-                   this.checkStatus = false;
+                        this.checkStatus = false;
                     this.getCompanyen(val, row);
                 }
             },
@@ -1698,7 +1805,6 @@
             },
             getPayment(val) {
                 this.form.paymentmethod = val;
-
                 if (val === 'PJ004001') {
                     this.show1 = true;
                     this.show2 = false;
@@ -1803,7 +1909,7 @@
                 this.form.currencyrate = val;
                 this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
             },
-            deleteRow(index, rows) {
+            deleteRow(index, rows, row) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 } else {
@@ -2160,13 +2266,13 @@
                 this.currentRow3 = val.payeebankaccountnumber;
                 this.currentRow4 = val.payeebankaccount;
             },
+
             submit() {
                 let val = this.currentRow;
                 let val1 = this.currentRow1;
                 let val2 = this.currentRow2;
                 let val3 = this.currentRow3;
                 let val4 = this.currentRow4;
-
                 this.dialogTableVisible = false;
                 this.form.suppliername = val;
                 this.form.payeename = val1;
@@ -2212,6 +2318,25 @@
                 if (val === 'save') {
                     this.$refs['reff'].validate(valid => {
                         if (valid) {
+                            // for (let i = 0; i < this.tableT.length; i++) {
+                            //     if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].costitem !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                            //         || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
+                            //         for (let i = 0; i < this.tableF.length; i++) {
+                            //             if (this.tableT[i].invoicenumber == this.tableF[i].invoicenumber) {
+                            //                 if (this.tableF[i].invoicetype == 'PJ068001') {
+                            //
+                            //                 } else if (this.tableF[i].invoicetype == 'PJ068002') {
+                            //
+                            //                 } else if (this.tableF[i].invoicetype == 'PJ068003') {
+                            //
+                            //                 } else{
+                            //
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                            //
                             this.baseInfo = {};
                             this.form.user_id = this.userlist;
                             this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
@@ -2310,125 +2435,123 @@
                                     );
                                 }
                             }
-                            if (this.form.rmbexpenditure != '0') {
-                                if (this.form.rmbexpenditure != this.invoiceamountsum) {
-                                    Message({
-                                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                } else {
-                                    if (this.$route.params._id) {
-                                        this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
-                                        this.$store
-                                            .dispatch('PFANS1012Store/update', this.baseInfo)
-                                            .then(response => {
-                                                this.data = response;
-                                                this.loading = false;
-                                                if (val !== 'update') {
-                                                    Message({
-                                                        message: this.$t('normal.success_02'),
-                                                        type: 'success',
-                                                        duration: 5 * 1000,
-                                                    });
-                                                    this.$router.push({
-                                                        name: 'PFANS1012View',
-                                                    });
+                            let error=0;
+                            if (this.form.type === 'PJ001001') {
+                                for (let j = 0; j < this.tableF.length; j++) {
+                                    let summoney = 0;
+                                    for (let i = 0; i < this.tableT.length; i++) {
+                                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].costitem !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                            || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
+                                            if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                                if (this.tableT[i].rmb != '0') {
+                                                    summoney += this.tableT[i].rmb
+                                                    continue;
                                                 }
-                                            })
-                                            .catch(error => {
-                                                Message({
-                                                    message: error,
-                                                    type: 'error',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.loading = false;
-                                            });
-                                    } else {
-                                        this.$store
-                                            .dispatch('PFANS1012Store/insert', this.baseInfo)
-                                            .then(response => {
-                                                this.data = response;
-                                                this.loading = false;
-                                                Message({
-                                                    message: this.$t('normal.success_01'),
-                                                    type: 'success',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.$router.push({
-                                                    name: 'PFANS1012View',
-                                                });
-                                            })
-                                            .catch(error => {
-                                                Message({
-                                                    message: error,
-                                                    type: 'error',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.loading = false;
-                                            });
+                                            }
+                                        }
+                                    }
+                                    if (summoney != this.tableF[j].invoiceamount) {
+                                        error = error + 1;
+                                        Message({
+                                            message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        break;
                                     }
                                 }
-                            } else if (this.form.tormb != '0') {
-                                if (this.form.tormb != this.invoiceamountsum) {
-                                    Message({
-                                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                } else {
-                                    if (this.$route.params._id) {
-                                        this.loading = true;
-                                        this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
-                                        this.$store
-                                            .dispatch('PFANS1012Store/update', this.baseInfo)
-                                            .then(response => {
-                                                this.data = response;
-                                                this.loading = false;
-                                                if (val !== 'update') {
-                                                    Message({
-                                                        message: this.$t('normal.success_02'),
-                                                        type: 'success',
-                                                        duration: 5 * 1000,
-                                                    });
-                                                    this.$router.push({
-                                                        name: 'PFANS1012View',
-                                                    });
+                            } else if (this.form.type === 'PJ001002') {
+                                for (let j = 0; j < this.tableF.length; j++) {
+                                    let summoney = 0;
+                                    let sumMoney = 0;
+                                    let sumout = 0;
+                                    for (let i = 0; i < this.tableP.length; i++) {
+                                        if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== '' || this.tableP[i].procurementproject !== ''
+                                            || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== '') {
+                                            if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                                if (this.tableP[i].rmb != '0') {
+                                                    summoney += this.tableP[i].rmb
+                                                    continue;
                                                 }
-                                            })
-                                            .catch(error => {
+                                            }
+                                        }
+                                    }
+
+                                    for (let i = 0; i < this.tableR.length; i++) {
+                                        if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
+                                            || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '') {
+                                            if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                                if (this.tableR[i].rmb != '0') {
+                                                    sumMoney += this.tableR[i].rmb
+                                                    continue;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    sumout = summoney+sumMoney;
+                                    if (sumout != this.tableF[j].invoiceamount) {
+                                        error = error + 1;
+                                        Message({
+                                            message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        break;
+                                    }
+                                }
+                            }
+                            if (error == '0') {
+                                if (this.$route.params._id) {
+                                    this.loading = true;
+                                    this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+                                    this.$store
+                                        .dispatch('PFANS1012Store/update', this.baseInfo)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            if (val !== 'update') {
                                                 Message({
-                                                    message: error,
-                                                    type: 'error',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.loading = false;
-                                            });
-                                    } else {
-                                        this.loading = true;
-                                        this.$store
-                                            .dispatch('PFANS1012Store/insert', this.baseInfo)
-                                            .then(response => {
-                                                this.data = response;
-                                                this.loading = false;
-                                                Message({
-                                                    message: this.$t('normal.success_01'),
+                                                    message: this.$t('normal.success_02'),
                                                     type: 'success',
                                                     duration: 5 * 1000,
                                                 });
                                                 this.$router.push({
                                                     name: 'PFANS1012View',
                                                 });
-                                            })
-                                            .catch(error => {
-                                                Message({
-                                                    message: error,
-                                                    type: 'error',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.loading = false;
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
                                             });
-                                    }
+                                            this.loading = false;
+                                        });
+                                } else {
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS1012Store/insert', this.baseInfo)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            Message({
+                                                message: this.$t('normal.success_01'),
+                                                type: 'success',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.$router.push({
+                                                name: 'PFANS1012View',
+                                            });
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.loading = false;
+                                        });
                                 }
                             }
 

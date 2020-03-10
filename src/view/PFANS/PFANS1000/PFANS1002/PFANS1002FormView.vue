@@ -1280,8 +1280,15 @@
                             return;
                         }
                         this.form = response.business;
+                        this.tablePD[1].place = getDictionaryInfo(this.form.region).value1 + this.form.city;
                         if (response.travelcontent.length > 0) {
                             this.tableP = response.travelcontent;
+                            this.tablePD[0].duringdate = this.tableP.duringdate1;
+                            this.tablePD[1].duringdate = this.tableP.duringdate2;
+                            this.tablePD[2].duringdate = this.tableP.duringdate3;
+                            this.tablePD[0].content = this.tableP.content1;
+                            this.tablePD[1].content = this.tableP.content2;
+                            this.tablePD[2].content = this.tableP.content3;
                         }
                         this.userlist = this.form.user_id;
                         this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
@@ -1363,6 +1370,8 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
             }
+            this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+            this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
         },
         created() {
             if (!this.$route.params.disabled) {
