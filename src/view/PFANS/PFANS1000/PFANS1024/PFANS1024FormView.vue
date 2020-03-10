@@ -327,10 +327,29 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber" width="200" :error="errorcontractnumber">
                   <template slot-scope="scope">
-                    <el-form-item>
-                    <user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"
-                          @getUserids="getContractnumber" style="width: 10.15rem"></user>
-                    </el-form-item>
+                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"-->
+                          <!--@getUserids="getContractnumber" style="width: 10.15rem"></user>-->
+                      <el-form-item :prop="'tabledata.' + scope.$index + '.entrustednumber'" :rules='rules.entrustednumber'>
+                        <div class="">
+                          <el-input class="content bg"
+                                    :disabled="true"
+                                    v-model="scope.row.entrustednumber">
+                            <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickD(scope.row)"></el-button>
+                          </el-input>
+                        </div>
+                      </el-form-item>
+                      <el-dialog :visible.sync="dialogVisibleD"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="tableD" :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD" v-loading='loading'>
+                          <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
+                          <el-table-column property="deployment" :label="$t('label.group')" width="120"></el-table-column>
+                          <el-table-column property="contractnumber" :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" width="120"></el-table-column>
+                          <el-table-column property="contracttype" :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" width="120"></el-table-column>
+                          <el-table-column property="applicationdate" :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" width="120"></el-table-column>
+                          <el-table-column property="state" :label="$t('label.approval_status')" width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center"  prop="papercontract" width="120">
@@ -438,7 +457,7 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import { Message } from 'element-ui'
   import dicselect from "../../../components/dicselect";
-  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor} from '@/utils/customize';
+  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from "../../../components/org";
   import project from '../../../components/project';
@@ -842,6 +861,7 @@
         show2: false,
         tableB:[],
         tableC:[],
+        tableD:[],
         showTable1: true,
         dialogVisibleB: false,
         titleA: "title.PFANS6002VIEW",
@@ -855,6 +875,8 @@
         titleB:"menu.PFANS1040",
         titleC: "menu.PFANS1041",
         projectResult:[],
+        recordDataD: [],
+        dialogVisibleD: false,
       }
     },
     mounted(){
@@ -926,6 +948,8 @@
       this.getdata("4");
       //get project
       this.getProjectList();
+      //get contractapplication type=1
+      this.getContract();
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -1105,6 +1129,61 @@
               }
             }
             this.dataA = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false
+          })
+      },
+      handleClickD(row){
+        this.recordDataD = row;
+        this.dialogVisibleD = true;
+      },
+      rowClickD(row){
+        this.recordDataD.entrustednumber = row.contractnumber;
+        this.dialogVisibleD = false;
+      },
+      getContract() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/get',{'type': '1'})
+          .then(response => {
+            let letcontractnumber = [];
+            let tabledata = response.contractapplication;
+            for (let i = 0; i < tabledata.length; i++) {
+              tabledata[i].status = getStatus(tabledata[i].status);
+              let user = getUserInfo(tabledata[i].user_id);
+              if (user) {
+                tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
+              }
+              if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
+                tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
+              }
+              if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+                if (letContracttype != null) {
+                  tabledata[i].contracttype = letContracttype.value1;
+                }
+              }
+              if(tabledata[i].contractnumber != ""){
+                letcontractnumber.push(tabledata[i].contractnumber);
+              }
+            }
+            var arr= new Array();
+            let o;
+            for(var i = 0; i < letcontractnumber.length; i++){
+              if(arr.indexOf(letcontractnumber[i]) == -1){
+                arr.push(letcontractnumber[i]);
+                o = Object.assign([], tabledata[i]);
+                this.tableD.push(o);
+              }
+            }
+//            this.contractnumbercount = (letcontractnumber.length + 1);
             this.loading = false;
           })
           .catch(error => {
