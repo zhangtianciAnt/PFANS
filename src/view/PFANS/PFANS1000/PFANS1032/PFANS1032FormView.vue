@@ -63,7 +63,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')">
@@ -113,7 +112,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')">
@@ -151,7 +149,6 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {Message} from 'element-ui'
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from '@/utils/customize'
 
   export default {
     name: "PFANS1032FormView",

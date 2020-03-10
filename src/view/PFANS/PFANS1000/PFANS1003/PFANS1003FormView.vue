@@ -144,36 +144,39 @@
                   :label="$t('label.PFANS3005VIEW_QUANTITY')"
                   align="center">
                   <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disabled"
+                    <el-input-number
                       v-model="scope.row.quantity"
-                      style="width: 100%">
-                    </el-input>
+                      controls-position="right"
+                      style="width:12vw"
+                      :disabled="!disabled"
+                      :min="0" :max="1000000000"
+                      :precision="2"></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS1004VIEW_UNPRICE')"
                   align="center">
                   <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disabled"
+                    <el-input-number
                       v-model="scope.row.unitprice"
-                      style="width: 100%">
-                    </el-input>
+                      controls-position="right"
+                      style="width:12vw"
+                      :disabled="!disabled"
+                      :min="0" :max="1000000000"
+                      :precision="2"></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS1004VIEW_PRICE')"
                   align="center">
                   <template slot-scope="scope">
-                    <el-input
-                      :no="scope.row"
-                      :disabled="!disabled"
+                    <el-input-number
                       v-model="scope.row.price"
-                      style="width: 100%">
-                    </el-input>
+                      controls-position="right"
+                      style="width:12vw"
+                      :disabled="!disabled"
+                      :min="0" :max="1000000000"
+                      :precision="2"></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -215,7 +218,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_UNITPRICE')" prop="unitprice">
-                <el-input-number v-model="form.unitprice" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number
+                  v-model="form.unitprice"
+                  controls-position="right"
+                  style="width:20vw"
+                  :disabled="!disabled"
+                  :min="0" :max="1000000000"
+                  :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">

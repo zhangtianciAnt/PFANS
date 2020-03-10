@@ -53,12 +53,12 @@
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
             <div  class="dialog-footer" align="center">
-              <el-button @click="dialogFormVisible = false" v-if="show1">
-                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+              <el-button @click="click" v-if="show1">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <el-button  slot="reference" @click="dialogFormVisible = false" v-if="show2">
-                  <span style="margin-right: 86%;" @click="clickDiscard">>{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+              <el-button  slot="reference" @click="clickDiscard" v-if="show2">
+                  <span style="margin-right: 86%;" >{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
             </div>
@@ -67,58 +67,56 @@
             <div  class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount1>
-                  <span style="margin-right: 86%;" @click="clickData(1)">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
+                  <el-button @click="clickData(1)" :disabled=disabledCount1>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount2>
-                  <span style="margin-right: 86%;" @click="clickData(2)">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
+                  <el-button @click="clickData(2)" :disabled=disabledCount2>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount3>
-                  <span style="margin-right: 86%;" @click="clickData(3)">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
+                  <el-button @click="clickData(3)" :disabled=disabledCount3>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount4>
-                  <span style="margin-right: 86%;" @click="clickData(4)">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  <el-button @click="clickData(4)" :disabled=disabledCount4>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount5>
-                  <span style="margin-right: 86%;" @click="clickData(5)">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
+                  <el-button @click="clickData(5)" :disabled=disabledCount5>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="dialogBook = false" :disabled=disabledCount6>
-                  <span style="margin-right: 86%;" @click="clickData(6)">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
+                  <el-button @click="clickData(6)" :disabled=disabledCount6>
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
             </div>
           </el-dialog>
-
-          <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEAS')" name="first" :disabled="activeDisabledArrays[0].disabled">
-              <el-table :data="form.tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
+          <span>{{this.titleType}}</span>
+          <el-table :data="form.tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
                                  type="index" width="50"></el-table-column>
                 <el-table-column :label="$t('label.department')" align="center" width="200">
@@ -137,19 +135,25 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">
                   <template slot-scope="scope">
-                    <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                    <el-form-item :prop="'tabledata.' + scope.$index + '.applicationdate'">
+                      <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>
+                    </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">
                   <template slot-scope="scope">
+                    <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'">
                     <user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"
                           @getUserids="getUserids" style="width: 10.15rem"></user>
+                    </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">
                   <template slot-scope="scope">
+                    <el-form-item :prop="'tabledata.' + scope.$index + '.contracttype'">
                     <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">
                     </el-input>
+                    </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">
@@ -162,6 +166,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">
                   <template slot-scope="scope">
+                    <el-form-item :prop="'tabledata.' + scope.$index + '.entrycondition'">
                     <dicselect
                       :code="code5"
                       :data="scope.row.entrycondition"
@@ -171,16 +176,20 @@
                       style="width: 11rem"
                       :disabled="!disabled">
                     </dicselect>
+                    </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">
                   <template slot-scope="scope">
+                    <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
                     <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>
+                    </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
                   <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">
                     <template slot-scope="scope">
+                      <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                       <dicselect
                         :code="code6"
                         :data="scope.row.deliverycondition"
@@ -190,10 +199,12 @@
                         style="width: 11rem"
                         :disabled="!disabled">
                       </dicselect>
+                      </el-form-item>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">
                     <template slot-scope="scope">
+                      <el-form-item :prop="'tabledata.' + scope.$index + '.delivery'">
                       <dicselect
                         :code="code7"
                         :data="scope.row.delivery"
@@ -203,12 +214,14 @@
                         style="width: 11rem"
                         :disabled="!disabled">
                       </dicselect>
+                      </el-form-item>
                     </template>
                   </el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">
                   <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">
                     <template slot-scope="scope">
+                      <el-form-item :prop="'tabledata.' + scope.$index + '.claimcondition'">
                       <dicselect
                         :code="code8"
                         :data="scope.row.claimcondition"
@@ -218,10 +231,12 @@
                         style="width: 11rem"
                         :disabled="!disabled">
                       </dicselect>
+                      </el-form-item>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">
                     <template slot-scope="scope">
+                      <el-form-item :prop="'tabledata.' + scope.$index + '.claim'">
                       <dicselect
                         :code="code7"
                         :data="scope.row.claim"
@@ -231,6 +246,7 @@
                         style="width: 11rem"
                         :disabled="!disabled">
                       </dicselect>
+                      </el-form-item>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -244,7 +260,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">
                   <template slot-scope="scope">
                     <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                      <user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"
+                      <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :userlist="scope.row.loadingjudge"
                           @getUserids="getJudge" style="width: 10.15rem"></user>
                     </el-form-item>
                   </template>
@@ -552,2661 +568,6 @@
                   </template>
                 </el-table-column>
               </el-table>
-            </el-tab-pane>
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_TECHNICAL')" name="second" :disabled="activeDisabledArrays[1].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height"  :header-cell-style="getRowClass2">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.application')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1026VIEW_DETERMINATION')" align="center">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_DECIDE')" align="center" prop="decide"  width="200">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<dicselect&ndash;&gt;-->
-                        <!--&lt;!&ndash;:code="code11"&ndash;&gt;-->
-                        <!--&lt;!&ndash;:data="scope.row.decide"&ndash;&gt;-->
-                        <!--&lt;!&ndash;:no="scope.row"&ndash;&gt;-->
-                        <!--&lt;!&ndash;:multiple="multiple"&ndash;&gt;-->
-                        <!--&lt;!&ndash;@change="getDecide"&ndash;&gt;-->
-                        <!--&lt;!&ndash;style="width: 11rem"&ndash;&gt;-->
-                        <!--&lt;!&ndash;:disabled="!disabled">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</dicselect>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_FIRSTJUDGE')" align="center" prop="firstjudge" width="200" :error="errorfirstjudge">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorfirstjudge" :selectType="selectType" :userlist="scope.row.firstjudge"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getFirstjudge" style="width: 10.15rem"></user>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_SECONDJUDGE')" align="center" prop="secondjudge" width="200" :error="errorsecondjudge">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorsecondjudge" :selectType="selectType" :userlist="scope.row.secondjudge"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getSecondjudge" style="width: 10.15rem"></user>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_OUTPUTMANAGER')" align="center" prop="outputmanager" width="200" :error="erroroutmanager">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="erroroutmanager" :selectType="selectType" :userlist="scope.row.outputmanager"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getOutmanager" style="width: 10.15rem"></user>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_MANAGER')" align="center" prop="manager" width="200" :error="errormanager">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errormanager" :selectType="selectType" :userlist="scope.row.manager"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getManager" style="width: 10.15rem"></user>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_DECISIONNUMBER')" align="center"  prop="decisionnumber" width="200">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.decisionnumber">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_OUTNUMBER')" align="center"  prop="outnumber" width="200">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.outnumber">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<el-table-column :label="$t('label.PFANS1024VIEW_PRODUCTNUMBER')" align="center"  prop="productnumber" width="200">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<template slot-scope="scope">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.productnumber">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</template>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                <!--&lt;!&ndash;</el-table-column>&ndash;&gt;-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASTRUST')" name="third" :disabled="activeDisabledArrays[2].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass3">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_OVERSEASSERVICE')" name="fourth" :disabled="activeDisabledArrays[3].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTIC')" name="fifth" :disabled="activeDisabledArrays[4].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass5">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICTRUST')" name="sixth" :disabled="activeDisabledArrays[5].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass6">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_DOMESTICSERVICE')" name="seventh" :disabled="activeDisabledArrays[6].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass7">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_TRUST')" name="eighth" :disabled="activeDisabledArrays[7].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass8">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-            <!--<el-tab-pane :label="$t('label.PFANS1026VIEW_SELL')" name="ninth" :disabled="activeDisabledArrays[8].disabled">-->
-              <!--<el-table :data="tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass9">-->
-                <!--<el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"-->
-                                 <!--type="index" width="50"></el-table-column>-->
-                <!--<el-table-column :label="$t('label.department')" align="center" prop="department" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.department" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input v-model="scope.row.deployment" :no="scope.row" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled3" :no="scope.row" type="date" v-model="scope.row.applicationdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200" :error="erroruser">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType" :userlist="scope.row.user_id"-->
-                          <!--@getUserids="getUserids" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contracttype">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" align="center" prop="contractnumber"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled3" :no="scope.row" maxlength="20" v-model="scope.row.contractnumber">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYCONDITION')" align="center" prop="entrycondition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code5"-->
-                      <!--:data="scope.row.entrycondition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getEntrycondition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.entrypayment" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="deliverycondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code6"-->
-                        <!--:data="scope.row.deliverycondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDeliverycondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="delivery" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.delivery"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getDelivery"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMCONDITION')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center"  prop="claimcondition" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code8"-->
-                        <!--:data="scope.row.claimcondition"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaimcondition"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1026VIEW_ELEPHANT')" align="center"  prop="claim" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<dicselect-->
-                        <!--:code="code7"-->
-                        <!--:data="scope.row.claim"-->
-                        <!--:no="scope.row"-->
-                        <!--:multiple="multiple"-->
-                        <!--@change="getClaim"-->
-                        <!--style="width: 11rem"-->
-                        <!--:disabled="!disabled">-->
-                      <!--</dicselect>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.deliveryfinshdate" style="width: 11rem" ></el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge" width="200" :error="errorjudge">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<user :disabled="!disabled" :no="scope.row" :error="errorjudge" :selectType="selectType" :userlist="scope.row.loadingjudge"-->
-                          <!--@getUserids="getJudge" style="width: 10.15rem"></user>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code9"-->
-                      <!--:data="scope.row.currencyposition"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getCurrencyposition"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"-->
-                                 <!--width="370">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-date-picker unlink-panels-->
-                                    <!--class="bigWidth"-->
-                                    <!--:disabled="!disabled"-->
-                                    <!--v-model.trim="scope.row.claimdatetime"-->
-                                    <!--type="daterange"-->
-                                    <!--:end-placeholder="$t('label.enddate')"-->
-                                    <!--:range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-                                    <!--:start-placeholder="$t('label.startdate')"-->
-                    <!--&gt;</el-date-picker>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"&ndash;&gt;-->
-                            <!--&lt;!&ndash;@getUserids="getCusto" style="width: 10.15rem"></user>&ndash;&gt;-->
-                      <!--<div class="">-->
-                        <!--<el-input class="content bg"-->
-                                  <!--:disabled="true"-->
-                                  <!--v-model="scope.row.custojapanese">-->
-                          <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>-->
-                        <!--</el-input>-->
-                      <!--</div>-->
-                      <!--<el-dialog :visible.sync="dialogVisibleA"-->
-                                 <!--top="8vh"-->
-                                 <!--append-to-body>-->
-                        <!--<el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA" v-loading='loading'>-->
-                          <!--<el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" width="120"></el-table-column>-->
-                          <!--<el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" width="120"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</el-dialog>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.custochinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center"  prop="businesscode" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.businesscode">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto"  width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<dicselect-->
-                      <!--:code="code10"-->
-                      <!--:data="scope.row.varto"-->
-                      <!--:no="scope.row"-->
-                      <!--:multiple="multiple"-->
-                      <!--@change="getVarto"-->
-                      <!--style="width: 11rem"-->
-                      <!--:disabled="!disabled">-->
-                    <!--</dicselect>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placejapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placeenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.placechinese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responerglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responphone">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.responemail">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conjapanese">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="conenglish" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conenglish">-->
-                      <!--</el-input>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                  <!--<el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">-->
-                    <!--<template slot-scope="scope">-->
-                      <!--&lt;!&ndash;<el-input :disabled="!disabled" v-model="scope.row.conchinese">&ndash;&gt;-->
-                      <!--&lt;!&ndash;</el-input>&ndash;&gt;-->
-                      <!--<project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
-                               <!--@change="changePro"></project>-->
-                    <!--</template>-->
-                  <!--</el-table-column>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center"  prop="remarks" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="!disabled" v-model="scope.row.remarks">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<div class="">-->
-                      <!--<el-input class="content bg"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.theme">-->
-                        <!--<el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>-->
-                      <!--</el-input>-->
-                    <!--</div>-->
-
-                    <!--<el-dialog :visible.sync="dialogVisibleB"-->
-                               <!--top="8vh"-->
-                               <!--width="30%"-->
-                               <!--append-to-body>-->
-                      <!--<div>-->
-                        <!--<el-select @change="changed" v-model="region">-->
-                          <!--<el-option :label="$t(titleB)" value="1"></el-option>-->
-                          <!--<el-option :label="$t(titleC)" value="2"></el-option>-->
-                        <!--</el-select>-->
-                        <!--<el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                        <!--<el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">-->
-                          <!--<el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>-->
-                          <!--<el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>-->
-                        <!--</el-table>-->
-                      <!--</div>-->
-                    <!--</el-dialog>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-                <!--<el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state">-->
-                  <!--<template slot-scope="scope">-->
-                    <!--<el-input :disabled="true" v-model="scope.row.state">-->
-                    <!--</el-input>-->
-                  <!--</template>-->
-                <!--</el-table-column>-->
-              <!--</el-table>-->
-            <!--</el-tab-pane>-->
-          </el-tabs>
-
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
                     :header-cell-style="getRowClass1" style="padding-top: 2vw">
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="130">
@@ -3220,28 +581,28 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'" :rules='rules.completiondate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 9rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate" style="width: 9.5rem" ></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -3287,16 +648,13 @@
         },
         data() {
           var validateDeployment = (rule, value, callback) => {
-            //没数据，先不验证
-//            if (value === '') {
-//              callback(new Error('请输入开发部署'));
-//            } else {
+            if (value === '') {
+              callback(new Error('请输入开发部署'));
+            } else {
               callback();
-//            }
+            }
           };
           var validateClaimdatetime = (rule, value, callback) => {
-            debugger
-            //todo
             if ( Array.isArray(value)) {
               if ( value.length ==0 ) {
                 callback(new Error('请输入开发请求期间'));
@@ -3325,13 +683,12 @@
               callback();
             }
           };
-          //没数据先不验证
           var validateLoadingjudge = (rule, value, callback) => {
-//            if (value === '') {
-//              callback(new Error('请输入出荷判定实施者'));
-//            } else {
+            if (value === '') {
+              callback(new Error('请输入出荷判定实施者'));
+            } else {
               callback();
-//            }
+            }
           };
           var validateDeliveryfinshdate = (rule, value, callback) => {
             if (value === '') {
@@ -3433,10 +790,24 @@
             }
           };
           var validateConchinese = (rule, value, callback) => {
-            if (value === '' && value != null && value != undefined) {
-              callback(new Error('请输入项目中文'));
-            } else {
+            if ( Array.isArray(value)) {
+              if ( value.length ==0 ) {
+                callback(new Error('请输入项目中文'));
+                return
+              }
+              value.map(function(item){
+                if ( item === '' ) {
+                  callback(new Error('请输入项目中文'));
+                  return
+                }
+              });
               callback();
+            } else {
+              if (value === '' && value != null && value != undefined) {
+                callback(new Error('请输入项目中文'));
+              } else {
+                callback();
+              }
             }
           };
           var validateDeliverydate = (rule, value, callback) => {
@@ -3475,10 +846,18 @@
             }
           };
 
-
-
             return {
               makeintoBaseInfo:{},
+              titleType:'',
+              titleType1:this.$t('label.PFANS1026VIEW_OVERSEAS'),
+              titleType2:this.$t('label.PFANS1026VIEW_TECHNICAL'),
+              titleType3:this.$t('label.PFANS1026VIEW_OVERSEASTRUST'),
+              titleType4:this.$t('label.PFANS1026VIEW_OVERSEASSERVICE'),
+              titleType5:this.$t('label.PFANS1026VIEW_DOMESTIC'),
+              titleType6:this.$t('label.PFANS1026VIEW_DOMESTICTRUST'),
+              titleType7:this.$t('label.PFANS1026VIEW_DOMESTICSERVICE'),
+              titleType8:this.$t('label.PFANS1026VIEW_TRUST'),
+              titleType9:this.$t('label.PFANS1026VIEW_SELL'),
               activeDisabledArrays: [
                 {disabled: true},
                 {disabled: true},
@@ -3611,16 +990,16 @@
                     { validator: validateConchinese }
                   ],
                   deliverydate: [
-                    { validator: validateDeliverydate }
+                    { validator: validateDeliverydate, trigger: 'blur' }
                   ],
                   completiondate: [
-                    { validator: validateCompletiondate }
+                    { validator: validateCompletiondate, trigger: 'blur' }
                   ],
                   claimdate: [
-                    { validator: validateClaimdate }
+                    { validator: validateClaimdate, trigger: 'blur' }
                   ],
                   supportdate: [
-                    { validator: validateSupportdate }
+                    { validator: validateSupportdate, trigger: 'blur'}
                   ],
                   claimamount: [
                     { validator: validateClaimamount }
@@ -3738,7 +1117,6 @@
                         let contractnumbercount = response.contractnumbercount;
                         if (contractapplication.length > 0) {
                             for (let i = 0; i < contractapplication.length; i++) {
-//                              contractapplication[i].conchinese= ["a8cef76f-c94d-4a80-badf-caabae05d6b1","a8cef76f-c94d-4a80-badf-caabae05d6b0"]
                                 this.maketype = contractapplication[i].maketype;
                                 //契約書番号
                                 this.letcontractnumber = contractapplication[i].contractnumber;
@@ -3773,32 +1151,24 @@
                                 this.form.tabledata.push(o);
 //                                this.tabledata.push(o);
                                 if (this.maketype === '1') {
-                                    this.activeName = 'first';
-                                    this.activeDisabledArrays[0] = false;
+                                  this.titleType = this.titleType1;
                                 } else if (this.maketype === '2') {
-                                    this.activeName = 'second';
-                                  this.activeDisabledArrays[1] = false;
+                                  this.titleType = this.titleType2;
                                 } else if (this.maketype === '3') {
-                                    this.activeName = 'third';
+                                  this.titleType = this.titleType3;
                                   this.activeDisabledArrays[2] = false;
                                 } else if (this.maketype === '4') {
-                                    this.activeName = 'fourth';
-                                  this.activeDisabledArrays[3] = false;
+                                  this.titleType = this.titleType4;
                                 } else if (this.maketype === '5') {
-                                    this.activeName = 'fifth';
-                                  this.activeDisabledArrays[4] = false;
+                                  this.titleType = this.titleType5;
                                 } else if (this.maketype === '6') {
-                                    this.activeName = 'sixth';
-                                  this.activeDisabledArrays[5] = false;
+                                  this.titleType = this.titleType6;
                                 } else if (this.maketype === '7') {
-                                    this.activeName = 'seventh';
-                                  this.activeDisabledArrays[6] = false;
+                                  this.titleType = this.titleType7;
                                 } else if (this.maketype === '8') {
-                                    this.activeName = 'eighth';
-                                  this.activeDisabledArrays[7] = false;
+                                  this.titleType = this.titleType8;
                                 } else if (this.maketype === '9') {
-                                    this.activeName = 'ninth';
-                                  this.activeDisabledArrays[8] = false;
+                                  this.titleType = this.titleType9;
                                 }
                             }
                         }
@@ -3815,11 +1185,6 @@
                         });
                         this.loading = false
                     })
-            } else {
-                this.activeName = 'first';
-                for(var p=0; p<9; p++){
-                  this.activeDisabledArrays[p] = false;
-                }
             }
           //get customer
           this.getcustomerinfor();
@@ -4034,11 +1399,6 @@
             },
             getJudge(val, row) {
                 row.loadingjudge = val;
-                if (!row.loadingjudge || row.loadingjudge === '' || val === "undefined") {
-                    this.errorjudge = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.errorjudge = "";
-                }
             },
             getCusto(val, row) {
                 row.custojapanese = val;
@@ -4065,7 +1425,6 @@
                 }
             },
             getcontracttype(val){
-              debugger;
                 this.form.contracttype = val;
             },
             getcareeryear1(val){
@@ -4189,470 +1548,6 @@
                     };
                 }
             },
-            getRowClass2({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 2 && columnIndex >= 18 && columnIndex < 26 ){
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    }
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass3({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass4({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass5({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass6({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass7({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass8({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
-            getRowClass9({row, column, rowIndex, columnIndex}) {
-
-                if (column.level === 2 && columnIndex >= 0 && columnIndex < 2) {
-                    return {
-                        color: 'white',
-                        background: '#99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73B9FF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >=2  && columnIndex < 4) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-bottom': '1px solid #99CCFF',
-                        'border-right': '1px solid #73CC73',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
-                    return {
-                        color: 'white',
-                        background: '#CC99FF',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #CC7373',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 11 && columnIndex < 15) {
-                    return {
-                        color: 'white',
-                        background: '#99CC99',
-                        'border-right': '1px solid #B973FF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if (column.level === 2 && columnIndex >= 15 && columnIndex < 18) {
-                    return {
-                        color: 'white',
-                        background: '#CC9999',
-                        'border-right': '1px solid #99CCFF',
-                        'border-bottom': '1px solid #99CCFF',
-                    };
-                }
-                if(column.level === 1 && columnIndex >= 0 && columnIndex < 30){
-                    return {
-                        color: 'white',
-                        background: '#005BAA',
-                    };
-                }
-            },
             addRowdata(isClone) {
               //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
               if ( isClone ) {
@@ -4729,142 +1624,170 @@
             },
             //契約番号做成
             click() {
-                //請求方式
-                let letclaimtype = '';
-                let letbook = '';
-                //覚書
-                if(this.checked){
-                    letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
-                    let letcontractnumber = this.form.contractnumber.split("-");
-                    if(letcontractnumber.length > 1){
-                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
-                    }
-                    else{
-                        letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
-                    }
-                    this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
-                }
-                let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
-                let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
-                let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
-                let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-                //契約種類简称
-                let abbreviation = '';
-                let letabbreviation = getDictionaryInfo(this.form.contracttype);
-                if (letabbreviation != null) {
-                    //契約種類
-                    this.contracttype = letabbreviation.value1;
-                    abbreviation = letabbreviation.value2;
-                }
-                //事業年度
-                let applicationdate = '';
-                let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
-                if (letapplicationdate != null) {
-                    applicationdate = letapplicationdate.value2;
-                }
-                //上下期
-                let entrycondition = '';
-                let letentrycondition = getDictionaryInfo(this.form.entrycondition);
-                if (letentrycondition != null) {
-                    entrycondition = letentrycondition.value2;
-                }
-                //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
-                //通し番号
-                let number = '0001';
-                if(this.contractnumbercount.toString().length === 1){
-                    number = '000' + this.contractnumbercount
-                }
-                else if(this.contractnumbercount.toString().length === 2){
-                    number = '00' + this.contractnumbercount
-                }
-                else if(this.contractnumbercount.toString().length === 3){
-                    number = '0' + this.contractnumbercount
-                }
-                if(this.checked){
-                    this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
-                }
-                else{
-                    this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
-                }
-                //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
-                let isClone = false;
-                if(this.checked){
-                  for (let i = 0; i < this.form.tabledata.length; i++) {
-                    this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
-                    if (this.form.tabledata[0].deliverycondition == 'HT009002') {
-                      isClone = true;
-                    }
+                if(this.$route.params._id){
+                  this.handleClick();
+                }else {
+                  if(this.form.tabledata.length > 0){
+                    this.$confirm('之前创建这条将要被删除, 是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      this.form.tabledata = [];
+                      this.form.tableclaimtype = [];
+                      this.handleClick();
+                    }).catch(() => {
+                      this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                      });
+                      this.dialogFormVisible = false;
+                    });
+                  }else {
+                    this.handleClick();
                   }
                 }
+            },
+            handleClick(){
+              this.loading = true;
+              //請求方式
+              let letclaimtype = '';
+              let letbook = '';
+              //覚書
+              if(this.checked){
+                letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
+                let letcontractnumber = this.form.contractnumber.split("-");
+                if(letcontractnumber.length > 1){
+                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
+                }
+                else{
+                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
+                }
+                this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
+              }
+              let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
+              let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
+              let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
+              let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+              //契約種類简称
+              let abbreviation = '';
+              let letabbreviation = getDictionaryInfo(this.form.contracttype);
+              if (letabbreviation != null) {
+                //契約種類
+                this.contracttype = letabbreviation.value1;
+                abbreviation = letabbreviation.value2;
+              }
+              //事業年度
+              let applicationdate = '';
+              let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+              if (letapplicationdate != null) {
+                applicationdate = letapplicationdate.value2;
+              }
+              //上下期
+              let entrycondition = '';
+              let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+              if (letentrycondition != null) {
+                entrycondition = letentrycondition.value2;
+              }
+              //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
+              //通し番号
+              let number = '0001';
+              if(this.contractnumbercount.toString().length === 1){
+                number = '000' + this.contractnumbercount
+              }
+              else if(this.contractnumbercount.toString().length === 2){
+                number = '00' + this.contractnumbercount
+              }
+              else if(this.contractnumbercount.toString().length === 3){
+                number = '0' + this.contractnumbercount
+              }
+              if(this.checked){
+                this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
+              }
+              else{
+                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
+              }
+              //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+              let isClone = false;
+              if(this.checked){
+                for (let i = 0; i < this.form.tabledata.length; i++) {
+                  this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+                  if (this.form.tabledata[0].deliverycondition == 'HT009002') {
+                    isClone = true;
+                  }
+                }
+              }
 
-                this.addRowdata(isClone);
-                this.form.tableclaimtype = [];
-                if(this.form.claimtype === "HT001001"){
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                }
-                else if(this.form.claimtype === "HT001002"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                }
-                else if(this.form.claimtype === "HT001003"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                  this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+              this.addRowdata(isClone);
+              this.form.tableclaimtype = [];
+              if(this.form.claimtype === "HT001001"){
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+              }
+              else if(this.form.claimtype === "HT001002"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+              }
+              else if(this.form.claimtype === "HT001003"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.form.tableclaimtype[2].claimtype = letclaimtypethree;
 
-                }
-                else if(this.form.claimtype === "HT001004"){
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.addRowclaimtype();
-                  this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-                  this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-                  this.form.tableclaimtype[2].claimtype = letclaimtypethree;
-                  this.form.tableclaimtype[3].claimtype = letclaimtypefour;
-                }
-                //海外受託 技術開発
-                if(this.form.contracttype === 'HT008001'){
-                  this.activeName = 'first';
-                }
-                //海外複合受託 技術開発
-                else if(this.form.contracttype === 'HT008002'){
-                  this.activeName = 'second';
-                }
-                //海外受託 役務
-                else if(this.form.contracttype === 'HT008003'){
-                  this.activeName = 'third';
-                }
-                //海外複合受託 役務
-                else if(this.form.contracttype === 'HT008004'){
-                  this.activeName = 'fourth';
-                }
-                //国内受託 技術開発
-                else if(this.form.contracttype === 'HT008005'){
-                  this.activeName = 'fifth';
-                }
-                //国内複合受託 技術開発
-                else if(this.form.contracttype === 'HT008006'){
-                  this.activeName = 'sixth';
-                }
-                //国内受託 役務
-                else if(this.form.contracttype === 'HT008007'){
-                  this.activeName = 'seventh';
-                }
-                //国内複合受託 役務
-                else if(this.form.contracttype === 'HT008008'){
-                  this.activeName = 'eighth';
-                }
-                //販売
-                else if(this.form.contracttype === 'HT008009'){
-                  this.activeName = 'ninth';
-                }
-                this.getChecked(false);
+              }
+              else if(this.form.claimtype === "HT001004"){
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.addRowclaimtype();
+                this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+                this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+              }
+              //海外受託 技術開発
+              if(this.form.contracttype === 'HT008001'){
+                this.titleType = this.titleType1;
+              }
+              //海外複合受託 技術開発
+              else if(this.form.contracttype === 'HT008002'){
+                this.titleType = this.titleType2;
+              }
+              //海外受託 役務
+              else if(this.form.contracttype === 'HT008003'){
+                this.titleType = this.titleType3;
+              }
+              //海外複合受託 役務
+              else if(this.form.contracttype === 'HT008004'){
+                this.titleType = this.titleType4;
+              }
+              //国内受託 技術開発
+              else if(this.form.contracttype === 'HT008005'){
+                this.titleType = this.titleType5;
+              }
+              //国内複合受託 技術開発
+              else if(this.form.contracttype === 'HT008006'){
+                this.titleType = this.titleType6;
+              }
+              //国内受託 役務
+              else if(this.form.contracttype === 'HT008007'){
+                this.titleType = this.titleType7;
+              }
+              //国内複合受託 役務
+              else if(this.form.contracttype === 'HT008008'){
+                this.titleType = this.titleType8;
+              }
+              //販売
+              else if(this.form.contracttype === 'HT008009'){
+                this.titleType = this.titleType9;
+              }
+              this.getChecked(false);
+              this.loading = false;
+              this.dialogFormVisible = false;
             },
             //契約番号廃棄
             clickDiscard(){
@@ -4873,16 +1796,27 @@
                       this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                     }
                 }
+              this.dialogFormVisible = false
             },
             //存在check
             existCheck(contractNumber, index) {
               this.loading = true;
+              if ( contractNumber==null || contractNumber==undefined || contractNumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'success',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+                this.dialogBook = false
+                return;
+              }
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:contractNumber})
                 .then(response => {
                   let s = "count" + index;
                   if(response[s] > 0) {
                     Message({
-                      message: "请先删除",
+                      message: "请先删除之前生成的契约书",
                       type: 'success',
                       duration: 5 * 1000
                     });
@@ -4895,6 +1829,7 @@
 
                   }
                   this.loading = false;
+                  this.dialogBook = false
                 })
                 .catch(error => {
                   Message({
@@ -4903,6 +1838,7 @@
                     duration: 5 * 1000
                   });
                   this.loading = false;
+                  this.dialogBook = false
                 })
             },
             //書類作成
@@ -5080,6 +2016,14 @@
           },
             //indexDisabled
             handleIndexDisabled() {
+              if ( this.letcontractnumber==null || this.letcontractnumber==undefined || this.letcontractnumber == '' ) {
+                Message({
+                  message: "请先申请番号",
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                return;
+              }
               this.loading = true;
               this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber:this.letcontractnumber})
                 .then(response => {
@@ -5215,7 +2159,7 @@
             },
           validateByType: function(type, cb) {
               let that = this;
-              if(type==='6') {
+              if(type==6) {
                 if(this.maketype === '1' || this.maketype === '2'|| this.maketype === '3'|| this.maketype === '4'){
                   if(this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
                     type = '61'
@@ -5225,9 +2169,7 @@
                 }
               }
               let rowCount = that.form.tabledata.length || 0;
-              if ( rowCount <= 0  ) {
-                cb(true);
-              }
+              let rowCount2 = that.form.tableclaimtype.length || 0;
               let myRule = this.ruleSet[type] || [];
               console.log("vrules", myRule);
               if ( myRule.length <=0 ) {
@@ -5236,9 +2178,23 @@
               this.$refs["refform"].clearValidate();
               let pros = [];
               myRule.forEach(function (item, index, array) {
-                var dataName = ['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >=0 ? "tableclaimtype" : "tabledata";
-                for ( var k = 0; k<rowCount; k++ ) {
-                  var itIndex = dataName + "." + k + "." +item;
+                let dataName = "tabledata";
+                let maxCount = rowCount;
+                if ( ['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >=0 ) {
+                  dataName = "tableclaimtype";
+                  maxCount = rowCount2;
+                  for ( var k = 0; k<maxCount; k++ ) {
+                    var itIndex = dataName + "." + k + "." +item;
+                    console.log("va", itIndex);
+                    let pro = new Promise(function(resolve, reject){
+                      that.$refs["refform"].validateField(itIndex, function(msg){
+                        resolve(msg);
+                      });
+                    });
+                    pros.push(pro);
+                  }
+                } else if (rowCount > 0) {
+                  var itIndex = dataName + "." + (rowCount -1) + "." +item;
                   console.log("va", itIndex);
                   let pro = new Promise(function(resolve, reject){
                     that.$refs["refform"].validateField(itIndex, function(msg){
@@ -5247,7 +2203,12 @@
                   });
                   pros.push(pro);
                 }
+
               });
+              if ( pros.length == 0 ) {
+                cb();
+                return
+              }
               Promise.all(pros).then(function(values) {
                 console.log("va result ", values);
                 let isOk = true;

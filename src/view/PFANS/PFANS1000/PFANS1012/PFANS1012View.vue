@@ -1,5 +1,7 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
+                  ref="multipleTable" :showSelection="isShow"
+                   @selection-change="handleSelectionChange"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 
@@ -28,7 +30,7 @@
             label: 'label.applicant',
             width: 100,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'center_name',
@@ -80,7 +82,9 @@
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
         ],
         rowid: '',
-        row_id: 'publicexpenseid'
+        row_id: 'publicexpenseid',
+        multipleTable: [],
+        isShow: true,
       };
     },
     mounted() {
@@ -125,6 +129,18 @@
     methods: {
       rowClick(row) {
         this.rowid = row.publicexpenseid;
+      },
+      handleSelectionChange(rows){
+        // if (rows) {
+        //   rows.forEach(row => {
+        //     this.$refs.multipleTable.toggleRowSelection(row);
+        //   });
+        // }
+        this.multipleTable = val;
+        for (var i = 0; i < this.multipleTable.length; i++) {
+          //var halo = this.multipleTable[i];
+          this.$refs.multipleTable.toggleRowSelection(row);
+        }
       },
         MyBrowserIsIE() {
             let isIE = false;

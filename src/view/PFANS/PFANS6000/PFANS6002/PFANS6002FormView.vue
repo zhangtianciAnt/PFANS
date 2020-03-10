@@ -257,7 +257,7 @@
                 } else {
                     callback();
                 }
-                
+
             };
             var checkemail = (rule, value, callback) => {
                 if (this.form.email !== null && this.form.email !== '') {

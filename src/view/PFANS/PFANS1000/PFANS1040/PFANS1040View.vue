@@ -24,7 +24,8 @@
                     v-model="years"
                     type="year"
                     @change="yearChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
@@ -370,27 +371,17 @@
                     v-model="months"
                     type="month"
                     @change="monthChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
               <div>
                 <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" stripe border>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="230">
                     <template slot-scope="scope">
                       <el-input :disabled="gettrue(scope.row)" :no="scope.row" maxlength="20" style="width: 100%"
                                 v-model.trim="scope.row.theme"></el-input>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CENTER')" align="center" width="150">
-                    <template slot-scope="scope">
-                      <dicselect
-                        :code="code1"
-                        :data="scope.row.center"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getcenter"
-                      ></dicselect>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
@@ -785,7 +776,6 @@
             months: '',
             years: moment(new Date()).format('YYYY'),
             theme: '',
-            center: '',
             groupid: this.groupId,
             teamid: '',
             kind: '',
@@ -822,7 +812,7 @@
             amount2: '',
             personnel3: '',
             amount3: '',
-            type: '0',
+            type: '1',
             rowindex: '',
             status: '0',
           },
@@ -856,7 +846,7 @@
       getdata(year,month){
         let datainfo = {};
         if(year != ''){
-            datainfo = {'type': '1','years': year,'months':''};
+          datainfo = {'type': '1','years': year,'months':''};
         }
         else{
           datainfo = {'type': '2','years': month.substring(0,4),'months': month};
@@ -875,40 +865,12 @@
               else{
                   this.tableB = [];
                   this.tableB = response;
-                  var monthCurrent = month.substr(5,2);//Number(moment(new Date()).format('MM'));
+                  var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
                   for (var j = 0; j < 12; j++) {
-                    if (j > monthCurrent - 5) {
+                    if (j > monthCurrent - 3) {
                       this.arrays[j].disabled = false;
                     }
                   }
-                  // let flg = 0;
-                  // for (let i = 0; i < response.length; i++) {
-                  //     if(month === response[i].months){
-                  //       this.tableB.push(response[i]);
-                  //       flg = 1;
-                  //     }
-                  // }
-                  // if(flg === 0){
-                  //     let months = response[0].months;
-                  //     for (let j = 0; j < response.length; j++) {
-                  //       if(months === response[j].months){
-                  //         this.tableB.push(response[j]);
-                  //       }
-                  //     }
-                  // }
-                  //
-                  // if(Number(month.substr(5,2) < Number(moment(new Date()).format('MM')))){
-                  //
-                  // }
-                  // else{
-                  //   var monthCurrent = month.substr(5,2);//Number(moment(new Date()).format('MM'));
-                  //   for (var j = 0; j < 12; j++) {
-                  //     if (j > monthCurrent - 5) {
-                  //       this.arrays[j].disabled = false;
-                  //     }
-                  //   }
-                  // }
-
               }
             }
             else{
@@ -919,12 +881,9 @@
                     }
                 }
                 else{
-                    if(this.tableA.length > 0){
-                      this.status = this.tableA[0].status;
-                    }
                     this.tableB = [];
                     if(this.tableA.length > 0){
-                      if(this.status === '4'){
+                      if(this.tableA[0].status === '4' && this.tableA[0].years === month.substring(0,4)){
                         this.disabled = true;
                         this.tableB = this.tableA;
                         var monthCurrent = Number(month.substr(5,2));
@@ -1021,10 +980,7 @@
               this.getdata(this.years,"");
           }
           else{
-              if(this.tableA.length > 0){
-                this.status = this.tableA[0].status;
-              }
-              if(this.status === '4'){
+              if(this.tableA[0].status === '4'){
                 this.workflowCode = "W0053";
                 this.canStart = true;
               }
@@ -1034,28 +990,7 @@
       },
       monthChange(value){
         this.months = moment(value).format('YYYY-MM');
-        // this.arrays = [
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        // ];
-        // var monthCurrent = Number(moment(value).format('MM'));
-        // for (var i = 0; i < 12; i++) {
-        //   if (i > monthCurrent - 5) {
-        //     this.arrays[i].disabled = false;
-        //   }
-        // }
         this.getdata("",this.months);
-
       },
       addRowA() {
         this.tableA.push({
@@ -1063,7 +998,6 @@
           months: '',
           years: this.$route.params._id,
           theme: '',
-          center: '',
           groupid: this.groupId,
           teamid: '',
           kind: '',
@@ -1111,7 +1045,6 @@
           months: this.months,
           years: this.$route.params._id,
           theme: '',
-          center: '',
           groupid: this.groupId,
           teamid: '',
           kind: '',
@@ -1164,8 +1097,13 @@
           if(this.activeName === 'second'){
             this.baseInfo[i].months = moment(this.months).format('YYYY-MM');
             this.baseInfo[i].type = '2';
+            if(this.baseInfo[i].status != '4'){
+              this.baseInfo[i].status = this.status;
+            }
           }
-          this.baseInfo[i].status = this.status;
+          else{
+            this.baseInfo[i].status = this.status;
+          }
         }
         this.loading = true;
         this.$refs['refform'].validate(valid => {

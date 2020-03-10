@@ -1,5 +1,5 @@
 <template>
-  <div class="main_bg_color">
+  <div class="main_bg_color" style="overflow-x: hidden">
     <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
              :active-text-color="activeTextColor" :collapse="isCollapse"
              active-text-color="#005BAA">
@@ -15,7 +15,7 @@
                     :index="obi._id" :key="obi._id" v-show="obi.menuvisible" class="title2">
           <template slot="title">
             <!--<i :class="obi.menuicon" v-if="obi.menuicon"></i>-->
-            <span>{{$t(obi.name)}}</span>
+            <span style="color: black">{{$t(obi.name)}}</span>
           </template>
 
           <el-submenu v-for="cobi in obi.children"
@@ -23,24 +23,24 @@
                       :index="cobi._id" :key="cobi._id" v-show="cobi.menuvisible" class="title2">
             <template slot="title">
               <!--<i :class="cobi.menuicon" v-if="cobi.menuicon"></i>-->
-              <span>{{$t(cobi.name)}}</span>
+              <span style="color: black">{{$t(cobi.name)}}</span>
             </template>
-            <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" :key="cobii._id" :index="cobii.menuurl" v-show="cobii.menuvisible">
+            <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" :key="cobii._id" :index="cobii.menuurl" v-show="cobii.menuvisible" class="title3">
               <span>{{$t(cobii.name)}}</span>
               <!--<i class="el-icon-right"></i>-->
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible">
+          <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible" class="title3">
             <span>{{$t(cobi.name)}}</span>
             <!--<i class="el-icon-right"></i>-->
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible">
+        <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible" class="title3">
           <span>{{$t(obi.name)}}</span>
           <!--<i class="el-icon-right"></i>-->
         </el-menu-item>
       </el-submenu>
-      <el-menu-item v-else :index="ob.menuurl" v-show="ob.menuvisible">
+      <el-menu-item v-else :index="ob.menuurl" v-show="ob.menuvisible" class="title3">
         <span>{{$t(ob.name)}}</span>
         <!--<i class="el-icon-right"></i>-->
       </el-menu-item>
@@ -142,6 +142,7 @@
     color: white;
     height: 38px;
     line-height: 38px;
+    padding-left: 20px !important;
     border: #005BAA 1px solid;
   }
 
@@ -154,6 +155,11 @@
   }
 
   .title2 {
-    background-color: #7ACAFF !important;
+    background-color: #BDD8EE !important;
+    margin-left: 25px;
+  }
+  .title3 {
+    margin-left: 25px;
+    padding-left: 20px !important;
   }
 </style>

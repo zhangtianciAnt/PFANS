@@ -267,7 +267,7 @@
                     <el-col>
                       <!--手动说明备注项-->
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_REMARK')">
-                        <el-input type="textarea" v-model="form.remark" :disabled="true"></el-input>
+                        <el-input type="textarea" v-model="form.remark" :disabled="disabled"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -719,8 +719,7 @@
     mounted() {
       this.getNameList();
       if (this.$route.params._id) {
-        this.getOne(this.$route.params._id);
-          this.display = false;
+       this.getOne(this.$route.params._id);
 
       }
     },
@@ -849,6 +848,14 @@
                   }
                 }
               }
+                if (this.form.adoption === 'PR051004') {
+                    this.display = true;
+                    this.form.other3 = '';
+                }
+                if (this.form.adoption === 'PR051005') {
+                    this.other3_show = true;
+                    this.form.others = '';
+                }
               this.loading = false;
             }
           })

@@ -897,8 +897,16 @@
         } else if (val === "generate") {
             this.loading = true;
           if(this.flag === 0){
+            let user = getUserInfo(this.form.user_id);
+            if (user) {
+              this.form.user_id= user.userinfo.customername;
+            }
             this.for = this.form;
           } else {
+            let user = getUserInfo(this.form.user_id);
+            if (user) {
+              this.form2.user_id= user.userinfo.customername;
+            }
             this.for = this.form2;
           }
             this.$store

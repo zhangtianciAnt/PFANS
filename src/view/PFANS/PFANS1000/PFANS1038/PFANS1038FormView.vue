@@ -154,16 +154,17 @@
                     style="width:10vw"
                     placeholder="请选择"
                     size="small"
-                    v-show="!scope.row.isoutside">
+                    v-if="!scope.row.isoutside">
                   </el-date-picker>
-                  <span v-show="scope.row.isoutside">{{scope.row.entermouth}}</span>
+                  <span v-else>{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
               <el-table-column
                 prop="isoutside"
                 label="是否社外"
                 width="100"
-                align="center">
+                align="center"
+                v-if="this.$route.params.type === 0 ? false : true">
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
@@ -258,7 +259,7 @@
         }],
         loading:false,
         externalOption:"",
-        newTableData:[{isoutside:false}],
+        newTableData:[{"isoutside":false,"entermouth":null}],
         tableData:[],
         activeName:"first",
         buttonList:[],
@@ -393,6 +394,9 @@
             return "-";
           }
         } else if (column.property === "entermouth") {
+          if(row[column.property] === "BP025004"){
+              return "社外"
+          }
           return "-";
         }else{
           return row[column.property];
@@ -404,11 +408,14 @@
         }
       },
       addRow() {
-        this.newTableData.push({"isoutside":false});
+        this.newTableData.push({"isoutside":false,"entermouth":null});
       },
       changeOption(val, row) {
+        debugger
         if (val) {
           row.entermouth = "社外";
+        }else{
+          row.entermouth = null;
         }
       },
       buttonClick(val) {
