@@ -1734,6 +1734,8 @@
               for (let index = parseInt(type); index >= 1; index--) {
                 if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
                   org.teamname = treeCom.getNode(node).data.departmentname;
+
+
                   org.team_id = treeCom.getNode(node).data._id;
                 }
                 if (index === 2) {
