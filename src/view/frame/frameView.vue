@@ -45,6 +45,17 @@
           </el-main>
         </el-col>
       </el-container>
+      <el-aside width="20rem" style="overflow: hidden"   v-show="false">
+        <EasyTree
+          :defaultlist="data"
+          :defaultProps="defaultProps"
+          :showFilter="true"
+          :showCheckbox="false"
+          maxheight="20rem"
+          minheight="100%"
+          ref="treeCom"
+        ></EasyTree>
+      </el-aside>
     </el-container>
   </div>
 </template>
@@ -52,6 +63,7 @@
 <script>
   /* eslint-disable no-lone-blocks */
 
+  import EasyTree from "@/components/EasyTree";
   import EasyHeader from "@/components/EasyHeader";
   import EasySider from "@/components/EasySider/index";
   import basselogo from "@/assets/png/panasonic_logo.png";
@@ -74,6 +86,7 @@
   export default {
     name: "frameView",
     components: {
+      EasyTree,
       EasyHeader,
       EasySider,
       EasyLogo,
@@ -120,6 +133,12 @@
             filter: false
           }
         ],
+        data: [],
+        defaultProps: {
+          label: "title",
+          children: "orgs"
+        },
+        departmentData: {},
         activeIndex: "1",
         activeIndex2: "1",
         basselogo: basselogo,
@@ -410,6 +429,9 @@
           .then(response => {
             if (response) {
               this.$store.commit("global/SET_ORGLIST", [response]);
+              this.data = [response];
+              this.departmentData = {};
+              this.buildDepartmentData(this.data);
             }
           })
           .catch(error => {
@@ -475,6 +497,14 @@
           })
         })
       },
+      buildDepartmentData(data) {
+        for (var i in data) {
+          this.departmentData[data[i]._id] = data[i].title;
+          if (data[i].hasOwnProperty("orgs")) {
+            this.buildDepartmentData(data[i].orgs);
+          }
+        }
+      },
     },
     mounted() {
       this.handleSelect("homePage");
@@ -485,6 +515,7 @@
 
       this.getUserList();
       this.getOrgList();
+      this.$store.commit("usersStore/SET_ORGS",this.$refs.treeCom.$refs.treeCom);
       this.getDictionaryList();
       this.getDay();
       this.getFileToken();
