@@ -131,6 +131,7 @@
         this.rowid = row.publicexpenseid;
       },
       handleSelectionChange(val){
+        
         // if (rows) {
         //   rows.forEach(row => {
         //     this.$refs.multipleTable.toggleRowSelection(row);
