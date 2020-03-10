@@ -23,7 +23,7 @@
     import {getStatus, getUserInfo,getCooperinterviewList,getDepartmentById} from '@/utils/customize';
 
     export default {
-        name: 'PFANS2006View',
+        name: 'PFANS2028View',
         components: {
             EasyNormalTable,
         },
@@ -504,17 +504,16 @@
         },
         mounted() {
             debugger
-            this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany')
+            this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.onlypeo')
             this.getTaxestotal();
         },
         methods: {
             getTaxestotal(){
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2006Store/getTaxestotal', {})
+                    .dispatch('PFANS2006Store/getTaxestotal', {"userid": this.$store.getters.userinfo.userid})
                     .then(response => {
                         console.log("response",response)
-                        debugger
                         for (let j = 0; j < response.length; j++) {
                             response[j].rowindex = j+1;
 
@@ -558,7 +557,7 @@
             getBonus(){
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2006Store/getBonus', {})
+                    .dispatch('PFANS2006Store/getBonus', {"userid": this.$store.getters.userinfo.userid})
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
                             if (response[j].bename !== null && response[j].bename !== '') {
@@ -584,11 +583,11 @@
             changed() {
                 if (this.region === '2') {
                     this.showTable1 = false;
-                    this.title = this.$t('label.PFANS2006VIEW_BONUS') + this.$t('title.allcompany')
+                    this.title = this.$t('label.PFANS2006VIEW_BONUS') + this.$t('title.onlypeo')
                     this.getBonus();
                 } else if (this.region === '1') {
                     this.showTable1 = true;
-                    this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany')
+                    this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.onlypeo')
                     this.getTaxestotal();
 
                 }
