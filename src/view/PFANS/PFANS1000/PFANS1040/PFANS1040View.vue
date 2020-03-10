@@ -24,7 +24,8 @@
                     v-model="years"
                     type="year"
                     @change="yearChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
@@ -370,13 +371,14 @@
                     v-model="months"
                     type="month"
                     @change="monthChange"
-                    :placeholder="$t('normal.error_09')">
+                    style="width:10vw"
+                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')">
                   </el-date-picker>
                 </el-col>
               </el-row>
               <div>
                 <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" stripe border>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="230">
                     <template slot-scope="scope">
                       <el-input :disabled="gettrue(scope.row)" :no="scope.row" maxlength="20" style="width: 100%"
                                 v-model.trim="scope.row.theme"></el-input>
@@ -844,7 +846,7 @@
       getdata(year,month){
         let datainfo = {};
         if(year != ''){
-            datainfo = {'type': '1','years': year,'months':''};
+          datainfo = {'type': '1','years': year,'months':''};
         }
         else{
           datainfo = {'type': '2','years': month.substring(0,4),'months': month};
@@ -881,7 +883,7 @@
                 else{
                     this.tableB = [];
                     if(this.tableA.length > 0){
-                      if(this.tableA[0].status === '4'){
+                      if(this.tableA[0].status === '4' && this.tableA[0].years === month.substring(0,4)){
                         this.disabled = true;
                         this.tableB = this.tableA;
                         var monthCurrent = Number(month.substr(5,2));
@@ -988,28 +990,7 @@
       },
       monthChange(value){
         this.months = moment(value).format('YYYY-MM');
-        // this.arrays = [
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        //   {disabled: true},
-        // ];
-        // var monthCurrent = Number(moment(value).format('MM'));
-        // for (var i = 0; i < 12; i++) {
-        //   if (i > monthCurrent - 5) {
-        //     this.arrays[i].disabled = false;
-        //   }
-        // }
         this.getdata("",this.months);
-
       },
       addRowA() {
         this.tableA.push({
