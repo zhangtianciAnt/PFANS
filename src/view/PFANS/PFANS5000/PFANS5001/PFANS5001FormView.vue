@@ -31,10 +31,9 @@
                 >
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
-                        <org :disabled="!disable" :error="errorcenter" :orglist="form.center_id"
-                             @getOrgids="getCenterId"
-                             orgtype="1" style="width:20vw"></org>
+                      <el-form-item :label="$t('label.team')">
+                        <org :disabled="!disable" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
+                             style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -44,9 +43,10 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.team')">
-                        <org :disabled="!disable" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
-                             style="width:20vw"></org>
+                      <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                        <org :disabled="!disable" :error="errorcenter" :orglist="form.center_id"
+                             @getOrgids="getCenterId"
+                             orgtype="1" style="width:20vw"></org>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1724,7 +1724,6 @@
               } else {
                 this.errorgroup = "";
               }
-
             },
             getTeamId(val) {
               this.getOrgInformation(val);
