@@ -857,7 +857,7 @@
                     align="center">
                     <template slot-scope="scope">
                       <el-col :span="8">
-                        <div class="dpSupIndex" style="width:20vw">
+                        <div class="dpSupIndex" style="width:16vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
                                    :disabled="true"></input>
