@@ -1180,6 +1180,20 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'PFANS2028',
+                  'name': 'menu.PFANS2028',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2028View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2028_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2028_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2028_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2028_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS2005',
                   'name': 'menu.PFANS2005',
                   'menuvisible': true,

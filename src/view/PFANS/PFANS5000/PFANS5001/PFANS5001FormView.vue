@@ -1474,6 +1474,16 @@
             };
         },
         mounted() {
+          if (this.$route.params._org) {
+            ({
+              centername: this.form.centername,
+              groupname: this.form.groupname,
+              teamname: this.form.teamname,
+              center_id: this.form.center_id,
+              group_id: this.form.group_id,
+              team_id: this.form.team_id
+            } = this.$route.params._org);
+          }
             this.getexpatriatesinfor();
             this.getcustomerinfor();
             this.getcontract();
