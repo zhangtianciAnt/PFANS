@@ -95,6 +95,7 @@ import PFANS2005View from '@/view/PFANS/PFANS2000/PFANS2005/PFANS2005View.vue'
 import PFANS2005FormView from '@/view/PFANS/PFANS2000/PFANS2005/PFANS2005FormView.vue'
 import PFANS2006View from '@/view/PFANS/PFANS2000/PFANS2006/PFANS2006View.vue'
 import PFANS2007View from '@/view/PFANS/PFANS2000/PFANS2007/PFANS2007View.vue'
+import PFANS2008View from '@/view/PFANS/PFANS2000/PFANS2008/PFANS2008View.vue'
 import PFANS2009View from '@/view/PFANS/PFANS2000/PFANS2009/PFANS2009View.vue'
 import PFANS2010View from '@/view/PFANS/PFANS2000/PFANS2010/PFANS2010View.vue'
 import PFANS2010FormView from '@/view/PFANS/PFANS2000/PFANS2010/PFANS2010FormView.vue'
@@ -647,6 +648,11 @@ const routes = [
         path: '/PFANS2007View',
         name: 'PFANS2007View',
         component: PFANS2007View,
+      },
+      {
+        path: '/PFANS2008View',
+        name: 'PFANS2008View',
+        component: PFANS2008View,
       },
       {
         path: '/PFANS2009View',
