@@ -41,8 +41,6 @@
                 </el-select>
               </el-form-item>
             </el-col>
-
-
           </el-row>
         </el-form>
       </div>
@@ -55,7 +53,6 @@
     import dicselect from "../../../components/dicselect";
     import user from "../../../components/user.vue";
     import moment from "moment";
-
     export default {
         name: 'PFANS1012PointFormView',
         components: {
@@ -118,16 +115,14 @@
                     this.$store
                         .dispatch('PFANS1012Store/selectJudgement', {})
                         .then(response => {
-                            this.optionsdata = [];
-                            let user_id = this.$store.getters.userinfo.userid;
                             for (let i = 0; i < response.length; i++) {
                                 if (user_id === response[i].user_id && response[i].letequipment == '1') {
-                                    if (response[i].scheduleddate !== null && response[i].scheduleddate !== "") {
-                                        response[i].scheduleddate = moment(response[i].scheduleddate).format("YYYYMMDD");
+                                    if (response[i].createon !== null && response[i].createon !== "") {
+                                        response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
                                     }
                                     var vote = {};
                                     vote.value = response[i].judgementid;
-                                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].scheduleddate;
+                                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].createon;
                                     this.options.push(vote)
                                 }
                             }
@@ -139,19 +134,16 @@
                     this.$store
                         .dispatch('PFANS1012Store/selectPurchaseApply', {})
                         .then(response => {
-                            this.optionsdata = [];
                             let user_id = this.$store.getters.userinfo.userid;
                             for (let i = 0; i < response.length; i++) {
                                 if (user_id === response[i].user_id) {
-                                    if (response[i].status == '4' && response[i].user_id == user_id) {
-                                        if (response[i].application_date !== null && response[i].application_date !== "") {
-                                            response[i].application_date = moment(response[i].application_date).format("YYYYMMDD");
-                                        }
-                                        var vote = {};
-                                        vote.value = response[i].purchaseapply_id;
-                                        vote.label = this.$t('menu.PFANS1005') + '_' + response[i].application_date;
-                                        this.options.push(vote)
+                                    if (response[i].createon !== null && response[i].createon !== "") {
+                                        response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
                                     }
+                                    var vote = {};
+                                    vote.value = response[i].purchaseapply_id;
+                                    vote.label = this.$t('menu.PFANS1005') + '_' + response[i].createon;
+                                    this.options.push(vote)
                                 }
                                 this.loading = false;
                             }
@@ -162,16 +154,15 @@
                     this.$store
                         .dispatch('PFANS1012Store/selectCommunication', {})
                         .then(response => {
-                            this.optionsdata = [];
                             let user_id = this.$store.getters.userinfo.userid;
                             for (let i = 0; i < response.length; i++) {
                                 if (user_id === response[i].user_id) {
-                                    if (response[i].usedate !== null && response[i].usedate !== "") {
-                                        response[i].usedate = moment(response[i].usedate).format("YYYYMMDD");
+                                    if (response[i].createon !== null && response[i].createon !== "") {
+                                        response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
                                     }
                                     var vote = {};
                                     vote.value = response[i].communication_id;
-                                    vote.label = this.$t('menu.PFANS1010') + '_' + response[i].usedate;
+                                    vote.label = this.$t('menu.PFANS1010') + '_' + response[i].createon;
                                     this.options.push(vote)
                                 }
                                 this.loading = false;

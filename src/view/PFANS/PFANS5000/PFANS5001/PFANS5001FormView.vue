@@ -917,9 +917,7 @@
                             :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
                             prop="tools"
                           >
-                            <el-checkbox-group v-model="checkList" :disabled="!disable"
-                                               :code="code8"
-                                               :data="form.tools">
+                            <el-checkbox-group v-model="checkList" :disabled="!disable">
                               <el-checkbox label="SVN"></el-checkbox>
                               <el-checkbox label="redmine"></el-checkbox>
                               <el-checkbox label="gitlab"></el-checkbox>

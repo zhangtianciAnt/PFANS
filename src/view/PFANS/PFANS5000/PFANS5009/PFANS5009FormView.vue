@@ -419,7 +419,7 @@
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
-                                :multiple="multiple1"
+                                :multiple="multiple"
                                 style="width: 18vw"
                               ></user>
                             </template>
@@ -913,7 +913,7 @@
                 currentRow2: '',
                 currentRow3: '',
                 tabIndex: 0,
-                multiple1: false,
+              multiple: false,
 
                 //主页
                 form: {
@@ -1309,6 +1309,18 @@
                     }];
                 }
             },
+          getprojecttype(val1) {
+            this.form.projecttype = val1;
+          },
+          getfield(val1) {
+            this.form.field = val1;
+          },
+          getcountry(val1) {
+            this.form.country = val1;
+          },
+          getcaron(val1) {
+            this.form.caron = val1;
+          },
             getcontract() {
                 this.contractapplication = {};
                 this.contractapplication.entrycondition = [];

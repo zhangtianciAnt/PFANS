@@ -9,6 +9,7 @@
   import { Message } from 'element-ui'
   import {getDictionaryInfo,getOrgInfo,getStatus} from '@/utils/customize';
 
+
   export default {
     name: 'PFANS5009VIEW',
     components: {
