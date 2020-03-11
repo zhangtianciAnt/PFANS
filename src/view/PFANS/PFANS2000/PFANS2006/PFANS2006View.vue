@@ -408,7 +408,7 @@
             filter: true,
           },
           {
-            code: 'bename',
+            code: 'user_id',
             label: 'label.PFANS2007VIEW_NAME',
               width: 180,
             fix: false,
@@ -422,42 +422,42 @@
             filter: true,
           },
           {
-            code: 'paymentmet',
+            code: 'method',
             label: 'label.PFANS2007VIEW_TAXMETHOD',
             width: 200,
             fix: false,
             filter: true,
           },
           {
-            code: 'payable',
+            code: 'taxable',
             label: 'label.PFANS2007VIEW_COMBINEDTAX',
               width: 220,
             fix: false,
             filter: true,
           },
+          // {
+          //   code: 'totalbonus2',
+          //   label: 'label.PFANS2007VIEW_GOLDLEAF',
+          //     width: 220,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
-            code: 'totalbonus2',
-            label: 'label.PFANS2007VIEW_GOLDLEAF',
-              width: 220,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'salary',
+            code: 'amount',
             label: 'label.PFANS2007VIEW_KOZO',
             width: 200,
             fix: false,
             filter: true,
           },
           {
-            code: 'taxpayable',
+            code: 'payable',
             label: 'label.PFANS2007VIEW_TAX',
             width: 200,
             fix: false,
             filter: true,
           },
           {
-            code: 'monthlyaverage',
+            code: 'income',
             label: 'label.PFANS2006VIEW_MONTHLYAVERAGE',
               width: 300,
             fix: false,
@@ -471,7 +471,7 @@
             filter: true,
           },
           {
-            code: 'quickdeduction',
+            code: 'deductions',
             label: 'label.PFANS2007VIEW_ARITHMETIC',
               width: 250,
             fix: false,
@@ -485,7 +485,7 @@
             filter: true,
           },
           {
-            code: 'amount',
+            code: 'received',
             label: 'label.PFANS2007VIEW_IEMIKANE',
             width: 200,
             fix: false,
@@ -503,7 +503,6 @@
       };
     },
       mounted() {
-        debugger
           this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany')
           this.getTaxestotal();
       },
@@ -513,8 +512,6 @@
             this.$store
                 .dispatch('PFANS2006Store/getTaxestotal', {})
                 .then(response => {
-                    console.log("response",response)
-                    debugger
                     for (let j = 0; j < response.length; j++) {
                         response[j].rowindex = j+1;
 
@@ -533,7 +530,6 @@
                         if (response[j].user_id !== null && response[j].user_id !== '') {
                             let rst = getUserInfo(response[j].user_id);
                             if (rst) {
-                                debugger;
                                 response[j].user_id = rst.userinfo.customername;
                                 // response[j].department_id = rst.userinfo.centername;
                             }
@@ -561,11 +557,10 @@
                 .dispatch('PFANS2006Store/getBonus', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                        if (response[j].bename !== null && response[j].bename !== '') {
-                            let rst = getUserInfo(response[j].bename);
+                        if (response[j].user_id !== null && response[j].user_id !== '') {
+                            let rst = getUserInfo(response[j].user_id);
                             if (rst) {
-                                debugger;
-                                response[j].bename = rst.userinfo.customername;
+                                response[j].user_id = rst.userinfo.customername;
                             }
                         }
                     }
