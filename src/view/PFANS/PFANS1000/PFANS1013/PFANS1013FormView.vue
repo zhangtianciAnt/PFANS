@@ -1228,7 +1228,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getDictionaryInfode, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getDictionaryInfode,getOrgInfo,getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1519,6 +1519,8 @@
       };
     },
     mounted() {
+      this.getBusdata();
+      this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
       if (this.$route.params._id) {
@@ -1693,50 +1695,6 @@
           this.showAout = true;
         }
       }
-
-
-      if (this.form.type === '0') {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                var vote = {};
-                this.result = response;
-                vote.value = response[i].businessid;
-                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote);
-              }
-            }
-          });
-      } else if (this.form.type === '1') {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                var vote1 = {};
-                this.result1 = response;
-                vote1.value = response[i].businessid;
-                vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote1);
-              }
-            }
-          });
-      }
-      this.$store
-        .dispatch('PFANS1013Store/getLoanApplication')
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            if (response[i].user_id === this.$store.getters.userinfo.userid) {
-              var vote = {};
-              this.result2 = response;
-              vote.value = response[i].loanapplication_id;
-              vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-              this.loans.push(vote);
-            }
-          }
-        });
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1745,6 +1703,42 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getLoanapp(){
+        this.$store
+          .dispatch('PFANS1013Store/getLoanApplication')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                var vote = {};
+                this.result2 = response;
+                vote.value = response[i].loanapplication_id;
+                vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.loans.push(vote);
+              }
+            }
+          });
+      },
+      getBusdata(){
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].type === '0') {
+                var vote = {};
+                this.result = response;
+                vote.value = response[i].businessid;
+                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.relations.push(vote);
+              } else if(response[i].user_id === this.$store.getters.userinfo.userid && response[i].type === '1'){
+                var vote1 = {};
+                this.result1 = response;
+                vote1.value = response[i].businessid;
+                vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.relations.push(vote1);
+              }
+            }
+          });
+      },
       getCompanyProjectList() {
         this.loading = true;
         this.$store
