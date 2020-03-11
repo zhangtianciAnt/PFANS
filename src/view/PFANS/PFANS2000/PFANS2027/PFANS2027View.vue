@@ -52,7 +52,7 @@
                     {
                         code: 'years',
                         label: 'label.PFANS2027VIEW_EVALUATIONTIME',
-                        width: 90,
+                        width: 120,
                         fix: false,
                         filter: true
                     },
@@ -87,7 +87,7 @@
                 row_id: 'appreciation_id'
             };
         },
-        mounted() {
+        /*mounted() {
             this.loading = true;
             this.$store
                 .dispatch('PFANS2027Store/get', {})
@@ -143,7 +143,7 @@
                     });
                     this.loading = false;
                 })
-        },
+        },*/
         methods: {
             rowClick(row) {
                 this.rowid = row.appreciation_id;

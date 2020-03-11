@@ -11,19 +11,17 @@
 
           <span>{{this.titleType}}</span>
 
-          <el-form-item>
-            <!--<dicselect
-              :code=""
-              :data=""
-              :no=""
-              :multiple=""
+          <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
+            <dicselect
+              :code="code13"
+              :data="category"
               @change=""
               style="width: 11rem"
-              :disabled="!disabled">
+              :disabled="disabled">
             </dicselect>
-            -->
+
           </el-form-item>
-          <el-table :data="form.tabledata" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass1">
+          <el-table :data="form.tabledata" stripe border header-cell-class-name="sub_bg_color_blue" :header-cell-style="getRowClass" >
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
                              type="index" width="50"></el-table-column>
             <!--氏名-->
@@ -113,13 +111,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code1"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -129,13 +127,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code2"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -145,13 +143,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code3"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -161,19 +159,24 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code4"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
             </el-table-column>
 <!-- PJ成果-->
@@ -183,13 +186,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code5"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -205,7 +208,7 @@
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -215,13 +218,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code7"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -231,18 +234,23 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code8"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
             </el-table-column>
 <!--意欲-->
@@ -252,13 +260,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code9"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -268,13 +276,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code10"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -284,13 +292,13 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code11"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -300,33 +308,58 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
-                      :code="code6"
+                      :code="code12"
                       :data="scope.row.deliverycondition"
                       :no="scope.row"
                       :multiple="multiple"
                       @change="getDeliverycondition"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
             </el-table-column>
 <!--評価-->
             <el-table-column :label="$t('label.PFANS2027VIEW_EVALUATION')" align="center">
 
               <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITESCORES')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2027VIEW_ONE')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2027VIEW_TOW')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')" align="center">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                    <el-input :disabled="true"></el-input>
+                  </el-form-item>
+                </template>
               </el-table-column>
             </el-table-column>
 <!--総合所見【1】-->
@@ -360,11 +393,69 @@
 </template>
 
 <script>
+    import EasyNormalTable from '@/components/EasyNormalTable';
+    import {Message} from 'element-ui';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect';
     export default {
-        name: "PFANS2027FormView"
+        name: "PFANS2027FormView",
+        components: {
+            dicselect,
+            EasyNormalContainer,
+        },
+        data() {
+            return {
+                category: '',
+                disabled: false,
+
+                form: {
+                    tabledata: [{},{}]
+                },
+                code1: 'PJ089',
+                code2: 'PJ090',
+                code3: 'PJ091',
+                code4: 'PJ092',
+                code5: 'PJ093',
+                code6: 'PJ094',
+                code7: 'PJ095',
+                code8: 'PJ096',
+                code9: 'PJ097',
+                code10: 'PJ098',
+                code11: 'PJ099',
+                code12: 'PJ100',
+                code13: 'PJ101',
+            }
+        },
+        methods: {
+            getRowClass({row, column, rowIndex, columnIndex}) {
+                if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
+                    return {
+                        color: 'white',
+                        background: '#99CCFF',
+                        'border-bottom': '1px solid #99CCFF',
+                        'border-right': '1px solid #73B9FF',
+                    };
+                }
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
 
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 </style>
