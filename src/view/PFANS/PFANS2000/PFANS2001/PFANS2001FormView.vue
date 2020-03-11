@@ -281,9 +281,9 @@
         }
       };
       return {
-        centerorglist: '',
-        grouporglist: '',
-        teamorglist: '',
+        // centerorglist: '',
+        // grouporglist: '',
+        // teamorglist: '',
         optionsdata: [],
         loading: false,
         errorcenter: '',
