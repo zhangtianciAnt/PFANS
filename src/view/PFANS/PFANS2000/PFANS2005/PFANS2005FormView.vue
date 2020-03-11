@@ -1226,7 +1226,101 @@
                 </el-dialog>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh"></el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh">
+              <el-table :data="tableRZ" :summary-method="getSummaries" show-summary
+                        header-cell-class-name="sub_bg_color_blue"
+                        border>
+                <el-table-column
+                  :label="$t('label.PFANS2006VIEW_NO')"
+                  align="center"
+                  prop="rowindex"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2006VIEW_LASTNAME')"
+                  align="center"
+                  prop="user_id"
+                  width="160%"
+                ></el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2005FORMVIEW_QQH')"
+                    align="center"
+                    prop="lastmouth"
+                    width="150%"
+                  ></el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2005FORMVIEW_DBQH')"
+                    align="center"
+                    prop="thismouth"
+                    width="150%"
+                  ></el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                    align="center"
+                    prop="workdate"
+                    width="150%"
+                  ></el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS2005FORMVIEW_NEWSTART')"
+                    align="center"
+                    prop="startdate"
+                    width="150%"
+                  ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_LASTMOUTHATTENDANCE')"
+                  align="center"
+                  prop="attendance"
+                  width="150%"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_THISMOUTHATTENDANCE')"
+                  align="center"
+                  prop="trial"
+                  width="150%"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANSUSERFORMVIEW_SALARY')"
+                  align="center"
+                  prop="give"
+                  width="150%"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2006VIEW_AFTERNOON')"
+                  align="center"
+                  prop="lunch"
+                  width="150%"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
+                  align="center"
+                  prop="traffic"
+                  width="150%"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS3007VIEW_REMARKS')"
+                  align="center"
+                  prop="remarks"
+                  width="150%"
+                ></el-table-column>
+              </el-table>
+              <div class="pagination-container" style="padding-top: 2rem">
+                <el-pagination
+                  :current-page.sync="listQueryListRZ.page"
+                  :page-size="listQueryListRZ.limit"
+                  :page-sizes="[5,10,20,30,50]"
+                  :total="totalRZ"
+                  @current-change="handleCurrentChangeRZ"
+                  @size-change="handleSizeChangeRZ"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
+                >
+                  <slot>
+                    <span
+                      class="front Content_front"
+                      style="padding-right: 0.5rem;font-weight: 400"
+                    >{{$t('table.pagesize')}}</span>
+                  </slot>
+                </el-pagination>
+              </div>
+            </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_TZ')" name="eighth"></el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QQ')" name="ninth">
               <el-table :data="tableQQ" :summary-method="getSummaries" show-summary
@@ -2306,6 +2400,7 @@
         totaldataZXKC: [],
         totaldataQT4: [],
         totaldataQT5: [],
+        totaldataRZ: [],
         totaldataQT2: [],
         totaldataBase: [],
         totaldataContrast: [],
@@ -2368,6 +2463,10 @@
           page: 1,
           limit: 5,
         },
+        listQueryListRZ: {
+            page: 1,
+            limit: 5,
+        },
         listQueryListQQ: {
           page: 1,
           limit: 5,
@@ -2390,6 +2489,7 @@
         totalQT2: 0,
         totalZXKC: 0,
         totalQT5: 0,
+        totalRZ:0,
         totalBase: 0,
         totalDutyfreeVo: 0,
         totalAccumulatedTax: 0,
@@ -2404,6 +2504,7 @@
         ListQQ: '',
         ListCY: '',
         ListQt5: '',
+        ListRZ:'',
         listBase: '',
         listAccumulatedTax: '',
         listDutyfreeVo: '',
@@ -2554,6 +2655,22 @@
             travel: '',
             total: '',
             remarks: '',
+          },
+        ],
+        tableRZ:[
+          {
+            rowindex: '',
+            user_id: '',
+            lastmouth: '',
+            thismouth: '',
+            workdate: '',
+            startdate: '',
+            attendance: '',
+            trial: '',
+            give: '',
+            lunch: '',
+            traffic: '',
+            remarks: ''
           },
         ],
         tableQT1Woman: [
@@ -3119,6 +3236,18 @@
               this.ListQt5 = 5;
               this.getList();
             }
+            for (let j = 0; j < response.entryVo.length; j++) {
+                let user = getUserInfo(response.entryVo[j].user_id);
+                if (user) {
+                    response.entryVo[j].user_id = getUserInfo(
+                        response.entryVo[j].user_id,
+                    ).userinfo.customername;
+                }
+                this.tableRZ = response.entryVo;
+                this.totaldataRZ = response.entryVo;
+                this.ListRZ = 6;
+                this.getList();
+            }
             for (let j = 0; j < response.base.length; j++) {
               if (response.base[j].type === '0') {
                 response.base[j].type = this.$t('label.PFANS2005FORMVIEW_SFRZ');
@@ -3473,6 +3602,14 @@
         this.listQueryListQT5.page = val;
         this.getList();
       },
+      handleSizeChangeRZ(val) {
+          this.listQueryListRZ.limit = val;
+          this.getList();
+      },
+      handleCurrentChangeRZ(val) {
+          this.listQueryListRZ.page = val;
+          this.getList();
+      },
       handleSizeChangeQQ(val) {
         this.listQueryListQQ.limit = val;
         this.getList();
@@ -3570,7 +3707,14 @@
             this.totalQT5 = this.totaldataQT5.length;
           }
         }
-        if (this.tab === '6') {
+        if (this.ListRZ === 6 || this.tab === '6') {
+            let start = (this.listQueryListRZ.page - 1) * this.listQueryListRZ.limit;
+            let end = this.listQueryListRZ.page * this.listQueryListRZ.limit;
+            if (this.totaldataRZ) {
+                let pListRZ = this.totaldataRZ.slice(start, end);
+                this.tableRZ = pListRZ;
+                this.tableRZ = this.totaldataRZ.length;
+            }
         }
         if (this.tab === '7') {
         }

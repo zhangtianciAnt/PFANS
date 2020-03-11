@@ -438,20 +438,21 @@
           >
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.center')">
+                <el-form-item :label="$t('label.team')">
                   <org
                     :disabled="disabled"
-                    :orglist="form.center_id"
-                    @getOrgids="getCenterId"
-                    orgtype="1"
+                    :orglist="form.team_id"
+                    @getOrgids="getTeamId"
+                    orgtype="3"
                     selectType="Single"
                     style="width:20vw"
                   ></org>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.group')">
+                <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
                   <org
+                    :error="errorgroup"
                     :disabled="disabled"
                     :orglist="form.group_id"
                     @getOrgids="getGroupId"
@@ -462,12 +463,13 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.team')">
+                <el-form-item :label="$t('label.center')" :error="errorcenter" prop="center_id">
                   <org
+                    :error="errorcenter"
                     :disabled="disabled"
-                    :orglist="form.team_id"
-                    @getOrgids="getTeamId"
-                    orgtype="3"
+                    :orglist="form.center_id"
+                    @getOrgids="getCenterId"
+                    orgtype="1"
                     selectType="Single"
                     style="width:20vw"
                   ></org>
@@ -586,9 +588,18 @@
       //   }
       //   callback();
       // };
-
+      var centerId = (rule, value, callback) => {
+        if (!this.form.center_id || this.form.center_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.error = this.$t("normal.error_08") + "center";
+        } else {
+          callback();
+        }
+      };
 
       return {
+        errorcenter: '',
+        errorgroup: '',
         loading: false,
         display: false,
         disabled: false,
@@ -649,6 +660,9 @@
           expectedtime: '',
           // entrytime:"",
           remark: '',
+          centername: "",
+          groupname: "",
+          teamname: "",
           center_id: '',
           group_id: '',
           team_id: '',
@@ -699,6 +713,13 @@
             //   validator: validentrytime,trigger:'change'
             // }
           ],
+          center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: "blur"
+            }
+          ],
           // entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
         },
       };
@@ -717,6 +738,16 @@
       }
     },
     mounted() {
+      if (this.$route.params._org) {
+        ({
+          centername: this.form.centername,
+          groupname: this.form.groupname,
+          teamname: this.form.teamname,
+          center_id: this.form.center_id,
+          group_id: this.form.group_id,
+          team_id: this.form.team_id
+        } = this.$route.params._org);
+      }
       this.getNameList();
       if (this.$route.params._id) {
        this.getOne(this.$route.params._id);
@@ -872,13 +903,62 @@
         row.interviewer = userlist;
       },
       getCenterId(val) {
-        this.form.center_id = val;
+        this.getOrgInformation(val);
+        if (!val || this.form.center_id === "") {
+          this.errorcenter = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorcenter = "";
+        }
       },
       getGroupId(val) {
-        this.form.group_id = val;
+        this.getOrgInformation(val);
+        if (this.form.center_id === "") {
+          this.errorgroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorgroup = "";
+        }
       },
       getTeamId(val) {
-        this.form.team_id = val;
+        this.getOrgInformation(val);
+        if (this.form.center_id === "") {
+          this.errorgroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorgroup = "";
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+
+
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+            team_id: this.form.team_id,
+          } = org);
+        }
       },
       getUserids(val) {
         this.form.others = val;
