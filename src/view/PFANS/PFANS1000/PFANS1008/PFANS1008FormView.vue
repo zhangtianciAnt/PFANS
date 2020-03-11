@@ -53,18 +53,18 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorferrycenter"  :label="$t('label.center')"  prop="ferrycenter_id">
-                <org  :orglist="ferrycenterorglist" :error="errorferrycenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId1"></org>
+              <el-form-item :label="$t('label.team')">
+                <org  :orglist="form.ferryteam_id" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="errorferrygroup" :label="$t('label.group')" prop="ferrygroup_id" >
-                <org  :orglist="ferrygrouporglist" orgtype="2" :disabled="!disabled" :error="errorferrygroup" style="width:20vw" @getOrgids="getGroupId1"></org>
+                <org  :orglist="form.ferrygroup_id" orgtype="2" :disabled="!disabled" :error="errorferrygroup" style="width:20vw" @getOrgids="getGroupId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <org  :orglist="ferryteamorglist" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId1"></org>
+              <el-form-item :error="errorferrycenter"  :label="$t('label.center')"  prop="ferrycenter_id">
+                <org  :orglist="form.ferrycenter_id" :error="errorferrycenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId1"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -90,18 +90,18 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errortubecenter"  :label="$t('label.center')"  prop="tubecenter_id">
-                <org  :orglist="tubecenterorglist" :error="errortubecenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId2"></org>
+              <el-form-item :label="$t('label.team')">
+                <org  :orglist="form.tubeteam_id" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :error="errortubegroup" :label="$t('label.group')" prop="tubegroup_id" >
-                <org  :orglist="tubegrouporglist" orgtype="2" :disabled="!disabled" :error="errortubegroup" style="width:20vw" @getOrgids="getGroupId2"></org>
+                <org  :orglist="form.tubegroup_id" orgtype="2" :disabled="!disabled" :error="errortubegroup" style="width:20vw" @getOrgids="getGroupId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <org  :orglist="tubeteamorglist" orgtype="3" :disabled="!disabled" style="width:20vw" @getOrgids="getTeamId2"></org>
+              <el-form-item :error="errortubecenter"  :label="$t('label.center')"  prop="tubecenter_id">
+                <org  :orglist="form.tubecenter_id" :error="errortubecenter" orgtype="1" :disabled="!disabled" style="width:20vw" @getOrgids="getCenterId2"></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -207,46 +207,46 @@
         }
 
       };
-        var checkferrycenter = (rule, value, callback) => {
-            if(!value || value === ''){
-                this.errorferrycenter = this.$t('normal.error_09') + this.$t('label.center');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-            }else{
-                this.errorferrycenter = "";
-                return callback();
-            }
-
-        };
-        var checkferrygroup = (rule, value, callback) => {
-            if(!value || value === ''){
-                this.errorferrygroup = this.$t('normal.error_09') + this.$t('label.group');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-            }else{
-                this.errorferrygroup = "";
-                return callback();
-            }
-
-        };
-        var checktubecenter = (rule, value, callback) => {
-            if(!value || value === ''){
-                this.errortubecenter = this.$t('normal.error_09') + this.$t('label.center');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-            }else{
-                this.errortubecenter = "";
-                return callback();
-            }
-
-        };
-        var checktubegroup = (rule, value, callback) => {
-            if(!value || value === ''){
-                this.errortubegroup = this.$t('normal.error_09') + this.$t('label.group');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-            }else{
-                this.errortubegroup = "";
-                return callback();
-            }
-
-        };
+        // var checkferrycenter = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errorferrycenter = this.$t('normal.error_09') + this.$t('label.center');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+        //     }else{
+        //         this.errorferrycenter = "";
+        //         return callback();
+        //     }
+        //
+        // };
+        // var checkferrygroup = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errorferrygroup = this.$t('normal.error_09') + this.$t('label.group');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        //     }else{
+        //         this.errorferrygroup = "";
+        //         return callback();
+        //     }
+        //
+        // };
+        // var checktubecenter = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errortubecenter = this.$t('normal.error_09') + this.$t('label.center');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+        //     }else{
+        //         this.errortubecenter = "";
+        //         return callback();
+        //     }
+        //
+        // };
+        // var checktubegroup = (rule, value, callback) => {
+        //     if(!value || value === ''){
+        //         this.errortubegroup = this.$t('normal.error_09') + this.$t('label.group');
+        //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        //     }else{
+        //         this.errortubegroup = "";
+        //         return callback();
+        //     }
+        //
+        // };
         var checkperson = (rule, value, callback) => {
             if(!value || value === ''){
                 this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
@@ -280,14 +280,30 @@
             }
 
         };
+      var ferrycenterId = (rule, value, callback) => {
+        if (!this.form.ferrycenter_id || this.form.ferrycenter_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.error = this.$t("normal.error_08") + "center";
+        } else {
+          callback();
+        }
+      };
+      var tubecenterId = (rule, value, callback) => {
+        if (!this.form.tubecenter_id || this.form.tubecenter_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.error = this.$t("normal.error_08") + "center";
+        } else {
+          callback();
+        }
+      };
       return {
           baseInfo: {},
-          ferrycenterorglist: '',
-          ferrygrouporglist: '',
-          ferryteamorglist: '',
-          tubecenterorglist: '',
-          tubegrouporglist: '',
-          tubeteamorglist: '',
+          // ferrycenterorglist: '',
+          // ferrygrouporglist: '',
+          // ferryteamorglist: '',
+          // tubecenterorglist: '',
+          // tubegrouporglist: '',
+          // tubeteamorglist: '',
           userlist: '',
           loading: false,
           erroruser: '',
@@ -312,9 +328,15 @@
             insidenumber: '',
             filename: '',
             mobiledate: moment(new Date()).format("YYYY-MM-DD"),
+            ferrycentername: "",
+            ferrygroupname: "",
+            ferryteamname: "",
             ferrycenter_id: '',
             ferrygroup_id: '',
             ferryteam_id: '',
+            tubecentername: "",
+            tubegroupname: "",
+            tubeteamname: "",
             tubecenter_id: '',
             tubegroup_id: '',
             tubeteam_id: '',
@@ -347,28 +369,14 @@
             ferrycenter_id: [
                 {
                     required: true,
-                    validator: checkferrycenter,
-                    trigger: 'change'
-                },
-            ],
-            ferrygroup_id: [
-                {
-                    required: true,
-                    validator: checkferrygroup,
+                    validator: ferrycenterId,
                     trigger: 'change'
                 },
             ],
             tubecenter_id: [
                 {
                     required: true,
-                    validator: checktubecenter,
-                    trigger: 'change'
-                },
-            ],
-            tubegroup_id: [
-                {
-                    required: true,
-                    validator: checktubegroup,
+                    validator: tubecenterId,
                     trigger: 'change'
                 },
             ],
@@ -439,6 +447,26 @@
         };
     },
     mounted() {
+      if (this.$route.params._org) {
+        ({
+          ferrycentername: this.form.ferrycentername,
+          ferrygroupname: this.form.ferrygroupname,
+          ferryteamname: this.form.ferryteamname,
+          ferrycenter_id: this.form.ferrycenter_id,
+          ferrygroup_id: this.form.ferrygroup_id,
+          ferryteam_id: this.form.ferryteam_id
+        } = this.$route.params._org);
+      }
+      if (this.$route.params._org) {
+        ({
+          tubecentername: this.form.tubecentername,
+          tubegroupname: this.form.tubegroupname,
+          tubeteamname: this.form.tubeteamname,
+          tubecenter_id: this.form.tubecenter_id,
+          tubegroup_id: this.form.tubegroup_id,
+          tubeteam_id: this.form.tubeteam_id
+        } = this.$route.params._org);
+      }
         this.loading = true;
       if (this.$route.params._id) {
         this.$store
@@ -510,48 +538,122 @@
             row.eafter = val;
         },
       getCenterId1(val) {
-        this.form.ferrycenter_id = val;
-        if (!this.form.ferrycenter_id || this.form.ferrycenter_id === '' || val === "undefined") {
-          this.errorferrycenter = this.$t('normal.error_09') + this.$t('label.center');
+        this.getOrgInformation(val);
+        if (!val || this.form.ferrycenter_id === "") {
+          this.errorferrycenter = this.$t("normal.error_08") + "center";
         } else {
           this.errorferrycenter = "";
         }
       },
       getGroupId1(val) {
-        this.form.ferrygroup_id = val;
-        this.ferrygrouporglist = val;
-        if (!this.form.ferrygroup_id || this.form.ferrygroup_id === '' || val === "undefined") {
-          this.errorferrygroup = this.$t('normal.error_09') + this.$t('label.group');
+        this.getOrgInformation(val);
+        if (this.form.ferrycenter_id === "") {
+          this.errorferrygroup = this.$t("normal.error_08") + "center";
         } else {
           this.errorferrygroup = "";
         }
       },
         getTeamId1(val) {
-            this.form.ferryteam_id = val;
-            this.ferryteamorglist = val;
+          this.getOrgInformation(val);
+          if (this.form.center_id === "") {
+            this.errorgroup = this.$t("normal.error_08") + "center";
+          } else {
+            this.errorgroup = "";
+          }
         },
-        getCenterId2(val) {
-            this.form.tubecenter_id = val;
-            this.tubecenterorglist = val;
-            if (!this.form.tubecenter_id || this.form.tubecenter_id === '' || val === "undefined") {
-                this.errortubecenter = this.$t('normal.error_09') + this.$t('label.center');
-            } else {
-                this.errortubecenter = "";
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.ferrycentername = treeCom.getNode(node).data.departmentname;
+
+
+              org.ferryteam_id = treeCom.getNode(node).data._id;
             }
+            if (index === 2) {
+              org.ferrygroupname = treeCom.getNode(node).data.departmentname;
+              org.ferrygroup_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.ferrycentername = treeCom.getNode(node).data.companyname;
+              org.ferrycenter_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            ferrycentername: this.form.ferrycentername,
+            ferrygroupname: this.form.ferrygroupname,
+            ferryteamname: this.form.ferryteamname,
+            ferrycenter_id: this.form.ferrycenter_id,
+            ferrygroup_id: this.form.ferrygroup_id,
+            ferryteam_id: this.form.ferryteam_id,
+          } = org);
+        }
+      },
+        getCenterId2(val) {
+          this.getOrgInformation1(val);
+          if (!val || this.form.tubecenter_id === "") {
+            this.errortubecenter = this.$t("normal.error_08") + "center";
+          } else {
+            this.errortubecenter = "";
+          }
         },
         getGroupId2(val) {
-            this.form.tubegroup_id = val;
-            this.tubegrouporglist = val;
-            if (!this.form.tubegroup_id || this.form.tubegroup_id === '' || val === "undefined") {
-                this.errortubegroup = this.$t('normal.error_09') + this.$t('label.group');
-            } else {
-                this.errortubegroup = "";
-            }
+          this.getOrgInformation1(val);
+          if (this.form.tubecenter_id === "") {
+            this.errortubegroup = this.$t("normal.error_08") + "center";
+          } else {
+            this.errortubegroup = "";
+          }
         },
         getTeamId2(val) {
-            this.form.tubeteam_id = val;
-            this.tubeteamorglist = val;
+          this.getOrgInformation1(val);
+          if (this.form.tubecenter_id === "") {
+            this.errortubegroup = this.$t("normal.error_08") + "center";
+          } else {
+            this.errortubegroup = "";
+          }
         },
+      getOrgInformation1(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.tubecentername = treeCom.getNode(node).data.departmentname;
+
+
+              org.tubeteam_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.tubegroupname = treeCom.getNode(node).data.departmentname;
+              org.tubegroup_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.tubecentername = treeCom.getNode(node).data.companyname;
+              org.tubecenter_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            tubecentername: this.form.tubecentername,
+            tubegroupname: this.form.tubegroupname,
+            tubeteamname: this.form.tubeteamname,
+            tubecenter_id: this.form.tubecenter_id,
+            tubegroup_id: this.form.tubegroup_id,
+            tubeteam_id: this.form.tubeteam_id,
+          } = org);
+        }
+      },
+
         getFerrybudgetunit(val) {
         this.form.ferrybudgetunit = val;
         },
