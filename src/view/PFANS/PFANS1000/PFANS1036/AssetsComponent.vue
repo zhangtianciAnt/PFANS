@@ -291,7 +291,7 @@
         <el-table-column :label="$t('label.operation')" align="center" width="200" fixed="right">
           <template slot-scope="scope">
             <el-button
-              @click.native.prevent="deleteRowF2(scope.$index, tableNewYear)"
+              @click.native.prevent="deleteRowF1(scope.$index, tableNewYear)"
               plain
               size="small"
               type="danger"
@@ -642,21 +642,22 @@
           scope["money" + index] = scope.prices * scope["number" + index];
           if(index >= 4 && index <= 9){
             scope.numberfirsthalf = (scope.number4||0) + (scope.number5||0) + (scope.number6||0) + (scope.number7||0) + (scope.number8||0) + (scope.number9||0);
-            scope.moneyfirsthalf = (scope.money4||0) + (scope.money5||0) + (scope.money6||0) + (scope.money7||0) + (scope.money8||0) + (scope.money9||0);
+            scope.moneyfirsthalf = (Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0);
           }
          else if((index >= 10 && index <= 12) || (index >= 1 && index <= 3)){
             scope.numbersecondhalf = (scope.number10||0) + (scope.number11||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
-            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+            scope.moneysecondhalf = (Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0);
           }else{
              for(let par in scope){
                if(par.substring(0,5) === "money"){
-                 scope[par] = ((scope.price * scope["number" + (par.length > 6 ? par.slice(par.length -2) : par.slice(par.length - 1))])/1000).toFixed(2);
+                 let number = "number" + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1));
+                 scope[par] = Number((scope.prices * (scope[number]||0)).toFixed(2));
                }
              }
             scope.numberfirsthalf = (scope.number4||0) + (scope.number5||0) + (scope.number6||0) + (scope.number7||0) + (scope.number8||0) + (scope.number9||0);
-            scope.moneyfirsthalf = (scope.money4||0) + (scope.money5||0) + (scope.money6||0) + (scope.money7||0) + (scope.money8||0) + (scope.money9||0);
+            scope.moneyfirsthalf = (Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0);
             scope.numbersecondhalf = (scope.number10||0) + (scope.number11||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
-            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+            scope.moneysecondhalf = (Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0);
           }
           scope.numberAnnual = (scope.numberfirsthalf||0) +  (scope.numbersecondhalf||0);
           scope.moneyAnnual = (scope.moneyfirsthalf||0) +  (scope.moneysecondhalf||0);
@@ -668,15 +669,16 @@
           scope["money" + index] = scope.prices * scope["number" + index];
          if((index >= 9 && index <= 12) || (index >= 1 && index <= 3)){
             scope.numbersecondhalf = (scope.number10||0) + (scope.number1||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
-            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+            scope.moneysecondhalf = (Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0);
           }else{
             for(let par in scope){
               if(par.substring(0,5) === "money"){
-                scope[par] = ((scope.price * scope["number" + (par.length > 6 ? par.slice(par.length -2) : par.slice(par.length - 1))])/1000).toFixed(2);
+                let number = "number" + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1));
+                scope[par] = Number((scope.prices * (scope[number]||0)).toFixed(2));
               }
             }
             scope.numbersecondhalf = (scope.number10||0) + (scope.number1||0) + (scope.number12||0) + (scope.number1||0) + (scope.number2||0) + (scope.number3||0);
-            scope.moneysecondhalf = (scope.money10||0) + (scope.money11||0) + (scope.money12||0) + (scope.money1||0) + (scope.money2||0) + (scope.money3||0);
+            scope.moneysecondhalf = (Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0);
           }
           scope.numberAnnual = scope.numbersecondhalf||0;
           scope.moneyAnnual = scope.moneysecondhalf||0;
@@ -793,6 +795,13 @@
       deleteRowF2(index, rows) {
         if (rows.length > 2) {
           rows.splice(index, 2);
+          this.getLastYearSummaries(this.tableLastYear);
+        }
+      },
+      deleteRowF1(index, rows) {
+        if (rows.length > 2) {
+          rows.splice(index, 2);
+          this.getSummaries(this.tableNewYear);
         }
       },
       addRowF2(val) {
