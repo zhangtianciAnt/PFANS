@@ -10,21 +10,22 @@
             <el-tab-pane :label="$t('label.PFANS2001VIEW_BASICINFORMATION')" name="first">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
-                    <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist" @getOrgids="getCenterId"
-                         orgtype="1" style="width:20vw"></org>
+                  <el-form-item :label="$t('label.team')">
+                    <org :disabled="!disabled" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
+                         style="width:20vw"></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                    <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                    <org :disabled="!disabled" :error="errorgroup" :orglist="form.group_id" @getOrgids="getGroupId"
                          orgtype="2" style="width:20vw"></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.team')">
-                    <org :disabled="!disabled" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
-                         style="width:20vw"></org>
+                  <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                    <org :disabled="!disabled" :error="errorcenter" :orglist="form.center_id"
+                         @getOrgids="getCenterId"
+                         orgtype="1" style="width:20vw"></org>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -271,25 +272,13 @@
       org
     },
     data() {
-      var checkcenter = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+      var centerId = (rule, value, callback) => {
+        if (!this.form.center_id || this.form.center_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.error = this.$t("normal.error_08") + "center";
         } else {
-          this.errorcenter = "";
-          return callback();
+          callback();
         }
-
-      };
-      var checkgroup = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-        } else {
-          this.errorgroup = "";
-          return callback();
-        }
-
       };
       return {
         centerorglist: '',
@@ -310,6 +299,9 @@
         form: {
           recruitid: '',
           postname: '',
+          centername: "",
+          groupname: "",
+          teamname: "",
           center_id: '',
           group_id: '',
           team_id: '',
@@ -351,20 +343,6 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_VIEWPROJECT'),
-              trigger: 'change'
-            },
-          ],
-          center_id: [
-            {
-              required: true,
-              validator: checkcenter,
-              trigger: 'change'
-            },
-          ],
-          group_id: [
-            {
-              required: true,
-              validator: checkgroup,
               trigger: 'change'
             },
           ],
@@ -438,6 +416,13 @@
               trigger: 'change'
             },
           ],
+          center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: "blur"
+            }
+          ],
         },
         show1: false,
         show2: false,
@@ -445,6 +430,16 @@
       };
     },
     mounted() {
+      if (this.$route.params._org) {
+        ({
+          centername: this.form.centername,
+          groupname: this.form.groupname,
+          teamname: this.form.teamname,
+          center_id: this.form.center_id,
+          group_id: this.form.group_id,
+          team_id: this.form.team_id
+        } = this.$route.params._org);
+      }
       this.getCompanyProjectList();
       this.loading = true;
       if (this.$route.params._id) {
@@ -510,27 +505,64 @@
         }
       },
       getCenterId(val) {
-        this.form.center_id = val;
-        this.centerorglist = val;
-        if (!this.form.center_id || this.form.center_id === '' || val === "undefined") {
-          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+        this.getOrgInformation(val);
+        if (!val || this.form.center_id === "") {
+          this.errorcenter = this.$t("normal.error_08") + "center";
         } else {
           this.errorcenter = "";
         }
       },
       getGroupId(val) {
-        this.form.group_id = val;
-        this.grouporglist = val;
-        if (!this.form.group_id || this.form.group_id === '' || val === "undefined") {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+        this.getOrgInformation(val);
+        if (this.form.center_id === "") {
+          this.errorgroup = this.$t("normal.error_08") + "center";
         } else {
           this.errorgroup = "";
         }
       },
       getTeamId(val) {
-        this.form.team_id = val;
-        this.teamorglist = val;
+        this.getOrgInformation(val);
+        if (this.form.center_id === "") {
+          this.errorgroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorgroup = "";
+        }
       },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+
+
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+            team_id: this.form.team_id,
+          } = org);
+        }
+      },
+
       getRecruitmentroute(val) {
         this.form.recruitmentroute = val;
         this.show1 = false;
