@@ -451,7 +451,7 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
                         <template slot-scope="scope">
-                          <el-input-number :min="0" :precision="2" :max="9999999"
+                          <el-input-number :min="0" :precision="2" :max="9999999" :disabled="!disable"
                                            controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
                                            :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
                           </el-input-number>
@@ -472,7 +472,7 @@
                                        prop="debitamount">
                         <template slot-scope="scope">
                           <el-input-number
-                            :disabled="!disablde"
+                            :disabled="!disable"
                             :min="0" :precision="2"
                             :max="9999999"
                             controls-position="right"
@@ -790,6 +790,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
+                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -802,6 +803,7 @@
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
                                  orgtype="2"
+                                 :disabled="!disable"
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
@@ -948,6 +950,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
+                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -959,6 +962,7 @@
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
+                                 :disabled="!disable"
                                  orgtype="2"
                                  :error="errorgroup"
                                  style="width: 100%"
@@ -975,6 +979,7 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code10"
+                                       :disabled="!disable"
                                        :data="scope.row.costitem"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -986,6 +991,7 @@
                                          v-if="checkStatus != false">
                           <template slot-scope="scope">
                             <dicselect :code="code11"
+                                       :disabled="!disable"
                                        :data="scope.row.accountcode"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -1097,7 +1103,6 @@
             user,
             org,
         },
-
         data() {
             var checkuser = (rule, value, callback) => {
                 if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
@@ -1222,7 +1227,7 @@
             };
             return {
                 optionsdate: [],
-                startoption: [{value: '0000000000', lable: '共通'}],
+                startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
                 invoiceamountsum: '',
@@ -2336,7 +2341,6 @@
                             //         }
                             //     }
                             // }
-                            //
                             this.baseInfo = {};
                             this.form.user_id = this.userlist;
                             this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
