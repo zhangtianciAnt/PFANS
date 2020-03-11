@@ -116,10 +116,11 @@ import PFANS2023View from '@/view/PFANS/PFANS2000/PFANS2023/PFANS2023View.vue'
 import PFANS2023FormView from '@/view/PFANS/PFANS2000/PFANS2023/PFANS2023FormView.vue'
 import PFANS2024View from '@/view/PFANS/PFANS2000/PFANS2024/PFANS2024View.vue'
 import PFANS2024FormView from '@/view/PFANS/PFANS2000/PFANS2024/PFANS2024FormView.vue'
-import PFANS2026View from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026View.vue'
-import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView'
 import PFANS2025View from '@/view/PFANS/PFANS2000/PFANS2025/PFANS2025View.vue'
 import PFANS2025FormView from '@/view/PFANS/PFANS2000/PFANS2025/PFANS2025FormView'
+import PFANS2026View from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026View.vue'
+import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView'
+import PFANS2028View from '@/view/PFANS/PFANS2000/PFANS2028/PFANS2028View.vue'
 import PFANS3001View from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001View'
 import PFANS3001FormView from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001FormView'
 import PFANS3002View from '@/view/PFANS/PFANS3000/PFANS3002/PFANS3002View.vue'
@@ -754,6 +755,16 @@ const routes = [
         component: PFANS2024FormView
       },
       {
+        path: '/PFANS2025View',
+        name: 'PFANS2025View',
+        component: PFANS2025View
+      },
+      {
+        path: '/PFANS2025FormView',
+        name: 'PFANS2025FormView',
+        component: PFANS2025FormView
+      },
+      {
         path: '/PFANS2026View',
         name: 'PFANS2026View',
         component: PFANS2026View
@@ -764,14 +775,9 @@ const routes = [
         component: PFANS2026FormView
       },
       {
-        path: '/PFANS2025View',
-        name: 'PFANS2025View',
-        component: PFANS2025View
-      },
-      {
-        path: '/PFANS2025FormView',
-        name: 'PFANS2025FormView',
-        component: PFANS2025FormView
+        path: '/PFANS2028View',
+        name: 'PFANS2028View',
+        component: PFANS2028View,
       },
       {
         path: '/PFANS3001View',

@@ -1,4 +1,5 @@
-import {insert, get, selectById, update,getJudgement,getLoanApplication} from './PFANS1012Api'
+import {insert, get, selectById, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication} from './PFANS1012Api'
+import {gettlist} from "../../PFANS5000/PFANS5008/PFANS5008Api";
 
 const PFANS1012Store = {
   namespaced: true,
@@ -9,6 +10,45 @@ const PFANS1012Store = {
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectJudgement({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectJudgement(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectPurchaseApply({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectPurchaseApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectCommunication({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectCommunication(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

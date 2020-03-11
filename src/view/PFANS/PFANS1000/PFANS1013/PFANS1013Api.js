@@ -30,18 +30,16 @@ export function create(data) {
     data: data
   })
 }
-export function getdate(data) {
+export function getdate() {
   return request({
     url: 'evection/getBusiness',
-    method: 'post',
-    data: data
+    method: 'get',
   })
 }
-export function getLoanApplication(data) {
+export function getLoanApplication() {
   return request({
     url: 'evection/getLoanApplication',
-    method: 'post',
-    data: data
+    method: 'get',
   })
 }
 

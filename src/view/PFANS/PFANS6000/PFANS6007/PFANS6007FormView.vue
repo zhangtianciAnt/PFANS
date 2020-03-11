@@ -69,12 +69,12 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                  <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpclubname"></el-input>
+                  <el-input :disabled="true" style="width:20vw" v-model="form.bpclubname"></el-input>
                 </el-form-item>
             </el-col>
           </el-row>
@@ -82,7 +82,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.bpplayer"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.bpplayer"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -126,7 +126,14 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PAYMENT')" prop="payment">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.payment"></el-input>
+                <!--<el-input :disabled="!disabled" style="width:20vw" v-model="form.payment"></el-input>-->
+                <el-input-number
+                  v-model="form.payment"
+                  controls-position="right"
+                  style="width:20vw"
+                  :disabled="!disabled"
+                  :min="0" :max="1000000000"
+                  :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="24">
