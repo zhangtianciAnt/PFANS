@@ -120,6 +120,7 @@ module.exports = {
     error_greaterequal: '周末加班时间必须大于等于8小时',
     error_overtime: '周末加班时间必须大于等于8小时！',
     error_retire: '先休代休，再休年假！',
+    error_bonus: '您的奖金已发送！',
   },
   menu: {
     homePageManagement: '首页',
@@ -780,6 +781,7 @@ module.exports = {
     PFANS1012FORMVIEW_JCTYPE: '决裁类别',
     PFANS1012FORMVIEW_NOMONEY: '无发票',
     PFANS1012FORMVIEW_USERNAME: '请输入供应商关键字搜索',
+    PFANS1012FROMVIEW_COMMON: '共通',
     PFANS1013VIEW_TOTAL: '精算合计',
     PFANS1013VIEW_TRAFFIC: '交通费明细',
     PFANS1013VIEW_ACCOMMODATION: '住宿费明细',
