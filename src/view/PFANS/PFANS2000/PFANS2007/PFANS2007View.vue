@@ -64,6 +64,7 @@
           page: 1,
           limit: 5
         },
+        user_id: '',
         loading: false,
         daoru: false,
         title: 'title.PFANS2007VIEW',
@@ -227,6 +228,7 @@
     methods: {
       rowClick(row) {
         this.rowid = row.bonussend_id;
+        this.user_id = row.user_id;
       },
       getList() {
         this.loading = true;
@@ -313,7 +315,6 @@
         }
       },
       buttonClick(val){
-        debugger;
         if (val === 'deliver') {
           // this.selectedlist = this.$refs.roletable.selectedList;
           let toDoNotice = {};
@@ -321,6 +322,8 @@
           toDoNotice.title =  this.$t('normal.error_bonus');
           toDoNotice.dataid = this.rowid;
           toDoNotice.url = this.$route.path;
+          toDoNotice.initiator = this.$store.getters.userinfo.userid;
+          toDoNotice.owner = this.user_id;
           this.$store
             .dispatch('PFANS2007Store/getListType', toDoNotice)
             .then(response => {

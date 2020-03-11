@@ -186,7 +186,7 @@
                         :min="0"
                         :precision="2"
                         :step="0.01"
-                        @change="gettotal"
+                        @change="getMoney"
                         controls-position="right"
                         v-model="form.totalpay"
                         style="width:20vw"
@@ -542,7 +542,7 @@
                                            width="200">
                             <template slot-scope="scope">
                               <el-input-number
-                                :disabled="!disable"
+                                :disabled="true"
                                 :precision="2"
                                 controls-position="right"
                                 style="width: 100%"
@@ -647,7 +647,7 @@
                                              width="200">
                               <template slot-scope="scope">
                                 <el-input-number
-                                  :disabled="!disable"
+                                  :disabled="true"
                                   :precision="2"
                                   controls-position="right"
                                   style="width: 100%"
@@ -711,7 +711,13 @@
                              @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="200">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('交通费项目')" align="center" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code14"
                                    :data="scope.row.costitem"
@@ -720,6 +726,12 @@
                                    :no="scope.row"
                                    @change="getcostitem">
                         </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="200">
@@ -769,7 +781,7 @@
                                      width="150">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="true"
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
@@ -860,7 +872,7 @@
                              @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="200">
+                    <el-table-column :label="$t('住宿费项目')" align="center" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code14"
                                    :data="scope.row.costitem"
@@ -1149,15 +1161,39 @@
                              @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
+                        </el-input>
+                      </template>
+                    </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="200">
                       <template slot-scope="scope">
-                        <dicselect :code="code14"
+                        <dicselect :code="code18"
                                    :data="scope.row.costitem"
                                    :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getcostitem">
                         </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="150"
+                                     v-if="checkStatus != false">
+                      <template slot-scope="scope">
+                        <dicselect :code="code11"
+                                   :disabled="!disable"
+                                   :data="scope.row.accountcode"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="getcode" style="width: 100%">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="200">
@@ -1184,7 +1220,7 @@
                                      width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="true"
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
@@ -1246,13 +1282,19 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import {Message} from 'element-ui';
-  import {getDictionaryInfo, getDictionaryInfode,getOrgInfo,getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
-  import org from '../../../components/org';
-  import moment from 'moment';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import {
+        getDictionaryInfo,
+        getDictionaryInfode,
+        getOrgInfo,
+        getOrgInfoByUserId,
+        getUserInfo
+    } from '@/utils/customize';
+    import dicselect from '../../../components/dicselect';
+    import org from '../../../components/org';
+    import moment from 'moment';
 
   export default {
     name: 'PFANS1013FormView',
@@ -1287,7 +1329,9 @@
       return {
         optionsdate: [{value: '0000000000', lable: '共通'}],
         error: '',
+        accountcodeValue: '',
         relations: [],
+        taxrateValue: '',
         loans: [{value: ' ', lable: ' '}],
         selectType: 'Single',
         title: 'title.PFANS1013VIEW',
@@ -1297,6 +1341,7 @@
         disabled: false,
         disaccommod: false,
         showtick: true,
+        checkStatus: false,
         tableTValue: '',
         tableAValue: '',
         tableRValue: '',
@@ -1414,6 +1459,7 @@
           currencyexchangerate: '',
         }],
         tableT: [{
+          budgetcoding: '',
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -1466,6 +1512,9 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
+          budgetcoding: '',
+          subjectnumber: '',
+          remarks: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: '',
           remarks: '',
@@ -1511,8 +1560,9 @@
         code13: 'PJ071',
         code14: 'PJ072',
         code15: 'PJ083',
-        // code16: 'PJ084',
-        // code17: 'PJ085',
+        code16: 'PJ084',
+        code17: 'PJ085',
+        code18: 'PJ057',
         multiple: false,
         show1: true,
         show2: false,
@@ -1626,6 +1676,16 @@
               }
             }
             if (response.otherdetails.length > 0) {
+              for (let i = 0; i < response.otherdetails.length; i++) {
+                this.orglist = response.otherdetails[i].departmentname;
+                if (response.otherdetails[i].costitem === 'PJ057001') {
+                  this.checkStatus = true;
+                } else if (response.otherdetails[i].costitem === 'PJ057015') {
+                  this.checkStatus = true;
+                } else if (response.otherdetails[i].costitem === 'PJ057016') {
+                  this.checkStatus = true;
+                }
+              }
               this.tableR = response.otherdetails;
             }
             if (response.currencyexchanges.length > 0) {
@@ -1936,6 +1996,7 @@
           rows.splice(index, 1);
         } else {
           this.tableT = [{
+            budgetcoding: '',
             trafficdate: '',
             invoicenumber: '',
             departmentname: '',
@@ -1986,6 +2047,9 @@
             costitem: '',
             remarks: '',
             rmb: '',
+            subjectnumber: '',
+            remarks: '',
+            budgetcoding: '',
             foreigncurrency: '',
             annexno: '',
           }];
@@ -2023,6 +2087,7 @@
       },
       addRow() {
         this.tableT.push({
+          budgetcoding: '',
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -2079,6 +2144,9 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
+          budgetcoding: '',
+          subjectnumber: '',
+          remarks: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: '',
           remarks: '',
@@ -2118,6 +2186,11 @@
           currencyexchangerate: '',
         });
       },
+      getcode(val, row) {
+        row.accountcode = val;
+        this.accountcodeValue = val;
+        this.getCompanyen(val, row);
+      },
       checkOption() {
         this.optionsdata = [{value: '无发票', label: ''}];
         for (let i = 0; i < this.tableF.length; i++) {
@@ -2156,6 +2229,7 @@
           }
         });
         this.getforeign(sums);
+        this.getMoney(sums);
         this.getValue(sums);
         this.getValue2(sums);
         return sums;
@@ -2165,8 +2239,8 @@
           this.result.forEach(res => {
             if(res.businesstype === '0'){
               this.form.place = res.city,
-              this.form.startdate = res.startdate,
-              this.form.enddate = res.enddate;
+                this.form.startdate = res.startdate,
+                this.form.enddate = res.enddate;
               this.form.datenumber = res.datenumber;
             }
           });
@@ -2185,59 +2259,59 @@
             }
           })
         }
-            // for (var i = 0; i < 1; i++) {
-            //   this.tableT.push({
-            //     evectionid: '',
-            //     trafficdetails_id: '',
-            //     publicexpenseid: '',
-            //     trafficdate: '',
-            //     invoicenumber: '',
-            //     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-            //     taxes: '',
-            //     costitem: '',
-            //     region: '',
-            //     vehicle: '',
-            //     startingpoint: '',
-            //     rmb: '',
-            //     taxrate: '',
-            //     foreigncurrency: '',
-            //     annexno: '',
-            //     rowindex: '',
-            //   });
-            //   this.tableT[0].trafficdate = this.form.startdate;
-            //   this.tableT[1].trafficdate = this.form.enddate;
-            // }
+        // for (var i = 0; i < 1; i++) {
+        //   this.tableT.push({
+        //     evectionid: '',
+        //     trafficdetails_id: '',
+        //     publicexpenseid: '',
+        //     trafficdate: '',
+        //     invoicenumber: '',
+        //     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+        //     taxes: '',
+        //     costitem: '',
+        //     region: '',
+        //     vehicle: '',
+        //     startingpoint: '',
+        //     rmb: '',
+        //     taxrate: '',
+        //     foreigncurrency: '',
+        //     annexno: '',
+        //     rowindex: '',
+        //   });
+        //   this.tableT[0].trafficdate = this.form.startdate;
+        //   this.tableT[1].trafficdate = this.form.enddate;
+        // }
 
-            // for (var i = 0; i < this.form.datenumber - 1; i++) {
-            //   this.tableA.push({
-            //     evectionid: '',
-            //     accommodationdetails_id: '',
-            //     accommodationdate: '',
-            //     activitycontent: '',
-            //     vehicleon: '',
-            //     vehiclein: '',
-            //     movementtime: '',
-            //     city: '',
-            //     region: '',
-            //     facilitytypeon: '',
-            //     facilitytypein: '',
-            //     facilityname: '',
-            //     accommodationallowance: '',
-            //     accommodation: '',
-            //     travelallowance: '',
-            //     travel: '',
-            //     relatives: '',
-            //     train: '',
-            //     plane: '',
-            //     annexno: '',
-            //     rowindex: '',
-            //     disaccommod: false,
-            //     showtick: true,
-            //   });
-            //   this.tableA[0].accommodationdate = this.form.startdate;
-            //   this.tableA[i + 1].accommodationdate = moment(this.tableA[i].accommodationdate).add(1, 'days');
-            // }
-          // }
+        // for (var i = 0; i < this.form.datenumber - 1; i++) {
+        //   this.tableA.push({
+        //     evectionid: '',
+        //     accommodationdetails_id: '',
+        //     accommodationdate: '',
+        //     activitycontent: '',
+        //     vehicleon: '',
+        //     vehiclein: '',
+        //     movementtime: '',
+        //     city: '',
+        //     region: '',
+        //     facilitytypeon: '',
+        //     facilitytypein: '',
+        //     facilityname: '',
+        //     accommodationallowance: '',
+        //     accommodation: '',
+        //     travelallowance: '',
+        //     travel: '',
+        //     relatives: '',
+        //     train: '',
+        //     plane: '',
+        //     annexno: '',
+        //     rowindex: '',
+        //     disaccommod: false,
+        //     showtick: true,
+        //   });
+        //   this.tableA[0].accommodationdate = this.form.startdate;
+        //   this.tableA[i + 1].accommodationdate = moment(this.tableA[i].accommodationdate).add(1, 'days');
+        // }
+        // }
 
 
       },
@@ -2367,7 +2441,6 @@
             sums[index] = '--';
           }
         });
-        this.gettotal(sums);
         return sums;
       },
       getactivitycontent(val, row) {
@@ -2416,8 +2489,49 @@
       getCity(row) {
         this.getTravel(row);
       },
-      getcostitem(row) {
+      getCompanyen(val, row) {
+        if (this.companyen != '') {
+          if (this.companyen == 'ADMN' || this.companyen == 'FPO' || this.companyen == 'DANP') {
+            let dic = getDictionaryInfo(val);
+            if (dic) {
+              row.subjectnumber = dic.value3;
+            }
+          } else {
+            let dic = getDictionaryInfo(val);
+            if (dic) {
+              row.subjectnumber = dic.value2;
+            }
+          }
+        } else {
+          let dic = getDictionaryInfo(val);
+          if (dic) {
+            row.subjectnumber = dic.value2;
+          }
+        }
+      },
+      getcostitem(val, row) {
         row.costitem = val;
+        if (val === 'PJ057001') {
+          row.accountcode = '',
+            row.subjectnumber = '',
+            this.code11 = 'PJ058';
+          this.checkStatus = true;
+        } else if (val === 'PJ057015') {
+          row.accountcode = '',
+            row.subjectnumber = '',
+            this.code11 = 'PJ059';
+          this.checkStatus = true;
+        } else if (val === 'PJ057016') {
+          row.accountcode = '',
+            row.subjectnumber = '',
+            this.code11 = 'PJ060';
+          this.checkStatus = true;
+        } else {
+          row.accountcode = '',
+            row.subjectnumber = '',
+            this.checkStatus = false;
+          this.getCompanyen(val, row);
+        }
       },
       getTravel(row) {
         var varmovementtime2;
@@ -2574,53 +2688,81 @@
         }
 
       },
-      gettotal(val) {
+      getMoney(sums) {
         if (this.form.type === '0') {
-          this.form.totalpay = Math.round((this.tableDValue[1]) * 100) / 100;
-          this.form.balance = Math.round(-(this.form.totalpay - this.form.loanamount) * 100) / 100;
+          if (this.accountcodeValue != '') {
+            this.form.totalpay = sums[9]+this.tableRValue[8]+this.tableAValue[10] + this.tableAValue[11];
+          } else {
+            this.form.totalpay = sums[9]+this.tableRValue[7]+this.tableAValue[10] + this.tableAValue[11];
+          }
         } else if (this.form.type === '1') {
-          this.form.totalpay = Math.round((val) * 100) / 100;
-          this.form.balance = Math.round((this.form.loanamount - this.form.totalpay) * 100) / 100;
+          if (this.accountcodeValue != '') {
+            this.form.totalpay = sums[9]+this.tableRValue[8]+this.tableAValue[10] ;
+          } else {
+            this.form.totalpay = sums[9]+this.tableRValue[7]+this.tableAValue[10] ;
+          }
         }
+        this.form.balance = this.form.loanamount - this.form.totalpay;
       },
       getValue(sums) {
-        this.tableData[0].rmb = sums[4];
+        this.tableData[0].rmb = sums[9];
         this.tableData[1].rmb = this.tableAValue[7];
         this.tableData[2].rmb = this.tableAValue[8] + this.tableAValue[9] + this.tableAValue[10];
-        this.tableData[3].rmb = this.tableRValue[3];
+        if (this.accountcodeValue != '') {
+          this.tableData[3].rmb = this.tableRValue[8];
+        } else {
+          this.tableData[3].rmb = this.tableRValue[7];
+        }
+
       },
       getValue2(sums) {
-        this.tableData2[0].rmb = sums[4];
+        this.tableData2[0].rmb = sums[9];
         this.tableData2[1].rmb = this.tableAValue[7];
-        this.tableData2[3].rmb = this.tableRValue[3];
+        if (this.accountcodeValue != '') {
+          this.tableData2[3].rmb = this.tableRValue[8];
+        } else {
+          this.tableData2[3].rmb = this.tableRValue[7];
+        }
         for (var i = 0; i < this.tableData2.length; i++) {
           this.tableData2[i].total = this.tableData2[i].rmb;
         }
         if (this.form.currency === 'PJ003001') {
-          this.tableData2[0].usdcurrency = sums[5];
+          this.tableData2[0].usdcurrency = sums[10];
           this.tableData2[1].usdcurrency = this.tableAValue[8];
           this.tableData2[2].usdcurrency = this.tableAValue[9] + this.tableAValue[10];
-          this.tableData2[3].usdcurrency = this.tableRValue[4];
+          if (this.accountcodeValue != '') {
+            this.tableData2[3].usdcurrency = this.tableRValue[9];
+          } else {
+            this.tableData2[3].usdcurrency = this.tableRValue[8];
+          }
           for (var i = 0; i < this.tableData2.length; i++) {
             this.tableData2[i].jpycurrency = '';
             this.tableData2[i].ratecurrency = '';
             this.tableData2[i].total = this.tableData2[i].usdcurrency * this.form.dollarfxrate + this.tableData2[i].rmb;
           }
         } else if (this.form.currency === 'PJ003002') {
-          this.tableData2[0].jpycurrency = sums[5];
+          this.tableData2[0].jpycurrency = sums[10];
           this.tableData2[1].jpycurrency = this.tableAValue[8];
           this.tableData2[2].jpycurrency = this.tableAValue[9] + this.tableAValue[10];
-          this.tableData2[3].jpycurrency = this.tableRValue[4];
+          if (this.accountcodeValue != '') {
+            this.tableData2[3].jpycurrency = this.tableRValue[9];
+          } else {
+            this.tableData2[3].jpycurrency = this.tableRValue[8];
+          }
           for (var i = 0; i < this.tableData2.length; i++) {
             this.tableData2[i].usdcurrency = '';
             this.tableData2[i].ratecurrency = '';
             this.tableData2[i].total = this.tableData2[i].jpycurrency * this.form.jpyfxrate + this.tableData2[i].rmb;
           }
         } else if (this.form.currency === 'PJ003003') {
-          this.tableData2[0].ratecurrency = sums[5];
+          this.tableData2[0].ratecurrency = sums[10];
           this.tableData2[1].ratecurrency = this.tableAValue[8];
           this.tableData2[2].ratecurrency = this.tableAValue[9] + this.tableAValue[10];
-          this.tableData2[3].ratecurrency = this.tableRValue[4];
+          if (this.accountcodeValue != '') {
+            this.tableData2[3].ratecurrency = this.tableRValue[9];
+          } else {
+            this.tableData2[3].ratecurrency = this.tableRValue[8];
+          }
           for (var i = 0; i < this.tableData2.length; i++) {
             this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
             this.tableData2[i].usdcurrency = '';
@@ -2630,21 +2772,38 @@
       },
       getCurrency(val, row) {
         row.currency = val;
-        if (val === 'PJ003001') {
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            row.currencyexchangerate = dictionaryInfo.value2;
-          }
-        }
-        if (val === 'PJ003002') {
-          let dictionaryInfo = getDictionaryInfo(val);
-          if (dictionaryInfo) {
-            row.currencyexchangerate = dictionaryInfo.value2;
-          }
-        }
-        if (val === 'PJ003003') {
-          row.currencyexchangerate = "";
-        }
+        // if (val === 'PJ003001') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.form.dollarfxrate = dictionaryInfo.value2;
+        //     this.show4 = true;
+        //     this.show3 = false;
+        //     this.show5 = false;
+        //   }
+        // }
+        // if (val === 'PJ003002') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.form.jpyfxrate = dictionaryInfo.value2;
+        //     this.show3 = true;
+        //     this.show4 = false;
+        //     this.show5 = false;
+        //   }
+        // }
+        // if (val === 'PJ003003') {
+        //   let dictionaryInfo = getDictionaryInfo(val);
+        //   if (dictionaryInfo) {
+        //     this.show3 = false;
+        //     this.show4 = false;
+        //     this.show5 = true;
+        //   }
+        // }
+      },
+      getCurrencyexchangerate(val, row) {
+        row.currencyexchangerate = val;
+      },
+      getUsexchangerate(val) {
+        this.from.usexchangerate = val;
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -2663,6 +2822,24 @@
         this.buttonClick('save');
       },
       changeRMB(newValue) {
+        for (let j = 0; j < this.tableF.length; j++) {
+          if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
+            if (newValue.rmb != '') {
+              if (this.tableF[j].taxrate != '') {
+                if (this.tableF[j].taxrate == 'PJ071001') {
+                  this.taxrateValue = '0.03'
+                } else if (this.tableF[j].taxrate == 'PJ071002') {
+                  this.taxrateValue = '0.06'
+                } else if (this.tableF[j].taxrate == 'PJ071003') {
+                  this.taxrateValue = '0.09'
+                } else if (this.tableF[j].taxrate == 'PJ071004') {
+                  this.taxrateValue = '0.13'
+                }
+                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
+              }
+            }
+          }
+        }
         if (newValue.rmb > 0) {
           newValue.foreigncurrency = '';
           newValue.display = false;
@@ -2712,7 +2889,7 @@
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                   || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2721,6 +2898,7 @@
                       trafficdate: this.tableT[i].trafficdate,
                       invoicenumber: this.tableT[i].invoicenumber,
                       departmentname: this.tableT[i].departmentname,
+                      budgetcoding: this.tableT[i].departmentname,
                       taxes: this.tableT[i].taxes,
                       costitem: this.tableT[i].costitem,
                       taxrate: this.tableT[i].taxrate,
@@ -2780,7 +2958,7 @@
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                   || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].taxes !== '') {
+                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2789,6 +2967,9 @@
                       costitem: this.tableR[i].costitem,
                       remarks: this.tableR[i].remarks,
                       rmb: this.tableR[i].rmb,
+                      budgetcoding: this.tableR[i].budgetcoding,
+                      subjectnumber: this.tableR[i].subjectnumber,
+                      remarks: this.tableR[i].remarks,
                       invoicenumber: this.tableR[i].invoicenumber,
                       departmentname: this.tableR[i].departmentname,
                       taxes: this.tableR[i].taxes,
