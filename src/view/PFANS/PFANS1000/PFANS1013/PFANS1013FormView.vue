@@ -1228,7 +1228,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getDictionaryInfode, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getDictionaryInfode,getOrgInfo,getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1267,7 +1267,7 @@
         optionsdate: [{value: '0000000000', lable: '共通'}],
         error: '',
         relations: [],
-        loans: [],
+        loans: [{value: ' ', lable: ' '}],
         selectType: 'Single',
         title: 'title.PFANS1013VIEW',
         userlist: '',
@@ -1519,6 +1519,7 @@
       };
     },
     mounted() {
+      this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
       if (this.$route.params._id) {
@@ -1607,6 +1608,7 @@
               this.tableW = response.currencyexchanges;
             }
             if (this.form.type === '0') {
+              this.getBusInside();
               this.showdata = true;
               this.showdata2 = false;
               this.showAinner = true;
@@ -1626,6 +1628,7 @@
               this.showrow2 = false;
               this.showrow4 = false;
             } else {
+              this.getBusOuter();
               // if (this.form.currency === 'PJ003001') {
               //   this.show4 = true;
               // } else if (this.form.currency === 'PJ003002') {
@@ -1693,50 +1696,6 @@
           this.showAout = true;
         }
       }
-
-
-      if (this.form.type === '0') {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                var vote = {};
-                this.result = response;
-                vote.value = response[i].businessid;
-                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote);
-              }
-            }
-          });
-      } else if (this.form.type === '1') {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                var vote1 = {};
-                this.result1 = response;
-                vote1.value = response[i].businessid;
-                vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote1);
-              }
-            }
-          });
-      }
-      this.$store
-        .dispatch('PFANS1013Store/getLoanApplication')
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            if (response[i].user_id === this.$store.getters.userinfo.userid) {
-              var vote = {};
-              this.result2 = response;
-              vote.value = response[i].loanapplication_id;
-              vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-              this.loans.push(vote);
-            }
-          }
-        });
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1745,6 +1704,51 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getLoanapp(){
+        this.$store
+          .dispatch('PFANS1013Store/getLoanApplication')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                var vote = {};
+                this.result2 = response;
+                vote.value = response[i].loanapplication_id;
+                vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.loans.push(vote);
+              }
+            }
+          });
+      },
+      getBusOuter(){
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
+                var vote1 = {};
+                this.result1 = response;
+                vote1.value = response[i].businessid;
+                vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.relations.push(vote1);
+              }
+            }
+          });
+      },
+      getBusInside(){
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+                var vote = {};
+                this.result = response;
+                vote.value = response[i].businessid;
+                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.relations.push(vote);
+              }
+            }
+          });
+      },
       getCompanyProjectList() {
         this.loading = true;
         this.$store
@@ -1779,7 +1783,9 @@
       },
       gettype(val) {
         this.form.type = val;
+        this.relations = [];
         if (val === '0') {
+          this.getBusInside();
           this.form.business_id = '';
           this.form.place = '';
           this.form.startdate = '';
@@ -1826,6 +1832,7 @@
             showtick: true,
           }];
         } else {
+          this.getBusOuter();
           this.form.business_id = '';
           this.form.place = '';
           this.form.startdate = '';

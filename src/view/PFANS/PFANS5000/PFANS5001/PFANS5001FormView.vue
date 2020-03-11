@@ -79,18 +79,6 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
-                    <!--                    <el-col :span="8">-->
-                    <!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="numbers">-->
-                    <!--                        <el-input-->
-                    <!--                          :disabled="!disable"-->
-                    <!--                          maxlength="20"-->
-                    <!--                          style="width: 20vw"-->
-                    <!--                          v-model="form.numbers"-->
-                    <!--                        ></el-input>-->
-                    <!--                      </el-form-item>-->
-                    <!--                    </el-col>-->
-                  </el-row>
-                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :error="errorLeader"
@@ -107,6 +95,8 @@
                         ></user>
                       </el-form-item>
                     </el-col>
+                  </el-row>
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :error="errorManager"
@@ -123,8 +113,6 @@
                         ></user>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
@@ -223,54 +211,8 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <!--                  <el-row>-->
-                  <!--                    <el-col :span="8">-->
-                  <!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_MANMONTH')" prop="manmonth">-->
-                  <!--                        <el-input-number-->
-                  <!--                          :disabled="!disable"-->
-                  <!--                          :max="1000000000"-->
-                  <!--                          :min="0"-->
-                  <!--                          :precision="2"-->
-                  <!--                          controls-position="right"-->
-                  <!--                          style="width: 20vw"-->
-                  <!--                          v-model="form.manmonth"-->
-                  <!--                        ></el-input-number>-->
-                  <!--                      </el-form-item>-->
-                  <!--                    </el-col>-->
-                  <!--                    <el-col :span="8">-->
-                  <!--                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_COST')" prop="cost">-->
-                  <!--                        <el-input-number-->
-                  <!--                          :disabled="!disable"-->
-                  <!--                          :max="1000000000"-->
-                  <!--                          :min="0"-->
-                  <!--                          :precision="2"-->
-                  <!--                          controls-position="right"-->
-                  <!--                          style="width: 20vw"-->
-                  <!--                          v-model="form.cost"-->
-                  <!--                        ></el-input-number>-->
-                  <!--                      </el-form-item>-->
-                  <!--                    </el-col>-->
-                  <!--                    <el-col :span="8">-->
-                  <!--                      <el-form-item-->
-                  <!--                        :label="$t('label.PFANS5001FORMVIEW_SALESVOLUME')"-->
-                  <!--                        prop="salesvolume"-->
-                  <!--                      >-->
-                  <!--                        <el-input-number-->
-                  <!--                          :disabled="!disable"-->
-                  <!--                          :max="1000000000"-->
-                  <!--                          :min="0"-->
-                  <!--                          :precision="2"-->
-                  <!--                          controls-position="right"-->
-                  <!--                          style="width: 20vw"-->
-                  <!--                          v-model="form.salesvolume"-->
-                  <!--                        ></el-input-number>-->
-                  <!--                      </el-form-item>-->
-                  <!--                    </el-col>-->
-                  <!--                  </el-row>-->
-
-
-                  <!--受託工数-->
                   <el-row>
+                    <!--受託工数-->
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_WORK')"
@@ -857,11 +799,11 @@
                     align="center">
                     <template slot-scope="scope">
                       <el-col :span="8">
-                        <div class="dpSupIndex" style="width:16vw">
+                        <div class="dpSupIndex" style="width:14vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="true"></input>
-                            <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible3 = true"
+                                   :disabled="!disable"></input>
+                            <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible3 = true"
                                        size="small"></el-button>
                             <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
                                        size="50%"
@@ -975,7 +917,7 @@
                             :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
                             prop="tools"
                           >
-                            <el-checkbox-group v-model="checkList">
+                            <el-checkbox-group v-model="checkList" :disabled="!disable">
                               <el-checkbox label="SVN"></el-checkbox>
                               <el-checkbox label="redmine"></el-checkbox>
                               <el-checkbox label="gitlab"></el-checkbox>
@@ -1460,6 +1402,7 @@
                 code5: 'PP015',
                 code6: 'PP017',
                 code7: 'PP016',
+                code8: 'PP018',
                 showrow: true,
                 showrow1: false,
                 showrow2: false,
@@ -1506,7 +1449,12 @@
                         if (response.stageinformation.length > 0) {
                             this.tableA = response.stageinformation;
                             for (var i = 0; i < this.tableA.length; i++) {
-                                if (this.tableA[i].phase === 'PP012001') {
+                                if (this.tableA[i].phase === ''){
+                                  this.tableA[i].showrow = true;
+                                  this.tableA[i].showrow1 = false;
+                                  this.tableA[i].showrow2 = false;
+                                  this.tableA[i].showrow3 = false;
+                                }else if (this.tableA[i].phase === 'PP012001') {
                                     this.tableA[i].showrow = false;
                                     this.tableA[i].showrow1 = true;
                                     this.tableA[i].showrow2 = false;

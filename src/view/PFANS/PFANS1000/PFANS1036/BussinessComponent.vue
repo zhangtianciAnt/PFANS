@@ -315,7 +315,7 @@
       tableBusiness: {
         type: Array,
         default: function () {
-          return [{assetstype:"0"}, {assetstype:"1"},{assetstype:"0"}, {assetstype:"1"},{assetstype:"0"}, {assetstype:"1"},{assetstype:"0"}, {assetstype:"1"}]
+          return [{}]
         }
       }
     },
