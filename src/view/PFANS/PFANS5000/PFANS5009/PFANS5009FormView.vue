@@ -913,7 +913,7 @@
                 currentRow2: '',
                 currentRow3: '',
                 tabIndex: 0,
-                multiple1: false,
+              multiple: false,
 
                 //主页
                 form: {
@@ -1309,6 +1309,9 @@
                     }];
                 }
             },
+          getcountry(val1) {
+            this.form.country = val1;
+          },
             getcontract() {
                 this.contractapplication = {};
                 this.contractapplication.entrycondition = [];
