@@ -14,7 +14,7 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
                 <el-row>
@@ -121,7 +121,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CITY1')" prop="city">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.city" @change="cityChange"></el-input>
+                                v-model.trim="form.city"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -135,7 +135,6 @@
                             style="width: 20vw"
                             type="date"
                             v-model="form.startdate"
-                            @change="startDateChange"
                           >
                           </el-date-picker>
                         </div>
@@ -150,7 +149,6 @@
                           style="width: 20vw"
                           type="date"
                           v-model="form.enddate"
-                          @change="endDateChange"
                         >
                         </el-date-picker>
                       </div>
@@ -249,7 +247,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" style="width: 100%;"
+                        <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
                                   v-model.trim="scope.row.place"></el-input>
                       </template>
                     </el-table-column>
@@ -915,29 +913,24 @@
                         icon: 'el-icon-check',
                     },
                 ],
-                tableP: [{
-                    travelcontent_id: '',
-                    businessid: '',
-                    duringdate1: '',
-                    content1: '',
-                    duringdate2: '',
-                    content2: '',
-                    duringdate3: '',
-                    content3: '',
-                    rowindex: '',
-                }],
                 tablePD: [
                     {
+                        travelcontent_id: '',
+                        businessid: '',
                         duringdate: '',
                         place: '',
                         content: '',
                     },
                     {
+                        travelcontent_id: '',
+                        businessid: '',
                         duringdate: '',
                         place: '',
                         content: '',
                     },
                     {
+                        travelcontent_id: '',
+                        businessid: '',
                         duringdate: '',
                         place: '',
                         content: '',
@@ -1280,19 +1273,26 @@
                             return;
                         }
                         this.form = response.business;
-                        this.tablePD[1].place = getDictionaryInfo(this.form.region).value1 + this.form.city;
                         if (response.travelcontent.length > 0) {
-                            this.tableP = response.travelcontent;
-                            this.tablePD[0].duringdate = this.tableP.duringdate1;
-                            this.tablePD[1].duringdate = this.tableP.duringdate2;
-                            this.tablePD[2].duringdate = this.tableP.duringdate3;
-                            this.tablePD[0].content = this.tableP.content1;
-                            this.tablePD[1].content = this.tableP.content2;
-                            this.tablePD[2].content = this.tableP.content3;
+                            this.tablePD = [];
+                            for(let i = 0;i< response.travelcontent.length;i++){
+                              let date = [];
+                              let letdate = response.travelcontent[i].duringdate.split(" ~ ");
+                              if(letdate.length > 0){
+                                date.push(letdate[0]);
+                                date.push(letdate[1]);
+                              }
+                              this.tablePD.push({
+                                travelcontent_id: response.travelcontent[i].travelcontent_id,
+                                businessid:  response.travelcontent[i].businessid,
+                                duringdate: date,
+                                place: response.travelcontent[i].place,
+                                content: response.travelcontent[i].content
+                              });
+                            }
                         }
                         this.userlist = this.form.user_id;
                         this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.travelcontent = JSON.parse(JSON.stringify(this.tableP));
                         if (this.form.objectivetype === 'PJ018005') {
                             this.show = true;
                         } else {
@@ -1370,8 +1370,6 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
             }
-            this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-            this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
         },
         created() {
             if (!this.$route.params.disabled) {
@@ -1476,27 +1474,6 @@
                         });
                         this.loading = false;
                     });
-            },
-            cityChange() {
-                this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-                this.tablePD[1].place = getDictionaryInfo(this.form.region).value1 + this.form.city;
-                this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-            },
-            startDateChange() {
-                let date = [];
-                date.push(this.form.startdate);
-                date.push(this.form.startdate);
-                this.tablePD[0].duringdate = date;
-            },
-            endDateChange() {
-                let date = [];
-                date.push(this.form.startdate);
-                date.push(this.form.enddate);
-                this.tablePD[1].duringdate = date;
-                let date1 = [];
-                date1.push(this.form.enddate);
-                date1.push(this.form.enddate);
-                this.tablePD[2].duringdate = date1;
             },
             getUserids(val) {
                 this.form.user_id = val;
@@ -1689,6 +1666,31 @@
                     },
                 });
             },
+            handleClick(tab, event){
+              this.activeName = tab.name;
+              //出差内容
+              if (tab.name === 'third') {
+                  if(this.tablePD[0].travelcontent_id === ''){
+                    let date = [];
+                    date.push(this.form.startdate);
+                    date.push(this.form.startdate);
+                    this.tablePD[0].duringdate = date;
+                    this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+                    this.tablePD[1].place = (this.form.region != ''? getDictionaryInfo(this.form.region).value1: '').toString() + this.form.city;
+                    this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
+
+                    let date1 = [];
+                    date1.push(this.form.startdate);
+                    date1.push(this.form.enddate);
+                    this.tablePD[1].duringdate = date1;
+
+                    let date2 = [];
+                    date2.push(this.form.enddate);
+                    date2.push(this.form.enddate);
+                    this.tablePD[2].duringdate = date2;
+                  }
+              }
+            },
             buttonClick(val) {
                 if (val === 'back') {
                     this.paramsTitle();
@@ -1698,26 +1700,24 @@
                         if (valid) {
                             this.loading = true;
                             this.form.businesstype = '0',
-                                this.form.user_id = this.userlist;
+                            this.form.user_id = this.userlist;
                             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
                             this.baseInfo.travelcontent = [];
-                            this.baseInfo.travelcontent.push(
-                                {
-                                    travelcontent_id: this.tableP.travelcontent_id,
-                                    businessid: this.tableP.businessid,
-                                    // 开始日期
-                                    duringdate1: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
-                                    content1: this.tablePD[0].content,
-                                    duringdate2: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
-                                    content2: this.tablePD[1].content,
-                                    //结束日期
-                                    duringdate3: moment(this.tablePD[0].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[0].duringdate[1]).format('YYYY-MM-DD'),
-                                    content3: this.tablePD[2].content,
-                                },
-                            );
+                            for(let i = 0;i< this.tablePD.length;i++){
+                                this.baseInfo.travelcontent.push(
+                                  {
+                                    travelcontent_id: this.tablePD[i].travelcontent_id,
+                                    businessid: this.tablePD[i].businessid,
+                                    //开始结束日期
+                                    duringdate: moment(this.tablePD[i].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[i].duringdate[1]).format('YYYY-MM-DD'),
+                                    place: this.tablePD[i].place,
+                                    content: this.tablePD[i].content,
+                                  },
+                                );
+                            }
+                            this.loading = true;
                             if (this.$route.params._id) {
                                 this.baseInfo.business.businessid = this.$route.params._id;
-                                this.loading = true;
                                 this.$store
                                     .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
                                     .then(response => {
@@ -1742,7 +1742,6 @@
                                     });
 
                             } else {
-                                this.loading = true;
                                 this.$store
                                     .dispatch('PFANS1002Store/createBusiness', this.baseInfo)
                                     .then(response => {
