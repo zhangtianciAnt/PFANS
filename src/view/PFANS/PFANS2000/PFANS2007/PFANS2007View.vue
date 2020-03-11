@@ -1,6 +1,6 @@
 <template>
   <div>
-  <EasyNormalTable  @buttonClick="buttonClick" :buttonList="buttonList" :showSelection="showSelection" :columns="columns" :data="data" :title="title"  v-loading="loading">
+  <EasyNormalTable  @buttonClick="buttonClick" :buttonList="buttonList" :showSelection="showSelection" @rowClick="rowClick" :columns="columns" :data="data" :title="title"  v-loading="loading">
   </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -77,6 +77,7 @@
         successCount: 0,
         errorCount: 0,
         cuowu: '',
+        // selectedlist: [],
         data: [],
         showSelection:true,
         columns: [
@@ -201,12 +202,32 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'deliver', 'name': 'button.deliver', 'disabled': false},
         ],
+        rowid: '',
+        row : 'bonussend_id'
       };
     },
     mounted() {
-      this.getList();
+      // this.getList();
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2007Store/get')
+        .then(response => {
+          this.data = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false
+        })
     },
     methods: {
+      rowClick(row) {
+        this.rowid = row.bonussend_id;
+      },
       getList() {
         this.loading = true;
         this.$store
@@ -292,10 +313,12 @@
         }
       },
       buttonClick(val){
+        debugger;
         if (val === 'deliver') {
+          // this.selectedlist = this.$refs.roletable.selectedList;
           let toDoNotice = {};
           toDoNotice.type = '2';
-          toDoNotice.title = '您的奖金已发送';
+          toDoNotice.title =  this.$t('normal.error_bonus');
           toDoNotice.dataid = this.rowid;
           toDoNotice.url = this.$route.path;
           this.$store

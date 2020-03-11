@@ -1267,7 +1267,7 @@
         optionsdate: [{value: '0000000000', lable: '共通'}],
         error: '',
         relations: [],
-        loans: [],
+        loans: [{value: ' ', lable: ' '}],
         selectType: 'Single',
         title: 'title.PFANS1013VIEW',
         userlist: '',
@@ -1519,7 +1519,6 @@
       };
     },
     mounted() {
-      this.getBusdata();
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
@@ -1609,6 +1608,7 @@
               this.tableW = response.currencyexchanges;
             }
             if (this.form.type === '0') {
+              this.getBusInside();
               this.showdata = true;
               this.showdata2 = false;
               this.showAinner = true;
@@ -1628,6 +1628,7 @@
               this.showrow2 = false;
               this.showrow4 = false;
             } else {
+              this.getBusOuter();
               // if (this.form.currency === 'PJ003001') {
               //   this.show4 = true;
               // } else if (this.form.currency === 'PJ003002') {
@@ -1718,23 +1719,32 @@
             }
           });
       },
-      getBusdata(){
+      getBusOuter(){
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].type === '0') {
-                var vote = {};
-                this.result = response;
-                vote.value = response[i].businessid;
-                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote);
-              } else if(response[i].user_id === this.$store.getters.userinfo.userid && response[i].type === '1'){
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
                 var vote1 = {};
                 this.result1 = response;
                 vote1.value = response[i].businessid;
                 vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
                 this.relations.push(vote1);
+              }
+            }
+          });
+      },
+      getBusInside(){
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+                var vote = {};
+                this.result = response;
+                vote.value = response[i].businessid;
+                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
+                this.relations.push(vote);
               }
             }
           });
@@ -1773,7 +1783,9 @@
       },
       gettype(val) {
         this.form.type = val;
+        this.relations = [];
         if (val === '0') {
+          this.getBusInside();
           this.form.business_id = '';
           this.form.place = '';
           this.form.startdate = '';
@@ -1820,6 +1832,7 @@
             showtick: true,
           }];
         } else {
+          this.getBusOuter();
           this.form.business_id = '';
           this.form.place = '';
           this.form.startdate = '';

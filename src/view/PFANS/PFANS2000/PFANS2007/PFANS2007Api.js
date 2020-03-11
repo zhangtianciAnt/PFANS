@@ -1,9 +1,10 @@
 import request from '../../../../utils/request'
 
-export function getListType() {
+export function getListType(data) {
   return request({
     url: 'bonussend/getListType',
-    method: 'get'
+    method: 'post',
+    data: data,
   })
 }
 
@@ -15,3 +16,9 @@ export function getList(data) {
   });
 }
 
+export function get() {
+  return request({
+    url: 'bonussend/get',
+    method: 'get'
+  })
+}
