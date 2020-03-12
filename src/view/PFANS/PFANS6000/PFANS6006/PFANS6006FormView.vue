@@ -5,6 +5,30 @@
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
+            <el-row style="padding-top: 1%;padding-bottom: 2%">
+              <el-col :span="8">
+                <div class="block">
+                  <el-date-picker
+                    v-model="years"
+                    type="year"
+                    @change="yearChange"
+                    format="yyyy"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="block">
+                  <el-date-picker
+                    v-model="years"
+                    type="year"
+                    @change="yearChange"
+                    format="yyyy"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </div>
+              </el-col>
+            </el-row>
             <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%">
               <!-- 序号-->
               <el-table-column
@@ -169,57 +193,7 @@
                 :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                 align="center"
                 width="150">
-                <!--一月-->
-                <el-table-column
-                  :label="$t('label.January')"
-                  align="center"
-                  width="80">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:20vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="1"
-                      :precision="2"
-                      v-model.trim="scope.row.january">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-                <!--二月-->
-                <el-table-column
-                  :label="$t('label.February')"
-                  align="center"
-                  width="80">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:20vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="1"
-                      :precision="2"
-                      v-model.trim="scope.row.february">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-                <!--三月-->
-                <el-table-column
-                  :label="$t('label.March')"
-                  align="center"
-                  width="80">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:20vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="1"
-                      :precision="2"
-                      v-model.trim="scope.row.march">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+
                 <!--四月-->
                 <el-table-column
                   :label="$t('label.April')"
@@ -373,6 +347,57 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
+                <!--一月-->
+                <el-table-column
+                  :label="$t('label.January')"
+                  align="center"
+                  width="80">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:20vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="1"
+                      :precision="2"
+                      v-model.trim="scope.row.january">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
+                <!--二月-->
+                <el-table-column
+                  :label="$t('label.February')"
+                  align="center"
+                  width="80">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:20vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="1"
+                      :precision="2"
+                      v-model.trim="scope.row.february">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
+                <!--三月-->
+                <el-table-column
+                  :label="$t('label.March')"
+                  align="center"
+                  width="80">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:20vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="1"
+                      :precision="2"
+                      v-model.trim="scope.row.march">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
                 <!--勤続月数-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_KQYS')"
@@ -490,159 +515,165 @@
 </template>
 
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import moment from "moment";
-  import {Message} from 'element-ui';
-  import user from "../../../components/user.vue";
-  import {getDictionaryInfo} from '@/utils/customize';
-  export default {
-    name: "PFANS6006FormView",
-    components: {
-      EasyNormalContainer,
-      user,
-    },
-    data() {
-      return {
-        loading: false,
-        buttonList: [],
-        baseInfo: {},
-        scope: '',
-        row: '',
-        tableData: [{
-          project_name: '',
-          managerid: '',
-          suppliername: '',
-          expname: '',
-          admissiontime: '',
-          exitime: '',
-          operationform: '',
-          jobclassification: '',
-          distributionobj: '',
-          venuetarget: '',
-          january: '',
-          february: '',
-          march: '',
-          april: '',
-          may: '',
-          june: '',
-          july: '',
-          august: '',
-          september: '',
-          october: '',
-          november: '',
-          december: '',
-          monthlength: '',
-          remarks: '',
-          alltechnology: '',
-          sitevaluation: '',
-          exitreason: '',
-          businessimpact: '',
-          countermeasure: '',
-        }
-        ],
-        data: [],
-        title: 'title.PFANS6006VIEW'
-        disabled: false,
-        buttonList: [
-          {
-            'key': 'save',
-            'name': 'button.save',
-            'disabled': false,
-          },
-          {
-            'key': 'generate',
-            'name': 'button.generate',
-            'disabled': false,
-          },
-        ],
-      };
-    },
-    methods: {
-      getexpatriatesinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor', {})
-          .then(response => {
-            let _tableList = response;
-            for (let j = 0; j < _tableList.length; j++) {
-              if (_tableList[j].expname !== null && _tableList[j].expname !== "") {
-                let expname = getUserInfo(_tableList[j].expname);
-                if (expname) {
-                  _tableList[j].expname = user.userinfo.customername;
+    import EasyNormalContainer from "@/components/EasyNormalContainer";
+    import moment from "moment";
+    import {Message} from 'element-ui';
+    import user from "../../../components/user.vue";
+    import {getDictionaryInfo} from '@/utils/customize';
+
+    export default {
+        name: "PFANS6006FormView",
+        components: {
+            EasyNormalContainer,
+            user,
+        },
+        data() {
+            return {
+                loading: false,
+                buttonList: [],
+                baseInfo: {},
+                scope: '',
+                row: '',
+                years: moment(new Date()).format("YYYY"),
+                tableData: [{
+                    project_name: '',
+                    managerid: '',
+                    suppliername: '',
+                    expname: '',
+                    admissiontime: '',
+                    exitime: '',
+                    operationform: '',
+                    jobclassification: '',
+                    distributionobj: '',
+                    venuetarget: '',
+                    january: '',
+                    february: '',
+                    march: '',
+                    april: '',
+                    may: '',
+                    june: '',
+                    july: '',
+                    august: '',
+                    september: '',
+                    october: '',
+                    november: '',
+                    december: '',
+                    monthlength: '',
+                    remarks: '',
+                    alltechnology: '',
+                    sitevaluation: '',
+                    exitreason: '',
+                    businessimpact: '',
+                    countermeasure: '',
                 }
-              }
-              if (_tableList[j].suppliername !== null && _tableList[j].suppliername !== "") {
-                let suppliername = getUserInfo(_tableList[j].suppliername);
-                if (suppliername) {
-                  _tableList[j].suppliername = user.userinfo.customername;
-                }
-              }
-              if (_tableList[j].admissiontime !== null && _tableList[j].admissiontime !== "") {
-                _tableList[j].admissiontime = moment(_tableList[j].admissiontime).format("YYYY-MM-DD");
-              }
-              if (_tableList[j].exitime !== null && _tableList[j].exitime !== "") {
-                _tableList[j].exitime = moment(_tableList[j].exitime).format("YYYY-MM-DD");
-              }
-              if (_tableList[j].operationform !== null && _tableList[j].operationform !== "") {
-                let operationform = getDictionaryInfo(_tableList[j].operationform);
-                if (operationform != null) {
-                  _tableList[j].operationform = operationform.value1;
-                }
-              }
-              if (_tableList[j].jobclassification !== null && _tableList[j].jobclassification !== "") {
-                let jobclassification = getDictionaryInfo(_tableList[j].jobclassification);
-                if (jobclassification != null) {
-                  _tableList[j].jobclassification = jobclassification.value1;
-                }
-              }
-              if (_tableList[j].alltechnology !== null && _tableList[j].alltechnology !== "") {
-                let alltechnology = getUserInfo(_tableList[j].alltechnology);
-                if (alltechnology) {
-                  _tableList[j].alltechnology = user.userinfo.customername;
-                }
-              }
-              if (_tableList[j].sitevaluation !== null && _tableList[j].sitevaluation !== "") {
-                let sitevaluation = getDictionaryInfo(_tableList[j].sitevaluation);
-                if (sitevaluation != null) {
-                  _tableList[j].sitevaluation = sitevaluation.value1;
-                }
-              }
-              if (_tableList[j].exitreason !== null && _tableList[j].exitreason !== "") {
-                let exitreason = getDictionaryInfo(_tableList[j].exitreason);
-                if (exitreason != null) {
-                  _tableList[j].exitreason = exitreason.value1;
-                }
-              }
-              if (_tableList[j].businessimpact !== null && _tableList[j].businessimpact !== "") {
-                let businessimpact = getDictionaryInfo(_tableList[j].businessimpact);
-                if (businessimpact != null) {
-                  _tableList[j].businessimpact = businessimpact.value1;
-                }
-              }
-              if (_tableList[j].countermeasure !== null && _tableList[j].countermeasure !== "") {
-                let countermeasure = getDictionaryInfo(_tableList[j].countermeasure);
-                if (countermeasure != null) {
-                  _tableList[j].countermeasure = countermeasure.value1;
-                }
-              }
+                ],
+                data: [],
+                title: 'title.PFANS6006VIEW'
+                disabled: false,
+                buttonList: [
+                    {
+                        'key': 'save',
+                        'name': 'button.save',
+                        'disabled': false,
+                    },
+                    {
+                        'key': 'generate',
+                        'name': 'button.generate',
+                        'disabled': false,
+                    },
+                ],
+            };
+        },
+        methods: {
+            yearChange(value) {
+                this.years = moment(value).format('YYYY');
+                // this.selectData(value);
+            },
+            getexpatriatesinfor() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+                    .then(response => {
+                        let _tableList = response;
+                        for (let j = 0; j < _tableList.length; j++) {
+                            if (_tableList[j].expname !== null && _tableList[j].expname !== "") {
+                                let expname = getUserInfo(_tableList[j].expname);
+                                if (expname) {
+                                    _tableList[j].expname = user.userinfo.customername;
+                                }
+                            }
+                            if (_tableList[j].suppliername !== null && _tableList[j].suppliername !== "") {
+                                let suppliername = getUserInfo(_tableList[j].suppliername);
+                                if (suppliername) {
+                                    _tableList[j].suppliername = user.userinfo.customername;
+                                }
+                            }
+                            if (_tableList[j].admissiontime !== null && _tableList[j].admissiontime !== "") {
+                                _tableList[j].admissiontime = moment(_tableList[j].admissiontime).format("YYYY-MM-DD");
+                            }
+                            if (_tableList[j].exitime !== null && _tableList[j].exitime !== "") {
+                                _tableList[j].exitime = moment(_tableList[j].exitime).format("YYYY-MM-DD");
+                            }
+                            if (_tableList[j].operationform !== null && _tableList[j].operationform !== "") {
+                                let operationform = getDictionaryInfo(_tableList[j].operationform);
+                                if (operationform != null) {
+                                    _tableList[j].operationform = operationform.value1;
+                                }
+                            }
+                            if (_tableList[j].jobclassification !== null && _tableList[j].jobclassification !== "") {
+                                let jobclassification = getDictionaryInfo(_tableList[j].jobclassification);
+                                if (jobclassification != null) {
+                                    _tableList[j].jobclassification = jobclassification.value1;
+                                }
+                            }
+                            if (_tableList[j].alltechnology !== null && _tableList[j].alltechnology !== "") {
+                                let alltechnology = getUserInfo(_tableList[j].alltechnology);
+                                if (alltechnology) {
+                                    _tableList[j].alltechnology = user.userinfo.customername;
+                                }
+                            }
+                            if (_tableList[j].sitevaluation !== null && _tableList[j].sitevaluation !== "") {
+                                let sitevaluation = getDictionaryInfo(_tableList[j].sitevaluation);
+                                if (sitevaluation != null) {
+                                    _tableList[j].sitevaluation = sitevaluation.value1;
+                                }
+                            }
+                            if (_tableList[j].exitreason !== null && _tableList[j].exitreason !== "") {
+                                let exitreason = getDictionaryInfo(_tableList[j].exitreason);
+                                if (exitreason != null) {
+                                    _tableList[j].exitreason = exitreason.value1;
+                                }
+                            }
+                            if (_tableList[j].businessimpact !== null && _tableList[j].businessimpact !== "") {
+                                let businessimpact = getDictionaryInfo(_tableList[j].businessimpact);
+                                if (businessimpact != null) {
+                                    _tableList[j].businessimpact = businessimpact.value1;
+                                }
+                            }
+                            if (_tableList[j].countermeasure !== null && _tableList[j].countermeasure !== "") {
+                                let countermeasure = getDictionaryInfo(_tableList[j].countermeasure);
+                                if (countermeasure != null) {
+                                    _tableList[j].countermeasure = countermeasure.value1;
+                                }
+                            }
+                        }
+                        this.data = _tableList;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
             }
-            this.data = _tableList;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      }
-    },
-    mounted() {
-      this.getexpatriatesinfor();
-    },
-  }
+        },
+        mounted() {
+            this.getexpatriatesinfor();
+        },
+    }
 </script>
 
 <style scoped>

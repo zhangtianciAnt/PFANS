@@ -8,17 +8,17 @@
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
     import moment from 'moment'
-    import {getStatus, getUserInfo,getDictionaryInfo} from '@/utils/customize'
+    import {getStatus, getUserInfo,getDictionaryInfo,getOrgInfoByUserId} from '@/utils/customize'
 
     export default {
-        name: "PFANS2026View",
+        name: "PFANS2027View",
         components: {
             EasyNormalTable
         },
         data() {
             return {
                 loading: false,
-                title: "",
+                title: 'title.PFANS2027VIEW',
                 data: [],
                 columns: [
                     {
@@ -29,35 +29,35 @@
                         filter: true
                     },
                     {
-                        code: '',
+                        code: 'evaluationday',
                         label: 'label.PFANS2027VIEW_COMMENTARYDATE',
                         width: 150,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: 'group_name',
+                        code: 'subjectmon',
                         label: 'label.PFANS2027VIEW_COMMENTARYMONTHS',
                         width: 150,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: 'team_name',
+                        code: 'subject',
                         label: 'label.PFANS2027VIEW_COMMENTARY',
                         width: 150,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: 'years',
+                        code: 'evaluatenum',
                         label: 'label.PFANS2027VIEW_EVALUATIONTIME',
                         width: 120,
                         fix: false,
                         filter: true
                     },
                     {
-                        code: '',
+                        code: 'user_id',
                         label: 'label.PFANS2027VIEW_EVALUATIONMEN',
                         width: 120,
                         fix: false,
@@ -77,52 +77,56 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
                 ],
                 rowid: '',
-                row_id: 'appreciation_id'
+                row_id: 'lunarbonus_id'
             };
         },
-        /*mounted() {
+        mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS2027Store/get', {})
+                .dispatch('PFANS2027Store/getLunarbonus', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
                         if (response[j].user_id !== null && response[j].user_id !== "") {
+
+                            let lst = getOrgInfoByUserId(response[j].user_id);
+                            if(lst){
+                                response[j].group_id = lst.groupNmae;
+                            }
                             let rst = getUserInfo(response[j].user_id);
                             if (rst) {
                                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                             }
-                            response[j].center_name = response[j].center_id;
-                            response[j].group_name = response[j].group_id;
-                            response[j].team_name = response[j].team_id;
+                            if (response[j].subjectmon !== null && response[j].subjectmon !== "") {
+                                let letUsetype = getDictionaryInfo(response[j].subjectmon);
+                                if (letUsetype != null) {
+                                    response[j].subjectmon = letUsetype.value1;
+                                }
+                            }
+                            if (response[j].evaluatenum !== null && response[j].evaluatenum !== "") {
+                                let letUsetype = getDictionaryInfo(response[j].evaluatenum);
+                                if (letUsetype != null) {
+                                    response[j].evaluatenum = letUsetype.value1;
+                                }
+                            }
 
-
-
+                            if (response[j].evaluationday !== null && response[j].evaluationday !== "") {
+                                response[j].evaluationday = moment(response[j].evaluationday).format("YYYY-MM-DD");
+                            }
                             if (response[j].status !== null && response[j].status !== "") {
                                 response[j].status = getStatus(response[j].status);
                             }
-                            if (response[j].hope_exit_date !== null && response[j].hope_exit_date !== "") {
-                                response[j].hope_exit_date = moment(response[j].hope_exit_date).format("YYYY-MM-DD");
-                            }
-                            if (response[j].entry_time !== null && response[j].entry_time !== "") {
-                                response[j].entry_time = moment(response[j].entry_time).format("YYYY-MM-DD");
-                            }
-                            if (response[j].sex!== null && response[j].sex !== "") {
-                                let letsex = getDictionaryInfo(response[j].sex);
-                                if (letsex) {
-                                    response[j].sex = letsex.value1;
-                                }
-                            }
-                            if(response[j].stage!==null&&response[j].stage!==""){
-                                if(response[j].stage=='0'){
-                                    response[j].stage=this.$t('label.PFANS2027VIEW');
-                                }else if(response[j].stage=='1'){
-                                    response[j].stage=this.$t('label.PFANS2027VIEW_RIGHT');
-                                }else if(response[j].stage=='2'){
-                                    response[j].stage=this.$t('label.PFANS2027VIEW_DATA');
-                                }else {
-                                    response[j].stage=this.$t('label.PFANS2027VIEW_OUT');
-                                }
-                            }
+
+                            // if(response[j].stage!==null&&response[j].stage!==""){
+                            //     if(response[j].stage=='0'){
+                            //         response[j].stage=this.$t('label.PFANS2027VIEW');
+                            //     }else if(response[j].stage=='1'){
+                            //         response[j].stage=this.$t('label.PFANS2027VIEW_RIGHT');
+                            //     }else if(response[j].stage=='2'){
+                            //         response[j].stage=this.$t('label.PFANS2027VIEW_DATA');
+                            //     }else {
+                            //         response[j].stage=this.$t('label.PFANS2027VIEW_OUT');
+                            //     }
+                            // }
                         }
                     }
                     this.data = response;
@@ -136,7 +140,7 @@
                     });
                     this.loading = false;
                 })
-        },*/
+        },
         methods: {
             rowClick(row) {
                 this.rowid = row.appreciation_id;
