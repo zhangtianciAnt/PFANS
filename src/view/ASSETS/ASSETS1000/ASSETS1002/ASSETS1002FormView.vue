@@ -139,14 +139,6 @@
           status: ''
         },
         tableD: [
-          {
-            filename: '',
-            typeassets: '',
-            price: '',
-            purchasetime: '',
-            usedepartment: '',
-            principal: '',
-          },
         ],
         columns: [
           {
@@ -296,31 +288,50 @@
             let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
             this.form.inventorycycle = [inventory, inventory1];
             this.userlist = response.inventoryplan.userid;
-            if (response.inventoryRange.length > 0) {
-              this.tableD = response.inventoryRange;
-              for (let j = 0; j < response.inventoryRange.length; j++) {
-                let user = getUserInfo(response.inventoryRange[j].principal);
-                if (user) {
-                  response.inventoryRange[j].principal = user.userinfo.customername;
-//                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
-                }
-                if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
-                  response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
-                }
-                if (response.inventoryRange[j].typeassets !== null && response.inventoryRange[j].typeassets !== '') {
-                  let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
-                  if (letErrortype != null) {
-                    response.inventoryRange[j].typeassets = letErrortype.value1;
-                  }
-                }
-                if (response.inventoryRange[j].bartype !== null && response.inventoryRange[j].bartype !== '') {
-                  let letBartype = getDictionaryInfo(response.inventoryRange[j].bartype);
-                  if (letBartype != null) {
-                    response.inventoryRange[j].bartype = letBartype.value1;
-                  }
-                }
+//             if (response.inventoryRange.length > 0) {
+//               this.tableD = response.inventoryRange;
+//               for (let j = 0; j < response.inventoryRange.length; j++) {
+//                 let user = getUserInfo(response.inventoryRange[j].principal);
+//                 if (user) {
+//                   response.inventoryRange[j].principal = user.userinfo.customername;
+// //                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
+//                 }
+//                 if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
+//                   response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
+//                 }
+//                 if (response.inventoryRange[j].typeassets !== null && response.inventoryRange[j].typeassets !== '') {
+//                   let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
+//                   if (letErrortype != null) {
+//                     response.inventoryRange[j].typeassets = letErrortype.value1;
+//                   }
+//                 }
+//                 if (response.inventoryRange[j].bartype !== null && response.inventoryRange[j].bartype !== '') {
+//                   let letBartype = getDictionaryInfo(response.inventoryRange[j].bartype);
+//                   if (letBartype != null) {
+//                     response.inventoryRange[j].bartype = letBartype.value1;
+//                   }
+//                 }
+//               }
+//             }
+            let filters = new Set()
+            for (let item of response.inventoryRange) {
+              let i = {};
+              if (item) {
+                i.code = item.usedepartment;
               }
+              filters.add(i);
             }
+            let filtersrst = [...new Set(filters)]
+            var hash = {}
+            filtersrst = filtersrst.reduce(function (item, next) {
+              if (hash[next.code]) {
+                ''
+              } else {
+                hash[next.code] = true && item.push(next)
+              }
+              return item
+            }, [])
+            this.options = filtersrst
             this.loading = false;
           })
           .catch(error => {
