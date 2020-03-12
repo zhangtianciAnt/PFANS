@@ -51,7 +51,7 @@
     import {getToken} from '@/utils/auth'
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
+    import {getOrgInfoByUserId,getUserInfo} from "../../../../utils/customize";
     let moment = require("moment");
     export default {
         name: 'PFANS5008View',
@@ -65,6 +65,9 @@
                     page: 1,
                     limit: 5
                 },
+                confirmstatus0: this.$t('label.PFANS5008VIEW_UNCONFIRM'),
+                confirmstatus1: this.$t('label.PFANS5008VIEW_CONFIRM'),
+                confirmstatus2: this.$t('label.PFANS5008VIEW_REFUSE'),
                 total: 0,
                 message: [{hang: '', error: '',}],
                 Message1: true,
@@ -141,6 +144,13 @@
                     {
                         code: 'work_memo',
                         label: 'label.PFANS5008VIEW_GZBZ',
+                        width: 140,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'confirmstatus',
+                        label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
                         width: 140,
                         fix: false,
                         filter: true
@@ -269,6 +279,15 @@
                                         response[j].log_date = moment(response[j].log_date).format("YYYY-MM-DD");
                                         if (response[j].time_end !== null && response[j].time_end !== "") {
                                             response[j].time_end = moment(response[j].time_end).format("HH:mm");
+                                        }
+                                        if (response[j].confirmstatus !== null && response[j].confirmstatus !== "") {
+                                            if(response[j].confirmstatus === "0") {
+                                                response[j].confirmstatus = this.confirmstatus0
+                                            }else if(response[j].confirmstatus === "1"){
+                                                response[j].confirmstatus = this.confirmstatus1
+                                            }else {
+                                                response[j].confirmstatus = this.confirmstatus2
+                                            }
                                         }
                                     }
                                     this.data = response;

@@ -3,6 +3,14 @@
                    :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                    ref="roletable"
                    v-loading="loading">
+    <el-select @change="changed" slot="customize" v-model="department">
+      <el-option
+        :key="item.code"
+        :label="item.code"
+        :value="item.code"
+        v-for="item in options">
+      </el-option>
+    </el-select>
   </EasyNormalTable>
 </template>
 
@@ -18,9 +26,12 @@
     },
     data() {
       return {
+        department: '',
+        options:[],
         loading: false,
         title: 'title.ASSETS1002EXPORTFORMVIEW',
         data: [],
+        tablelist:[],
         selectedlist: [],
         showSelection: true,
         columns: [
@@ -79,6 +90,13 @@
       this.getListData();
     },
     methods: {
+      changed() {
+        if(this.department){
+          this.data = this.tablelist.filter(item => item.usedepartment == this.department)
+        }else{
+          this.data = this.tablelist;
+        }
+      },
       getListData() {
         this.loading = true;
         this.$store
@@ -107,7 +125,26 @@
                 }
               }
             }
-            this.data = response;
+            let filters = new Set()
+            for (let item of response) {
+              let i = {};
+              if (item) {
+                i.code = item.usedepartment;
+              }
+              filters.add(i);
+            }
+            let filtersrst = [...new Set(filters)]
+            var hash = {}
+            filtersrst = filtersrst.reduce(function (item, next) {
+              if (hash[next.code]) {
+                ''
+              } else {
+                hash[next.code] = true && item.push(next)
+              }
+              return item
+            }, [])
+            this.options = filtersrst
+            this.tablelist = response;
             this.loading = false;
           })
           .catch(error => {
