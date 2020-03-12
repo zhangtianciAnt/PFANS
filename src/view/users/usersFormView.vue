@@ -712,6 +712,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -728,6 +729,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -747,6 +749,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -763,6 +766,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -779,6 +783,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -795,6 +800,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled="true"
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -1774,60 +1780,60 @@
               trigger: "blur"
             }
           ],
-          annualyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
-              trigger: "blur"
-            }
-          ],
-          annuallastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          welfareyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
-              trigger: "blur"
-            }
-          ],
-          welfarelastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          restyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          restlastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
-              trigger: "blur"
-            }
-          ],
+          // annualyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // annuallastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfareyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfarelastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restlastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
           seatnumber: [
             {
               required: true,
