@@ -1426,6 +1426,10 @@
               group_id: this.form.group_id,
               team_id: this.form.team_id
             } = this.$route.params._org);
+        }
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
+          for(let i = 0; i < dic.length; i++){
+            this.checkList = dic[i].code;
           }
             this.getexpatriatesinfor();
             this.getcustomerinfor();

@@ -53,7 +53,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                    <el-input class="width" v-model="form.age" :disabled="true" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.age" disabled style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -712,6 +712,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -728,6 +729,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -747,6 +749,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -763,6 +766,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -779,6 +783,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -795,6 +800,7 @@
                       :precision="0"
                       :step="1"
                       class="width"
+                      disabled
                       style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
@@ -1287,13 +1293,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date" >
-                    <el-date-picker style="width:20vw" v-model="form.resignation_date" :disabled="true">
+                    <el-date-picker style="width:20vw" v-model="form.resignation_date" disabled>
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" prop="reason2">
-                    <el-input style="width:20vw" v-model="form.reason2" :disabled="true" type="textarea">
+                    <el-input style="width:20vw" v-model="form.reason2" disabled type="textarea">
                     </el-input>
                   </el-form-item>
                 </el-col>
@@ -1540,7 +1546,6 @@
           availablestate: "0"
         },
         disable: false,
-        buttonList: [],
         userToRoleId: "",
         userInfo: {
           userAccount: {},
@@ -1774,60 +1779,60 @@
               trigger: "blur"
             }
           ],
-          annualyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
-              trigger: "blur"
-            }
-          ],
-          annuallastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          welfareyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
-              trigger: "blur"
-            }
-          ],
-          welfarelastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          restyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
-              trigger: "blur"
-            }
-          ],
-          restlastyear: [
-            {
-              required: true,
-              message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
-              trigger: "blur"
-            }
-          ],
+          // annualyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // annuallastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfareyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfarelastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restlastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
           seatnumber: [
             {
               required: true,
@@ -2318,12 +2323,11 @@
               this.userInfo.customerInfo.userinfo.companyid = [
                 this.form.centerid
               ];
-            } else {
-              this.userInfo.customerInfo.userinfo.companyid = this.$route.params._companyid.split();
             }
             this.$store
               .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
+                debugger
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
                 } else {
@@ -2334,6 +2338,7 @@
                   message: this.$t("label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY"),
                   type: "success"
                 });
+                this.getUserList();
               })
               .catch(err => {
                 Message({
@@ -2343,11 +2348,27 @@
                 });
                 this.loading = false;
               });
+
+
           } else {
             this.loading = false;
           }
         });
-      }
+      },
+      getUserList() {
+        let params = {
+          orgtype: "1"
+        };
+        this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
+          this.$store.commit("global/SET_USERLIST", response);
+        }).catch(err => {
+          Message({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000
+          })
+        })
+      },
     }
   };
 </script>
