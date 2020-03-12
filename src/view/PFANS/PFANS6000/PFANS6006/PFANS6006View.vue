@@ -5,6 +5,19 @@
       <div slot="customize">
         <el-form  label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-form-item>
+            <el-row style="padding-top: 1%;padding-bottom: 2%">
+              <el-col :span="8">
+                <div class="block">
+                  <el-date-picker
+                    v-model="years"
+                    type="year"
+                    @change="yearChange"
+                    format="yyyy"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </div>
+              </el-col>
+            </el-row>
             <el-table :data="tableData" border stripe style="width: 100%" :header-cell-style="getRowClass" >
               <!-- 序号-->
               <el-table-column
@@ -160,64 +173,11 @@
                   </template>
                 </el-table-column>
               </el-table-column>
-
-
               <!--              第二组-->
               <!--活用状况-->
               <el-table-column
                 :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                 align="center">
-                <!--一月-->
-                <el-table-column
-                  :label="$t('label.January')"
-                  align="center"
-                  width="170">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:8vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="0.01"
-                      :precision="2"
-                      v-model.trim="scope.row.january">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-                <!--二月-->
-                <el-table-column
-                  :label="$t('label.February')"
-                  align="center"
-                  width="170">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:8vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="0.01"
-                      :precision="2"
-                      v-model.trim="scope.row.february">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-                <!--三月-->
-                <el-table-column
-                  :label="$t('label.March')"
-                  align="center"
-                  width="170">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      style="width:8vw"
-                      controls-position="right"
-                      :max="9999999999"
-                      :min="0"
-                      :step="0.01"
-                      :precision="2"
-                      v-model.trim="scope.row.march">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
                 <!--四月-->
                 <el-table-column
                   :label="$t('label.April')"
@@ -371,6 +331,57 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
+                <!--一月-->
+                <el-table-column
+                  :label="$t('label.January')"
+                  align="center"
+                  width="170">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:8vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="0.01"
+                      :precision="2"
+                      v-model.trim="scope.row.january">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
+                <!--二月-->
+                <el-table-column
+                  :label="$t('label.February')"
+                  align="center"
+                  width="170">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:8vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="0.01"
+                      :precision="2"
+                      v-model.trim="scope.row.february">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
+                <!--三月-->
+                <el-table-column
+                  :label="$t('label.March')"
+                  align="center"
+                  width="170">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      style="width:8vw"
+                      controls-position="right"
+                      :max="9999999999"
+                      :min="0"
+                      :step="0.01"
+                      :precision="2"
+                      v-model.trim="scope.row.march">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
                 <!--勤続月数-->
                 <el-table-column
                   :label="$t('label.PFANS6005VIEW_KQYS')"
@@ -504,6 +515,7 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
+          years:moment(new Date()).format("YYYY"),
         row: '',
         tableData: [{
           project_name: '',
@@ -554,6 +566,10 @@
       };
     },
     methods: {
+        yearChange(value){
+            this.years = moment(value).format('YYYY');
+            // this.selectData(value);
+        },
       buttonClick(val) {
         if (val === 'save') {
           this.updateexpatriatesinfor();
