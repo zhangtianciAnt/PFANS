@@ -359,7 +359,7 @@ module.exports = {
     PFANS6001VIEW: '外协员工面试记录',
     PFANS6002VIEW: '客户信息',
     PFANS6003VIEW: '供应商信息',
-    PFANS6004VIEW: '外协员工登记表',
+    PFANS6004VIEW: '外协人员登记表',
     PFANS6005VIEW: '单价设定',
     PFANS6006VIEW_TITLE: '外协员工委托信息',
     PFANS6007VIEW: '各种经费',
