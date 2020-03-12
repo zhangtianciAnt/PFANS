@@ -201,6 +201,7 @@
           .dispatch('orgTreeStore/getOrgTree')
           .then(response => {
             if (response) {
+              this.$store.commit("global/SET_ORGLIST", [response]);
               this.data = [response]
               this.currentNode = response
               this.getButtonAuth(this.currentNode)

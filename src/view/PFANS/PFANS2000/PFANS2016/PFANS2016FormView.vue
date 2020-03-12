@@ -662,13 +662,18 @@
         }
       },
       buttonClick(val) {
-        this.$refs['ruleForm'].validate(valid => {
+        this.$refs['ruleForm'].validate(valid => {//111
           if (valid) {
             this.errort = '';
             let letrelation = '';
             for (let j = 0; j < this.form.relation.length; j++) {
               letrelation = letrelation + ',' + this.form.relation[j];
             }
+            let letnewdate = moment(new Date()).format('YYYY-MM-DD');
+            let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
+            let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
+            this.form.periodstart = letoccurrencedate.replace(letnewdate,letoccurrencedate);
+            this.form.periodend = letfinisheddate.replace(letnewdate,letfinisheddate);
             this.form.relation = letrelation.substring(1, letrelation.length);
             if (this.$route.params._id) {
               this.form.abnormalid = this.$route.params._id;

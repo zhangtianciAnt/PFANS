@@ -1584,7 +1584,6 @@
         result1: '',
         result2: '',
         rank: '',
-        kind: '',
         invoicenumber: '',
         errorgroup: '',
         orglist: '',
@@ -1738,11 +1737,11 @@
             this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
             this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
             this.baseInfo.currencyexchanges = JSON.parse(JSON.stringify(this.tableW));
-            let user = getUserInfo(this.$store.getters.userinfo.userid);
-            if (user) {
-              this.rank = user.userinfo.rank;
-              this.kind = user.userinfo.type;
-            }
+            // let user = getUserInfo(this.$store.getters.userinfo.userid);
+            // if (user) {
+            //   this.rank = user.userinfo.rank;
+            //   this.kind = user.userinfo.type;
+            // }
             this.loading = false;
           })
           .catch(error => {
@@ -1762,11 +1761,11 @@
           this.form.groupid = lst.groupNmae;
           this.form.teamid = lst.teamNmae;
           this.form.userid = this.$store.getters.userinfo.userid;
-          let user = getUserInfo(this.$store.getters.userinfo.userid);
-          if (user) {
-            this.rank = user.userinfo.rank;
-            this.kind = user.userinfo.type;
-          }
+          // let user = getUserInfo(this.$store.getters.userinfo.userid);
+          // if (user) {
+          //   this.rank = user.userinfo.rank;
+          //   this.kind = user.userinfo.type;
+          // }
         }
         if (this.form.type === '0') {
           this.showdata = true;
@@ -1808,10 +1807,10 @@
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
                 var vote1 = {};
                 this.result1 = response;
-                vote1.value = response[i].businessid;
+                vote1.value = response[i].business_id;
                 vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
                 this.relations.push(vote1);
               }
@@ -1823,10 +1822,10 @@
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
                 var vote = {};
                 this.result = response;
-                vote.value = response[i].businessid;
+                vote.value = response[i].business_id;
                 vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
                 this.relations.push(vote);
               }
@@ -2234,10 +2233,11 @@
         this.getValue2(sums);
         return sums;
       },
-      change() {
+      change(val) {
+        this.form.business_id = val;
         if(this.form.type === '0'){
           this.result.forEach(res => {
-            if(res.businesstype === '0'){
+            if(res.businesstype === '1'){
               this.form.place = res.city,
                 this.form.startdate = res.startdate,
                 this.form.enddate = res.enddate;
@@ -2245,11 +2245,13 @@
             }
           });
         } else {
+          debugger;
           this.result1.forEach(res => {
-            if(res.businesstype === '1') {
+            if(res.businesstype === '0') {
               let dict = getDictionaryInfo(res.level);
               if (dict) {
                 this.form.level = dict.value1;
+                this.rank = dict.code;
               }
               this.form.abroadbusiness = res.abroadbusiness,
                 this.form.place = res.city,
@@ -2259,62 +2261,7 @@
             }
           })
         }
-        // for (var i = 0; i < 1; i++) {
-        //   this.tableT.push({
-        //     evectionid: '',
-        //     trafficdetails_id: '',
-        //     publicexpenseid: '',
-        //     trafficdate: '',
-        //     invoicenumber: '',
-        //     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-        //     taxes: '',
-        //     costitem: '',
-        //     region: '',
-        //     vehicle: '',
-        //     startingpoint: '',
-        //     rmb: '',
-        //     taxrate: '',
-        //     foreigncurrency: '',
-        //     annexno: '',
-        //     rowindex: '',
-        //   });
-        //   this.tableT[0].trafficdate = this.form.startdate;
-        //   this.tableT[1].trafficdate = this.form.enddate;
-        // }
-
-        // for (var i = 0; i < this.form.datenumber - 1; i++) {
-        //   this.tableA.push({
-        //     evectionid: '',
-        //     accommodationdetails_id: '',
-        //     accommodationdate: '',
-        //     activitycontent: '',
-        //     vehicleon: '',
-        //     vehiclein: '',
-        //     movementtime: '',
-        //     city: '',
-        //     region: '',
-        //     facilitytypeon: '',
-        //     facilitytypein: '',
-        //     facilityname: '',
-        //     accommodationallowance: '',
-        //     accommodation: '',
-        //     travelallowance: '',
-        //     travel: '',
-        //     relatives: '',
-        //     train: '',
-        //     plane: '',
-        //     annexno: '',
-        //     rowindex: '',
-        //     disaccommod: false,
-        //     showtick: true,
-        //   });
-        //   this.tableA[0].accommodationdate = this.form.startdate;
-        //   this.tableA[i + 1].accommodationdate = moment(this.tableA[i].accommodationdate).add(1, 'days');
-        // }
-        // }
-
-
-      },
+       },
       change2(val) {
         this.form.loanamount = "";
         this.result2.forEach(res => {
@@ -2539,32 +2486,32 @@
         if (movementtimedic) {
           varmovementtime2 = movementtimedic.value2;
         }
-        var varrank;
-        let dictionaryInfo = getDictionaryInfo(this.rank);
-        if (dictionaryInfo) {
-          varrank = dictionaryInfo.value1;
-        }
+        // var varrank;
+        // let dictionaryInfo = getDictionaryInfo(this.rank);
+        // if (dictionaryInfo) {
+        //   varrank = dictionaryInfo.value1;
+        // }
         if (this.form.type === '0') {
-          var varbusiness;
-          varrank = varrank.replace('R', '').replace('A', '').replace('B', '').replace('C', '');
-          if (this.kind === '0') {
-            if (Number(varrank) <= 7) {
-              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypeon);
-              if (businessdic) {
-                varbusiness = businessdic.value4;
-              }
-            } else if (Number(varrank) >= 8) {
-              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypeon);
-              if (businessdic) {
-                varbusiness = businessdic.value4;
-              }
-            }
-          } else if (this.kind === '1') {
-            let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypeon);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }
+          // var varbusiness;
+          // varrank = varrank.replace('R', '').replace('A', '').replace('B', '').replace('C', '');
+          // if (this.kind === '0') {
+          //   if (Number(varrank) <= 7) {
+          //     let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypeon);
+          //     if (businessdic) {
+          //       varbusiness = businessdic.value4;
+          //     }
+          //   } else if (Number(varrank) >= 8) {
+          //     let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypeon);
+          //     if (businessdic) {
+          //       varbusiness = businessdic.value4;
+          //     }
+          //   }
+          // } else if (this.kind === '1') {
+          //   let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypeon);
+          //   if (businessdic) {
+          //     varbusiness = businessdic.value4;
+          //   }
+          // }
           var varvalueflg1;
           let dictionaryInfo1 = getDictionaryInfo('PJ035001');
           if (dictionaryInfo1) {
@@ -2615,25 +2562,22 @@
           }
         } else if (this.form.type === '1') {
           var varbusiness;
-          varrank = varrank.replace('R', '').replace('A', '').replace('B', '').replace('C', '');
-          if (this.kind === '0') {
-            if (Number(varrank) <= 7) {
+            if (this.rank === 'PJ016001') {
               let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypein);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
-            } else if (Number(varrank) >= 8) {
+            } else if (this.rank === 'PJ016002') {
               let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypein);
               if (businessdic) {
                 varbusiness = businessdic.value4;
               }
+            } else if (this.rank === 'PJ016002') {
+              let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypein);
+              if (businessdic) {
+                varbusiness = businessdic.value4;
+              }
             }
-          } else if (this.kind === '1') {
-            let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypein);
-            if (businessdic) {
-              varbusiness = businessdic.value4;
-            }
-          }
           var vartravel = 0;
           if (varmovementtime2 != '' && varmovementtime2 != undefined
             && varbusiness != '' && varbusiness != undefined) {
@@ -2643,26 +2587,18 @@
         }
       },
       getTravelFly(row) {
-        var varrank;
-        let dictionaryInfo = getDictionaryInfo(this.rank);
-        if (dictionaryInfo) {
-          varrank = dictionaryInfo.value1;
-        }
         var varbusiness;
-        if (this.kind === '0') {
-          varrank = varrank.replace('R', '').replace('A', '').replace('B', '').replace('C', '');
-          if (Number(varrank) <= 7) {
+          if (this.rank === 'PJ016001') {
             let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'));
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
-          } else if (Number(varrank) >= 8) {
+          } else if (this.rank === 'PJ016002') {
             let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'));
             if (businessdic) {
               varbusiness = businessdic.value4;
             }
-          }
-        } else if (this.kind === '1') {
+          } else if (this.rank === 'PJ016003') {
           let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
           if (businessdic) {
             varbusiness = businessdic.value4;
@@ -2798,12 +2734,6 @@
         //     this.show5 = true;
         //   }
         // }
-      },
-      getCurrencyexchangerate(val, row) {
-        row.currencyexchangerate = val;
-      },
-      getUsexchangerate(val) {
-        this.from.usexchangerate = val;
       },
       workflowState(val) {
         if (val.state === '1') {
