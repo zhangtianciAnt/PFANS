@@ -1546,7 +1546,6 @@
           availablestate: "0"
         },
         disable: false,
-        buttonList: [],
         userToRoleId: "",
         userInfo: {
           userAccount: {},
@@ -2328,6 +2327,7 @@
             this.$store
               .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
+                debugger
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
                 } else {
