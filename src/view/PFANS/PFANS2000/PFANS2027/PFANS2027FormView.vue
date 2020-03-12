@@ -11,40 +11,49 @@
 
           <span>{{this.titleType}}</span>
 
+            <div>
+              <el-container>
+                <el-dialog   :visible.sync="dialogFormVisible">
+                    <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
+                      <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
+                      <dicselect
+                        :code="code14"
+                        :data="category"
+                        @change=""
+                        style="width: 10rem"
+                        :disabled="disabled">
+                      </dicselect>
+                    </el-form-item>
+
+                    <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
+                      <dicselect
+                        :code="code15"
+                        :data="category"
+                        @change=""
+                        style="width: 10rem"
+                        :disabled="disabled">
+                      </dicselect>
+                    </el-form-item>
+                  <div  class="dialog-footer" align="center">
+                    <span slot="footer" class="dialog-footer">
+                                <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>
+                    </span>
+                  </div>
+                </el-dialog>
+              </el-container>
+            </div>
+
+
+
           <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
-                <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
-                <dicselect
-                  :code="code13"
-                  :data="category"
-                  @change=""
-                  style="width: 10rem"
-                  :disabled="disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
-                <dicselect
-                  :code="code13"
-                  :data="category"
-                  @change=""
-                  style="width: 10rem"
-                  :disabled="disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
                 <dicselect
                   :code="code13"
                   :data="category"
-                  @change=""
+                  @change="changeCategory"
                   style="width: 10rem"
                   :disabled="disabled">
                 </dicselect>
@@ -61,7 +70,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_NAME')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.user_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -371,7 +380,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_ONE')" align="center" width="200">
+              <el-table-column :label="$t('label.PFANS2027VIEW_ESTIMATETIME')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <el-input :disabled="true"></el-input>
@@ -379,7 +388,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_TOW')" align="center" width="200">
+              <el-table-column :label="$t('label.PFANS2027VIEW_ESTIMATERESULT')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <el-input :disabled="true"></el-input>
@@ -387,13 +396,6 @@
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')" align="center" width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input :disabled="true"></el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
             </el-table-column>
 <!--総合所見【1】-->
             <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE1')" align="center">
@@ -465,12 +467,18 @@
         },
         data() {
             return {
+                loading: false,
+                dialogFormVisible: false,
                 year: new Date(),
                 category: '',
+                buttonList: [],
                 disabled: false,
 
                 form: {
-                    tabledata: [{},{}]
+                    tabledata: [{
+                        user_id:'',
+
+                    }]
                 },
                 code1: 'PJ089',
                 code2: 'PJ090',
@@ -485,6 +493,9 @@
                 code11: 'PJ099',
                 code12: 'PJ100',
                 code13: 'PJ101',
+                code14: 'PJ103',
+                code15: 'PJ104',
+
             }
         },
         mounted(){
@@ -493,7 +504,7 @@
             if (this.$route.params._id) {
 
             }else{//新建
-
+                this.dialogFormVisible = true;
             }
 
         },
@@ -507,7 +518,18 @@
                         'border-right': '1px solid #73B9FF',
                     };
                 }
-            }
+            },
+            click(){
+                this.dialogFormVisible = false;
+                this.loading = false;
+            },
+            changeCategory(val){
+                this.category = val;
+            },
+            buttonClick(val) {
+
+            },
+
         }
     }
 </script>
