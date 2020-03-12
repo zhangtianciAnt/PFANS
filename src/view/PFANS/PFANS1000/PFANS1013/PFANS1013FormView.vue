@@ -32,7 +32,7 @@
               </el-radio>
             </el-col>
           </el-row>
-          <el-tabs type="border-card" v-model="activeName">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TOTAL')" name="first">
               <div>
                 <el-row>
@@ -149,8 +149,8 @@
                         :min="0"
                         :precision="2"
                         controls-position="right"
-                        style="width:20vw"
                         v-model="form.loanamount"
+                        style="width:20vw"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -164,8 +164,8 @@
                         :step="0.01"
                         @change="getMoney"
                         controls-position="right"
-                        style="width:20vw"
                         v-model="form.totalpay"
+                        style="width:20vw"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -176,8 +176,8 @@
                         :max="9999999999"
                         :precision="2"
                         controls-position="right"
-                        style="width:20vw"
                         v-model="form.balance"
+                        style="width:20vw"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -185,19 +185,19 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
+                      <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
                         <el-option
+                          v-for="item in optionsdate"
                           :key="item.value"
                           :label="item.lable"
-                          :value="item.value"
-                          v-for="item in optionsdate">
+                          :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" v-show="show2">
                     <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
+                      <el-input :disabled="true" v-model="form.level" style="width: 20vw">
                       </el-input>
                     </el-form-item>
                   </el-col>
@@ -221,7 +221,7 @@
                         <span class="collapse_Title">{{$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGE')}}</span>
                       </template>
                       <el-table :data="tableW"
-                                border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
+                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                         <el-table-column :label="$t('label.PFANS1002VIEW_CURRENCY')" align="center" width="180">
                           <template slot-scope="scope">
                             <dicselect :code="code3"
@@ -235,35 +235,35 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGERATE')" align="center"
-                                         prop="currencyexchangerate"
-                                         width="180">
+                                         width="180"
+                                         prop="currencyexchangerate">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.currencyexchangerate">
+                            <el-input :disabled="true" v-model="scope.row.currencyexchangerate" style="width: 100%">
                             </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1004VIEW_AMOUNT')" align="center" width="180">
                           <template slot-scope="scope">
-                            <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.amount">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.amount" style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERATE')" align="center" width="180">
                           <template slot-scope="scope">
-                            <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangerate">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.exchangerate" style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" prop="exchangermb"
-                                         width="180">
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" width="180"
+                                         prop="exchangermb">
                           <template slot-scope="scope">
-                            <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangermb">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.exchangermb" style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -290,7 +290,7 @@
                       </el-table>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1013FORMVIEW_USEXCHANGERATE')">
-                          <el-input :disabled="true" style="width:20vw" v-model="form.usexchangerate">
+                          <el-input :disabled="true" v-model="form.usexchangerate" style="width:20vw">
                           </el-input>
                         </el-form-item>
                       </el-col>
@@ -304,7 +304,7 @@
                         <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
                       </template>
                       <el-table :data="tableF"
-                                border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
+                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
@@ -325,9 +325,9 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.invoiceamount">
+                            <el-input-number :min="0" :precision="2" :max="9999999"
+                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                             :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -342,35 +342,35 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" prop="debitamount"
-                                         width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
+                                         prop="debitamount">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disable"
-                              :max="9999999" :min="0"
-                              :no="scope.row"
-                              :precision="2"
-                              :step="1"
-                              @change="changeSum(scope.row)"
+                              :min="0" :precision="2"
+                              :max="9999999"
                               controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.excludingtax">
+                              :no="scope.row"
+                              :step="1"
+                              v-model="scope.row.excludingtax"
+                              @change="changeSum(scope.row)"
+                              style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" prop="creditamount"
-                                         width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
+                                         prop="creditamount">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
-                              :max="9999999" :min="0"
-                              :no="scope.row"
-                              :precision="2"
-                              :step="1"
-                              @change="changeSum(scope.row)"
+                              :min="0" :precision="2"
+                              :max="9999999"
                               controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.facetax">
+                              :no="scope.row"
+                              :step="1"
+                              v-model="scope.row.facetax"
+                              @change="changeSum(scope.row)"
+                              style="width: 100%">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -407,11 +407,11 @@
                       <el-col :span="24">
                         <el-table :data="tableData"
                                   :summary-method="getDsummaries"
-                                  border
                                   header-cell-class-name="sub_bg_color_blue"
                                   show-summary
-                                  stripe style="width: 46vw"
-                                  v-if="showdata">
+                                  v-if="showdata"
+                                  stripe border
+                                  style="width: 46vw">
                           <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">
                             <template slot-scope="scope">
                               <dicselect :code="code14"
@@ -453,11 +453,11 @@
                         <el-col :span="24">
                           <el-table :data="tableData2"
                                     :summary-method="getsummaries"
-                                    border
                                     header-cell-class-name="sub_bg_color_blue"
                                     show-summary
-                                    stripe style="width: 70vw"
-                                    v-if="showdata2">
+                                    v-if="showdata2"
+                                    stripe border
+                                    style="width: 70vw">
                             <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
                               <template slot-scope="scope">
                                 <dicselect :code="code14"
@@ -563,12 +563,12 @@
               </div>
             </el-tab-pane>
             <!--            第二?-->
-            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
-                         :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')"
+                         :disabled="this.form.business_id === '' ? true : false" name="second">
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableT" :summary-method="getTsummaries" border
-                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
+                  <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
+                            show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%"
@@ -579,22 +579,22 @@
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
+                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value"
-                            v-for="item in optionsdata">
+                            :value="item.value">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :error="errorgroup"
-                             :no="scope.row"
-                             :orglist="scope.row.departmentname"
-                             @getOrgids="getGroupId"
+                        <org :orglist="scope.row.departmentname"
                              orgtype="2"
-                             style="width: 100%"></org>
+                             :error="errorgroup"
+                             style="width: 100%"
+                             :no="scope.row"
+                             @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -724,13 +724,13 @@
             </el-tab-pane>
 
             <!--            第三?-->
-            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
-                         :label="$t('label.PFANS1013VIEW_ACCOMMODATION')" name="third">
+            <el-tab-pane :label="$t('label.PFANS1013VIEW_ACCOMMODATION')"
+                         :disabled="this.form.business_id === '' ? true : false" name="third">
               <el-row>
                 <el-col :span="24">
                   <el-table :data="tableA" :summary-method="getAsummaries"
-                            border
-                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
+                            header-cell-class-name="sub_bg_color_blue"
+                            show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">
@@ -747,22 +747,22 @@
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
+                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value"
-                            v-for="item in optionsdata">
+                            :value="item.value">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :error="errorgroup"
-                             :no="scope.row"
-                             :orglist="scope.row.departmentname"
-                             @getOrgids="getGroupId"
+                        <org :orglist="scope.row.departmentname"
                              orgtype="2"
-                             style="width: 100%"></org>
+                             :error="errorgroup"
+                             style="width: 100%"
+                             :no="scope.row"
+                             @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -1001,12 +1001,12 @@
             </el-tab-pane>
 
             <!--            第四?-->
-            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
-                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
+            <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')"
+                         :disabled="this.form.business_id === '' ? true : false" name="fourth">
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableR" :summary-method="getRsummaries" border
-                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
+                  <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
+                            show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">
@@ -1017,22 +1017,22 @@
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
+                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value"
-                            v-for="item in optionsdata">
+                            :value="item.value">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :error="errorgroup"
-                             :no="scope.row"
-                             :orglist="scope.row.departmentname"
-                             @getOrgids="getGroupId"
+                        <org :orglist="scope.row.departmentname"
                              orgtype="2"
-                             style="width: 100%"></org>
+                             :error="errorgroup"
+                             style="width: 100%"
+                             :no="scope.row"
+                             @getOrgids="getGroupId"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -1052,12 +1052,12 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" v-if="checkStatus != false"
-                                     width="150">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="150"
+                                     v-if="checkStatus != false">
                       <template slot-scope="scope">
                         <dicselect :code="code11"
-                                   :data="scope.row.accountcode"
                                    :disabled="!disable"
+                                   :data="scope.row.accountcode"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getcode" style="width: 100%">
@@ -1301,7 +1301,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
-          usexchangerate: getDictionaryInfo('PJ003001').value2,
+          usexchangerate: getDictionaryInfo("PJ003001").value2,
         },
         buttonList: [
           {
@@ -1643,11 +1643,17 @@
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
-                var vote1 = {};
-                this.result1 = response;
-                vote1.value = response[i].business_id;
-                vote1.label = this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote1);
+                this.relations.push({
+                  value: response[i].business_id,
+                  label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                  abroadbusiness: response[i].abroadbusiness,
+                  city: response[i].city,
+                  startdate: response[i].startdate,
+                  enddate: response[i].enddate,
+                  level: response[i].level,
+                  businesstype: response[i].businesstype,
+                  datenumber: response[i].datenumber,
+                })
               }
             }
           });
@@ -1658,11 +1664,15 @@
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
-                var vote = {};
-                this.result = response;
-                vote.value = response[i].business_id;
-                vote.label = this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD');
-                this.relations.push(vote);
+                this.relations.push({
+                  value: response[i].business_id,
+                  label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                  city: response[i].city,
+                  startdate: response[i].startdate,
+                  enddate: response[i].enddate,
+                  businesstype: response[i].businesstype,
+                  datenumber: response[i].datenumber,
+                })
               }
             }
           });
@@ -2093,72 +2103,88 @@
         }
       },
       changebusiness(val) {
+        this.form.startdate = '',
+          this.form.enddate = '';
         this.form.business_id = val;
         this.Todaysum = [];
         if (this.form.type === '0') {
-          this.result.forEach(res => {
-            if (res.businesstype === '1') {
-              this.form.place = res.city,
-                this.form.startdate = res.startdate,
-                this.form.enddate = res.enddate;
-              this.tableT[0].trafficdate = this.form.startdate;
-              this.tableA[0].accommodationdate = this.form.startdate;
-              this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-              var getDate = function(str) {
-                var tempDate = new Date();
-                var list = str.split('-');
-                tempDate.setFullYear(list[0]);
-                tempDate.setMonth(list[1] - 1);
-                tempDate.setDate(list[2]);
-                return tempDate;
-              };
-              var date = getDate(moment(this.tableA[0].accommodationdate).format('YYYY-MM-DD'));
-              this.getWeekDay(date);
-              this.tableA[0].nextday = this.week;
-              this.form.datenumber = res.datenumber;
-            }
-          });
-        } else {
-          this.result1.forEach(res => {
-            this.rank = res.level;
-            if (res.businesstype === '0') {
-              let dict = getDictionaryInfo(res.level);
-              if (dict) {
-                this.form.level = dict.value1;
+          debugger
+          console.log("aaa",this.relations)
+          for(var i =0;i<this.relations.length;i++){
+            if(this.relations[i].value==val){
+              if (this.relations[i].businesstype === '1') {
+                this.form.place = this.relations[i].city,
+                  this.form.startdate = this.relations[i].startdate,
+                  this.form.enddate = this.relations[i].enddate;
+                this.tableT[0].trafficdate = this.form.startdate;
+                this.tableA[0].accommodationdate = this.form.startdate;
+                this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                var getDate = function (str) {
+                  var tempDate = new Date();
+                  var list = str.split("-");
+                  tempDate.setFullYear(list[0]);
+                  tempDate.setMonth(list[1] - 1);
+                  tempDate.setDate(list[2]);
+                  return tempDate;
+                };
+                var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
+                this.getWeekDay(date);
+                this.tableA[0].nextday = this.week;
+                this.form.datenumber = this.relations[i].datenumber;
               }
-              this.form.abroadbusiness = res.abroadbusiness,
-              this.form.place = res.city,
-              this.form.startdate = res.startdate,
-              this.form.enddate = res.enddate;
-              this.tableT[0].trafficdate = this.form.startdate;
-              this.tableA[0].accommodationdate = this.form.startdate;
-              this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-              var getDate = function(str) {
-                var tempDate = new Date();
-                var list = str.split('-');
-                tempDate.setFullYear(list[0]);
-                tempDate.setMonth(list[1] - 1);
-                tempDate.setDate(list[2]);
-                return tempDate;
-              };
-              var date = getDate(moment(this.tableA[0].accommodationdate).format('YYYY-MM-DD'));
-              this.getWeekDay(date);
-              this.tableA[0].nextday = this.week;
-              this.form.datenumber = res.datenumber;
             }
-          });
+          }
+
+
+        } else {
+          debugger
+          console.log("aaa",this.relations)
+          for(var i = 0;i<this.relations.length;i++) {
+            debugger
+            if(this.relations[i].value==val) {
+              debugger
+              this.rank = this.relations[i].level;
+              if (this.relations[i].businesstype === '0') {
+                let dict = getDictionaryInfo(this.relations[i].level);
+                if (dict) {
+                  this.form.level = dict.value1;
+                }
+                this.form.abroadbusiness = this.relations[i].abroadbusiness,
+                  this.form.place = this.relations[i].city,
+                  this.form.startdate = this.relations[i].startdate,
+                  this.form.enddate = this.relations[i].enddate;
+                this.tableT[0].trafficdate = this.form.startdate;
+                this.tableA[0].accommodationdate = this.form.startdate;
+                this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                var getDate = function (str) {
+                  var tempDate = new Date();
+                  var list = str.split("-");
+                  tempDate.setFullYear(list[0]);
+                  tempDate.setMonth(list[1] - 1);
+                  tempDate.setDate(list[2]);
+                  return tempDate;
+                };
+                var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
+                this.getWeekDay(date);
+                this.tableA[0].nextday = this.week;
+                this.form.datenumber = this.relations[i].datenumber;
+              }
+            }
+          }
+
         }
-        if (this.form.startdate != '' && this.form.enddate != '') {
-          var getDate = function(str) {
+
+        if (this.form.startdate != '' && this.form.enddate != ''&& moment(this.form.startdate).format("YYYY-MM-DD")!=moment(this.form.enddate).format("YYYY-MM-DD")) {
+          var getDate = function (str) {
             var tempDate = new Date();
-            var list = str.split('-');
+            var list = str.split("-");
             tempDate.setFullYear(list[0]);
             tempDate.setMonth(list[1] - 1);
             tempDate.setDate(list[2]);
             return tempDate;
           };
-          var date1 = getDate(moment(this.form.startdate).format('YYYY-MM-DD'));
-          var date2 = getDate(moment(this.form.enddate).format('YYYY-MM-DD'));
+          var date1 = getDate(moment(this.form.startdate).format("YYYY-MM-DD"));
+          var date2 = getDate(moment(this.form.enddate).format("YYYY-MM-DD"));
           if (date1 > date2) {
             var tempDate = date1;
             date1 = date2;
@@ -2172,25 +2198,26 @@
               .getDate())) {
             var dayStr = date1.getDate().toString();
             if (dayStr.length == 1) {
-              dayStr = '0' + dayStr;
+              dayStr = "0" + dayStr;
             }
             var monthStr = (date1.getMonth() + 1).toString();
             if (monthStr.length == 1) {
-              monthStr = '0' + monthStr;
+              monthStr = "0" + monthStr;
             }
-            dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+            dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
               + dayStr;
             i++;
             date1.setDate(date1.getDate() + 1);
           }
-          dateArr.splice(0, 0, moment(this.form.startdate).format('YYYY-MM-DD'));
-          dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
+          dateArr.splice(0, 0, moment(this.form.startdate).format("YYYY-MM-DD"));
+          dateArr.push(moment(this.form.enddate).format("YYYY-MM-DD"));
           this.Todaysum = dateArr;
+          console.log("bbb",this.Todaysum)
         }
         for (let i = 1; i < this.Todaysum.length; i++) {
-          var getDate = function(str) {
+          var getDate = function (str) {
             var tempDate = new Date();
-            var list = str.split('-');
+            var list = str.split("-");
             tempDate.setFullYear(list[0]);
             tempDate.setMonth(list[1] - 1);
             tempDate.setDate(list[2]);
@@ -2232,7 +2259,7 @@
         }
       },
       change2(val) {
-        this.form.loanamount = '';
+        this.form.loanamount = "";
         this.result2.forEach(res => {
           if (res.loanapplication_id === val) {
             this.form.loanamount = res.moneys;
@@ -2446,6 +2473,7 @@
         }
       },
       getTravel(row) {
+        debugger;
         var varmovementtime2;
         let movementtimedic = getDictionaryInfo(row.movementtime);
         if (movementtimedic) {
@@ -2669,15 +2697,15 @@
             if (newValue.rmb != '') {
               if (this.tableF[j].taxrate != '') {
                 if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = '0.03';
+                  this.taxrateValue = '0.03'
                 } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = '0.06';
+                  this.taxrateValue = '0.06'
                 } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = '0.09';
+                  this.taxrateValue = '0.09'
                 } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = '0.13';
+                  this.taxrateValue = '0.13'
                 }
-                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue);
+                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
               }
             }
           }
@@ -2892,6 +2920,7 @@
             }
           });
         }
+
       },
     },
   };
@@ -2899,7 +2928,7 @@
 
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style rel="stylesheet/scss" lang="scss">
 
   .el-table {
     overflow-x: auto;
