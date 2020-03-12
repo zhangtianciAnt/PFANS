@@ -64,13 +64,6 @@
                         filter: true
                     },
                     {
-                        code: 'commentary',
-                        label: 'label.PFANS2027VIEW_EVALUATIONSTATUS',
-                        width: 120,
-                        fix: false,
-                        filter: true
-                    },
-                    {
                         code: 'status',
                         label: 'label.PFANS5005VIEW_STATUS',
                         width: 150,
