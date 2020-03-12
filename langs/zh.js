@@ -1,3 +1,6 @@
+let date = new Date();
+let dateMonth = new Date();
+dateMonth.setMonth(dateMonth.getMonth() - 1);
 module.exports = {
   login: {
     name: '用户名',
@@ -1767,8 +1770,10 @@ module.exports = {
     PFANS2005FORMVIEW_MS: '免税',
     PFANS2005FORMVIEW_LJSJ: '累计税金',
     PFANS2005FORMVIEW_GRDB: '个人对比',
-    PFANS2005FORMVIEW_JULY: '2019年7月①到手额',
-    PFANS2005FORMVIEW_JUNE: '2019年6月②到手额',
+    // PFANS2005FORMVIEW_JULY: '2019年7月①到手额',
+    // PFANS2005FORMVIEW_JUNE: '2019年6月②到手额',
+    PFANS2005FORMVIEW_JULY: `${date.getFullYear()}年${date.getMonth() + 1}月①到手额`,
+    PFANS2005FORMVIEW_JUNE: `${dateMonth.getFullYear()}年${dateMonth.getMonth() + 1}月②到手额`,
     PFANS2005FORMVIEW_DIFFERENCE: '差额①-②',
     PFANS2005FORMVIEW_CAUSE: '原因',
     PFANS2005FORMVIEW_GJ: '依据',
