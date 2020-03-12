@@ -727,7 +727,9 @@
                   this.$t('label.ASSETS1001VIEW_PARAM13'),
                   this.$t('label.ASSETS1001VIEW_PARAM14'),
                   this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM7')
+                  this.$t('label.ASSETS1001VIEW_PARAM7'),
+                 this.$t('label.department')
+
               ];
                filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
                   'pcno','model','price','no','purchasetime','activitiondate','remarks','customer','controlno','machinename',
@@ -735,7 +737,7 @@
                    'inparams3','inparams4','inparams5','inparams6',
                    'inparams7','inparams8','outparams1',
                   'outparams2', 'outparams3','outparams4','outparams5','outparams6','outparams7','outparams8','outparams9',
-                  'outparams10','outparams11','outparams12','outparams13','outparams14'];
+                  'outparams10','outparams11','outparams12','outparams13','outparams14',"usedepartment"];
           }else{
               Message({
                   message: this.$t("label.ASSETS1001VIEW_ERROR"),

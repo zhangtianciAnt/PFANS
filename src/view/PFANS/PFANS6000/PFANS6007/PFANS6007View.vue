@@ -10,14 +10,14 @@
   import moment from "moment";
   import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
   export default {
-    name: 'PFANS6007View',
+    name: 'PFANS6007VIEW',
     components: {
       EasyNormalTable
     },
     data() {
       return {
         loading: false,
-        title: "title.PFANS6007VIEW_TITLE",
+        title: "title.PFANS6007VIEW",
         data: [],
         columns: [
           {/*1*/
