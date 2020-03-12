@@ -2340,6 +2340,7 @@
                   message: this.$t("label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY"),
                   type: "success"
                 });
+                this.getUserList();
               })
               .catch(err => {
                 Message({
@@ -2349,11 +2350,27 @@
                 });
                 this.loading = false;
               });
+
+
           } else {
             this.loading = false;
           }
         });
-      }
+      },
+      getUserList() {
+        let params = {
+          orgtype: "1"
+        };
+        this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
+          this.$store.commit("global/SET_USERLIST", response);
+        }).catch(err => {
+          Message({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000
+          })
+        })
+      },
     }
   };
 </script>
