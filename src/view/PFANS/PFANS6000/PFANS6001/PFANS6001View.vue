@@ -97,6 +97,7 @@
       this.$store
         .dispatch('PFANS6001Store/getcooperinterview')
         .then(response => {
+          this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           for (let j = 0; j < response.length; j++) {
             if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
               let graduateschool = getUserInfo(response[j].graduateschool);

@@ -173,10 +173,6 @@ export default {
         this.$router.push({
           name: "usersFormView",
           params: {
-            _companyid:
-              JSON.stringify(this.currentNodeData) == "{}"
-                ? this.data[0]._id
-                : this.currentNodeData._id,
             _org: this.org
           }
         });
@@ -191,11 +187,7 @@ export default {
         this.$router.push({
           name: "usersFormView",
           params: {
-            _id: this.rowData.userid,
-            _companyid:
-              JSON.stringify(this.currentNodeData) == "{}"
-                ? this.data[0]._id
-                : this.currentNodeData._id
+            _id: this.rowData.userid
           }
         });
       } else if (val === "disableUser") {

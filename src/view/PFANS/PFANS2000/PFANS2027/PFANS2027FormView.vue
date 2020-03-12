@@ -418,6 +418,30 @@
               </el-table-column>
             </el-table-column>
 
+            <el-table-column :label="$t('label.PFANS2027VIEW_ONEMONTH')" align="center" width="270">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                  <el-input></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
+            <el-table-column :label="$t('label.PFANS2027VIEW_TOWMONTH')" align="center" width="270">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                  <el-input></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
+            <el-table-column :label="$t('label.PFANS2027VIEW_THREMONTH')" align="center" width="270">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
+                  <el-input></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
           </el-table>
         </el-form>
       </div>
@@ -464,7 +488,14 @@
             }
         },
         mounted(){
-            let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
+            //let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
+            this.loading = true;
+            if (this.$route.params._id) {
+
+            }else{//新建
+
+            }
+
         },
         methods: {
             getRowClass({row, column, rowIndex, columnIndex}) {

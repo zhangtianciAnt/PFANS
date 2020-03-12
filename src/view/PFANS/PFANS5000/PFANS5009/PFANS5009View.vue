@@ -136,9 +136,8 @@
                  response[j].contractstatus = this.contractstatus2
                }
              }
-             if (response[j].status !== null && response[j].status !== "") {
                response[j].status = getStatus(response[j].status);
-             }
+
            }
           this.data = response;
           this.loading = false;

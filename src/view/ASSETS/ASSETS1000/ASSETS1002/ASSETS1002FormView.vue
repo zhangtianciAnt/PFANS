@@ -139,14 +139,6 @@
           status: ''
         },
         tableD: [
-          {
-            filename: '',
-            typeassets: '',
-            price: '',
-            purchasetime: '',
-            usedepartment: '',
-            principal: '',
-          },
         ],
         columns: [
           {
@@ -193,6 +185,7 @@
           }
         ],
         buttonList:[],
+        zichanlist:[],
         multipleSelection: [],
         baseInfo: {},
         rules: {
@@ -280,7 +273,16 @@
         });
       },
       changed() {
-        this.getSelectAll();
+        if(this.$route.params._id){
+
+          if(this.department){
+            this.tableD = this.zichanlist.filter(item => item.usedepartment == this.department)
+          }else{
+            this.tableD = this.zichanlist;
+          }
+        }else{
+          this.getSelectAll();
+        }
       },
       rowClick(row) {
         this.rowid = row.assets_id;
@@ -297,7 +299,7 @@
             this.form.inventorycycle = [inventory, inventory1];
             this.userlist = response.inventoryplan.userid;
             if (response.inventoryRange.length > 0) {
-              this.tableD = response.inventoryRange;
+              this.zichanlist = response.inventoryRange;
               for (let j = 0; j < response.inventoryRange.length; j++) {
                 let user = getUserInfo(response.inventoryRange[j].principal);
                 if (user) {
@@ -321,6 +323,25 @@
                 }
               }
             }
+            let filters = new Set()
+            for (let item of response.inventoryRange) {
+              let i = {};
+              if (item) {
+                i.code = item.usedepartment;
+              }
+              filters.add(i);
+            }
+            let filtersrst = [...new Set(filters)]
+            var hash = {}
+            filtersrst = filtersrst.reduce(function (item, next) {
+              if (hash[next.code]) {
+                ''
+              } else {
+                hash[next.code] = true && item.push(next)
+              }
+              return item
+            }, [])
+            this.options = filtersrst
             this.loading = false;
           })
           .catch(error => {
