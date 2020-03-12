@@ -50,13 +50,6 @@
                         filter: true
                     },
                     {
-                        code: 'team_name',
-                        label: 'label.PFANS2027VIEW_CATEGORY',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
                         code: 'years',
                         label: 'label.PFANS2027VIEW_EVALUATIONTIME',
                         width: 120,
