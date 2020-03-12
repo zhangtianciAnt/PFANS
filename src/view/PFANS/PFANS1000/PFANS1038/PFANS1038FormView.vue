@@ -350,7 +350,7 @@
         this.$store
           .dispatch('PFANS1038Store/getExternal')
           .then(response => {
-            debugger
+            this.$store.commit("global/SET_SUPPLIERINFOR", response);
             if (response.length > 0) {
               this.externalOption = response;
             }
