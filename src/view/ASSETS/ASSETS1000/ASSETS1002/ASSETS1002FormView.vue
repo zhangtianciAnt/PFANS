@@ -185,6 +185,7 @@
           }
         ],
         buttonList:[],
+        zichanlist:[],
         multipleSelection: [],
         baseInfo: {},
         rules: {
@@ -272,7 +273,16 @@
         });
       },
       changed() {
-        this.getSelectAll();
+        if(this.$route.params._id){
+
+          if(this.department){
+            this.tableD = this.zichanlist.filter(item => item.usedepartment == this.department)
+          }else{
+            this.tableD = this.zichanlist;
+          }
+        }else{
+          this.getSelectAll();
+        }
       },
       rowClick(row) {
         this.rowid = row.assets_id;
@@ -288,31 +298,31 @@
             let inventory1 = inventorycycle.slice(inventorycycle.length - 10);
             this.form.inventorycycle = [inventory, inventory1];
             this.userlist = response.inventoryplan.userid;
-//             if (response.inventoryRange.length > 0) {
-//               this.tableD = response.inventoryRange;
-//               for (let j = 0; j < response.inventoryRange.length; j++) {
-//                 let user = getUserInfo(response.inventoryRange[j].principal);
-//                 if (user) {
-//                   response.inventoryRange[j].principal = user.userinfo.customername;
-// //                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
-//                 }
-//                 if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
-//                   response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
-//                 }
-//                 if (response.inventoryRange[j].typeassets !== null && response.inventoryRange[j].typeassets !== '') {
-//                   let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
-//                   if (letErrortype != null) {
-//                     response.inventoryRange[j].typeassets = letErrortype.value1;
-//                   }
-//                 }
-//                 if (response.inventoryRange[j].bartype !== null && response.inventoryRange[j].bartype !== '') {
-//                   let letBartype = getDictionaryInfo(response.inventoryRange[j].bartype);
-//                   if (letBartype != null) {
-//                     response.inventoryRange[j].bartype = letBartype.value1;
-//                   }
-//                 }
-//               }
-//             }
+            if (response.inventoryRange.length > 0) {
+              this.zichanlist = response.inventoryRange;
+              for (let j = 0; j < response.inventoryRange.length; j++) {
+                let user = getUserInfo(response.inventoryRange[j].principal);
+                if (user) {
+                  response.inventoryRange[j].principal = user.userinfo.customername;
+//                  response.inventoryRange[j].usedepartment = user.userinfo.centername;
+                }
+                if (response.inventoryRange[j].purchasetime !== null && response.inventoryRange[j].purchasetime !== '') {
+                  response.inventoryRange[j].purchasetime = moment(response.inventoryRange[j].purchasetime).format('YYYY-MM-DD');
+                }
+                if (response.inventoryRange[j].typeassets !== null && response.inventoryRange[j].typeassets !== '') {
+                  let letErrortype = getDictionaryInfo(response.inventoryRange[j].typeassets);
+                  if (letErrortype != null) {
+                    response.inventoryRange[j].typeassets = letErrortype.value1;
+                  }
+                }
+                if (response.inventoryRange[j].bartype !== null && response.inventoryRange[j].bartype !== '') {
+                  let letBartype = getDictionaryInfo(response.inventoryRange[j].bartype);
+                  if (letBartype != null) {
+                    response.inventoryRange[j].bartype = letBartype.value1;
+                  }
+                }
+              }
+            }
             let filters = new Set()
             for (let item of response.inventoryRange) {
               let i = {};
