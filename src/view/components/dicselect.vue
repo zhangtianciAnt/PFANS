@@ -1,5 +1,5 @@
 <template>
-  <el-select :disabled="disabled" :loading="loading" :multiple="multiple" @change="change" filterable v-model="value">
+  <el-select :disabled="disabled" :loading="loading" :multiple="multiple" @change="change" filterable v-model="value" :size="size">
     <el-option
       :key="item.code"
       :label="item.value1"
@@ -22,6 +22,10 @@
       }
     },
     props: {
+      size:{
+        type:String,
+
+      },
       code: {
         type: String,
         default:

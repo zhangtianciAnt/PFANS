@@ -1628,9 +1628,9 @@
                   this.handleClick();
                 }else {
                   if(this.form.tabledata.length > 0){
-                    this.$confirm('之前创建这条将要被删除, 是否继续?', '提示', {
-                      confirmButtonText: '确定',
-                      cancelButtonText: '取消',
+                    this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                      confirmButtonText: this.$t('button.confirm'),
+                      cancelButtonText: this.$t('button.cancel'),
                       type: 'warning'
                     }).then(() => {
                       this.form.tabledata = [];
