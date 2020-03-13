@@ -543,22 +543,30 @@
             //let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
             this.loading = true;
             if (this.$route.params._id) {
-                //this.dialogFormVisible = true;
-                this.show = true;
+                this.dialogFormVisible = false;
+                if(this.$route.params.show){//view
+                    this.show = this.$route.params.show;
+                }else{//update
+                    this.show = this.$route.params.show;
+                }
             }else{//新建
                 this.show = false;
                 let month = new Date().getMonth() + 1;
                 if(month >= 1 && month <=3){
                     this.form1.subjectmon = getDictionaryInfo('PJ103004').value1;
+                    this.form1.subject = getDictionaryInfo('PJ103004').value2;
                 }
                 if(month >= 4 && month <=6){
                     this.form1.subjectmon = getDictionaryInfo('PJ103001').value1;
+                    this.form1.subject = getDictionaryInfo('PJ103001').value2;
                 }
                 if(month >= 7 && month <=9){
                     this.form1.subjectmon = getDictionaryInfo('PJ103002').value1;
+                    this.form1.subject = getDictionaryInfo('PJ103002').value2;
                 }
                 if(month >= 10 && month <=12){
                     this.form1.subjectmon = getDictionaryInfo('PJ103003').value1;
+                    this.form1.subject = getDictionaryInfo('PJ103003').value2;
                 }
                 let user = getUserInfo(this.form1.user_id);
                 console.log(user.userinfo.post);
@@ -602,9 +610,11 @@
                             message: this.$t("normal.success_01"),
                             type: "success"
                         });
+
                         if (this.$store.getters.historyUrl) {
                             this.$router.push(this.$store.getters.historyUrl);
                         }
+
                     })
                     .catch(err => {
                         this.loading = false;
