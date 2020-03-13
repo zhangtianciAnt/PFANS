@@ -302,28 +302,6 @@
           callback();
         }
       };
-      var validatenightshiftstart = (rule, value, callback) => {
-        if (value !== null && value !== '') {
-          if (this.form.closingtime_end !== null && this.form.closingtime_end !== '' && value <= this.form.closingtime_end) {
-            callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTSTART') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2018VIEW_CLOSINGTIMEEND')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
-      var validatenightshiftend = (rule, value, callback) => {
-        if (value !== null && value !== '') {
-          if (this.form.workshift_start !== null && this.form.workshift_start !== '' && value >= this.form.workshift_start) {
-            callback(new Error(this.$t('label.PFANS2018VIEW_NIGHTSHIFTEND') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2018VIEW_WORKSHIFTSTART')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         loading: false,
         title: 'title.PFANS2018VIEW',
@@ -449,7 +427,6 @@
           .then(response => {
             this.form = response;
             this.loading = false;
-            console.log(moment(this.form.nightshift_start).add(15, 'm'))
           })
           .catch(error => {
             Message({
