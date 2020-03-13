@@ -69,7 +69,7 @@
                     <el-input
                       :no="scope.row"
                       :disabled="!disabled"
-                      v-model="scope.row.suppliername"
+                      v-model="scope.row.company"
                       style="width: 100%">
                     </el-input>
                   </template>
@@ -83,7 +83,7 @@
                     <el-input
                       :no="scope.row"
                       :disabled="!disabled"
-                      v-model="scope.row.expname"
+                      v-model="scope.row.suppliernameid"
                       style="width: 100%">
                     </el-input>
                   </template>
@@ -502,7 +502,7 @@
     import moment from "moment";
     import {Message} from 'element-ui';
     import user from "../../../components/user.vue";
-    import {getDictionaryInfo, getUserInfo, getCooperinterviewList} from '@/utils/customize';
+    import {getDictionaryInfo, getSupplierinfor} from '../../../../utils/customize';
 
     export default {
         name: "PFANS6006View",
@@ -521,8 +521,8 @@
                 tableData: [{
                     project_name: '',
                     managerid: '',
-                    suppliername: '',
-                    expname: '',
+                    company: '',
+                    suppliernameid: '',
                     admissiontime: '',
                     exitime: '',
                     operationform: '',
@@ -569,7 +569,7 @@
         methods: {
             yearChange(value) {
                 this.years = moment(value).format('YYYY');
-                // this.selectData(value);
+                // this.getDelegainformation(value);
             },
             buttonClick(val) {
                 if (val === 'save') {
@@ -636,9 +636,70 @@
             getDelegainformation() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6006Store/createDeleginformation', {})
+                    .dispatch('PFANS6006Store/getDelegainformation', {})
                     .then(response => {
-
+                        for (let j = 0; j < response.length; j++) {
+                            if (response[j].suppliernameid !== null && response[j].suppliernameid !== '') {
+                                let supplierInfo = getSupplierinfor(response[j].suppliernameid);
+                                if (supplierInfo) {
+                                    response[j].suppliernameid = supplierInfo.supchinese;
+                                }
+                            }
+                            if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
+                                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
+                            }
+                            if (response[j].exitime !== null && response[j].exitime !== '') {
+                                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
+                            }
+                            if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
+                                let letStage = getDictionaryInfo(response[j].jobclassification);
+                                if (letStage != null) {
+                                    response[j].jobclassification = letStage.value1;
+                                }
+                            }
+                            if (response[j].operationform !== null && response[j].operationform !== '') {
+                                let letStage = getDictionaryInfo(response[j].operationform);
+                                if (letStage != null) {
+                                    response[j].operationform = letStage.value1;
+                                }
+                            }
+                            if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
+                                let letStage = getDictionaryInfo(response[j].distriobjects);
+                                if (letStage != null) {
+                                    response[j].distriobjects = letStage.value1;
+                                }
+                            }
+                            if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                                let letStage = getDictionaryInfo(response[j].alltechnology);
+                                if (letStage != null) {
+                                    response[j].alltechnology = letStage.value1;
+                                }
+                            }
+                            if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
+                                let letStage = getDictionaryInfo(response[j].sitevaluation);
+                                if (letStage != null) {
+                                    response[j].sitevaluation = letStage.value1;
+                                }
+                            }
+                            if (response[j].exitreason !== null && response[j].exitreason !== '') {
+                                let letStage = getDictionaryInfo(response[j].exitreason);
+                                if (letStage != null) {
+                                    response[j].exitreason = letStage.value1;
+                                }
+                            }
+                            if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
+                                let letStage = getDictionaryInfo(response[j].businessimpact);
+                                if (letStage != null) {
+                                    response[j].businessimpact = letStage.value1;
+                                }
+                            }
+                            if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                                let letStage = getDictionaryInfo(response[j].countermeasure);
+                                if (letStage != null) {
+                                    response[j].countermeasure = letStage.value1;
+                                }
+                            }
+                        }
                         this.tableData = response;
                         this.loading = false;
                     })

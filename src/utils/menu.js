@@ -1225,7 +1225,7 @@ export function menu() {
                   '_id': 'PFANS2007',
                   'name': 'menu.PFANS2007',
                   'menuvisible': true,
-                  'menuurl': '/PFANS2007View',
+                  'menuurl': '/PFANS2007FormView',
                   'menuicon': '',
                   'children': [],
                   'actions': [

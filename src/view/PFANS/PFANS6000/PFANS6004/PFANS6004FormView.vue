@@ -384,13 +384,6 @@
                   width="150"
                 >
                 </el-table-column>
-                <!--                客户-->
-                <!--                <el-table-column-->
-                <!--                  prop="deployment"-->
-                <!--                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
-                <!--                  width="150"-->
-                <!--                >-->
-                <!--                </el-table-column>-->
                 <!--                项目类型-->
                 <el-table-column
                   prop="projecttype"
@@ -959,6 +952,7 @@
                 this.$store
                     .dispatch('PFANS6001Store/getcooperinterview', {})
                     .then(response => {
+                        console.log(response);
                         this.gridData1 = [];
                         for (let i = 0; i < response.length; i++) {
                             var vote = {};
@@ -1005,7 +999,7 @@
             selectById(val) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._name})
+                    .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._id})
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
                             if (response[j].group_id !== null && response[j].group_id !== '') {

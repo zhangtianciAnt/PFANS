@@ -1,8 +1,8 @@
 import request from '../../../../utils/request'
 
-export function getListType(data) {
+export function inserttodo(data) {
   return request({
-    url: 'bonussend/getListType',
+    url: 'bonussend/inserttodo',
     method: 'post',
     data: data,
   })
@@ -16,9 +16,10 @@ export function getList(data) {
   });
 }
 
-export function get() {
+export function update(data) {
   return request({
-    url: 'bonussend/get',
-    method: 'get'
+    url: 'bonussend/update',
+    method: 'post',
+    data: data
   })
 }

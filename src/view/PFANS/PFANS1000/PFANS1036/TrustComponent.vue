@@ -7,7 +7,7 @@
     </el-table-column>
     <el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
-                       width="140">
+                       width="140" prop="commission">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:7vw" :disabled="disabled" :min="0" controls-position="right"  @change="changeSum(scope.row)"
                            :step="1000" v-model.trim="scope.row.commission" ></el-input-number>
@@ -15,7 +15,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.April')" align="center" width="130">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number4">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,4)" :step="1"
                            v-model.trim="scope.row.number4">
@@ -26,7 +26,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.May')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number5">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1" @change="changeSum(scope.row,5)" :step="1"
                            v-model.trim="scope.row.number5"></el-input-number>
@@ -36,7 +36,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.June')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number6">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,6)" :step="1"
                            v-model.trim="scope.row.number6"></el-input-number>
@@ -46,7 +46,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.July')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number7">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,7)" :step="1"
                            v-model.trim="scope.row.number7"></el-input-number>
@@ -56,7 +56,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.August')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number8">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,8)" :step="1"
                            v-model.trim="scope.row.number8"></el-input-number>
@@ -66,7 +66,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.September')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number9">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,9)" :step="1"
                            v-model.trim="scope.row.number9"></el-input-number>
@@ -82,7 +82,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.October')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number10">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,10)" :step="1"
                            v-model.trim="scope.row.number10"></el-input-number>
@@ -92,7 +92,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.November')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number11">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,11)" :step="1"
                            v-model.trim="scope.row.number11"></el-input-number>
@@ -102,7 +102,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.December')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number12">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,12)" :step="1"
                            v-model.trim="scope.row.number12"></el-input-number>
@@ -112,7 +112,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.January')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number1">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,1)" :step="1"
                            v-model.trim="scope.row.number1"></el-input-number>
@@ -122,7 +122,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.February')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number2">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,2)" :step="1"
                            v-model.trim="scope.row.number2"></el-input-number>
@@ -132,7 +132,7 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.March')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number3">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,3)" :step="1"
                            v-model.trim="scope.row.number3"></el-input-number>
@@ -157,14 +157,14 @@
 </template>
 
 <script>
-
+  import {getDictionaryInfo} from '@/utils/customize';
   export default {
     name: 'AssetsComponent',
     components: {
     },
     data() {
       return{
-
+         sum:[]
       }
     },
     props: {
@@ -184,7 +184,10 @@
     },
     methods: {
       formatterDir(row, column,cellValue, index) {
-          if(row[column.property] === "" || row[column.property] === null){
+        if(getDictionaryInfo(row[column.property])){
+          return getDictionaryInfo(row[column.property]).value1;
+        }
+         else if(row[column.property] === "" || row[column.property] === null){
             return "-";
           }else{
             return row[column.property];
@@ -212,6 +215,7 @@
             sums[index] = '';
           }
         });
+        this.sum  = sums;
         return sums;
       },
       changeSum(scope, index) {
@@ -246,6 +250,13 @@
       tableTrust:{
         handler(newValue,oldValue){
           this.tableTrust = newValue;
+        },
+        deep:true
+      },
+      sum:{
+        handler(newValue,oldValue){
+          this.sum = newValue;
+          this.$emit("sum", this.sum);
         },
         deep:true
       },
