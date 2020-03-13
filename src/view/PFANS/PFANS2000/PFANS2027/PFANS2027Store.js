@@ -1,4 +1,4 @@
-import {getLunarbonus,selectById,update,insert} from './PFANS2027Api'
+import {getLunarbonus,selectById,update,insertLunarbonus} from './PFANS2027Api'
 
 const PFANS2027Store = {
   namespaced: true,
@@ -49,20 +49,20 @@ const PFANS2027Store = {
     //     })
     //   })
     // },
-    // //新建
-    // insert({commit}, data) {
-    //   return new Promise((resolve, reject) => {
-    //     insert(data).then(response => {
-    //       if (response.code === 0) {
-    //         resolve(response.data);
-    //       } else {
-    //         reject(response.message)
-    //       }
-    //     }).catch(error => {
-    //       reject(error);
-    //     })
-    //   })
-    // },
+    //新建
+    insertLunarbonus({commit}, data) {
+      return new Promise((resolve, reject) => {
+        insertLunarbonus(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 export default PFANS2027Store;

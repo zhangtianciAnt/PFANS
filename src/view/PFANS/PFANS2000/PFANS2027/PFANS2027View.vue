@@ -102,6 +102,13 @@
                                     response[j].subjectmon = letUsetype.value1;
                                 }
                             }
+                            if (response[j].subject !== null && response[j].subject !== "") {
+                                let letUsetype = getDictionaryInfo(response[j].subject);
+                                if (letUsetype != null) {
+                                    response[j].subject = letUsetype.value2;
+                                }
+                            }
+
                             if (response[j].evaluatenum !== null && response[j].evaluatenum !== "") {
                                 let letUsetype = getDictionaryInfo(response[j].evaluatenum);
                                 if (letUsetype != null) {

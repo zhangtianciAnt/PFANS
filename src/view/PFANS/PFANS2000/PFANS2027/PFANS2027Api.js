@@ -24,11 +24,12 @@ export function getLunarbonus(data) {
 //     data: data
 //   })
 // }
-// //新建insert
-// export function insert(data) {
-//   return request({
-//     url: 'appreciation/insert',
-//     method: 'post',
-//     data: data
-//   })
-// }
+//新建insert
+export function insertLunarbonus(data) {
+  debugger
+  return request({
+    url: 'Getlunarbonus/create',
+    method: 'post',
+    data: data
+  })
+}

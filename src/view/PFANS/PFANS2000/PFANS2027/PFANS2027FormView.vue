@@ -19,7 +19,8 @@
                     <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
                       <dicselect
                         :code="code14"
-                        :data="category"
+                        :data="form1.subjectmon"
+                        @change="changecommentarymonths"
                         style="width: 10rem"
                         :disabled="disabled">
                       </dicselect>
@@ -28,7 +29,8 @@
                     <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
                       <dicselect
                         :code="code15"
-                        :data="category"
+                        :data="form1.evaluatenum"
+                        @change="changeevaluationtime"
                         style="width: 10rem"
                         :disabled="disabled">
                       </dicselect>
@@ -455,6 +457,13 @@
                 loading: false,
                 dialogFormVisible: false,
                 year: new Date(),
+                form1:{
+                    evaluatenum:'',
+                    subjectmon:'',
+                    subject:'',
+                    user_id: this.$store.getters.userinfo.userid,
+                },
+
                 category: '',
                 titleType:'',
                 title: "title.PFANS2027VIEW_VIEW",
@@ -532,12 +541,51 @@
                 }
             },
             click(){
-                this.dialogFormVisible = false;
-                this.loading = false;
+                // this.dialogFormVisible = false;
+                // this.loading = false;
+console.log("aaa",this.form1)
+                this.loading = true;
+                this.$store
+                    .dispatch("PFANS2027Store/insertLunarbonus", this.form1)
+                    .then(response => {
+                        this.loading = false;
+                        this.$message({
+                            message: this.$t("normal.success_01"),
+                            type: "success"
+                        });
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        Message({
+                            message: err,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                    });
+
             },
             changeCategory(val){
                 this.category = val;
             },
+
+            changeevaluationtime(val){
+                debugger;
+                this.form1.evaluatenum = val;
+            },
+
+            changecommentarymonths(val){
+                debugger;
+                this.form1.subjectmon = val;
+                this.form1.subject = val;
+                // let cateVal = getDictionaryInfo(val);
+                // if(cateVal){
+                //     this.form1.subject = cateVal.value2;
+                // }
+            },
+
             changeTatebai(val, index){
 
             },
