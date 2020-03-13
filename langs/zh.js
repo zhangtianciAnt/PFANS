@@ -124,6 +124,8 @@ module.exports = {
     error_overtime: '周末加班时间必须大于等于8小时！',
     error_retire: '先休代休，再休年假！',
     error_bonus: '您的奖金已发送！',
+    error_sent: '已发送',
+    error_nosent: '未发送',
   },
   menu: {
     homePageManagement: '首页',
