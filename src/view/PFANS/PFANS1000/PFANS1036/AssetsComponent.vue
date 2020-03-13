@@ -540,8 +540,6 @@
         </el-table-column>
       </el-table >
     </el-tab-pane>
-    <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_OTHER')" name="forth">
-    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -791,6 +789,7 @@
           totalActual[val] = (parseFloat(this.tableNewYearTotal[1][val]) + parseFloat((this.tableLastYearTotal[1][val]||0))).toFixed(5);
         }
        this.tableTotal = [totalExpect,totalActual];
+        this.$emit("assets", this.tableTotal);
       },
       deleteRowF2(index, rows) {
         if (rows.length > 2) {

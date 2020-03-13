@@ -41,13 +41,6 @@
             filter: true
           },
           {
-            code: 'nightshift',
-            label: 'label.PFANS2018VIEW_NIGHTSHIFT',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
             code: 'weekdaysovertime',
             label: 'label.PFANS2018VIEW_WEEKDAYSOVERTIME',
             width: 200,
@@ -112,10 +105,6 @@
             if (response[j].lunchbreak_start !== null && response[j].lunchbreak_start !== "" &&
               response[j].lunchbreak_end !== null && response[j].lunchbreak_end !== "") {
               response[j].lunchbreak = response[j].lunchbreak_start + '~' + response[j].lunchbreak_end;
-            }
-            if (response[j].nightshift_start !== null && response[j].nightshift_start !== "" &&
-              response[j].nightshift_end !== null && response[j].nightshift_end !== "") {
-              response[j].nightshift = response[j].nightshift_start + '~' + response[j].nightshift_end;
             }
             if (this.$i18n) {
               response[j].weekdaysovertime = response[j].weekdaysovertime + 'h';
