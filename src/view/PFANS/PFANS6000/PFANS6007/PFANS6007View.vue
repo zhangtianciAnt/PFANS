@@ -17,7 +17,7 @@
     data() {
       return {
         loading: false,
-        title: "title.PFANS6007VIEW",
+        title: "title.PFANS6007VIEW_TITLE",
         data: [],
         columns: [
           {/*1*/

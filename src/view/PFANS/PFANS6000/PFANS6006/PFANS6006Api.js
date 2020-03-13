@@ -1,33 +1,18 @@
 import request from '../../../../utils/request'
 
-export function getvariousfunds(data) {
+
+export function createDeleginformation(data) {
   return request({
-    url: 'variousfunds/get',
+    url: 'delegainformation/create',
+    method: 'post',
+    data: data
+  })
+}
+export function getDelegainformation(data) {
+  return request({
+    url: 'delegainformation/get',
     method: 'get',
     params: data
   })
 }
 
-export function getvariousfundsApplyOne(data) {
-  return request({
-    url: 'variousfunds/one',
-    method: 'post',
-    data: data
-  })
-}
-
-export function updatevariousfundsApply(data) {
-  return request({
-    url: 'variousfunds/update',
-    method: 'post',
-    data: data
-  })
-}
-
-export function createvariousfundsApply(data) {
-  return request({
-    url: 'variousfunds/create',
-    method: 'post',
-    data: data
-  })
-}

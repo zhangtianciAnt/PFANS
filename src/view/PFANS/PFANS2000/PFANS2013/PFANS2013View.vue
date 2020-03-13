@@ -23,6 +23,7 @@
       return {
         loading: false,
         title: 'title.PFANS2013VIEW',
+
         // 表格数据源
         data: [],
         // 列属性
@@ -232,16 +233,16 @@
                 //剩余数据处理
                 _tableList[j].remaining_annual_leave_lastyear =
                   (parseFloat(_tableList[j].annual_leave_lastyear)
-                  - parseFloat(_tableList[j].deduct_annual_leave_lastyear)).toFixed(1);
+                  - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_lastyear))).toFixed(1);
                 _tableList[j].remaining_paid_leave_lastyear =
                   (parseFloat(_tableList[j].paid_leave_lastyear)
-                    - parseFloat(_tableList[j].deduct_paid_leave_lastyear)).toFixed(1);
+                    - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_lastyear))).toFixed(1);
                 _tableList[j].remaining_annual_leave_thisyear =
                   (parseFloat(_tableList[j].annual_leave_thisyear)
-                    - parseFloat(_tableList[j].deduct_annual_leave_thisyear)).toFixed(1);
+                    - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_thisyear))).toFixed(1);
                 _tableList[j].remaining_paid_leave_thisyear =
                   (parseFloat(_tableList[j].paid_leave_thisyear)
-                    - parseFloat(_tableList[j].deduct_paid_leave_thisyear)).toFixed(1);
+                    - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_thisyear))).toFixed(1);
               }
             }
             this.data = _tableList;

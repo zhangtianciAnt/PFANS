@@ -9,42 +9,50 @@
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
                  ref="refform">
 
-          <span>{{this.titleType}}</span>
+
+            <div>
+              <el-container>
+                <el-dialog   :visible.sync="dialogFormVisible">
+                    <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
+                      <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
+                      <dicselect
+                        :code="code14"
+                        :data="form1.subjectmon"
+                        @change="changecommentarymonths"
+                        style="width: 10rem"
+                        :disabled="disabled">
+                      </dicselect>
+                    </el-form-item>
+
+                    <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
+                      <dicselect
+                        :code="code15"
+                        :data="form1.evaluatenum"
+                        @change="changeevaluationtime"
+                        style="width: 10rem"
+                        :disabled="disabled">
+                      </dicselect>
+                    </el-form-item>
+                  <div  class="dialog-footer" align="center">
+                    <span slot="footer" class="dialog-footer">
+                                <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>
+                    </span>
+                  </div>
+                </el-dialog>
+              </el-container>
+            </div>
+
+
 
           <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
-                <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
-                <dicselect
-                  :code="code13"
-                  :data="category"
-                  @change=""
-                  style="width: 10rem"
-                  :disabled="disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
-                <dicselect
-                  :code="code13"
-                  :data="category"
-                  @change=""
-                  style="width: 10rem"
-                  :disabled="disabled">
-                </dicselect>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
                 <dicselect
                   :code="code13"
                   :data="category"
-                  @change=""
+                  @change="changeCategory"
                   style="width: 10rem"
                   :disabled="disabled">
                 </dicselect>
@@ -61,7 +69,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_NAME')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.user_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -69,7 +77,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_RN')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -77,7 +85,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_DATE')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -85,7 +93,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_GROUP2')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -93,7 +101,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_TEAM')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -101,7 +109,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_FORM')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -109,7 +117,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_GIVE')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input  :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -117,7 +125,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_ATTENDANCE')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.workrate" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -125,7 +133,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_2018YEAR')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.bonussign" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -133,7 +141,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_LASTMONTHS')" align="center" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem" maxlength='36'></el-input>
+                  <el-input v-model="scope.row.lastsymbol" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -145,10 +153,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code1"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.tatebai"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeTatebai(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -161,10 +168,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code2"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.satoshi"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeSatoshi(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -177,10 +183,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code3"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.organization"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeOrganization(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -193,10 +198,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code4"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.systematics"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeSystematics(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -220,10 +224,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code5"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.manpower"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeManpower(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -236,10 +239,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code6"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.scale"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeScale(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -252,10 +254,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code7"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.achievement"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeAchievement(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -268,10 +269,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code8"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.degree"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeDegree(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -294,10 +294,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code9"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.assignment"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeAssignmenti(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -310,10 +309,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code10"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.teamwork"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeTeamwork(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -326,10 +324,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code11"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.humandevelopment"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeHumandevelopment(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -342,10 +339,9 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
                     <dicselect
                       :code="code12"
-                      :data="scope.row.deliverycondition"
+                      :data="scope.row.workattitude"
                       :no="scope.row"
-                      :multiple="multiple"
-                      @change="getDeliverycondition"
+                      @change="(val)=>{changeWorkattitude(val,scope.$index)}"
                       style="width: 11rem"
                       :disabled="disabled">
                     </dicselect>
@@ -366,34 +362,27 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITESCORES')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input :disabled="true"></el-input>
+                    <el-input :disabled="true" :data="scope.row.overallscore"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_ONE')" align="center" width="200">
+              <el-table-column :label="$t('label.PFANS2027VIEW_ESTIMATETIME')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input :disabled="true"></el-input>
+                    <el-input :disabled="true" :data="scope.row.commentaryreturns"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_TOW')" align="center" width="200">
+              <el-table-column :label="$t('label.PFANS2027VIEW_ESTIMATERESULT')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input :disabled="true"></el-input>
+                    <el-input :disabled="true" :data="scope.row.commentaryresult"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
 
-              <el-table-column :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')" align="center" width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input :disabled="true"></el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
             </el-table-column>
 <!--総合所見【1】-->
             <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE1')" align="center">
@@ -401,7 +390,7 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITEEVALUATION')" align="center" width="270">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input></el-input>
+                    <el-input :data="scope.row.comprehensiveone"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -412,7 +401,7 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_FIRSTEVALUATION')" align="center" width="270">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                    <el-input></el-input>
+                    <el-input :data="scope.row.comprehensivetwo"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -421,7 +410,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_ONEMONTH')" align="center" width="270">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                  <el-input></el-input>
+                  <el-input :data="scope.row.firstmonth"></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -429,7 +418,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_TOWMONTH')" align="center" width="270">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                  <el-input></el-input>
+                  <el-input :data="scope.row.secondmonth"></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -437,7 +426,7 @@
             <el-table-column :label="$t('label.PFANS2027VIEW_THREMONTH')" align="center" width="270">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deliverycondition'">
-                  <el-input></el-input>
+                  <el-input :data="scope.row.thirdmonth"></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -465,12 +454,52 @@
         },
         data() {
             return {
+                loading: false,
+                dialogFormVisible: false,
                 year: new Date(),
+                form1:{
+                    evaluatenum:'',
+                    subjectmon:'',
+                    subject:'',
+                    user_id: this.$store.getters.userinfo.userid,
+                },
+
                 category: '',
+                titleType:'',
+                title: "title.PFANS2027VIEW_VIEW",
+                buttonList: [],
                 disabled: false,
 
                 form: {
-                    tabledata: [{},{}]
+                    tabledata: [{
+                        lunardetail_id:'',
+                        lunarbonus_id:'',
+                        user_id:'',
+                        workrate:'',
+                        bonussign:'',
+                        lastsymbol:'',
+                        tatebai:'',
+                        satoshi:'',
+                        organization:'',
+                        systematics:'',
+                        manpower:'',
+                        scale:'',
+                        achievement:'',
+                        degree:'',
+                        assignment:'',
+                        teamwork:'',
+                        humandevelopment:'',
+                        workattitude:'',
+                        overallscore:'',
+                        commentaryreturns:'',
+                        commentaryresult:'',
+                        comprehensiveone:'',
+                        comprehensivetwo:'',
+                        firstmonth:'',
+                        secondmonth:'',
+                        thirdmonth:'',
+                        rn:'',
+                    }]
                 },
                 code1: 'PJ089',
                 code2: 'PJ090',
@@ -485,6 +514,9 @@
                 code11: 'PJ099',
                 code12: 'PJ100',
                 code13: 'PJ101',
+                code14: 'PJ103',
+                code15: 'PJ104',
+
             }
         },
         mounted(){
@@ -493,7 +525,7 @@
             if (this.$route.params._id) {
 
             }else{//新建
-
+                this.dialogFormVisible = true;
             }
 
         },
@@ -507,7 +539,95 @@
                         'border-right': '1px solid #73B9FF',
                     };
                 }
-            }
+            },
+            click(){
+                // this.dialogFormVisible = false;
+                // this.loading = false;
+console.log("aaa",this.form1)
+                this.loading = true;
+                this.$store
+                    .dispatch("PFANS2027Store/insertLunarbonus", this.form1)
+                    .then(response => {
+                        this.loading = false;
+                        this.$message({
+                            message: this.$t("normal.success_01"),
+                            type: "success"
+                        });
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        Message({
+                            message: err,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                    });
+
+            },
+            changeCategory(val){
+                this.category = val;
+            },
+
+            changeevaluationtime(val){
+                debugger;
+                this.form1.evaluatenum = val;
+            },
+
+            changecommentarymonths(val){
+                debugger;
+                this.form1.subjectmon = val;
+                this.form1.subject = val;
+                // let cateVal = getDictionaryInfo(val);
+                // if(cateVal){
+                //     this.form1.subject = cateVal.value2;
+                // }
+            },
+
+            changeTatebai(val, index){
+
+            },
+            changeSatoshi(val, index){
+
+            },
+            changeOrganization(val, index){
+
+            },
+            changeSystematics(val, index){
+
+            },
+            changeManpower(val, index){
+
+            },
+            changeScale(val, index){
+
+            },
+            changeAchievement(val, index){
+
+            },
+            changeDegree(val, index){
+
+            },
+            changeAssignment(val, index){
+
+            },
+            changeTeamwork(val, index){
+
+            },
+            changeHumandevelopment(val, index){
+
+            },
+            changeWorkattitude(val, index){
+
+            },
+            getDeliverycondition(){},
+            multiple(){},
+            // titleType(){},
+            disabled3(){},
+            buttonClick(val) {},
+
         }
     }
 </script>
