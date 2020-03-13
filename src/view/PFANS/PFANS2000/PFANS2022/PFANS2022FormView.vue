@@ -25,7 +25,7 @@
             <el-col :span="8">
               <el-form-item :error="error_userids" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="error_userids" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
+                      @getUserids="getUserids" style="width: 19.7vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -65,7 +65,7 @@
             <el-col :span="8">
               <el-form-item :error="error_nominees" :label="$t('label.PFANS2022VIEW_NOMINEES')" v-show="show1" prop="nominees">
                 <user :disabled="!disabled" :error="error_nominees" :selectType="selectType"  @getUserids ="getNomineeids"
-                      style="width: 20vw" :userlist="nomineeslist"></user>
+                      style="width: 19.7vw" :userlist="nomineeslist"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
