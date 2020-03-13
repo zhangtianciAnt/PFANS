@@ -384,13 +384,6 @@
                   width="150"
                 >
                 </el-table-column>
-                <!--                客户-->
-                <!--                <el-table-column-->
-                <!--                  prop="deployment"-->
-                <!--                  :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
-                <!--                  width="150"-->
-                <!--                >-->
-                <!--                </el-table-column>-->
                 <!--                项目类型-->
                 <el-table-column
                   prop="projecttype"
@@ -446,6 +439,26 @@
             org,
         },
         data() {
+            var checkexpname = (rule, value, callback) => {
+                if (!value || value === '') {
+                    this.errorexpname = this.$t('normal.error_09') + this.$t('label.user_name');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+                } else {
+                    this.errorexpname = '';
+                    return callback();
+                }
+            };
+
+            var checkgraduateschool = (rule, value, callback) => {
+                if (!value || value === '') {
+                    this.errorgraduateschool = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL')));
+                } else {
+                    this.errorgraduateschool = '';
+                    return callback();
+                }
+            };
+
             var checkgroup = (rule, value, callback) => {
                 if (!value || value === '') {
                     this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
@@ -502,6 +515,7 @@
                 grouporglist: '',
                 errorexitime: '',
                 errorgroup: '',
+                errorgraduateschool:'',
                 disabled: false,
                 buttonList: [],
                 multiple: false,
@@ -578,8 +592,8 @@
                     expname: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                            trigger: 'blur',
+                            validator: checkexpname,
+                            trigger: 'change',
                         }],
                     // 職務
                     post: [
@@ -624,8 +638,8 @@
                     graduateschool: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
-                            trigger: 'blur',
+                            validator: checkgraduateschool,
+                            trigger: 'change',
                         }],
                     // 学历
                     education: [
@@ -911,6 +925,8 @@
                 this.form.remarks = lst15;
                 this.form.cooperuserid = lst16;
                 this.form.suppliernameid = lst17;
+                this.errorexpname = '';
+                this.errorgraduateschool = '';
             },
             handleClickChange1(val) {
                 this.currentRow = val.expname;
@@ -936,6 +952,7 @@
                 this.$store
                     .dispatch('PFANS6001Store/getcooperinterview', {})
                     .then(response => {
+                        console.log(response);
                         this.gridData1 = [];
                         for (let i = 0; i < response.length; i++) {
                             var vote = {};
@@ -982,7 +999,7 @@
             selectById(val) {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._name})
+                    .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._id})
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
                             if (response[j].group_id !== null && response[j].group_id !== '') {

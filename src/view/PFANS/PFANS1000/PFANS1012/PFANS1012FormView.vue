@@ -451,7 +451,7 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
                         <template slot-scope="scope">
-                          <el-input-number :min="0" :precision="2" :max="9999999"
+                          <el-input-number :min="0" :precision="2" :max="9999999" :disabled="!disable"
                                            controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
                                            :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
                           </el-input-number>
@@ -472,7 +472,7 @@
                                        prop="debitamount">
                         <template slot-scope="scope">
                           <el-input-number
-                            :disabled="!disablde"
+                            :disabled="!disable"
                             :min="0" :precision="2"
                             :max="9999999"
                             controls-position="right"
@@ -738,6 +738,20 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              @change="changeRMB(scope.row)"
+                              v-model="scope.row.taxes">
+                            </el-input-number>
+                          </template>
+                        </el-table-column>
+
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
@@ -790,6 +804,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
+                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -802,6 +817,7 @@
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
                                  orgtype="2"
+                                 :disabled="!disable"
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
@@ -896,6 +912,19 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              @change="changeRMB(scope.row)"
+                              v-model="scope.row.taxes">
+                            </el-input-number>
+                          </template>
+                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
                           <template slot-scope="scope">
                             <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
@@ -948,6 +977,7 @@
                           <template slot-scope="scope">
                             <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
                               <el-option
+                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -959,6 +989,7 @@
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
+                                 :disabled="!disable"
                                  orgtype="2"
                                  :error="errorgroup"
                                  style="width: 100%"
@@ -975,6 +1006,7 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_COSTITEM')" align="center" width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code10"
+                                       :disabled="!disable"
                                        :data="scope.row.costitem"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -986,6 +1018,7 @@
                                          v-if="checkStatus != false">
                           <template slot-scope="scope">
                             <dicselect :code="code11"
+                                       :disabled="!disable"
                                        :data="scope.row.accountcode"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -1022,7 +1055,6 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
-
                         <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                          prop="foreigncurrency"
                                          width="150">
@@ -1037,6 +1069,20 @@
                               style="width: 100%"
                               v-model="scope.row.foreigncurrency"
                             ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
+                                         width="150
+">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              @change="changeRMB(scope.row)"
+                              v-model="scope.row.taxes">
+                            </el-input-number>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
@@ -1097,7 +1143,6 @@
             user,
             org,
         },
-
         data() {
             var checkuser = (rule, value, callback) => {
                 if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
@@ -1222,9 +1267,10 @@
             };
             return {
                 optionsdate: [],
-                startoption: [{value: '0000000000', lable: '共通'}],
+                startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
+                taxrateValue: '',
                 invoiceamountsum: '',
                 tableTValue: '',
                 accountcodeValue: '',
@@ -1266,6 +1312,7 @@
                     trafficdate: '',
                     invoicenumber: '',
                     costitem: '',
+                    taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     budgetcoding: '',
                     subjectnumber: '',
@@ -1292,6 +1339,7 @@
                     publicexpenseid: '',
                     purchasedetails_id: '',
                     invoicenumber: '',
+                    taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     budgetcoding: '',
                     purchasedetailsdate: '',
@@ -1317,10 +1365,11 @@
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     accountcode: '',
                     subjectnumber: '',
-                    budgetcoding: '',
                     remarks: '',
+                    budgetcoding: '',
                     rmb: '',
                     foreigncurrency: '',
+                    taxes: '',
                     annexno: '',
                     rowindex: '',
                     display: true,
@@ -1731,19 +1780,23 @@
             getcostitem(val, row) {
                 row.costitem = val;
                 if (val === 'PJ057001') {
-                    row.subjectnumber = '',
+                    row.accountcode = '',
+                        row.subjectnumber = '',
                         this.code11 = 'PJ058';
                     this.checkStatus = true;
                 } else if (val === 'PJ057015') {
-                    row.subjectnumber = '',
+                    row.accountcode = '',
+                        row.subjectnumber = '',
                         this.code11 = 'PJ059';
                     this.checkStatus = true;
                 } else if (val === 'PJ057016') {
-                    row.subjectnumber = '',
+                    row.accountcode = '',
+                        row.subjectnumber = '',
                         this.code11 = 'PJ060';
                     this.checkStatus = true;
                 } else {
-                    row.subjectnumber = '',
+                    row.accountcode = '',
+                        row.subjectnumber = '',
                         this.checkStatus = false;
                     this.getCompanyen(val, row);
                 }
@@ -1917,6 +1970,7 @@
                         trafficdate: '',
                         invoicenumber: '',
                         costitem: '',
+                        taxes: '',
                         departmentname: '',
                         budgetcoding: '',
                         region: '',
@@ -1937,6 +1991,7 @@
                         departmentname: '',
                         budgetcoding: '',
                         invoicenumber: '',
+                        taxes: '',
                         purchasedetailsdate: '',
                         procurementdetails: '',
                         procurementproject: ' ',
@@ -1956,6 +2011,7 @@
                         otherdetailsdate: '',
                         invoicenumber: '',
                         costitem: '',
+                        taxes: '',
                         departmentname: '',
                         accountcode: '',
                         subjectnumber: '',
@@ -1989,6 +2045,7 @@
                     trafficdate: '',
                     invoicenumber: '',
                     costitem: '',
+                    taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     budgetcoding: '',
                     subjectnumber: '',
@@ -2030,6 +2087,7 @@
                     procurementdetails: '',
                     procurementproject: '',
                     subjectnumber: '',
+                    taxes: '',
                     rmb: '',
                     foreigncurrency: '',
                     annexno: '',
@@ -2055,6 +2113,7 @@
                     remarks: '',
                     rmb: '',
                     foreigncurrency: '',
+                    taxes: '',
                     annexno: '',
                     rowindex: '',
                     display: true,
@@ -2203,6 +2262,24 @@
                 }
             },
             changeRMB(newValue) {
+                for (let j = 0; j < this.tableF.length; j++) {
+                    if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
+                        if (newValue.rmb != '') {
+                            if (this.tableF[j].taxrate != '') {
+                                if (this.tableF[j].taxrate == 'PJ071001') {
+                                    this.taxrateValue = '0.03'
+                                } else if (this.tableF[j].taxrate == 'PJ071002') {
+                                    this.taxrateValue = '0.06'
+                                } else if (this.tableF[j].taxrate == 'PJ071003') {
+                                    this.taxrateValue = '0.09'
+                                } else if (this.tableF[j].taxrate == 'PJ071004') {
+                                    this.taxrateValue = '0.13'
+                                }
+                                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
+                            }
+                        }
+                    }
+                }
                 if (newValue.rmb > 0) {
                     newValue.foreigncurrency = '';
                     newValue.display = false;
@@ -2336,7 +2413,6 @@
                             //         }
                             //     }
                             // }
-                            //
                             this.baseInfo = {};
                             this.form.user_id = this.userlist;
                             this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
@@ -2376,6 +2452,7 @@
                                             trafficdate: this.tableT[i].trafficdate,
                                             invoicenumber: this.tableT[i].invoicenumber,
                                             costitem: this.tableT[i].costitem,
+                                            taxes: this.tableT[i].taxes,
                                             departmentname: this.tableT[i].departmentname,
                                             budgetcoding: this.tableT[i].budgetcoding,
                                             subjectnumber: this.tableT[i].subjectnumber,
@@ -2391,7 +2468,7 @@
                             }
                             for (let i = 0; i < this.tableP.length; i++) {
                                 if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== '' || this.tableP[i].procurementproject !== ''
-                                    || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== '') {
+                                    || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
                                     if (this.tableP[i].procurementdetails === ' ') {
                                         this.tableP[i].procurementdetails = '';
                                     }
@@ -2408,6 +2485,7 @@
                                             subjectnumber: this.tableP[i].subjectnumber,
                                             rmb: this.tableP[i].rmb,
                                             foreigncurrency: this.tableP[i].foreigncurrency,
+                                            taxes: this.tableP[i].taxes,
                                             annexno: this.tableP[i].annexno,
                                         },
                                     );
@@ -2415,7 +2493,7 @@
                             }
                             for (let i = 0; i < this.tableR.length; i++) {
                                 if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
-                                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '') {
+                                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
                                     this.baseInfo.otherdetails.push(
                                         {
                                             otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2430,12 +2508,13 @@
                                             remarks: this.tableR[i].remarks,
                                             rmb: this.tableR[i].rmb,
                                             foreigncurrency: this.tableR[i].foreigncurrency,
+                                            taxes: this.tableR[i].taxes,
                                             annexno: this.tableR[i].annexno,
                                         },
                                     );
                                 }
                             }
-                            let error=0;
+                            let error = 0;
                             if (this.form.type === 'PJ001001') {
                                 for (let j = 0; j < this.tableF.length; j++) {
                                     let summoney = 0;
@@ -2467,7 +2546,7 @@
                                     let sumout = 0;
                                     for (let i = 0; i < this.tableP.length; i++) {
                                         if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== '' || this.tableP[i].procurementproject !== ''
-                                            || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].annexno !== '') {
+                                            || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
                                             if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
                                                 if (this.tableP[i].rmb != '0') {
                                                     summoney += this.tableP[i].rmb
@@ -2479,7 +2558,7 @@
 
                                     for (let i = 0; i < this.tableR.length; i++) {
                                         if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
-                                            || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '') {
+                                            || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
                                             if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
                                                 if (this.tableR[i].rmb != '0') {
                                                     sumMoney += this.tableR[i].rmb
@@ -2488,7 +2567,7 @@
                                             }
                                         }
                                     }
-                                    sumout = summoney+sumMoney;
+                                    sumout = summoney + sumMoney;
                                     if (sumout != this.tableF[j].invoiceamount) {
                                         error = error + 1;
                                         Message({
@@ -2561,8 +2640,8 @@
                 } else if (val === 'export') {
                     let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012VIEW_COSTITEM'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
                         this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
-                        this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
-                    let filterVal = ['trafficdate', 'invoicenumber', 'costitem', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'annexno'];
+                        this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012FORMVIEW_TAXES'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
+                    let filterVal = ['trafficdate', 'invoicenumber', 'costitem', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
                     let csvData = [];
                     var tableTdata = this.tableT;
                     for (let i = 0; i < tableTdata.length; i++) {
@@ -2589,7 +2668,8 @@
                             [heads[6]]: obj.startingpoint,
                             [heads[7]]: obj.rmb,
                             [heads[8]]: obj.foreigncurrency,
-                            [heads[9]]: obj.annexno,
+                            [heads[9]]: obj.taxes,
+                            [heads[10]]: obj.annexno,
                         });
                     }
                     const result = json2csv.parse(csvData, {

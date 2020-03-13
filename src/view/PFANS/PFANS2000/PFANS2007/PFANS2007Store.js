@@ -1,13 +1,13 @@
-import { getListType,getList } from './PFANS2007Api'
+import { inserttodo,getList,update } from './PFANS2007Api'
 
   const PFANS2007Store = {
     namespaced: true,
     state: {},
     mutations: {},
     actions: {
-      getListType() {
+      inserttodo({ commit },data) {
         return new Promise((resolve, reject) => {
-          getListType().then(response => {
+          inserttodo(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -21,6 +21,19 @@ import { getListType,getList } from './PFANS2007Api'
       getList({ commit },data) {
         return new Promise((resolve, reject) => {
           getList(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      update({ commit },data) {
+        return new Promise((resolve, reject) => {
+          update(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

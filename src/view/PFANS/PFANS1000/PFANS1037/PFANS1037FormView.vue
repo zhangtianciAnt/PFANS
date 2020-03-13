@@ -89,7 +89,6 @@
         }
       },
       dispatch(val) {
-          debugger;
         this.data = [];
         this.loading = true;
         this.$store

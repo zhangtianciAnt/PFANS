@@ -7,8 +7,8 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
-  import moment from "moment";
   import {getDictionaryInfo,getOrgInfo,getStatus} from '@/utils/customize';
+
 
   export default {
     name: 'PFANS5009VIEW',
@@ -91,13 +91,13 @@
             fix: false,
             filter: true,
           },
-          // {
-          //   code: 'status',
-          //   label: 'label.approval_status',
-          //   width: 150,
-          //   fix: false,
-          //   filter: true,
-          // }
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 150,
+            fix: false,
+            filter: true,
+          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -113,7 +113,6 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
-          // todo status 未定
            for (let j = 0; j < response.length; j++) {
              if (response[j].phase !== null && response[j].phase !== "") {
                let letPhase = getDictionaryInfo(response[j].phase);
@@ -137,7 +136,8 @@
                  response[j].contractstatus = this.contractstatus2
                }
              }
-             response[j] .status = getStatus(response[j] .status);
+               response[j].status = getStatus(response[j].status);
+
            }
           this.data = response;
           this.loading = false;

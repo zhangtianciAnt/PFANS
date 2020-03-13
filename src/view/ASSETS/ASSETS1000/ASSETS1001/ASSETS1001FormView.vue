@@ -85,7 +85,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_REALPRICE')">
                     <el-input-number :max="9999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw" v-model="form.realprice"></el-input-number>
+                                     controls-position="right" style="width:20vw"
+                                     v-model="form.realprice"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -116,7 +117,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
                     <el-input-number :max="9999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
+                                     controls-position="right" style="width:20vw"
+                                     v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -126,7 +128,8 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004'">
+            <el-collapse-item
+              v-show="form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -157,7 +160,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ORIPRICE')" prop="price">
                     <el-input-number :max="9999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
+                                     controls-position="right" style="width:20vw"
+                                     v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -208,8 +212,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDISOVERDUE')">
-                    <el-switch style="width:20vw" v-model="form.psdcdisoverdue"active-value="1"
-                               inactive-value="0"></el-switch>
+                    <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                               v-model="form.psdcdisoverdue"></el-switch>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -231,7 +235,8 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006' || form.typeassets === 'PA001007' || form.typeassets === 'PA001008'">
+            <el-collapse-item
+              v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006' || form.typeassets === 'PA001007' || form.typeassets === 'PA001008'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -249,7 +254,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
                     <el-input-number :max="9999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw" v-model="form.price"></el-input-number>
+                                     controls-position="right" style="width:20vw"
+                                     v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -305,14 +311,14 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM1')">
-                          <el-switch style="width:20vw" v-model="form.inparams1"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.inparams1"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM2')">
-                          <el-switch style="width:20vw" v-model="form.inparams2"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.inparams2"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -331,8 +337,8 @@
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM5')">
-                          <el-switch style="width:20vw" v-model="form.inparams5"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.inparams5"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -384,20 +390,20 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM9')">
-                          <el-switch style="width:20vw" v-model="form.outparams4"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.outparams4"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM10')">
-                          <el-switch style="width:20vw" v-model="form.outparams5"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.outparams5"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM11')">
-                          <el-switch style="width:20vw" v-model="form.outparams6"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.outparams6"></el-switch>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -424,8 +430,8 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.ASSETS1001VIEW_PARAM12')">
-                          <el-switch style="width:20vw" v-model="form.outparams10"active-value="1"
-                                     inactive-value="0"></el-switch>
+                          <el-switch active-value="1" inactive-value="0" style="width:20vw"
+                                     v-model="form.outparams10"></el-switch>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -579,10 +585,49 @@
             }
           ];
         }
-
       }
+      this.initWebSocket();
     },
     methods: {
+      initWebSocket() { //初始化weosocket
+        const wsuri = "ws://127.0.0.1:6690/add";
+        this.websock = new WebSocket(wsuri);
+        this.websock.onmessage = this.websocketonmessage;
+        this.websock.onopen = this.websocketonopen;
+        this.websock.onerror = this.websocketonerror;
+        this.websock.onclose = this.websocketclose;
+      },
+      websocketonopen(e) { //连接建立之后执行send方法发送数据
+        console.log('连接', e);
+      },
+      websocketonerror() {//连接建立失败重连
+        this.initWebSocket();
+      },
+      websocketonmessage(e) { //数据接收
+        this.loading = false;
+        const redata = JSON.parse(e.data);
+        if (redata.code === 200) {
+          Message({
+            message: this.$t('normal.success_03'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+        } else {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+
+        // this.$refs.roletable.$refs.eltable.clearSelection();
+      },
+      websocketsend(Data) {//数据发送
+        this.websock.send(Data);
+      },
+      websocketclose(e) {  //关闭
+        console.log('断开连接', e);
+      },
       getinparams3(val) {
         this.form.inparams3 = val;
       },
@@ -647,9 +692,9 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
+              // if (this.$store.getters.historyUrl) {
+              //   this.$router.push(this.$store.getters.historyUrl);
+              // }
             })
             .catch(error => {
               Message({
@@ -693,8 +738,25 @@
             }
             if (val === 'savePrt') {
               this.getSave();
+
+              this.loading = true;
+              let list = [];
+              var item = {};
+              item.type = this.form.bartype;
+              item.rfid = this.form.rfidcd;
+              item.text = this.form.barcode;
+              list.push(item);
+              this.websocketsend(JSON.stringify(list));
             }
             if (val === 'printing') {
+              this.loading = true;
+              let list = [];
+              var item = {};
+              item.type = this.form.bartype;
+              item.rfid = this.form.rfidcd;
+              item.text = this.form.barcode;
+              list.push(item);
+              this.websocketsend(JSON.stringify(list));
             }
           }
         });

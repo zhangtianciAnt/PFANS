@@ -94,7 +94,7 @@ import PFANS2003FormView from '@/view/PFANS/PFANS2000/PFANS2003/PFANS2003FormVie
 import PFANS2005View from '@/view/PFANS/PFANS2000/PFANS2005/PFANS2005View.vue'
 import PFANS2005FormView from '@/view/PFANS/PFANS2000/PFANS2005/PFANS2005FormView.vue'
 import PFANS2006View from '@/view/PFANS/PFANS2000/PFANS2006/PFANS2006View.vue'
-import PFANS2007View from '@/view/PFANS/PFANS2000/PFANS2007/PFANS2007View.vue'
+import PFANS2007FormView from '@/view/PFANS/PFANS2000/PFANS2007/PFANS2007FormView.vue'
 import PFANS2009View from '@/view/PFANS/PFANS2000/PFANS2009/PFANS2009View.vue'
 import PFANS2010View from '@/view/PFANS/PFANS2000/PFANS2010/PFANS2010View.vue'
 import PFANS2010FormView from '@/view/PFANS/PFANS2000/PFANS2010/PFANS2010FormView.vue'
@@ -120,6 +120,8 @@ import PFANS2025View from '@/view/PFANS/PFANS2000/PFANS2025/PFANS2025View.vue'
 import PFANS2025FormView from '@/view/PFANS/PFANS2000/PFANS2025/PFANS2025FormView'
 import PFANS2026View from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026View.vue'
 import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView'
+import PFANS2027View from '@/view/PFANS/PFANS2000/PFANS2027/PFANS2027View.vue'
+import PFANS2027FormView from '@/view/PFANS/PFANS2000/PFANS2027/PFANS2027FormView'
 import PFANS2028View from '@/view/PFANS/PFANS2000/PFANS2028/PFANS2028View.vue'
 import PFANS3001View from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001View'
 import PFANS3001FormView from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001FormView'
@@ -645,9 +647,9 @@ const routes = [
         component: PFANS2006View,
       },
       {
-        path: '/PFANS2007View',
-        name: 'PFANS2007View',
-        component: PFANS2007View,
+        path: '/PFANS2007FormView',
+        name: 'PFANS2007FormView',
+        component: PFANS2007FormView,
       },
       {
         path: '/PFANS2009View',
@@ -773,6 +775,16 @@ const routes = [
         path: '/PFANS2026FormView',
         name: 'PFANS2026FormView',
         component: PFANS2026FormView
+      },
+      {
+        path: '/PFANS2027View',
+        name: 'PFANS2027View',
+        component: PFANS2027View
+      },
+      {
+        path: '/PFANS2027FormView',
+        name: 'PFANS2027FormView',
+        component: PFANS2027FormView
       },
       {
         path: '/PFANS2028View',

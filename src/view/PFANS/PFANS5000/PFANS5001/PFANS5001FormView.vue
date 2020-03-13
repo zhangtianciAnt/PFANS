@@ -802,8 +802,8 @@
                         <div class="dpSupIndex" style="width:14vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="true"></input>
-                            <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible3 = true"
+                                   :disabled="!disable"></input>
+                            <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible3 = true"
                                        size="small"></el-button>
                             <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
                                        size="50%"
@@ -917,7 +917,7 @@
                             :label="$t('label.PFANS5001FORMVIEW_TOOLS')"
                             prop="tools"
                           >
-                            <el-checkbox-group v-model="checkList">
+                            <el-checkbox-group v-model="checkList" :disabled="!disable">
                               <el-checkbox label="SVN"></el-checkbox>
                               <el-checkbox label="redmine"></el-checkbox>
                               <el-checkbox label="gitlab"></el-checkbox>
@@ -1402,6 +1402,7 @@
                 code5: 'PP015',
                 code6: 'PP017',
                 code7: 'PP016',
+                code8: 'PP018',
                 showrow: true,
                 showrow1: false,
                 showrow2: false,
@@ -1425,6 +1426,10 @@
               group_id: this.form.group_id,
               team_id: this.form.team_id
             } = this.$route.params._org);
+        }
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
+          for(let i = 0; i < dic.length; i++){
+            this.checkList = dic[i].code;
           }
             this.getexpatriatesinfor();
             this.getcustomerinfor();
@@ -1448,7 +1453,12 @@
                         if (response.stageinformation.length > 0) {
                             this.tableA = response.stageinformation;
                             for (var i = 0; i < this.tableA.length; i++) {
-                                if (this.tableA[i].phase === 'PP012001') {
+                                if (this.tableA[i].phase === ''){
+                                  this.tableA[i].showrow = true;
+                                  this.tableA[i].showrow1 = false;
+                                  this.tableA[i].showrow2 = false;
+                                  this.tableA[i].showrow3 = false;
+                                }else if (this.tableA[i].phase === 'PP012001') {
                                     this.tableA[i].showrow = false;
                                     this.tableA[i].showrow1 = true;
                                     this.tableA[i].showrow2 = false;
