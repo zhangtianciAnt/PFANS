@@ -44,8 +44,6 @@
               </el-container>
             </div>
 
-
-
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
@@ -58,8 +56,29 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')"  v-show="show">
+                <dicselect
+                  :code="code14"
+                  :data="form1.subjectmon"
+                  @change="changecommentarymonths"
+                  style="width: 10rem"
+                  :disabled="disabled">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')"  v-show="show">
+                <dicselect
+                  :code="code14"
+                  :data="form1.subjectmon"
+                  @change="changecommentarymonths"
+                  style="width: 10rem"
+                  :disabled="disabled">
+                </dicselect>
+              </el-form-item>
+            </el-col>
           </el-row>
-
 
 
           <el-table :data="form.tabledata" stripe border header-cell-class-name="sub_bg_color_blue" :header-cell-style="getRowClass" >
@@ -454,6 +473,7 @@
         },
         data() {
             return {
+                show: false,
                 loading: false,
                 dialogFormVisible: false,
                 year: new Date(),
@@ -523,8 +543,37 @@
             //let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
             this.loading = true;
             if (this.$route.params._id) {
-
+                //this.dialogFormVisible = true;
+                this.show = true;
             }else{//新建
+                this.show = false;
+                let month = new Date().getMonth() + 1;
+                if(month >= 1 && month <=3){
+                    this.form1.subjectmon = getDictionaryInfo('PJ103004').value1;
+                }
+                if(month >= 4 && month <=6){
+                    this.form1.subjectmon = getDictionaryInfo('PJ103001').value1;
+                }
+                if(month >= 7 && month <=9){
+                    this.form1.subjectmon = getDictionaryInfo('PJ103002').value1;
+                }
+                if(month >= 10 && month <=12){
+                    this.form1.subjectmon = getDictionaryInfo('PJ103003').value1;
+                }
+                let user = getUserInfo(this.form1.user_id);
+                console.log(user.userinfo.post);
+                //获取本用户的职位
+                let postcode = user.userinfo.post;
+                if(postcode === 'PJ105005'){
+                    this.form1.evaluatenum = getDictionaryInfo('PJ104001').value1;
+                }
+                if(postcode === 'PJ105003'){
+                    this.form1.evaluatenum = getDictionaryInfo('PJ104002').value1;
+                }
+                if(postcode === 'PJ105002'){
+                    this.form1.evaluatenum = getDictionaryInfo('PJ104003').value1;
+                }
+
                 this.dialogFormVisible = true;
             }
 
@@ -543,7 +592,7 @@
             click(){
                 // this.dialogFormVisible = false;
                 // this.loading = false;
-console.log("aaa",this.form1)
+                console.log("aaa",this.form1);
                 this.loading = true;
                 this.$store
                     .dispatch("PFANS2027Store/insertLunarbonus", this.form1)
@@ -565,6 +614,7 @@ console.log("aaa",this.form1)
                             duration: 5 * 1000
                         });
                     });
+                this.dialogFormVisible = false;
 
             },
             changeCategory(val){
