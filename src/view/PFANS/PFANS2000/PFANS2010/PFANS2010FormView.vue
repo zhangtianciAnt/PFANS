@@ -62,13 +62,6 @@
                                 fix: false,
                                 filter: true,
                             }, {
-                                code: 'ordinaryindustrynight',
-                                label: 'label.PFANS2010VIEW_NIGHTOVERTIME',
-                                labelClass: 'pfans2010view_column_3',
-                                width: 150,
-                                fix: false,
-                                filter: true,
-                            }, {
                                 code: 'weekendindustry',
                                 label: 'label.PFANS2010VIEW_RETIREMENT',
                                 labelClass: 'pfans2010view_column_3',
@@ -76,24 +69,10 @@
                                 fix: false,
                                 filter: true,
                             }, {
-                                code: 'weekendindustrynight',
-                                label: 'label.PFANS2010VIEW_NIGHTRETIREMENT',
-                                labelClass: 'pfans2010view_column_3',
-                                width: 150,
-                                fix: false,
-                                filter: true,
-                            }, {
                                 code: 'statutoryresidue',
                                 label: 'label.PFANS2010VIEW_HOLIDAYS',
                                 labelClass: 'pfans2010view_column_3',
                                 width: 170,
-                                fix: false,
-                                filter: true,
-                            }, {
-                                code: 'statutoryresiduenight',
-                                label: 'label.PFANS2010VIEW_NIGHTHOLIDAYS',
-                                labelClass: 'pfans2010view_column_3',
-                                width: 190,
                                 fix: false,
                                 filter: true,
                             }, {
