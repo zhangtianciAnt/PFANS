@@ -253,9 +253,13 @@
                 this.tableD = response;
                 for(let item of response){
                   if(item.sent === '1'){
-                    item.sent = "已发送";
+                    if (this.$i18n) {
+                      item.sent = this.$t('normal.error_sent');
+                    }
                   }else{
-                    item.sent = "未发送";
+                    if (this.$i18n) {
+                      item.sent = this.$t('normal.error_nosent');
+                    }
                   }
                 }
                 this.loading = false;
