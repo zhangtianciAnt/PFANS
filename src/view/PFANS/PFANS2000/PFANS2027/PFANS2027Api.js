@@ -8,6 +8,14 @@ export function getLunarbonus(data) {
     params: data,
   });
 }
+
+export function getLunardetails(data){
+  return request({
+    url: 'Getlunarbonus/getLunardetail',
+    method: 'post',
+    params: data,
+  });
+}
 //根据id获取
 // export function selectById(data) {
 //   return request({
