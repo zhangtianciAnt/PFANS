@@ -10,8 +10,6 @@ export function getLunarbonus(data) {
 }
 
 export function getLunardetails(data){
-  debugger;
-  console.log("data",data)
   return request({
     url: 'Getlunarbonus/getLunardetail',
     method: 'post',
