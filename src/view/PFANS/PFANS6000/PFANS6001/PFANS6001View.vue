@@ -8,7 +8,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo, getDictionaryInfo, getDepartmentById, getCooperinterviewList,getSupplierinfor} from '@/utils/customize';
+  import {getUserInfo, getDictionaryInfo, getDepartmentById, getSupplierinfor} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS6001View',
@@ -97,7 +97,7 @@
       this.$store
         .dispatch('PFANS6001Store/getcooperinterview')
         .then(response => {
-          this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
+          // this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           for (let j = 0; j < response.length; j++) {
             if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
               let graduateschool = getUserInfo(response[j].graduateschool);
@@ -106,9 +106,9 @@
               }
             }
             if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-              let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-              if (supplierInfo) {
-                response[j].suppliername = supplierInfo.supchinese;
+              let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
+              if (supplierInfor) {
+                response[j].suppliername = supplierInfor.supchinese;
               }
             }
             if (response[j].result !== null && response[j].result !== '') {

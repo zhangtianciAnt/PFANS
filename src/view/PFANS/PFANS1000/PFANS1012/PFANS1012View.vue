@@ -1,263 +1,352 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                  ref="multipleTable" :showSelection="isShow"
-                   @selection-change="handleSelectionChange"
+                   ref="roletable" :showSelection="isShow"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable'
-  import {Message} from 'element-ui'
-  import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+    import EasyNormalTable from '@/components/EasyNormalTable'
+    import {Message} from 'element-ui'
+    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+    import json2csv from 'json2csv';
 
-  export default {
-    name: "PFANS1012View",
-    components: {
-      EasyNormalTable
-    },
-    data() {
-      return {
-        loading: false,
-        title: "title.PFANS1012VIEW",
-        // 表格数据源
-        data: [],
-        // 列属性
-        columns: [
-          {
-            code: 'user_id',
-            label: 'label.applicant',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'center_name',
-            label: 'label.center',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'group_name',
-            label: 'label.group',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'team_name',
-            label: 'label.team',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'budgetunit',
-            label: 'label.budgetunit',
-            width: 170,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'moneys',
-            label: 'label.PFANS1012VIEW_MONEY',
-            width: 110,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true
-          }
-        ],
-        buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
-        ],
-        rowid: '',
-        row_id: 'publicexpenseid',
-        multipleTable: [],
-        isShow: true,
-      };
-    },
-    mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1012Store/get', {})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== "") {
-              let rst = getUserInfo(response[j].user_id);
-              if (rst) {
-                response[j].user_id = rst.userinfo.customername;
-              }
-              response[j].center_name = response[j].centerid;
-              response[j].group_name = response[j].centerid;
-              response[j].team_name = response[j].centerid;
-
-
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
-              if (response[j].budgetunit!== null && response[j].budgetunit !== "") {
-                let letbudge = getDictionaryInfo(response[j].budgetunit);
-                if (letbudge) {
-                  response[j].budgetunit = letbudge.value1;
-                }
-              }
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false;
-        })
-    },
-    methods: {
-      rowClick(row) {
-        this.rowid = row.publicexpenseid;
-      },
-      handleSelectionChange(val){
-        
-        // if (rows) {
-        //   rows.forEach(row => {
-        //     this.$refs.multipleTable.toggleRowSelection(row);
-        //   });
-        // }
-        this.multipleTable = val;
-        for (var i = 0; i < this.multipleTable.length; i++) {
-          //var halo = this.multipleTable[i];
-          this.$refs.multipleTable.toggleRowSelection(val);
-        }
-      },
-        MyBrowserIsIE() {
-            let isIE = false;
-            if (
-                navigator.userAgent.indexOf("compatible") > -1 &&
-                navigator.userAgent.indexOf("MSIE") > -1
-            ) {
-                // ie浏览器
-                isIE = true;
-            }
-            if (navigator.userAgent.indexOf("Trident") > -1) {
-                // edge 浏览器
-                isIE = true;
-            }
-            return isIE;
+    export default {
+        name: "PFANS1012View",
+        components: {
+            EasyNormalTable
         },
-        formatJson(filterVal, jsonData) {
-            return jsonData.map(v => filterVal.map(j => {
-                if (j === 'timestamp') {
-                    return parseTime(v[j])
-                } else {
-                    return v[j]
-                }
-            }))
+        data() {
+            return {
+                totalcostvalue: [],
+                selectedlist: [],
+                selectedList: [],
+                startoption: [],
+                startoptionvalue: [],
+                invoiceamountvalue: '',
+                loading: false,
+                title: "title.PFANS1012VIEW",
+                // 表格数据源
+                data: [],
+                // 列属性
+                columns: [
+                    {
+                        code: 'user_id',
+                        label: 'label.applicant',
+                        width: 100,
+                        fix: false,
+                        filter: true,
+                    },
+                    {
+                        code: 'center_name',
+                        label: 'label.center',
+                        width: 150,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'group_name',
+                        label: 'label.group',
+                        width: 150,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'team_name',
+                        label: 'label.team',
+                        width: 150,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'budgetunit',
+                        label: 'label.budgetunit',
+                        width: 170,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'moneys',
+                        label: 'label.PFANS1012VIEW_MONEY',
+                        width: 110,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'status',
+                        label: 'label.approval_status',
+                        width: 120,
+                        fix: false,
+                        filter: true
+                    }
+                ],
+                buttonList: [
+                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
+                    {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'},
+                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
+                ],
+                rowid: '',
+                row_id: 'publicexpenseid',
+                isShow: true,
+            };
         },
-      buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', '');
-        if (val === "view") {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS1012FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false
-            }
-          })
-        } else if (val === "insert") {
-          this.$router.push({
-            name: 'PFANS1012PointFormView',
-            params: {
-              _id: '',
-              disabled: true
-            }
-          })
-        } else if (val === 'export') {
-            let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012VIEW_COSTITEM'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
-                this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
-                this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
-            let filterVal = ['trafficdate', 'invoicenumber', 'costitem', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'annexno'];
-            let csvData = [];
-            var tableTdata = this.tableT;
-            for (let i = 0; i < tableTdata.length; i++) {
-                if (tableTdata[i].costitem !== null && tableTdata[i].costitem !== "") {
-                    let letErrortype = getDictionaryInfo(tableTdata[i].costitem);
-                    if (letErrortype != null) {
-                        tableTdata[i].costitem = letErrortype.value1;
+        mounted() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1012Store/get', {})
+                .then(response => {
+                    for (let j = 0; j < response.length; j++) {
+                        if (response[j].user_id !== null && response[j].user_id !== "") {
+                            let rst = getUserInfo(response[j].user_id);
+                            if (rst) {
+                                response[j].user_id = rst.userinfo.customername;
+                            }
+                            response[j].center_name = response[j].centerid;
+                            response[j].group_name = response[j].centerid;
+                            response[j].team_name = response[j].centerid;
+
+
+                            if (response[j].status !== null && response[j].status !== "") {
+                                response[j].status = getStatus(response[j].status);
+                            }
+                            if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
+                                let letbudge = getDictionaryInfo(response[j].budgetunit);
+                                if (letbudge) {
+                                    response[j].budgetunit = letbudge.value1;
+                                }
+                            }
+                        }
                     }
-                }
-                if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== "") {
-                    let lettype = getOrgInfo(tableTdata[i].departmentname);
-                    if (lettype != null) {
-                        tableTdata[i].departmentname = lettype.departmentname;
-                    }
-                }
-                let obj = tableTdata[i];
-                csvData.push({
-                    [heads[0]]: obj.trafficdate,
-                    [heads[1]]: obj.invoicenumber,
-                    [heads[2]]: obj.costitem,
-                    [heads[3]]: obj.departmentname,
-                    [heads[4]]: obj.region,
-                    [heads[5]]: obj.vehicle,
-                    [heads[6]]: obj.startingpoint,
-                    [heads[7]]: obj.rmb,
-                    [heads[8]]: obj.foreigncurrency,
-                    [heads[9]]: obj.annexno,
+                    this.data = response;
+                    this.loading = false;
                 })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                    });
+                    this.loading = false;
+                })
+        },
+        methods: {
+            rowClick(row) {
+                this.rowid = row.publicexpenseid;
+            },
+            MyBrowserIsIE() {
+                let isIE = false;
+                if (
+                    navigator.userAgent.indexOf("compatible") > -1 &&
+                    navigator.userAgent.indexOf("MSIE") > -1
+                ) {
+                    // ie浏览器
+                    isIE = true;
+                }
+                if (navigator.userAgent.indexOf("Trident") > -1) {
+                    // edge 浏览器
+                    isIE = true;
+                }
+                return isIE;
+            },
+            formatJson(filterVal, jsonData) {
+                return jsonData.map(v => filterVal.map(j => {
+                    if (j === 'timestamp') {
+                        return parseTime(v[j])
+                    } else {
+                        return v[j]
+                    }
+                }))
+            },
+            buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', '');
+                if (val === "view") {
+                    if (this.rowid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                            _id: this.rowid,
+                            disabled: false
+                        }
+                    })
+                } else if (val === "insert") {
+                    this.$router.push({
+                        name: 'PFANS1012PointFormView',
+                        params: {
+                            _id: '',
+                            disabled: true
+                        }
+                    })
+                } else if (val === 'export') {
+                    this.selectedList = {};
+                    this.selectedList.totalcost = [];
+                    this.selectedlist = this.$refs.roletable.selectedList;
+                    for (let i = 0; i < this.selectedlist.length; i++) {
+                        this.selectedList.totalcost.push({
+                            publicexpenseid: this.selectedlist[i].publicexpenseid
+                        })
+                    }
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS1012Store/gettotalcost', this.selectedList)
+                        .then(response => {
+                            this.selectedlist = this.$refs.roletable.selectedList;
+                            let sum = 0;
+                            for (let m = 0; m < response.length; m++) {
+                                sum = sum + 1;
+                                for (let i = 0; i < this.selectedlist.length; i++) {
+                                    if (response[m].publicexpenseid == this.selectedlist[i].publicexpenseid) {
+                                        let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
+                                        if (letErrortype != null) {
+                                            this.selectedlist[i].paymentmethod = letErrortype.value1;
+                                            if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_ONLINEPAYMENT") || this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_TRANSFERCHECK")) {
+                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
+                                            } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
+                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                                            }
+                                        }
+                                        let letError = getDictionaryInfo(this.selectedlist[i].currency);
+                                        if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
+                                            this.selectedlist[i].currencyrate = letError.value1;
+                                        } else if (letError.value1 == null) {
+                                            this.selectedlist[i].currencyrate = ''
+                                        }
+                                        this.invoiceamountvalue = response[m].invoiceamount;
+                                        this.totalcostvalue.push({
+                                            invoicenumber: response[m].invoicenumber,
+                                            number: response[m].number,
+                                            invoicetype: 'STANDARD',
+                                            rowtype: 'ITEM',
+                                            invoicedate: response[m].invoicedate,
+                                            conditiondate: response[m].conditiondate,
+                                            vendorcode: response[m].vendorcode,
+                                            paymentmethod: this.selectedlist[i].paymentmethod,
+                                            currency: response[m].currency,
+                                            invoiceamount: response[m].invoiceamount,
+                                            lineamount: response[m].lineamount,
+                                            currencyrate: this.selectedlist[i].currencyrate,
+                                            companysegment: '01',
+                                            budgetcoding: response[m].budgetcoding,
+                                            subjectnumber: response[m].subjectnumber,
+                                            productsegment: '00000',
+                                            vatnumber: '',
+                                            taxCode: '0%',
+                                            paymentterms: '00/00/00',
+                                            remark: response[m].remark,
+                                            source: 'OPEN_IF',
+                                            paymentmethods: 'WIRE',
+                                            type: ',',
+                                        })
+                                    }
+                                }
+                            }
+                            this.startoption.push({
+                                invoicenumber: 'LAST',
+                                number: '9999',
+                                invoicetype: '',
+                                rowtype: '',
+                                invoicedate: '',
+                                conditiondate: '',
+                                vendorcode: '',
+                                paymentmethod: '',
+                                currency: '',
+                                invoiceamount: sum,
+                                lineamount: this.invoiceamountvalue,
+                                currencyrate: '',
+                                companysegment: '',
+                                budgetcoding: '',
+                                subjectnumber: '',
+                                productsegment: '',
+                                vatnumber: '',
+                                taxCode: '',
+                                paymentterms: '',
+                                remark: '',
+                                source: '',
+                                paymentmethods: '',
+                                type: '',
+                            })
+                            this.startoptionvalue = this.totalcostvalue.concat(this.startoption);
+                            let csvData = [];
+                            for (let i = 0; i < this.startoptionvalue.length; i++) {
+                                let obj = this.startoptionvalue[i];
+                                csvData.push({
+                                    [[0]]: obj.invoicenumber,
+                                    [[1]]: obj.number,
+                                    [[2]]: obj.invoicetype,
+                                    [[3]]: obj.rowtype,
+                                    [[4]]: obj.invoicedate,
+                                    [[5]]: obj.conditiondate,
+                                    [[6]]: obj.vendorcode,
+                                    [[7]]: obj.paymentmethod,
+                                    [[8]]: obj.currency,
+                                    [[9]]: obj.invoiceamount,
+                                    [[10]]: obj.lineamount,
+                                    [[11]]: obj.currencyrate,
+                                    [[12]]: obj.companysegment,
+                                    [[13]]: obj.budgetcoding,
+                                    [[14]]: obj.subjectnumber,
+                                    [[15]]: obj.productsegment,
+                                    [[16]]: obj.vatnumber,
+                                    [[17]]: obj.taxCode,
+                                    [[18]]: obj.paymentterms,
+                                    [[19]]: obj.remark,
+                                    [[20]]: obj.source,
+                                    [[21]]: obj.paymentmethods,
+                                    [[22]]: obj.type,
+                                })
+                            }
+                            let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
+                                'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
+                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
+                            const result = json2csv.parse(csvData, {
+                                excelStrings: true
+                            });
+                            let aaa = result.substring(220);
+                            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
+                            const link = document.createElement("a");
+                            link.href = csvContent;
+                            link.download = this.$t('APXXXX') + '.csv';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
+                            this.loading = false;
+                        })
+                } else if (val === "update") {
+                    if (this.rowid === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                            _id: this.rowid,
+                            disabled: true
+                        }
+                    })
+                }
             }
-            const result = json2csv.parse(csvData, {
-                excelStrings: true
-            });
-            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + result;
-            const link = document.createElement("a");
-            link.href = csvContent;
-            link.download = this.$t('label.PFANS1012VIEW_TRAFFIC') + '.csv';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-        }else if (val === "update") {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS1012FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true
-            }
-          })
         }
-      }
     }
-  }
 </script>
 
 <style scoped>

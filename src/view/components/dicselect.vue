@@ -58,6 +58,7 @@
       }
       if (this.code) {
         this.loading = true;
+        this.options=[]
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
         for(let item of dic){
           this.options.push(item);
@@ -105,6 +106,7 @@
           //       duration: 5 * 1000
           //     })
           //   })
+          this.options=[];
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === val);
           for(let item of dic){
             this.options.push(item);

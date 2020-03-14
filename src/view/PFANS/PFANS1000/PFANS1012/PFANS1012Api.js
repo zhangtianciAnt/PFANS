@@ -7,6 +7,15 @@ export function get() {
     method: 'get'
   })
 }
+
+export function gettotalcost(data) {
+  return request({
+    url: 'publicexpense/gettotalcost',
+    method: 'post',
+    data: data
+  })
+}
+
 //更新
 export function update(data) {
   return request({

@@ -150,7 +150,7 @@
         },
         methods: {
             rowClick(row) {
-                this.rowid = row.appreciation_id;
+                this.rowid = row.lunarbonus_id;
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -167,14 +167,15 @@
                         name: 'PFANS2027FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: false
+                            disabled: false,
+                            show: true
                         }
                     })
                 } else if (val === "insert") {
                     this.$router.push({
                         name: 'PFANS2027FormView',
                         params: {
-                            _id: '',
+                            _id: this.rowid,
                             disabled: true
                         }
                     })
@@ -191,7 +192,8 @@
                         name: 'PFANS2027FormView',
                         params: {
                             _id: this.rowid,
-                            disabled: true
+                            disabled: true,
+                            show: false
                         }
                     })
                 }
