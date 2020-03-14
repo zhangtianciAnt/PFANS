@@ -97,6 +97,9 @@
                               <el-radio :label="-1">全组织</el-radio>
                             </el-col>
                             <el-col>
+                              <el-radio :label="5">本级及以下</el-radio>
+                            </el-col>
+                            <el-col>
                               <el-radio :label="4">仅限本人</el-radio>
                             </el-col>
                           </el-row>
