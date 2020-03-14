@@ -813,72 +813,27 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
                     <el-input-number
-                      v-model="form.salary"
+                      v-model="form.basic"
                       :min="0"
                       :precision="2"
-                      :step="100"
+                      :step="50"
                       class="width"
                       style="width:20vw"
                     ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible"
-                      style="padding-top:5px"
-                    >
-                      <el-row >
-                        <el-col :span="24">
-                      <el-table :data="gridData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="200"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="before"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                          width="130"
-                        ></el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                          width="130"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.after }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="remark"
-                          align="center"
-                          :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                        >
-                          <template slot-scope="scope">
-                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
-                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
+                    <el-input-number
+                      v-model="form.duty"
+                      :min="0"
+                      :precision="2"
+                      :step="50"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1089,6 +1044,96 @@
                         </el-col>
                       </el-row>
                     </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
+                    <el-input-number
+                      v-model="form.salary"
+                      :min="0"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      disabled
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible"
+                      style="padding-top:5px"
+                    >
+                      <el-row >
+                        <el-col :span="24">
+                          <el-table :data="gridData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <!--<el-table-column-->
+                            <!--property="before"-->
+                            <!--align="center"-->
+                            <!--:label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
+                            <!--width="130"-->
+                            <!--&gt;</el-table-column>-->
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="basic"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="duty"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.duty }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini"></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
+                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1534,6 +1579,8 @@
           restlastyear: "",
           seatnumber: "",
           salary: "",
+          duty:"",
+          basic:"",
           caution: "",
           resignation_date:"",
           reason2: '',
@@ -1842,12 +1889,21 @@
               trigger: "blur"
             }
           ],
-          salary: [
+          basic: [
             {
               required: true,
               message:
                 this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_SALARY"),
+                this.$t("label.PFANSUSERFORMVIEW_BASIC"),
+              trigger: "blur"
+            }
+          ],
+          duty: [
+            {
+              required: true,
+              message:
+                this.$t("normal.error_08") +
+                this.$t("label.PFANSUSERFORMVIEW_DUTY"),
               trigger: "blur"
             }
           ],
@@ -1913,6 +1969,12 @@
       }
     },
     watch: {
+      form:{
+        handler: function() {
+          this.form.salary = this.form.duty + this.form.basic;
+        },
+        deep: true
+      },
       userToRoleId(val) {
         if (val) {
           this.$router.push({
@@ -1993,7 +2055,8 @@
           this.form.restyear === undefined ||
           this.form.restlastyear === undefined ||
           !this.form.seatnumber ||
-          !this.form.salary ||
+          !this.form.duty ||
+          !this.form.basic ||
           this.form.oldageinsurance === undefined ||
           this.form.houseinsurance === undefined ||
           this.form.medicalinsurance === undefined
@@ -2209,6 +2272,8 @@
               date: new moment().format("YYYY-MM-DD"),
               before: "",
               after: this.form.salary,
+              duty: this.form.duty,
+              basic: this.form.basic,
               remark: ""
             }
           ];
@@ -2221,6 +2286,8 @@
             date: new moment().format("YYYY-MM-DD"),
             before: this.gridData[this.gridData.length - 1].after,
             after: this.form.salary,
+            duty: this.form.duty,
+            basic: this.form.basic,
             remark: ""
           });
         }
