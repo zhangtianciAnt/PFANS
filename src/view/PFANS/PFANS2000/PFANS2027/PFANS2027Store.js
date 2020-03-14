@@ -13,7 +13,7 @@ const PFANS2027Store = {
             resolve(response.data);
           } else {
             reject(response.message)
-          }getLunardetails
+          }
         }).catch(error => {
           reject(error);
         })
@@ -21,7 +21,6 @@ const PFANS2027Store = {
     },
 
     getLunardetails({ commit },data) {
-      debugger
       return new Promise((resolve, reject) => {
         getLunardetails(data).then(response => {
           if (response.code === 0) {
