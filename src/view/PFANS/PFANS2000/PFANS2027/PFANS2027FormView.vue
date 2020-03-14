@@ -46,6 +46,11 @@
 
           <el-row>
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" v-show="show">
+                <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
                 <dicselect
                   :code="code13"
@@ -489,12 +494,52 @@
                 title: "title.PFANS2027VIEW_VIEW",
                 buttonList: [],
                 disabled: false,
-
+                lunardetail:{
+                    lunarbonus_id:'',
+                    user_id:'',
+                    enterday:'',
+                    group_id:'',
+                    team_id:'',
+                    difference:'',
+                    salary:'',
+                    workrate:'',
+                    bonussign:'',
+                    lastsymbol:'',
+                    tatebai:'',
+                    satoshi:'',
+                    organization:'',
+                    systematics:'',
+                    manpower:'',
+                    scale:'',
+                    achievement:'',
+                    degree:'',
+                    assignment:'',
+                    teamwork:'',
+                    humandevelopment:'',
+                    workattitude:'',
+                    overallscore:'',
+                    commentaryreturns:'',
+                    commentaryresult:'',
+                    comprehensiveone:'',
+                    comprehensivetwo:'',
+                    firstmonth:'',
+                    secondmonth:'',
+                    thirdmonth:'',
+                    rn:'',
+                    subjectmon:'',
+                    evaluationday:'',
+                    evaluatenum:'',
+                },
                 form: {
                     tabledata: [{
                         lunardetail_id:'',
                         lunarbonus_id:'',
                         user_id:'',
+                        enterday:'',
+                        group_id:'',
+                        team_id:'',
+                        difference:'',
+                        salary:'',
                         workrate:'',
                         bonussign:'',
                         lastsymbol:'',
@@ -519,6 +564,9 @@
                         secondmonth:'',
                         thirdmonth:'',
                         rn:'',
+                        subjectmon:'',
+                        evaluationday:'',
+                        evaluatenum:'',
                     }]
                 },
                 code1: 'PJ089',
@@ -546,6 +594,38 @@
                 this.dialogFormVisible = false;
                 if(this.$route.params.show){//view
                     this.show = this.$route.params.show;
+                    this.lunardetail.lunarbonus_id = this.$route.params._id;
+                    this.$store
+                        .dispatch("PFANS2027Store/getLunardetails", this.lunardetail)
+                        .then(response => {
+
+                            if(response){
+                                for(let i=0;i < response.length;i++){
+                                    this.form.tabledata.push(response[i]);
+                                }
+                            }
+                            // this.$message({
+                            //     message: this.$t("normal.success_01"),
+                            //     type: "success"
+                            // });
+/*
+
+                            if (this.$store.getters.historyUrl) {
+                                this.$router.push(this.$store.getters.historyUrl);
+                            }
+
+*/
+                            this.loading = false;
+
+                        })
+                        .catch(err => {
+                            this.loading = false;
+                            Message({
+                                message: err,
+                                type: "error",
+                                duration: 5 * 1000
+                            });
+                        });
                 }else{//update
                     this.show = this.$route.params.show;
                 }

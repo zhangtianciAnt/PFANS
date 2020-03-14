@@ -1,4 +1,4 @@
-import {getLunarbonus,selectById,update,insertLunarbonus} from './PFANS2027Api'
+import {getLunarbonus,getLunardetails,update,insertLunarbonus} from './PFANS2027Api'
 
 const PFANS2027Store = {
   namespaced: true,
@@ -20,7 +20,19 @@ const PFANS2027Store = {
       })
     },
 
-
+    getLunardetails({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getLunardetails(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     //根据id获取
     // selectById({commit}, data) {
     //   return new Promise((resolve, reject) => {
