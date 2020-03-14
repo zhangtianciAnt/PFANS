@@ -565,44 +565,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                    <dicselect
-                      code="PG001"
-                      class="width"
-                      style="width:20vw"
-                      @change="changeUnit"
-                      :data="form.budgetunit"
-                    ></dicselect>
+                    <el-input class="width" :disabled="true" v-model="form.budgetunit" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" >
                     <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col>
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DIFFERENCE')">
-                    <el-select
-                      v-model="form.difference"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      style="width:20vw"
-                    >
-                      <el-option
-                        v-for="item in difference_options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -631,8 +599,37 @@
                                @change="getRank"></dicselect>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE')" prop="occupationtype">
+                    <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype" :disabled="occupationtypedis"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
               </el-row>
-
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DIFFERENCE')">
+                    <el-select
+                      v-model="form.difference"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      style="width:20vw"
+                    >
+                      <el-option
+                        v-for="item in difference_options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE')">
@@ -1426,6 +1423,8 @@
 
       return {
         code: "",
+        occupationtypecode:"",
+        occupationtypedis:false,
         display: true,
         oldageData: null,
         houseData: null,
@@ -1559,13 +1558,14 @@
           centerid: "",
           groupid: "",
           teamid: "",
+          budgetunit: "",
           userid: "",
           jobnumber: "",
           personalcode:"",
-          budgetunit: "",
           difference: "1",
           post: "",
           rank: "",
+          occupationtype:"",
           laborcontracttype: "",
           fixedate: "",
           laborcontractday: "",
@@ -1793,13 +1793,6 @@
               trigger: "blur"
             }
           ],
-          budgetunit: [
-            {
-              required: true,
-              message: this.$t("normal.error_08") + this.$t("label.budgetunit"),
-              trigger: "change"
-            }
-          ],
           post: [
             {
               required: true,
@@ -2003,7 +1996,8 @@
           teamname: this.form.teamname,
           centerid: this.form.centerid,
           groupid: this.form.groupid,
-          teamid: this.form.teamid
+          teamid: this.form.teamid,
+          budgetunit: this.form.budgetunit,
         } = this.$route.params._org);
       }
 
@@ -2044,7 +2038,6 @@
         } else if (
           !this.form.jobnumber ||
           !this.form.centerid ||
-          !this.form.budgetunit ||
           !this.form.post ||
           !this.form.laborcontractday ||
           !this.form.enterday ||
@@ -2063,9 +2056,6 @@
         ) {
           this.activeName = "five";
         }
-      },
-      changeUnit(val) {
-        this.form.budgetunit = val;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -2143,6 +2133,9 @@
                 this.code = 'PR021'
               } else if (this.form.type === '1') {
                 this.code = 'PJ053'
+                this.occupationtypedis = true;
+                this.occupationtypecode = "";
+                this.form.occupationtype = "";
               }
               this.form.rank = "";
               this.display = true;
@@ -2153,12 +2146,36 @@
             this.code = 'PR021'
           } else if (this.form.type === '1') {
             this.code = 'PJ053'
+            this.occupationtypedis = true;
+            this.occupationtypecode = "";
+            this.form.occupationtype = "";
           }
 
         }
       },
       getRank(val) {
-        this.form.rank = val;
+        if (val) {
+            this.form.rank = val;
+            this.$nextTick(
+                () => {
+                    if(this.code === "PR021"){
+                        this.occupationtypecode = 'PR055';
+                        if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                            || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                            this.occupationtypedis = true;
+                            this.form.occupationtype = 'PR055001';
+                        } else {
+                            this.occupationtypedis = false;
+                        }
+                    }
+                    else{
+                        this.occupationtypedis = true;
+                        this.occupationtypecode = "";
+                        this.form.occupationtype = "";
+                    }
+                }
+            )
+        }
       },
       getCenterid(val) {
         this.getOrgInformation(val);
@@ -2200,6 +2217,7 @@
             if (index === 2) {
               org.groupname = treeCom.getNode(node).data.departmentname;
               org.groupid = treeCom.getNode(node).data._id;
+              org.budgetunit = treeCom.getNode(node).data.encoding;
             }
             if (index === 1) {
               org.centername = treeCom.getNode(node).data.companyname;
@@ -2213,7 +2231,8 @@
             teamname: this.form.teamname,
             centerid: this.form.centerid,
             groupid: this.form.groupid,
-            teamid: this.form.teamid
+            teamid: this.form.teamid,
+              budgetunit: this.form.budgetunit
           } = org);
         }
       },
@@ -2394,7 +2413,6 @@
             this.$store
               .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
-                debugger
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
                 } else {
