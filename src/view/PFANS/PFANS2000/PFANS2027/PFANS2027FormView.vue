@@ -598,22 +598,24 @@
                     this.$store
                         .dispatch("PFANS2027Store/getLunardetails", this.lunardetail)
                         .then(response => {
-                            this.loading = false;
-                            /*if(response){
+
+                            if(response){
                                 for(let i=0;i < response.length;i++){
                                     this.form.tabledata.push(response[i]);
                                 }
-                            }*/
-                            this.$message({
-                                message: this.$t("normal.success_01"),
-                                type: "success"
-                            });
+                            }
+                            // this.$message({
+                            //     message: this.$t("normal.success_01"),
+                            //     type: "success"
+                            // });
 /*
 
                             if (this.$store.getters.historyUrl) {
                                 this.$router.push(this.$store.getters.historyUrl);
                             }
+
 */
+                            this.loading = false;
 
                         })
                         .catch(err => {
