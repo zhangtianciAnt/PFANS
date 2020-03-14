@@ -704,10 +704,10 @@
                 .dispatch('PFANS2016Store/updatePfans2016', this.form)
                 .then(response => {
                   this.loading = false;
-                  if(response === 'PR013005'){
-                      this.errort = this.$t('normal.ERROR_RETIRE');
-                  }
-                  else{
+                  // if(response === 'PR013005'){
+                  //     this.errort = this.$t('normal.ERROR_RETIRE');
+                  // }
+                  // else{
                       this.data = response;
                       if(val !== "update"){
                           Message({
@@ -719,7 +719,7 @@
                               this.$router.push(this.$store.getters.historyUrl);
                           }
                       }
-                  }
+                  // }
 
                 })
                 .catch(error => {
