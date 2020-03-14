@@ -731,18 +731,27 @@
                   <el-table :data="tableA" :summary-method="getAsummaries"
                             header-cell-class-name="sub_bg_color_blue"
                             show-summary stripe border>
-                    <el-table-column :label="$t('label.date')" align="center" width="200">
+                    <el-table-column :label="$t('label.date')" align="center" width="400">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">
-                        </el-date-picker>
+<!--                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">-->
+<!--                        </el-date-picker>-->
+                        <el-date-picker unlink-panels
+                                        class="bigWidth"
+                                        :disabled="!disable"
+                                        v-model.trim="scope.row.accommodationdate"
+                                        type="daterange"
+                                        :end-placeholder="$t('label.enddate')"
+                                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                                        :start-placeholder="$t('label.startdate')"
+                        ></el-date-picker>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_NEXTDAY')" align="center" width="80">
-                      <template slot-scope="scope">
-                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.nextday">
-                        </el-input>
-                      </template>
-                    </el-table-column>
+<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_NEXTDAY')" align="center" width="80">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.nextday">-->
+<!--                        </el-input>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
@@ -819,17 +828,17 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="200">
-                      <template slot-scope="scope">
-                        <dicselect :code="code7"
-                                   :data="scope.row.movementtime"
-                                   :disabled="!disable"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getmovementtime">
-                        </dicselect>
-                      </template>
-                    </el-table-column>
+<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="200">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <dicselect :code="code7"-->
+<!--                                   :data="scope.row.movementtime"-->
+<!--                                   :disabled="!disable"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   :no="scope.row"-->
+<!--                                   @change="getmovementtime">-->
+<!--                        </dicselect>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
                                      width="200">
                       <template slot-scope="scope">
@@ -937,21 +946,21 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" prop="relatives"
-                                     v-else
-                                     width="200">
-                      <template slot-scope="scope">
-                        <el-input-number
-                          :disabled=true
-                          :max="1000000000"
-                          :min="0"
-                          :precision="2"
-                          controls-position="right"
-                          style="width: 100%"
-                          v-model="scope.row.relatives"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
+<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" prop="relatives"-->
+<!--                                     v-else-->
+<!--                                     width="200">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-input-number-->
+<!--                          :disabled=true-->
+<!--                          :max="1000000000"-->
+<!--                          :min="0"-->
+<!--                          :precision="2"-->
+<!--                          controls-position="right"-->
+<!--                          style="width: 100%"-->
+<!--                          v-model="scope.row.relatives"-->
+<!--                        ></el-input-number>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" v-if="showAinner"
                                      width="200">
                       <template slot-scope="scope">
@@ -1352,7 +1361,7 @@
           evectionid: '',
           accommodationdetails_id: '',
           accommodationdate: '',
-          nextday: '',
+          // nextday: '',
           invoicenumber: '',
           budgetcoding: '',
           subjectnumber: '',
@@ -1360,7 +1369,7 @@
           activitycontent: '',
           vehicleon: '',
           vehiclein: '',
-          movementtime: '',
+          // movementtime: '',
           city: '',
           region: '',
           facilitytypeon: '',
@@ -1370,7 +1379,7 @@
           accommodation: '',
           travelallowance: '',
           travel: '',
-          relatives: '',
+          // relatives: '',
           traintick: 0,
           annexno: '',
           rowindex: '',
@@ -1474,6 +1483,14 @@
               this.tableT = response.trafficdetails;
             }
             if (response.accommodationdetails.length > 0) {
+              for (let i = 0; i < response.accommodationdetails.length; i++) {
+                if (response.accommodationdetails[i].accommodationdate !== '' && response.accommodationdetails[i].accommodationdate !== null) {
+                  let time = response.accommodationdetails[i].accommodationdate;
+                  let starttime = time.slice(0, 10);
+                  let endtime = time.slice(time.length - 10);
+                  response.accommodationdetails[i].accommodationdate = [starttime, endtime];
+                }
+              }
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
                 if (this.$route.params.method === 'view') {
@@ -1734,11 +1751,11 @@
             evectionid: '',
             accommodationdetails_id: '',
             accommodationdate: '',
-            nextday: '',
+            // nextday: '',
             activitycontent: '',
             vehicleon: '',
             vehiclein: '',
-            movementtime: '',
+            // movementtime: '',
             city: '',
             region: '',
             budgetcoding: '',
@@ -1750,7 +1767,7 @@
             accommodation: '',
             travelallowance: '',
             travel: '',
-            relatives: '',
+            // relatives: '',
             traintick: 0,
             annexno: '',
             rowindex: '',
@@ -1779,11 +1796,11 @@
             evectionid: '',
             accommodationdetails_id: '',
             accommodationdate: '',
-            nextday: '',
+            // nextday: '',
             activitycontent: '',
             vehicleon: '',
             vehiclein: '',
-            movementtime: '',
+            // movementtime: '',
             city: '',
             budgetcoding: '',
             subjectnumber: '',
@@ -1795,7 +1812,7 @@
             accommodation: '',
             travelallowance: '',
             travel: '',
-            relatives: '',
+            // relatives: '',
             traintick: 0,
             annexno: '',
             rowindex: '',
@@ -1862,11 +1879,11 @@
         } else {
           this.tableA = [{
             accommodationdate: '',
-            nextday: '',
+            // nextday: '',
             activitycontent: ' ',
             vehicleon: ' ',
             vehiclein: ' ',
-            movementtime: ' ',
+            // movementtime: ' ',
             budgetcoding: ' ',
             subjectnumber: ' ',
             city: '',
@@ -1955,13 +1972,13 @@
           evectionid: '',
           accommodationdetails_id: '',
           accommodationdate: '',
-          nextday: '',
+          // nextday: '',
           invoicenumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: '',
           vehicleon: '',
           vehiclein: '',
-          movementtime: '',
+          // movementtime: '',
           budgetcoding: '',
           subjectnumber: '',
           city: '',
@@ -1973,7 +1990,7 @@
           accommodation: '',
           travelallowance: '',
           travel: '',
-          relatives: '',
+          // relatives: '',
           traintick: 0,
           annexno: '',
           rowindex: '',
@@ -2079,70 +2096,64 @@
         this.getValue2(sums);
         return sums;
       },
-      getWeekDay(date) {
-        if (date.getDay() == 0) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_ONE');
-        }
-        if (date.getDay() == 1) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_TWO');
-        }
-        if (date.getDay() == 2) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_THREE');
-        }
-        if (date.getDay() == 3) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_FORE');
-        }
-        if (date.getDay() == 4) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_FIVE');
-        }
-        if (date.getDay() == 5) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_SIX');
-        }
-        if (date.getDay() == 6) {
-          this.week = this.$t('label.PFANS1013FORMVIEW_SECVEN');
-        }
-      },
+      // getWeekDay(date) {
+      //   if (date.getDay() == 0) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_ONE');
+      //   }
+      //   if (date.getDay() == 1) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_TWO');
+      //   }
+      //   if (date.getDay() == 2) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_THREE');
+      //   }
+      //   if (date.getDay() == 3) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_FORE');
+      //   }
+      //   if (date.getDay() == 4) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_FIVE');
+      //   }
+      //   if (date.getDay() == 5) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_SIX');
+      //   }
+      //   if (date.getDay() == 6) {
+      //     this.week = this.$t('label.PFANS1013FORMVIEW_SECVEN');
+      //   }
+      // },
       changebusiness(val) {
         this.form.startdate = '',
-          this.form.enddate = '';
+        this.form.enddate = '';
         this.form.business_id = val;
         this.Todaysum = [];
         if (this.form.type === '0') {
-          debugger
-          console.log("aaa",this.relations)
           for(var i =0;i<this.relations.length;i++){
             if(this.relations[i].value==val){
               if (this.relations[i].businesstype === '1') {
                 this.form.place = this.relations[i].city,
                   this.form.startdate = this.relations[i].startdate,
                   this.form.enddate = this.relations[i].enddate;
+                this.form.datenumber = this.relations[i].datenumber;
                 this.tableT[0].trafficdate = this.form.startdate;
                 this.tableA[0].accommodationdate = this.form.startdate;
                 this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                var getDate = function (str) {
-                  var tempDate = new Date();
-                  var list = str.split("-");
-                  tempDate.setFullYear(list[0]);
-                  tempDate.setMonth(list[1] - 1);
-                  tempDate.setDate(list[2]);
-                  return tempDate;
-                };
-                var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
-                this.getWeekDay(date);
-                this.tableA[0].nextday = this.week;
-                this.form.datenumber = this.relations[i].datenumber;
+                // var getDate = function (str) {
+                //   var tempDate = new Date();
+                //   var list = str.split("-");
+                //   tempDate.setFullYear(list[0]);
+                //   tempDate.setMonth(list[1] - 1);
+                //   tempDate.setDate(list[2]);
+                //   return tempDate;
+                // };
+                // var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
+                // this.getWeekDay(date);
+                // this.tableA[0].nextday = this.week;
               }
             }
           }
 
 
         } else {
-          debugger
-          console.log("aaa",this.relations)
           for(var i = 0;i<this.relations.length;i++) {
-            debugger
-            if(this.relations[i].value==val) {
-              debugger
+            if(this.relations[i].value === val) {
               this.rank = this.relations[i].level;
               if (this.relations[i].businesstype === '0') {
                 let dict = getDictionaryInfo(this.relations[i].level);
@@ -2153,110 +2164,110 @@
                   this.form.place = this.relations[i].city,
                   this.form.startdate = this.relations[i].startdate,
                   this.form.enddate = this.relations[i].enddate;
+                this.form.datenumber = this.relations[i].datenumber;
                 this.tableT[0].trafficdate = this.form.startdate;
                 this.tableA[0].accommodationdate = this.form.startdate;
                 this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                var getDate = function (str) {
-                  var tempDate = new Date();
-                  var list = str.split("-");
-                  tempDate.setFullYear(list[0]);
-                  tempDate.setMonth(list[1] - 1);
-                  tempDate.setDate(list[2]);
-                  return tempDate;
-                };
-                var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
-                this.getWeekDay(date);
-                this.tableA[0].nextday = this.week;
-                this.form.datenumber = this.relations[i].datenumber;
+                // var getDate = function (str) {
+                //   var tempDate = new Date();
+                //   var list = str.split("-");
+                //   tempDate.setFullYear(list[0]);
+                //   tempDate.setMonth(list[1] - 1);
+                //   tempDate.setDate(list[2]);
+                //   return tempDate;
+                // };
+                // var date = getDate(moment(this.tableA[0].accommodationdate).format("YYYY-MM-DD"));
+                // this.getWeekDay(date);
+                // this.tableA[0].nextday = this.week;
               }
             }
           }
 
         }
 
-        if (this.form.startdate != '' && this.form.enddate != ''&& moment(this.form.startdate).format("YYYY-MM-DD")!=moment(this.form.enddate).format("YYYY-MM-DD")) {
-          var getDate = function (str) {
-            var tempDate = new Date();
-            var list = str.split("-");
-            tempDate.setFullYear(list[0]);
-            tempDate.setMonth(list[1] - 1);
-            tempDate.setDate(list[2]);
-            return tempDate;
-          };
-          var date1 = getDate(moment(this.form.startdate).format("YYYY-MM-DD"));
-          var date2 = getDate(moment(this.form.enddate).format("YYYY-MM-DD"));
-          if (date1 > date2) {
-            var tempDate = date1;
-            date1 = date2;
-            date2 = tempDate;
-          }
-          date1.setDate(date1.getDate() + 1);
-          var dateArr = [];
-          var i = 0;
-          while (!(date1.getFullYear() == date2.getFullYear()
-            && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-              .getDate())) {
-            var dayStr = date1.getDate().toString();
-            if (dayStr.length == 1) {
-              dayStr = "0" + dayStr;
-            }
-            var monthStr = (date1.getMonth() + 1).toString();
-            if (monthStr.length == 1) {
-              monthStr = "0" + monthStr;
-            }
-            dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
-              + dayStr;
-            i++;
-            date1.setDate(date1.getDate() + 1);
-          }
-          dateArr.splice(0, 0, moment(this.form.startdate).format("YYYY-MM-DD"));
-          dateArr.push(moment(this.form.enddate).format("YYYY-MM-DD"));
-          this.Todaysum = dateArr;
-          console.log("bbb",this.Todaysum)
-        }
-        for (let i = 1; i < this.Todaysum.length; i++) {
-          var getDate = function (str) {
-            var tempDate = new Date();
-            var list = str.split("-");
-            tempDate.setFullYear(list[0]);
-            tempDate.setMonth(list[1] - 1);
-            tempDate.setDate(list[2]);
-            return tempDate;
-          };
-          var date = getDate(this.Todaysum[i]);
-          this.getWeekDay(date);
-          this.tableA.push({
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: this.Todaysum[i],
-            nextday: this.week,
-            invoicenumber: '',
-            departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-            activitycontent: '',
-            vehicleon: '',
-            budgetcoding: '',
-            subjectnumber: '',
-            vehiclein: '',
-            movementtime: '',
-            city: '',
-            region: '',
-            facilitytypeon: '',
-            facilitytypein: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            relatives: '',
-            traintick: 0,
-            annexno: '',
-            rowindex: '',
-            taxes: '',
-            costitem: '',
-            disaccommod: false,
-            showtick: true,
-          });
-        }
+        // if (this.form.startdate != '' && this.form.enddate != ''&& moment(this.form.startdate).format("YYYY-MM-DD")!=moment(this.form.enddate).format("YYYY-MM-DD")) {
+        //   var getDate = function (str) {
+        //     var tempDate = new Date();
+        //     var list = str.split("-");
+        //     tempDate.setFullYear(list[0]);
+        //     tempDate.setMonth(list[1] - 1);
+        //     tempDate.setDate(list[2]);
+        //     return tempDate;
+        //   };
+        //   var date1 = getDate(moment(this.form.startdate).format("YYYY-MM-DD"));
+        //   var date2 = getDate(moment(this.form.enddate).format("YYYY-MM-DD"));
+        //   if (date1 > date2) {
+        //     var tempDate = date1;
+        //     date1 = date2;
+        //     date2 = tempDate;
+        //   }
+        //   date1.setDate(date1.getDate() + 1);
+        //   var dateArr = [];
+        //   var i = 0;
+        //   while (!(date1.getFullYear() == date2.getFullYear()
+        //     && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+        //       .getDate())) {
+        //     var dayStr = date1.getDate().toString();
+        //     if (dayStr.length == 1) {
+        //       dayStr = "0" + dayStr;
+        //     }
+        //     var monthStr = (date1.getMonth() + 1).toString();
+        //     if (monthStr.length == 1) {
+        //       monthStr = "0" + monthStr;
+        //     }
+        //     dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
+        //       + dayStr;
+        //     i++;
+        //     date1.setDate(date1.getDate() + 1);
+        //   }
+        //   dateArr.splice(0, 0, moment(this.form.startdate).format("YYYY-MM-DD"));
+        //   dateArr.push(moment(this.form.enddate).format("YYYY-MM-DD"));
+        //   this.Todaysum = dateArr;
+        //   console.log("bbb",this.Todaysum)
+        // }
+        // for (let i = 1; i < this.Todaysum.length; i++) {
+        //   var getDate = function (str) {
+        //     var tempDate = new Date();
+        //     var list = str.split("-");
+        //     tempDate.setFullYear(list[0]);
+        //     tempDate.setMonth(list[1] - 1);
+        //     tempDate.setDate(list[2]);
+        //     return tempDate;
+        //   };
+        //   var date = getDate(this.Todaysum[i]);
+        //   this.getWeekDay(date);
+        //   this.tableA.push({
+        //     evectionid: '',
+        //     accommodationdetails_id: '',
+        //     accommodationdate: this.Todaysum[i],
+        //     // nextday: this.week,
+        //     invoicenumber: '',
+        //     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+        //     activitycontent: '',
+        //     vehicleon: '',
+        //     budgetcoding: '',
+        //     subjectnumber: '',
+        //     vehiclein: '',
+        //     // movementtime: '',
+        //     city: '',
+        //     region: '',
+        //     facilitytypeon: '',
+        //     facilitytypein: '',
+        //     facilityname: '',
+        //     accommodationallowance: '',
+        //     accommodation: '',
+        //     travelallowance: '',
+        //     travel: '',
+        //     // relatives: '',
+        //     traintick: 0,
+        //     annexno: '',
+        //     rowindex: '',
+        //     taxes: '',
+        //     costitem: '',
+        //     disaccommod: false,
+        //     showtick: true,
+        //   });
+        // }
       },
       change2(val) {
         this.form.loanamount = "";
@@ -2406,16 +2417,16 @@
       },
       getvehiclein(val, row) {
         row.vehiclein = val;
-        this.getTravelFly(row);
+        // this.getTravelFly(row);
       },
-      getmovementtime(val, row) {
-        row.movementtime = val;
-        this.getTravel(row);
-      },
+      // getmovementtime(val, row) {
+      //   row.movementtime = val;
+      //   this.getTravel(row);
+      // },
       getexitarea(val, row) {
         row.region = val;
         this.getTravel(row);
-        this.getTravelFly(row);
+        // this.getTravelFly(row);
       },
       getfacilitytypeon(val, row) {
         row.facilitytypeon = val;
@@ -2473,17 +2484,13 @@
         }
       },
       getTravel(row) {
-        debugger;
-        var varmovementtime2;
-        let movementtimedic = getDictionaryInfo(row.movementtime);
-        if (movementtimedic) {
-          varmovementtime2 = movementtimedic.value2;
-        }
         if (this.form.type === '0') {
           var varvalueflg1;
+          var varvalueflg4;
           let dictionaryInfo1 = getDictionaryInfo('PJ035001');
           if (dictionaryInfo1) {
             varvalueflg1 = dictionaryInfo1.value2;
+            varvalueflg4 = dictionaryInfo1.value3;
           }
           var varvalueflg2;
           var varvalueflg3;
@@ -2492,21 +2499,17 @@
             varvalueflg2 = dictionaryInfo2.value2;
             varvalueflg3 = dictionaryInfo2.value3;
           }
-          var varvalueflg4;
-          var varvalueflg5;
-          let dictionaryInfo3 = getDictionaryInfo('PJ035003');
-          if (dictionaryInfo3) {
-            varvalueflg4 = dictionaryInfo3.value2;
-            varvalueflg5 = dictionaryInfo3.value3;
-          }
           if (row.facilitytypeon === 'PJ035001') {
-            if (row.city != '') {
-              row.travelallowance = varvalueflg1;
-              row.relatives = '';
+            if (row.city !== '') {
+              if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
+                || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
+                row.travelallowance = varvalueflg1;
+              } else {
+                row.travelallowance = varvalueflg4;
+              }
             }
           } else if (row.facilitytypeon === 'PJ035002') {
-            row.relatives = '';
-            if (row.city != '') {
+            if (row.city !== '') {
               if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                 || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
                 row.travelallowance = varvalueflg2;
@@ -2514,19 +2517,9 @@
                 row.travelallowance = varvalueflg3;
               }
             }
-          } else if (row.facilitytypeon === 'PJ035003') {
-            if (!(row.movementtime === 'PJ027006' || row.movementtime === 'PJ027007' || row.movementtime === 'PJ027008'
-              || row.movementtime === 'PJ027009')) {
-              row.relatives = varvalueflg5;
-            } else {
-              row.relatives = '';
-            }
-            if (row.city != '' && row.movementtime != '') {
-              row.travelallowance = varvalueflg4;
-            }
           }
-          if (row.movementtime != '' && row.facilitytypeon != '' && row.city != '') {
-            row.travelallowance = Number(row.travelallowance) * varmovementtime2;
+          if (row.facilitytypeon !== '' && row.city !== '') {
+            row.travelallowance = Number(row.travelallowance);
           }
         } else if (this.form.type === '1') {
           var varbusiness;
@@ -2546,41 +2539,40 @@
               varbusiness = businessdic.value4;
             }
           }
-          var vartravel = 0;
-          if (varmovementtime2 != '' && varmovementtime2 != undefined
-            && varbusiness != '' && varbusiness != undefined) {
-            vartravel = Number(varmovementtime2) * Number(varbusiness);
-          }
-          row.travel = vartravel;
+          // var vartravel = 0;
+          // if (varbusiness !== '' && varbusiness !== undefined) {
+          //   vartravel = Number(varbusiness);
+          // }
+          row.travel = varbusiness;
         }
       },
-      getTravelFly(row) {
-        var varbusiness;
-        if (this.rank === 'PJ016001') {
-          let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'));
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        } else if (this.rank === 'PJ016002') {
-          let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'));
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        } else if (this.rank === 'PJ016003') {
-          let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
-          if (businessdic) {
-            varbusiness = businessdic.value4;
-          }
-        }
-        if (row.vehiclein === 'PJ026004') {
-          row.accommodationallowance = '';
-          row.accommodation = '';
-          row.travelallowance = '';
-          row.disaccommod = true;
-        } else {
-          row.disaccommod = false;
-        }
-      },
+      // getTravelFly(row) {
+      //   var varbusiness;
+      //   if (this.rank === 'PJ016001') {
+      //     let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'));
+      //     if (businessdic) {
+      //       varbusiness = businessdic.value4;
+      //     }
+      //   } else if (this.rank === 'PJ016002') {
+      //     let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'));
+      //     if (businessdic) {
+      //       varbusiness = businessdic.value4;
+      //     }
+      //   } else if (this.rank === 'PJ016003') {
+      //     let businessdic = getDictionaryInfode(row.vehiclein, row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'));
+      //     if (businessdic) {
+      //       varbusiness = businessdic.value4;
+      //     }
+      //   }
+      //   if (row.vehiclein === 'PJ026004') {
+      //     row.accommodationallowance = '';
+      //     row.accommodation = '';
+      //     row.travelallowance = '';
+      //     row.disaccommod = true;
+      //   } else {
+      //     row.disaccommod = false;
+      //   }
+      // },
       getforeign(sums) {
         if (this.form.type === '0') {
           this.form.totalcurrency = null;
@@ -2592,13 +2584,13 @@
       },
       getMoney(sums) {
         if (this.form.type === '0') {
-          if (this.accountcodeValue != '') {
+          if (this.accountcodeValue !== '') {
             this.form.totalpay = sums[9] + this.tableRValue[8] + this.tableAValue[13] + this.tableAValue[14];
           } else {
             this.form.totalpay = sums[9] + this.tableRValue[7] + this.tableAValue[13] + this.tableAValue[14];
           }
         } else if (this.form.type === '1') {
-          if (this.accountcodeValue != '') {
+          if (this.accountcodeValue !== '') {
             this.form.totalpay = sums[9] + this.tableRValue[8] + this.tableAValue[13];
           } else {
             this.form.totalpay = sums[9] + this.tableRValue[7] + this.tableAValue[13];
@@ -2610,7 +2602,7 @@
         this.tableData[0].rmb = sums[9];
         this.tableData[1].rmb = this.tableAValue[10];
         this.tableData[2].rmb = this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13];
-        if (this.accountcodeValue != '') {
+        if (this.accountcodeValue !== '') {
           this.tableData[3].rmb = this.tableRValue[8];
         } else {
           this.tableData[3].rmb = this.tableRValue[7];
@@ -2620,7 +2612,7 @@
       getValue2(sums) {
         this.tableData2[0].rmb = sums[9];
         this.tableData2[1].rmb = this.tableAValue[11];
-        if (this.accountcodeValue != '') {
+        if (this.accountcodeValue !== '') {
           this.tableData2[3].rmb = this.tableRValue[8];
         } else {
           this.tableData2[3].rmb = this.tableRValue[7];
@@ -2632,7 +2624,7 @@
           this.tableData2[0].usdcurrency = sums[10];
           this.tableData2[1].usdcurrency = this.tableAValue[11];
           this.tableData2[2].usdcurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue != '') {
+          if (this.accountcodeValue !== '') {
             this.tableData2[3].usdcurrency = this.tableRValue[9];
           } else {
             this.tableData2[3].usdcurrency = this.tableRValue[8];
@@ -2646,7 +2638,7 @@
           this.tableData2[0].jpycurrency = sums[10];
           this.tableData2[1].jpycurrency = this.tableAValue[11];
           this.tableData2[2].jpycurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue != '') {
+          if (this.accountcodeValue !== '') {
             this.tableData2[3].jpycurrency = this.tableRValue[9];
           } else {
             this.tableData2[3].jpycurrency = this.tableRValue[8];
@@ -2660,7 +2652,7 @@
           this.tableData2[0].ratecurrency = sums[10];
           this.tableData2[1].ratecurrency = this.tableAValue[11];
           this.tableData2[2].ratecurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue != '') {
+          if (this.accountcodeValue !== '') {
             this.tableData2[3].ratecurrency = this.tableRValue[9];
           } else {
             this.tableData2[3].ratecurrency = this.tableRValue[8];
@@ -2693,16 +2685,16 @@
       },
       changeRMB(newValue) {
         for (let j = 0; j < this.tableF.length; j++) {
-          if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
-            if (newValue.rmb != '') {
-              if (this.tableF[j].taxrate != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
+          if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
+            if (newValue.rmb !== '') {
+              if (this.tableF[j].taxrate !== '') {
+                if (this.tableF[j].taxrate === 'PJ071001') {
                   this.taxrateValue = '0.03'
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
+                } else if (this.tableF[j].taxrate === 'PJ071002') {
                   this.taxrateValue = '0.06'
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
+                } else if (this.tableF[j].taxrate === 'PJ071003') {
                   this.taxrateValue = '0.09'
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
+                } else if (this.tableF[j].taxrate === 'PJ071004') {
                   this.taxrateValue = '0.13'
                 }
                 newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
@@ -2785,7 +2777,7 @@
               for (let i = 0; i < this.tableA.length; i++) {
                 if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
                   || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0 || this.tableA[i].relatives > 0
+                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
                   || this.tableA[i].annexno !== ''
                   || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
                   var varvehiclein;
@@ -2801,8 +2793,8 @@
                     {
                       accommodationdetails_id: this.tableA[i].accommodationdetails_id,
                       evectionid: this.tableA[i].evectionid,
-                      accommodationdate: this.tableA[i].accommodationdate,
-                      nextday: this.tableA[i].nextday,
+                      accommodationdate: moment(this.tableA[i].accommodationdate[0]).format("YYYY-MM-DD") +"~"+ moment(this.tableA[i].accommodationdate[1]).format("YYYY-MM-DD"),
+                      // nextday: this.tableA[i].nextday,
                       activitycontent: this.tableA[i].activitycontent,
                       vehicle: varvehiclein,
                       region: this.tableA[i].region,
@@ -2816,7 +2808,7 @@
                       accommodation: this.tableA[i].accommodation,
                       travelallowance: this.tableA[i].travelallowance,
                       travel: this.tableA[i].travel,
-                      relatives: this.tableA[i].facilitytype,
+                      // relatives: this.tableA[i].facilitytype,
                       invoicenumber: this.tableA[i].invoicenumber,
                       departmentname: this.tableA[i].departmentname,
                       taxes: this.tableA[i].taxes,
