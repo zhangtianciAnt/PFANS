@@ -50,14 +50,26 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8" v-show="form.errortype != 'PR013005' && form.errortype != 'PR013006'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input :disabled="true"
                           style="width:20vw" v-model="form.lengthtime"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="8" v-show="form.errortype == 'PR013005' || form.errortype == 'PR013006'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
+                <el-select v-model="form.lengthtime">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
           </el-row>
-          <el-row>
+          <el-row v-if="form.errortype != 'PR013005' && form.errortype != 'PR013006'">
             <el-col :span="8">
               <el-form-item :label="$t('label.startdate')" prop="occurrencedate">
                 <el-date-picker :disabled="!disable" @change="change"
@@ -93,7 +105,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row v-if="form.errortype != 'PR013005' && form.errortype != 'PR013006'">
             <el-col :span="8">
               <el-form-item :label="$t('label.enddate')" prop="finisheddate">
                 <el-date-picker :disabled="!disable" @change="change"
@@ -297,6 +309,16 @@
         errorstarttime: '',
         options: [],
         value: [],
+        options1:[{
+          value: '0',
+          label: '全天'
+        }, {
+          value: '1',
+          label: '上午'
+        }, {
+          value: '2',
+          label: '下午'
+        }],
         showVacation: false,
         showFemale: false,
         showWeekend: false,
@@ -312,9 +334,9 @@
           user_id: '',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
           errortype: '',
-          lengthtime: '',
-          occurrencedate: '',
-          finisheddate: '',
+          lengthtime: '0',
+          occurrencedate: moment(new Date()).format('YYYY-MM-DD'),
+          finisheddate: moment(new Date()).format('YYYY-MM-DD'),
           relation: '',
           hospital: '',
           edate: '',
@@ -599,7 +621,7 @@
           this.showVacation = true;
         } else if (val === 'PR013017') {
           this.showVacation = true;
-        } else {
+        }else {
           this.showFemale = false;
           this.showWeekend = false;
           this.showVacation = false;

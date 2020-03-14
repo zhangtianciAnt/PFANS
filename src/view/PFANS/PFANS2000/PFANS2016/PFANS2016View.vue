@@ -107,9 +107,14 @@
                 .dispatch('PFANS2016Store/getFpans2016List', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
+                      if(response[j].errortype != 'PR013005' && response[j].errortype != 'PR013006'){
                         if (this.$i18n) {
-                            response[j].lengthtime = parseFloat(response[j].lengthtime/8).toFixed(1) + this.$t('label.PFANS2016FORMVIEW_DAYS');
+                          response[j].lengthtime = parseFloat(response[j].lengthtime/8).toFixed(1) + this.$t('label.PFANS2016FORMVIEW_DAYS');
                         }
+                      }else{
+                        response[j].lengthtime = response[j].lengthtime ==='0'?'全天':(response[j].lengthtime ==='1'?"上午":"下午");
+                      }
+
                         let user = getUserInfo(response[j].user_id);
                         if (user) {
                             response[j].username = user.userinfo.customername;
