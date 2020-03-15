@@ -279,7 +279,6 @@
         }
       },
       getNextYearLevel:function () {
-        debugger
         return (parseInt(this.getThisYearLevel) + 1) + "";
       }
     },
@@ -312,7 +311,6 @@
         this.$store
           .dispatch('PFANS1038Store/getCustomerInfo', id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response.map(
                 res => {
@@ -333,7 +331,6 @@
         this.$store
           .dispatch('PFANS1038Store/getExpatriatesinfor',id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response;
             }
@@ -370,7 +367,6 @@
           .then(response => {
             this.loading = false;
             this.form = response;
-            debugger
             console.log(JSON.parse(this.form.employed));
             this.tableData = JSON.parse(this.form.employed);
             this.newTableData = JSON.parse(this.form.newentry);
@@ -387,7 +383,6 @@
       formatterDic(row, column) {
         if (column.property === "thisyear" && this.$route.params.type === 0) {
           if (row[column.property]) {
-            debugger
             let dic = getDictionaryInfo(row[column.property]);
             return dic === null ? "-" : dic.value1;
           } else {
@@ -411,7 +406,6 @@
         this.newTableData.push({"isoutside":false,"entermouth":null});
       },
       changeOption(val, row) {
-        debugger
         if (val) {
           row.entermouth = "社外";
         }else{
