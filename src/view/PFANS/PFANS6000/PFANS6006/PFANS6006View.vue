@@ -18,7 +18,7 @@
                 </div>
               </el-col>
             </el-row>
-            <el-table :data="tableData" border stripe style="width: 100%" :header-cell-style="getRowClass">
+            <el-table :data="tableData" border stripe style="width: 100%" :header-cell-style="getRowClass" header-cell-class-name="sub_bg_color_blue">
               <!-- 序号-->
               <el-table-column
                 :label="$t('label.PFANS2006VIEW_NO')"
@@ -605,7 +605,7 @@
                 if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
                     return {
                         color: 'white',
-                        background: '#99CCFF',
+                        background: '#99CCFF !important',
                         'border-bottom': '1px solid #99CCFF',
                         'border-right': '1px solid #73B9FF',
                     };
@@ -613,7 +613,7 @@
                 if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
                     return {
                         color: 'white',
-                        background: '#99CC99',
+                        background: '#99CC99 !important',
                         'border-bottom': '1px solid #99CCFF',
                         'border-right': '1px solid #73CC73',
                     };
@@ -629,7 +629,7 @@
                 if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
                     return {
                         color: 'white',
-                        background: '#005BAA',
+                        background: '#005BAA !important',
                     };
                 }
             },
