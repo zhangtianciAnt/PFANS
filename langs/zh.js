@@ -126,7 +126,8 @@ module.exports = {
     error_bonus: '您的奖金已发送！',
     error_sent: '已发送',
     error_nosent: '未发送',
-    confirm_iscontinue: '之前创建这条将要被删除, 是否继续?'
+    confirm_iscontinue: '之前创建这条将要被删除, 是否继续?',
+    error_norestdays: '剩余休假天数不足！'
   },
   menu: {
     homePageManagement: '首页',
