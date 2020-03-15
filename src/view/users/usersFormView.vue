@@ -576,7 +576,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.type')">
+                  <el-form-item :label="$t('label.type')" prop="type">
                     <el-select
                       v-model="form.type"
                       :placeholder="$t('normal.error_09')"
@@ -601,7 +601,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE')" prop="occupationtype">
-                    <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype" :disabled="occupationtypedis"
+                    <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype"
+                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -1424,8 +1425,9 @@
       return {
         code: "",
         occupationtypecode:"",
-        occupationtypedis:false,
+        occupationtypedis:true,
         display: true,
+        occupationtypedisplay: true,
         oldageData: null,
         houseData: null,
         medicalData: null,
@@ -1793,6 +1795,33 @@
               trigger: "blur"
             }
           ],
+          type: [
+            {
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.type"),
+                trigger: "blur"
+            }
+          ],
+          rank: [
+            {
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.PFANSUSERFORMVIEW_RANK"),
+                trigger: "blur"
+            }
+          ],
+          occupationtype: [
+            {
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),
+                trigger: "blur"
+            }
+          ],
           post: [
             {
               required: true,
@@ -2037,6 +2066,9 @@
           this.activeName = "fouth";
         } else if (
           !this.form.jobnumber ||
+          !this.form.type ||
+          !this.form.rank ||
+          !this.form.occupationtype ||
           !this.form.centerid ||
           !this.form.post ||
           !this.form.laborcontractday ||
@@ -2130,52 +2162,62 @@
           this.$nextTick(
             () => {
               if (this.form.type === '0') {
-                this.code = 'PR021'
+                this.code = 'PR021';
+                this.occupationtypecode = 'PR055';
+                this.rules.occupationtype[0].required = true;
               } else if (this.form.type === '1') {
                 this.code = 'PJ053'
-                this.occupationtypedis = true;
-                this.occupationtypecode = "";
-                this.form.occupationtype = "";
+                this.rules.occupationtype[0].required = false;
               }
+              this.form.occupationtype = "";
+              this.occupationtypedisplay = true;
               this.form.rank = "";
               this.display = true;
             }
           )
         }else{
           if (this.form.type === '0') {
-            this.code = 'PR021'
+              this.code = 'PR021';
+              this.occupationtypecode = 'PR055';
+              this.rules.occupationtype[0].required = true;
+              if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                  || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                  this.occupationtypedis = true;
+                  this.form.occupationtype = 'PR055001';
+              } else {
+                  this.occupationtypedis = false;
+              }
           } else if (this.form.type === '1') {
-            this.code = 'PJ053'
-            this.occupationtypedis = true;
-            this.occupationtypecode = "";
             this.form.occupationtype = "";
+            this.rules.occupationtype[0].required = false;
+            this.code = 'PJ053'
           }
-
         }
       },
       getRank(val) {
-        if (val) {
-            this.form.rank = val;
-            this.$nextTick(
-                () => {
-                    if(this.code === "PR021"){
-                        this.occupationtypecode = 'PR055';
-                        if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
-                            || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
-                            this.occupationtypedis = true;
-                            this.form.occupationtype = 'PR055001';
-                        } else {
-                            this.occupationtypedis = false;
-                        }
-                    }
-                    else{
-                        this.occupationtypedis = true;
-                        this.occupationtypecode = "";
-                        this.form.occupationtype = "";
-                    }
-                }
-            )
-        }
+          if (val) {
+              this.form.rank = val;
+              this.$nextTick(
+                  () => {
+                      if(this.code === "PR021"){
+                          this.rules.occupationtype[0].required = true;
+                          if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                              || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                              this.occupationtypedis = true;
+                              this.form.occupationtype = 'PR055001';
+                          } else {
+                              this.occupationtypedis = false;
+                          }
+                      }
+                      else{
+                          this.rules.occupationtype[0].required = false;
+                      }
+                  }
+              )
+          }
+      },
+      getOccupationtype(val) {
+          this.form.occupationtype = val;
       },
       getCenterid(val) {
         this.getOrgInformation(val);
