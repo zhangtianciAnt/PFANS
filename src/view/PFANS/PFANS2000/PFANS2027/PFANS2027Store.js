@@ -47,20 +47,21 @@ const PFANS2027Store = {
     //     })
     //   })
     // },
-    // //更新
-    // update({commit}, data) {
-    //   return new Promise((resolve, reject) => {
-    //     update(data).then(response => {
-    //       if (response.code === 0) {
-    //         resolve(response.data);
-    //       } else {
-    //         reject(response.message)
-    //       }
-    //     }).catch(error => {
-    //       reject(error);
-    //     })
-    //   })
-    // },
+    //更新
+    update({commit}, data) {
+      return new Promise((resolve, reject) => {
+        update(data).then(response => {
+          debugger
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     //新建
     insertLunarbonus({commit}, data) {
       return new Promise((resolve, reject) => {
