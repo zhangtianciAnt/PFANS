@@ -24,14 +24,14 @@ export function getLunardetails(data){
 //     params: data
 //   })
 // }
-// //更新update
-// export function update(data) {
-//   return request({
-//     url: 'appreciation/update',
-//     method: 'post',
-//     data: data
-//   })
-// }
+//更新update
+export function update(data) {
+  return request({
+    url: 'Getlunarbonus/update',
+    method: 'post',
+    data: data
+  })
+}
 //新建insert
 export function insertLunarbonus(data) {
   debugger

@@ -51,7 +51,8 @@
           </el-row>
 
 
-          <el-table :data="form.tabledata" stripe border header-cell-class-name="sub_bg_color_blue" :header-cell-style="getRowClass" >
+          <el-table :data="form.tabledata" stripe border header-cell-class-name="sub_bg_color_blue" :header-cell-style="getRowClass" @selection-change="handleSelectionChange" >
+
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
                              type="index" width="50"></el-table-column>
             <!--氏名:prop="'form.tabledata.' + scope.$index + '.user_id'"-->
@@ -446,6 +447,7 @@
                 show: false,
                 loading: false,
                 year: new Date(),
+                multipleSelection:[],
                 form1:{
                     evaluatenum:'',
                     subjectmon:'',
@@ -458,7 +460,8 @@
                 buttonList: [],
                 disabled: false,
                 lunardetailid:{
-                    lunardetail_id: '',
+                    // lunardetail_id: '',
+                    lunarbonus_id: '',
                 },
                 lunardetail:{
                     lunardetail_id: '',
@@ -543,6 +546,9 @@
 
         },
         methods: {
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             getRowClass({row, column, rowIndex, columnIndex}) {
                 if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
                     return {
@@ -557,52 +563,52 @@
             view(){
                 this.show = this.$route.params.show;
                 this.disabled = true;
-                this.lunardetailid.lunardetail_id = this.$route.params._id;
+                this.lunardetailid.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
 
                 //测试数据，没有实际意义
-                let lunardetail = {
-                        lunardetail_id: '',
-                        lunarbonus_id: '',
-                        user_id: '',
-                        rn: '',
-                        enterday: '',
-                        group_id: '',
-                        team_id: '',
-                        salary: '',
-                        workrate: '',
-                        bonussign: '',
-                        lastsymbol: '',
-                        tatebai: 'PJ089002',
-                        satoshi: 'PJ090005',
-                        organization: 'PJ091001',
-                        systematics: 'PJ092003',
-                        manpower: 'PJ093004',
-                        scale: 'PJ094002',
-                        achievement: 'PJ095004',
-                        degree: 'PJ096002',
-                        assignment: 'PJ097003',
-                        teamwork: 'PJ098004',
-                        humandevelopment: 'PJ099005',
-                        workattitude: 'PJ100002',
-                        overallscore: '',
-                        commentaryreturns: '',
-                        commentaryresult: '',
-                        comprehensiveone: '',
-                        comprehensivetwo: '',
-                        firstmonth: '',
-                        secondmonth: '',
-                        thirdmonth: '',
-                        subjectmon: '',
-                        evaluatenum: '',
-                        difference: '',
-                        evaluationday: '',
-                    };
-                this.form.tabledata.push(lunardetail);
+                // let lunardetail = {
+                //         lunardetail_id: '',
+                //         lunarbonus_id: '',
+                //         user_id: '',
+                //         rn: '',
+                //         enterday: '',
+                //         group_id: '',
+                //         team_id: '',
+                //         salary: '',
+                //         workrate: '',
+                //         bonussign: '',
+                //         lastsymbol: '',
+                //         tatebai: 'PJ089002',
+                //         satoshi: 'PJ090005',
+                //         organization: 'PJ091001',
+                //         systematics: 'PJ092003',
+                //         manpower: 'PJ093004',
+                //         scale: 'PJ094002',
+                //         achievement: 'PJ095004',
+                //         degree: 'PJ096002',
+                //         assignment: 'PJ097003',
+                //         teamwork: 'PJ098004',
+                //         humandevelopment: 'PJ099005',
+                //         workattitude: 'PJ100002',
+                //         overallscore: '',
+                //         commentaryreturns: '',
+                //         commentaryresult: '',
+                //         comprehensiveone: '',
+                //         comprehensivetwo: '',
+                //         firstmonth: '',
+                //         secondmonth: '',
+                //         thirdmonth: '',
+                //         subjectmon: '',
+                //         evaluatenum: '',
+                //         difference: '',
+                //         evaluationday: '',
+                //     };
+                // this.form.tabledata.push(lunardetail);
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.lunardetailid)
                     .then(response => {
-                        console.log('view');
+                        debugger;
                         console.log(response);
                         if(response){
                             for(let i=0;i < response.length;i++){
@@ -709,53 +715,51 @@
             update(){
                 this.show = this.$route.params.show;
                 this.disabled = false;
-                this.lunardetailid.lunardetail_id = this.$route.params._id;
+                this.lunardetailid.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
 
                 //测试数据，没有实际意义
-                let lunardetail = {
-                    lunardetail_id: '',
-                    lunarbonus_id: '',
-                    user_id: '',
-                    rn: '',
-                    enterday: '',
-                    group_id: '',
-                    team_id: '',
-                    salary: '',
-                    workrate: '',
-                    bonussign: '',
-                    lastsymbol: '',
-                    tatebai: '',
-                    satoshi: '',
-                    organization: '',
-                    systematics: '',
-                    manpower: '',
-                    scale: '',
-                    achievement: '',
-                    degree: '',
-                    assignment: '',
-                    teamwork: '',
-                    humandevelopment: '',
-                    workattitude: '',
-                    overallscore: '',
-                    commentaryreturns: '',
-                    commentaryresult: '',
-                    comprehensiveone: '',
-                    comprehensivetwo: '',
-                    firstmonth: '',
-                    secondmonth: '',
-                    thirdmonth: '',
-                    subjectmon: '',
-                    evaluatenum: '',
-                    difference: '',
-                    evaluationday: '',
-                };
-                this.form.tabledata.push(lunardetail);
+                // let lunardetail = {
+                //     lunardetail_id: '',
+                //     lunarbonus_id: '',
+                //     user_id: '',
+                //     rn: '',
+                //     enterday: '',
+                //     group_id: '',
+                //     team_id: '',
+                //     salary: '',
+                //     workrate: '',
+                //     bonussign: '',
+                //     lastsymbol: '',
+                //     tatebai: '',
+                //     satoshi: '',
+                //     organization: '',
+                //     systematics: '',
+                //     manpower: '',
+                //     scale: '',
+                //     achievement: '',
+                //     degree: '',
+                //     assignment: '',
+                //     teamwork: '',
+                //     humandevelopment: '',
+                //     workattitude: '',
+                //     overallscore: '',
+                //     commentaryreturns: '',
+                //     commentaryresult: '',
+                //     comprehensiveone: '',
+                //     comprehensivetwo: '',
+                //     firstmonth: '',
+                //     secondmonth: '',
+                //     thirdmonth: '',
+                //     subjectmon: '',
+                //     evaluatenum: '',
+                //     difference: '',
+                //     evaluationday: '',
+                // };
+                // this.form.tabledata.push(lunardetail);
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.lunardetailid)
                     .then(response => {
-                        console.log('view');
-                        console.log(response);
                         if(response){
                             for(let i=0;i < response.length;i++){
                                 if (response[i].tatebai !== null && response[i].tatebai !== "") {
@@ -904,9 +908,11 @@
             },
 
             buttonClick(val) {
+                debugger
                 if (this.$route.params._id) {
                     this.$store
-                        .dispatch('PFANS2027Store/update', this.form)
+                        .dispatch('PFANS2027Store/update', this.multipleSelection)
+                        console.log("this.multipleSelection",this.multipleSelection)
                         .then(response => {
                             this.data = response;
                             this.loading = false;
@@ -929,6 +935,7 @@
                             });
                             this.loading = false;
                         })
+                    this.update();
                 }
             }
 
