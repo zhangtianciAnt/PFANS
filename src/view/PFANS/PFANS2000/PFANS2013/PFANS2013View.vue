@@ -64,22 +64,22 @@
                 code: 'annual_leave',
                 label: 'label.PFANS2013VIEW_ANNUALLEAVE',
                 child: [
-                  {
-                    code: 'annual_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_BEGINNING',
-                    labelClass: 'pfans2013view_column_5',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                  {
-                    code: 'deduct_annual_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_DEDUCT',
-                    labelClass: 'pfans2013view_column_5',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
+                  // {
+                  //   code: 'annual_leave_lastyear',
+                  //   label: 'label.PFANS2013VIEW_BEGINNING',
+                  //   labelClass: 'pfans2013view_column_5',
+                  //   width: 90,
+                  //   fix: false,
+                  //   filter: true,
+                  // },
+                  // {
+                  //   code: 'deduct_annual_leave_lastyear',
+                  //   label: 'label.PFANS2013VIEW_DEDUCT',
+                  //   labelClass: 'pfans2013view_column_5',
+                  //   width: 90,
+                  //   fix: false,
+                  //   filter: true,
+                  // },
                   {
                     code: 'remaining_annual_leave_lastyear',
                     label: 'label.PFANS2013VIEW_REMAINING',
@@ -93,39 +93,39 @@
                 fix: false,
                 filter: true,
               },
-              {
-                code: 'paid_leave',
-                label: 'label.PFANS2013VIEW_PAIDLEAVE',
-                child: [
-                  {
-                    code: 'paid_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_BEGINNING',
-                    labelClass: 'pfans2013view_column_8',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                  {
-                    code: 'deduct_paid_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_DEDUCT',
-                    labelClass: 'pfans2013view_column_8',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                  {
-                    code: 'remaining_paid_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_REMAINING',
-                    labelClass: 'pfans2013view_column_8',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                ],
-                width: 270,
-                fix: false,
-                filter: true,
-              },
+              // {
+              //   code: 'paid_leave',
+              //   label: 'label.PFANS2013VIEW_PAIDLEAVE',
+              //   child: [
+              //     {
+              //       code: 'paid_leave_lastyear',
+              //       label: 'label.PFANS2013VIEW_BEGINNING',
+              //       labelClass: 'pfans2013view_column_8',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //     {
+              //       code: 'deduct_paid_leave_lastyear',
+              //       label: 'label.PFANS2013VIEW_DEDUCT',
+              //       labelClass: 'pfans2013view_column_8',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //     {
+              //       code: 'remaining_paid_leave_lastyear',
+              //       label: 'label.PFANS2013VIEW_REMAINING',
+              //       labelClass: 'pfans2013view_column_8',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //   ],
+              //   width: 270,
+              //   fix: false,
+              //   filter: true,
+              // },
             ],
             width: 540,
             fix: false,
@@ -168,39 +168,39 @@
                 fix: false,
                 filter: true,
               },
-              {
-                code: 'paid_leave',
-                label: 'label.PFANS2013VIEW_PAIDLEAVE',
-                child: [
-                  {
-                    code: 'paid_leave_thisyear',
-                    label: 'label.PFANS2013VIEW_BEGINNING',
-                    labelClass: 'pfans2013view_column_14',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                  {
-                    code: 'deduct_paid_leave_thisyear',
-                    label: 'label.PFANS2013VIEW_DEDUCT',
-                    labelClass: 'pfans2013view_column_14',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                  {
-                    code: 'remaining_paid_leave_thisyear',
-                    label: 'label.PFANS2013VIEW_REMAINING',
-                    labelClass: 'pfans2013view_column_14',
-                    width: 90,
-                    fix: false,
-                    filter: true,
-                  },
-                ],
-                width: 270,
-                fix: false,
-                filter: true,
-              },
+              // {
+              //   code: 'paid_leave',
+              //   label: 'label.PFANS2013VIEW_PAIDLEAVE',
+              //   child: [
+              //     {
+              //       code: 'paid_leave_thisyear',
+              //       label: 'label.PFANS2013VIEW_BEGINNING',
+              //       labelClass: 'pfans2013view_column_14',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //     {
+              //       code: 'deduct_paid_leave_thisyear',
+              //       label: 'label.PFANS2013VIEW_DEDUCT',
+              //       labelClass: 'pfans2013view_column_14',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //     {
+              //       code: 'remaining_paid_leave_thisyear',
+              //       label: 'label.PFANS2013VIEW_REMAINING',
+              //       labelClass: 'pfans2013view_column_14',
+              //       width: 90,
+              //       fix: false,
+              //       filter: true,
+              //     },
+              //   ],
+              //   width: 270,
+              //   fix: false,
+              //   filter: true,
+              // },
             ],
             width: 540,
             fix: false,
@@ -231,18 +231,18 @@
                   _tableList[j].team_name = lst2.teamNmae;
                 }
                 //剩余数据处理
-                _tableList[j].remaining_annual_leave_lastyear =
-                  (parseFloat(_tableList[j].annual_leave_lastyear)
-                  - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_lastyear))).toFixed(1);
-                _tableList[j].remaining_paid_leave_lastyear =
-                  (parseFloat(_tableList[j].paid_leave_lastyear)
-                    - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_lastyear))).toFixed(1);
-                _tableList[j].remaining_annual_leave_thisyear =
-                  (parseFloat(_tableList[j].annual_leave_thisyear)
-                    - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_thisyear))).toFixed(1);
-                _tableList[j].remaining_paid_leave_thisyear =
-                  (parseFloat(_tableList[j].paid_leave_thisyear)
-                    - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_thisyear))).toFixed(1);
+                // _tableList[j].remaining_annual_leave_lastyear =
+                //   (parseFloat(_tableList[j].annual_leave_lastyear)
+                //   - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_lastyear))).toFixed(1);
+                // _tableList[j].remaining_paid_leave_lastyear =
+                //   (parseFloat(_tableList[j].paid_leave_lastyear)
+                //     - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_lastyear))).toFixed(1);
+                // _tableList[j].remaining_annual_leave_thisyear =
+                //   (parseFloat(_tableList[j].annual_leave_thisyear)
+                //     - parseFloat(Math.abs(_tableList[j].deduct_annual_leave_thisyear))).toFixed(1);
+                // _tableList[j].remaining_paid_leave_thisyear =
+                //   (parseFloat(_tableList[j].paid_leave_thisyear)
+                //     - parseFloat(Math.abs(_tableList[j].deduct_paid_leave_thisyear))).toFixed(1);
               }
             }
             this.data = _tableList;
