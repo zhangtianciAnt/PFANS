@@ -270,7 +270,7 @@
       };
       var validatePass2 = (rule, value, callback) => {
         if (this.form.status === "4") {
-          if (!value || value === "") {
+          if (value === undefined || value === "") {
             callback(
               new Error(
                 this.$t("normal.error_09") +
@@ -374,7 +374,7 @@
             {
               required: false,
               validator: validatePass2,
-              trigger: "change"
+              trigger: "blur"
             }
           ],
           reservesubstitutiondate: [
@@ -566,6 +566,7 @@
         });
       },
       workflowState(val) {
+        debugger
         var status;
         if (val.state === "1") {
           if (val.workflowCode === "W0001") {
