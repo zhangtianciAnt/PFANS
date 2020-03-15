@@ -304,7 +304,7 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        if(this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006'){
+        if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', {
               "user_id": this.form.user_id,
@@ -315,13 +315,14 @@
               if (response.can === "no") {
                 callback(this.$t('normal.error_norestdays'));
               } else {
+                this.form.restdate = response.dat;
                 callback();
               }
             })
             .catch(error => {
               callback(error);
             });
-        }else{
+        } else {
           callback();
         }
 
