@@ -4,9 +4,9 @@
                          :noback="noback"
                          ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" >
           <el-form-item>
-            <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%"
+            <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%;padding-top: 10px" height="400"
                       tooltip-effect="dark" @selection-change="handleSelectionChange" header-cell-class-name="sub_bg_color_blue"
             >
               <!--checkbox-->

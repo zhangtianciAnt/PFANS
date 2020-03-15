@@ -3,7 +3,7 @@
   <div element-loading-spinner="el-icon-loading" style="min-height: 100%;max-height: 600px">
     <el-card class="box-card">
       <!--<el-card class="box-card">-->
-      <div element-loading-spinner="el-icon-loading" slot="header" style="height: 100%" v-loading="vloading">
+      <div element-loading-spinner="el-icon-loading" slot="header" class="clearfix" style="height: 20px" v-loading="vloading">
         <el-row>
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
@@ -13,7 +13,7 @@
                           ref="workflow"></easy-work-flow>
         </el-row>
       </div>
-      <div align="right" class="filter-container" style="padding-bottom: 1rem">
+      <div align="right" class="filter-container">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}</span>
       </div>
       <slot name="customize"></slot>
