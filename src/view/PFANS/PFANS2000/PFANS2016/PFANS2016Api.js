@@ -46,3 +46,11 @@ export function getReplacerest(data) {
     data: data
   })
 }
+
+export function cklength(data) {
+  return request({
+    url: 'abNormal/cklength',
+    method: 'post',
+    data: data
+  })
+}
