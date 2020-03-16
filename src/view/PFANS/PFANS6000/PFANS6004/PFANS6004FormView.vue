@@ -691,7 +691,6 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            this.grouporglist = this.form.interviewdep;
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.loading = false;
             if (this.form.exits === '1') {

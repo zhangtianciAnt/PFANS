@@ -641,14 +641,13 @@
         this.loading = true;
         this.$store
           .dispatch('PFANS6006Store/createDeleginformation', {})
-          .then(response => {
-          })
           .catch(error => {
             Message({
               message: error,
               type: 'error',
               duration: 5 * 1000
             });
+            this.getDelegainformation();
             this.loading = false;
           })
       },
@@ -657,6 +656,7 @@
         this.$store
           .dispatch('PFANS6006Store/getDelegainformation', {})
           .then(response => {
+            console.log(response);
             for (let j = 0; j < response.length; j++) {
               if (response[j].suppliernameid !== null && response[j].suppliernameid !== '') {
                 let supplierInfo = getSupplierinfor(response[j].suppliernameid);
@@ -680,12 +680,6 @@
                 let letStage = getDictionaryInfo(response[j].operationform);
                 if (letStage != null) {
                   response[j].operationform = letStage.value1;
-                }
-              }
-              if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
-                let letStage = getDictionaryInfo(response[j].distriobjects);
-                if (letStage != null) {
-                  response[j].distriobjects = letStage.value1;
                 }
               }
               if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
