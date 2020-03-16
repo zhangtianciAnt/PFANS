@@ -23,7 +23,7 @@
         columns: [
           {
             //姓名
-            code: 'coopername',
+            code: 'expname',
             label: 'label.user_name',
             width: 120,
             fix: false,
@@ -89,15 +89,14 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         rowid: '',
-        row: 'cooperinterview_id',
+        row: 'expatriatesinfor_id',
       };
     },
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS6001Store/getcooperinterview')
+        .dispatch('PFANS6004Store/getexpatriatesinfor')
         .then(response => {
-          // this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           for (let j = 0; j < response.length; j++) {
             if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
               let graduateschool = getUserInfo(response[j].graduateschool);
@@ -153,7 +152,7 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.cooperinterview_id;
+        this.rowid = row.expatriatesinfor_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
