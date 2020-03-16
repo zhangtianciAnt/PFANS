@@ -162,7 +162,7 @@
                     this.$router.push({
                         name: 'PFANS1024FormView',
                         params: {
-                            _id: this.rowid,
+                            _id: this.contractnumber,
                             disabled: false
                         }
                     })
