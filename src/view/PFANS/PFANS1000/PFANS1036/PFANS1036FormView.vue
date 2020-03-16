@@ -1402,6 +1402,7 @@
           // this.tableK[0] = Number(this.sumA2[30]||0);
           // this.tableK[0] = Number(this.sumA1[31]||0);
         }
+        return this.tableK;
       }
     },
     methods: {
