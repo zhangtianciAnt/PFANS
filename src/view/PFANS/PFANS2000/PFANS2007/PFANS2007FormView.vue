@@ -187,7 +187,9 @@
                 title: "title.PFANS2007VIEW",
                 tabIndex: 0,
                 multiple: false,
-                form: {},
+                form: {
+                  years: "",
+                },
                 disabled: true,
                 disabled1: false,
                 menuList: [],
