@@ -565,13 +565,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                    <dicselect
-                      code="PG001"
-                      class="width"
-                      style="width:20vw"
-                      @change="changeUnit"
-                      :data="form.budgetunit"
-                    ></dicselect>
+                    <el-input class="width" :disabled="true" v-model="form.budgetunit" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -581,34 +575,8 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col>
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DIFFERENCE')">
-                    <el-select
-                      v-model="form.difference"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      style="width:20vw"
-                    >
-                      <el-option
-                        v-for="item in difference_options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.type')">
+                  <el-form-item :label="$t('label.type')" prop="type">
                     <el-select
                       v-model="form.type"
                       :placeholder="$t('normal.error_09')"
@@ -631,8 +599,38 @@
                                @change="getRank"></dicselect>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE')" prop="occupationtype">
+                    <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype"
+                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
               </el-row>
-
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DIFFERENCE')">
+                    <el-select
+                      v-model="form.difference"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      style="width:20vw"
+                    >
+                      <el-option
+                        v-for="item in difference_options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE')">
@@ -813,72 +811,27 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
                     <el-input-number
-                      v-model="form.salary"
+                      v-model="form.basic"
                       :min="0"
                       :precision="2"
-                      :step="100"
+                      :step="50"
                       class="width"
                       style="width:20vw"
                     ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible"
-                      style="padding-top:5px"
-                    >
-                      <el-row >
-                        <el-col :span="24">
-                      <el-table :data="gridData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="200"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="before"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                          width="130"
-                        ></el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                          width="130"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.after }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="remark"
-                          align="center"
-                          :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                        >
-                          <template slot-scope="scope">
-                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
-                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
+                    <el-input-number
+                      v-model="form.duty"
+                      :min="0"
+                      :precision="2"
+                      :step="50"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1089,6 +1042,96 @@
                         </el-col>
                       </el-row>
                     </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
+                    <el-input-number
+                      v-model="form.salary"
+                      :min="0"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      disabled
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible"
+                      style="padding-top:5px"
+                    >
+                      <el-row >
+                        <el-col :span="24">
+                          <el-table :data="gridData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <!--<el-table-column-->
+                            <!--property="before"-->
+                            <!--align="center"-->
+                            <!--:label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
+                            <!--width="130"-->
+                            <!--&gt;</el-table-column>-->
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="basic"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="duty"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.duty }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini"></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
+                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1381,7 +1424,10 @@
 
       return {
         code: "",
+        occupationtypecode:"",
+        occupationtypedis:true,
         display: true,
+        occupationtypedisplay: true,
         oldageData: null,
         houseData: null,
         medicalData: null,
@@ -1514,13 +1560,14 @@
           centerid: "",
           groupid: "",
           teamid: "",
+          budgetunit: "",
           userid: "",
           jobnumber: "",
           personalcode:"",
-          budgetunit: "",
           difference: "1",
           post: "",
           rank: "",
+          occupationtype:"",
           laborcontracttype: "",
           fixedate: "",
           laborcontractday: "",
@@ -1534,6 +1581,8 @@
           restlastyear: "",
           seatnumber: "",
           salary: "",
+          duty:"",
+          basic:"",
           caution: "",
           resignation_date:"",
           reason2: '',
@@ -1746,11 +1795,31 @@
               trigger: "blur"
             }
           ],
-          budgetunit: [
+          type: [
             {
-              required: true,
-              message: this.$t("normal.error_08") + this.$t("label.budgetunit"),
-              trigger: "change"
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.type"),
+                trigger: "blur"
+            }
+          ],
+          rank: [
+            {
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.PFANSUSERFORMVIEW_RANK"),
+                trigger: "blur"
+            }
+          ],
+          occupationtype: [
+            {
+                required: true,
+                message:
+                    this.$t("normal.error_08") +
+                    this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),
+                trigger: "blur"
             }
           ],
           post: [
@@ -1842,12 +1911,21 @@
               trigger: "blur"
             }
           ],
-          salary: [
+          basic: [
             {
               required: true,
               message:
                 this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_SALARY"),
+                this.$t("label.PFANSUSERFORMVIEW_BASIC"),
+              trigger: "blur"
+            }
+          ],
+          duty: [
+            {
+              required: true,
+              message:
+                this.$t("normal.error_08") +
+                this.$t("label.PFANSUSERFORMVIEW_DUTY"),
               trigger: "blur"
             }
           ],
@@ -1913,6 +1991,12 @@
       }
     },
     watch: {
+      form:{
+        handler: function() {
+          this.form.salary = this.form.duty + this.form.basic;
+        },
+        deep: true
+      },
       userToRoleId(val) {
         if (val) {
           this.$router.push({
@@ -1941,7 +2025,8 @@
           teamname: this.form.teamname,
           centerid: this.form.centerid,
           groupid: this.form.groupid,
-          teamid: this.form.teamid
+          teamid: this.form.teamid,
+          budgetunit: this.form.budgetunit,
         } = this.$route.params._org);
       }
 
@@ -1981,8 +2066,10 @@
           this.activeName = "fouth";
         } else if (
           !this.form.jobnumber ||
+          !this.form.type ||
+          !this.form.rank ||
+          !this.form.occupationtype ||
           !this.form.centerid ||
-          !this.form.budgetunit ||
           !this.form.post ||
           !this.form.laborcontractday ||
           !this.form.enterday ||
@@ -1993,16 +2080,14 @@
           this.form.restyear === undefined ||
           this.form.restlastyear === undefined ||
           !this.form.seatnumber ||
-          !this.form.salary ||
+          !this.form.duty ||
+          !this.form.basic ||
           this.form.oldageinsurance === undefined ||
           this.form.houseinsurance === undefined ||
           this.form.medicalinsurance === undefined
         ) {
           this.activeName = "five";
         }
-      },
-      changeUnit(val) {
-        this.form.budgetunit = val;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -2077,25 +2162,62 @@
           this.$nextTick(
             () => {
               if (this.form.type === '0') {
-                this.code = 'PR021'
+                this.code = 'PR021';
+                this.occupationtypecode = 'PR055';
+                this.rules.occupationtype[0].required = true;
               } else if (this.form.type === '1') {
                 this.code = 'PJ053'
+                this.rules.occupationtype[0].required = false;
               }
+              this.form.occupationtype = "";
+              this.occupationtypedisplay = true;
               this.form.rank = "";
               this.display = true;
             }
           )
         }else{
           if (this.form.type === '0') {
-            this.code = 'PR021'
+              this.code = 'PR021';
+              this.occupationtypecode = 'PR055';
+              this.rules.occupationtype[0].required = true;
+              if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                  || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                  this.occupationtypedis = true;
+                  this.form.occupationtype = 'PR055001';
+              } else {
+                  this.occupationtypedis = false;
+              }
           } else if (this.form.type === '1') {
+            this.form.occupationtype = "";
+            this.rules.occupationtype[0].required = false;
             this.code = 'PJ053'
           }
-
         }
       },
       getRank(val) {
-        this.form.rank = val;
+          if (val) {
+              this.form.rank = val;
+              this.$nextTick(
+                  () => {
+                      if(this.code === "PR021"){
+                          this.rules.occupationtype[0].required = true;
+                          if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                              || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                              this.occupationtypedis = true;
+                              this.form.occupationtype = 'PR055001';
+                          } else {
+                              this.occupationtypedis = false;
+                          }
+                      }
+                      else{
+                          this.rules.occupationtype[0].required = false;
+                      }
+                  }
+              )
+          }
+      },
+      getOccupationtype(val) {
+          this.form.occupationtype = val;
       },
       getCenterid(val) {
         this.getOrgInformation(val);
@@ -2137,6 +2259,7 @@
             if (index === 2) {
               org.groupname = treeCom.getNode(node).data.departmentname;
               org.groupid = treeCom.getNode(node).data._id;
+              org.budgetunit = treeCom.getNode(node).data.encoding;
             }
             if (index === 1) {
               org.centername = treeCom.getNode(node).data.companyname;
@@ -2150,7 +2273,8 @@
             teamname: this.form.teamname,
             centerid: this.form.centerid,
             groupid: this.form.groupid,
-            teamid: this.form.teamid
+            teamid: this.form.teamid,
+              budgetunit: this.form.budgetunit
           } = org);
         }
       },
@@ -2209,6 +2333,8 @@
               date: new moment().format("YYYY-MM-DD"),
               before: "",
               after: this.form.salary,
+              duty: this.form.duty,
+              basic: this.form.basic,
               remark: ""
             }
           ];
@@ -2221,6 +2347,8 @@
             date: new moment().format("YYYY-MM-DD"),
             before: this.gridData[this.gridData.length - 1].after,
             after: this.form.salary,
+            duty: this.form.duty,
+            basic: this.form.basic,
             remark: ""
           });
         }
@@ -2327,7 +2455,6 @@
             this.$store
               .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
-                debugger
                 if (btnkey === "userSaveToRole") {
                   this.userToRoleId = response;
                 } else {

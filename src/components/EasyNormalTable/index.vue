@@ -5,7 +5,7 @@
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
-      <div align="right" class="filter-container" style="padding-bottom: 10px">
+      <div align="right" class="filter-container">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"

@@ -39,7 +39,7 @@
           </div>
         </div>
       </el-dialog>
-          <el-row style="padding-top: 2%;padding-bottom: 2%">
+          <el-row style="padding-bottom: 2%">
             <el-col :span="8">
               <el-date-picker
                 v-model="years"
@@ -62,16 +62,16 @@
 <!--                  </el-input>-->
 <!--                </template>-->
 <!--            </el-table-column>-->
-            <el-table-column :label="$t('label.PFANS2020VIEW_JOBNUMBER')" align="center" width="150">
-              <template slot-scope="scope">
-                <el-input :disabled="!disabled1" maxlength="20" :no="scope.row" v-model="scope.row.jobnumber">
-                </el-input>
-              </template>
+            <el-table-column :label="$t('label.PFANS2020VIEW_JOBNUMBER')" align="center" width="150" prop="jobnumber">
+              <!--<template slot-scope="scope">-->
+                <!--<el-input :disabled="!disabled1" maxlength="20" :no="scope.row" v-model="scope.row.jobnumber">-->
+                <!--</el-input>-->
+              <!--</template>-->
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_GOLDLEAF')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.totalbonus1">
-                </el-input>
+                <el-input-number :disabled="!disabled" :min="0" :max="9999999" :precision="2" :no="scope.row" v-model="scope.row.totalbonus1" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_TAXMETHOD')" align="center" width="200">
@@ -82,63 +82,63 @@
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_COMBINEDTAX')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.taxable">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.taxable" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_KOZO')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.amount">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.amount" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_TAX')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.payable">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.payable" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_THEFIRST')" align="center" width="270">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.income">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.income" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_CASH')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.taxrate">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.taxrate" :min="0" :max="1" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_ARITHMETIC')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.deductions">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.deductions" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_GOLD')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.bonustax">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.bonustax" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2007VIEW_IEMIKANE')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.received">
-                </el-input>
+                <el-input-number :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.received" :min="0" :max="9999999" :precision="2" controls-position="right">
+                </el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.remarks')" align="center" width="200">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.remarks">
+                <el-input :disabled="!disabled" maxlength="20" :no="scope.row" v-model="scope.row.remarks" type="textarea">
                 </el-input>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS2007VIEW_SEND')" align="center" width="140">
-              <template slot-scope="scope">
-                <el-input :disabled="!disabled1" maxlength="20" :no="scope.row" v-model="scope.row.send">
-                </el-input>
-              </template>
+            <el-table-column :label="$t('label.PFANS2007VIEW_SEND')" align="center" width="140" prop="sent">
+              <!--<template slot-scope="scope">-->
+                <!--<el-input :disabled="!disabled1" maxlength="20" :no="scope.row" v-model="scope.row.send">-->
+                <!--</el-input>-->
+              <!--</template>-->
             </el-table-column>
           </el-table>
           </el-row>
@@ -207,25 +207,6 @@
                 noback: true,
                 data: [],
                 tableD:[
-                  {
-                  bonussend_id: '',
-                  years: moment(new Date()).format('YYYY'),
-                  jobnumber:'',
-                  user_id:'',
-                  username:'',
-                  totalbonus1:'',
-                  method:'',
-                  taxable:'',
-                  amount:'',
-                  payable:'',
-                  income:'',
-                  taxrate:'',
-                  deductions:'',
-                  bonustax:'',
-                  received:'',
-                  remarks:'',
-                  sent:'1',
-                },
                 ],
                 buttonList: [
                   {
@@ -258,27 +239,29 @@
         methods: {
           yearChange(value){
             this.years = moment(value).format('YYYY');
-            this.getList(value);
+            this.getList(this.years);
           },
           rowClick(row) {
             this.rowid = row.bonussend_id;
             this.user_id = row.user_id;
           },
           getList(year) {
-            let datainfo = {};
-            if(year != ''){
-              datainfo = {'years': year};
-            }
             this.loading = true;
             this.$store
-              .dispatch('PFANS2007Store/getList', datainfo)
+              .dispatch('PFANS2007Store/getList', {years: year})
               .then(response => {
-                if (response.length > 0) {
-                  if(year != ''){
-                    this.tableD = response;
+                this.tableD = response;
+                for(let item of response){
+                  if(item.sent === '1'){
+                    if (this.$i18n) {
+                      item.sent = this.$t('normal.error_sent');
+                    }
+                  }else{
+                    if (this.$i18n) {
+                      item.sent = this.$t('normal.error_nosent');
+                    }
                   }
                 }
-                // this.tableD = response;
                 this.loading = false;
               })
               .catch(error => {
@@ -435,28 +418,38 @@
                            this.update();
                         }
                       if (val === 'deliver') {
-                        let toDoNotice = {};
-                        toDoNotice.type = '2';
-                        if(this.i18n){
-                          toDoNotice.title =  this.$t('normal.error_bonus');
+                        this.loading = true;
+                        for(let i of this.multipleSelection){
+                          let toDoNotice = {};
+                          toDoNotice.type = '2';
+                          if(this.i18n){
+                            toDoNotice.title =  this.$t('normal.error_bonus');
+                          }
+                          toDoNotice.dataid = i.bonussend_id;
+                          toDoNotice.url = this.$route.path;
+                          toDoNotice.initiator = this.$store.getters.userinfo.userid;
+                          toDoNotice.owner = this.user_id;
+                          this.$store
+                            .dispatch('PFANS2007Store/inserttodo', toDoNotice)
+                            .then(response => {
+                              this.getList(this.years);
+                              Message({
+                                message: this.$t("normal.success_03"),
+                                type: 'success',
+                                duration: 5 * 1000
+                              });
+                              this.loading = false;
+                            })
+                            .catch(error => {
+                              Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                            })
                         }
-                        toDoNotice.dataid = this.rowid;
-                        toDoNotice.url = this.$route.path;
-                        toDoNotice.initiator = this.$store.getters.userinfo.userid;
-                        toDoNotice.owner = this.user_id;
-                        this.$store
-                          .dispatch('PFANS2007Store/inserttodo', toDoNotice)
-                          .then(response => {
-                            this.loading = false;
-                          })
-                          .catch(error => {
-                            Message({
-                              message: error,
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                          })
+
                       }
                       if (val === 'import') {
                         this.daoru = true;

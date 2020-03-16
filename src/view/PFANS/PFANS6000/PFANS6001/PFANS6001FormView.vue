@@ -253,7 +253,6 @@
   import moment from 'moment';
   import org from '../../../components/org';
   import {isvalidPhone} from '@/utils/validate';
-  import {getSupplierinfor} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS6001FormView',
@@ -309,8 +308,8 @@
           contactinformation: '',
           birth: '',
           age: '',
+          supplierinfor_id: '',
           suppliername: '',
-          suppliernameid: '',
           graduateschool: '',
           education: '',
           graduation_year: '',
@@ -536,12 +535,12 @@
         let val1 = this.currentRow1;
         this.dialogTableVisible = false;
         this.form.suppliername = val;
-        this.form.suppliernameid = val1;
+        this.form.supplierinfor_id = val1;
         this.errorsuppliername = '';
       },
       handleClickChange(val) {
         this.currentRow = val.suppliername;
-        this.currentRow1 = val.suppliernameid;
+        this.currentRow1 = val.supplierinfor_id;
       },
       getSupplierNameList() {
         this.loading = true;
@@ -554,7 +553,7 @@
               vote.suppliername = response[i].supchinese;
               vote.userid = response[i].prochinese;
               vote.contactinformation = response[i].protelephone;
-              vote.suppliernameid = response[i].supchineseid;
+              vote.supplierinfor_id = response[i].supplierinfor_id;
               this.gridData.push(vote);
             }
             this.loading = false;

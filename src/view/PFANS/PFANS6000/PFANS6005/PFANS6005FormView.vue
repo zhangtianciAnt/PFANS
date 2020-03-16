@@ -4,10 +4,10 @@
                          :noback="noback"
                          ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" >
           <el-form-item>
-            <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%"
-                      tooltip-effect="dark" @selection-change="handleSelectionChange"
+            <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%;padding-top: 10px" height="400"
+                      tooltip-effect="dark" @selection-change="handleSelectionChange" header-cell-class-name="sub_bg_color_blue"
             >
               <!--checkbox-->
               <el-table-column
@@ -540,40 +540,41 @@
                 scope: '',
                 row: '',
                 arr: [],//二维数组初始化变量服务于更改和计算
-                tableData: [{
-                    pricesetid: '',
-                    user_id: '',
-                    graduation: '',
-                    company: '',
-                    assesstime: '',
-                    technical: '',
-                    technology: '',
-                    management: '',
-                    value: '',
-                    fieldskills: '',
-                    field: '',
-                    language: '',
-                    languagevalue: '',
-                    workskills: '',
-                    service: '',
-                    evaluation: '',
-                    rvicevalue: '',
-                    psdcdscale: '',
-                    scalevalue: '',
-                    contribution: '',
-                    coefficient: '',
-                    staffpsdcdrank: '',
-                    rankvalue: '',
-                    butionevaluation: '',
-                    butioncoefficient: '',
-                    unitprice: '',
-                    totalunit: '',
-                    common: '',
-                    psdcdrank: '',
-                    remarks: '',
-                    yearunit: '',
-                    year: '',
-                }
+                tableData: [
+                //   {
+                //     pricesetid: '',
+                //     user_id: '',
+                //     graduation: '',
+                //     company: '',
+                //     assesstime: '',
+                //     technical: '',
+                //     technology: '',
+                //     management: '',
+                //     value: '',
+                //     fieldskills: '',
+                //     field: '',
+                //     language: '',
+                //     languagevalue: '',
+                //     workskills: '',
+                //     service: '',
+                //     evaluation: '',
+                //     rvicevalue: '',
+                //     psdcdscale: '',
+                //     scalevalue: '',
+                //     contribution: '',
+                //     coefficient: '',
+                //     staffpsdcdrank: '',
+                //     rankvalue: '',
+                //     butionevaluation: '',
+                //     butioncoefficient: '',
+                //     unitprice: '',
+                //     totalunit: '',
+                //     common: '',
+                //     psdcdrank: '',
+                //     remarks: '',
+                //     yearunit: '',
+                //     year: '',
+                // }
                 ],
                 form: {
                     //   pricesetid: '',
@@ -677,7 +678,7 @@
                 if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
                     return {
                         color: 'white',
-                        background: '#99CCFF',
+                        background: '#99CCFF !important',
                         'border-bottom': '1px solid #99CCFF',
                         'border-right': '1px solid #73B9FF',
                     };
@@ -685,7 +686,7 @@
                 if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
                     return {
                         color: 'white',
-                        background: '#99CC99',
+                        background: '#99CC99 !important',
                         'border-bottom': '1px solid #99CCFF',
                         'border-right': '1px solid #73CC73',
                     };
@@ -693,8 +694,13 @@
                 if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
                     return {
                         color: 'white',
-                        background: '#005BAA',
+                        background: '#005BAA !important',
                     };
+                }else{
+                  return {
+                    color: 'black',
+                    background: 'white !important',
+                  };
                 }
             },
             getpriceset() {

@@ -762,5 +762,7 @@
   .sixbackcolor {
     background: #99CCFF;
     color: #ffffff;
+    height: 40px;
+    font-size: 0.8rem;
   }
 </style>

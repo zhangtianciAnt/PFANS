@@ -7,8 +7,8 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
+  import moment from "moment";
   import {getDictionaryInfo,getOrgInfo,getStatus} from '@/utils/customize';
-
 
   export default {
     name: 'PFANS5009VIEW',
@@ -28,13 +28,13 @@
         contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
         contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
         columns: [
-           {
-             code: 'numbers',
-             label: 'label.PFANS5009VIEW_PROJECTNO',
-             width: 110,
-             fix: false,
-             filter: true,
-           },
+          {
+            code: 'numbers',
+            label: 'label.PFANS5009VIEW_PROJECTNO',
+            width: 110,
+            fix: false,
+            filter: true,
+          },
           {
             code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
@@ -113,32 +113,31 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList')
         .then(response => {
-           for (let j = 0; j < response.length; j++) {
-             if (response[j].phase !== null && response[j].phase !== "") {
-               let letPhase = getDictionaryInfo(response[j].phase);
-               if (letPhase != null) {
-                 response[j].phase = letPhase.value1;
-               }
-             }
-             if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
-               if(response[j].phasestatus === "0") {
-                 response[j].phasestatus = this.phasestatus0
-               }else {
-                 response[j].phasestatus = this.phasestatus1
-               }
-             }
-             if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-               if(response[j].contractstatus === "0") {
-                 response[j].contractstatus = this.contractstatus0
-               }else if(response[j].contractstatus === "1"){
-                 response[j].contractstatus = this.contractstatus1
-               }else {
-                 response[j].contractstatus = this.contractstatus2
-               }
-             }
-               response[j].status = getStatus(response[j].status);
-
-           }
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].phase !== null && response[j].phase !== "") {
+              let letPhase = getDictionaryInfo(response[j].phase);
+              if (letPhase != null) {
+                response[j].phase = letPhase.value1;
+              }
+            }
+            if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
+              if(response[j].phasestatus === "0") {
+                response[j].phasestatus = this.phasestatus0
+              }else {
+                response[j].phasestatus = this.phasestatus1
+              }
+            }
+            if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+              if(response[j].contractstatus === "0") {
+                response[j].contractstatus = this.contractstatus0
+              }else if(response[j].contractstatus === "1"){
+                response[j].contractstatus = this.contractstatus1
+              }else {
+                response[j].contractstatus = this.contractstatus2
+              }
+            }
+            response[j] .status = getStatus(response[j] .status);
+          }
           this.data = response;
           this.loading = false;
         })
@@ -152,8 +151,8 @@
         });
     },
     methods: {
-        rowClick(row) {
-          this.rowid = row.companyprojects_id
+      rowClick(row) {
+        this.rowid = row.companyprojects_id
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);

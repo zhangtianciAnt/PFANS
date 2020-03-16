@@ -1,4 +1,4 @@
-import {insert, get, selectById, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication} from './PFANS1012Api'
+import {insert, get, selectById, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication,gettotalcost} from './PFANS1012Api'
 import {gettlist} from "../../PFANS5000/PFANS5008/PFANS5008Api";
 
 const PFANS1012Store = {
@@ -77,6 +77,19 @@ const PFANS1012Store = {
     get() {
       return new Promise((resolve, reject) => {
         get().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    gettotalcost({commit}, data) {
+      return new Promise((resolve, reject) => {
+        gettotalcost(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

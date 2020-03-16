@@ -8,6 +8,14 @@ export function getLunarbonus(data) {
     params: data,
   });
 }
+
+export function getLunardetails(data){
+  return request({
+    url: 'Getlunarbonus/getLunardetail',
+    method: 'post',
+    data: data,
+  });
+}
 //根据id获取
 // export function selectById(data) {
 //   return request({
@@ -16,14 +24,14 @@ export function getLunarbonus(data) {
 //     params: data
 //   })
 // }
-// //更新update
-// export function update(data) {
-//   return request({
-//     url: 'appreciation/update',
-//     method: 'post',
-//     data: data
-//   })
-// }
+//更新update
+export function update(data) {
+  return request({
+    url: 'Getlunarbonus/update',
+    method: 'post',
+    data: data
+  })
+}
 //新建insert
 export function insertLunarbonus(data) {
   debugger

@@ -67,6 +67,7 @@
     },
     methods: {
       start() {
+        this.refresh();
         this.$emit('start')
       },
       workflowState(val) {
@@ -276,11 +277,22 @@
       },
       // 发起审批
       addworkflow() {
-        this.$refs.start.startWorkflow = true;
-        this.$refs.start.selectId = this.workflowlist[0].workflowid;
-        this.$refs.start.selectWorkflowstep(
-          this.workflowlist[0].workflowid
-        )
+        if(this.workflowlist.length > 1){
+          this.$refs.start.startWorkflow = true;
+          this.$refs.start.selectId = this.workflowlist[0].workflowid;
+          this.$refs.start.selectWorkflowstep(
+            this.workflowlist[0].workflowid
+          )
+        }else{
+          // this.$refs.start.startWorkflow = false;
+          this.$refs.start.selectId = this.workflowlist[0].workflowid;
+          this.$refs.start.selectWorkflowstep(
+            this.workflowlist[0].workflowid
+          )
+          this.$refs.start.submit();
+
+        }
+
       },
       //关闭回掉
       refresh() {
