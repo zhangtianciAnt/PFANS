@@ -26,7 +26,7 @@
               </el-table-column>
               <el-table-column
                 prop="suppliername"
-                label="PFANS1038VIEW_STATIONED"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
@@ -84,7 +84,7 @@
               </el-table-column>
               <el-table-column
                 prop="supchinese"
-                label="PFANS1038VIEW_STATIONED"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
@@ -160,7 +160,7 @@
               </el-table-column>
               <el-table-column
                 prop="isoutside"
-                label="PFANS1038VIEW_WHETHER"
+                :label="$t('label.PFANS1038VIEW_WHETHER')"
                 width="100"
                 align="center"
                 v-if="this.$route.params.type === 0 ? false : true">
