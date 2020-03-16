@@ -147,7 +147,7 @@
                            :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
                            @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
               <slot><span class="front Content_front"
-                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+                          style="padding-right: 0.5rem;font-weight: 400"></span></slot>
             </el-pagination>
           </div>
         </el-form>
@@ -423,7 +423,7 @@
                           let toDoNotice = {};
                           toDoNotice.type = '2';
                           if(this.i18n){
-                            toDoNotice.title =  this.$t('normal.error_bonus');
+                            toDoNotice.title = this.$t('normal.error_bonus');
                           }
                           toDoNotice.dataid = i.bonussend_id;
                           toDoNotice.url = this.$route.path;
