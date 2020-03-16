@@ -16,9 +16,9 @@ export function getcooperinterviewApplyOne(data) {
   })
 }
 
-export function updatecooperinterviewApply(data) {
+export function updateinfor(data) {
   return request({
-    url: 'cooperinterview/update',
+    url: 'expatriatesinfor/updateinfor',
     method: 'post',
     data: data
   })

@@ -1,7 +1,7 @@
 import {
   getcooperinterview,
   getcooperinterviewApplyOne,
-  updatecooperinterviewApply,
+  updateinfor,
   createcooperinterviewApply,
   getSupplierNameList
 } from './PFANS6001Api'
@@ -40,6 +40,19 @@ const PFANS6001Store = {
     updatecooperinterviewApply({commit}, data) {
       return new Promise((resolve, reject) => {
         updatecooperinterviewApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    updateinfor({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updateinfor(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
