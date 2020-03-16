@@ -769,7 +769,7 @@
                 ruleSet: {
                     'save': ['contractnumber'],
                     'makeinto': ['contractnumber'],
-                    '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
+                    '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
                 },
                 rules: {
                     deployment: [
