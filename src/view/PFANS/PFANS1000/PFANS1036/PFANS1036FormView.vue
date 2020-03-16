@@ -1746,11 +1746,12 @@
         this.$store
           .dispatch('PFANS1036Store/getPersonPlan', {'groupid': '2BD452FF945B318992D198D7B7C5D159ED67','year':2019})
         .then( response => {
-          if(JSON.parse(response[0]))  this.tableC = JSON.parse(response[0]);
-            if(JSON.parse(response[1]))  this.tableD = JSON.parse(response[1]);
-            this.tableA = [JSON.parse(response[2])];
-            this.tableB = [JSON.parse(response[2])];
-             this.loading = false;
+          debugger
+          if(response[0])  this.tableC = JSON.parse(response[0]);
+          if(response[1])  this.tableD = JSON.parse(response[1]);
+          if(response[2]) this.tableA = [JSON.parse(response[2])];
+          if(response[2])  this.tableB = [JSON.parse(response[2])];
+            this.loading = false;
           })
           .catch(error => {
             Message({
@@ -1910,6 +1911,7 @@
 
 
           this.tableP[36]["money" + this.arr[i]] = Number(tableOtotal5["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[37]["money" + this.arr[i]] = Number(tableOtotal6["money" + this.arr[i]]||0).toFixed(2);
           this.tableP[58]["money" + this.arr[i]] = Math.round(Number(this.tableP[54]["money" + this.arr[i]]||0)/(Number(this.tableP[51]["money" + this.arr[i]]) + Number(this.tableP[52]["money" + this.arr[i]]))* 100) + "%";
           this.tableP[59]["money" + this.arr[i]] = Math.round(Number(this.tableP[55]["money" + this.arr[i]]||0)/(Number(this.tableP[51]["money" + this.arr[i]]) + Number(this.tableP[52]["money" + this.arr[i]]))* 100) + "%";
           this.tableP[60]["money" + this.arr[i]] = Math.round(Number(this.tableP[56]["money" + this.arr[i]]||0)/Number(this.tableP[53]["money" + this.arr[i]])* 100) + "%";
@@ -1920,7 +1922,6 @@
         return this.tableP;
       },
         tableSZTotal:function(){
-        debugger
         if(this.sumA2.length > 0){
           this.tableK[0].number1 = Number(this.sumA2[2]||0) + Number(this.sumA2[4]||0) + Number(this.sumA2[6]||0);
           this.tableK[0].money1 = Number(this.sumA2[3]||0) + Number(this.sumA2[5]||0) + Number(this.sumA2[7]||0);
