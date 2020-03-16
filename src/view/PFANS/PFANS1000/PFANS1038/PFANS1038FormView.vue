@@ -10,7 +10,7 @@
       <el-form :model="form" label-position="top" label-width="8vw" ref="form">
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane
-            label="现实点人员"
+            :label="$t('label.PFANS1038VIEW_REALISTIC')"
             name="first"
           >
             <el-table
@@ -26,14 +26,14 @@
               </el-table-column>
               <el-table-column
                 prop="suppliername"
-                label="外驻先"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="name"
-                label="社员名前"
+                :label="$t('label.PFANS1038VIEW_MEMBER')"
                 width="180"
                 align="center">
               </el-table-column>
@@ -51,7 +51,7 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
+                  <el-select size="small" v-model="scope.row.nextyear" :placeholder = "$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -63,14 +63,14 @@
               </el-table-column>
               <el-table-column
                 prop="entermouth"
-                label="新规采用入社预定日"
+                :label="$t('label.PFANS1038VIEW_ADOPTED')"
                 width="195"
                 align="center"
                 :formatter="formatterDic">
               </el-table-column>
             </el-table>
           </el-tab-pane>
-          <el-tab-pane label="新入职人员" name="second">
+          <el-tab-pane :label="$t('label.PFANS1038VIEW_NEWHIRES')" name="second">
             <el-table
               :data="newTableData"
               border stripe
@@ -84,12 +84,12 @@
               </el-table-column>
               <el-table-column
                 prop="supchinese"
-                label="外驻先"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                <el-select size="small" v-model="scope.row.supchinese" placeholder="请选择">
+                <el-select size="small" v-model="scope.row.supchinese" :placeholder= "$t('normal.error_09')">
                   <el-option
                     v-for="item in externalOption"
                     :key="item.supplierinfor_id"
@@ -101,7 +101,7 @@
               </el-table-column>
               <el-table-column
                 prop="name"
-                label="社员名前"
+                :label="$t('label.PFANS1038VIEW_MEMBER')"
                 width="180"
                 align="center">
                 <template slot-scope="scope">
@@ -114,7 +114,7 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.thisyear" placeholder="请选择">
+                  <el-select size="small" v-model="scope.row.thisyear" :placeholder= "$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -131,7 +131,7 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" placeholder="请选择">
+                  <el-select size="small" v-model="scope.row.nextyear" :placeholder= "$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -143,25 +143,24 @@
               </el-table-column>
               <el-table-column
                 prop="entermouth"
-                label="新规采用入社预定日"
+                :label="$t('label.PFANS1038VIEW_ADOPTED')"
                 width="200"
                 align="center"
               >
-                <template slot-scope="scope">
+                <template slot-scope="scope" >
                   <el-date-picker
                     v-model="scope.row.entermouth"
                     type="month"
                     style="width:10vw"
-                    placeholder="请选择"
                     size="small"
                     v-if="!scope.row.isoutside">
                   </el-date-picker>
-                  <span v-else>{{scope.row.entermouth}}</span>
+                  <span v-else >{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
               <el-table-column
                 prop="isoutside"
-                label="是否社外"
+                :label="$t('label.PFANS1038VIEW_WHETHER')"
                 width="100"
                 align="center"
                 v-if="this.$route.params.type === 0 ? false : true">
@@ -279,7 +278,6 @@
         }
       },
       getNextYearLevel:function () {
-        debugger
         return (parseInt(this.getThisYearLevel) + 1) + "";
       }
     },
@@ -312,7 +310,6 @@
         this.$store
           .dispatch('PFANS1038Store/getCustomerInfo', id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response.map(
                 res => {
@@ -333,7 +330,6 @@
         this.$store
           .dispatch('PFANS1038Store/getExpatriatesinfor',id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response;
             }
@@ -370,7 +366,6 @@
           .then(response => {
             this.loading = false;
             this.form = response;
-            debugger
             console.log(JSON.parse(this.form.employed));
             this.tableData = JSON.parse(this.form.employed);
             this.newTableData = JSON.parse(this.form.newentry);
@@ -387,7 +382,6 @@
       formatterDic(row, column) {
         if (column.property === "thisyear" && this.$route.params.type === 0) {
           if (row[column.property]) {
-            debugger
             let dic = getDictionaryInfo(row[column.property]);
             return dic === null ? "-" : dic.value1;
           } else {
@@ -395,7 +389,9 @@
           }
         } else if (column.property === "entermouth") {
           if(row[column.property] === "BP025004"){
-              return "社外"
+            if(this.i18n){
+              return  this.$t('label.PFANS1038VIEW_OUTSIDE')
+            }
           }
           return "-";
         }else{
@@ -411,9 +407,10 @@
         this.newTableData.push({"isoutside":false,"entermouth":null});
       },
       changeOption(val, row) {
-        debugger
         if (val) {
-          row.entermouth = "社外";
+          if(this.i18n){
+            row.entermouth = this.$t('label.PFANS1038VIEW_OUTSIDE');
+          }
         }else{
           row.entermouth = null;
         }

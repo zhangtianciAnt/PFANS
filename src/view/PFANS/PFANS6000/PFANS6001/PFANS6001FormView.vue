@@ -7,12 +7,11 @@
                  style="padding: 2vw">
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.user_name')" prop="coopername">
+              <el-form-item :label="$t('label.user_name')" prop="expname">
                 <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
-                          v-model="form.coopername"></el-input>
+                          v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
-
             <el-col :span="8">
               <el-form-item :label="$t('label.sex')" prop="sex">
                 <dicselect
@@ -302,8 +301,8 @@
         search: '',
         gridData: [],
         form: {
-          cooperinterview_id: '',
-          coopername: '',
+          expatriatesinfor_id: '',
+          expname: '',
           sex: '',
           contactinformation: '',
           birth: '',
@@ -315,7 +314,7 @@
           graduation_year: '',
           speciality: '',
           interviewdep: '',
-          interview_date: moment(new Date()).format('YYYY-MM-DD'),
+          interview_date: '',
           result: '',
           technology: '',
           rn: '',
@@ -339,7 +338,7 @@
 
         rules: {
 
-          coopername: [
+          expname: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.user_name'),
@@ -457,9 +456,10 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6001Store/getcooperinterviewApplyOne', {'cooperinterview_id': this.$route.params._id})
+          .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
             this.loading = false;
           })
           .catch(error => {
@@ -570,13 +570,13 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
-            this.form.cooperinterview_id = this.$route.params._id;
+            this.form.expatriatesinfor_id = this.$route.params._id;
             this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
             this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
             this.loading = true;
             if (this.$route.params._id) {
               this.$store
-                .dispatch('PFANS6001Store/updatecooperinterviewApply', this.form)
+                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
@@ -604,7 +604,7 @@
               this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
               this.loading = true;
               this.$store
-                .dispatch('PFANS6001Store/createcooperinterviewApply', this.form)
+                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
