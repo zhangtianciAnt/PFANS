@@ -581,7 +581,7 @@
               <div>
                 <el-tabs v-model="activeName6" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TOTAL')" name="first">
-                    <el-table :data="tableK" header-cell-class-name="sub_bg_color_blue" stripe>
+                    <el-table :data="tableSZTotal" header-cell-class-name="sub_bg_color_blue" stripe>
                       <el-table-column>
                         <el-table-column align="center" width="170" prop="total5" :formatter="formatterColumn">
                         </el-table-column>
@@ -1083,17 +1083,11 @@
             icon: 'el-icon-check',
           },
         ],
-        tableA:[],
-        tableB: [],
-        tableC: [
-        ],
-        tableD: [
-        ],
-        tableK: [
-          {},
-          {},
-          {},
-        ],
+        tableA: [], //1
+        tableB: [],//2
+        tableC: [],//3
+        tableD: [],//4
+        tableK: [{},{},{},{},{},{}],
         tableO: [
           {
             programme:'',
@@ -1234,7 +1228,6 @@
     },
     computed:{
       tableTotal:function(){
-        debugger
         let tableOTotal = {};
         let tableOTotal1 = {};
         let tableOTotal2 = {};
@@ -1387,12 +1380,28 @@
           this.tableP[60]["money" + this.arr[i]] = Math.round(Number(this.tableP[56]["money" + this.arr[i]]||0)/Number(this.tableP[53]["money" + this.arr[i]])* 100) + "%";
           this.tableP[61]["money" + this.arr[i]] = Math.round(Number(this.tableP[57]["money" + this.arr[i]]||0)/Number(this.tableP[53]["money" + this.arr[i]])* 100) + "%";
           this.tableP[62]["money" + this.arr[i]] = Math.round((Number(this.tableP[57]["money" + this.arr[i]]||0) + Number(this.tableP[54]["money" + this.arr[i]]||0))/(Number(this.tableP[51]["money" + this.arr[i]]) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]))* 100) + "%";
-          this.tableP[63]["money" + this.arr[i]] = Math.round((Number(SSthis.tableP[57]["money" + this.arr[i]]||0) + Number(this.tableP[55]["money" + this.arr[i]]||0))/(Number(this.tableP[51]["money" + this.arr[i]]) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]))* 100) + "%";
+          this.tableP[63]["money" + this.arr[i]] = Math.round((Number(this.tableP[57]["money" + this.arr[i]]||0) + Number(this.tableP[55]["money" + this.arr[i]]||0))/(Number(this.tableP[51]["money" + this.arr[i]]) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]))* 100) + "%";
         }
         return this.tableP;
       },
-      tableSZTotal:function(){
-
+        tableSZTotal:function(){
+        debugger
+        if(this.sumA2.length > 0){
+          this.tableK[0].number1 = Number(this.sumA2[2]||0) + Number(this.sumA2[4]||0) + Number(this.sumA2[6]||0);
+          this.tableK[0].money1 = Number(this.sumA2[3]||0) + Number(this.sumA2[5]||0) + Number(this.sumA2[7]||0);
+          this.tableK[0].number2 = Number(this.sumA2[8]||0) + Number(this.sumA2[10]||0) + Number(this.sumA2[12]||0);
+          this.tableK[0].money2 = Number(this.sumA2[9]||0) + Number(this.sumA2[11]||0) + Number(this.sumA2[13]||0);
+          // this.tableK[0].first = Number(this.sumA2[14]||0);
+          // this.tableK[0].money3 = Number(this.sumA1[15]||0);
+          // this.tableK[0] = Number(this.sumA2[16]||0) + Number(this.sumA2[18]||0) + Number(this.sumA2[20]||0);
+          // this.tableK[0] = Number(this.sumA2[17]||0) + Number(this.sumA2[19]||0) + Number(this.sumA2[21]||0);
+          // this.tableK[0] = Number(this.sumA2[22]||0) + Number(this.sumA2[24]||0) + Number(this.sumA2[26]||0);
+          // this.tableK[0] = Number(this.sumA2[23]||0) + Number(this.sumA2[25]||0) + Number(this.sumA2[27]||0);
+          // this.tableK[0] = Number(this.sumA2[28]||0);
+          // this.tableK[0] = Number(this.sumA1[29]||0);
+          // this.tableK[0] = Number(this.sumA2[30]||0);
+          // this.tableK[0] = Number(this.sumA1[31]||0);
+        }
       }
     },
     methods: {
@@ -1643,11 +1652,17 @@
         }
         if(column.property === "total5"){
           if(index === 0){
-             return this.$t('label.PFANS1036FORMVIEW_B1');
+             return this.$t('label.PFANS1036FORMVIEW_A1');
           }else if(index === 1){
-             return this.$t('label.PFANS1036FORMVIEW_B2');
+             return this.$t('label.PFANS1036FORMVIEW_A2');
           }else if(index === 2){
+             return  this.$t('label.PFANS1036FORMVIEW_B1');
+          }else if(index === 3){
+             return  this.$t('label.PFANS1036FORMVIEW_B2');
+          }else if(index === 4){
              return  this.$t('label.PFANS1036FORMVIEW_B3');
+          }else if(index === 5){
+             return  this.$t('label.PFANS1036FORMVIEW_B4');
           }
         }
         if(column.property === "type"){
