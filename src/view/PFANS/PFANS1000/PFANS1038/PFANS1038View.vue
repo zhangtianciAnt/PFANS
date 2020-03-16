@@ -2,7 +2,7 @@
   <div style="min-height: 100%">
     <el-tabs v-model="activeName" type="border-card">
       <el-tab-pane
-        label="社员计划"
+        :label="$t('label.PFANS1038VIEW_MEMBERSHIP')"
         name="first"
         style="padding-top:1%"
       >
@@ -17,7 +17,7 @@
           v-loading="loading"
         ></EasyNormalTable>
       </el-tab-pane>
-      <el-tab-pane label="外住计划" name="second" style="padding-top:1%">
+      <el-tab-pane :label="$t('label.PFANS1038VIEW_OUTOFHOME')" name="second" style="padding-top:1%">
         <EasyNormalTable
           :buttonList="buttonList"
           :columns="columns"
@@ -70,8 +70,8 @@
           }
         ],
         activeName:"first",
-        titleIn:"社员计划",
-        titleOut:"外驻计划",
+        titleIn: this.$t("label.PFANS1038VIEW_MEMBERSHIP"),
+        titleOut: this.$t("label.PFANS1038VIEW_OUTOFHOME"),
         columns: [
           {
             code: "years",
