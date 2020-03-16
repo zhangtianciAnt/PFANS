@@ -24,7 +24,6 @@
                 selectedList: [],
                 startoption: [],
                 startoptionvalue: [],
-                invoiceamountvalue: '',
                 loading: false,
                 title: "title.PFANS1012VIEW",
                 // 表格数据源
@@ -200,6 +199,7 @@
                         .then(response => {
                             this.selectedlist = this.$refs.roletable.selectedList;
                             let sum = 0;
+                            let invoiceamountvalue= 0;
                             for (let m = 0; m < response.length; m++) {
                                 sum = sum + 1;
                                 for (let i = 0; i < this.selectedlist.length; i++) {
@@ -211,15 +211,19 @@
                                                 this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
                                             } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
                                                 this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                                            }else if(this.selectedlist[i].paymentmethod === ''){
+                                                this.selectedlist[i].paymentmethod = ''
                                             }
                                         }
                                         let letError = getDictionaryInfo(this.selectedlist[i].currency);
                                         if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
                                             this.selectedlist[i].currencyrate = letError.value1;
+                                            response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
                                         } else if (letError.value1 == null) {
                                             this.selectedlist[i].currencyrate = ''
+                                            response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
                                         }
-                                        this.invoiceamountvalue = response[m].invoiceamount;
+                                        invoiceamountvalue += parseFloat(response[m].lineamount);
                                         this.totalcostvalue.push({
                                             invoicenumber: response[m].invoicenumber,
                                             number: response[m].number,
@@ -259,7 +263,7 @@
                                 paymentmethod: '',
                                 currency: '',
                                 invoiceamount: sum,
-                                lineamount: this.invoiceamountvalue,
+                                lineamount: invoiceamountvalue,
                                 currencyrate: '',
                                 companysegment: '',
                                 budgetcoding: '',
@@ -313,7 +317,7 @@
                             let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
                             const link = document.createElement("a");
                             link.href = csvContent;
-                            link.download = this.$t('APXXXX') + '.csv';
+                            link.download = this.$t('AP') +this.$t('title.PFANS1012VIEW') + '.csv';
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);
