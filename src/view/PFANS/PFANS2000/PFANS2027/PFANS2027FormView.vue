@@ -911,12 +911,10 @@
                 debugger
                 if (this.$route.params._id) {
                     this.$store
-                        .dispatch('PFANS2027Store/update', this.multipleSelection)
-                        console.log("this.multipleSelection",this.multipleSelection)
+                        .dispatch('PFANS2027Store/update', this.form.tabledata)
                         .then(response => {
                             this.data = response;
                             this.loading = false;
-                            if (val !== "save") {
                                 Message({
                                     message: this.$t("normal.success_02"),
                                     type: 'success',
@@ -925,7 +923,6 @@
                                 if (this.$store.getters.historyUrl) {
                                     this.$router.push(this.$store.getters.historyUrl);
                                 }
-                            }
                         })
                         .catch(error => {
                             Message({
