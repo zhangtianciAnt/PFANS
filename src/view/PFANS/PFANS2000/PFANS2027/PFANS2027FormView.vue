@@ -911,8 +911,7 @@
                 debugger
                 if (this.$route.params._id) {
                     this.$store
-                        .dispatch('PFANS2027Store/update', this.multipleSelection)
-                        console.log("this.multipleSelection",this.multipleSelection)
+                        .dispatch('PFANS2027Store/update', this.form.tabledata)
                         .then(response => {
                             this.data = response;
                             this.loading = false;
