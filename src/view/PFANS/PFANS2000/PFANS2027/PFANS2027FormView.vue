@@ -915,7 +915,6 @@
                         .then(response => {
                             this.data = response;
                             this.loading = false;
-                            if (val !== "save") {
                                 Message({
                                     message: this.$t("normal.success_02"),
                                     type: 'success',
@@ -924,7 +923,6 @@
                                 if (this.$store.getters.historyUrl) {
                                     this.$router.push(this.$store.getters.historyUrl);
                                 }
-                            }
                         })
                         .catch(error => {
                             Message({
