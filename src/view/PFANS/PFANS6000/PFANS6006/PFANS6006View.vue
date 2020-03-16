@@ -3,7 +3,7 @@
     <EasyNormalContainer :buttonList="buttonList" :noback="true" :title="title"
                          @buttonClick="buttonClick" ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form label-position="top" label-width="8vw" ref="reff"  style="padding-top: 10px">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
           <el-form-item>
             <el-row>
               <el-col :span="24">
@@ -19,7 +19,8 @@
               </el-col>
             </el-row>
             <el-row style="padding-top: 10px">
-              <el-table :data="tableData" :header-cell-style="getRowClass" border header-cell-class-name="sub_bg_color_blue" stripe height="400"
+              <el-table :data="tableData" :header-cell-style="getRowClass" border
+                        header-cell-class-name="sub_bg_color_blue" stripe height="400"
                         style="width: 100%">
                 <!-- 序号-->
                 <el-table-column
@@ -561,11 +562,11 @@
             'name': 'button.save',
             'disabled': false,
           },
-          // {
-          //   'key': 'generate',
-          //   'name': 'button.generate',
-          //   'disabled': false
-          // },
+          {
+            'key': 'generate',
+            'name': 'button.generate',
+            'disabled': false
+          },
         ],
       };
     },
@@ -579,7 +580,7 @@
           this.updateexpatriatesinfor();
         }
         if (val === 'generate') {
-          this.getexpatriatesinforthisyear();
+          this.createDeleginformation();
         }
       },
       updateexpatriatesinfor() {
@@ -635,6 +636,21 @@
             background: '#005BAA !important',
           };
         }
+      },
+      createDeleginformation() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6006Store/createDeleginformation', {})
+          .then(response => {
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
       },
       getDelegainformation() {
         this.loading = true;
