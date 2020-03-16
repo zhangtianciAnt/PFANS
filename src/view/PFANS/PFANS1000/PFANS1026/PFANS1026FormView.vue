@@ -980,15 +980,15 @@
                 ruleSet: {
                     'save': ['contractnumber'],
                     'makeinto': ['contractnumber'],
-                    '1': ['placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
-                    '2': ['deployment', 'conjapanese', 'claimdatetime', 'varto'],
-                    '3': ['placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
-                    '4': ['placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount'],
-                    '5': ['custoenglish', 'custoabbreviation', 'deployment', 'conjapanese', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate', 'claimdate', 'supportdate', 'varto'],
-                    '6': ['businesscode', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
-                    '7': ['placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-                    '61': ['custoenglish', 'conjapanese', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
-                    '62': ['custoenglish', 'conjapanese', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
+                    '1': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
+                    '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
+                    '3': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
+                    '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
+                    '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate', 'claimdate', 'supportdate', 'varto'],
+                    '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+                    '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
+                    '61': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
+                    '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
                 },
                 rules: {
                     deployment: [
@@ -998,7 +998,7 @@
                         {validator: validateClaimdatetime}
                     ],
                     currencyposition: [
-                        {validator: validateCurrecustoenglishncyposition}
+                        {validator: validateCurrencyposition}
                     ],
                     loadingjudge: [
                         {validator: validateLoadingjudge}

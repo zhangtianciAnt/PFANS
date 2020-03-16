@@ -775,32 +775,8 @@
                             <el-input :disabled="!disable" style="width: 100%"
                                       maxlength="20"
                                       v-model="scope.row.procurementdetails"
-                                      v-show="scope.row.showrow">
+                                      >
                             </el-input>
-                            <dicselect :code="code6"
-                                       :data="scope.row.procurementdetails"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="setprocurementdetails"
-                                       style="width: 100%" v-show="scope.row.showrow1">
-                            </dicselect>
-                            <dicselect :code="code7"
-                                       :data="scope.row.procurementdetails"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="setprocurementdetails"
-                                       style="width: 100%" v-show="scope.row.showrow2">
-                            </dicselect>
-                            <dicselect :code="code8"
-                                       :data="scope.row.procurementdetails"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="setprocurementdetails"
-                                       style="width: 100%" v-show="scope.row.showrow3">
-                            </dicselect>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
@@ -1236,7 +1212,6 @@
                     trafficdate: '',
                     invoicenumber: '',
                     plsummary: '',
-                    costitem: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     budgetcoding: '',
@@ -1271,7 +1246,6 @@
                     purchasedetailsdate: '',
                     plsummary: '',
                     procurementdetails: '',
-                    procurementproject: '',
                     subjectnumber: '',
                     rmb: '',
                     accountcode: '',
@@ -1423,9 +1397,6 @@
                 code3: 'PJ004',
                 code4: 'PJ003',
                 code5: 'PJ005',
-                code6: 'PJ006',
-                code7: 'PJ007',
-                code8: 'PJ008',
                 code9: 'PJ068',
                 code10: 'PJ057',
                 code11: '',
@@ -1461,7 +1432,6 @@
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
-            debugger
             this.IDname =this.$route.params._id
             if (this.IDname) {
                 this.loading = true;
@@ -1552,6 +1522,7 @@
                         }
                         if (response.purchasedetails.length > 0) {
                             this.tableP = response.purchasedetails;
+                            console.log("aaa",this.tableP)
                             for (var i = 0; i < this.tableP.length; i++) {
                                 this.orglist = this.tableP[i].departmentname;
                                 if (this.tableP[i].plsummary == 'PJ111001') {
@@ -1624,29 +1595,6 @@
                                     if (letErrortype != null) {
                                         this.tableP[i].accountcode = letErrortype.value1;
                                     }
-                                }
-                                if (this.tableP[i].procurementproject === 'PJ005001' || this.tableP[i].procurementproject === 'PJ005002' || this.tableP[i].procurementproject === 'PJ005006') {
-                                    this.tableP[i].showrow = true;
-                                    this.tableP[i].showrow1 = false;
-                                    this.tableP[i].showrow2 = false;
-                                    this.tableP[i].showrow3 = false;
-                                } else if (this.tableP[i].procurementproject === 'PJ005003') {
-                                    this.tableP[i].showrow = false;
-                                    this.tableP[i].showrow1 = true;
-                                    this.tableP[i].showrow2 = false;
-                                    this.tableP[i].showrow3 = false;
-                                } else if (this.tableP[i].procurementproject === 'PJ005004') {
-                                    this.tableP[i].showrow = false;
-                                    this.tableP[i].showrow1 = false;
-                                    this.tableP[i].showrow2 = true;
-                                    this.tableP[i].showrow3 = false;
-                                } else if (this.tableP[i].procurementproject === 'PJ005005') {
-                                    this.tableP[i].showrow = false;
-                                    this.tableP[i].showrow1 = false;
-                                    this.tableP[i].showrow2 = false;
-                                    this.tableP[i].showrow3 = true;
-                                } else if (this.tableP[i].procurementproject === ' ') {
-                                    this.tableP[i].showrow = true;
                                 }
                             }
                         }
@@ -2081,7 +2029,6 @@
                     this.tableT = [{
                         trafficdate: '',
                         invoicenumber: '',
-                        costitem: '',
                         accountcode: '',
                         taxes: '',
                         departmentname: '',
@@ -2110,7 +2057,6 @@
                         plsummary: '',
                         purchasedetailsdate: '',
                         procurementdetails: '',
-                        procurementproject: ' ',
                         subjectnumber: ' ',
                         rmb: '',
                         foreigncurrency: '',
@@ -2161,7 +2107,6 @@
                     publicexpenseid: '',
                     trafficdate: '',
                     invoicenumber: '',
-                    costitem: '',
                     accountcode: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
@@ -2204,7 +2149,6 @@
                     budgetcoding: '',
                     purchasedetailsdate: '',
                     procurementdetails: '',
-                    procurementproject: '',
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',
@@ -2240,9 +2184,6 @@
                     rowindex: '',
                     display: true,
                 });
-            },
-            setprocurementdetails(val, row) {
-                row.procurementdetails = val;
             },
             getTsummaries(param) {
                 const {columns, data} = param;
@@ -2407,17 +2348,6 @@
                 }
                 return isIE;
             },
-
-            //?建a??下?
-            // createDownLoadClick(content, fileName) {
-            //   const link = document.createElement("a");
-            //   link.href = encodeURI(content);
-            //   link.download = fileName;
-            //   document.body.appendChild(link);
-            //   link.click();
-            //   document.body.removeChild(link);
-            // },
-
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => {
                     if (j === 'timestamp') {
@@ -2518,7 +2448,7 @@
                             this.invoiceamountsum = sum;
                             if (this.form.type === 'PJ001001') {
                                 for (let i = 0; i < this.tableT.length; i++) {
-                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].costitem !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' ||this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                                         || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
                                         this.baseInfo.trafficdetails.push(
                                             {
@@ -2526,7 +2456,6 @@
                                                 publicexpenseid: this.tableT[i].publicexpenseid,
                                                 trafficdate: this.tableT[i].trafficdate,
                                                 invoicenumber: this.tableT[i].invoicenumber,
-                                                costitem: this.tableT[i].costitem,
                                                 taxes: this.tableT[i].taxes,
                                                 accountcode: this.tableT[i].accountcode,
                                                 plsummary: this.tableT[i].plsummary,
@@ -2545,7 +2474,7 @@
                                 }
                             } else if (this.form.type === 'PJ001002') {
                                 for (let i = 0; i < this.tableP.length; i++) {
-                                    if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== '' || this.tableP[i].procurementproject !== ''
+                                    if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
                                         || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
                                         if (this.tableP[i].procurementdetails === ' ') {
                                             this.tableP[i].procurementdetails = '';
@@ -2558,10 +2487,9 @@
                                                 departmentname: this.tableP[i].departmentname,
                                                 budgetcoding: this.tableP[i].budgetcoding,
                                                 plsummary: this.tableP[i].plsummary,
-                                                accountcode: this.tableP[i].invoicetype,
+                                                accountcode: this.tableP[i].accountcode,
                                                 purchasedetailsdate: this.tableP[i].purchasedetailsdate,
                                                 procurementdetails: this.tableP[i].procurementdetails,
-                                                procurementproject: this.tableP[i].procurementproject,
                                                 subjectnumber: this.tableP[i].subjectnumber,
                                                 rmb: this.tableP[i].rmb,
                                                 foreigncurrency: this.tableP[i].foreigncurrency,
@@ -2601,7 +2529,7 @@
                                 for (let j = 0; j < this.tableF.length; j++) {
                                     let summoney = 0;
                                     for (let i = 0; i < this.tableT.length; i++) {
-                                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].costitem !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== ''  || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                                             || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
                                             if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
                                                 if (this.tableT[i].rmb != '0') {
@@ -2627,7 +2555,7 @@
                                     let sumMoney = 0;
                                     let sumout = 0;
                                     for (let i = 0; i < this.tableP.length; i++) {
-                                        if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== '' || this.tableP[i].procurementproject !== ''
+                                        if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
                                             || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
                                             if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
                                                 if (this.tableP[i].rmb != '0') {
@@ -2720,17 +2648,23 @@
 
                     });
                 } else if (val === 'export') {
-                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012VIEW_COSTITEM'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
+                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012FORMVIEW_PL') , this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
                         this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
                         this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012FORMVIEW_TAXES'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
-                    let filterVal = ['trafficdate', 'invoicenumber', 'costitem', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
+                    let filterVal = ['trafficdate', 'invoicenumber', 'plsummary', 'accountcode', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
                     let csvData = [];
                     var tableTdata = this.tableT;
                     for (let i = 0; i < tableTdata.length; i++) {
-                        if (tableTdata[i].costitem !== null && tableTdata[i].costitem !== '') {
-                            let letErrortype = getDictionaryInfo(tableTdata[i].costitem);
+                        if (tableTdata[i].plsummary!== null && tableTdata[i].plsummary!== '') {
+                            let letErrortype = getDictionaryInfo(tableTdata[i].plsummary);
                             if (letErrortype != null) {
-                                tableTdata[i].costitem = letErrortype.value1;
+                                tableTdata[i].plsummary= letErrortype.value1;
+                            }
+                        }
+                        if (tableTdata[i].accountcode!== null && tableTdata[i].accountcode!== '') {
+                            let letErrortype = getDictionaryInfo(tableTdata[i].accountcode);
+                            if (letErrortype != null) {
+                                tableTdata[i].accountcode= letErrortype.value1;
                             }
                         }
                         if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== '') {
@@ -2741,17 +2675,20 @@
                         }
                         let obj = tableTdata[i];
                         csvData.push({
+
                             [heads[0]]: obj.trafficdate,
                             [heads[1]]: obj.invoicenumber,
-                            [heads[2]]: obj.costitem,
-                            [heads[3]]: obj.departmentname,
-                            [heads[4]]: obj.region,
-                            [heads[5]]: obj.vehicle,
-                            [heads[6]]: obj.startingpoint,
-                            [heads[7]]: obj.rmb,
-                            [heads[8]]: obj.foreigncurrency,
-                            [heads[9]]: obj.taxes,
-                            [heads[10]]: obj.annexno,
+                            [heads[2]]: obj.plsummary,
+                            [heads[3]]: obj.accountcode,
+                            [heads[4]]: obj.departmentname,
+                            [heads[5]]: obj.region,
+                            [heads[6]]: obj.vehicle,
+                            [heads[7]]: obj.startingpoint,
+                            [heads[8]]: obj.rmb,
+                            [heads[9]]: obj.foreigncurrency,
+                            [heads[10]]: obj.taxes,
+                            [heads[11]]: obj.annexno,
+
                         });
                     }
                     const result = json2csv.parse(csvData, {
