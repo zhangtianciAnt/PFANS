@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end" :canStart="canStart"
+                         @start="start" @workflowState="workflowState" ref="container" v-loading="loading":workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw">
@@ -501,6 +501,8 @@
 
       };
       return {
+        workflowCode:"W0003",
+        canStart: true,
         loading: false,
         errort: '',
         errorendtime: '',
@@ -651,6 +653,18 @@
             });
             this.loading = false;
           });
+
+        if (this.form.status === "0") {
+          this.workflowCode = "W0003";
+          this.canStart = true;
+        } else if (this.form.status === "4") {
+          this.workflowCode = "W0056";
+          this.canStart = true;
+        } else if (this.form.status === "7") {
+          this.workflowCode = "W0040";
+          this.canStart = false;
+        }
+
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -924,19 +938,37 @@
         this.$refs.ruleForm.validateField("lengthtime");
       },
       workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
+        if (val.state === "1") {
+          if (val.workflowCode === "W0003") {
+            this.form.status = '3';
+          } else if (val.workflowCode === "W0056") {
+            this.form.status = '6';
+          }
+        } else if (val.state === "2") {
+          if (val.workflowCode === "W0003") {
+            this.form.status = '4';
+          } else if (val.workflowCode === "W0056") {
+            this.form.status = '7';
+            this.canStart = false;
+          }
         }
         this.buttonClick("update");
       },
       start() {
-        this.form.status = '2';
+        if (this.form.status === "4" || this.form.status === "6") {
+          this.form.status = '5';
+
+        }else{
+          this.form.status = '2';
+        }
         this.buttonClick("update");
       },
       end() {
-        this.form.status = '0';
+        if (this.form.status === "5") {
+          var status = "4";
+        } else {
+          var status = "0";
+        }
         this.buttonClick("update");
       },
       fileError(err, file, fileList) {
