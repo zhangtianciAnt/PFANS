@@ -82,16 +82,7 @@
                 code15: 'PJ104',
                 disabled: false,
                 name:'',
-                examinationobjects: [
-                    {
-                        examinationobject_id: 12,
-                        name: 'AAA'
-                    },
-                    {
-                        examinationobject_id: 13,
-                        name: '123'
-                    }
-                ],
+                examinationobjects: [],
                 form:{
                     evaluationday: new Date(),
                     evaluatenum:'',
@@ -167,35 +158,51 @@
             this.get();
             let month = new Date().getMonth() + 1;
             if(month >= 1 && month <=3){
-                this.form.subjectmon = getDictionaryInfo('PJ103004').value1;
-                this.form.subject = getDictionaryInfo('PJ103004').value2;
+                this.form.subjectmon = 'PJ103004';
+                this.form.subject = 'PJ103004';
             }
             if(month >= 4 && month <=6){
-                this.form.subjectmon = getDictionaryInfo('PJ103001').value1;
-                this.form.subject = getDictionaryInfo('PJ103001').value2;
+                this.form.subjectmon = 'PJ103001';
+                this.form.subject = 'PJ103001';
             }
             if(month >= 7 && month <=9){
-                this.form.subjectmon = getDictionaryInfo('PJ103002').value1;
-                this.form.subject = getDictionaryInfo('PJ103002').value2;
+                this.form.subjectmon = 'PJ103002';
+                this.form.subject = 'PJ103002';
             }
             if(month >= 10 && month <=12){
-                this.form.subjectmon = getDictionaryInfo('PJ103003').value1;
-                this.form.subject = getDictionaryInfo('PJ103003').value2;
+                this.form.subjectmon = 'PJ103003';
+                this.form.subject = 'PJ103003';
             }
             let user = getUserInfo(this.form.user_id);
-            console.log(user.userinfo.post);
             //获取本用户的职位
             let postcode = user.userinfo.post;
             if(postcode === 'PJ105005'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104001').value1;
+                this.form.evaluatenum = 'PJ104001';
             }
             if(postcode === 'PJ105003'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104002').value1;
+                this.form.evaluatenum = 'PJ104002';
             }
             if(postcode === 'PJ105002'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104003').value1;
+                this.form.evaluatenum = 'PJ104003';
             }
+
+            this.$store
+                .dispatch("PFANS2027Store/getExaminationobject")
+                .then(response => {
+                    for(let i = 0;i<response.length;i++){
+                        this.examinationobjects.push(response[i]);
+                    }
+                })
+                .catch(err => {
+                    this.loading = false;
+                    Message({
+                        message: err,
+                        type: "error",
+                        duration: 5 * 1000
+                    });
+                });
         },
+
         /*beforeUpdate(){
             this.get();
         },*/

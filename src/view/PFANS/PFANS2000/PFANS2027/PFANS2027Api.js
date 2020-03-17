@@ -18,14 +18,13 @@ export function getLunardetails(data){
 }
 
 //考课对象List
-export function getExaminationobject(data){
+export function getExaminationobject(data) {
   return request({
     url: 'Getlunarbonus/getExaminationobject',
-    method: 'post',
+    method: 'get',
     params: data,
   });
 }
-
 //更新update
 export function update(data) {
   return request({
@@ -39,7 +38,7 @@ export function update(data) {
 export function getStatus(data){
   return request({
     url: 'Getlunarbonus/getStatus',
-    method: 'post',
+    method: 'get',
     params: data,
   });
 }

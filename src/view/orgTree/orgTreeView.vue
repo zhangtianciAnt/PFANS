@@ -40,6 +40,10 @@
                   <el-form-item prop="user" label="组织负责人">
                     <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
                   </el-form-item>
+                  <el-form-item prop="redirict" label="是否直属组织">
+                    <el-switch v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    </el-switch>
+                  </el-form-item>
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
@@ -64,6 +68,10 @@
                   </el-form-item>
                   <el-form-item prop="user" label="组织负责人">
                     <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
+                  </el-form-item>
+                  <el-form-item prop="redirict" label="是否直属组织">
+                    <el-switch v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    </el-switch>
                   </el-form-item>
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
