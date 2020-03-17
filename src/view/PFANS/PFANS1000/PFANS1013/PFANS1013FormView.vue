@@ -605,19 +605,14 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
+                        <dicselect :code="code20"
                                    :disabled="!disable"
                                    :data="scope.row.accountcode"
                                    :multiple="multiple"
@@ -629,13 +624,6 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
-                        </el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                  v-model="scope.row.remarks">
                         </el-input>
                       </template>
                     </el-table-column>
@@ -752,8 +740,6 @@
                             show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="400">
                       <template slot-scope="scope">
-                        <!--                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">-->
-                        <!--                        </el-date-picker>-->
                         <el-date-picker unlink-panels
                                         class="bigWidth"
                                         :disabled="!disable"
@@ -765,12 +751,6 @@
                         ></el-date-picker>
                       </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_NEXTDAY')" align="center" width="80">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.nextday">-->
-                    <!--                        </el-input>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
@@ -801,19 +781,14 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
+                        <dicselect :code="code20"
                                    :disabled="!disable"
                                    :data="scope.row.accountcode"
                                    :multiple="multiple"
@@ -828,13 +803,6 @@
                         </el-input>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                  v-model="scope.row.remarks">
-                        </el-input>
-                      </template>
-                    </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_ACTIVITYCONTENT')" align="center" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code4"
@@ -846,37 +814,7 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <dicselect :code="code5"-->
-                    <!--                                   :data="scope.row.vehicle"-->
-                    <!--                                   :disabled="!disable"-->
-                    <!--                                   :multiple="multiple"-->
-                    <!--                                   :no="scope.row"-->
-                    <!--                                   @change="getvehicle">-->
-                    <!--                        </dicselect>-->
-                    <!--&lt;!&ndash;                        <dicselect :code="code6"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :data="scope.row.vehiclein"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :disabled="!disable"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :multiple="multiple"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :no="scope.row"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   @change="getvehiclein"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   v-show="showrow4">&ndash;&gt;-->
-                    <!--&lt;!&ndash;                        </dicselect>&ndash;&gt;-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <dicselect :code="code7"-->
-                    <!--                                   :data="scope.row.movementtime"-->
-                    <!--                                   :disabled="!disable"-->
-                    <!--                                   :multiple="multiple"-->
-                    <!--                                   :no="scope.row"-->
-                    <!--                                   @change="getmovementtime">-->
-                    <!--                        </dicselect>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
-                    <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
+                   <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
                                      width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code9"
@@ -904,15 +842,7 @@
                                    :no="scope.row"
                                    @change="getfacilitytypeon">
                         </dicselect>
-                        <!--                        <dicselect :code="code8"-->
-                        <!--                                   :data="scope.row.facilitytypein"-->
-                        <!--                                   :disabled="!disable"-->
-                        <!--                                   :multiple="multiple"-->
-                        <!--                                   :no="scope.row"-->
-                        <!--                                   @change="getfacilitytypein"-->
-                        <!--                                   v-show="showrow2">-->
-                        <!--                        </dicselect>-->
-                      </template>
+                        </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="200">
                       <template slot-scope="scope">
@@ -931,36 +861,9 @@
                                    :no="scope.row"
                                    @change="getaccommodationallowance">
                         </dicselect>
-                        <!--                        <el-input-number-->
-                        <!--                          :disabled="true"-->
-                        <!--                          :max="1000000000"-->
-                        <!--                          :min="0"-->
-                        <!--                          :no="scope.row"-->
-                        <!--                          :precision="2"-->
-                        <!--                          @change="changeaccommodationallowance(scope.row)"-->
-                        <!--                          controls-position="right"-->
-                        <!--                          style="width: 100%"-->
-                        <!--                          v-model="scope.row.accommodationallowance"-->
-                        <!--                        ></el-input-number>-->
-                      </template>
+                        </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"-->
-                    <!--                                     prop="accommodation" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <el-input-number-->
-                    <!--                          :disabled="scope.row.disaccommod"-->
-                    <!--                          :max="1000000000"-->
-                    <!--                          :min="0"-->
-                    <!--                          :no="scope.row"-->
-                    <!--                          :precision="2"-->
-                    <!--                          @change="changeaccommodation(scope.row)"-->
-                    <!--                          controls-position="right"-->
-                    <!--                          style="width: 100%"-->
-                    <!--                          v-model="scope.row.accommodation"-->
-                    <!--                        ></el-input-number>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
-                    <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
+                   <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
@@ -1001,38 +904,6 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
-<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" prop="relatives"-->
-<!--                                     v-else-->
-<!--                                     width="200">-->
-<!--                      <template slot-scope="scope">-->
-<!--                        <el-input-number-->
-<!--                          :disabled=true-->
-<!--                          :max="1000000000"-->
-<!--                          :min="0"-->
-<!--                          :precision="2"-->
-<!--                          controls-position="right"-->
-<!--                          style="width: 100%"-->
-<!--                          v-model="scope.row.relatives"-->
-<!--                        ></el-input-number>-->
-<!--                      </template>-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" v-if="showAinner"-->
-<!--                                     width="200">-->
-<!--                      <template slot-scope="scope">-->
-<!--                        <el-input-number-->
-<!--                          :disabled="scope.row.showtick"-->
-<!--                          :max="1000000000"-->
-<!--                          :min="0"-->
-<!--                          :no="scope.row"-->
-<!--                          :precision="2"-->
-<!--                          @change="gettrain(scope.row)"-->
-<!--                          controls-position="right"-->
-<!--                          style="width: 100%"-->
-<!--                          v-model="scope.row.traintick"-->
-<!--                        ></el-input-number>-->
-<!--                      </template>-->
-<!--                    </el-table-column>-->
-
                     <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable" maxlength="36" v-model="scope.row.annexno">
@@ -1107,18 +978,13 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
+                        <dicselect :code="code20"
                                    :disabled="!disable"
                                    :data="scope.row.accountcode"
                                    :multiple="multiple"
@@ -1400,14 +1266,14 @@
           currencyexchangerate: '',
         }],
         tableT: [{
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          subjectnumber: '',
           invoicenumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: '',
@@ -1425,30 +1291,21 @@
           evectionid: '',
           accommodationdetails_id: '',
           accommodationdate: [],
-          // nextday: '',
           invoicenumber: '',
-            plsummary: '',
-            accountcode: '',
-          budgetcoding: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: '',
-          // vehicle: '',
-          // vehicleon: '',
-          // vehiclein: '',
-          // movementtime: '',
           city: '',
           region: '',
           facilitytype: '',
-          // facilitytypeon: '',
-          // facilitytypein: '',
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
           travelallowance: '',
           travel: '',
-          // relatives: '',
-          // traintick: 0,
           annexno: '',
           rowindex: '',
           taxes: '',
@@ -1460,30 +1317,21 @@
             evectionid: '',
             accommodationdetails_id: '',
             accommodationdate: [],
-            // nextday: '',
             invoicenumber: '',
-            plsummary: '',
+            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
             accountcode: '',
-            budgetcoding: '',
+            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
             subjectnumber: '',
             departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
             activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
             city: '',
             region: '',
             facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
             travelallowance: '',
             travel: '',
-            // relatives: '',
-            // traintick: 0,
             annexno: '',
             rowindex: '',
             taxes: '',
@@ -1496,10 +1344,10 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
-            plsummary: '',
-            accountcode: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: '',
           remarks: '',
@@ -1549,8 +1397,7 @@
         code17: 'PJ085',
         code18: 'PJ057',
         code19: 'PJ003',
-        code20: 'PJ111',
-        code21: '',
+        code20: '',
         multiple: false,
         show1: true,
         show2: false,
@@ -1569,6 +1416,7 @@
         invoicenumber: '',
         errorgroup: '',
         orglist: '',
+        Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
       };
     },
@@ -1750,53 +1598,6 @@
                 row.subjectnumber = dic.value2;
             }
         },
-        getplsummary(val, row) {
-            row.accountcode = '',
-                row.plsummary = val;
-            if (val == 'PJ111001') {
-                row.accountcode = '',
-                    this.code21 = 'PJ112';
-            } else if (val == 'PJ111002') {
-                row.accountcode = '',
-                    this.code21 = 'PJ113';
-            } else if (val == 'PJ111003') {
-                row.accountcode = '',
-                    this.code21 = 'PJ114';
-            } else if (val == 'PJ111004') {
-                row.accountcode = '',
-                    this.code21 = 'PJ115';
-            } else if (val == 'PJ111005') {
-                row.accountcode = '',
-                    this.code21 = 'PJ116';
-            } else if (val == 'PJ111006') {
-                row.accountcode = '',
-                    this.code21 = 'PJ117';
-            } else if (val == 'PJ111007') {
-                row.accountcode = '',
-                    this.code21 = 'PJ118';
-            } else if (val == 'PJ111008') {
-                row.accountcode = '',
-                    this.code21 = 'PJ119';
-            } else if (val == 'PJ111009') {
-                row.accountcode = '',
-                    this.code21 = 'PJ120';
-            } else if (val == 'PJ111010') {
-                row.accountcode = '',
-                    this.code21 = 'PJ121';
-            } else if (val == 'PJ111011') {
-                row.accountcode = '',
-                    this.code21 = 'PJ122';
-            } else if (val == 'PJ111012') {
-                row.accountcode = '',
-                    this.code21 = 'PJ123';
-            } else if (val == 'PJ111013') {
-                row.accountcode = '',
-                    this.code21 = 'PJ124';
-            } else if (val == 'PJ111014') {
-                row.accountcode = '',
-                    this.code21 = 'PJ125';
-            }
-        },
       getLoanapp() {
         this.$store
           .dispatch('PFANS1013Store/getLoanApplication')
@@ -1880,6 +1681,12 @@
         row.departmentname = orglist;
         let group = getOrgInfo(orglist);
         if (group) {
+          this.Redirict = group.redirict;
+          if(group.redirict === '0'){
+            this.code20 = 'PJ119'
+          } else if(group.redirict === '1') {
+            this.code20 = 'PJ132';
+          }
           this.companyen = group.companyen;
           row.budgetcoding = group.encoding;
         }
@@ -1918,7 +1725,7 @@
             // movementtime: '',
             city: '',
             region: '',
-            budgetcoding: '',
+            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
             subjectnumber: '',
             facilitytype: '',
             // facilitytypeon: '',
@@ -1964,7 +1771,7 @@
             // vehiclein: '',
             // movementtime: '',
             city: '',
-            budgetcoding: '',
+            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
             subjectnumber: '',
             region: '',
             facilitytype: '',
@@ -2041,21 +1848,14 @@
         } else {
           this.tableA = [{
             accommodationdate: [],
-            // nextday: '',
             activitycontent: ' ',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: ' ',
-            budgetcoding: ' ',
-              plsummary: '',
-              accountcode: '',
-              subjectnumber: '',
+            budgetcoding: '',
+            plsummary: '',
+            accountcode: '',
+            subjectnumber: '',
             city: '',
             region: ' ',
             facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
@@ -2072,8 +1872,8 @@
           this.tableR = [{
             otherdetailsdate: '',
             costitem: '',
-              plsummary: '',
-              accountcode: '',
+            plsummary: '',
+            accountcode: '',
             rmb: '',
             subjectnumber: '',
             remarks: '',
@@ -2115,15 +1915,15 @@
       },
       addRow() {
         this.tableT.push({
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
           invoicenumber: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          subjectnumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: '',
           costitem: '',
@@ -2146,13 +1946,13 @@
           invoicenumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: '',
-            plsummary: '',
-            accountcode: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
           // vehicle: '',
           // vehicleon: '',
           // vehiclein: '',
           // movementtime: '',
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           city: '',
           region: '',
@@ -2180,8 +1980,8 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
-          budgetcoding: '',
-            plsummary: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
             accountcode: '',
             subjectnumber: '',
 
@@ -2223,11 +2023,6 @@
           exchangermb: '',
           currencyexchangerate: '',
         });
-      },
-      getcode(val, row) {
-        row.accountcode = val;
-        this.accountcodeValue = val;
-        this.getCompanyen(val, row);
       },
       checkOption() {
         this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}];
@@ -2455,22 +2250,6 @@
       },
       getvehicle(val, row) {
         row.vehicle = val;
-      },
-      getvehicleon(val, row) {
-        row.vehicle = val;
-        // if (val === 'PJ025004') {
-        //   row.disaccommod = true;
-        //   row.showtick = false;
-        //   row.accommodationallowance = '';
-        // } else {
-        //   row.disaccommod = false;
-        //   row.showtick = true;
-        //   row.traintick = '';
-        // }
-      },
-      getvehiclein(val, row) {
-        row.vehiclein = val;
-        // this.getTravelFly(row);
       },
       getaccommodationallowance(val, row) {
         row.accommodationallowance = val;
