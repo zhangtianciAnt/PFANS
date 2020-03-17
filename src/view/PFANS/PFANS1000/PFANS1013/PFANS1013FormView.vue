@@ -885,8 +885,13 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" v-if="this.form.type === '0'? false : true"
                                      prop="accommodationallowance" width="200">
                       <template slot-scope="scope">
-                        <el-input :disabled="true" maxlength="20" v-model="scope.row.accommodationallowance">
-                        </el-input>
+                        <dicselect :code="code19"
+                                   :data="scope.row.accommodationallowance"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="getaccommodationallowance">
+                        </dicselect>
 <!--                        <el-input-number-->
 <!--                          :disabled="true"-->
 <!--                          :max="1000000000"-->
@@ -1444,6 +1449,7 @@
         code16: 'PJ084',
         code17: 'PJ085',
         code18: 'PJ057',
+        code19: 'PJ003',
         multiple: false,
         show1: true,
         show2: false,
@@ -1664,7 +1670,7 @@
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   abroadbusiness: response[i].abroadbusiness,
-                  city: response[i].city,
+                  city: response[i].region,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
                   level: response[i].level,
@@ -1684,7 +1690,7 @@
                 this.relations.push({
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  city: response[i].city,
+                  city: response[i].region,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
                   businesstype: response[i].businesstype,
@@ -2137,9 +2143,13 @@
           for(var i =0;i<this.relations.length;i++){
             if(this.relations[i].value === val){
               if (this.relations[i].businesstype === '1') {
-                this.form.place = this.relations[i].city,
-                  this.form.startdate = this.relations[i].startdate,
-                  this.form.enddate = this.relations[i].enddate;
+                // this.form.place = this.relations[i].city,
+                let cityinfo = getDictionaryInfo(this.relations[i].city);
+                if(cityinfo){
+                  this.form.place = cityinfo.value1;
+                }
+                this.form.startdate = this.relations[i].startdate;
+                this.form.enddate = this.relations[i].enddate;
                 this.form.datenumber = this.relations[i].datenumber;
                 this.tableT[0].trafficdate = this.form.startdate;
                 this.tableR[0].otherdetailsdate = this.form.startdate;
@@ -2170,10 +2180,13 @@
                 if (dict) {
                   this.form.level = dict.value1;
                 }
-                this.form.abroadbusiness = this.relations[i].abroadbusiness,
-                  this.form.place = this.relations[i].city,
-                  this.form.startdate = this.relations[i].startdate,
-                  this.form.enddate = this.relations[i].enddate;
+                this.form.abroadbusiness = this.relations[i].abroadbusiness;
+                let cityinfo = getDictionaryInfo(this.relations[i].city);
+                if(cityinfo){
+                  this.form.place = cityinfo.value1;
+                }
+                this.form.startdate = this.relations[i].startdate;
+                this.form.enddate = this.relations[i].enddate;
                 this.form.datenumber = this.relations[i].datenumber;
                 this.tableT[0].trafficdate = this.form.startdate;
                 this.tableR[0].otherdetailsdate = this.form.startdate;
@@ -2431,21 +2444,16 @@
         row.vehiclein = val;
         // this.getTravelFly(row);
       },
-      // getmovementtime(val, row) {
-      //   row.movementtime = val;
-      //   this.getTravel(row);
-      // },
+      getaccommodationallowance(val, row) {
+        row.accommodationallowance = val;
+        this.getTravel(row);
+      },
       getexitarea(val, row) {
         row.region = val;
         this.getTravel(row);
-        // this.getTravelFly(row);
       },
       getfacilitytypeon(val, row) {
         row.facilitytype = val;
-        this.getTravel(row);
-      },
-      getfacilitytypein(val, row) {
-        row.facilitytypein = val;
         this.getTravel(row);
       },
       getCity(row) {
@@ -2473,27 +2481,7 @@
       },
       getcostitem(val, row) {
         row.costitem = val;
-        if (val === 'PJ057001') {
-          row.accountcode = '',
-            row.subjectnumber = '',
-            this.code11 = 'PJ058';
-          this.checkStatus = true;
-        } else if (val === 'PJ057015') {
-          row.accountcode = '',
-            row.subjectnumber = '',
-            this.code11 = 'PJ059';
-          this.checkStatus = true;
-        } else if (val === 'PJ057016') {
-          row.accountcode = '',
-            row.subjectnumber = '',
-            this.code11 = 'PJ060';
-          this.checkStatus = true;
-        } else {
-          row.accountcode = '',
-            row.subjectnumber = '',
-            this.checkStatus = false;
-          this.getCompanyen(val, row);
-        }
+        this.getTravel(row);
       },
       getTravel(row) {
         var jpvalueflg;
@@ -2509,6 +2497,7 @@
         var jpregion9;
         var jpregion10;
         var jpregion11;
+        var jpregion12;
         let jpregioninfo = getDictionaryInfo('PJ035001');
         if (jpregioninfo) {
           jpregion1 = jpregioninfo.value2;
@@ -2525,32 +2514,44 @@
           jpregion9 = jpregioninfo2.value3;
           jpregion10 = jpregioninfo2.value4;
           jpregion11 = jpregioninfo2.value5;
+          jpregion12 = jpregioninfo2.value8;
         }
         var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate),'days');
         if (this.form.type === '0') {
-          if (row.facilitytype === 'PJ035001') {
-            if (row.city !== '') {
-              if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
-                || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                jpvalueflg = jpregion1;
-              } else {
-                jpvalueflg = jpregion2;
+          if(row.costitem === 'PJ126001') {
+            if (row.facilitytype === 'PJ035001') {
+              if (row.city !== '') {
+                if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
+                  || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
+                  jpvalueflg = jpregion1;
+                } else {
+                  jpvalueflg = jpregion2;
+                }
+              }
+            } else if (row.facilitytype === 'PJ035002') {
+              if (row.city !== '') {
+                if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
+                  || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
+                  jpvalueflg = jpregion8;
+                } else {
+                  jpvalueflg = jpregion9;
+                }
               }
             }
-          } else if (row.facilitytype === 'PJ035002') {
-            if (row.city !== '') {
-              if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
-                || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                jpvalueflg = jpregion8;
-              } else {
-                jpvalueflg = jpregion9;
-              }
+            if (jpvalueflg !== '' && jpvalueflg !== undefined) {
+              row.travelallowance = Number(jpvalueflg) * diffDate;
             }
-          }
-          if (jpvalueflg !== '' && jpvalueflg !== undefined) {
-            row.travelallowance = Number(jpvalueflg) * diffDate;
+          } else if(row.costitem === 'PJ126002'){
+            row.travelallowance = 150 * diffDate;
+          } else if(row.costitem === 'PJ126003'){
+            row.travelallowance = Number(row.travelallowance + 100) * diffDate;;
           }
         } else if (this.form.type === '1') {
+          var accfig;
+          let accinfo = getDictionaryInfo(row.accommodationallowance);
+          if(accinfo){
+            accfig = accinfo.value2;
+          }
           if(row.costitem === 'PJ126001'){
             if(row.facilitytype === 'PJ035001'){
                if(row.region === 'PJ017001'){
@@ -2570,17 +2571,22 @@
               }
             }
             if (jpvalueflg !== '' && jpvalueflg !== undefined) {
-              row.travelallowance = Number(jpvalueflg) * diffDate;
+              row.travel = Number(jpvalueflg) * diffDate;
+              row.travelallowance = row.travel * accfig;
             }
           } else if(row.costitem === 'PJ126002'){
             if(this.rank === 'PJ016003'){
-              jpvalueflg2 = Number(jpregion7) + 100;
+              jpvalueflg2 = Number(jpregion12) + 100;
             } else {
-              jpvalueflg2 = Number(jpregion7);
+              jpvalueflg2 = Number(jpregion12);
             }
-            if (jpvalueflg !== '' && jpvalueflg !== undefined) {
-              row.travelallowance = Number(jpvalueflg2) * diffDate;
+            if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
+              row.travel = Number(jpvalueflg2) * diffDate;
+              row.travelallowance = row.travel * accfig;
             }
+          } else if(row.costitem === 'PJ126003'){
+            row.travel = Number(jpvalueflg2 + 100) * diffDate;
+            row.travelallowance = row.travel * accfig;
           }
           // var varbusiness;
           // if (this.rank === 'PJ016001') {
