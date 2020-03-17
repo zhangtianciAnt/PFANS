@@ -1273,6 +1273,7 @@
             return {
                 optionsdate: [],
                 tormbT: '',
+                Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
                 startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
@@ -1322,7 +1323,7 @@
                     plsummary: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     subjectnumber: '',
                     region: '',
                     accountcode: '',
@@ -1350,7 +1351,7 @@
                     invoicenumber: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     purchasedetailsdate: '',
                     plsummary: '',
                     procurementdetails: '',
@@ -1383,7 +1384,7 @@
                     currencyrate: '',
                     tormb: '',
                     remarks: '',
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     rmb: '',
                     foreigncurrency: '',
                     taxes: '',
@@ -1918,59 +1919,107 @@
                         this.loading = false;
                     });
             },
-            getGroupId(orglist, row) {
-                row.departmentname = orglist;
+            getGroupId(orglist, row,) {
+                this.Redirict = '',
+                    row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
                 if (group) {
                     this.companyen = group.companyen;
+                    this.Redirict = group.redirict;
                     row.budgetcoding = group.encoding;
                 }
             },
             getplsummary(val, row) {
                 row.accountcode = '',
                     row.plsummary = val;
-                if (val == 'PJ111001') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ112';
-                } else if (val == 'PJ111002') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ113';
-                } else if (val == 'PJ111003') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ114';
-                } else if (val == 'PJ111004') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ115';
-                } else if (val == 'PJ111005') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ116';
-                } else if (val == 'PJ111006') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ117';
-                } else if (val == 'PJ111007') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ118';
-                } else if (val == 'PJ111008') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ119';
-                } else if (val == 'PJ111009') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ120';
-                } else if (val == 'PJ111010') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ121';
-                } else if (val == 'PJ111011') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ122';
-                } else if (val == 'PJ111012') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ123';
-                } else if (val == 'PJ111013') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ124';
-                } else if (val == 'PJ111014') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ125';
+                if (this.Redirict == '0') {
+                    if (val == 'PJ111001') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ112';
+                    } else if (val == 'PJ111002') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ113';
+                    } else if (val == 'PJ111003') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ114';
+                    } else if (val == 'PJ111004') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111005') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ116';
+                    } else if (val == 'PJ111006') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ117';
+                    } else if (val == 'PJ111007') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ118';
+                    } else if (val == 'PJ111008') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ119';
+                    } else if (val == 'PJ111009') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ120';
+                    } else if (val == 'PJ111010') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ121';
+                    } else if (val == 'PJ111011') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ122';
+                    } else if (val == 'PJ111012') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ123';
+                    } else if (val == 'PJ111013') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111014') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ125';
+                    }
+                } else if (this.Redirict == '1') {
+                    if (val == 'PJ111001') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ127';
+                    } else if (val == 'PJ111002') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ128';
+                    } else if (val == 'PJ111003') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ129';
+                    } else if (val == 'PJ111004') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ115';
+                    } else if (val == 'PJ111005') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ130';
+                    } else if (val == 'PJ111006') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111007') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ131';
+                    } else if (val == 'PJ111008') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ132';
+                    } else if (val == 'PJ111009') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ133';
+                    } else if (val == 'PJ111010') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ134';
+                    } else if (val == 'PJ111011') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ135';
+                    } else if (val == 'PJ111012') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ136';
+                    } else if (val == 'PJ111013') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ124';
+                    } else if (val == 'PJ111014') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ137';
+                    }
                 }
             },
             getcode(val, row) {
@@ -2231,7 +2280,7 @@
                     currencyrate: '',
                     tormb: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     subjectnumber: '',
                     plsummary: '',
                     region: '',
@@ -2267,7 +2316,7 @@
                     purchasedetails_id: '',
                     invoicenumber: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     purchasedetailsdate: '',
                     procurementdetails: '',
                     accountcode: '',
@@ -2302,7 +2351,7 @@
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     remarks: '',
                     rmb: '',
                     foreigncurrency: '',
@@ -2449,7 +2498,7 @@
                     newValue.currencyrate = '';
                     newValue.tormb = '';
                     newValue.currency = '';
-                    this.form.tormb= '';
+                    this.form.tormb = '';
                     this.disa = true;
                     newValue.display = false;
                     this.$nextTick(() => {
@@ -2463,7 +2512,7 @@
                     newValue.currencyrate = '';
                     newValue.tormb = '';
                     newValue.currency = '';
-                    this.form.tormb= '';
+                    this.form.tormb = '';
                     this.disa = false;
                     newValue.display = false;
                     this.$nextTick(() => {
