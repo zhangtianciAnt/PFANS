@@ -81,7 +81,6 @@ export function download(data) {
 }
 
 export function getCompanyProject(data) {
-  debugger;
   return request({
     url: 'companyprojects/getCompanyProject',
     method: 'get',
