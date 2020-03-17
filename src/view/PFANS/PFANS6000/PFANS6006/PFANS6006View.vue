@@ -406,7 +406,6 @@
                     width="200">
                     <template slot-scope="scope">
                       <el-input
-                        :disabled="!disabled"
                         :rows="1"
                         style="width: 10vw"
                         type="textarea"
@@ -506,7 +505,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor} from '../../../../utils/customize';
+  import {getDictionaryInfo, getSupplierinfor, getUserInfo} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -554,6 +553,7 @@
           countermeasure: '',
         }],
         data: [],
+        userlist: "",
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
         buttonList: [
@@ -562,11 +562,11 @@
             'name': 'button.save',
             'disabled': false,
           },
-          {
-            'key': 'generate',
-            'name': 'button.generate',
-            'disabled': false
-          },
+          // {
+          //   'key': 'generate',
+          //   'name': 'button.generate',
+          //   'disabled': false
+          // },
         ],
       };
     },
@@ -579,9 +579,9 @@
         if (val === 'save') {
           this.updateexpatriatesinfor();
         }
-        if (val === 'generate') {
-          this.createDeleginformation();
-        }
+        // if (val === 'generate') {
+        //   this.createDeleginformation();
+        // }
       },
       updateexpatriatesinfor() {
         this.loading = true;
@@ -656,10 +656,15 @@
         this.$store
           .dispatch('PFANS6006Store/getDelegainformation', {})
           .then(response => {
-            console.log(response);
             for (let j = 0; j < response.length; j++) {
-              if (response[j].suppliernameid !== null && response[j].suppliernameid !== '') {
-                let supplierInfo = getSupplierinfor(response[j].suppliernameid);
+              if (response[j].managerid !== null && response[j].managerid !== '') {
+                let rst = getUserInfo(response[j].managerid)
+                if (rst) {
+                  response[j].managerid = rst.userinfo.customername;
+                }
+              }
+              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
+                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
                 if (supplierInfo) {
                   response[j].suppliernameid = supplierInfo.supchinese;
                 }
@@ -711,6 +716,29 @@
                 if (letStage != null) {
                   response[j].countermeasure = letStage.value1;
                 }
+              }
+              if (response[j].venuetarget == "是") {
+                let arr = [
+                  response[j].april,
+                  response[j].may,
+                  response[j].june,
+                  response[j].july,
+                  response[j].august,
+                  response[j].september,
+                  response[j].october,
+                  response[j].november,
+                  response[j].december,
+                  response[j].january,
+                  response[j].february,
+                  response[j].march
+                ];
+                var h = 0;
+                for (let i = 0; i < arr.length; i++) {
+                  if (arr[i] != null && arr[i] != "0.00") {
+                    h++;
+                  }
+                }
+                response[j].monthlength = h;
               }
             }
             this.tableData = response;

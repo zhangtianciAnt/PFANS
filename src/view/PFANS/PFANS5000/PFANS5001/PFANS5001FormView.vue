@@ -2112,8 +2112,8 @@
                             vote1.expname = response[i].expname;
                             vote1.suppliername = response[i].suppliername;
                             vote1.post = response[i].post;
-                            vote1.suppliernameid = response[i].expatriatesinfor_id;
-                            this.gridData1.push(vote1);
+                          vote1.suppliernameid = response[i].supplierinfor_id;
+                          this.gridData1.push(vote1);
                         }
                         this.centerorglist = this.form.center_id;
                         this.grouporglist = this.form.group_id;
