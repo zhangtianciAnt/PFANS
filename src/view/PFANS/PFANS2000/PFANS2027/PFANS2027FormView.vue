@@ -459,10 +459,17 @@
                 ratios:[],
                 form1:{
                     evaluationday: new Date(),
-                    subjectmon:'PJ103',
-                    evaluatenum:'PJ104',
-                    user_id: this.$store.getters.userinfo.userid,
-                    examinationobject_id:'1',
+                    evaluatenum: '',
+                    subjectmon: '',
+                    lunarbonus_id:this.$route.params._id,
+                    examinationobject_id: 1,
+
+                },
+                form2:{
+                    evaluationday: new Date(),
+                    lunarbonus_id:this.$route.params._id,
+                    examinationobject_id: 1,
+
                 },
                 name:'',
                 examinationobjects: [],
@@ -476,43 +483,6 @@
                     lunarbonus_id: '',
                     examinationobject_id: '1'
                 },*/
-                lunardetail:{
-                    lunardetail_id: '',
-                    lunarbonus_id: '',
-                    user_id: '',
-                    rn: '',
-                    enterday: '',
-                    group_id: '',
-                    team_id: '',
-                    salary: '',
-                    workrate: '',
-                    bonussign: '',
-                    lastsymbol: '',
-                    tatebai: '',
-                    satoshi: '',
-                    organization: '',
-                    systematics: '',
-                    manpower: '',
-                    scale: '',
-                    achievement: '',
-                    degree: '',
-                    assignment: '',
-                    teamwork: '',
-                    humandevelopment: '',
-                    workattitude: '',
-                    overallscore: '',
-                    commentaryreturns: '',
-                    commentaryresult: '',
-                    comprehensiveone: '',
-                    comprehensivetwo: '',
-                    firstmonth: '',
-                    secondmonth: '',
-                    thirdmonth: '',
-                    subjectmon: '',
-                    evaluatenum: '',
-                    difference: '',
-                    evaluationday: '',
-                },
                 form: {
                     tabledata: []
                 },
@@ -548,6 +518,9 @@
         },
         mounted(){
             //let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
+
+            this.selectbyid()
+
             this.loading = true;
             if (this.$route.params._id) {
                 if(this.$route.params.show){//view
@@ -558,6 +531,33 @@
             }
         },
         methods: {
+
+            //获取下拉列表的初始值
+
+            selectbyid() {
+                if (this.$route.params._id) {
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS2027Store/getOne', {'lunarbonus_id': this.$route.params._id})
+                        .then(response => {
+                            if (response) {
+                                this.form1 = response;
+                            }
+                            console.log("responseselectbyid",response)
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }
+            },
+
+
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
@@ -578,7 +578,7 @@
                 this.form1.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
                 this.$store
-                    .dispatch("PFANS2027Store/getLunardetails", this.form1)
+                    .dispatch("PFANS2027Store/getLunardetails", this.form2)
                     .then(response => {
                         debugger;
                         console.log(response);
@@ -669,12 +669,27 @@
                                     }
                                 }
 
-
                                 this.form.tabledata.push(response[i]);
                             }
 
                         }
                         this.loading = false;
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        Message({
+                            message: err,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                    });
+
+                this.$store
+                    .dispatch("PFANS2027Store/getExaminationobject")
+                    .then(response => {
+                        for(let i = 0;i<response.length;i++){
+                            this.examinationobjects.push(response[i]);
+                        }
                     })
                     .catch(err => {
                         this.loading = false;
