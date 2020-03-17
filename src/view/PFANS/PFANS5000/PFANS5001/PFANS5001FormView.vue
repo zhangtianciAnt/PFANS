@@ -278,22 +278,27 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" name="second">
               <el-row>
-                <!--                <el-col :span="8">-->
-                <!--                  <el-form-item-->
-                <!--                    :error="errorLeader"-->
-                <!--                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-                <!--                    prop="leaderid"-->
-                <!--                  >-->
-                <!--                    <user-->
-                <!--                      :disabled="!disable"-->
-                <!--                      :error="errorLeader"-->
-                <!--                      :selectType="selectType"-->
-                <!--                      :userlist="userlist"-->
-                <!--                      @getUserids="getUserids"-->
-                <!--                      style="width: 20vw"-->
-                <!--                    ></user>-->
-                <!--                  </el-form-item>-->
-                <!--                </el-col>-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
+                    <el-switch
+                      active-color="#13ce66"
+                      inactive-color="#13ce66"
+                      active-value="1"
+                      inactive-value="0"
+                      active-text="内采"
+                      inactive-text="通常"
+                      v-model="form.toolstype">
+                    </el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row v-show="form.toolstype === '1'">
+                <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
+                  <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="3" @getOrgids="setToolsorgs"
+                       style="width:20vw"></org>
+                </el-form-item>
+              </el-row>
+              <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
                   <el-form-item :error="errorLeader" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                                 prop="errorLeader">
@@ -349,7 +354,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
+              <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
                   <el-form-item
                     :label="$t('label.PFANS5001FORMVIEW_INTELLIGENCE')"
@@ -1600,6 +1605,9 @@
             }
         },
         methods: {
+          setToolsorgs(val){
+            this.form.toolsorgs = val;
+          },
             getcontract() {
                 this.contractapplication = {};
                 this.contractapplication.entrycondition = [];
