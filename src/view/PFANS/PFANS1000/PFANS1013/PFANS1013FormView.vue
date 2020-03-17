@@ -867,7 +867,7 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -881,7 +881,7 @@
                                      prop="travelallowance" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -2266,26 +2266,6 @@
       getCity(row) {
         this.getTravel(row);
       },
-      getCompanyen(val, row) {
-        if (this.companyen != '') {
-          if (this.companyen == 'ADMN' || this.companyen == 'FPO' || this.companyen == 'DANP') {
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-              row.subjectnumber = dic.value3;
-            }
-          } else {
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-              row.subjectnumber = dic.value2;
-            }
-          }
-        } else {
-          let dic = getDictionaryInfo(val);
-          if (dic) {
-            row.subjectnumber = dic.value2;
-          }
-        }
-      },
       getcostitem(val, row) {
         row.costitem = val;
         this.getTravel(row);
@@ -2325,14 +2305,27 @@
         }
         var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
         if (this.form.type === '0') {
-          if (row.costitem === 'PJ126001') {
+          if (row.accountcode === 'PJ119001') {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                  jpvalueflg = jpregion1;
+                  debugger;
+                  if(row.travelallowance / diffDate > jpregion1){
+                    Message({
+                      message: this.$t('1111111'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
                 } else {
-                  jpvalueflg = jpregion2;
+                  if(row.travelallowance / diffDate > jpregion2){
+                    Message({
+                      message: this.$t('22222'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
                 }
               }
             } else if (row.facilitytype === 'PJ035002') {
@@ -2352,7 +2345,6 @@
             row.travelallowance = 150 * diffDate;
           } else if (row.costitem === 'PJ126003') {
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
-            ;
           }
         } else if (this.form.type === '1') {
           var accfig;
