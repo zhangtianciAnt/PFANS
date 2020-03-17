@@ -1,4 +1,12 @@
-import {createvariousfundsApply, getvariousfunds, getvariousfundsApplyOne, updatevariousfundsApply,getFpans5001List,getexpatriatesinfor,} from './PFANS6007Api'
+import {
+  createvariousfundsApply,
+  getvariousfunds,
+  getPjnameList,
+  getvariousfundsApplyOne,
+  updatevariousfundsApply,
+  getFpans5001List,
+  getexpatriatesinfor,
+} from './PFANS6007Api'
 const PFANS6007Store = {
   namespaced: true,
   state: {},
@@ -7,6 +15,19 @@ const PFANS6007Store = {
     getvariousfunds() {
       return new Promise((resolve, reject) => {
         getvariousfunds().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getPjnameList() {
+      return new Promise((resolve, reject) => {
+        getPjnameList().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

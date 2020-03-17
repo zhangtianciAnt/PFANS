@@ -8,6 +8,14 @@ export function getvariousfunds(data) {
   })
 }
 
+export function getPjnameList(data) {
+  return request({
+    url: 'companyprojects/getPjnameList',
+    method: 'post',
+    params: data
+  })
+}
+
 export function getvariousfundsApplyOne(data) {
   return request({
     url: 'variousfunds/one',
