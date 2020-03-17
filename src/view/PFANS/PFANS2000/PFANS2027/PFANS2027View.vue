@@ -82,16 +82,7 @@
                 code15: 'PJ104',
                 disabled: false,
                 name:'',
-                examinationobjects: [
-                    {
-                        examinationobject_id: 12,
-                        name: 'AAA'
-                    },
-                    {
-                        examinationobject_id: 13,
-                        name: '123'
-                    }
-                ],
+                examinationobjects: [],
                 form:{
                     evaluationday: new Date(),
                     evaluatenum:'',
@@ -183,7 +174,6 @@
                 this.form.subject = getDictionaryInfo('PJ103003').value2;
             }
             let user = getUserInfo(this.form.user_id);
-            console.log(user.userinfo.post);
             //获取本用户的职位
             let postcode = user.userinfo.post;
             if(postcode === 'PJ105005'){
@@ -195,7 +185,24 @@
             if(postcode === 'PJ105002'){
                 this.form.evaluatenum = getDictionaryInfo('PJ104003').value1;
             }
+
+            this.$store
+                .dispatch("PFANS2027Store/getExaminationobject")
+                .then(response => {
+                    for(let i = 0;i<response.length;i++){
+                        this.examinationobjects.push(response[i]);
+                    }
+                })
+                .catch(err => {
+                    this.loading = false;
+                    Message({
+                        message: err,
+                        type: "error",
+                        duration: 5 * 1000
+                    });
+                });
         },
+
         /*beforeUpdate(){
             this.get();
         },*/
