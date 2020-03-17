@@ -111,34 +111,8 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')">
-                      <dicselect :code="code4"
-                                 :data="form.currency"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getCurrency"
-                                 style="width:20vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYRATE')">
-                      <el-input-number
-                        :disabled="!disablecurr"
-                        :max="999999"
-                        :min="0"
-                        :precision="3"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:20vw"
-                        @change="getCurrencyrate"
-                        v-model="form.currencyrate">
-                      </el-input-number>
-                    </el-form-item>
-                  </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TORMB')">
                       <el-input-number
@@ -656,6 +630,49 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <dicselect :code="code4"
+                                       :data="scope.row.currency"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       :disabled="disa"
+                                       @change="getCurrency"
+                                       style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disablecurr"
+                              :max="999999"
+                              :min="0"
+                              :precision="3"
+                              :step="0.01"
+                              @change="getCurrencyrate(scope.row)"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.currencyrate"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :max="1000000000"
+                              :min="0"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.tormb"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
                                          width="150">
                           <template slot-scope="scope">
@@ -775,7 +792,7 @@
                             <el-input :disabled="!disable" style="width: 100%"
                                       maxlength="20"
                                       v-model="scope.row.procurementdetails"
-                                      >
+                            >
                             </el-input>
                           </template>
                         </el-table-column>
@@ -812,6 +829,49 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.foreigncurrency"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <dicselect :code="code4"
+                                       :data="scope.row.currency"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       :disabled="disa"
+                                       @change="getCurrency"
+                                       style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disablecurr"
+                              :max="999999"
+                              :min="0"
+                              :precision="3"
+                              :step="0.01"
+                              @change="getCurrencyrate(scope.row)"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.currencyrate"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :max="1000000000"
+                              :min="0"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.tormb"
                             ></el-input-number>
                           </template>
                         </el-table-column>
@@ -970,6 +1030,49 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.foreigncurrency"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <dicselect :code="code4"
+                                       :data="scope.row.currency"
+                                       :multiple="multiple"
+                                       :no="scope.row"
+                                       :disabled="disa"
+                                       @change="getCurrency"
+                                       style="width: 100%">
+                            </dicselect>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disablecurr"
+                              :max="999999"
+                              :min="0"
+                              :precision="3"
+                              :step="0.01"
+                              @change="getCurrencyrate(scope.row)"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.currencyrate"
+                            ></el-input-number>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
+                                         width="150">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="true"
+                              :max="1000000000"
+                              :min="0"
+                              :precision="2"
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.tormb"
                             ></el-input-number>
                           </template>
                         </el-table-column>
@@ -1169,6 +1272,8 @@
             };
             return {
                 optionsdate: [],
+                tormbT: '',
+                Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
                 startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
@@ -1178,6 +1283,7 @@
                 tablePValue: '',
                 tableRValue: '',
                 errorsuppliername: '',
+                disa: true,
                 error: '',
                 gridData: [],
                 dialogTableVisible: false,
@@ -1211,10 +1317,13 @@
                     trafficdetails_id: '',
                     trafficdate: '',
                     invoicenumber: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     plsummary: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     subjectnumber: '',
                     region: '',
                     accountcode: '',
@@ -1242,10 +1351,13 @@
                     invoicenumber: '',
                     taxes: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     purchasedetailsdate: '',
                     plsummary: '',
                     procurementdetails: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     subjectnumber: '',
                     rmb: '',
                     accountcode: '',
@@ -1268,8 +1380,11 @@
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     accountcode: '',
                     subjectnumber: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     remarks: '',
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     rmb: '',
                     foreigncurrency: '',
                     taxes: '',
@@ -1290,10 +1405,8 @@
                     accountnumber: '',
                     reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
                     moneys: '',
-                    currency: '',
                     foreigncurrency: '',
                     rmbexpenditure: '',
-                    currencyrate: '',
                     tormb: '',
                     remark: '',
                     paymentmethod: '',
@@ -1432,7 +1545,7 @@
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
-            this.IDname =this.$route.params._id
+            this.IDname = this.$route.params._id
             if (this.IDname) {
                 this.loading = true;
                 this.$store
@@ -1522,7 +1635,6 @@
                         }
                         if (response.purchasedetails.length > 0) {
                             this.tableP = response.purchasedetails;
-                            console.log("aaa",this.tableP)
                             for (var i = 0; i < this.tableP.length; i++) {
                                 this.orglist = this.tableP[i].departmentname;
                                 if (this.tableP[i].plsummary == 'PJ111001') {
@@ -1600,8 +1712,8 @@
                         }
                         if (response.otherdetails.length > 0) {
                             this.tableR = response.otherdetails;
-                            for (let i = 0; i <  this.tableR.length; i++) {
-                                this.orglist =  this.tableR[i].departmentname;
+                            for (let i = 0; i < this.tableR.length; i++) {
+                                this.orglist = this.tableR[i].departmentname;
                                 if (this.tableR[i].plsummary == 'PJ111001') {
                                     let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                     if (letErrortype != null) {
@@ -1768,11 +1880,6 @@
                 },
             },
         },
-        watch: {
-            foreigncurrency(val) {
-                this.form.tormb = Math.round((val * this.form.currencyrate) * 100) / 100;
-            },
-        },
         methods: {
             checkoptionsdata() {
                 this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), lable: ''}];
@@ -1812,59 +1919,107 @@
                         this.loading = false;
                     });
             },
-            getGroupId(orglist, row) {
-                row.departmentname = orglist;
+            getGroupId(orglist, row,) {
+                this.Redirict = '',
+                    row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
                 if (group) {
                     this.companyen = group.companyen;
+                    this.Redirict = group.redirict;
                     row.budgetcoding = group.encoding;
                 }
             },
             getplsummary(val, row) {
                 row.accountcode = '',
                     row.plsummary = val;
-                if (val == 'PJ111001') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ112';
-                } else if (val == 'PJ111002') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ113';
-                } else if (val == 'PJ111003') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ114';
-                } else if (val == 'PJ111004') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ115';
-                } else if (val == 'PJ111005') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ116';
-                } else if (val == 'PJ111006') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ117';
-                } else if (val == 'PJ111007') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ118';
-                } else if (val == 'PJ111008') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ119';
-                } else if (val == 'PJ111009') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ120';
-                } else if (val == 'PJ111010') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ121';
-                } else if (val == 'PJ111011') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ122';
-                } else if (val == 'PJ111012') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ123';
-                } else if (val == 'PJ111013') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ124';
-                } else if (val == 'PJ111014') {
-                    row.accountcode = '',
-                        this.code16 = 'PJ125';
+                if (this.Redirict == '0') {
+                    if (val == 'PJ111001') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ112';
+                    } else if (val == 'PJ111002') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ113';
+                    } else if (val == 'PJ111003') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ114';
+                    } else if (val == 'PJ111004') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111005') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ116';
+                    } else if (val == 'PJ111006') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ117';
+                    } else if (val == 'PJ111007') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ118';
+                    } else if (val == 'PJ111008') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ119';
+                    } else if (val == 'PJ111009') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ120';
+                    } else if (val == 'PJ111010') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ121';
+                    } else if (val == 'PJ111011') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ122';
+                    } else if (val == 'PJ111012') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ123';
+                    } else if (val == 'PJ111013') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111014') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ125';
+                    }
+                } else if (this.Redirict == '1') {
+                    if (val == 'PJ111001') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ127';
+                    } else if (val == 'PJ111002') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ128';
+                    } else if (val == 'PJ111003') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ129';
+                    } else if (val == 'PJ111004') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ115';
+                    } else if (val == 'PJ111005') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ130';
+                    } else if (val == 'PJ111006') {
+                        row.accountcode = '',
+                            this.code16 = '';
+                    } else if (val == 'PJ111007') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ131';
+                    } else if (val == 'PJ111008') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ132';
+                    } else if (val == 'PJ111009') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ133';
+                    } else if (val == 'PJ111010') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ134';
+                    } else if (val == 'PJ111011') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ135';
+                    } else if (val == 'PJ111012') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ136';
+                    } else if (val == 'PJ111013') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ124';
+                    } else if (val == 'PJ111014') {
+                        row.accountcode = '',
+                            this.code16 = 'PJ137';
+                    }
                 }
             },
             getcode(val, row) {
@@ -1998,29 +2153,32 @@
             getmodule(val) {
                 this.form.moduleid = val;
             },
-            getCurrency(val) {
-                this.form.currency = val;
+            getCurrency(val, row) {
+                row.currency = val;
                 if (val === 'PJ003001') {
                     this.disablecurr = false;
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.form.currencyrate = dictionaryInfo.value2;
+                        row.currencyrate = dictionaryInfo.value2;
                     }
                 } else if (val === 'PJ003002') {
                     this.disablecurr = false;
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.form.currencyrate = dictionaryInfo.value2;
+                        row.currencyrate = dictionaryInfo.value2;
                     }
                 } else if (val === 'PJ003003') {
                     this.disablecurr = true;
-                    this.form.currencyrate = '';
+                    row.currencyrate = '';
                 }
-                this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
+                row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
+                this.tormbT = Number(this.tormbT) + row.tormb;
+                this.form.tormb = this.tormbT;
             },
-            getCurrencyrate(val) {
-                this.form.currencyrate = val;
-                this.form.tormb = Math.round((this.form.foreigncurrency * this.form.currencyrate) * 100) / 100;
+            getCurrencyrate(row) {
+                row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
+                this.tormbT = Number(this.tormbT) + row.tormb;
+                this.form.tormb = this.tormbT;
             },
             deleteRow(index, rows, row) {
                 if (rows.length > 1) {
@@ -2036,6 +2194,9 @@
                         plsummary: '',
                         region: '',
                         subjectnumber: '',
+                        currency: '',
+                        currencyrate: '',
+                        tormb: '',
                         vehicle: '',
                         startingpoint: '',
                         rmb: '',
@@ -2056,6 +2217,9 @@
                         taxes: '',
                         plsummary: '',
                         purchasedetailsdate: '',
+                        currency: '',
+                        currencyrate: '',
+                        tormb: '',
                         procurementdetails: '',
                         subjectnumber: ' ',
                         rmb: '',
@@ -2077,6 +2241,9 @@
                         plsummary: '',
                         departmentname: '',
                         accountcode: '',
+                        currency: '',
+                        currencyrate: '',
+                        tormb: '',
                         subjectnumber: '',
                         budgetcoding: '',
                         remarks: '',
@@ -2109,8 +2276,11 @@
                     invoicenumber: '',
                     accountcode: '',
                     taxes: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     subjectnumber: '',
                     plsummary: '',
                     region: '',
@@ -2146,11 +2316,14 @@
                     purchasedetails_id: '',
                     invoicenumber: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     purchasedetailsdate: '',
                     procurementdetails: '',
                     accountcode: '',
                     plsummary: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     subjectnumber: '',
                     taxes: '',
                     rmb: '',
@@ -2171,11 +2344,14 @@
                     otherdetailsdate: '',
                     invoicenumber: '',
                     costitem: '',
+                    currency: '',
+                    currencyrate: '',
+                    tormb: '',
                     departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',
-                    budgetcoding: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                     remarks: '',
                     rmb: '',
                     foreigncurrency: '',
@@ -2296,6 +2472,7 @@
             },
             changeRMB(newValue) {
                 for (let j = 0; j < this.tableF.length; j++) {
+                    let taxratevalue = 0;
                     if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
                         if (newValue.rmb != '') {
                             if (this.tableF[j].taxrate != '') {
@@ -2308,13 +2485,21 @@
                                 } else if (this.tableF[j].taxrate == 'PJ071004') {
                                     this.taxrateValue = '0.13'
                                 }
-                                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
+                                taxratevalue = 1 + Number(this.taxrateValue);
+                                newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue)
                             }
                         }
                     }
                 }
+
+
                 if (newValue.rmb > 0) {
                     newValue.foreigncurrency = '';
+                    newValue.currencyrate = '';
+                    newValue.tormb = '';
+                    newValue.currency = '';
+                    this.form.tormb = '';
+                    this.disa = true;
                     newValue.display = false;
                     this.$nextTick(() => {
                         newValue.display = true;
@@ -2324,14 +2509,17 @@
             changeForeigncurrency(newValue) {
                 if (newValue.foreigncurrency > 0) {
                     newValue.rmb = '';
+                    newValue.currencyrate = '';
+                    newValue.tormb = '';
+                    newValue.currency = '';
+                    this.form.tormb = '';
+                    this.disa = false;
                     newValue.display = false;
                     this.$nextTick(() => {
                         newValue.display = true;
                     });
                 }
             },
-
-
             // 判断是否IE??器
             MyBrowserIsIE() {
                 let isIE = false;
@@ -2448,7 +2636,7 @@
                             this.invoiceamountsum = sum;
                             if (this.form.type === 'PJ001001') {
                                 for (let i = 0; i < this.tableT.length; i++) {
-                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' ||this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                                         || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
                                         this.baseInfo.trafficdetails.push(
                                             {
@@ -2461,6 +2649,9 @@
                                                 plsummary: this.tableT[i].plsummary,
                                                 departmentname: this.tableT[i].departmentname,
                                                 budgetcoding: this.tableT[i].budgetcoding,
+                                                currency: this.tableT[i].currency,
+                                                currencyrate: this.tableT[i].currencyrate,
+                                                tormb: this.tableT[i].tormb,
                                                 subjectnumber: this.tableT[i].subjectnumber,
                                                 region: this.tableT[i].region,
                                                 vehicle: this.tableT[i].vehicle,
@@ -2488,6 +2679,9 @@
                                                 budgetcoding: this.tableP[i].budgetcoding,
                                                 plsummary: this.tableP[i].plsummary,
                                                 accountcode: this.tableP[i].accountcode,
+                                                currency: this.tableP[i].currency,
+                                                currencyrate: this.tableP[i].currencyrate,
+                                                tormb: this.tableP[i].tormb,
                                                 purchasedetailsdate: this.tableP[i].purchasedetailsdate,
                                                 procurementdetails: this.tableP[i].procurementdetails,
                                                 subjectnumber: this.tableP[i].subjectnumber,
@@ -2512,6 +2706,9 @@
                                                 departmentname: this.tableR[i].departmentname,
                                                 accountcode: this.tableR[i].accountcode,
                                                 plsummary: this.tableR[i].plsummary,
+                                                currency: this.tableR[i].currency,
+                                                currencyrate: this.tableR[i].currencyrate,
+                                                tormb: this.tableR[i].tormb,
                                                 subjectnumber: this.tableR[i].subjectnumber,
                                                 budgetcoding: this.tableR[i].budgetcoding,
                                                 remarks: this.tableR[i].remarks,
@@ -2529,7 +2726,7 @@
                                 for (let j = 0; j < this.tableF.length; j++) {
                                     let summoney = 0;
                                     for (let i = 0; i < this.tableT.length; i++) {
-                                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== ''  || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                                             || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
                                             if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
                                                 if (this.tableT[i].rmb != '0') {
@@ -2539,7 +2736,7 @@
                                             }
                                         }
                                     }
-                                    if (summoney != this.tableF[j].invoiceamount) {
+                                    if (summoney != this.tableF[j].invoiceamount && summoney != '0') {
                                         error = error + 1;
                                         Message({
                                             message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
@@ -2578,7 +2775,7 @@
                                         }
                                     }
                                     sumout = summoney + sumMoney;
-                                    if (sumout != this.tableF[j].invoiceamount) {
+                                    if (sumout != this.tableF[j].invoiceamount && sumout != '0') {
                                         error = error + 1;
                                         Message({
                                             message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
@@ -2648,23 +2845,23 @@
 
                     });
                 } else if (val === 'export') {
-                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012FORMVIEW_PL') , this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
+                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012FORMVIEW_PL'), this.$t('label.PFANS1012FORMVIEW_ACCOUNT'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
                         this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
                         this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012FORMVIEW_TAXES'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
                     let filterVal = ['trafficdate', 'invoicenumber', 'plsummary', 'accountcode', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
                     let csvData = [];
                     var tableTdata = this.tableT;
                     for (let i = 0; i < tableTdata.length; i++) {
-                        if (tableTdata[i].plsummary!== null && tableTdata[i].plsummary!== '') {
+                        if (tableTdata[i].plsummary !== null && tableTdata[i].plsummary !== '') {
                             let letErrortype = getDictionaryInfo(tableTdata[i].plsummary);
                             if (letErrortype != null) {
-                                tableTdata[i].plsummary= letErrortype.value1;
+                                tableTdata[i].plsummary = letErrortype.value1;
                             }
                         }
-                        if (tableTdata[i].accountcode!== null && tableTdata[i].accountcode!== '') {
+                        if (tableTdata[i].accountcode !== null && tableTdata[i].accountcode !== '') {
                             let letErrortype = getDictionaryInfo(tableTdata[i].accountcode);
                             if (letErrortype != null) {
-                                tableTdata[i].accountcode= letErrortype.value1;
+                                tableTdata[i].accountcode = letErrortype.value1;
                             }
                         }
                         if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== '') {

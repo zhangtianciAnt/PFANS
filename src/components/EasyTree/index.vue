@@ -21,7 +21,6 @@
       :load="loadNode"
       :node-key="nodeid"
       :props="defaultProps"
-      :render-content="renderContent"
       :show-checkbox="showCheckbox"
       @node-click="nodeClick"
       class="filter-tree"

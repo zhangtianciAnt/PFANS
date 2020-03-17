@@ -1,45 +1,63 @@
 <template>
-<!--  <div>-->
-<!--    <div>-->
-<!--      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"-->
-<!--               ref="refform">-->
-<!--      <el-container>-->
-<!--        <el-dialog   :visible.sync="dialogFormVisible">-->
-<!--          &lt;!&ndash;<el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >-->
-<!--            <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>-->
-<!--          </el-form-item>&ndash;&gt;-->
-<!--          <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">-->
-<!--            <dicselect-->
-<!--              :code="code14"-->
-<!--              :data="form.subjectmon"-->
-<!--              @change="changecommentarymonths"-->
-<!--              style="width: 10rem"-->
-<!--              >-->
-<!--            </dicselect>-->
-<!--          </el-form-item>-->
+  <div>
+    <div>
+      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
+               ref="refform">
+      <el-container>
+        <el-dialog   :visible.sync="dialogFormVisible">
+          <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
+            <el-date-picker type="year" style="width: 10rem" v-model="form.evaluationday"></el-date-picker>
+          </el-form-item>
+          <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
+            <dicselect
+              :code="code14"
+              :data="form.subjectmon"
+              @change="changecommentarymonths"
+              style="width: 10rem"
+              >
+            </dicselect>
+          </el-form-item>
 
-<!--          <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">-->
-<!--            <dicselect-->
-<!--              :code="code15"-->
-<!--              :data="form.evaluatenum"-->
-<!--              @change="changeevaluationtime"-->
-<!--              style="width: 10rem"-->
-<!--              >-->
-<!--            </dicselect>-->
-<!--          </el-form-item>-->
-<!--          <div  class="dialog-footer" align="center">-->
-<!--                      <span slot="footer" class="dialog-footer">-->
-<!--                                  <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>-->
-<!--                      </span>-->
-<!--          </div>-->
-<!--        </el-dialog>-->
-<!--      </el-container>-->
-<!--      </el-form>-->
-<!--    </div>-->
+          <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
+            <dicselect
+              :code="code15"
+              :data="form.evaluatenum"
+              @change="changeevaluationtime"
+              style="width: 10rem"
+              >
+            </dicselect>
+            <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
+                <!--<dicselect
+                  :data="form.examinationobject_id"
+                  style="width: 10rem"
+                  :disabled="disabled">
+                  <el-option v-for="(item,index) in examinationobjects" :key="index" :value="item.name">
+                    {{item.name}}
+                  </el-option>
+                </dicselect>-->
+
+              <el-select v-model="name" style="width: 10rem" @change="changeExamination">
+                <el-option v-for="(item,index) in examinationobjects" :key="index" :value="item.name">
+                  {{item.name}}
+                </el-option>
+              </el-select>
+
+            </el-form-item>
+
+          <div  class="dialog-footer" align="center">
+                      <span slot="footer" class="dialog-footer">
+                                  <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>
+                      </span>
+          </div>
+          </el-form-item>
+        </el-dialog>
+      </el-container>
+      </el-form>
+    </div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-<!--  </div>-->
+ </div>
 </template>
 
 <script>
@@ -62,10 +80,15 @@
                 data: [],
                 code14: 'PJ103',
                 code15: 'PJ104',
+                disabled: false,
+                name:'',
+                examinationobjects: [],
                 form:{
+                    evaluationday: new Date(),
                     evaluatenum:'',
                     subjectmon:'',
                     subject:'',
+                    examinationobject_id: '',
                     user_id: this.$store.getters.userinfo.userid,
                 },
                 columns: [
@@ -135,38 +158,54 @@
             this.get();
             let month = new Date().getMonth() + 1;
             if(month >= 1 && month <=3){
-                this.form.subjectmon = getDictionaryInfo('PJ103004').value1;
-                this.form.subject = getDictionaryInfo('PJ103004').value2;
+                this.form.subjectmon = 'PJ103004';
+                this.form.subject = 'PJ103004';
             }
             if(month >= 4 && month <=6){
-                this.form.subjectmon = getDictionaryInfo('PJ103001').value1;
-                this.form.subject = getDictionaryInfo('PJ103001').value2;
+                this.form.subjectmon = 'PJ103001';
+                this.form.subject = 'PJ103001';
             }
             if(month >= 7 && month <=9){
-                this.form.subjectmon = getDictionaryInfo('PJ103002').value1;
-                this.form.subject = getDictionaryInfo('PJ103002').value2;
+                this.form.subjectmon = 'PJ103002';
+                this.form.subject = 'PJ103002';
             }
             if(month >= 10 && month <=12){
-                this.form.subjectmon = getDictionaryInfo('PJ103003').value1;
-                this.form.subject = getDictionaryInfo('PJ103003').value2;
+                this.form.subjectmon = 'PJ103003';
+                this.form.subject = 'PJ103003';
             }
             let user = getUserInfo(this.form.user_id);
-            console.log(user.userinfo.post);
             //获取本用户的职位
             let postcode = user.userinfo.post;
             if(postcode === 'PJ105005'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104001').value1;
+                this.form.evaluatenum = 'PJ104001';
             }
             if(postcode === 'PJ105003'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104002').value1;
+                this.form.evaluatenum = 'PJ104002';
             }
             if(postcode === 'PJ105002'){
-                this.form.evaluatenum = getDictionaryInfo('PJ104003').value1;
+                this.form.evaluatenum = 'PJ104003';
             }
+
+            this.$store
+                .dispatch("PFANS2027Store/getExaminationobject")
+                .then(response => {
+                    for(let i = 0;i<response.length;i++){
+                        this.examinationobjects.push(response[i]);
+                    }
+                })
+                .catch(err => {
+                    this.loading = false;
+                    Message({
+                        message: err,
+                        type: "error",
+                        duration: 5 * 1000
+                    });
+                });
         },
-        beforeUpdate(){
+
+        /*beforeUpdate(){
             this.get();
-        },
+        },*/
         methods: {
             rowClick(row) {
                 this.rowid = row.lunarbonus_id;
@@ -196,6 +235,15 @@
                     });
                 this.dialogFormVisible = false;
                 this.get();
+            },
+            changeExamination(val){
+                for(let i=0;i<this.examinationobjects.length;i++)
+                {
+                    if(val === this.examinationobjects[i].name){
+                        this.form.examinationobject_id = this.examinationobjects[i].examinationobject_id;
+                    }
+                }
+                console.log(this.form.examinationobject_id);
             },
             get(){
                 this.$store
