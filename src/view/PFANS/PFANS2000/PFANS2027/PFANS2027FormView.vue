@@ -1204,9 +1204,11 @@
 
             changeevaluationtime(val){
                 this.form1.evaluatenum = val;
+                console.log("this.form1",this.form1)
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
+                        debugger
                         console.log("response11111",response)
                         if(response){
                             for(let i=0;i < response.length;i++){

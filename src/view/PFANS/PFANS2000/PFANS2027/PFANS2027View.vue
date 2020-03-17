@@ -148,7 +148,9 @@
                     {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
                 ],
                 rowid: '',
-                row_id: 'lunarbonus_id'
+                row_id: 'lunarbonus_id',
+                subjectmon:'',
+                evaluatenum:'',
             };
         },
 
@@ -209,6 +211,8 @@
         methods: {
             rowClick(row) {
                 this.rowid = row.lunarbonus_id;
+                this.subjectmon = row.subjectmon;
+                this.evaluatenum = row.evaluatenum;
             },
             click(){
                 console.log("aaa",this.form);
@@ -216,6 +220,8 @@
                 this.$store
                     .dispatch("PFANS2027Store/insertLunarbonus", this.form)
                     .then(response => {
+
+                        this.get();
                         this.loading = false;
                         this.$message({
                             message: this.$t("normal.success_01"),
@@ -233,8 +239,9 @@
                             duration: 5 * 1000
                         });
                     });
+
                 this.dialogFormVisible = false;
-                this.get();
+                // this.get();
             },
             changeExamination(val){
                 for(let i=0;i<this.examinationobjects.length;i++)
@@ -321,6 +328,8 @@
                     this.$router.push({
                         name: 'PFANS2027FormView',
                         params: {
+                            _evaluatenum:this.evaluatenum,
+                            _subjectmon:this.subjectmon,
                             _id: this.rowid,
                             disabled: false,
                             show: true

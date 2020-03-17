@@ -32,7 +32,7 @@
               </el-radio>
             </el-col>
           </el-row>
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs type="border-card" v-model="activeName">
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TOTAL')" name="first">
               <div>
                 <el-row>
@@ -149,8 +149,8 @@
                         :min="0"
                         :precision="2"
                         controls-position="right"
-                        v-model="form.loanamount"
                         style="width:20vw"
+                        v-model="form.loanamount"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -164,8 +164,8 @@
                         :step="0.01"
                         @change="getMoney"
                         controls-position="right"
-                        v-model="form.totalpay"
                         style="width:20vw"
+                        v-model="form.totalpay"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -176,8 +176,8 @@
                         :max="9999999999"
                         :precision="2"
                         controls-position="right"
-                        v-model="form.balance"
                         style="width:20vw"
+                        v-model="form.balance"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -185,19 +185,19 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
+                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
                         <el-option
-                          v-for="item in optionsdate"
                           :key="item.value"
                           :label="item.lable"
-                          :value="item.value">
+                          :value="item.value"
+                          v-for="item in optionsdate">
                         </el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" v-show="show2">
                     <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
-                      <el-input :disabled="true" v-model="form.level" style="width: 20vw">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
                       </el-input>
                     </el-form-item>
                   </el-col>
@@ -221,7 +221,7 @@
                         <span class="collapse_Title">{{$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGE')}}</span>
                       </template>
                       <el-table :data="tableW"
-                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                                border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
                         <el-table-column :label="$t('label.PFANS1002VIEW_CURRENCY')" align="center" width="180">
                           <template slot-scope="scope">
                             <dicselect :code="code3"
@@ -235,35 +235,35 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGERATE')" align="center"
-                                         width="180"
-                                         prop="currencyexchangerate">
+                                         prop="currencyexchangerate"
+                                         width="180">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" v-model="scope.row.currencyexchangerate" style="width: 100%">
+                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.currencyexchangerate">
                             </el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1004VIEW_AMOUNT')" align="center" width="180">
                           <template slot-scope="scope">
-                            <el-input-number :min="0" :precision="2" :max="9999999"
-                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
-                                             :step="1" v-model="scope.row.amount" style="width: 100%">
+                            <el-input-number :max="9999999" :min="0" :no="scope.row"
+                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             controls-position="right" style="width: 100%" v-model="scope.row.amount">
                             </el-input-number>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERATE')" align="center" width="180">
                           <template slot-scope="scope">
-                            <el-input-number :min="0" :precision="2" :max="9999999"
-                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
-                                             :step="1" v-model="scope.row.exchangerate" style="width: 100%">
+                            <el-input-number :max="9999999" :min="0" :no="scope.row"
+                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangerate">
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" width="180"
-                                         prop="exchangermb">
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" prop="exchangermb"
+                                         width="180">
                           <template slot-scope="scope">
-                            <el-input-number :min="0" :precision="2" :max="9999999"
-                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
-                                             :step="1" v-model="scope.row.exchangermb" style="width: 100%">
+                            <el-input-number :max="9999999" :min="0" :no="scope.row"
+                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangermb">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -290,7 +290,7 @@
                       </el-table>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1013FORMVIEW_USEXCHANGERATE')">
-                          <el-input :disabled="true" v-model="form.usexchangerate" style="width:20vw">
+                          <el-input :disabled="true" style="width:20vw" v-model="form.usexchangerate">
                           </el-input>
                         </el-form-item>
                       </el-col>
@@ -304,7 +304,7 @@
                         <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
                       </template>
                       <el-table :data="tableF"
-                                header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                                border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
@@ -325,9 +325,9 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input-number :min="0" :precision="2" :max="9999999"
-                                             controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
-                                             :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
+                            <el-input-number :max="9999999" :min="0" :no="scope.row"
+                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             controls-position="right" style="width: 100%" v-model="scope.row.invoiceamount">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -342,35 +342,35 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
-                                         prop="debitamount">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" prop="debitamount"
+                                         width="150">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disable"
-                              :min="0" :precision="2"
-                              :max="9999999"
-                              controls-position="right"
+                              :max="9999999" :min="0"
                               :no="scope.row"
+                              :precision="2"
                               :step="1"
-                              v-model="scope.row.excludingtax"
                               @change="changeSum(scope.row)"
-                              style="width: 100%">
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.excludingtax">
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
-                                         prop="creditamount">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" prop="creditamount"
+                                         width="150">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
-                              :min="0" :precision="2"
-                              :max="9999999"
-                              controls-position="right"
+                              :max="9999999" :min="0"
                               :no="scope.row"
+                              :precision="2"
                               :step="1"
-                              v-model="scope.row.facetax"
                               @change="changeSum(scope.row)"
-                              style="width: 100%">
+                              controls-position="right"
+                              style="width: 100%"
+                              v-model="scope.row.facetax">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -407,11 +407,11 @@
                       <el-col :span="24">
                         <el-table :data="tableData"
                                   :summary-method="getDsummaries"
+                                  border
                                   header-cell-class-name="sub_bg_color_blue"
                                   show-summary
-                                  v-if="showdata"
-                                  stripe border
-                                  style="width: 46vw">
+                                  stripe style="width: 46vw"
+                                  v-if="showdata">
                           <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">
                             <template slot-scope="scope">
                               <dicselect :code="code14"
@@ -453,11 +453,11 @@
                         <el-col :span="24">
                           <el-table :data="tableData2"
                                     :summary-method="getsummaries"
+                                    border
                                     header-cell-class-name="sub_bg_color_blue"
                                     show-summary
-                                    v-if="showdata2"
-                                    stripe border
-                                    style="width: 70vw">
+                                    stripe style="width: 70vw"
+                                    v-if="showdata2">
                             <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
                               <template slot-scope="scope">
                                 <dicselect :code="code14"
@@ -563,12 +563,12 @@
               </div>
             </el-tab-pane>
             <!--            第二页-->
-            <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')"
-                         :disabled="this.form.business_id === '' ? true : false" name="second">
+            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
+                         :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second">
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableT" :summary-method="getTsummaries" header-cell-class-name="sub_bg_color_blue"
-                            show-summary stripe border>
+                  <el-table :data="tableT" :summary-method="getTsummaries" border
+                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
                     <el-table-column :label="$t('label.date')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%"
@@ -579,22 +579,22 @@
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
-                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value">
+                            :value="item.value"
+                            v-for="item in optionsdata">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :orglist="scope.row.departmentname"
-                             orgtype="2"
-                             :error="errorgroup"
-                             style="width: 100%"
+                        <org :error="errorgroup"
                              :no="scope.row"
-                             @getOrgids="getGroupId"></org>
+                             :orglist="scope.row.departmentname"
+                             @getOrgids="getGroupId"
+                             orgtype="2"
+                             style="width: 100%"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -605,21 +605,16 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
-                                   :disabled="!disable"
+                        <dicselect :code="code20"
                                    :data="scope.row.accountcode"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getcode" style="width: 100%">
@@ -629,13 +624,6 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
-                        </el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                  v-model="scope.row.remarks">
                         </el-input>
                       </template>
                     </el-table-column>
@@ -743,54 +731,46 @@
             </el-tab-pane>
 
             <!--            第三页-->
-            <el-tab-pane :label="$t('label.PFANS1013VIEW_ACCOMMODATION')"
-                         :disabled="this.form.business_id === '' ? true : false" name="third">
+            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
+                         :label="$t('label.PFANS1013VIEW_ACCOMMODATION')" name="third">
               <el-row>
                 <el-col :span="24">
                   <el-table :data="tableA" :summary-method="getAsummaries"
-                            header-cell-class-name="sub_bg_color_blue"
-                            show-summary stripe border>
+                            border
+                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
                     <el-table-column :label="$t('label.date')" align="center" width="400">
                       <template slot-scope="scope">
-                        <!--                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.accommodationdate">-->
-                        <!--                        </el-date-picker>-->
-                        <el-date-picker unlink-panels
-                                        class="bigWidth"
-                                        :disabled="!disable"
-                                        v-model.trim="scope.row.accommodationdate"
-                                        type="daterange"
+                        <el-date-picker :disabled="!disable"
                                         :end-placeholder="$t('label.enddate')"
                                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                                         :start-placeholder="$t('label.startdate')"
+                                        class="bigWidth"
+                                        type="daterange"
+                                        unlink-panels
+                                        v-model.trim="scope.row.accommodationdate"
                         ></el-date-picker>
                       </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_NEXTDAY')" align="center" width="80">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.nextday">-->
-                    <!--                        </el-input>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
-                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value">
+                            :value="item.value"
+                            v-for="item in optionsdata">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :orglist="scope.row.departmentname"
-                             orgtype="2"
-                             :error="errorgroup"
-                             style="width: 100%"
+                        <org :error="errorgroup"
                              :no="scope.row"
-                             @getOrgids="getGroupId"></org>
+                             :orglist="scope.row.departmentname"
+                             @getOrgids="getGroupId"
+                             orgtype="2"
+                             style="width: 100%"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -801,21 +781,16 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
-                                   :disabled="!disable"
+                        <dicselect :code="code20"
                                    :data="scope.row.accountcode"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getcode" style="width: 100%">
@@ -825,13 +800,6 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
-                        </el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                  v-model="scope.row.remarks">
                         </el-input>
                       </template>
                     </el-table-column>
@@ -846,36 +814,6 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <dicselect :code="code5"-->
-                    <!--                                   :data="scope.row.vehicle"-->
-                    <!--                                   :disabled="!disable"-->
-                    <!--                                   :multiple="multiple"-->
-                    <!--                                   :no="scope.row"-->
-                    <!--                                   @change="getvehicle">-->
-                    <!--                        </dicselect>-->
-                    <!--&lt;!&ndash;                        <dicselect :code="code6"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :data="scope.row.vehiclein"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :disabled="!disable"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :multiple="multiple"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   :no="scope.row"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   @change="getvehiclein"&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                   v-show="showrow4">&ndash;&gt;-->
-                    <!--&lt;!&ndash;                        </dicselect>&ndash;&gt;-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_MOVEMENTTIME')" align="center" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <dicselect :code="code7"-->
-                    <!--                                   :data="scope.row.movementtime"-->
-                    <!--                                   :disabled="!disable"-->
-                    <!--                                   :multiple="multiple"-->
-                    <!--                                   :no="scope.row"-->
-                    <!--                                   @change="getmovementtime">-->
-                    <!--                        </dicselect>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
                                      width="200">
                       <template slot-scope="scope">
@@ -904,14 +842,6 @@
                                    :no="scope.row"
                                    @change="getfacilitytypeon">
                         </dicselect>
-                        <!--                        <dicselect :code="code8"-->
-                        <!--                                   :data="scope.row.facilitytypein"-->
-                        <!--                                   :disabled="!disable"-->
-                        <!--                                   :multiple="multiple"-->
-                        <!--                                   :no="scope.row"-->
-                        <!--                                   @change="getfacilitytypein"-->
-                        <!--                                   v-show="showrow2">-->
-                        <!--                        </dicselect>-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="200">
@@ -921,8 +851,8 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
-                                     v-if="this.form.type === '0'? false : true"
-                                     prop="accommodationallowance" width="200">
+                                     prop="accommodationallowance"
+                                     v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code19"
                                    :data="scope.row.accommodationallowance"
@@ -931,40 +861,13 @@
                                    :no="scope.row"
                                    @change="getaccommodationallowance">
                         </dicselect>
-                        <!--                        <el-input-number-->
-                        <!--                          :disabled="true"-->
-                        <!--                          :max="1000000000"-->
-                        <!--                          :min="0"-->
-                        <!--                          :no="scope.row"-->
-                        <!--                          :precision="2"-->
-                        <!--                          @change="changeaccommodationallowance(scope.row)"-->
-                        <!--                          controls-position="right"-->
-                        <!--                          style="width: 100%"-->
-                        <!--                          v-model="scope.row.accommodationallowance"-->
-                        <!--                        ></el-input-number>-->
                       </template>
                     </el-table-column>
-                    <!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"-->
-                    <!--                                     prop="accommodation" width="200">-->
-                    <!--                      <template slot-scope="scope">-->
-                    <!--                        <el-input-number-->
-                    <!--                          :disabled="scope.row.disaccommod"-->
-                    <!--                          :max="1000000000"-->
-                    <!--                          :min="0"-->
-                    <!--                          :no="scope.row"-->
-                    <!--                          :precision="2"-->
-                    <!--                          @change="changeaccommodation(scope.row)"-->
-                    <!--                          controls-position="right"-->
-                    <!--                          style="width: 100%"-->
-                    <!--                          v-model="scope.row.accommodation"-->
-                    <!--                        ></el-input-number>-->
-                    <!--                      </template>-->
-                    <!--                    </el-table-column>-->
                     <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -978,7 +881,7 @@
                                      prop="travelallowance" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -994,45 +897,13 @@
                         <el-input-number
                           :disabled="true"
                           :precision="2"
+                          @change="changeRMB(scope.row)"
                           controls-position="right"
                           style="width: 100%"
-                          @change="changeRMB(scope.row)"
                           v-model="scope.row.taxes">
                         </el-input-number>
                       </template>
                     </el-table-column>
-<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_RELATIVES')" align="center" prop="relatives"-->
-<!--                                     v-else-->
-<!--                                     width="200">-->
-<!--                      <template slot-scope="scope">-->
-<!--                        <el-input-number-->
-<!--                          :disabled=true-->
-<!--                          :max="1000000000"-->
-<!--                          :min="0"-->
-<!--                          :precision="2"-->
-<!--                          controls-position="right"-->
-<!--                          style="width: 100%"-->
-<!--                          v-model="scope.row.relatives"-->
-<!--                        ></el-input-number>-->
-<!--                      </template>-->
-<!--                    </el-table-column>-->
-<!--                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAINTICK')" align="center" v-if="showAinner"-->
-<!--                                     width="200">-->
-<!--                      <template slot-scope="scope">-->
-<!--                        <el-input-number-->
-<!--                          :disabled="scope.row.showtick"-->
-<!--                          :max="1000000000"-->
-<!--                          :min="0"-->
-<!--                          :no="scope.row"-->
-<!--                          :precision="2"-->
-<!--                          @change="gettrain(scope.row)"-->
-<!--                          controls-position="right"-->
-<!--                          style="width: 100%"-->
-<!--                          v-model="scope.row.traintick"-->
-<!--                        ></el-input-number>-->
-<!--                      </template>-->
-<!--                    </el-table-column>-->
-
                     <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable" maxlength="36" v-model="scope.row.annexno">
@@ -1065,12 +936,12 @@
             </el-tab-pane>
 
             <!--            第四页-->
-            <el-tab-pane :label="$t('label.PFANS1012VIEW_OTHER')"
-                         :disabled="this.form.business_id === '' ? true : false" name="fourth">
+            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
+                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableR" :summary-method="getRsummaries" header-cell-class-name="sub_bg_color_blue"
-                            show-summary stripe border>
+                  <el-table :data="tableR" :summary-method="getRsummaries" border
+                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
                     <el-table-column :label="$t('label.date')" align="center" width="200">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">
@@ -1081,22 +952,22 @@
                       <template slot-scope="scope">
                         <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
-                            v-for="item in optionsdata"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value">
+                            :value="item.value"
+                            v-for="item in optionsdata">
                           </el-option>
                         </el-select>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                       <template slot-scope="scope">
-                        <org :orglist="scope.row.departmentname"
-                             orgtype="2"
-                             :error="errorgroup"
-                             style="width: 100%"
+                        <org :error="errorgroup"
                              :no="scope.row"
-                             @getOrgids="getGroupId"></org>
+                             :orglist="scope.row.departmentname"
+                             @getOrgids="getGroupId"
+                             orgtype="2"
+                             style="width: 100%"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -1107,20 +978,15 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
-                                   :disabled="!disable"
-                                   :data="scope.row.plsummary"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getplsummary" style="width: 100%">
-                        </dicselect>
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
                       <template slot-scope="scope">
-                        <dicselect :code="code21"
-                                   :disabled="!disable"
+                        <dicselect :code="code20"
                                    :data="scope.row.accountcode"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getcode" style="width: 100%">
@@ -1135,7 +1001,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
+                        <el-input :disabled="!disable" maxlength="20" style="width: 100%"
                                   v-model="scope.row.region">
                         </el-input>
                       </template>
@@ -1400,14 +1266,14 @@
           currencyexchangerate: '',
         }],
         tableT: [{
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          subjectnumber: '',
           invoicenumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: '',
@@ -1425,30 +1291,21 @@
           evectionid: '',
           accommodationdetails_id: '',
           accommodationdate: [],
-          // nextday: '',
           invoicenumber: '',
-            plsummary: '',
-            accountcode: '',
-          budgetcoding: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: '',
-          // vehicle: '',
-          // vehicleon: '',
-          // vehiclein: '',
-          // movementtime: '',
           city: '',
           region: '',
           facilitytype: '',
-          // facilitytypeon: '',
-          // facilitytypein: '',
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
           travelallowance: '',
           travel: '',
-          // relatives: '',
-          // traintick: 0,
           annexno: '',
           rowindex: '',
           taxes: '',
@@ -1460,30 +1317,21 @@
             evectionid: '',
             accommodationdetails_id: '',
             accommodationdate: [],
-            // nextday: '',
             invoicenumber: '',
-            plsummary: '',
-            accountcode: '',
-            budgetcoding: '',
+            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
+            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
             subjectnumber: '',
             departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
             activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
             city: '',
             region: '',
             facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
             travelallowance: '',
             travel: '',
-            // relatives: '',
-            // traintick: 0,
             annexno: '',
             rowindex: '',
             taxes: '',
@@ -1496,10 +1344,10 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
-            plsummary: '',
-            accountcode: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: '',
           remarks: '',
@@ -1549,8 +1397,7 @@
         code17: 'PJ085',
         code18: 'PJ057',
         code19: 'PJ003',
-        code20: 'PJ111',
-        code21: '',
+        code20: this.Redirict == '0' ? 'PJ119' : 'PJ132',
         multiple: false,
         show1: true,
         show2: false,
@@ -1569,6 +1416,7 @@
         invoicenumber: '',
         errorgroup: '',
         orglist: '',
+        Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
       };
     },
@@ -1743,60 +1591,13 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-        getcode(val, row) {
-            row.accountcode = val;
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-                row.subjectnumber = dic.value2;
-            }
-        },
-        getplsummary(val, row) {
-            row.accountcode = '',
-                row.plsummary = val;
-            if (val == 'PJ111001') {
-                row.accountcode = '',
-                    this.code21 = 'PJ112';
-            } else if (val == 'PJ111002') {
-                row.accountcode = '',
-                    this.code21 = 'PJ113';
-            } else if (val == 'PJ111003') {
-                row.accountcode = '',
-                    this.code21 = 'PJ114';
-            } else if (val == 'PJ111004') {
-                row.accountcode = '',
-                    this.code21 = 'PJ115';
-            } else if (val == 'PJ111005') {
-                row.accountcode = '',
-                    this.code21 = 'PJ116';
-            } else if (val == 'PJ111006') {
-                row.accountcode = '',
-                    this.code21 = 'PJ117';
-            } else if (val == 'PJ111007') {
-                row.accountcode = '',
-                    this.code21 = 'PJ118';
-            } else if (val == 'PJ111008') {
-                row.accountcode = '',
-                    this.code21 = 'PJ119';
-            } else if (val == 'PJ111009') {
-                row.accountcode = '',
-                    this.code21 = 'PJ120';
-            } else if (val == 'PJ111010') {
-                row.accountcode = '',
-                    this.code21 = 'PJ121';
-            } else if (val == 'PJ111011') {
-                row.accountcode = '',
-                    this.code21 = 'PJ122';
-            } else if (val == 'PJ111012') {
-                row.accountcode = '',
-                    this.code21 = 'PJ123';
-            } else if (val == 'PJ111013') {
-                row.accountcode = '',
-                    this.code21 = 'PJ124';
-            } else if (val == 'PJ111014') {
-                row.accountcode = '',
-                    this.code21 = 'PJ125';
-            }
-        },
+      getcode(val, row) {
+        row.accountcode = val;
+        let dic = getDictionaryInfo(val);
+        if (dic) {
+          row.subjectnumber = dic.value2;
+        }
+      },
       getLoanapp() {
         this.$store
           .dispatch('PFANS1013Store/getLoanApplication')
@@ -1880,12 +1681,70 @@
         row.departmentname = orglist;
         let group = getOrgInfo(orglist);
         if (group) {
+          this.Redirict = group.redirict;
+          if (group.redirict === '0') {
+            this.code20 = 'PJ119';
+          } else if (group.redirict === '1') {
+            this.code20 = 'PJ132';
+          }
           this.companyen = group.companyen;
           row.budgetcoding = group.encoding;
         }
       },
       gettype(val) {
-        this.activeName = 'first',
+        [{
+          evectionid: '',
+          accommodationdetails_id: '',
+          accommodationdate: [],
+          invoicenumber: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+          subjectnumber: '',
+          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+          activitycontent: '',
+          city: '',
+          region: '',
+          facilitytype: '',
+          facilityname: '',
+          accommodationallowance: '',
+          accommodation: '',
+          travelallowance: '',
+          travel: '',
+          annexno: '',
+          rowindex: '',
+          taxes: '',
+          costitem: '',
+          disaccommod: false,
+          showtick: true,
+        },
+          {
+            evectionid: '',
+            accommodationdetails_id: '',
+            accommodationdate: [],
+            invoicenumber: '',
+            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
+            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+            subjectnumber: '',
+            departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+            activitycontent: '',
+            city: '',
+            region: '',
+            facilitytype: '',
+            facilityname: '',
+            accommodationallowance: '',
+            accommodation: '',
+            travelallowance: '',
+            travel: '',
+            annexno: '',
+            rowindex: '',
+            taxes: '',
+            costitem: '',
+            disaccommod: false,
+            showtick: true,
+          }],
+          this.activeName = 'first',
           this.form.type = val;
         this.relations = [];
         if (val === '0') {
@@ -1906,35 +1765,6 @@
           this.showrow4 = false;
           this.showrow = true;
           this.showrow2 = false;
-          this.tableA = [{
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            // nextday: '',
-            activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
-            city: '',
-            region: '',
-            budgetcoding: '',
-            subjectnumber: '',
-            facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            // relatives: '',
-            // traintick: 0,
-            annexno: '',
-            rowindex: '',
-            disaccommod: false,
-            showtick: true,
-          }];
         } else {
           this.getBusOuter();
           this.form.business_id = '';
@@ -1953,35 +1783,6 @@
           this.showrow4 = true;
           this.showrow = false;
           this.showrow2 = true;
-          this.tableA = [{
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            // nextday: '',
-            activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
-            city: '',
-            budgetcoding: '',
-            subjectnumber: '',
-            region: '',
-            facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            // relatives: '',
-            // traintick: 0,
-            annexno: '',
-            rowindex: '',
-            disaccommod: false,
-            showtick: true,
-          }];
         }
       },
       getUserids(val) {
@@ -2041,21 +1842,14 @@
         } else {
           this.tableA = [{
             accommodationdate: [],
-            // nextday: '',
             activitycontent: ' ',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: ' ',
-            budgetcoding: ' ',
-              plsummary: '',
-              accountcode: '',
-              subjectnumber: '',
+            budgetcoding: '',
+            plsummary: '',
+            accountcode: '',
+            subjectnumber: '',
             city: '',
             region: ' ',
             facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
@@ -2072,8 +1866,8 @@
           this.tableR = [{
             otherdetailsdate: '',
             costitem: '',
-              plsummary: '',
-              accountcode: '',
+            plsummary: '',
+            accountcode: '',
             rmb: '',
             subjectnumber: '',
             remarks: '',
@@ -2115,15 +1909,15 @@
       },
       addRow() {
         this.tableT.push({
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
           invoicenumber: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          subjectnumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           taxes: '',
           costitem: '',
@@ -2146,13 +1940,13 @@
           invoicenumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           activitycontent: '',
-            plsummary: '',
-            accountcode: '',
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
           // vehicle: '',
           // vehicleon: '',
           // vehiclein: '',
           // movementtime: '',
-          budgetcoding: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           city: '',
           region: '',
@@ -2180,10 +1974,10 @@
           otherdetails_id: '',
           otherdetailsdate: '',
           invoicenumber: '',
-          budgetcoding: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
+          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          accountcode: '',
+          subjectnumber: '',
 
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
           costitem: '',
@@ -2223,11 +2017,6 @@
           exchangermb: '',
           currencyexchangerate: '',
         });
-      },
-      getcode(val, row) {
-        row.accountcode = val;
-        this.accountcodeValue = val;
-        this.getCompanyen(val, row);
       },
       checkOption() {
         this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}];
@@ -2294,6 +2083,9 @@
             this.tableT[0].trafficdate = this.form.startdate;
             this.tableR[0].otherdetailsdate = this.form.startdate;
             this.tableA[0].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
+            this.tableA[0].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
+            this.tableA[1].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
+            this.tableA[1].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
             this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           }
 
@@ -2456,22 +2248,6 @@
       getvehicle(val, row) {
         row.vehicle = val;
       },
-      getvehicleon(val, row) {
-        row.vehicle = val;
-        // if (val === 'PJ025004') {
-        //   row.disaccommod = true;
-        //   row.showtick = false;
-        //   row.accommodationallowance = '';
-        // } else {
-        //   row.disaccommod = false;
-        //   row.showtick = true;
-        //   row.traintick = '';
-        // }
-      },
-      getvehiclein(val, row) {
-        row.vehiclein = val;
-        // this.getTravelFly(row);
-      },
       getaccommodationallowance(val, row) {
         row.accommodationallowance = val;
         this.getTravel(row);
@@ -2486,26 +2262,6 @@
       },
       getCity(row) {
         this.getTravel(row);
-      },
-      getCompanyen(val, row) {
-        if (this.companyen != '') {
-          if (this.companyen == 'ADMN' || this.companyen == 'FPO' || this.companyen == 'DANP') {
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-              row.subjectnumber = dic.value3;
-            }
-          } else {
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-              row.subjectnumber = dic.value2;
-            }
-          }
-        } else {
-          let dic = getDictionaryInfo(val);
-          if (dic) {
-            row.subjectnumber = dic.value2;
-          }
-        }
       },
       getcostitem(val, row) {
         row.costitem = val;
@@ -2546,34 +2302,56 @@
         }
         var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
         if (this.form.type === '0') {
-          if (row.costitem === 'PJ126001') {
+          if (this.Redirict == '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                  jpvalueflg = jpregion1;
+                  if (row.travelallowance / diffDate > jpregion1) {
+                    alert("111111");
+                    // Message({
+                    //   message: this.$t('1111111'),
+                    //   type: 'error',
+                    //   duration: 5 * 1000,
+                    // });
+                  }
                 } else {
-                  jpvalueflg = jpregion2;
+                  if (row.travelallowance / diffDate > jpregion2) {
+                    Message({
+                      message: this.$t('22222'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
                 }
               }
             } else if (row.facilitytype === 'PJ035002') {
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                  jpvalueflg = jpregion8;
+                  if (row.travelallowance / diffDate > jpregion8) {
+                    alert("111111");
+                    // Message({
+                    //   message: this.$t('1111111'),
+                    //   type: 'error',
+                    //   duration: 5 * 1000,
+                    // });
+                  }
                 } else {
-                  jpvalueflg = jpregion9;
+                  if (row.travelallowance / diffDate > jpregion9) {
+                    Message({
+                      message: this.$t('22222'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
                 }
               }
             }
-            if (jpvalueflg !== '' && jpvalueflg !== undefined) {
-              row.travelallowance = Number(jpvalueflg) * diffDate;
-            }
-          } else if (row.costitem === 'PJ126002') {
+          } else if (this.Redirict == '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             row.travelallowance = 150 * diffDate;
-          } else if (row.costitem === 'PJ126003') {
+          } else if (this.Redirict == '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
-            ;
           }
         } else if (this.form.type === '1') {
           var accfig;
@@ -2751,27 +2529,27 @@
         this.form.status = '0';
         this.buttonClick('save');
       },
-        changelowance(newValue){
-            for (let j = 0; j < this.tableF.length; j++) {
-                if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
-                    if (newValue.travelallowance !== '') {
-                        if (this.tableF[j].taxrate !== '') {
-                            if (this.tableF[j].taxrate === 'PJ071001') {
-                                this.taxrateValue = '0.03'
-                            } else if (this.tableF[j].taxrate === 'PJ071002') {
-                                this.taxrateValue = '0.06'
-                            } else if (this.tableF[j].taxrate === 'PJ071003') {
-                                this.taxrateValue = '0.09'
-                            } else if (this.tableF[j].taxrate === 'PJ071004') {
-                                this.taxrateValue = '0.13'
-                            }
-                            taxratevalue = 1 + Number(this.taxrateValue);
-                            newValue.taxes = (newValue.travelallowance / (taxratevalue) * this.taxrateValue)
-                        }
-                    }
+      changelowance(newValue) {
+        for (let j = 0; j < this.tableF.length; j++) {
+          if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
+            if (newValue.travelallowance !== '') {
+              if (this.tableF[j].taxrate !== '') {
+                if (this.tableF[j].taxrate === 'PJ071001') {
+                  this.taxrateValue = '0.03';
+                } else if (this.tableF[j].taxrate === 'PJ071002') {
+                  this.taxrateValue = '0.06';
+                } else if (this.tableF[j].taxrate === 'PJ071003') {
+                  this.taxrateValue = '0.09';
+                } else if (this.tableF[j].taxrate === 'PJ071004') {
+                  this.taxrateValue = '0.13';
                 }
+                taxratevalue = 1 + Number(this.taxrateValue);
+                newValue.taxes = (newValue.travelallowance / (taxratevalue) * this.taxrateValue);
+              }
             }
-        },
+          }
+        }
+      },
 
 
       changeRMB(newValue) {
@@ -2788,7 +2566,7 @@
                 } else if (this.tableF[j].taxrate === 'PJ071004') {
                   this.taxrateValue = '0.13';
                 }
-                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
+                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue);
               }
             }
           }
@@ -2832,203 +2610,203 @@
         if (val === 'save') {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-                this.baseInfo = {};
-                this.form.user_id = this.userlist;
-                this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
-                this.baseInfo.trafficdetails = [];
-                this.baseInfo.accommodationdetails = [];
-                this.baseInfo.otherdetails = [];
-                this.baseInfo.invoice = [];
-                this.baseInfo.currencyexchanges = [];
+              this.baseInfo = {};
+              this.form.user_id = this.userlist;
+              this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.trafficdetails = [];
+              this.baseInfo.accommodationdetails = [];
+              this.baseInfo.otherdetails = [];
+              this.baseInfo.invoice = [];
+              this.baseInfo.currencyexchanges = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
+                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                  this.baseInfo.trafficdetails.push(
+                    {
+                      trafficdetails_id: this.tableT[i].trafficdetails_id,
+                      evectionid: this.tableT[i].evectionid,
+                      publicexpenseid: this.tableT[i].publicexpenseid,
+                      trafficdate: this.tableT[i].trafficdate,
+                      invoicenumber: this.tableT[i].invoicenumber,
+                      plsummary: this.tableT[i].plsummary,
+                      accountcode: this.tableT[i].accountcode,
+                      subjectnumber: this.tableT[i].subjectnumber,
+                      departmentname: this.tableT[i].departmentname,
+                      budgetcoding: this.tableT[i].departmentname,
+                      taxes: this.tableT[i].taxes,
+                      costitem: this.tableT[i].costitem,
+                      taxrate: this.tableT[i].taxrate,
+                      region: this.tableT[i].region,
+                      vehicle: this.tableT[i].vehicle,
+                      startingpoint: this.tableT[i].startingpoint,
+                      rmb: this.tableT[i].rmb,
+                      foreigncurrency: this.tableT[i].foreigncurrency,
+                      annexno: this.tableT[i].annexno,
+                    },
+                  );
+                }
+              }
+              for (let i = 0; i < this.tableA.length; i++) {
+                if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                  || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
+                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                  || this.tableA[i].annexno !== ''
+                  || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                  var varvehiclein;
+                  var varfacilitytypein;
+                  if (this.form.type === '0') {
+                    varvehiclein = this.tableA[i].vehicleon;
+                    varfacilitytypein = this.tableA[i].facilitytypeon;
+                  } else {
+                    varvehiclein = this.tableA[i].vehiclein;
+                    varfacilitytypein = this.tableA[i].facilitytypein;
+                  }
+                  this.baseInfo.accommodationdetails.push(
+                    {
+                      accommodationdetails_id: this.tableA[i].accommodationdetails_id,
+                      evectionid: this.tableA[i].evectionid,
+                      accommodationdate: moment(this.tableA[i].accommodationdate[0]).format('YYYY-MM-DD') + '~' + moment(this.tableA[i].accommodationdate[1]).format('YYYY-MM-DD'),
+                      // nextday: this.tableA[i].nextday,
+                      activitycontent: this.tableA[i].activitycontent,
+                      vehicle: varvehiclein,
+                      region: this.tableA[i].region,
+                      movementtime: this.tableA[i].movementtime,
+                      city: this.tableA[i].city,
+                      budgetcoding: this.tableA[i].budgetcoding,
+                      subjectnumber: this.tableA[i].subjectnumber,
+                      plsummary: this.tableA[i].plsummary,
+                      accountcode: this.tableA[i].accountcode,
+                      facilitytype: varfacilitytypein,
+                      facilityname: this.tableA[i].facilityname,
+                      accommodationallowance: this.tableA[i].accommodationallowance,
+                      accommodation: this.tableA[i].accommodation,
+                      travelallowance: this.tableA[i].travelallowance,
+                      travel: this.tableA[i].travel,
+                      // relatives: this.tableA[i].facilitytype,
+                      invoicenumber: this.tableA[i].invoicenumber,
+                      departmentname: this.tableA[i].departmentname,
+                      taxes: this.tableA[i].taxes,
+                      costitem: this.tableA[i].costitem,
+                      annexno: this.tableA[i].annexno,
+                    },
+                  );
+                }
+              }
+              for (let i = 0; i < this.tableR.length; i++) {
+                if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+                  || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
+                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                  this.baseInfo.otherdetails.push(
+                    {
+                      otherdetails_id: this.tableR[i].otherdetails_id,
+                      evectionid: this.tableR[i].evectionid,
+                      otherdetailsdate: this.tableR[i].otherdetailsdate,
+                      costitem: this.tableR[i].costitem,
+                      plsummary: this.tableR[i].plsummary,
+                      accountcode: this.tableR[i].accountcode,
+                      rmb: this.tableR[i].rmb,
+                      budgetcoding: this.tableR[i].budgetcoding,
+                      subjectnumber: this.tableR[i].subjectnumber,
+                      remarks: this.tableR[i].remarks,
+                      invoicenumber: this.tableR[i].invoicenumber,
+                      departmentname: this.tableR[i].departmentname,
+                      taxes: this.tableR[i].taxes,
+                      foreigncurrency: this.tableR[i].foreigncurrency,
+                      annexno: this.tableR[i].annexno,
+                    },
+                  );
+                }
+              }
+              for (let i = 0; i < this.tableW.length; i++) {
+                if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
+                  || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
+                  this.baseInfo.currencyexchanges.push(
+                    {
+                      evectionid: this.tableW[i].evectionid,
+                      currencyexchangeid: this.tableW[i].currencyexchangeid,
+                      currency: this.tableW[i].currency,
+                      amount: this.tableW[i].amount,
+                      exchangerate: this.tableW[i].exchangerate,
+                      exchangermb: this.tableW[i].exchangermb,
+                      currencyexchangerate: this.tableW[i].currencyexchangerate,
+                    },
+                  );
+                }
+              }
+              for (let i = 0; i < this.tableF.length; i++) {
+                if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
+                  || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                  this.baseInfo.invoice.push(
+                    {
+                      invoice_id: this.tableF[i].invoice_id,
+                      publicexpenseid: this.tableF[i].publicexpenseid,
+                      invoicenumber: this.tableF[i].invoicenumber,
+                      invoicetype: this.tableF[i].invoicetype,
+                      invoiceamount: this.tableF[i].invoiceamount,
+                      taxrate: this.tableF[i].taxrate,
+                      excludingtax: this.tableF[i].excludingtax,
+                      facetax: this.tableF[i].facetax,
+                    },
+                  );
+                }
+              }
+              let error = 0;
+              for (let j = 0; j < this.tableF.length; j++) {
+                let summoney = 0;
+                let summoneyT = 0;
+                let sumMoney = 0;
+                let sumout = 0;
                 for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                        || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
-                        this.baseInfo.trafficdetails.push(
-                            {
-                                trafficdetails_id: this.tableT[i].trafficdetails_id,
-                                evectionid: this.tableT[i].evectionid,
-                                publicexpenseid: this.tableT[i].publicexpenseid,
-                                trafficdate: this.tableT[i].trafficdate,
-                                invoicenumber: this.tableT[i].invoicenumber,
-                              plsummary: this.tableT[i].plsummary,
-                              accountcode: this.tableT[i].accountcode,
-                              subjectnumber: this.tableT[i].subjectnumber,
-                                departmentname: this.tableT[i].departmentname,
-                                budgetcoding: this.tableT[i].departmentname,
-                                taxes: this.tableT[i].taxes,
-                                costitem: this.tableT[i].costitem,
-                                taxrate: this.tableT[i].taxrate,
-                                region: this.tableT[i].region,
-                                vehicle: this.tableT[i].vehicle,
-                                startingpoint: this.tableT[i].startingpoint,
-                                rmb: this.tableT[i].rmb,
-                                foreigncurrency: this.tableT[i].foreigncurrency,
-                                annexno: this.tableT[i].annexno,
-                            },
-                        );
+                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                    || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
+                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                    if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
+                      if (this.tableT[i].rmb != '0') {
+                        summoneyT += this.tableT[i].rmb;
+
+                      }
                     }
+                  }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
-                        || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                        || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
-                        || this.tableA[i].annexno !== ''
-                        || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
-                        var varvehiclein;
-                        var varfacilitytypein;
-                        if (this.form.type === '0') {
-                            varvehiclein = this.tableA[i].vehicleon;
-                            varfacilitytypein = this.tableA[i].facilitytypeon;
-                        } else {
-                            varvehiclein = this.tableA[i].vehiclein;
-                            varfacilitytypein = this.tableA[i].facilitytypein;
-                        }
-                        this.baseInfo.accommodationdetails.push(
-                            {
-                                accommodationdetails_id: this.tableA[i].accommodationdetails_id,
-                                evectionid: this.tableA[i].evectionid,
-                                accommodationdate: moment(this.tableA[i].accommodationdate[0]).format("YYYY-MM-DD") + "~" + moment(this.tableA[i].accommodationdate[1]).format("YYYY-MM-DD"),
-                                // nextday: this.tableA[i].nextday,
-                                activitycontent: this.tableA[i].activitycontent,
-                                vehicle: varvehiclein,
-                                region: this.tableA[i].region,
-                                movementtime: this.tableA[i].movementtime,
-                                city: this.tableA[i].city,
-                                budgetcoding: this.tableA[i].budgetcoding,
-                                subjectnumber: this.tableA[i].subjectnumber,
-                              plsummary: this.tableA[i].plsummary,
-                              accountcode: this.tableA[i].accountcode,
-                              facilitytype: varfacilitytypein,
-                                facilityname: this.tableA[i].facilityname,
-                                accommodationallowance: this.tableA[i].accommodationallowance,
-                                accommodation: this.tableA[i].accommodation,
-                                travelallowance: this.tableA[i].travelallowance,
-                                travel: this.tableA[i].travel,
-                                // relatives: this.tableA[i].facilitytype,
-                                invoicenumber: this.tableA[i].invoicenumber,
-                                departmentname: this.tableA[i].departmentname,
-                                taxes: this.tableA[i].taxes,
-                                costitem: this.tableA[i].costitem,
-                                annexno: this.tableA[i].annexno,
-                            },
-                        );
+                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                    || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
+                    || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                    || this.tableA[i].annexno !== ''
+                    || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                    if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
+                      if (this.tableA[i].travelallowance != '0') {
+                        summoney += this.tableA[i].travelallowance;
+
+                      }
                     }
+                  }
                 }
                 for (let i = 0; i < this.tableR.length; i++) {
-                    if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-                        || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                        || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
-                        this.baseInfo.otherdetails.push(
-                            {
-                                otherdetails_id: this.tableR[i].otherdetails_id,
-                                evectionid: this.tableR[i].evectionid,
-                                otherdetailsdate: this.tableR[i].otherdetailsdate,
-                                costitem: this.tableR[i].costitem,
-                              plsummary: this.tableR[i].plsummary,
-                              accountcode: this.tableR[i].accountcode,
-                              rmb: this.tableR[i].rmb,
-                                budgetcoding: this.tableR[i].budgetcoding,
-                                subjectnumber: this.tableR[i].subjectnumber,
-                                remarks: this.tableR[i].remarks,
-                                invoicenumber: this.tableR[i].invoicenumber,
-                                departmentname: this.tableR[i].departmentname,
-                                taxes: this.tableR[i].taxes,
-                                foreigncurrency: this.tableR[i].foreigncurrency,
-                                annexno: this.tableR[i].annexno,
-                            },
-                        );
+                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                    if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                      if (this.tableR[i].rmb != '0') {
+                        sumMoney += this.tableR[i].rmb;
+
+                      }
                     }
+                  }
                 }
-                for (let i = 0; i < this.tableW.length; i++) {
-                    if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
-                        || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
-                        this.baseInfo.currencyexchanges.push(
-                            {
-                                evectionid: this.tableW[i].evectionid,
-                                currencyexchangeid: this.tableW[i].currencyexchangeid,
-                                currency: this.tableW[i].currency,
-                                amount: this.tableW[i].amount,
-                                exchangerate: this.tableW[i].exchangerate,
-                                exchangermb: this.tableW[i].exchangermb,
-                                currencyexchangerate: this.tableW[i].currencyexchangerate,
-                            },
-                        );
-                    }
+                sumout = summoney + sumMoney + summoneyT;
+                if (sumout != this.tableF[j].invoiceamount) {
+                  error = error + 1;
+                  Message({
+                    message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  break;
                 }
-                for (let i = 0; i < this.tableF.length; i++) {
-                    if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                        || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
-                        this.baseInfo.invoice.push(
-                            {
-                                invoice_id: this.tableF[i].invoice_id,
-                                publicexpenseid: this.tableF[i].publicexpenseid,
-                                invoicenumber: this.tableF[i].invoicenumber,
-                                invoicetype: this.tableF[i].invoicetype,
-                                invoiceamount: this.tableF[i].invoiceamount,
-                                taxrate: this.tableF[i].taxrate,
-                                excludingtax: this.tableF[i].excludingtax,
-                                facetax: this.tableF[i].facetax,
-                            },
-                        );
-                    }
-                }
-                let error = 0;
-                for (let j = 0; j < this.tableF.length; j++) {
-                    let summoney = 0;
-                    let summoneyT = 0;
-                    let sumMoney = 0;
-                    let sumout = 0;
-                    for (let i = 0; i < this.tableT.length; i++) {
-                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                            || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                            || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
-                            if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
-                                if (this.tableT[i].rmb != '0') {
-                                    summoneyT += this.tableT[i].rmb
-                                    continue;
-                                }
-                            }
-                        }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                        if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
-                            || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                            || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
-                            || this.tableA[i].annexno !== ''
-                            || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
-                            if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
-                                if (this.tableA[i].travelallowance != '0') {
-                                    summoney += this.tableA[i].travelallowance
-                                    continue;
-                                }
-                            }
-                        }
-                    }
-                    for (let i = 0; i < this.tableR.length; i++) {
-                        if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-                            || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                            || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
-                            if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
-                                if (this.tableR[i].rmb != '0') {
-                                    sumMoney += this.tableR[i].rmb
-                                    continue;
-                                }
-                            }
-                        }
-                    }
-                    sumout = summoney + sumMoney + summoneyT;
-                    if (sumout != this.tableF[j].invoiceamount) {
-                        error = error + 1;
-                        Message({
-                            message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        break;
-                    }
-                }
-                if (error == '0') {
+              }
+              if (error == '0') {
                 if (this.$route.params._id) {
                   this.baseInfo.evection.evectionid = this.$route.params._id;
                   this.$store
@@ -3056,31 +2834,31 @@
                       this.loading = false;
                     });
                 } else {
-                    this.form.user_id = this.userlist;
-                    this.$store
-                        .dispatch('PFANS1013Store/create', this.baseInfo)
-                        .then(response => {
-                            this.data = response;
-                            this.loading = false;
-                            this.$message({
-                                message: this.$t('normal.success_01'),
-                                type: 'success',
-                                duration: 5 * 1000,
-                            });
-                            if (this.$store.getters.historyUrl) {
-                                this.$router.push(this.$store.getters.historyUrl);
-                            }
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
+                  this.form.user_id = this.userlist;
+                  this.$store
+                    .dispatch('PFANS1013Store/create', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      this.$message({
+                        message: this.$t('normal.success_01'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
                 }
-            }
+              }
             }
           });
         }
@@ -3092,7 +2870,7 @@
 
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 
   .el-table {
     overflow-x: auto;
