@@ -1522,7 +1522,6 @@
                         }
                         if (response.purchasedetails.length > 0) {
                             this.tableP = response.purchasedetails;
-                            console.log("aaa",this.tableP)
                             for (var i = 0; i < this.tableP.length; i++) {
                                 this.orglist = this.tableP[i].departmentname;
                                 if (this.tableP[i].plsummary == 'PJ111001') {
@@ -2296,6 +2295,7 @@
             },
             changeRMB(newValue) {
                 for (let j = 0; j < this.tableF.length; j++) {
+                    let taxratevalue=0;
                     if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
                         if (newValue.rmb != '') {
                             if (this.tableF[j].taxrate != '') {
@@ -2308,7 +2308,8 @@
                                 } else if (this.tableF[j].taxrate == 'PJ071004') {
                                     this.taxrateValue = '0.13'
                                 }
-                                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue)
+                                taxratevalue=1+Number(this.taxrateValue);
+                                newValue.taxes = (newValue.rmb/(taxratevalue) * this.taxrateValue )
                             }
                         }
                     }

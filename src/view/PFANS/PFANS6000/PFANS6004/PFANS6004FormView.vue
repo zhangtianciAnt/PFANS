@@ -78,37 +78,6 @@
                 <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
               </el-form-item>
             </el-col>
-            <!--            编号-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.number">
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <!--            職務-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.post">
-                </el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--          第四行-->
-          <el-row>
-            <!--            所属部门-->
-            <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="2" style="width:20vw"></org>
-              </el-form-item>
-            </el-col>
-
             <!--            技术分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
@@ -133,6 +102,36 @@
                   @change="changern"
                   style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--          第四行-->
+          <el-row>
+            <!--            所属部门-->
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
+            <!--            编号-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number">
+                </el-input>
+              </el-form-item>
+            </el-col>
+            <!--            職務-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.post">
+                </el-input>
               </el-form-item>
             </el-col>
 
@@ -691,7 +690,6 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            this.grouporglist = this.form.interviewdep;
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.loading = false;
             if (this.form.exits === '1') {

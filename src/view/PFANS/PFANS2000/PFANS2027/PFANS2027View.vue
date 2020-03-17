@@ -1,45 +1,63 @@
 <template>
-<!--  <div>-->
-<!--    <div>-->
-<!--      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"-->
-<!--               ref="refform">-->
-<!--      <el-container>-->
-<!--        <el-dialog   :visible.sync="dialogFormVisible">-->
-<!--          &lt;!&ndash;<el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >-->
-<!--            <el-date-picker type="year" style="width: 10rem" v-model="year"></el-date-picker>-->
-<!--          </el-form-item>&ndash;&gt;-->
-<!--          <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">-->
-<!--            <dicselect-->
-<!--              :code="code14"-->
-<!--              :data="form.subjectmon"-->
-<!--              @change="changecommentarymonths"-->
-<!--              style="width: 10rem"-->
-<!--              >-->
-<!--            </dicselect>-->
-<!--          </el-form-item>-->
+  <div>
+    <div>
+      <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
+               ref="refform">
+      <el-container>
+        <el-dialog   :visible.sync="dialogFormVisible">
+          <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" >
+            <el-date-picker type="year" style="width: 10rem" v-model="form.evaluationday"></el-date-picker>
+          </el-form-item>
+          <el-form-item :label="$t('label.PFANS2027VIEW_COMMENTARYMONTHS')">
+            <dicselect
+              :code="code14"
+              :data="form.subjectmon"
+              @change="changecommentarymonths"
+              style="width: 10rem"
+              >
+            </dicselect>
+          </el-form-item>
 
-<!--          <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">-->
-<!--            <dicselect-->
-<!--              :code="code15"-->
-<!--              :data="form.evaluatenum"-->
-<!--              @change="changeevaluationtime"-->
-<!--              style="width: 10rem"-->
-<!--              >-->
-<!--            </dicselect>-->
-<!--          </el-form-item>-->
-<!--          <div  class="dialog-footer" align="center">-->
-<!--                      <span slot="footer" class="dialog-footer">-->
-<!--                                  <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>-->
-<!--                      </span>-->
-<!--          </div>-->
-<!--        </el-dialog>-->
-<!--      </el-container>-->
-<!--      </el-form>-->
-<!--    </div>-->
+          <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')">
+            <dicselect
+              :code="code15"
+              :data="form.evaluatenum"
+              @change="changeevaluationtime"
+              style="width: 10rem"
+              >
+            </dicselect>
+            <el-form-item :label="$t('label.PFANS2027VIEW_CATEGORY')">
+                <!--<dicselect
+                  :data="form.examinationobject_id"
+                  style="width: 10rem"
+                  :disabled="disabled">
+                  <el-option v-for="(item,index) in examinationobjects" :key="index" :value="item.name">
+                    {{item.name}}
+                  </el-option>
+                </dicselect>-->
+
+              <el-select v-model="name" style="width: 10rem" @change="changeExamination">
+                <el-option v-for="(item,index) in examinationobjects" :key="index" :value="item.name">
+                  {{item.name}}
+                </el-option>
+              </el-select>
+
+            </el-form-item>
+
+          <div  class="dialog-footer" align="center">
+                      <span slot="footer" class="dialog-footer">
+                                  <el-button type="primary" @click="click">{{$t('button.confirm')}}</el-button>
+                      </span>
+          </div>
+          </el-form-item>
+        </el-dialog>
+      </el-container>
+      </el-form>
+    </div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-<!--  </div>-->
+ </div>
 </template>
 
 <script>
@@ -62,10 +80,24 @@
                 data: [],
                 code14: 'PJ103',
                 code15: 'PJ104',
+                disabled: false,
+                name:'',
+                examinationobjects: [
+                    {
+                        examinationobject_id: 12,
+                        name: 'AAA'
+                    },
+                    {
+                        examinationobject_id: 13,
+                        name: '123'
+                    }
+                ],
                 form:{
+                    evaluationday: new Date(),
                     evaluatenum:'',
                     subjectmon:'',
                     subject:'',
+                    examinationobject_id: '',
                     user_id: this.$store.getters.userinfo.userid,
                 },
                 columns: [
@@ -164,9 +196,9 @@
                 this.form.evaluatenum = getDictionaryInfo('PJ104003').value1;
             }
         },
-        beforeUpdate(){
+        /*beforeUpdate(){
             this.get();
-        },
+        },*/
         methods: {
             rowClick(row) {
                 this.rowid = row.lunarbonus_id;
@@ -196,6 +228,15 @@
                     });
                 this.dialogFormVisible = false;
                 this.get();
+            },
+            changeExamination(val){
+                for(let i=0;i<this.examinationobjects.length;i++)
+                {
+                    if(val === this.examinationobjects[i].name){
+                        this.form.examinationobject_id = this.examinationobjects[i].examinationobject_id;
+                    }
+                }
+                console.log(this.form.examinationobject_id);
             },
             get(){
                 this.$store
