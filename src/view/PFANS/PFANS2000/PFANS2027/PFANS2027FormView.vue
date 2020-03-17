@@ -1207,7 +1207,99 @@
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
+                        console.log("response11111",response)
+                        if(response){
+                            for(let i=0;i < response.length;i++){
 
+                                if (response[i].tatebai !== null && response[i].tatebai !== "") {
+                                    let temp = getDictionaryInfo(response[i].tatebai);
+                                    if (temp) {
+                                        response[i].tatebai = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].satoshi !== null && response[i].satoshi !== "") {
+                                    let temp = getDictionaryInfo(response[i].satoshi);
+                                    if (temp) {
+                                        response[i].satoshi = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].organization !== null && response[i].organization !== "") {
+                                    let temp = getDictionaryInfo(response[i].organization);
+                                    if (temp) {
+                                        response[i].organization = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].systematics !== null && response[i].systematics !== "") {
+                                    let temp = getDictionaryInfo(response[i].systematics);
+                                    if (temp) {
+                                        response[i].systematics = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].manpower !== null && response[i].manpower !== "") {
+                                    let temp = getDictionaryInfo(response[i].manpower);
+                                    if (temp) {
+                                        response[i].manpower = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].scale !== null && response[i].scale !== "") {
+                                    let temp = getDictionaryInfo(response[i].scale);
+                                    if (temp) {
+                                        response[i].scale = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].achievement !== null && response[i].achievement !== "") {
+                                    let temp = getDictionaryInfo(response[i].achievement);
+                                    if (temp) {
+                                        response[i].achievement = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].degree !== null && response[i].degree !== "") {
+                                    let temp = getDictionaryInfo(response[i].degree);
+                                    if (temp) {
+                                        response[i].degree = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].assignment !== null && response[i].assignment !== "") {
+                                    let temp = getDictionaryInfo(response[i].assignment);
+                                    if (temp) {
+                                        response[i].assignment = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].teamwork !== null && response[i].teamwork !== "") {
+                                    let temp = getDictionaryInfo(response[i].teamwork);
+                                    if (temp) {
+                                        response[i].teamwork = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].humandevelopment !== null && response[i].humandevelopment !== "") {
+                                    let temp = getDictionaryInfo(response[i].humandevelopment);
+                                    if (temp) {
+                                        response[i].humandevelopment = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].workattitude !== null && response[i].workattitude !== "") {
+                                    let temp = getDictionaryInfo(response[i].workattitude);
+                                    if (temp) {
+                                        response[i].workattitude = temp.value1;
+                                    }
+                                }
+
+                                this.form.tabledata.push(response[i]);
+                            }
+
+                        }
+                        this.loading = false;
                     })
                     .catch(err => {
                         this.loading = false;
