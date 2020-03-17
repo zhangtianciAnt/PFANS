@@ -814,7 +814,7 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                   <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
+                    <el-table-column :label="$t('label.PFANS1002VIEW_REGION')" align="center" v-if="showAout"
                                      width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code9"
@@ -842,7 +842,7 @@
                                    :no="scope.row"
                                    @change="getfacilitytypeon">
                         </dicselect>
-                        </template>
+                      </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_FACILITYNAME')" align="center" width="200">
                       <template slot-scope="scope">
@@ -861,9 +861,9 @@
                                    :no="scope.row"
                                    @change="getaccommodationallowance">
                         </dicselect>
-                        </template>
+                      </template>
                     </el-table-column>
-                   <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
+                    <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
@@ -1092,1005 +1092,1002 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
-  import org from '../../../components/org';
-  import moment from 'moment';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+    import dicselect from '../../../components/dicselect';
+    import org from '../../../components/org';
+    import moment from 'moment';
 
-  export default {
-    name: 'PFANS1013FormView',
-    components: {
-      dicselect,
-      EasyNormalContainer,
-      user,
-      org,
-    },
-    data() {
-      var checkuser = (rule, value, callback) => {
-        if (!this.form.userid || this.form.userid === '' || this.form.userid === 'undefined') {
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-        } else {
-          this.error = '';
-          return callback();
-        }
-      };
-      var checktele = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
-      return {
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
-        error: '',
-        week: '',
-        tableList: [],
-        accountcodeValue: '',
-        relations: [],
-        Todaysum: [],
-        taxrateValue: '',
-        loans: [{value: ' ', lable: ' '}],
-        selectType: 'Single',
-        title: 'title.PFANS1013VIEW',
-        userlist: '',
-        activeName: 'first',
-        loading: false,
-        disabled: false,
-        disaccommod: false,
-        showtick: true,
-        checkStatus: false,
-        tableTValue: '',
-        tableAValue: '',
-        tableRValue: '',
-        tableDValue: '',
-        tableValue: '',
-        tableData: [{
-          costitem: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
-          taxes: '',
-          rmb: '',
+    export default {
+        name: 'PFANS1013FormView',
+        components: {
+            dicselect,
+            EasyNormalContainer,
+            user,
+            org,
         },
-          {
-            costitem: this.$t('label.PFANS1013FORMVIEW_ACCOMMODATIONDATA'),
-            taxes: '',
-            rmb: '',
-          },
-          {
-            costitem: this.$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCEDATA'),
-            taxes: '',
-            rmb: '',
-          },
-          {
-            costitem: this.$t('label.PFANS1013VIEW_OTHER'),
-            taxes: '',
-            rmb: '',
-          }],
-        tableData2: [{
-          costitem: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
-          ratecurrency: '',
-          usdcurrency: '',
-          jpycurrency: '',
-          rmb: '',
-          taxes: '',
-          total: '',
-        },
-          {
-            costitem: this.$t('label.PFANS1013FORMVIEW_ACCOMMODATIONDATA'),
-            ratecurrency: '',
-            usdcurrency: '',
-            jpycurrency: '',
-            rmb: '',
-            taxes: '',
-            total: '',
-          },
-          {
-            costitem: this.$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCEDATA'),
-            ratecurrency: '',
-            usdcurrency: '',
-            jpycurrency: '',
-            rmb: '',
-            taxes: '',
-            total: '',
-          },
-          {
-            costitem: this.$t('label.PFANS1013VIEW_OTHER'),
-            ratecurrency: '',
-            usdcurrency: '',
-            jpycurrency: '',
-            rmb: '',
-            taxes: '',
-            total: '',
-          },
-        ],
-        baseInfo: {},
-        form: {
-          level: '',
-          abroadbusiness: '',
-          project_id: '',
-          type: '0',
-          center_id: '',
-          group_id: '',
-          team_id: '',
-          userid: '',
-          telephone: '',
-          business_id: '',
-          place: '',
-          startdate: '',
-          enddate: '',
-          datenumber: '',
-          budgetunit: '',
-          loan: '',
-          loanamount: '',
-          currency: '',
-          totalpay: '',
-          totalcurrency: '',
-          balance: '',
-          jpyfxrate: '',
-          dollarfxrate: '',
-          otherfxrate: '',
-          usexchangerate: getDictionaryInfo('PJ003001').value2,
-        },
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
-        tableF: [{
-          publicexpenseid: '',
-          invoicenumber: '1',
-          invoicetype: '',
-          invoiceamount: '',
-          taxrate: '',
-          excludingtax: '',
-          facetax: '',
-        }],
-        tableW: [{
-          evectionid: '',
-          currencyexchangeid: '',
-          currency: '',
-          amount: '',
-          exchangerate: '',
-          exchangermb: '',
-          currencyexchangerate: '',
-        }],
-        tableT: [{
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          evectionid: '',
-          trafficdetails_id: '',
-          publicexpenseid: '',
-          trafficdate: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: '',
-          subjectnumber: '',
-          invoicenumber: '',
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          taxes: '',
-          costitem: '',
-          region: '',
-          vehicle: '',
-          startingpoint: '',
-          rmb: '',
-          taxrate: '',
-          foreigncurrency: '',
-          annexno: '',
-          rowindex: '',
-        }],
-        tableA: [{
-          evectionid: '',
-          accommodationdetails_id: '',
-          accommodationdate: [],
-          invoicenumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: '',
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          subjectnumber: '',
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          activitycontent: '',
-          city: '',
-          region: '',
-          facilitytype: '',
-          facilityname: '',
-          accommodationallowance: '',
-          accommodation: '',
-          travelallowance: '',
-          travel: '',
-          annexno: '',
-          rowindex: '',
-          taxes: '',
-          costitem: '',
-          disaccommod: false,
-          showtick: true,
-        },
-          {
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            invoicenumber: '',
-            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-            accountcode: '',
-            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-            subjectnumber: '',
-            departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-            activitycontent: '',
-            city: '',
-            region: '',
-            facilitytype: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            annexno: '',
-            rowindex: '',
-            taxes: '',
-            costitem: '',
-            disaccommod: false,
-            showtick: true,
-          }],
-        tableR: [{
-          evectionid: '',
-          otherdetails_id: '',
-          otherdetailsdate: '',
-          invoicenumber: '',
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          subjectnumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: '',
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          costitem: '',
-          remarks: '',
-          rmb: '',
-          taxrate: '',
-          foreigncurrency: '',
-          annexno: '',
-          taxes: '',
-          rowindex: '',
-        }],
-        rules: {
-          userid: [{
-            required: true,
-            validator: checkuser,
-            trigger: 'change',
-          }],
-          telephone: [{
-            validator: checktele,
-            trigger: 'change',
-          }],
-          business_id: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
-            trigger: 'change',
-          }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
-        },
-        code1: 'PG002',
-        code3: 'PJ003',
-        code4: 'PJ024',
-        code5: 'PJ025',
-        code6: 'PJ026',
-        code7: 'PJ027',
-        code8: 'PJ020',
-        code9: 'PJ017',
-        code10: 'PJ035',
-        code11: 'PJ036',
-        code12: 'PJ068',
-        code13: 'PJ071',
-        code14: 'PJ126',
-        code15: 'PJ083',
-        code16: 'PJ084',
-        code17: 'PJ085',
-        code18: 'PJ057',
-        code19: 'PJ003',
-        code20: '',
-        multiple: false,
-        show1: true,
-        show2: false,
-        show: false,
-        showrow: true,
-        showrow2: false,
-        showrow3: true,
-        showrow4: false,
-        showAinner: true,
-        showAout: false,
-        showdata: true,
-        showdata2: false,
-        showforeigncurrency: false,
-        canStart: false,
-        rank: '',
-        invoicenumber: '',
-        errorgroup: '',
-        orglist: '',
-        Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
-        optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
-      };
-    },
-    mounted() {
-      this.getBusInside();
-      this.getLoanapp();
-      this.getCompanyProjectList();
-      this.checkOption();
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
-          .then(response => {
-            this.form = response.evection;
-            if (response.trafficdetails.length > 0) {
-              this.tableT = response.trafficdetails;
-            }
-            if (response.accommodationdetails.length > 0) {
-              for (let i = 0; i < response.accommodationdetails.length; i++) {
-                if (response.accommodationdetails[i].accommodationdate !== '' && response.accommodationdetails[i].accommodationdate !== null) {
-                  let time = response.accommodationdetails[i].accommodationdate;
-                  let starttime = time.slice(0, 10);
-                  let endtime = time.slice(time.length - 10);
-                  response.accommodationdetails[i].accommodationdate = [starttime, endtime];
-                }
-              }
-              this.tableA = response.accommodationdetails;
-              for (var i = 0; i < this.tableA.length; i++) {
-                if (this.$route.params.method === 'view') {
-                  if (this.form.type === '0') {
-                    this.tableA[i].showAinner = true;
-                    this.tableA[i].showAout = true;
-                    this.showrow3 = true;
-                    this.showrow4 = true;
-                    // this.tableA[i].vehicleon = this.tableA[i].vehicle;
-                    this.showrow = true;
-                    this.showrow2 = true;
-                    // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    this.tableA[i].showtick = true;
-                    this.tableA[i].disaccommod = true;
-                  } else if (this.form.type === '1') {
-                    this.tableA[i].showAinner = true;
-                    this.tableA[i].showAout = true;
-                    this.showrow3 = true;
-                    this.showrow4 = true;
-                    // this.tableA[i].vehiclein = this.tableA[i].vehicle;
-                    this.showrow = true;
-                    this.showrow2 = true;
-                    this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
-                    this.tableA[i].disaccommod = true;
-                  }
+        data() {
+            var checkuser = (rule, value, callback) => {
+                if (!this.form.userid || this.form.userid === '' || this.form.userid === 'undefined') {
+                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
                 } else {
-                  if (this.form.type === '0') {
-                    this.tableA[i].showAinner = true;
-                    this.tableA[i].showAout = false;
+                    this.error = '';
+                    return callback();
+                }
+            };
+            var checktele = (rule, value, callback) => {
+                this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
+                if (this.form.telephone !== null && this.form.telephone !== '') {
+                    if (!this.regExp.test(value)) {
+                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
+            return {
+                optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+                error: '',
+                week: '',
+                tableList: [],
+                accountcodeValue: '',
+                relations: [],
+                Todaysum: [],
+                taxrateValue: '',
+                loans: [{value: ' ', lable: ' '}],
+                selectType: 'Single',
+                title: 'title.PFANS1013VIEW',
+                userlist: '',
+                activeName: 'first',
+                loading: false,
+                disabled: false,
+                disaccommod: false,
+                showtick: true,
+                checkStatus: false,
+                tableTValue: '',
+                tableAValue: '',
+                tableRValue: '',
+                tableDValue: '',
+                tableValue: '',
+                tableData: [{
+                    costitem: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
+                    taxes: '',
+                    rmb: '',
+                },
+                    {
+                        costitem: this.$t('label.PFANS1013FORMVIEW_ACCOMMODATIONDATA'),
+                        taxes: '',
+                        rmb: '',
+                    },
+                    {
+                        costitem: this.$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCEDATA'),
+                        taxes: '',
+                        rmb: '',
+                    },
+                    {
+                        costitem: this.$t('label.PFANS1013VIEW_OTHER'),
+                        taxes: '',
+                        rmb: '',
+                    }],
+                tableData2: [{
+                    costitem: this.$t('label.PFANS1012VIEW_TRAFFICEXPENSEC'),
+                    ratecurrency: '',
+                    usdcurrency: '',
+                    jpycurrency: '',
+                    rmb: '',
+                    taxes: '',
+                    total: '',
+                },
+                    {
+                        costitem: this.$t('label.PFANS1013FORMVIEW_ACCOMMODATIONDATA'),
+                        ratecurrency: '',
+                        usdcurrency: '',
+                        jpycurrency: '',
+                        rmb: '',
+                        taxes: '',
+                        total: '',
+                    },
+                    {
+                        costitem: this.$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCEDATA'),
+                        ratecurrency: '',
+                        usdcurrency: '',
+                        jpycurrency: '',
+                        rmb: '',
+                        taxes: '',
+                        total: '',
+                    },
+                    {
+                        costitem: this.$t('label.PFANS1013VIEW_OTHER'),
+                        ratecurrency: '',
+                        usdcurrency: '',
+                        jpycurrency: '',
+                        rmb: '',
+                        taxes: '',
+                        total: '',
+                    },
+                ],
+                baseInfo: {},
+                form: {
+                    level: '',
+                    abroadbusiness: '',
+                    project_id: '',
+                    type: '0',
+                    center_id: '',
+                    group_id: '',
+                    team_id: '',
+                    userid: '',
+                    telephone: '',
+                    business_id: '',
+                    place: '',
+                    startdate: '',
+                    enddate: '',
+                    datenumber: '',
+                    budgetunit: '',
+                    loan: '',
+                    loanamount: '',
+                    currency: '',
+                    totalpay: '',
+                    totalcurrency: '',
+                    balance: '',
+                    jpyfxrate: '',
+                    dollarfxrate: '',
+                    otherfxrate: '',
+                    usexchangerate: getDictionaryInfo('PJ003001').value2,
+                },
+                buttonList: [
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                        icon: 'el-icon-check',
+                    },
+                ],
+                tableF: [{
+                    publicexpenseid: '',
+                    invoicenumber: '1',
+                    invoicetype: '',
+                    invoiceamount: '',
+                    taxrate: '',
+                    excludingtax: '',
+                    facetax: '',
+                }],
+                tableW: [{
+                    evectionid: '',
+                    currencyexchangeid: '',
+                    currency: '',
+                    amount: '',
+                    exchangerate: '',
+                    exchangermb: '',
+                    currencyexchangerate: '',
+                }],
+                tableT: [{
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    evectionid: '',
+                    trafficdetails_id: '',
+                    publicexpenseid: '',
+                    trafficdate: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: '',
+                    subjectnumber: '',
+                    invoicenumber: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    taxes: '',
+                    costitem: '',
+                    region: '',
+                    vehicle: '',
+                    startingpoint: '',
+                    rmb: '',
+                    taxrate: '',
+                    foreigncurrency: '',
+                    annexno: '',
+                    rowindex: '',
+                }],
+                tableA: [{
+                    evectionid: '',
+                    accommodationdetails_id: '',
+                    accommodationdate: [],
+                    invoicenumber: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    subjectnumber: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    activitycontent: '',
+                    city: '',
+                    region: '',
+                    facilitytype: '',
+                    facilityname: '',
+                    accommodationallowance: '',
+                    accommodation: '',
+                    travelallowance: '',
+                    travel: '',
+                    annexno: '',
+                    rowindex: '',
+                    taxes: '',
+                    costitem: '',
+                    disaccommod: false,
+                    showtick: true,
+                },
+                    {
+                        evectionid: '',
+                        accommodationdetails_id: '',
+                        accommodationdate: [],
+                        invoicenumber: '',
+                        plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                        accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
+                        budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                        subjectnumber: '',
+                        departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                        activitycontent: '',
+                        city: '',
+                        region: '',
+                        facilitytype: '',
+                        facilityname: '',
+                        accommodationallowance: '',
+                        accommodation: '',
+                        travelallowance: '',
+                        travel: '',
+                        annexno: '',
+                        rowindex: '',
+                        taxes: '',
+                        costitem: '',
+                        disaccommod: false,
+                        showtick: true,
+                    }],
+                tableR: [{
+                    evectionid: '',
+                    otherdetails_id: '',
+                    otherdetailsdate: '',
+                    invoicenumber: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    subjectnumber: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    costitem: '',
+                    remarks: '',
+                    rmb: '',
+                    taxrate: '',
+                    foreigncurrency: '',
+                    annexno: '',
+                    taxes: '',
+                    rowindex: '',
+                }],
+                rules: {
+                    userid: [{
+                        required: true,
+                        validator: checkuser,
+                        trigger: 'change',
+                    }],
+                    telephone: [{
+                        validator: checktele,
+                        trigger: 'change',
+                    }],
+                    business_id: [{
+                        required: true,
+                        message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
+                        trigger: 'change',
+                    }],
+                    budgetunit: [{
+                        required: true,
+                        message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+                        trigger: 'change',
+                    }],
+                },
+                code1: 'PG002',
+                code3: 'PJ003',
+                code4: 'PJ024',
+                code5: 'PJ025',
+                code6: 'PJ026',
+                code7: 'PJ027',
+                code8: 'PJ020',
+                code9: 'PJ017',
+                code10: 'PJ035',
+                code11: 'PJ036',
+                code12: 'PJ068',
+                code13: 'PJ071',
+                code14: 'PJ126',
+                code15: 'PJ083',
+                code16: 'PJ084',
+                code17: 'PJ085',
+                code18: 'PJ057',
+                code19: 'PJ003',
+                code20: this.Redirict == '0' ? 'PJ119' : 'PJ132',
+                multiple: false,
+                show1: true,
+                show2: false,
+                show: false,
+                showrow: true,
+                showrow2: false,
+                showrow3: true,
+                showrow4: false,
+                showAinner: true,
+                showAout: false,
+                showdata: true,
+                showdata2: false,
+                showforeigncurrency: false,
+                canStart: false,
+                rank: '',
+                invoicenumber: '',
+                errorgroup: '',
+                orglist: '',
+                Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
+                optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
+            };
+        },
+        mounted() {
+            this.getBusInside();
+            this.getLoanapp();
+            this.getCompanyProjectList();
+            this.checkOption();
+            if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
+                    .then(response => {
+                        this.form = response.evection;
+                        if (response.trafficdetails.length > 0) {
+                            this.tableT = response.trafficdetails;
+                        }
+                        if (response.accommodationdetails.length > 0) {
+                            for (let i = 0; i < response.accommodationdetails.length; i++) {
+                                if (response.accommodationdetails[i].accommodationdate !== '' && response.accommodationdetails[i].accommodationdate !== null) {
+                                    let time = response.accommodationdetails[i].accommodationdate;
+                                    let starttime = time.slice(0, 10);
+                                    let endtime = time.slice(time.length - 10);
+                                    response.accommodationdetails[i].accommodationdate = [starttime, endtime];
+                                }
+                            }
+                            this.tableA = response.accommodationdetails;
+                            for (var i = 0; i < this.tableA.length; i++) {
+                                if (this.$route.params.method === 'view') {
+                                    if (this.form.type === '0') {
+                                        this.tableA[i].showAinner = true;
+                                        this.tableA[i].showAout = true;
+                                        this.showrow3 = true;
+                                        this.showrow4 = true;
+                                        // this.tableA[i].vehicleon = this.tableA[i].vehicle;
+                                        this.showrow = true;
+                                        this.showrow2 = true;
+                                        // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
+                                        this.tableA[i].showtick = true;
+                                        this.tableA[i].disaccommod = true;
+                                    } else if (this.form.type === '1') {
+                                        this.tableA[i].showAinner = true;
+                                        this.tableA[i].showAout = true;
+                                        this.showrow3 = true;
+                                        this.showrow4 = true;
+                                        // this.tableA[i].vehiclein = this.tableA[i].vehicle;
+                                        this.showrow = true;
+                                        this.showrow2 = true;
+                                        this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                                        this.tableA[i].disaccommod = true;
+                                    }
+                                } else {
+                                    if (this.form.type === '0') {
+                                        this.tableA[i].showAinner = true;
+                                        this.tableA[i].showAout = false;
+                                        this.showrow3 = true;
+                                        this.showrow4 = false;
+                                        // this.tableA[i].vehicleon = this.tableA[i].vehicle;
+                                        this.showrow = true;
+                                        this.showrow2 = false;
+                                        // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
+                                        // if (this.tableA[i].vehicleon === 'PJ025004') {
+                                        //   this.tableA[i].showtick = false;
+                                        //   this.tableA[i].disaccommod = true;
+                                        // } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
+                                        //   this.tableA[i].showtick = true;
+                                        //   this.tableA[i].disaccommod = false;
+                                        // }
+                                    } else if (this.form.type === '1') {
+                                        this.tableA[i].showAinner = false;
+                                        this.tableA[i].showAout = true;
+                                        this.showrow3 = false;
+                                        this.showrow4 = true;
+                                        // this.tableA[i].vehiclein = this.tableA[i].vehicle;
+                                        this.showrow = false;
+                                        this.showrow2 = true;
+                                        // this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
+                                    }
+                                }
+                            }
+                        }
+                        if (response.otherdetails.length > 0) {
+                            for (let i = 0; i < response.otherdetails.length; i++) {
+                                this.orglist = response.otherdetails[i].departmentname;
+                                if (response.otherdetails[i].costitem === 'PJ057001') {
+                                    this.checkStatus = true;
+                                } else if (response.otherdetails[i].costitem === 'PJ057015') {
+                                    this.checkStatus = true;
+                                } else if (response.otherdetails[i].costitem === 'PJ057016') {
+                                    this.checkStatus = true;
+                                }
+                            }
+                            this.tableR = response.otherdetails;
+                        }
+                        if (response.currencyexchanges.length > 0) {
+                            this.tableW = response.currencyexchanges;
+                        }
+                        if (this.form.type === '0') {
+                            this.getBusInside();
+                            this.showdata = true;
+                            this.showdata2 = false;
+                            this.showAinner = true;
+                            this.showAout = false;
+                            this.show = true;
+                            this.show2 = false;
+                            this.showdata = true;
+                            this.showdata2 = false;
+                            this.showAinner = true;
+                            this.showAout = false;
+                            this.showforeigncurrency = false;
+                            this.showrow = true;
+                            this.showrow3 = true;
+                            this.showrow2 = false;
+                            this.showrow4 = false;
+                        } else {
+                            this.getBusOuter();
+                            this.showdata = false;
+                            this.showdata2 = true;
+                            this.showAinner = false;
+                            this.showAout = true;
+                            this.show = false;
+                            this.show2 = true;
+                            this.showforeigncurrency = true;
+                            this.showrow = false;
+                            this.showrow2 = true;
+                            this.showrow3 = false;
+                            this.showrow4 = true;
+                        }
+                        this.userlist = this.form.userid;
+                        this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
+                        this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
+                        this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
+                        this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+                        this.baseInfo.currencyexchanges = JSON.parse(JSON.stringify(this.tableW));
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            } else {
+                this.userlist = this.$store.getters.userinfo.userid;
+                if (this.userlist !== null && this.userlist !== '') {
+                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    var groupid = lst.groupId;
+                    this.form.centerid = lst.centerNmae;
+                    this.form.groupid = lst.groupNmae;
+                    this.form.teamid = lst.teamNmae;
+                    this.form.userid = this.$store.getters.userinfo.userid;
+                }
+                if (this.form.type === '0') {
+                    this.showdata = true;
+                    this.showdata2 = false;
+                    this.showAinner = true;
+                    this.showAout = false;
+                } else {
+                    this.showdata = false;
+                    this.showdata2 = true;
+                    this.showAinner = false;
+                    this.showAout = true;
+                }
+            }
+        },
+        created() {
+            if (!this.$route.params.disabled) {
+                this.buttonList = [];
+            }
+            this.disable = this.$route.params.disabled;
+        },
+        methods: {
+            getcode(val, row) {
+                row.accountcode = val;
+                let dic = getDictionaryInfo(val);
+                if (dic) {
+                    row.subjectnumber = dic.value2;
+                }
+            },
+            getLoanapp() {
+                this.$store
+                    .dispatch('PFANS1013Store/getLoanApplication')
+                    .then(response => {
+                        for (let i = 0; i < response.length; i++) {
+                            if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                                this.loans.push({
+                                    value: response[i].loanapplication_id,
+                                    label: this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                                    moneys: response[i].moneys,
+                                });
+                            }
+                        }
+                    });
+            },
+            getBusOuter() {
+                this.$store
+                    .dispatch('PFANS1013Store/getdate')
+                    .then(response => {
+                        for (let i = 0; i < response.length; i++) {
+                            if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+                                this.relations.push({
+                                    value: response[i].business_id,
+                                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                                    abroadbusiness: response[i].abroadbusiness,
+                                    city: response[i].region,
+                                    startdate: response[i].startdate,
+                                    enddate: response[i].enddate,
+                                    level: response[i].level,
+                                    businesstype: response[i].businesstype,
+                                    datenumber: response[i].datenumber,
+                                });
+                            }
+                        }
+                    });
+            },
+            getBusInside() {
+                this.$store
+                    .dispatch('PFANS1013Store/getdate')
+                    .then(response => {
+                        for (let i = 0; i < response.length; i++) {
+                            if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
+                                this.relations.push({
+                                    value: response[i].business_id,
+                                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                                    city: response[i].region,
+                                    startdate: response[i].startdate,
+                                    enddate: response[i].enddate,
+                                    businesstype: response[i].businesstype,
+                                    datenumber: response[i].datenumber,
+                                });
+                            }
+                        }
+                    });
+            },
+            getCompanyProjectList() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
+                    .then(response => {
+                        for (let i = 0; i < response.length; i++) {
+                            if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
+                                this.optionsdate.push({
+                                    value: response[i].companyprojects_id,
+                                    lable: response[i].project_name,
+                                });
+                            }
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            getGroupId(orglist, row) {
+                row.departmentname = orglist;
+                let group = getOrgInfo(orglist);
+                if (group) {
+                    this.Redirict = group.redirict;
+                    if (group.redirict === '0') {
+                        this.code20 = 'PJ119'
+                    } else if (group.redirict === '1') {
+                        this.code20 = 'PJ132';
+                    }
+                    this.companyen = group.companyen;
+                    row.budgetcoding = group.encoding;
+                }
+            },
+            gettype(val) {
+                tableA: [{
+                    evectionid: '',
+                    accommodationdetails_id: '',
+                    accommodationdate: [],
+                    invoicenumber: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    subjectnumber: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    activitycontent: '',
+                    city: '',
+                    region: '',
+                    facilitytype: '',
+                    facilityname: '',
+                    accommodationallowance: '',
+                    accommodation: '',
+                    travelallowance: '',
+                    travel: '',
+                    annexno: '',
+                    rowindex: '',
+                    taxes: '',
+                    costitem: '',
+                    disaccommod: false,
+                    showtick: true,
+                },
+                    {
+                        evectionid: '',
+                        accommodationdetails_id: '',
+                        accommodationdate: [],
+                        invoicenumber: '',
+                        plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                        accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
+                        budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                        subjectnumber: '',
+                        departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                        activitycontent: '',
+                        city: '',
+                        region: '',
+                        facilitytype: '',
+                        facilityname: '',
+                        accommodationallowance: '',
+                        accommodation: '',
+                        travelallowance: '',
+                        travel: '',
+                        annexno: '',
+                        rowindex: '',
+                        taxes: '',
+                        costitem: '',
+                        disaccommod: false,
+                        showtick: true,
+                    }],
+                this.activeName = 'first',
+                    this.form.type = val;
+                this.relations = [];
+                if (val === '0') {
+                    this.getBusInside();
+                    this.form.business_id = '';
+                    this.form.place = '';
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                    this.form.datenumber = '';
+                    this.show = true;
+                    this.show2 = false;
+                    this.showdata = true;
+                    this.showdata2 = false;
+                    this.showAinner = true;
+                    this.showAout = false;
+                    this.showforeigncurrency = false;
                     this.showrow3 = true;
                     this.showrow4 = false;
-                    // this.tableA[i].vehicleon = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = false;
-                    // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    // if (this.tableA[i].vehicleon === 'PJ025004') {
-                    //   this.tableA[i].showtick = false;
-                    //   this.tableA[i].disaccommod = true;
-                    // } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
-                    //   this.tableA[i].showtick = true;
-                    //   this.tableA[i].disaccommod = false;
-                    // }
-                  } else if (this.form.type === '1') {
-                    this.tableA[i].showAinner = false;
-                    this.tableA[i].showAout = true;
+                } else {
+                    this.getBusOuter();
+                    this.form.business_id = '';
+                    this.form.place = '';
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                    this.form.datenumber = '';
+                    this.show = false;
+                    this.show2 = true;
+                    this.showdata = false;
+                    this.showdata2 = true;
+                    this.showAinner = false;
+                    this.showAout = true;
+                    this.showforeigncurrency = true;
                     this.showrow3 = false;
                     this.showrow4 = true;
-                    // this.tableA[i].vehiclein = this.tableA[i].vehicle;
                     this.showrow = false;
                     this.showrow2 = true;
-                    // this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
-                  }
                 }
-              }
-            }
-            if (response.otherdetails.length > 0) {
-              for (let i = 0; i < response.otherdetails.length; i++) {
-                this.orglist = response.otherdetails[i].departmentname;
-                if (response.otherdetails[i].costitem === 'PJ057001') {
-                  this.checkStatus = true;
-                } else if (response.otherdetails[i].costitem === 'PJ057015') {
-                  this.checkStatus = true;
-                } else if (response.otherdetails[i].costitem === 'PJ057016') {
-                  this.checkStatus = true;
+            },
+            getUserids(val) {
+                this.form.userid = val;
+                this.userlist = val;
+                let lst = getOrgInfoByUserId(val);
+                this.form.centerid = lst.centerNmae;
+                this.form.groupid = lst.groupNmae;
+                this.form.teamid = lst.teamNmae;
+                if (!this.form.userid || this.form.userid === '' || typeof val === 'undefined') {
+                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+                } else {
+                    this.error = '';
                 }
-              }
-              this.tableR = response.otherdetails;
-            }
-            if (response.currencyexchanges.length > 0) {
-              this.tableW = response.currencyexchanges;
-            }
-            if (this.form.type === '0') {
-              this.getBusInside();
-              this.showdata = true;
-              this.showdata2 = false;
-              this.showAinner = true;
-              this.showAout = false;
-              this.show = true;
-              this.show2 = false;
-              this.showdata = true;
-              this.showdata2 = false;
-              this.showAinner = true;
-              this.showAout = false;
-              this.showforeigncurrency = false;
-              this.showrow = true;
-              this.showrow3 = true;
-              this.showrow2 = false;
-              this.showrow4 = false;
-            } else {
-              this.getBusOuter();
-              this.showdata = false;
-              this.showdata2 = true;
-              this.showAinner = false;
-              this.showAout = true;
-              this.show = false;
-              this.show2 = true;
-              this.showforeigncurrency = true;
-              this.showrow = false;
-              this.showrow2 = true;
-              this.showrow3 = false;
-              this.showrow4 = true;
-            }
-            this.userlist = this.form.userid;
-            this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
-            this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
-            this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
-            this.baseInfo.currencyexchanges = JSON.parse(JSON.stringify(this.tableW));
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          var groupid = lst.groupId;
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
-          this.form.userid = this.$store.getters.userinfo.userid;
-        }
-        if (this.form.type === '0') {
-          this.showdata = true;
-          this.showdata2 = false;
-          this.showAinner = true;
-          this.showAout = false;
-        } else {
-          this.showdata = false;
-          this.showdata2 = true;
-          this.showAinner = false;
-          this.showAout = true;
-        }
-      }
-    },
-    created() {
-      if (!this.$route.params.disabled) {
-        this.buttonList = [];
-      }
-      this.disable = this.$route.params.disabled;
-    },
-    methods: {
-        getcode(val, row) {
-            row.accountcode = val;
-            let dic = getDictionaryInfo(val);
-            if (dic) {
-                row.subjectnumber = dic.value2;
-            }
-        },
-      getLoanapp() {
-        this.$store
-          .dispatch('PFANS1013Store/getLoanApplication')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                this.loans.push({
-                  value: response[i].loanapplication_id,
-                  label: this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  moneys: response[i].moneys,
+            },
+            getrate(val, row) {
+                row.taxrate = val;
+            },
+            getPaymentinvoicetype(val, row) {
+                row.invoicetype = val;
+            },
+            changeSum(row) {
+                if (row.taxrate == '') {
+                    row.facetax = '';
+                } else {
+                    row.facetax = row.invoiceamount - row.excludingtax;
+                }
+            },
+            getbudgetunit(val) {
+                this.form.budgetunit = val;
+            },
+            deleteRow(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableT = [{
+                        budgetcoding: '',
+                        trafficdate: '',
+                        invoicenumber: '',
+                        departmentname: '',
+                        taxes: '',
+                        costitem: '',
+                        region: '',
+                        vehicle: '',
+                        startingpoint: '',
+                        rmb: '',
+                        taxrate: '',
+                        foreigncurrency: '',
+                        annexno: '',
+                        rowindex: '',
+                    }];
+                }
+            },
+            deleteRow3(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableA = [{
+                        accommodationdate: [],
+                        activitycontent: ' ',
+                        budgetcoding: '',
+                        plsummary: '',
+                        accountcode: '',
+                        subjectnumber: '',
+                        city: '',
+                        region: ' ',
+                        facilitytype: '',
+                        facilityname: '',
+                        accommodationallowance: '',
+                        accommodation: '',
+                        travelallowance: '',
+                        travel: '',
+                        annexno: '',
+                    }];
+                }
+            },
+            deleteRow4(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableR = [{
+                        otherdetailsdate: '',
+                        costitem: '',
+                        plsummary: '',
+                        accountcode: '',
+                        rmb: '',
+                        subjectnumber: '',
+                        remarks: '',
+                        budgetcoding: '',
+                        foreigncurrency: '',
+                        annexno: '',
+                    }];
+                }
+            },
+            deleteRow5(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableF.push({
+                        invoicenumber: '',
+                        invoicetype: '',
+                        invoiceamount: '',
+                        taxrate: '',
+                        excludingtax: '',
+                        facetax: '',
+                    });
+                }
+                this.checkOption();
+            },
+            deleteRow6(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableW = [{
+                        evectionid: '',
+                        currencyexchangeid: '',
+                        currency: '',
+                        amount: '',
+                        exchangerate: '',
+                        exchangermb: '',
+                        currencyexchangerate: '',
+                    }];
+                }
+            },
+            addRow() {
+                this.tableT.push({
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    evectionid: '',
+                    trafficdetails_id: '',
+                    publicexpenseid: '',
+                    trafficdate: '',
+                    invoicenumber: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: '',
+                    subjectnumber: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    taxes: '',
+                    costitem: '',
+                    region: '',
+                    vehicle: '',
+                    startingpoint: '',
+                    rmb: '',
+                    taxrate: '',
+                    foreigncurrency: '',
+                    annexno: '',
+                    rowindex: '',
                 });
-              }
-            }
-          });
-      },
-      getBusOuter() {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
-                this.relations.push({
-                  value: response[i].business_id,
-                  label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  abroadbusiness: response[i].abroadbusiness,
-                  city: response[i].region,
-                  startdate: response[i].startdate,
-                  enddate: response[i].enddate,
-                  level: response[i].level,
-                  businesstype: response[i].businesstype,
-                  datenumber: response[i].datenumber,
+            },
+            addRow3() {
+                this.tableA.push({
+                    evectionid: '',
+                    accommodationdetails_id: '',
+                    accommodationdate: [],
+                    // nextday: '',
+                    invoicenumber: '',
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    activitycontent: '',
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: '',
+                    // vehicle: '',
+                    // vehicleon: '',
+                    // vehiclein: '',
+                    // movementtime: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    subjectnumber: '',
+                    city: '',
+                    region: '',
+                    facilitytype: '',
+                    // facilitytypeon: '',
+                    // facilitytypein: '',
+                    facilityname: '',
+                    accommodationallowance: '',
+                    accommodation: '',
+                    travelallowance: '',
+                    travel: '',
+                    // relatives: '',
+                    // traintick: 0,
+                    annexno: '',
+                    rowindex: '',
+                    taxes: '',
+                    costitem: '',
+                    disaccommod: false,
+                    showtick: true,
                 });
-              }
-            }
-          });
-      },
-      getBusInside() {
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
-                this.relations.push({
-                  value: response[i].business_id,
-                  label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  city: response[i].region,
-                  startdate: response[i].startdate,
-                  enddate: response[i].enddate,
-                  businesstype: response[i].businesstype,
-                  datenumber: response[i].datenumber,
-                });
-              }
-            }
-          });
-      },
-      getCompanyProjectList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5008Store/getCompanyProjectList', {})
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].project_name,
-                });
-              }
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      getGroupId(orglist, row) {
-        row.departmentname = orglist;
-        let group = getOrgInfo(orglist);
-        if (group) {
-          this.Redirict = group.redirict;
-          if(group.redirict === '0'){
-            this.code20 = 'PJ119'
-          } else if(group.redirict === '1') {
-            this.code20 = 'PJ132';
-          }
-          this.companyen = group.companyen;
-          row.budgetcoding = group.encoding;
-        }
-      },
-      gettype(val) {
-        this.activeName = 'first',
-          this.form.type = val;
-        this.relations = [];
-        if (val === '0') {
-          this.getBusInside();
-          this.form.business_id = '';
-          this.form.place = '';
-          this.form.startdate = '';
-          this.form.enddate = '';
-          this.form.datenumber = '';
-          this.show = true;
-          this.show2 = false;
-          this.showdata = true;
-          this.showdata2 = false;
-          this.showAinner = true;
-          this.showAout = false;
-          this.showforeigncurrency = false;
-          this.showrow3 = true;
-          this.showrow4 = false;
-          this.showrow = true;
-          this.showrow2 = false;
-          this.tableA = [{
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            // nextday: '',
-            activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
-            city: '',
-            region: '',
-            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-            subjectnumber: '',
-            facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            // relatives: '',
-            // traintick: 0,
-            annexno: '',
-            rowindex: '',
-            disaccommod: false,
-            showtick: true,
-          }];
-        } else {
-          this.getBusOuter();
-          this.form.business_id = '';
-          this.form.place = '';
-          this.form.startdate = '';
-          this.form.enddate = '';
-          this.form.datenumber = '';
-          this.show = false;
-          this.show2 = true;
-          this.showdata = false;
-          this.showdata2 = true;
-          this.showAinner = false;
-          this.showAout = true;
-          this.showforeigncurrency = true;
-          this.showrow3 = false;
-          this.showrow4 = true;
-          this.showrow = false;
-          this.showrow2 = true;
-          this.tableA = [{
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            // nextday: '',
-            activitycontent: '',
-            // vehicle: '',
-            // vehicleon: '',
-            // vehiclein: '',
-            // movementtime: '',
-            city: '',
-            budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-            subjectnumber: '',
-            region: '',
-            facilitytype: '',
-            // facilitytypeon: '',
-            // facilitytypein: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            // relatives: '',
-            // traintick: 0,
-            annexno: '',
-            rowindex: '',
-            disaccommod: false,
-            showtick: true,
-          }];
-        }
-      },
-      getUserids(val) {
-        this.form.userid = val;
-        this.userlist = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
-        if (!this.form.userid || this.form.userid === '' || typeof val === 'undefined') {
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-        } else {
-          this.error = '';
-        }
-      },
-      getrate(val, row) {
-        row.taxrate = val;
-      },
-      getPaymentinvoicetype(val, row) {
-        row.invoicetype = val;
-      },
-      changeSum(row) {
-        if (row.taxrate == '') {
-          row.facetax = '';
-        } else {
-          row.facetax = row.invoiceamount - row.excludingtax;
-        }
-      },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
-      },
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableT = [{
-            budgetcoding: '',
-            trafficdate: '',
-            invoicenumber: '',
-            departmentname: '',
-            taxes: '',
-            costitem: '',
-            region: '',
-            vehicle: '',
-            startingpoint: '',
-            rmb: '',
-            taxrate: '',
-            foreigncurrency: '',
-            annexno: '',
-            rowindex: '',
-          }];
-        }
-      },
-      deleteRow3(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableA = [{
-            accommodationdate: [],
-            activitycontent: ' ',
-            budgetcoding: '',
-            plsummary: '',
-            accountcode: '',
-            subjectnumber: '',
-            city: '',
-            region: ' ',
-            facilitytype: '',
-            facilityname: '',
-            accommodationallowance: '',
-            accommodation: '',
-            travelallowance: '',
-            travel: '',
-            annexno: '',
-          }];
-        }
-      },
-      deleteRow4(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableR = [{
-            otherdetailsdate: '',
-            costitem: '',
-            plsummary: '',
-            accountcode: '',
-            rmb: '',
-            subjectnumber: '',
-            remarks: '',
-            budgetcoding: '',
-            foreigncurrency: '',
-            annexno: '',
-          }];
-        }
-      },
-      deleteRow5(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableF.push({
-            invoicenumber: '',
-            invoicetype: '',
-            invoiceamount: '',
-            taxrate: '',
-            excludingtax: '',
-            facetax: '',
-          });
-        }
-        this.checkOption();
-      },
-      deleteRow6(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableW = [{
-            evectionid: '',
-            currencyexchangeid: '',
-            currency: '',
-            amount: '',
-            exchangerate: '',
-            exchangermb: '',
-            currencyexchangerate: '',
-          }];
-        }
-      },
-      addRow() {
-        this.tableT.push({
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          evectionid: '',
-          trafficdetails_id: '',
-          publicexpenseid: '',
-          trafficdate: '',
-          invoicenumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: '',
-          subjectnumber: '',
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          taxes: '',
-          costitem: '',
-          region: '',
-          vehicle: '',
-          startingpoint: '',
-          rmb: '',
-          taxrate: '',
-          foreigncurrency: '',
-          annexno: '',
-          rowindex: '',
-        });
-      },
-      addRow3() {
-        this.tableA.push({
-          evectionid: '',
-          accommodationdetails_id: '',
-          accommodationdate: [],
-          // nextday: '',
-          invoicenumber: '',
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          activitycontent: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: '',
-          // vehicle: '',
-          // vehicleon: '',
-          // vehiclein: '',
-          // movementtime: '',
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          subjectnumber: '',
-          city: '',
-          region: '',
-          facilitytype: '',
-          // facilitytypeon: '',
-          // facilitytypein: '',
-          facilityname: '',
-          accommodationallowance: '',
-          accommodation: '',
-          travelallowance: '',
-          travel: '',
-          // relatives: '',
-          // traintick: 0,
-          annexno: '',
-          rowindex: '',
-          taxes: '',
-          costitem: '',
-          disaccommod: false,
-          showtick: true,
-        });
-      },
-      addRow4() {
-        this.tableR.push({
-          evectionid: '',
-          otherdetails_id: '',
-          otherdetailsdate: '',
-          invoicenumber: '',
-          budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-            accountcode: '',
-            subjectnumber: '',
+            },
+            addRow4() {
+                this.tableR.push({
+                    evectionid: '',
+                    otherdetails_id: '',
+                    otherdetailsdate: '',
+                    invoicenumber: '',
+                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    accountcode: '',
+                    subjectnumber: '',
 
-          departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-          costitem: '',
-          remarks: '',
-          rmb: '',
-          taxrate: '',
-          foreigncurrency: '',
-          annexno: '',
-          taxes: '',
-          rowindex: '',
-        });
-      },
-      addRow5() {
-        let b;
-        if (this.tableF.length > 0) {
-          b = this.tableF.length + 1;
-        }
-        this.tableF.push({
-          invoice_id: '',
-          publicexpenseid: '',
-          invoicenumber: b,
-          invoicetype: '',
-          invoiceamount: '',
-          taxrate: '',
-          excludingtax: '',
-          facetax: '',
-        });
-        this.checkOption();
-      },
-      addRow6() {
-        this.tableW.push({
-          evectionid: '',
-          currencyexchangeid: '',
-          currency: '',
-          amount: '',
-          exchangerate: '',
-          exchangermb: '',
-          currencyexchangerate: '',
-        });
-      },
-      checkOption() {
-        this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}];
-        for (let i = 0; i < this.tableF.length; i++) {
-          var vote = {};
-          vote.value = this.tableF[i].invoicenumber,
-            vote.lable = this.tableF[i].invoicenumber,
-            this.optionsdata.push(vote);
-        }
-      },
-      getTsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index == 4) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 5) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '--';
-          }
-        });
-        this.getforeign(sums);
-        this.getMoney(sums);
-        this.getValue(sums);
-        this.getValue2(sums);
-        return sums;
-      },
-      changebusiness(val) {
-        this.form.startdate = '';
-        this.form.enddate = '';
-        this.form.business_id = val;
-        for (var i = 0; i < this.relations.length; i++) {
-          if (this.relations[i].value === val) {
-            let cityinfo = getDictionaryInfo(this.relations[i].city);
-            if (cityinfo) {
-              this.form.place = cityinfo.value1;
-            }
-            this.rank = this.relations[i].level;
-            let dict = getDictionaryInfo(this.relations[i].level);
-            if (dict) {
-              this.form.level = dict.value1;
-            }
-            this.form.abroadbusiness = this.relations[i].abroadbusiness;
-            this.form.startdate = this.relations[i].startdate;
-            this.form.enddate = this.relations[i].enddate;
-            this.form.datenumber = this.relations[i].datenumber;
-            this.tableT[0].trafficdate = this.form.startdate;
-            this.tableR[0].otherdetailsdate = this.form.startdate;
-            this.tableA[0].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
-            this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-          }
+                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    costitem: '',
+                    remarks: '',
+                    rmb: '',
+                    taxrate: '',
+                    foreigncurrency: '',
+                    annexno: '',
+                    taxes: '',
+                    rowindex: '',
+                });
+            },
+            addRow5() {
+                let b;
+                if (this.tableF.length > 0) {
+                    b = this.tableF.length + 1;
+                }
+                this.tableF.push({
+                    invoice_id: '',
+                    publicexpenseid: '',
+                    invoicenumber: b,
+                    invoicetype: '',
+                    invoiceamount: '',
+                    taxrate: '',
+                    excludingtax: '',
+                    facetax: '',
+                });
+                this.checkOption();
+            },
+            addRow6() {
+                this.tableW.push({
+                    evectionid: '',
+                    currencyexchangeid: '',
+                    currency: '',
+                    amount: '',
+                    exchangerate: '',
+                    exchangermb: '',
+                    currencyexchangerate: '',
+                });
+            },
+            checkOption() {
+                this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}];
+                for (let i = 0; i < this.tableF.length; i++) {
+                    var vote = {};
+                    vote.value = this.tableF[i].invoicenumber,
+                        vote.lable = this.tableF[i].invoicenumber,
+                        this.optionsdata.push(vote);
+                }
+            },
+            getTsummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        if (index == 4) {
+                            sums[index] = Math.round((sums[index]) * 100) / 100;
+                        }
+                        if (index == 5) {
+                            sums[index] = Math.round((sums[index]) * 100) / 100;
+                        }
+                    } else {
+                        sums[index] = '--';
+                    }
+                });
+                this.getforeign(sums);
+                this.getMoney(sums);
+                this.getValue(sums);
+                this.getValue2(sums);
+                return sums;
+            },
+            changebusiness(val) {
+                this.form.startdate = '';
+                this.form.enddate = '';
+                this.form.business_id = val;
+                for (var i = 0; i < this.relations.length; i++) {
+                    if (this.relations[i].value === val) {
+                        let cityinfo = getDictionaryInfo(this.relations[i].city);
+                        if (cityinfo) {
+                            this.form.place = cityinfo.value1;
+                        }
+                        this.rank = this.relations[i].level;
+                        let dict = getDictionaryInfo(this.relations[i].level);
+                        if (dict) {
+                            this.form.level = dict.value1;
+                        }
+                        this.form.abroadbusiness = this.relations[i].abroadbusiness;
+                        this.form.startdate = this.relations[i].startdate;
+                        this.form.enddate = this.relations[i].enddate;
+                        this.form.datenumber = this.relations[i].datenumber;
+                        this.tableT[0].trafficdate = this.form.startdate;
+                        this.tableR[0].otherdetailsdate = this.form.startdate;
+                        this.tableA[0].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
+                        this.tableA[0].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
+                        this.tableA[1].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
+                        this.tableA[1].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
+                        this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                    }
 
         }
         // } else {
