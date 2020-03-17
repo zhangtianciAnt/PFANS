@@ -301,7 +301,7 @@
       };
     },
     mounted() {
-      this.getCompanyProject();
+      this.getPjnameList();
       if (this.$route.params._id) {//查看详情
         this.loading = true;
         this.$store
@@ -334,10 +334,11 @@
       }
     },
     methods: {
-      getCompanyProject() {
+      getPjnameList() {
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .dispatch('PFANS6007Store/getPjnameList', {})
           .then(response => {
+            console.log(response)
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               this.gridData = [];

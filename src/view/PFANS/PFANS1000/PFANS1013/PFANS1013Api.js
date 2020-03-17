@@ -15,6 +15,14 @@ export function selectById(data) {
   })
 }
 
+export function gettravelcostvo(data) {
+  return request({
+    url: 'evection/gettravelcostvo',
+    method: 'post',
+    data: data
+  })
+}
+
 export function update(data) {
   return request({
     url: 'evection/update',
