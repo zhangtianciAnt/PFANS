@@ -458,17 +458,11 @@
                 flag: [],
                 ratios:[],
                 form1:{
-                    Lunarbonus:{
-                        lunarbonus_id:'',
-                        group_id:'',
-                        evaluationday: new Date(),
-                        evaluatenum:'PJ104',
-                        subjectmon:'PJ103',
-                        subject:'',
-                        lunarbonus_id:'',
-                        user_id: this.$store.getters.userinfo.userid
-                    },
-                    examinationobject_id: '1'
+                    evaluationday: new Date(),
+                    subjectmon:'PJ103',
+                    evaluatenum:'PJ104',
+                    user_id: this.$store.getters.userinfo.userid,
+                    examinationobject_id:'1',
                 },
                 name:'',
                 examinationobjects: [],
@@ -675,6 +669,7 @@
                                     }
                                 }
 
+
                                 this.form.tabledata.push(response[i]);
                             }
 
@@ -693,14 +688,19 @@
             update(){
                 this.show = this.$route.params.show;
                 this.disabled = false;
-                this.form1.Lunarbonus.lunarbonus_id = this.$route.params._id;
-                //let data = JSON.stringify(this.form1);
-                console.log(this.$route.params._id);
+                this.form1.lunarbonus_id = this.$route.params._id;
+
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
                         if(response){
                             for(let i=0;i < response.length;i++){
+
+                                if (response[i].enterday !== null && response[i].enterday !== "") {
+                                    response[i].enterday = moment(response[i].enterday).format('YYYY-MM-DD');
+                                }
+
+
                                 if (response[i].tatebai !== null && response[i].tatebai !== "") {
                                     let temp = getDictionaryInfo(response[i].tatebai);
                                     if (temp) {
@@ -784,9 +784,16 @@
                                         response[i].workattitude = temp.value1;
                                     }
                                 }
+
+                                if (response[i].overallscore !== null && response[i].overallscore !== "") {
+                                        response[i].commentaryresult = this.getScore(response[i].overallscore * 1);
+                                }
                                 this.form.tabledata.push(response[i]);
+                              }
+
+
                             }
-                        }
+
                         this.loading = false;
                     })
                     .catch(err => {
@@ -798,10 +805,11 @@
                         });
                     });
                 //下拉
+
                 this.$store
                     .dispatch("PFANS2027Store/getExaminationobject")
                     .then(response => {
-                        for(let i=0;i<response.length;i++){
+                        for(let i = 0;i<response.length;i++){
                             this.examinationobjects.push(response[i]);
                         }
                     })
@@ -813,14 +821,16 @@
                             duration: 5 * 1000
                         });
                     });
+
+                let data = {ids:this.form1.examinationobject_id};
                 this.$store
-                    .dispatch("PFANS2027Store/getStatus", this.form1.examinationobject_id)
+                    .dispatch("PFANS2027Store/getStatus", data)
                     .then(response => {
                       for(let i=0;i<response.length;i++){
                          if(response[i].state === '1'){
-                             this.flag.put(false);
+                             this.flag.push(false);
                          }else{
-                             this.flag.put(true);
+                             this.flag.push(true);
                          }
                          this.ratios.push(response[i].ratio);
                       }
@@ -833,7 +843,9 @@
                         duration: 5 * 1000
                     });
                 });
+
             },
+
             changeEvaluationday(val){
                 this.form1.evaluationday = val;
                 this.$store
@@ -1046,7 +1058,7 @@
                                 });
                             });
                         this.$store
-                            .dispatch("PFANS2027Store/getStatus", this.lunardetailid.examinationobject_id)
+                            .dispatch("PFANS2027Store/getStatus", this.form1.examinationobject_id)
                             .then(response => {
                                 for(let i=0;i<response.length;i++){
                                     if(response[i].state === '1'){
@@ -1191,7 +1203,34 @@
                         });
                     });
             },
-
+            getScore(val){
+                let scor;
+                if(val >= 0 && val < 20){
+                    scor = 'H';
+                }
+                if(val >= 20 && val < 40){
+                    scor = 'G';
+                }
+                if(val >= 40 && val < 64){
+                    scor = 'F';
+                }
+                if(val >= 64 && val < 72){
+                    scor = 'E';
+                }
+                if(val >= 72 && val < 80){
+                    scor = 'D';
+                }
+                if(val >= 80 && val < 88){
+                    scor = 'C';
+                }
+                if(val >= 88 && val < 104){
+                    scor = 'B';
+                }
+                if(val >= 104){
+                    scor = 'A';
+                }
+                return scor;
+            },
             changeTatebai(val, index){
                 this.form.tabledata[index].tatebai = val;
             },
