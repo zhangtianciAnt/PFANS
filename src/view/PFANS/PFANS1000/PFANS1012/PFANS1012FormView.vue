@@ -2442,6 +2442,8 @@
                         }
                     }
                 }
+
+
                 if (newValue.rmb > 0) {
                     newValue.foreigncurrency = '';
                     newValue.currencyrate = '';
