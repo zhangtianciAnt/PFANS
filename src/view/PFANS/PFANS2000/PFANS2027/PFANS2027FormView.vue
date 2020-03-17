@@ -458,16 +458,20 @@
                 flag: [],
                 ratios:[],
                 form1:{
-                    evaluationday: new Date(),
-                    evaluatenum:'PJ104',
-                    subjectmon:'PJ103',
-                    subject:'',
-                    lunarbonus_id:'',
-                    examinationobject_id: '1',
-                    user_id: this.$store.getters.userinfo.userid,
+                    Lunarbonus:{
+                        lunarbonus_id:'',
+                        group_id:'',
+                        evaluationday: new Date(),
+                        evaluatenum:'PJ104',
+                        subjectmon:'PJ103',
+                        subject:'',
+                        lunarbonus_id:'',
+                        user_id: this.$store.getters.userinfo.userid
+                    },
+                    examinationobject_id: '1'
                 },
                 name:'',
-                examinationobjects: [{examinationobject_id:'',name:''}],
+                examinationobjects: [],
                /* category: '',*/
                 titleType:'',
                 title: "title.PFANS2027VIEW_VIEW",
@@ -689,10 +693,11 @@
             update(){
                 this.show = this.$route.params.show;
                 this.disabled = false;
-                this.form1.lunarbonus_id = this.$route.params._id;
+                this.form1.Lunarbonus.lunarbonus_id = this.$route.params._id;
+                //let data = JSON.stringify(this.form1);
                 console.log(this.$route.params._id);
                 this.$store
-                    .dispatch("PFANS2027Store/getLunardetails", this.lunardetailid)
+                    .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
                         if(response){
                             for(let i=0;i < response.length;i++){
@@ -792,12 +797,12 @@
                             duration: 5 * 1000
                         });
                     });
+                //下拉
                 this.$store
                     .dispatch("PFANS2027Store/getExaminationobject")
                     .then(response => {
                         for(let i=0;i<response.length;i++){
-                            examinationobjects[i].examinationobject_id = response[i].examinationobject_id;
-                            examinationobjects[i].name = response[i].name;
+                            this.examinationobjects.push(response[i]);
                         }
                     })
                     .catch(err => {
@@ -809,7 +814,7 @@
                         });
                     });
                 this.$store
-                    .dispatch("PFANS2027Store/getStatus", this.lunardetailid.examinationobject_id)
+                    .dispatch("PFANS2027Store/getStatus", this.form1.examinationobject_id)
                     .then(response => {
                       for(let i=0;i<response.length;i++){
                          if(response[i].state === '1'){
