@@ -25,18 +25,54 @@
           @rowClick="rowClick"
 
         ></EasyNormalTable>
+        <el-dialog :visible.sync="daoru" width="50%">
+          <div>
+            <div style="margin-top: 1rem;margin-left: 28%">
+              <el-upload
+                drag
+                ref="uploader"
+                :action="postAction"
+                :on-success="handleSuccess"
+                :before-upload="handleChange"
+                :headers="authHeader"
+                :limit=1
+                :on-remove="this.clear"
+                multiple
+              >
+                <i class="el-icon-upload"></i>
+                <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+              </el-upload>
+            </div>
+            <el-row>
+              <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span v-if="this.resultShow"
+              >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+            </el-row>
+            <span v-if="this.Message">{{this.cuowu}}</span>
+            <div v-if="this.result">
+              <el-table :data="message">
+                <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </el-dialog>
       </el-main>
     </el-container>
   </div>
 </template>
 
 <script>
+import {getToken} from '@/utils/auth'
 import EasyTree from "@/components/EasyTree";
 import EasyButtonBar from "@/components/EasyButtonBar";
 import EasyNormalTable from "@/components/EasyNormalTable";
 import { parseTime, getDictionaryInfo } from "@/utils/customize";
 import { Message } from "element-ui";
 import moment from "moment";
+
 export default {
   name: "usersView",
   components: {
@@ -46,6 +82,14 @@ export default {
   },
   data() {
     return {
+      daoru: false,
+      successCount: 0,
+      errorCount: 0,
+      authHeader: {'x-auth-token': getToken()},
+      postAction: process.env.BASE_API + '/user/importUser',
+      resultShow: false,
+      Message: false,
+      result: false,
       data: [],
       tableList: [],
       title: "label.PFANSUSERVIEW_USER",
@@ -159,7 +203,13 @@ export default {
           name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
           disabled: true,
           icon: "el-icon-edit"
-        }
+        },
+        {
+          key: 'import',
+          name: 'button.import',
+          disabled: false,
+          icon: 'el-icon-upload2'
+        },
       ],
       departmentname: "",
       loading: false,
@@ -167,7 +217,64 @@ export default {
     };
   },
   methods: {
+    handleChange(file, fileList) {
+      this.clear(true);
+    },
+    clear(safe) {
+      this.file = null;
+      this.resultShow = false;
+      this.Message = false;
+      this.result = false;
+      if (!safe) {
+        if(this.$refs.uploader != undefined){
+          this.$refs.uploader.clearFiles();
+        }
+      }
+    },
+    handleSuccess(response, file, fileList) {
+      if (response.code !== 0) {
+        this.cuowu = response.message;
+        this.Message = true;
+      } else {
+        let datalist = [];
+        for (let c = 0; c < response.data.length; c++) {
+          let error = response.data[c];
+          error = error.substring(0, 3);
+          if (this.$i18n) {
+            if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+              this.errorCount = response.data[c].substring(4);
+              this.resultShow = true;
+            }
+            if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+              this.successCount = response.data[c].substring(4);
+              this.resultShow = true;
+            }
+            if (error === this.$t("label.PFANS2017VIEW_D")) {
+              let obj = {};
+              var str = response.data[c];
+              var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
+              var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
+              var r = str.substr(aPos + 1, bPos - aPos - 1);
+              obj.hang = r;
+              obj.error = response.data[c].substring(6);
+              datalist[c] = obj;
+            }
+          }
+          this.message = datalist;
+          this.totaldata = this.message;
+          if (this.errorCount === "0") {
+            this.result = false;
+          } else {
+            this.result = true;
+          }
+        }
+      }
+    },
     buttonClick(val) {
+      if (val === 'import') {
+      this.daoru = true;
+      this.clear(false);
+    }
       this.$store.commit("global/SET_HISTORYURL", this.$route.path);
       if (val === "new") {
         this.$router.push({
@@ -348,6 +455,7 @@ export default {
       this.$store
         .dispatch("usersStore/getUserTableList", params)
         .then(response => {
+          debugger
           let _tableList = [];
           if (response.length > 0) {
             response.map(d => {
@@ -358,16 +466,18 @@ export default {
             });
             for (var j = 0; j < _tableList.length; j++) {
               let result = "";
-              for (var i = 0; i < _tableList[j].departmentid.length; i++) {
-                let departName = this.getDepartmentNameById(
-                  _tableList[j].departmentid[i]
-                );
-                if (departName !== "") {
-                  result += departName + ",";
+              if(_tableList[j].departmentid != null){
+                for (var i = 0; i < _tableList[j].departmentid.length; i++) {
+                  let departName = this.getDepartmentNameById(
+                    _tableList[j].departmentid[i]
+                  );
+                  if (departName !== "") {
+                    result += departName + ",";
+                  }
                 }
+                result = result.substring(0, result.lastIndexOf(","));
+                _tableList[j].departmentname = result;
               }
-              result = result.substring(0, result.lastIndexOf(","));
-              _tableList[j].departmentname = result;
               _tableList[j].status === "0"
                 ? (_tableList[j].statusname = this.$t(
                 "label.PFANSUSERVIEW_ENABLE"

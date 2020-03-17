@@ -458,17 +458,18 @@
                 flag: [],
                 ratios:[],
                 form1:{
-                    Lunarbonus:{
-                        lunarbonus_id:'',
-                        group_id:'',
-                        evaluationday: new Date(),
-                        evaluatenum:'PJ104',
-                        subjectmon:'PJ103',
-                        subject:'',
-                        lunarbonus_id:'',
-                        user_id: this.$store.getters.userinfo.userid
-                    },
-                    examinationobject_id: '1'
+                    evaluationday: new Date(),
+                    evaluatenum: '',
+                    subjectmon: '',
+                    lunarbonus_id:this.$route.params._id,
+                    examinationobject_id: 1,
+
+                },
+                form2:{
+                    evaluationday: new Date(),
+                    lunarbonus_id:this.$route.params._id,
+                    examinationobject_id: 1,
+
                 },
                 name:'',
                 examinationobjects: [],
@@ -482,43 +483,6 @@
                     lunarbonus_id: '',
                     examinationobject_id: '1'
                 },*/
-                lunardetail:{
-                    lunardetail_id: '',
-                    lunarbonus_id: '',
-                    user_id: '',
-                    rn: '',
-                    enterday: '',
-                    group_id: '',
-                    team_id: '',
-                    salary: '',
-                    workrate: '',
-                    bonussign: '',
-                    lastsymbol: '',
-                    tatebai: '',
-                    satoshi: '',
-                    organization: '',
-                    systematics: '',
-                    manpower: '',
-                    scale: '',
-                    achievement: '',
-                    degree: '',
-                    assignment: '',
-                    teamwork: '',
-                    humandevelopment: '',
-                    workattitude: '',
-                    overallscore: '',
-                    commentaryreturns: '',
-                    commentaryresult: '',
-                    comprehensiveone: '',
-                    comprehensivetwo: '',
-                    firstmonth: '',
-                    secondmonth: '',
-                    thirdmonth: '',
-                    subjectmon: '',
-                    evaluatenum: '',
-                    difference: '',
-                    evaluationday: '',
-                },
                 form: {
                     tabledata: []
                 },
@@ -554,6 +518,9 @@
         },
         mounted(){
             //let lst = getUserInfo(this.$store.getters.userinfo.userid);//获取当前user
+
+            this.selectbyid()
+
             this.loading = true;
             if (this.$route.params._id) {
                 if(this.$route.params.show){//view
@@ -564,6 +531,33 @@
             }
         },
         methods: {
+
+            //获取下拉列表的初始值
+
+            selectbyid() {
+                if (this.$route.params._id) {
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS2027Store/getOne', {'lunarbonus_id': this.$route.params._id})
+                        .then(response => {
+                            if (response) {
+                                this.form1 = response;
+                            }
+                            console.log("responseselectbyid",response)
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }
+            },
+
+
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
@@ -584,7 +578,7 @@
                 this.form1.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
                 this.$store
-                    .dispatch("PFANS2027Store/getLunardetails", this.form1)
+                    .dispatch("PFANS2027Store/getLunardetails", this.form2)
                     .then(response => {
                         debugger;
                         console.log(response);
@@ -689,18 +683,39 @@
                             duration: 5 * 1000
                         });
                     });
+
+                this.$store
+                    .dispatch("PFANS2027Store/getExaminationobject")
+                    .then(response => {
+                        for(let i = 0;i<response.length;i++){
+                            this.examinationobjects.push(response[i]);
+                        }
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        Message({
+                            message: err,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                    });
             },
             update(){
                 this.show = this.$route.params.show;
                 this.disabled = false;
-                this.form1.Lunarbonus.lunarbonus_id = this.$route.params._id;
-                //let data = JSON.stringify(this.form1);
-                console.log(this.$route.params._id);
+                this.form1.lunarbonus_id = this.$route.params._id;
+
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
                         if(response){
                             for(let i=0;i < response.length;i++){
+
+                                if (response[i].enterday !== null && response[i].enterday !== "") {
+                                    response[i].enterday = moment(response[i].enterday).format('YYYY-MM-DD');
+                                }
+
+
                                 if (response[i].tatebai !== null && response[i].tatebai !== "") {
                                     let temp = getDictionaryInfo(response[i].tatebai);
                                     if (temp) {
@@ -784,9 +799,16 @@
                                         response[i].workattitude = temp.value1;
                                     }
                                 }
+
+                                if (response[i].overallscore !== null && response[i].overallscore !== "") {
+                                        response[i].commentaryresult = this.getScore(response[i].overallscore * 1);
+                                }
                                 this.form.tabledata.push(response[i]);
+                              }
+
+
                             }
-                        }
+
                         this.loading = false;
                     })
                     .catch(err => {
@@ -798,10 +820,11 @@
                         });
                     });
                 //下拉
+
                 this.$store
                     .dispatch("PFANS2027Store/getExaminationobject")
                     .then(response => {
-                        for(let i=0;i<response.length;i++){
+                        for(let i = 0;i<response.length;i++){
                             this.examinationobjects.push(response[i]);
                         }
                     })
@@ -813,14 +836,16 @@
                             duration: 5 * 1000
                         });
                     });
+
+                let data = {ids:this.form1.examinationobject_id};
                 this.$store
-                    .dispatch("PFANS2027Store/getStatus", this.form1.examinationobject_id)
+                    .dispatch("PFANS2027Store/getStatus", data)
                     .then(response => {
                       for(let i=0;i<response.length;i++){
                          if(response[i].state === '1'){
-                             this.flag.put(false);
+                             this.flag.push(false);
                          }else{
-                             this.flag.put(true);
+                             this.flag.push(true);
                          }
                          this.ratios.push(response[i].ratio);
                       }
@@ -833,7 +858,9 @@
                         duration: 5 * 1000
                     });
                 });
+
             },
+
             changeEvaluationday(val){
                 this.form1.evaluationday = val;
                 this.$store
@@ -1046,7 +1073,7 @@
                                 });
                             });
                         this.$store
-                            .dispatch("PFANS2027Store/getStatus", this.lunardetailid.examinationobject_id)
+                            .dispatch("PFANS2027Store/getStatus", this.form1.examinationobject_id)
                             .then(response => {
                                 for(let i=0;i<response.length;i++){
                                     if(response[i].state === '1'){
@@ -1180,7 +1207,99 @@
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
+                        console.log("response11111",response)
+                        if(response){
+                            for(let i=0;i < response.length;i++){
 
+                                if (response[i].tatebai !== null && response[i].tatebai !== "") {
+                                    let temp = getDictionaryInfo(response[i].tatebai);
+                                    if (temp) {
+                                        response[i].tatebai = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].satoshi !== null && response[i].satoshi !== "") {
+                                    let temp = getDictionaryInfo(response[i].satoshi);
+                                    if (temp) {
+                                        response[i].satoshi = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].organization !== null && response[i].organization !== "") {
+                                    let temp = getDictionaryInfo(response[i].organization);
+                                    if (temp) {
+                                        response[i].organization = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].systematics !== null && response[i].systematics !== "") {
+                                    let temp = getDictionaryInfo(response[i].systematics);
+                                    if (temp) {
+                                        response[i].systematics = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].manpower !== null && response[i].manpower !== "") {
+                                    let temp = getDictionaryInfo(response[i].manpower);
+                                    if (temp) {
+                                        response[i].manpower = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].scale !== null && response[i].scale !== "") {
+                                    let temp = getDictionaryInfo(response[i].scale);
+                                    if (temp) {
+                                        response[i].scale = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].achievement !== null && response[i].achievement !== "") {
+                                    let temp = getDictionaryInfo(response[i].achievement);
+                                    if (temp) {
+                                        response[i].achievement = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].degree !== null && response[i].degree !== "") {
+                                    let temp = getDictionaryInfo(response[i].degree);
+                                    if (temp) {
+                                        response[i].degree = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].assignment !== null && response[i].assignment !== "") {
+                                    let temp = getDictionaryInfo(response[i].assignment);
+                                    if (temp) {
+                                        response[i].assignment = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].teamwork !== null && response[i].teamwork !== "") {
+                                    let temp = getDictionaryInfo(response[i].teamwork);
+                                    if (temp) {
+                                        response[i].teamwork = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].humandevelopment !== null && response[i].humandevelopment !== "") {
+                                    let temp = getDictionaryInfo(response[i].humandevelopment);
+                                    if (temp) {
+                                        response[i].humandevelopment = temp.value1;
+                                    }
+                                }
+
+                                if (response[i].workattitude !== null && response[i].workattitude !== "") {
+                                    let temp = getDictionaryInfo(response[i].workattitude);
+                                    if (temp) {
+                                        response[i].workattitude = temp.value1;
+                                    }
+                                }
+
+                                this.form.tabledata.push(response[i]);
+                            }
+
+                        }
+                        this.loading = false;
                     })
                     .catch(err => {
                         this.loading = false;
@@ -1191,7 +1310,34 @@
                         });
                     });
             },
-
+            getScore(val){
+                let scor;
+                if(val >= 0 && val < 20){
+                    scor = 'H';
+                }
+                if(val >= 20 && val < 40){
+                    scor = 'G';
+                }
+                if(val >= 40 && val < 64){
+                    scor = 'F';
+                }
+                if(val >= 64 && val < 72){
+                    scor = 'E';
+                }
+                if(val >= 72 && val < 80){
+                    scor = 'D';
+                }
+                if(val >= 80 && val < 88){
+                    scor = 'C';
+                }
+                if(val >= 88 && val < 104){
+                    scor = 'B';
+                }
+                if(val >= 104){
+                    scor = 'A';
+                }
+                return scor;
+            },
             changeTatebai(val, index){
                 this.form.tabledata[index].tatebai = val;
             },
