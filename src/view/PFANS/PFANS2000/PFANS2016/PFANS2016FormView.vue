@@ -56,14 +56,35 @@
                           style="width:20vw" v-model="form.lengthtime"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="8" v-show="form.errortype != 'PR013005' && form.errortype != 'PR013006'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
+                <el-input :disabled="true"
+                          style="width:20vw" v-model="form.relengthtime"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8" v-show="form.errortype == 'PR013005' || form.errortype == 'PR013006'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
-                <el-select v-model="form.lengthtime">
+                <el-select v-model="form.lengthtime"
+                           :disabled="!disable">
                   <el-option
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
                     v-for="item in options1"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
+                <el-select v-model="form.relengthtime" :disabled="form.status === '5' || form.status === '7'">
+                  <el-option
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    v-for="item in options1"
+
                   >
                   </el-option>
                 </el-select>
@@ -120,6 +141,62 @@
                   @change="change"
                   format='HH:mm'
                   style="width:20vw" v-model="form.periodend">
+                </el-time-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row
+            v-if="(form.errortype != 'PR013005' && form.errortype != 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7') ">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.restartdate')" prop="reoccurrencedate">
+                <el-date-picker  @change="rechange" :disabled="form.status === '5' || form.status === '7'"
+                                style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">
+                <el-time-picker
+                  :disabled="form.status === '5' || form.status === '7'"
+                  @change="rechange"
+                  format='HH:mm'
+                  style="width:20vw"
+                  v-model="form.reperiodstart">
+                </el-time-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="showWeekend">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
+                <el-select
+                  allow-create
+                  default-first-option
+                  filterable
+                  multiple
+                  v-model="form.relation">
+                  <el-option
+                    :key="item.overtimeid"
+                    :label="item.reserveovertimedate+'-'+item.overtimetype"
+                    :value="item.overtimeid"
+                    v-for="item in options">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row
+            v-if="(form.errortype != 'PR013005' && form.errortype != 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7') ">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
+                <el-date-picker  @change="rechange" :disabled="form.status === '5' || form.status === '7'"
+                                style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">
+                <el-time-picker
+                  :disabled="form.status === '5' || form.status === '7'"
+                  @change="rechange"
+                  format='HH:mm'
+                  style="width:20vw" v-model="form.reperiodend">
                 </el-time-picker>
               </el-form-item>
             </el-col>
@@ -247,6 +324,23 @@
           this.errorendtime = '';
         }
       };
+      var revalidateEndtime = (rule, value, callback) => {
+        if (this.form.reperiodend !== null && this.form.reperiodend !== '') {
+          if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.reperiodstart).format('HH:mm'))
+            || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))) {
+            callback(new Error(this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart')));
+            this.reerrorendtime = this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart');
+          } else {
+            this.clearValidate(["reperiodstart", "reoccurrencedate", "refinisheddate"]);
+            callback();
+            this.reerrorendtime = '';
+          }
+        } else {
+          this.clearValidate(["reperiodstart", "reoccurrencedate", "reperiodend"]);
+          callback();
+          this.reerrorendtime = '';
+        }
+      };
       var validateStarttime = (rule, value, callback) => {
         if (this.form.periodstart !== null && this.form.periodstart !== '') {
           if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
@@ -264,6 +358,25 @@
           callback();
           this.clearValidate(["periodend", "occurrencedate", "periodstart"]);
           this.errorstarttime = '';
+        }
+      };
+      var revalidateStarttime = (rule, value, callback) => {
+        if (this.form.reperiodstart !== null && this.form.reperiodstart !== '') {
+          if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.reperiodend).format('HH:mm'))
+            || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))
+          ) {
+            callback(new Error(this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend')));
+            this.reerrorstarttime = this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend');
+
+          } else {
+            callback();
+            this.clearValidate(["reperiodend", "reoccurrencedate", "reperiodstart"]);
+            this.reerrorstarttime = '';
+          }
+        } else {
+          callback();
+          this.clearValidate(["reperiodend", "reoccurrencedate", "reperiodstart"]);
+          this.reerrorstarttime = '';
         }
       };
       var validateEnddate = (rule, value, callback) => {
@@ -285,6 +398,25 @@
           this.clearValidate(["occurrencedate", "periodend", "periodstart"]);
         }
       };
+      var revalidateEnddate = (rule, value, callback) => {
+        if (this.form.refinisheddate !== null && this.form.refinisheddate !== '') {
+          if (moment(value).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.reenddate') + this.$t('normal.error_checkTime1') + this.$t('label.restartdate')));
+          } else {
+            if (moment(value).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && (this.form.reperiodstart !== '' && this.form.reperiodend)) {
+              if (this.form.reperiodstart > this.form.reperiodend) {
+                callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
+                return;
+              }
+            }
+            callback();
+            this.clearValidate(["reoccurrencedate", "reperiodend", "reperiodstart"]);
+          }
+        } else {
+          callback();
+          this.clearValidate(["reoccurrencedate", "reperiodend", "reperiodstart"]);
+        }
+      };
       var validateStartdate = (rule, value, callback) => {
         if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
           if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
@@ -301,6 +433,24 @@
         } else {
           callback();
           this.clearValidate(["finisheddate", "periodend", "periodstart"]);
+        }
+      };
+      var revalidateStartdate = (rule, value, callback) => {
+        if (this.form.reoccurrencedate !== null && this.form.reoccurrencedate !== '') {
+          if (moment(value).format('YYYY-MM-DD') > moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
+          } else {
+            if (moment(value).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD') && (this.form.reperiodstart !== '' && this.form.reperiodend)) {
+              if (this.form.reperiodstart > this.form.reperiodend) {
+                callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
+              }
+            }
+            callback();
+            this.clearValidate(["refinisheddate", "reperiodend", "reperiodstart"]);
+          }
+        } else {
+          callback();
+          this.clearValidate(["refinisheddate", "reperiodend", "reperiodstart"]);
         }
       };
       var validateLength = (rule, value, callback) => {
@@ -325,13 +475,38 @@
         } else {
           callback();
         }
+      };
+      var revalidateLength = (rule, value, callback) => {
+        if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006') && this.form.status === '4') {
+          this.$store
+            .dispatch('PFANS2016Store/cklength', {
+              "user_id": this.form.user_id,
+              errortype: this.form.errortype,
+              relengthtime: this.form.relengthtime,
+            })
+            .then(response => {
+              if (response.can === "no") {
+                callback(this.$t('normal.error_norestdays'));
+              } else {
+                this.form.restdate = response.dat;
+                callback();
+              }
+            })
+            .catch(error => {
+              callback(error);
+            });
+        } else {
+          callback();
+        }
 
       };
       return {
         loading: false,
         errort: '',
         errorendtime: '',
+        reerrorendtime: '',
         errorstarttime: '',
+        reerrorstarttime: '',
         options: [],
         value: [],
         options1: [{
@@ -360,6 +535,7 @@
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
           errortype: '',
           lengthtime: '0',
+          relengthtime: '0',
           occurrencedate: moment(new Date()).format('YYYY-MM-DD'),
           finisheddate: moment(new Date()).format('YYYY-MM-DD'),
           relation: '',
@@ -406,6 +582,14 @@
             trigger: 'change',
           },
             {validator: validateEndtime, trigger: 'change'}],
+          reoccurrencedate: [,
+            {validator: revalidateStartdate, trigger: 'change'}],
+          refinisheddate: [
+            {validator: revalidateEnddate, trigger: 'change'}],
+          reperiodstart: [
+            {validator: revalidateStarttime, trigger: 'change'}],
+          reperiodend: [
+            {validator: revalidateEndtime, trigger: 'change'}],
           applicationdate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.application_date'),
@@ -419,6 +603,10 @@
           lengthtime: [{
             required: true,
             validator: validateLength,
+            trigger: 'change',
+          }],
+          relengthtime: [{
+            validator: revalidateLength,
             trigger: 'change',
           }],
           hospital: [{required: true, validator: validatePass, trigger: 'blur'}],
@@ -437,7 +625,7 @@
             this.form = response;
             this.userlist = this.form.user_id;
             this.relation = this.form.relation;
-            if (this.form.status === '2') {
+            if (this.form.status === '2' || this.form.status === '4') {
               this.disable = false;
             }
             this.getOvertimelist();
@@ -608,6 +796,79 @@
           }
         }
       },
+      rechange() {
+        if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
+          if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+            var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
+            var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+            var dayBegin = new Date(beginDay);
+            var dayEnd = new Date(endDay);
+            var daysDiff = dayEnd.getTime() - dayBegin.getTime();
+            var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
+            if (dayDiff - 1 > 0) {
+              dayDiff = (dayDiff - 1) * 8;
+              var dayBegin = new Date(this.form.reperiodstart);
+              var dayEnd = new Date(this.form.reperiodend);
+              var timeUp = '8.5';
+              var timeDown = '17.5';
+              var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+              if (beginTime <= '13') {
+                beginTime = (12 - beginTime) + (timeDown - 13);
+              } else {
+                beginTime = timeDown - beginTime;
+              }
+              var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+              if (endTime >= '12') {
+                endTime = (endTime - 13) + (12 - timeUp);
+              } else {
+                endTime = endTime - timeUp;
+              }
+              var time = beginTime + endTime;
+              if (this.$i18n) {
+                this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
+              }
+            } else {
+              var dayBegin = new Date(this.form.reperiodstart);
+              var dayEnd = new Date(this.form.reperiodend);
+              var timeUp = '8.5';
+              var timeDown = '17.5';
+              var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+              if (beginTime <= '13') {
+                beginTime = (12 - beginTime) + (timeDown - 13);
+              } else {
+                beginTime = timeDown - beginTime;
+              }
+              var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+              if (endTime >= '12') {
+                endTime = (endTime - 13) + (12 - timeUp);
+              } else {
+                endTime = endTime - timeUp;
+              }
+              var time = beginTime + endTime;
+              if (this.$i18n) {
+                this.form.relengthtime = parseFloat(time).toFixed(1);
+              }
+            }
+          } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+            var dayBegin = new Date(this.form.reperiodstart);
+            var dayEnd = new Date(this.form.reperiodend);
+            var timeUp = '8.5';
+            var timeDown = '17.5';
+            var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+            var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+            if (endTime <= '12') {
+              var time = endTime - beginTime;
+            } else {
+              var time = (timeDown - 13) + (12 - timeUp);
+            }
+            if (this.$i18n) {
+              this.form.relengthtime = parseFloat(time).toFixed(1);
+            }
+          } else {
+            this.form.relengthtime = '';
+          }
+        }
+      },
       getUserids(val) {
         if (val === "undefined") {
           this.userlist = "1";
@@ -656,7 +917,10 @@
           this.showWeekend = false;
           this.showVacation = false;
         }
-
+        if (val == 'PR013005' || val == 'PR013006') {
+          this.form.lengthtime = "0";
+          this.form.relengthtime = "0";
+        }
         this.$refs.ruleForm.validateField("lengthtime");
       },
       workflowState(val) {

@@ -609,7 +609,12 @@
                   prop="registered"
                   width="110%"
                 ></el-table-column>
-                <el-table-column :label="this.YEAR6" align="center" prop="lastmonth" width="110%"></el-table-column>
+                <el-table-column
+                  :label="this.YEARLAST"
+                  align="center"
+                  prop="lastmonth"
+                  width="110%"
+                ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
                   align="center"
@@ -622,7 +627,7 @@
                   prop="lastmonthduty"
                   width="110%"
                 ></el-table-column>
-                <el-table-column :label="this.YEAR7" align="center" prop="thismonth" width="110%"></el-table-column>
+                <el-table-column :label="this.YEARNOW" align="center" prop="thismonth" width="110%"></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
                   align="center"
@@ -1272,9 +1277,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh">
-              <el-table :data="tableRZ" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableRZ"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1368,9 +1377,13 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_TZ')" name="eighth"></el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QQ')" name="ninth">
-              <el-table :data="tableQQ" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableQQ"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1414,22 +1427,19 @@
                     align="center"
                     prop="thisdiligence"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DBQH')"
                     align="center"
                     prop="thisshortdeficiency"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_CBQH')"
                     align="center"
                     prop="thischronicdeficiency"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
@@ -1470,9 +1480,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_CY')" name="tenth">
-              <el-table :data="tableCY" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableCY"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -1552,8 +1566,7 @@
                     align="center"
                     prop="thisweekdays"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRSY1')"
                     align="center"
@@ -1565,8 +1578,7 @@
                     align="center"
                     prop="thisrestDay"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRSY1')"
                     align="center"
@@ -1578,8 +1590,7 @@
                     align="center"
                     prop="thislegal"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDSY1')"
                     align="center"
@@ -1591,15 +1602,13 @@
                     align="center"
                     prop="thisreplace"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DXN')"
                     align="center"
                     prop="thisreplace3"
                     width="150%"
-                  >
-                  </el-table-column>
+                  ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
                     align="center"
@@ -1787,9 +1796,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZHSR')" name="twelfth">
-              <el-table :data="tableZHSR" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableZHSR"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
@@ -2011,9 +2024,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZXKC')" name="thirteenth">
-              <el-table :data="tableZXKC" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableZXKC"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -2205,9 +2222,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_MS')" name="fifteenth">
-              <el-table :data="tableMS" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableMS"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -2261,9 +2282,13 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_LJSJ')" name="sixteenth">
-              <el-table :data="tableLJSJ" :summary-method="getSummaries" show-summary
-                        header-cell-class-name="sub_bg_color_blue"
-                        border>
+              <el-table
+                :data="tableLJSJ"
+                :summary-method="getSummaries"
+                show-summary
+                header-cell-class-name="sub_bg_color_blue"
+                border
+              >
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
@@ -2413,1995 +2438,2043 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import PFANS2005View from '../PFANS2005/PFANS2005View.vue';
-    import {getToken} from '@/utils/auth';
-    import {Message} from 'element-ui';
-    import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
-    import moment from 'moment';
+import EasyNormalContainer from "@/components/EasyNormalContainer";
+import PFANS2005View from "../PFANS2005/PFANS2005View.vue";
+import { getToken } from "@/utils/auth";
+import { Message } from "element-ui";
+import { getDictionaryInfo, getUserInfo } from "@/utils/customize";
+import moment from "moment";
 
-    export default {
-        name: 'PFANS2005FormView',
-        components: {
-            EasyNormalContainer,
-            PFANS2005View,
+export default {
+  name: "PFANS2005FormView",
+  components: {
+    EasyNormalContainer,
+    PFANS2005View
+  },
+  data() {
+    return {
+      tableData: [
+        {
+          no: 1
         },
-        data() {
-            return {
-                tableData: [{
-                    no: 1,
-                },
-                    {
-                        no: 2,
-                    },
-                    {
-                        no: 3,
-                    }],
-                totaldataFJKC: [],
-                totaldataQQ: [],
-                totaldataCY: [],
-                totaldataZHSR: [],
-                totaldataZXKC: [],
-                totaldataQT4: [],
-                totaldataQT5: [],
-                totaldataRZ: [],
-                totaldataQT2: [],
-                totaldataBase: [],
-                totaldataContrast: [],
-                totaldataOtherOneWoman: [],
-                totaldataOtherOneMan: [],
-                totaldataDutyfreeVo: [],
-                totaldataAccumulatedTax: [],
-                totaldataYDSY: [],
-                totaldata: [],
-                totaldataimprot: [],
-                listQuery: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQT1Woman: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQT1Man: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListYDSY: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListZHSR: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListZXKC: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListFJKC: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListMS: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListLJSJ: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListGRDB: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQT2: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQT4: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQT5: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListRZ: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListQQ: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListCY: {
-                    page: 1,
-                    limit: 5,
-                },
-                listQueryListJS: {
-                    page: 1,
-                    limit: 5,
-                },
-                menuList: [{value: '1', label: 1}, {value: '2', label: 2}],
-                totalQQ: 0,
-                totalCY: 0,
-                total: 0,
-                totalFJKC: 0,
-                totalZHSR: 0,
-                totalQT4: 0,
-                totalQT2: 0,
-                totalZXKC: 0,
-                totalQT5: 0,
-                totalRZ: 0,
-                totalBase: 0,
-                totalDutyfreeVo: 0,
-                totalAccumulatedTax: 0,
-                totalContrast: 0,
-                totalOtherOneMan: 0,
-                totalOtherOne: 0,
-                totalYDSY: 0,
-                ListZXKC: '',
-                ListFJKC: '',
-                ListZHSR: '',
-                ListQt2: '',
-                ListQQ: '',
-                ListCY: '',
-                ListQt5: '',
-                ListRZ: '',
-                listBase: '',
-                listAccumulatedTax: '',
-                listDutyfreeVo: '',
-                listContrast: '',
-                listOtherOne: '',
-                ListOtherOneSex: '',
-                ListYDSY: '',
-                YEAR1:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '01' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR2:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '02' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR3:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '03' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR4:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '04' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR5:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '06' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR6:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '06' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR7:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '07' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR8:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '08' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR9:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '09' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR10:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '10' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR11:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '11' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                YEAR12:
-                    moment().years() +
-                    this.$t('label.PFANS2005FORMVIEW_YEAR') +
-                    '12' +
-                    this.$t('label.PFANS2005FORMVIEW_MONTH'),
-                othertwo: [],
-                message: [{hang: '', error: ''}],
-                Messageothertwo: false,
-                Messageotherfive: false,
-                Messageappreciation: false,
-                Messageotherfour: false,
-                Messagefjkc: false,
-                cuowu: '',
-                tab: '',
-                resultShowfjkc: false,
-                resultothertwo: false,
-                resultotherfour: false,
-                resultotherfive: false,
-                resultappreciation: false,
-                addActionUrl: '',
-                daorufjkc: false,
-                daoruappreciation: false,
-                daoruotherfive: false,
-                daoruotherfour: false,
-                daoruothertwo: false,
-                loading: false,
-                Giving: '',
-                resultfjkc: false,
-                resultShowothertwo: false,
-                resultShowotherfive: false,
-                resultShowappreciation: false,
-                resultShowotherfour: false,
-                downloadLoading: false,
-                authHeader: {'x-auth-token': getToken()},
-                activeName: 'first',
-                buttonList: [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: true,
-                        icon: 'el-icon-check',
-                    },
-                    {
-                        key: 'import',
-                        name: 'button.import',
-                        disabled: true,
-                        icon: 'el-icon-download',
-                    },
-                ],
-                OTherTwo: {
-                    giving_id: '',
-                    type: '',
-                },
-                tableJS: [
-                    {
-                        rowindex: "",
-                        department_id: "",
-                        user_id: "",
-                        rn: "",
-                        sex: "",
-                        onlychil: "",
-                        type: "",
-                        bonus: "",
-                        sociology: "",
-                        registered: "",
-                        lastmonth: "",
-                        lastmonthbasic: "",
-                        lastmonthduty: "",
-                        thismonthbasic: "",
-                        thismonthduty: "",
-                        thismonth: "",
-                        pension: "",
-                        medical: "",
-                        accumulation: "",
-                        heating: "",
-                        workdate: ""
-                    }
-                ],
-                tableQT5: [
-                    {
-                        rowindex: '',
-                        department_id: '',
-                        user_id: '',
-                        medicalinsurance: '',
-                        accident: '',
-                        physical: '',
-                        welfaretotal: '',
-                        labourunion: '',
-                        annualmeeting: '',
-                        travel: '',
-                        total: '',
-                        remarks: '',
-                    },
-                ],
-                tableRZ: [
-                    {
-                        rowindex: '',
-                        user_id: '',
-                        lastmouth: '',
-                        thismouth: '',
-                        workdate: '',
-                        startdate: '',
-                        attendance: '',
-                        trial: '',
-                        give: '',
-                        lunch: '',
-                        traffic: '',
-                        remarks: ''
-                    },
-                ],
-                tableQT1Woman: [
-                    {
-                        otherone_id: '',
-                        giving_id: '',
-                        rowindex: '',
-                        department_id: '',
-                        user_id: '',
-                        sex: '',
-                        workdate: '',
-                        reststart: '',
-                        restend: '',
-                        attendance: '',
-                        other1: '',
-                        basedata: '',
-                    },
-                ],
-                tableQT1Man: [
-                    {
-                        rowindex: '',
-                        department_id: '',
-                        user_id: '',
-                        sex: '',
-                        workdate: '',
-                        startdate: '',
-                        enddate: '',
-                        vacation: '',
-                        handsupport: '',
-                    },
-                ],
-                tableQT2: [
-                    {
-                        giving_id: '',
-                        othertwo_id: '',
-                        rowindex: '',
-                        user_id: '',
-                        moneys: '',
-                        rootknot: '',
-                    },
-                ],
-                tableYDSY: [
-                    {
-                        rowindex: '',
-                        user_id: '',
-                        commentary: '',
-                        amount: '',
-                        other1: '',
-                        other2: '',
-                        other3: '',
-                        other4: '',
-                        other5: '',
-                    },
-                ],
-                tableQT4: [
-                    {
-                        otherfour_id: '',
-                        giving_id: '',
-                        department_id: '',
-                        user_id: '',
-                        socialsecurity: '',
-                        total: '',
-                        remarks: '',
-                        rowindex: '',
-                        jobnumber: '',
-                    },
-                ],
-                tableFJKC: [
-                    {
-                        user_id: '',
-                        childreneducation: '',
-                        housing: '',
-                        rent: '',
-                        support: '',
-                        education: '',
-                        total: '',
-                    },
-                ],
-                tableZHSR: [
-                    {
-                        rowindex: '',
-                        user_id: '',
-                        month1wages: '',
-                        month1appreciation: '',
-                        month2wages: '',
-                        month2appreciation: '',
-                        month3wages: '',
-                        month3appreciation: '',
-                        month4wages: '',
-                        month4appreciation: '',
-                        month5wages: '',
-                        month5appreciation: '',
-                        month6wages: '',
-                        month6appreciation: '',
-                        month7wages: '',
-                        month7appreciation: '',
-                        month8wages: '',
-                        month8appreciation: '',
-                        month9wages: '',
-                        month9appreciation: '',
-                        month10wages: '',
-                        month10appreciation: '',
-                        month11wages: '',
-                        month11appreciation: '',
-                        month12wages: '',
-                        month12appreciation: '',
-                    },
-                ],
-                tableMS: [
-                    {
-                        rowindex: '',
-                        user_id: '',
-                        january: '',
-                        february: '',
-                        march: '',
-                        april: '',
-                        may: '',
-                        june: '',
-                        july: '',
-                        august: '',
-                        september: '',
-                        october: '',
-                        november: '',
-                        december: '',
-                        total: '',
-                    },
-                ],
-                tableZXKC: [
-                    {
-                        number: '',
-                        user_id: '',
-                        january: '',
-                        february: '',
-                        march: '',
-                        april: '',
-                        may: '',
-                        june: '',
-                        july: '',
-                        august: '',
-                        september: '',
-                        october: '',
-                        november: '',
-                        december: '',
-                        total: '',
-                    },
-                ],
-                tableQQ: [{
-                    user_id: '',
-                    lastdiligence: '',
-                    lastshortdeficiency: '',
-                    lastchronicdeficiency: '',
-                    lasttotal: '',
-                    thisdiligence: '',
-                    thisshortdeficiency: '',
-                    thischronicdeficiency: '',
-                    thistotal: '',
-                    remarks: '',
-                    give: '',
-                    rowindex: '',
-                }],
-                tableCY: [{
-                    rowindex: '',
-                    user_id: '',
-                    rn: '',
-                    lastweekdays: '',
-                    lastlatenight: '',
-                    lastrestDay: '',
-                    lastrestlatenight: '',
-                    lastlegal: '',
-                    lastlegallatenight: '',
-                    lastreplace: '',
-                    lasttotalh: '',
-                    lasttotaly: '',
-                    thisweekdays: '',
-                    thislatenight: '',
-                    thisrestDay: '',
-                    thisrestlatenight: '',
-                    thislegal: '',
-                    thislegallatenight: '',
-                    thisreplace: '',
-                    thisreplace3: '',
-                    thistotalh: '',
-                    thistotaly: '',
-                    remarks: '',
-                    subsidy: '',
-                }],
-                tableLJSJ: [
-                    {
-                        rowindex: '',
-                        user_id: '',
-                        january: '',
-                        february: '',
-                        march: '',
-                        april: '',
-                        may: '',
-                        june: '',
-                        july: '',
-                        august: '',
-                        september: '',
-                        october: '',
-                        november: '',
-                        december: '',
-                        sumThis: '',
-                        shouldwages: '',
-                        balance: '',
-                    },
-                ],
-                tableGRDB: [
-                    {
-                        contrast_id: '',
-                        rowindex: '',
-                        department_id: '',
-                        user_id: '',
-                        thismonth: '',
-                        lastmonth: '',
-                        difference: '',
-                        reason: '',
-                    },
-                ],
-                baseInfo: {},
-            };
+        {
+          no: 2
         },
-        created() {
+        {
+          no: 3
+        }
+      ],
+      totaldataFJKC: [],
+      totaldataQQ: [],
+      totaldataCY: [],
+      totaldataZHSR: [],
+      totaldataZXKC: [],
+      totaldataQT4: [],
+      totaldataQT5: [],
+      totaldataRZ: [],
+      totaldataQT2: [],
+      totaldataBase: [],
+      totaldataContrast: [],
+      totaldataOtherOneWoman: [],
+      totaldataOtherOneMan: [],
+      totaldataDutyfreeVo: [],
+      totaldataAccumulatedTax: [],
+      totaldataYDSY: [],
+      totaldata: [],
+      totaldataimprot: [],
+      listQuery: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQT1Woman: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQT1Man: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListYDSY: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListZHSR: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListZXKC: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListFJKC: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListMS: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListLJSJ: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListGRDB: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQT2: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQT4: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQT5: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListRZ: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListQQ: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListCY: {
+        page: 1,
+        limit: 5
+      },
+      listQueryListJS: {
+        page: 1,
+        limit: 5
+      },
+      menuList: [
+        { value: "1", label: 1 },
+        { value: "2", label: 2 }
+      ],
+      totalQQ: 0,
+      totalCY: 0,
+      total: 0,
+      totalFJKC: 0,
+      totalZHSR: 0,
+      totalQT4: 0,
+      totalQT2: 0,
+      totalZXKC: 0,
+      totalQT5: 0,
+      totalRZ: 0,
+      totalBase: 0,
+      totalDutyfreeVo: 0,
+      totalAccumulatedTax: 0,
+      totalContrast: 0,
+      totalOtherOneMan: 0,
+      totalOtherOne: 0,
+      totalYDSY: 0,
+      ListZXKC: "",
+      ListFJKC: "",
+      ListZHSR: "",
+      ListQt2: "",
+      ListQQ: "",
+      ListCY: "",
+      ListQt5: "",
+      ListRZ: "",
+      listBase: "",
+      listAccumulatedTax: "",
+      listDutyfreeVo: "",
+      listContrast: "",
+      listOtherOne: "",
+      ListOtherOneSex: "",
+      ListYDSY: "",
+      YEAR1:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "01" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR2:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "02" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR3:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "03" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR4:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "04" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR5:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "06" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR6:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "06" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR7:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "07" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR8:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "08" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR9:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "09" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR10:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "10" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR11:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "11" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEAR12:
+        moment().years() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        "12" +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEARNOW:
+        moment().year() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        (moment().month() +
+        1) +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      YEARLAST:
+        moment().year() +
+        this.$t("label.PFANS2005FORMVIEW_YEAR") +
+        moment().month() +
+        this.$t("label.PFANS2005FORMVIEW_MONTH"),
+      othertwo: [],
+      message: [{ hang: "", error: "" }],
+      Messageothertwo: false,
+      Messageotherfive: false,
+      Messageappreciation: false,
+      Messageotherfour: false,
+      Messagefjkc: false,
+      cuowu: "",
+      tab: "",
+      resultShowfjkc: false,
+      resultothertwo: false,
+      resultotherfour: false,
+      resultotherfive: false,
+      resultappreciation: false,
+      addActionUrl: "",
+      daorufjkc: false,
+      daoruappreciation: false,
+      daoruotherfive: false,
+      daoruotherfour: false,
+      daoruothertwo: false,
+      loading: false,
+      Giving: "",
+      resultfjkc: false,
+      resultShowothertwo: false,
+      resultShowotherfive: false,
+      resultShowappreciation: false,
+      resultShowotherfour: false,
+      downloadLoading: false,
+      authHeader: { "x-auth-token": getToken() },
+      activeName: "first",
+      buttonList: [
+        {
+          key: "save",
+          name: "button.save",
+          disabled: true,
+          icon: "el-icon-check"
         },
-        mounted() {
-            this.Giving = this.$route.params._id;
-            this.getListdata();
-        },
-        methods: {
-            getListdata() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS2005Store/givinglist', {giving_id: this.Giving})
-                    .then(response => {
-                        let lettableQT1Woman = [];
-                        let lettableQT1Man = [];
-                        let datalist = [];
-                        let datalistgrdb = [];
-                        let datalistzxkc = [];
-                        let datalistqq = [];
-                        let datalistcy = [];
-                        let datalistljsj = [];
-                        let datalistms = [];
-                        let datalistzhsr = [];
-                        // region 欠勤 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.lackattendance) {
-                            for (let j = 0; j < response.lackattendance.length; j++) {
-                                let user = getUserInfo(response.lackattendance[j].user_id);
-                                if (user) {
-                                    response.lackattendance[j].user_id = getUserInfo(
-                                        response.lackattendance[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.user_id = response.lackattendance[j].user_id;
-                                obj.lastdiligence = response.lackattendance[j].lastdiligence;
-                                obj.lastshortdeficiency =
-                                    response.lackattendance[j].lastshortdeficiency;
-                                obj.lastchronicdeficiency =
-                                    response.lackattendance[j].lastchronicdeficiency;
-                                obj.lasttotal = response.lackattendance[j].lasttotal;
-                                obj.thisdiligence = response.lackattendance[j].thisdiligence;
-                                obj.thisshortdeficiency =
-                                    response.lackattendance[j].thisshortdeficiency;
-                                obj.thischronicdeficiency =
-                                    response.lackattendance[j].thischronicdeficiency;
-                                obj.thistotal = response.lackattendance[j].thistotal;
-                                obj.remarks = response.lackattendance[j].remarks;
-                                obj.give = response.lackattendance[j].give;
-                                obj.kcjl = +response.lackattendance[j].lasttotal + +response.lackattendance[j].thistotal;
-                                obj.rowindex = j + 1;
-                                datalistqq[j] = obj;
-                                this.tableQQ = datalistqq;
-                                this.totaldataQQ = datalistqq;
-                                this.ListQQ = 8;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 残业 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.residual) {
-                            for (let j = 0; j < response.residual.length; j++) {
-                                let user = getUserInfo(response.residual[j].user_id);
-                                if (user) {
-                                    response.residual[j].user_id = getUserInfo(
-                                        response.residual[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                if (
-                                    response.residual[j].rn !== null &&
-                                    response.residual[j].rn !== ""
-                                ) {
-                                    let letErrortype = getDictionaryInfo(response.residual[j].rn);
-                                    if (letErrortype != null) {
-                                        response.residual[j].rn = letErrortype.value1;
-                                    }
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.residual[j].user_id;
-                                obj.rn = response.residual[j].rn;
-                                obj.lastweekdays = response.residual[j].lastweekdays;
-                                obj.lastlatenight = response.residual[j].lastlatenight;
-                                obj.lastrestDay = response.residual[j].lastrestDay;
-                                obj.lastrestlatenight = response.residual[j].lastrestlatenight;
-                                obj.lastlegal = response.residual[j].lastlegal;
-                                obj.lastlegallatenight = response.residual[j].lastlegallatenight;
-                                obj.lastreplace = response.residual[j].lastreplace;
-                                obj.lasttotalh = response.residual[j].lasttotalh;
-                                obj.lasttotaly = response.residual[j].lasttotaly;
-                                obj.thisweekdays = response.residual[j].thisweekdays;
-                                obj.thislatenight = response.residual[j].thislatenight;
-                                obj.thisrestDay = response.residual[j].thisrestDay;
-                                obj.thisrestlatenight = response.residual[j].thisrestlatenight;
-                                obj.thislegal = response.residual[j].thislegal;
-                                obj.thislegallatenight = response.residual[j].thislegallatenight;
-                                obj.thisreplace = response.residual[j].thisreplace;
-                                obj.thisreplace3 = response.residual[j].thisreplace3;
-                                obj.thistotalh = response.residual[j].thistotalh;
-                                obj.thistotaly = response.residual[j].thistotaly;
-                                obj.remarks = response.residual[j].remarks;
-                                obj.subsidy = response.residual[j].subsidy;
-                                datalistcy[j] = obj;
-                                this.tableCY = datalistcy;
-                                this.totaldataCY = datalistcy;
-                                this.ListCY = 9;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 专项控除 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.disciplinaryVo) {
-                            for (let i = 0; i < response.disciplinaryVo.length; i++) {
-                                let user = getUserInfo(response.disciplinaryVo[i].user_id);
-                                if (user) {
-                                    response.disciplinaryVo[i].user_id = getUserInfo(
-                                        response.disciplinaryVo[i].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.number = i + 1;
-                                obj.user_id = response.disciplinaryVo[i].user_id;
-                                obj.january = response.disciplinaryVo[i].january;
-                                obj.february = response.disciplinaryVo[i].february;
-                                obj.march = response.disciplinaryVo[i].march;
-                                obj.april = response.disciplinaryVo[i].april;
-                                obj.may = response.disciplinaryVo[i].may;
-                                obj.june = response.disciplinaryVo[i].june;
-                                obj.july = response.disciplinaryVo[i].july;
-                                obj.august = response.disciplinaryVo[i].august;
-                                obj.september = response.disciplinaryVo[i].september;
-                                obj.october = response.disciplinaryVo[i].october;
-                                obj.november = response.disciplinaryVo[i].november;
-                                obj.december = response.disciplinaryVo[i].december;
-                                obj.total = response.disciplinaryVo[i].total;
-                                datalistzxkc[i] = obj;
-                                this.tableZXKC = datalistzxkc;
-                                this.totaldataZXKC = datalistzxkc;
-                                this.ListZXKC = 12;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        for (let j = 0; j < response.otherOne.length; j++) {
-                            if (response.otherOne[j].basedata === "1") {
-                                this.menuList.value = "1";
-                                this.menuList.label = 1;
-                            }
-                            if (response.otherOne[j].basedata === "2") {
-                                this.menuList.value = "2";
-                                this.menuList.label = 2;
-                            }
-                            if (response.otherOne[j].type === "1") {
-                                let user = getUserInfo(response.otherOne[j].user_id);
-                                if (user) {
-                                    response.otherOne[j].user_id = user.userinfo.customername;
-                                    response.otherOne[j].department_id = user.userinfo.centername;
-                                }
-                                if (
-                                    response.otherOne[j].sex !== null &&
-                                    response.otherOne[j].sex !== ""
-                                ) {
-                                    if (this.$i18n) {
-                                        if (response.otherOne[j].sex === "0") {
-                                            response.otherOne[j].sex = this.$t(
-                                                "label.PFANS2002FORMVIEW_BOY"
-                                            );
-                                        } else {
-                                            response.otherOne[j].sex = this.$t(
-                                                "label.PFANS2002FORMVIEW_GRIL"
-                                            );
-                                        }
-                                    }
-                                }
-                                if (
-                                    response.otherOne[j].workdate !== null &&
-                                    response.otherOne[j].workdate !== ""
-                                ) {
-                                    response.otherOne[j].workdate = moment(
-                                        response.otherOne[j].workdate
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].reststart !== null &&
-                                    response.otherOne[j].reststart !== ""
-                                ) {
-                                    response.otherOne[j].reststart = moment(
-                                        response.otherOne[j].reststart
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].restend !== null &&
-                                    response.otherOne[j].restend !== ""
-                                ) {
-                                    response.otherOne[j].restend = moment(
-                                        response.otherOne[j].restend
-                                    ).format("YYYY-MM-DD");
-                                }
-
-                                //添加对其他1的处理-lxx
-                                // let other1 = "0";
-                                // if (response.otherOne[j].other1.indexOf(",") !== -1) {
-                                //   if (response.otherOne[j].basedata === "1") {
-                                //     other1 = response.otherOne[j].other1.split(",")[0];
-                                //   }
-                                //   if (response.otherOne[j].basedata === "2") {
-                                //     other1 = response.otherOne[j].other1.split(",")[1];
-                                //   }
-                                // }
-                                //添加对其他1的处理-lxx
-                                lettableQT1Woman.push({
-                                    otherone_id: response.otherOne[j].otherone_id,
-                                    giving_id: response.otherOne[j].giving_id,
-                                    rowindex: response.otherOne[j].rowindex,
-                                    department_id: response.otherOne[j].department_id,
-                                    user_id: response.otherOne[j].user_id,
-                                    sex: response.otherOne[j].sex,
-                                    workdate: response.otherOne[j].workdate,
-                                    reststart: response.otherOne[j].reststart,
-                                    restend: response.otherOne[j].restend,
-                                    attendance: response.otherOne[j].attendance,
-                                    // other1: other1,
-                                    basedata: response.otherOne[j].basedata
-                                    //对其他1结果存储-lxx
-                                    // temp: response.otherOne[j].other1
-                                    //对其他1结果存储-lxx
-                                });
-                                this.ListOtherOneSex = 1;
-                            } else if (response.otherOne[j].type === "2") {
-                                let user = getUserInfo(response.otherOne[j].user_id);
-                                if (user) {
-                                    response.otherOne[j].user_id = user.userinfo.customername;
-                                    response.otherOne[j].department_id = user.userinfo.centername;
-                                }
-                                if (
-                                    response.otherOne[j].sex !== null &&
-                                    response.otherOne[j].sex !== ""
-                                ) {
-                                    if (this.$i18n) {
-                                        if (response.otherOne[j].sex === "0") {
-                                            response.otherOne[j].sex = this.$t(
-                                                "label.PFANS2002FORMVIEW_BOY"
-                                            );
-                                        } else {
-                                            response.otherOne[j].sex = this.$t(
-                                                "label.PFANS2002FORMVIEW_GRIL"
-                                            );
-                                        }
-                                    }
-                                }
-                                if (
-                                    response.otherOne[j].workdate !== null &&
-                                    response.otherOne[j].workdate !== ""
-                                ) {
-                                    response.otherOne[j].workdate = moment(
-                                        response.otherOne[j].workdate
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].startdate !== null &&
-                                    response.otherOne[j].startdate !== ""
-                                ) {
-                                    response.otherOne[j].startdate = moment(
-                                        response.otherOne[j].startdate
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].enddate !== null &&
-                                    response.otherOne[j].enddate !== ""
-                                ) {
-                                    response.otherOne[j].enddate = moment(
-                                        response.otherOne[j].enddate
-                                    ).format("YYYY-MM-DD");
-                                }
-                                lettableQT1Man.push({
-                                    rowindex: response.otherOne[j].rowindex,
-                                    department_id: response.otherOne[j].department_id,
-                                    user_id: response.otherOne[j].user_id,
-                                    sex: response.otherOne[j].sex,
-                                    workdate: response.otherOne[j].workdate,
-                                    startdate: response.otherOne[j].startdate,
-                                    enddate: response.otherOne[j].enddate,
-                                    vacation: response.otherOne[j].vacation,
-                                    handsupport: response.otherOne[j].handsupport
-                                });
-                                this.ListOtherOneSex = 2;
-                            }
-                            if (this.ListOtherOneSex === 1) {
-                                this.totaldataOtherOneWoman = lettableQT1Woman;
-                            } else if (this.ListOtherOneSex === 2) {
-                                this.totaldataOtherOneMan = lettableQT1Man;
-                            }
-                            this.tableQT1Woman = lettableQT1Woman;
-                            this.tableQT1Man = lettableQT1Man;
-                            this.ListOtherOne = 2;
-                            this.getList();
-                        }
-                        for (let a = 0; a < response.otherTwo.length; a++) {
-                            let user = getUserInfo(response.otherTwo[a].user_id);
-                            if (user) {
-                                response.otherTwo[a].user_id = getUserInfo(
-                                    response.otherTwo[a].user_id,
-                                ).userinfo.customername;
-                            }
-                            if (
-                                response.otherTwo[a].rootknot !== null &&
-                                response.otherTwo[a].rootknot !== ''
-                            ) {
-                                let letErrortype = getDictionaryInfo(
-                                    response.otherTwo[a].rootknot,
-                                );
-                                if (letErrortype != null) {
-                                    response.otherTwo[a].rootknot = letErrortype.value1;
-                                }
-                            }
-                            let Obj = {};
-                            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
-                            Obj.user_id = response.otherTwo[a].user_id;
-                            Obj.moneys = response.otherTwo[a].moneys;
-                            Obj.rootknot = response.otherTwo[a].rootknot;
-                            Obj.type = response.otherTwo[a].type;
-                            Obj.giving_id = response.otherTwo[a].giving_id;
-                            Obj.rowindex = a + 1;
-                            datalist[a] = Obj;
-                            this.tableQT2 = datalist;
-                            this.totaldataQT2 = datalist;
-                            this.ListQt2 = 3;
-                            this.getList();
-                        }
-                        // region 月度赏与 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.appreciation) {
-                            for (let j = 0; j < response.appreciation.length; j++) {
-                                let user = getUserInfo(response.appreciation[j].user_id);
-                                if (user) {
-                                    response.appreciation[j].user_id = getUserInfo(
-                                        response.appreciation[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                this.tableYDSY = response.appreciation;
-                                this.totaldataYDSY = response.appreciation;
-                                this.ListYDSY = 10;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-
-                        for (let j = 0; j < response.otherFour.length; j++) {
-                            let user = getUserInfo(response.otherFour[j].user_id);
-                            if (user) {
-                                response.otherFour[j].user_id = getUserInfo(
-                                    response.otherFour[j].user_id,
-                                ).userinfo.customername;
-                            }
-                            this.tableQT4 = response.otherFour;
-                            this.totaldataQT4 = response.otherFour;
-                            this.ListQT4 = 4;
-                            this.getList();
-                        }
-
-                        // region 附加控除 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.addiTional) {
-                            for (let j = 0; j < response.addiTional.length; j++) {
-                                let user = getUserInfo(response.addiTional[j].user_id);
-                                if (user) {
-                                    response.addiTional[j].user_id = getUserInfo(
-                                        response.addiTional[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                this.tableFJKC = response.addiTional;
-                                this.totaldataFJKC = response.addiTional;
-                                this.ListFJKC = 13;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-
-                        for (let j = 0; j < response.otherFive.length; j++) {
-                            let user = getUserInfo(response.otherFive[j].user_id);
-                            if (user) {
-                                response.otherFive[j].user_id = getUserInfo(
-                                    response.otherFive[j].user_id,
-                                ).userinfo.customername;
-                            }
-                            this.tableQT5 = response.otherFive;
-                            this.totaldataQT5 = response.otherFive;
-                            this.ListQt5 = 5;
-                            this.getList();
-                        }
-                        for (let j = 0; j < response.entryVo.length; j++) {
-                            let user = getUserInfo(response.entryVo[j].user_id);
-                            if (user) {
-                                response.entryVo[j].user_id = getUserInfo(
-                                    response.entryVo[j].user_id,
-                                ).userinfo.customername;
-                            }
-                            this.tableRZ = response.entryVo;
-                            this.totaldataRZ = response.entryVo;
-                            this.ListRZ = 6;
-                            this.getList();
-                        }
-                        for (let j = 0; j < response.base.length; j++) {
-                            if (response.base[j].type === "1") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
-                            } else if (response.base[j].type === "4") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
-                            } else if (response.base[j].type === "2") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
-                            } else if (response.base[j].type === "3") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
-                            }
-                            let user = getUserInfo(response.base[j].user_id);
-                            if (user) {
-                                response.base[j].user_id = user.userinfo.customername;
-                                response.base[j].department_id = user.userinfo.centername;
-                            }
-                            if (response.base[j].rn !== null && response.base[j].rn !== "") {
-                                let letErrortype = getDictionaryInfo(response.base[j].rn);
-                                if (letErrortype != null) {
-                                    response.base[j].rn = letErrortype.value1;
-                                }
-                            }
-                            if (
-                                response.base[j].workdate !== null &&
-                                response.base[j].workdate !== ""
-                            ) {
-                                response.base[j].workdate = moment(
-                                    response.base[j].workdate
-                                ).format("YYYY-MM-DD");
-                            }
-                            if (response.base[j].sex !== null && response.base[j].sex !== "") {
-                                if (this.$i18n) {
-                                    if (response.base[j].sex === "0") {
-                                        response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                                    } else {
-                                        response.base[j].sex = this.$t(
-                                            "label.PFANS2002FORMVIEW_GRIL"
-                                        );
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].registered !== null &&
-                                response.base[j].registered !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].registered === "1") {
-                                        response.base[j].registered = this.$t("label.yes");
-                                    } else {
-                                        response.base[j].registered = this.$t("label.no");
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].bonus !== null &&
-                                response.base[j].bonus !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].bonus === "1") {
-                                        response.base[j].bonus = this.$t(
-                                            "label.PFANSUSERFORMVIEW_NEWSTAFF"
-                                        );
-                                    } else {
-                                        response.base[j].bonus = this.$t(
-                                            "label.PFANSUSERFORMVIEW_OLDSTAFF"
-                                        );
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].onlychild !== null &&
-                                response.base[j].onlychild !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].onlychild === "1") {
-                                        response.base[j].onlychild = this.$t("label.yes");
-                                    } else {
-                                        response.base[j].onlychild = this.$t("label.no");
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].sociology !== null &&
-                                response.base[j].sociology !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].sociology === "1") {
-                                        response.base[j].sociology = this.$t("label.yes");
-                                    } else {
-                                        response.base[j].sociology = this.$t("label.no");
-                                    }
-                                }
-                            }
-                            this.tableJS = response.base;
-                            this.totaldataBase = response.base;
-                            this.listBase = 1;
-                            this.getList();
-                        }
-                        for (let j = 0; j < response.contrast.length; j++) {
-                            let user = getUserInfo(response.contrast[j].user_id);
-                            if (user) {
-                                response.contrast[j].user_id = user.userinfo.customername;
-                                response.contrast[j].department_id = user.userinfo.centername;
-                            }
-                            let obj = {};
-                            obj.contrast_id = response.contrast[j].contrast_id;
-                            obj.department_id = response.contrast[j].department_id;
-                            obj.user_id = response.contrast[j].user_id;
-                            obj.thismonth = response.contrast[j].thismonth;
-                            obj.lastmonth = response.contrast[j].lastmonth;
-                            obj.reason = response.contrast[j].reason;
-                            obj.rowindex = response.contrast[j].rowindex;
-                            if (
-                                response.contrast[j].thismonth != null &&
-                                response.contrast[j].lastmonth != null
-                            ) {
-                                obj.difference =
-                                    response.contrast[j].lastmonth - response.contrast[j].thismonth;
-                            }
-                            datalistgrdb[j] = obj;
-                            this.tableGRDB = datalistgrdb;
-                            this.totaldataContrast = datalistgrdb;
-                            this.listContrast = 16;
-                            this.getList();
-                        }
-                        // region 累计税金 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.accumulatedTaxVo) {
-                            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
-                                let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
-                                if (user) {
-                                    response.accumulatedTaxVo[j].user_id = getUserInfo(
-                                        response.accumulatedTaxVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.accumulatedTaxVo[j].user_id;
-                                obj.january = response.accumulatedTaxVo[j].january;
-                                obj.february = response.accumulatedTaxVo[j].february;
-                                obj.march = response.accumulatedTaxVo[j].march;
-                                obj.april = response.accumulatedTaxVo[j].april;
-                                obj.may = response.accumulatedTaxVo[j].may;
-                                obj.june = response.accumulatedTaxVo[j].june;
-                                obj.july = response.accumulatedTaxVo[j].july;
-                                obj.august = response.accumulatedTaxVo[j].august;
-                                obj.september = response.accumulatedTaxVo[j].september;
-                                obj.october = response.accumulatedTaxVo[j].october;
-                                obj.november = response.accumulatedTaxVo[j].november;
-                                obj.december = response.accumulatedTaxVo[j].december;
-                                obj.sumThis = response.accumulatedTaxVo[j].sumThis;
-                                obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
-                                obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
-                                obj.balance = response.accumulatedTaxVo[j].balance;
-                                datalistljsj[j] = obj;
-                                this.tableLJSJ = datalistljsj;
-                                this.totaldataAccumulatedTax = datalistljsj;
-                                this.listAccumulatedTax = 15;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 免税 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.dutyfreeVo) {
-                            for (let j = 0; j < response.dutyfreeVo.length; j++) {
-                                let user = getUserInfo(response.dutyfreeVo[j].user_id);
-                                if (user) {
-                                    response.dutyfreeVo[j].user_id = getUserInfo(
-                                        response.dutyfreeVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.dutyfreeVo[j].user_id;
-                                obj.january = response.dutyfreeVo[j].january;
-                                obj.february = response.dutyfreeVo[j].february;
-                                obj.march = response.dutyfreeVo[j].march;
-                                obj.april = response.dutyfreeVo[j].april;
-                                obj.may = response.dutyfreeVo[j].may;
-                                obj.june = response.dutyfreeVo[j].june;
-                                obj.july = response.dutyfreeVo[j].july;
-                                obj.august = response.dutyfreeVo[j].august;
-                                obj.september = response.dutyfreeVo[j].september;
-                                obj.october = response.dutyfreeVo[j].october;
-                                obj.november = response.dutyfreeVo[j].november;
-                                obj.december = response.dutyfreeVo[j].december;
-                                obj.total = response.dutyfreeVo[j].total;
-                                datalistms[j] = obj;
-                                this.tableMS = datalistms;
-                                this.totaldataDutyfreeVo = datalistms;
-                                this.listDutyfreeVo = 14;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        //region  综合收入 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.comprehensiveVo) {
-                            for (let j = 0; j < response.comprehensiveVo.length; j++) {
-                                let user = getUserInfo(response.comprehensiveVo[j].user_id);
-                                if (user) {
-                                    response.comprehensiveVo[j].user_id = getUserInfo(
-                                        response.comprehensiveVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.comprehensiveVo[j].user_id;
-                                obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
-                                obj.month1wages = response.comprehensiveVo[j].month1wages;
-                                obj.month1appreciation =
-                                    response.comprehensiveVo[j].month1appreciation;
-                                obj.month2wages = response.comprehensiveVo[j].month2wages;
-                                obj.month2appreciation =
-                                    response.comprehensiveVo[j].month2appreciation;
-                                obj.month3wages = response.comprehensiveVo[j].month3wages;
-                                obj.month3appreciation =
-                                    response.comprehensiveVo[j].month3appreciation;
-                                obj.month4wages = response.comprehensiveVo[j].month4wages;
-                                obj.month4appreciation =
-                                    response.comprehensiveVo[j].month4appreciation;
-                                obj.month5wages = response.comprehensiveVo[j].month5wages;
-                                obj.month5appreciation =
-                                    response.comprehensiveVo[j].month5appreciation;
-                                obj.month6wages = response.comprehensiveVo[j].month6wages;
-                                obj.month6appreciation =
-                                    response.comprehensiveVo[j].month6appreciation;
-                                obj.month7wages = response.comprehensiveVo[j].month7wages;
-                                obj.month7appreciation =
-                                    response.comprehensiveVo[j].month7appreciation;
-                                obj.month8wages = response.comprehensiveVo[j].month8wages;
-                                obj.month8appreciation =
-                                    response.comprehensiveVo[j].month8appreciation;
-                                obj.month9wages = response.comprehensiveVo[j].month9wages;
-                                obj.month9appreciation =
-                                    response.comprehensiveVo[j].month9appreciation;
-                                obj.month10wages = response.comprehensiveVo[j].month10wages;
-                                obj.month10appreciation =
-                                    response.comprehensiveVo[j].month10appreciation;
-                                obj.month11wages = response.comprehensiveVo[j].month11wages;
-                                obj.month11appreciation =
-                                    response.comprehensiveVo[j].month11appreciation;
-                                obj.month12wages = response.comprehensiveVo[j].month12wages;
-                                obj.month12appreciation =
-                                    response.comprehensiveVo[j].month12appreciation;
-                                obj.appreciationtotal =
-                                    response.comprehensiveVo[j].appreciationtotal;
-                                obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
-                                obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
-                                datalistzhsr[j] = obj;
-                                this.tableZHSR = datalistzhsr;
-                                this.totaldataZHSR = datalistzhsr;
-                                this.ListZHSR = 11;
-                                this.getList();
-                            }
-                        }
-                        //endregion
-                    });
-                this.loading = false;
-            },
-            UploadUrlfjkc: function () {
-                return (
-                    process.env.BASE_API +
-                    '/giving/importUseradditional?givingid=' +
-                    this.Giving
-                );
-            },
-            UploadUrlothertwo: function () {
-                return (
-                    process.env.BASE_API +
-                    '/giving/importUserothertwo?givingid=' +
-                    this.Giving
-                );
-            },
-            UploadUrlotherfour: function () {
-                return (
-                    process.env.BASE_API +
-                    '/giving/importUserotherfour?givingid=' +
-                    this.Giving
-                );
-            },
-            UploadUrlotherfive: function () {
-                return (
-                    process.env.BASE_API +
-                    '/giving/importUserotherfive?givingid=' +
-                    this.Giving
-                );
-            },
-            UploadUrlappreciation: function () {
-                return (
-                    process.env.BASE_API +
-                    '/giving/importUserappreciation?givingid=' +
-                    this.Giving
-                );
-            },
-            handleSizeChangeYDSY(val) {
-                this.listQueryListYDSY.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeYDSY(val) {
-                this.listQueryListYDSY.page = val;
-                this.getList();
-            },
-            handleSizeChangeZHSR(val) {
-                this.listQueryListZHSR.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeZHSR(val) {
-                this.listQueryListZHSR.page = val;
-                this.getList();
-            },
-            handleSizeChangeZXKC(val) {
-                this.listQueryListZXKC.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeZXKC(val) {
-                this.listQueryListZXKC.page = val;
-                this.getList();
-            },
-            handleSizeChangeFJKC(val) {
-                this.listQueryListFJKC.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeFJKC(val) {
-                this.listQueryListFJKC.page = val;
-                this.getList();
-            },
-            handleSizeChangeMS(val) {
-                this.listQueryListMS.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeMS(val) {
-                this.listQueryListMS.page = val;
-                this.getList();
-            },
-            handleSizeChangeLJSJ(val) {
-                this.listQueryListLJSJ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeLJSJ(val) {
-                this.listQueryListLJSJ.page = val;
-                this.getList();
-            },
-            handleSizeChangeGRDB(val) {
-                this.listQueryListGRDB.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeGRDB(val) {
-                this.listQueryListGRDB.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT1Woman(val) {
-                this.listQueryListQT1Woman.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT1Woman(val) {
-                this.listQueryListQT1Woman.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT2(val) {
-                this.listQueryListQT2.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT2(val) {
-                this.listQueryListQT2.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT4(val) {
-                this.listQueryListQT4.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT4(val) {
-                this.listQueryListQT4.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT5(val) {
-                this.listQueryListQT5.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT5(val) {
-                this.listQueryListQT5.page = val;
-                this.getList();
-            },
-            handleSizeChangeRZ(val) {
-                this.listQueryListRZ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeRZ(val) {
-                this.listQueryListRZ.page = val;
-                this.getList();
-            },
-            handleSizeChangeQQ(val) {
-                this.listQueryListQQ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQQ(val) {
-                this.listQueryListQQ.page = val;
-                this.getList();
-            },
-            handleSizeChangeCY(val) {
-                this.listQueryListCY.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeCY(val) {
-                this.listQueryListCY.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT1Man(val) {
-                this.listQueryListQT1Man.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT1Man(val) {
-                this.listQueryListQT1Man.page = val;
-                this.getList();
-            },
-            handleSizeChangeJS(val) {
-                this.listQueryListJS.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeJS(val) {
-                this.listQueryListJS.page = val;
-                this.getList();
-            },
-            handleSizeChangeimprot(val) {
-                this.listQuery.limit = val;
-                this.getListimprot();
-            },
-            handleCurrentChangeimprot(val) {
-                this.listQuery.page = val;
-                this.getListimprot();
-            },
-            getList() {
-                this.loading = true;
-                if (this.tab === '0') {
-                }
-                if (this.listBase === 1 || this.tab === '1') {
-                    let start = (this.listQueryListJS.page - 1) * this.listQueryListJS.limit;
-                    let end = this.listQueryListJS.page * this.listQueryListJS.limit;
-                    if (this.totaldataBase) {
-                        let pListBase = this.totaldataBase.slice(start, end);
-                        this.tableJS = pListBase;
-                        this.totalBase = this.totaldataBase.length;
-                    }
-                }
-                if (this.ListOtherOne === 2 || this.tab === '2') {
-                    if (this.totaldataOtherOneWoman || this.totaldataOtherOneMan) {
-                        if (this.ListOtherOneSex === 1) {
-                            let start = (this.listQueryListQT1Woman.page - 1) * this.listQueryListQT1Woman.limit;
-                            let end = this.listQueryListQT1Woman.page * this.listQueryListQT1Woman.limit;
-                            let pListWoman = this.totaldataOtherOneWoman.slice(start, end);
-                            this.tableQT1Woman = pListWoman;
-                            this.totalOtherOne = this.totaldataOtherOneWoman.length;
-                        } else if (this.ListOtherOneSex === 2) {
-                            let start = (this.listQueryListQT1Man.page - 1) * this.listQueryListQT1Man.limit;
-                            let end = this.listQueryListQT1Man.page * this.listQueryListQT1Man.limit;
-                            let pListMan = this.totaldataOtherOneMan.slice(start, end);
-                            this.tableQT1Man = pListMan;
-                            this.totalOtherOneMan = this.totaldataOtherOneMan.length;
-                        }
-                    }
-                }
-                if (this.ListQt2 === 3 || this.tab === '3') {
-                    let start = (this.listQueryListQT2.page - 1) * this.listQueryListQT2.limit;
-                    let end = this.listQueryListQT2.page * this.listQueryListQT2.limit;
-                    if (this.totaldataQT2) {
-                        let pListQT2 = this.totaldataQT2.slice(start, end);
-                        this.tableQT2 = pListQT2;
-                        this.totalQT2 = this.totaldataQT2.length;
-                    }
-                }
-                if (this.ListQT4 === 4 || this.tab === '4') {
-                    let start = (this.listQueryListQT4.page - 1) * this.listQueryListQT4.limit;
-                    let end = this.listQueryListQT4.page * this.listQueryListQT4.limit;
-                    if (this.totaldataQT4) {
-                        let pListQT4 = this.totaldataQT4.slice(start, end);
-                        this.tableQT4 = pListQT4;
-                        this.totalQT4 = this.totaldataQT4.length;
-                    }
-                }
-                if (this.ListQt5 === 5 || this.tab === '5') {
-                    let start = (this.listQueryListQT5.page - 1) * this.listQueryListQT5.limit;
-                    let end = this.listQueryListQT5.page * this.listQueryListQT5.limit;
-                    if (this.totaldataQT5) {
-                        let pListQT5 = this.totaldataQT5.slice(start, end);
-                        this.tableQT5 = pListQT5;
-                        this.totalQT5 = this.totaldataQT5.length;
-                    }
-                }
-                if (this.ListRZ === 6 || this.tab === '6') {
-                    let start = (this.listQueryListRZ.page - 1) * this.listQueryListRZ.limit;
-                    let end = this.listQueryListRZ.page * this.listQueryListRZ.limit;
-                    if (this.totaldataRZ) {
-                        let pListRZ = this.totaldataRZ.slice(start, end);
-                        this.tableRZ = pListRZ;
-                        this.tableRZ = this.totaldataRZ.length;
-                    }
-                }
-                if (this.tab === '7') {
-                }
-                if (this.ListQQ === 8 || this.tab === '8') {
-                    let start = (this.listQueryListQQ.page - 1) * this.listQueryListQQ.limit;
-                    let end = this.listQueryListQQ.page * this.listQueryListQQ.limit;
-                    if (this.totaldataQQ) {
-                        let pListQQ = this.totaldataQQ.slice(start, end);
-                        this.tableQQ = pListQQ;
-                        this.totalQQ = this.totaldataQQ.length;
-                    }
-                }
-                if (this.ListCY === 9 || this.tab === '9') {
-                    let start = (this.listQueryListCY.page - 1) * this.listQueryListCY.limit;
-                    let end = this.listQueryListCY.page * this.listQueryListCY.limit;
-                    if (this.totaldataCY) {
-                        let pListCY = this.totaldataCY.slice(start, end);
-                        this.tableCY = pListCY;
-                        this.totalCY = this.totaldataCY.length;
-                    }
-                }
-                if (this.ListYDSY === 10 || this.tab === '10') {
-                    let start = (this.listQueryListYDSY.page - 1) * this.listQueryListYDSY.limit;
-                    let end = this.listQueryListYDSY.page * this.listQueryListYDSY.limit;
-                    if (this.totaldataYDSY) {
-                        let pListYDSY = this.totaldataYDSY.slice(start, end);
-                        this.tableYDSY = pListYDSY;
-                        this.totalYDSY = this.totaldataYDSY.length;
-                    }
-                }
-                if (this.ListZHSR === 11 || this.tab === '11') {
-                    let start = (this.listQueryListZHSR.page - 1) * this.listQueryListZHSR.limit;
-                    let end = this.listQueryListZHSR.page * this.listQueryListZHSR.limit;
-                    if (this.totaldataZHSR) {
-                        let pListZHSR = this.totaldataZHSR.slice(start, end);
-                        this.tableZHSR = pListZHSR;
-                        this.totalZHSR = this.totaldataZHSR.length;
-                    }
-                }
-                if ((this.ListZXKC = 12 || this.tab === '12')) {
-                    let start = (this.listQueryListZXKC.page - 1) * this.listQueryListZXKC.limit;
-                    let end = this.listQueryListZXKC.page * this.listQueryListZXKC.limit;
-                    if (this.totaldataZXKC) {
-                        let pListZXKC = this.totaldataZXKC.slice(start, end);
-                        this.tableZXKC = pListZXKC;
-                        this.totalZXKC = this.totaldataZXKC.length;
-                    }
-                }
-                if ((this.ListFJKC = 13 || this.tab === '13')) {
-                    let start = (this.listQueryListFJKC.page - 1) * this.listQueryListFJKC.limit;
-                    let end = this.listQueryListFJKC.page * this.listQueryListFJKC.limit;
-                    if (this.totaldataFJKC) {
-                        let pListFJKC = this.totaldataFJKC.slice(start, end);
-                        this.tableFJKC = pListFJKC;
-                        this.totalFJKC = this.totaldataFJKC.length;
-                    }
-                }
-                if (this.listDutyfreeVo === 14 || this.tab === '14') {
-                    let start = (this.listQueryListMS.page - 1) * this.listQueryListMS.limit;
-                    let end = this.listQueryListMS.page * this.listQueryListMS.limit;
-                    if (this.totaldataDutyfreeVo) {
-                        let pListDutyfreeVo = this.totaldataDutyfreeVo.slice(start, end);
-                        this.tableMS = pListDutyfreeVo;
-                        this.totalDutyfreeVo = this.totaldataDutyfreeVo.length;
-                    }
-                }
-                if (this.listAccumulatedTax === 15 || this.tab === '15') {
-                    let start = (this.listQueryListLJSJ.page - 1) * this.listQueryListLJSJ.limit;
-                    let end = this.listQueryListLJSJ.page * this.listQueryListLJSJ.limit;
-                    if (this.totaldataAccumulatedTax) {
-                        let pListAccumulatedTax = this.totaldataAccumulatedTax.slice(start, end);
-                        this.tableLJSJ = pListAccumulatedTax;
-                        this.totalAccumulatedTax = this.totaldataAccumulatedTax.length;
-                    }
-                }
-                if (this.listContrast === 16 || this.tab === '16') {
-                    let start = (this.listQueryListGRDB.page - 1) * this.listQueryListGRDB.limit;
-                    let end = this.listQueryListGRDB.page * this.listQueryListGRDB.limit;
-                    if (this.totaldataContrast) {
-                        let pListContrast = this.totaldataContrast.slice(start, end);
-                        this.tableGRDB = pListContrast;
-                        this.totalContrast = this.totaldataContrast.length;
-                    }
-                }
-                this.loading = false;
-            },
-            getListimprot() {
-                this.loading = true;
-                let start = (this.listQuery.page - 1) * this.listQuery.limit;
-                let end = this.listQuery.page * this.listQuery.limit;
-                if (this.totaldataimprot) {
-                    let pList = this.totaldataimprot.slice(start, end);
-                    this.message = pList;
-                    this.total = this.totaldataimprot.length;
-                }
-                this.loading = false;
-            },
-            handleClick(tab, event) {
-                this.tab = tab.index;
-                if (
-                    tab.index === '3' ||
-                    tab.index === '4' ||
-                    tab.index === '5' ||
-                    tab.index === '10' ||
-                    tab.index === '13'
-                ) {
-                    this.buttonList[1].disabled = false;
-                } else if (
-                    tab.index === '0' ||
-                    tab.index === '1' ||
-                    tab.index === '2' ||
-                    tab.index === '6' ||
-                    tab.index === '7' ||
-                    tab.index === '8' ||
-                    tab.index === '9' ||
-                    tab.index === '11' ||
-                    tab.index === '12' ||
-                    tab.index === '14' ||
-                    tab.index === '15' ||
-                    tab.index === '16'
-                ) {
-                    this.buttonList[1].disabled = true;
-                }
-                if (tab.index === '16' || tab.index === '2' || tab.index === '3') {
-                    this.buttonList[0].disabled = false;
-                } else if (
-                    tab.index === '0' ||
-                    tab.index === '4' ||
-                    tab.index === '5' ||
-                    tab.index === '6' ||
-                    tab.index === '7' ||
-                    tab.index === '8' ||
-                    tab.index === '9' ||
-                    tab.index === '10' ||
-                    tab.index === '11' ||
-                    tab.index === '12' ||
-                    tab.index === '13' ||
-                    tab.index === '14' ||
-                    tab.index === '15' ||
-                    tab.index === '1'
-                ) {
-                    this.buttonList[0].disabled = true;
-                }
-            },
-            getSummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS2005FORMVIEW_HJ');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                        sums[index] += ' ';
-                    }
-                });
-                return sums;
-            },
-            handleChange(file, fileList) {
-                this.clear(true);
-            },
-            handleSuccess(response, file, fileList) {
-                if (response.code !== 0) {
-                    this.cuowu = response.message;
-                    if (this.tab === '3') {
-                        this.Messageothertwo = true;
-                    }
-                    if (this.tab === '4') {
-                        this.Messageotherfour = true;
-                    }
-                    if (this.tab === '5') {
-                        this.Messageotherfive = true;
-                    }
-                    if (this.tab === '10') {
-                        this.Messageappreciation = true;
-                    }
-                    if (this.tab === '13') {
-                        this.Messagefjkc = true;
-                    }
-                } else {
-                    let datalist = [];
-                    for (let c = 0; c < response.data.length; c++) {
-                        let error = response.data[c];
-                        error = error.substring(0, 3);
-                        if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
-                            this.errorCount = response.data[c].substring(4);
-                            if (this.tab === '3') {
-                                this.resultShowothertwo = true;
-                            }
-                            if (this.tab === '4') {
-                                this.resultShowotherfour = true;
-                            }
-                            if (this.tab === '5') {
-                                this.resultShowotherfive = true;
-                            }
-                            if (this.tab === '10') {
-                                this.resultShowappreciation = true;
-                            }
-                            if (this.tab === '13') {
-                                this.resultShowfjkc = true;
-                            }
-                        }
-                        if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
-                            this.successCount = response.data[c].substring(4);
-                            if (this.tab === '3') {
-                                this.resultShowothertwo = true;
-                            }
-                            if (this.tab === '4') {
-                                this.resultShowotherfour = true;
-                            }
-                            if (this.tab === '5') {
-                                this.resultShowotherfive = true;
-                            }
-                            if (this.tab === '10') {
-                                this.resultShowappreciation = true;
-                            }
-                            if (this.tab === '13') {
-                                this.resultShowfjkc = true;
-                            }
-                        }
-                        if (error === this.$t('label.PFANS2017VIEW_D')) {
-                            let obj = {};
-                            var str = response.data[c];
-                            var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
-                            var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
-                            var r = str.substr(aPos + 1, bPos - aPos - 1);
-                            obj.hang = r;
-                            obj.error = response.data[c].substring(6);
-                            datalist[c] = obj;
-                        }
-                        this.message = datalist;
-                        this.getListdata();
-                        this.totaldataimprot = this.message;
-                        this.getListimprot();
-                        if (this.errorCount === '0') {
-                            if (this.tab === '3') {
-                                this.resultothertwo = false;
-                            }
-                            if (this.tab === '4') {
-                                this.resultotherfour = false;
-                            }
-                            if (this.tab === '5') {
-                                this.resultotherfive = false;
-                            }
-                            if (this.tab === '10') {
-                                this.resultappreciation = false;
-                            }
-                            if (this.tab === '13') {
-                                this.resultfjkc = false;
-                            }
-                        } else {
-                            if (this.tab === '3') {
-                                this.resultothertwo = true;
-                            }
-                            if (this.tab === '4') {
-                                this.resultotherfour = true;
-                            }
-                            if (this.tab === '5') {
-                                this.resultotherfive = true;
-                            }
-                            if (this.tab === '10') {
-                                this.resultappreciation = true;
-                            }
-                            if (this.tab === '13') {
-                                this.resultfjkc = true;
-                            }
-                        }
-                    }
-                }
-            },
-            clear(safe) {
-                this.file = null;
-                if (this.tab === '3') {
-                    this.resultothertwo = false;
-                    this.Messageothertwo = false;
-                    this.resultShowothertwo = false;
-                }
-                if (this.tab === '4') {
-                    this.resultotherfour = false;
-                    this.Messageotherfour = false;
-                    this.resultShowotherfour = false;
-                }
-                if (this.tab === '5') {
-                    this.resultotherfive = false;
-                    this.Messageotherfive = false;
-                    this.resultShowotherfive = false;
-                }
-                if (this.tab === '10') {
-                    this.resultappreciation = false;
-                    this.Messageappreciation = false;
-                    this.resultShowappreciation = false;
-                }
-                if (this.tab === '13') {
-                    this.resultfjkc = false;
-                    this.Messagefjkc = false;
-                    this.resultShowfjkc = false;
-                }
-                if (!safe) {
-                    this.$refs.uploader.clearFiles();
-                }
-            },
-            // getRowClass({row, column, rowIndex, columnIndex}) {
-            //   if (column.level === 1 && columnIndex === 0) {
-            //     return {
-            //       color: 'white',
-            //       background: '#ec8989',
-            //       'border-top': '1px solid #ea5555',
-            //       'border-bottom': '1px solid #ea5555',
-            //       'border-right': '1px solid #ec8989',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
-            //     return {
-            //       color: 'white',
-            //       background: '#ec8989',
-            //       'border-bottom': '1px solid #ea5555',
-            //       'border-right': '1px solid #ec8989',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 1) {
-            //     return {
-            //       color: 'white',
-            //       background: '#569df1',
-            //       'border-top': '1px solid #005baa',
-            //       'border-bottom': '1px solid #005baa',
-            //       'border-right': '1px solid #569df1',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 10 && columnIndex < 21) {
-            //     return {
-            //       color: 'white',
-            //       background: '#569df1',
-            //       'border-bottom': '1px solid #005baa',
-            //       'border-right': '1px solid #569df1',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 2) {
-            //     return {
-            //       color: 'white',
-            //       background: '#3dd1d6',
-            //       'border-top': '1px solid #0499af',
-            //       'border-bottom': '1px solid #0499af',
-            //       'border-right': '1px solid #3dd1d6',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 21 && columnIndex < 35) {
-            //     return {
-            //       color: 'white',
-            //       background: '#3dd1d6',
-            //       'border-bottom': '1px solid #0499af',
-            //       'border-right': '1px solid #3dd1d6',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 3) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4c4040',
-            //       'border-right': '1px solid #4c4040',
-            //       'border-bottom': '1px solid #4c4040',
-            //       'border-top': '1px solid #4c4040',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 4) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4282c1',
-            //       'border-top': '1px solid #005baa',
-            //       'border-bottom': '1px solid #005baa',
-            //       'border-right': '1px solid #4282c1',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 35 && columnIndex < 38) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4282c1',
-            //       'border-right': '1px solid #4282c1',
-            //       'border-bottom': '1px solid #005baa',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 5) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4c4040',
-            //       'border-right': '1px solid #4c4040',
-            //       'border-bottom': '1px solid #4c4040',
-            //       'border-top': '1px solid #4c4040',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 6) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4282c1',
-            //       'border-bottom': '1px solid #005baa',
-            //       'border-right': '1px solid #4282c1',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 38 && columnIndex < 41) {
-            //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
-            //   }
-            //   if (column.level === 1 && columnIndex === 7) {
-            //     return {color: 'white', background: '#4c4040'};
-            //   }
-            //   if (column.level === 1 && columnIndex === 8) {
-            //     return {color: 'white', background: '#ec8989'};
-            //   }
-            //   if (column.level === 1 && columnIndex >= 9 && columnIndex < 15) {
-            //     return {color: 'white', background: '#4c4040'};
-            //   }
-            //   if (column.level === 1 && columnIndex === 15) {
-            //     return {
-            //       color: 'white',
-            //       background: '#4282c1',
-            //       'border-bottom': '1px solid #005baa',
-            //       'border-right': '1px solid #4282c1',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 41 && columnIndex < 44) {
-            //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
-            //   }
-            //   if (column.level === 1 && columnIndex >= 16 && columnIndex < 19) {
-            //     return {color: 'white', background: '#4c4040'};
-            //   }
-            //   if (column.level === 1 && columnIndex === 20) {
-            //     return {color: 'white', background: '#ec8989'};
-            //   }
-            //   if (column.level === 1 && (columnIndex === 19 || columnIndex === 21)) {
-            //     return {color: 'white', background: '#4c4040'};
-            //   }
-            //   if (column.level === 1 && columnIndex === 22) {
-            //     return {
-            //       color: 'white',
-            //       background: '#f5b038',
-            //       'border-bottom': '1px solid #ecc40c',
-            //       'border-right': '1px solid #f5b038',
-            //       'border-right': '1px solid #f5b038',
-            //     };
-            //   }
-            //   if (column.level === 2 && columnIndex >= 44 && columnIndex < 52) {
-            //     return {
-            //       color: 'white',
-            //       background: '#f5b038',
-            //       'border-right': '1px solid #f5b038',
-            //       'border-bottom': '1px solid #ecc40c',
-            //     };
-            //   }
-            //   if (column.level === 1 && columnIndex === 23) {
-            //     return {color: 'white', background: '#ec8989'};
-            //   }
-            //   if (column.level === 1 && columnIndex >= 24 && columnIndex < 30) {
-            //     return {color: 'white', background: '#4c4040'};
-            //   }
-            // },
-            buttonClick(val) {
-                if (val === 'import') {
-                    if (this.tab === '3') {
-                        this.OTherTwo.giving_id = this.Giving;
-                        this.OTherTwo.type = '0';
-                        this.$store
-                            .dispatch('PFANS2005Store/deleteothertwo', {type: '1',giving_id: this.Giving})
-                            .then(response => {
-                                this.daoruothertwo = true;
-                            });
-                    }
-                    if (this.tab === '4') {
-                        this.$store
-                            .dispatch('PFANS2005Store/deleteotherfour', {
-                                giving_id: this.Giving,
-                            })
-                            .then(response => {
-                                this.daoruotherfour = true;
-                            });
-                    }
-                    if (this.tab === '5') {
-                        this.$store
-                            .dispatch('PFANS2005Store/deleteFive', {giving_id: this.Giving})
-                            .then(response => {
-                                this.daoruotherfive = true;
-                            });
-                    }
-                    if (this.tab === '10') {
-                        this.$store
-                            .dispatch('PFANS2005Store/deleteteappreciation', {
-                                giving_id: this.Giving,
-                            })
-                            .then(response => {
-                                this.daoruappreciation = true;
-                            });
-                    }
-                    if (this.tab === '13') {
-                        this.$store
-                            .dispatch('PFANS2005Store/deleteadditional', {
-                                giving_id: this.Giving,
-                            })
-                            .then(response => {
-                                this.daorufjkc = true;
-                            });
-                    }
-                } else if (val === 'save') {
-                    this.loading = true;
-                    this.baseInfo = {};
-                    this.baseInfo.strFlg = this.tab;
-                    this.baseInfo.otherOne = [];
-                    this.baseInfo.contrast = [];
-                    this.baseInfo.otherTwo = [];
-                    if (this.tab === '2') {
-                        for (let i = 0; i < this.tableQT1Woman.length; i++) {
-                            this.baseInfo.otherOne.push({
-                                otherone_id: this.tableQT1Woman[i].otherone_id,
-                                basedata: this.tableQT1Woman[i].basedata,
-                            });
-                        }
-                    } else if (this.tab === '3') {
-                        for (let i = 0; i < this.tableQT2.length; i++) {
-                            this.baseInfo.otherTwo.push({
-                                othertwo_id: this.tableQT2[i].othertwo_id,
-                                rootknot: this.tableQT2[i].rootknot,
-                                giving_id: this.tableQT2[i].giving_id,
-                            });
-                        }
-                    } else if (this.tab === '16') {
-                        for (let i = 0; i < this.tableGRDB.length; i++) {
-                            this.baseInfo.contrast.push({
-                                contrast_id: this.tableGRDB[i].contrast_id,
-                                reason: this.tableGRDB[i].reason,
-                            });
-                        }
-                    }
-                    this.$store
-                        .dispatch('PFANS2005Store/save', this.baseInfo)
-                        .then(response => {
-                            this.data = response;
-                            this.loading = false;
-                            Message({
-                                message: this.$t('normal.success_02'),
-                                type: 'success',
-                                duration: 5 * 1000,
-                            });
-                            if (this.$store.getters.historyUrl) {
-                                this.$router.push(this.$store.getters.historyUrl);
-                            }
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-                }
-            },
-        },
+        {
+          key: "import",
+          name: "button.import",
+          disabled: true,
+          icon: "el-icon-download"
+        }
+      ],
+      OTherTwo: {
+        giving_id: "",
+        type: ""
+      },
+      tableJS: [
+        {
+          rowindex: "",
+          department_id: "",
+          user_id: "",
+          rn: "",
+          sex: "",
+          onlychil: "",
+          type: "",
+          bonus: "",
+          sociology: "",
+          registered: "",
+          lastmonth: "",
+          lastmonthbasic: "",
+          lastmonthduty: "",
+          thismonthbasic: "",
+          thismonthduty: "",
+          thismonth: "",
+          pension: "",
+          medical: "",
+          accumulation: "",
+          heating: "",
+          workdate: ""
+        }
+      ],
+      tableQT5: [
+        {
+          rowindex: "",
+          department_id: "",
+          user_id: "",
+          medicalinsurance: "",
+          accident: "",
+          physical: "",
+          welfaretotal: "",
+          labourunion: "",
+          annualmeeting: "",
+          travel: "",
+          total: "",
+          remarks: ""
+        }
+      ],
+      tableRZ: [
+        {
+          rowindex: "",
+          user_id: "",
+          lastmouth: "",
+          thismouth: "",
+          workdate: "",
+          startdate: "",
+          attendance: "",
+          trial: "",
+          give: "",
+          lunch: "",
+          traffic: "",
+          remarks: ""
+        }
+      ],
+      tableQT1Woman: [
+        {
+          otherone_id: "",
+          giving_id: "",
+          rowindex: "",
+          department_id: "",
+          user_id: "",
+          sex: "",
+          workdate: "",
+          reststart: "",
+          restend: "",
+          attendance: "",
+          other1: "",
+          basedata: ""
+        }
+      ],
+      tableQT1Man: [
+        {
+          rowindex: "",
+          department_id: "",
+          user_id: "",
+          sex: "",
+          workdate: "",
+          startdate: "",
+          enddate: "",
+          vacation: "",
+          handsupport: ""
+        }
+      ],
+      tableQT2: [
+        {
+          giving_id: "",
+          othertwo_id: "",
+          rowindex: "",
+          user_id: "",
+          moneys: "",
+          rootknot: ""
+        }
+      ],
+      tableYDSY: [
+        {
+          rowindex: "",
+          user_id: "",
+          commentary: "",
+          amount: "",
+          other1: "",
+          other2: "",
+          other3: "",
+          other4: "",
+          other5: ""
+        }
+      ],
+      tableQT4: [
+        {
+          otherfour_id: "",
+          giving_id: "",
+          department_id: "",
+          user_id: "",
+          socialsecurity: "",
+          total: "",
+          remarks: "",
+          rowindex: "",
+          jobnumber: ""
+        }
+      ],
+      tableFJKC: [
+        {
+          user_id: "",
+          childreneducation: "",
+          housing: "",
+          rent: "",
+          support: "",
+          education: "",
+          total: ""
+        }
+      ],
+      tableZHSR: [
+        {
+          rowindex: "",
+          user_id: "",
+          month1wages: "",
+          month1appreciation: "",
+          month2wages: "",
+          month2appreciation: "",
+          month3wages: "",
+          month3appreciation: "",
+          month4wages: "",
+          month4appreciation: "",
+          month5wages: "",
+          month5appreciation: "",
+          month6wages: "",
+          month6appreciation: "",
+          month7wages: "",
+          month7appreciation: "",
+          month8wages: "",
+          month8appreciation: "",
+          month9wages: "",
+          month9appreciation: "",
+          month10wages: "",
+          month10appreciation: "",
+          month11wages: "",
+          month11appreciation: "",
+          month12wages: "",
+          month12appreciation: ""
+        }
+      ],
+      tableMS: [
+        {
+          rowindex: "",
+          user_id: "",
+          january: "",
+          february: "",
+          march: "",
+          april: "",
+          may: "",
+          june: "",
+          july: "",
+          august: "",
+          september: "",
+          october: "",
+          november: "",
+          december: "",
+          total: ""
+        }
+      ],
+      tableZXKC: [
+        {
+          number: "",
+          user_id: "",
+          january: "",
+          february: "",
+          march: "",
+          april: "",
+          may: "",
+          june: "",
+          july: "",
+          august: "",
+          september: "",
+          october: "",
+          november: "",
+          december: "",
+          total: ""
+        }
+      ],
+      tableQQ: [
+        {
+          user_id: "",
+          lastdiligence: "",
+          lastshortdeficiency: "",
+          lastchronicdeficiency: "",
+          lasttotal: "",
+          thisdiligence: "",
+          thisshortdeficiency: "",
+          thischronicdeficiency: "",
+          thistotal: "",
+          remarks: "",
+          give: "",
+          rowindex: ""
+        }
+      ],
+      tableCY: [
+        {
+          rowindex: "",
+          user_id: "",
+          rn: "",
+          lastweekdays: "",
+          lastlatenight: "",
+          lastrestDay: "",
+          lastrestlatenight: "",
+          lastlegal: "",
+          lastlegallatenight: "",
+          lastreplace: "",
+          lasttotalh: "",
+          lasttotaly: "",
+          thisweekdays: "",
+          thislatenight: "",
+          thisrestDay: "",
+          thisrestlatenight: "",
+          thislegal: "",
+          thislegallatenight: "",
+          thisreplace: "",
+          thisreplace3: "",
+          thistotalh: "",
+          thistotaly: "",
+          remarks: "",
+          subsidy: ""
+        }
+      ],
+      tableLJSJ: [
+        {
+          rowindex: "",
+          user_id: "",
+          january: "",
+          february: "",
+          march: "",
+          april: "",
+          may: "",
+          june: "",
+          july: "",
+          august: "",
+          september: "",
+          october: "",
+          november: "",
+          december: "",
+          sumThis: "",
+          shouldwages: "",
+          balance: ""
+        }
+      ],
+      tableGRDB: [
+        {
+          contrast_id: "",
+          rowindex: "",
+          department_id: "",
+          user_id: "",
+          thismonth: "",
+          lastmonth: "",
+          difference: "",
+          reason: ""
+        }
+      ],
+      baseInfo: {}
     };
+  },
+  created() {},
+  mounted() {
+    this.Giving = this.$route.params._id;
+    this.getListdata();
+  },
+  methods: {
+    getListdata() {
+      this.loading = true;
+      this.$store
+        .dispatch("PFANS2005Store/givinglist", { giving_id: this.Giving })
+        .then(response => {
+          let lettableQT1Woman = [];
+          let lettableQT1Man = [];
+          let datalist = [];
+          let datalistgrdb = [];
+          let datalistzxkc = [];
+          let datalistqq = [];
+          let datalistcy = [];
+          let datalistljsj = [];
+          let datalistms = [];
+          let datalistzhsr = [];
+          // region 欠勤 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.lackattendance) {
+            for (let j = 0; j < response.lackattendance.length; j++) {
+              let user = getUserInfo(response.lackattendance[j].user_id);
+              if (user) {
+                response.lackattendance[j].user_id = getUserInfo(
+                  response.lackattendance[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.user_id = response.lackattendance[j].user_id;
+              obj.lastdiligence = response.lackattendance[j].lastdiligence;
+              obj.lastshortdeficiency =
+                response.lackattendance[j].lastshortdeficiency;
+              obj.lastchronicdeficiency =
+                response.lackattendance[j].lastchronicdeficiency;
+              obj.lasttotal = response.lackattendance[j].lasttotal;
+              obj.thisdiligence = response.lackattendance[j].thisdiligence;
+              obj.thisshortdeficiency =
+                response.lackattendance[j].thisshortdeficiency;
+              obj.thischronicdeficiency =
+                response.lackattendance[j].thischronicdeficiency;
+              obj.thistotal = response.lackattendance[j].thistotal;
+              obj.remarks = response.lackattendance[j].remarks;
+              obj.give = response.lackattendance[j].give;
+              obj.kcjl =
+                +response.lackattendance[j].lasttotal +
+                +response.lackattendance[j].thistotal;
+              obj.rowindex = j + 1;
+              datalistqq[j] = obj;
+              this.tableQQ = datalistqq;
+              this.totaldataQQ = datalistqq;
+              this.ListQQ = 8;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 残业 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.residual) {
+            for (let j = 0; j < response.residual.length; j++) {
+              let user = getUserInfo(response.residual[j].user_id);
+              if (user) {
+                response.residual[j].user_id = getUserInfo(
+                  response.residual[j].user_id
+                ).userinfo.customername;
+              }
+              if (
+                response.residual[j].rn !== null &&
+                response.residual[j].rn !== ""
+              ) {
+                let letErrortype = getDictionaryInfo(response.residual[j].rn);
+                if (letErrortype != null) {
+                  response.residual[j].rn = letErrortype.value1;
+                }
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.residual[j].user_id;
+              obj.rn = response.residual[j].rn;
+              obj.lastweekdays = response.residual[j].lastweekdays;
+              obj.lastlatenight = response.residual[j].lastlatenight;
+              obj.lastrestDay = response.residual[j].lastrestDay;
+              obj.lastrestlatenight = response.residual[j].lastrestlatenight;
+              obj.lastlegal = response.residual[j].lastlegal;
+              obj.lastlegallatenight = response.residual[j].lastlegallatenight;
+              obj.lastreplace = response.residual[j].lastreplace;
+              obj.lasttotalh = response.residual[j].lasttotalh;
+              obj.lasttotaly = response.residual[j].lasttotaly;
+              obj.thisweekdays = response.residual[j].thisweekdays;
+              obj.thislatenight = response.residual[j].thislatenight;
+              obj.thisrestDay = response.residual[j].thisrestDay;
+              obj.thisrestlatenight = response.residual[j].thisrestlatenight;
+              obj.thislegal = response.residual[j].thislegal;
+              obj.thislegallatenight = response.residual[j].thislegallatenight;
+              obj.thisreplace = response.residual[j].thisreplace;
+              obj.thisreplace3 = response.residual[j].thisreplace3;
+              obj.thistotalh = response.residual[j].thistotalh;
+              obj.thistotaly = response.residual[j].thistotaly;
+              obj.remarks = response.residual[j].remarks;
+              obj.subsidy = response.residual[j].subsidy;
+              datalistcy[j] = obj;
+              this.tableCY = datalistcy;
+              this.totaldataCY = datalistcy;
+              this.ListCY = 9;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 专项控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.disciplinaryVo) {
+            for (let i = 0; i < response.disciplinaryVo.length; i++) {
+              let user = getUserInfo(response.disciplinaryVo[i].user_id);
+              if (user) {
+                response.disciplinaryVo[i].user_id = getUserInfo(
+                  response.disciplinaryVo[i].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.number = i + 1;
+              obj.user_id = response.disciplinaryVo[i].user_id;
+              obj.january = response.disciplinaryVo[i].january;
+              obj.february = response.disciplinaryVo[i].february;
+              obj.march = response.disciplinaryVo[i].march;
+              obj.april = response.disciplinaryVo[i].april;
+              obj.may = response.disciplinaryVo[i].may;
+              obj.june = response.disciplinaryVo[i].june;
+              obj.july = response.disciplinaryVo[i].july;
+              obj.august = response.disciplinaryVo[i].august;
+              obj.september = response.disciplinaryVo[i].september;
+              obj.october = response.disciplinaryVo[i].october;
+              obj.november = response.disciplinaryVo[i].november;
+              obj.december = response.disciplinaryVo[i].december;
+              obj.total = response.disciplinaryVo[i].total;
+              datalistzxkc[i] = obj;
+              this.tableZXKC = datalistzxkc;
+              this.totaldataZXKC = datalistzxkc;
+              this.ListZXKC = 12;
+              this.getList();
+            }
+          }
+          // endregion
+          for (let j = 0; j < response.otherOne.length; j++) {
+            if (response.otherOne[j].basedata === "1") {
+              this.menuList.value = "1";
+              this.menuList.label = 1;
+            }
+            if (response.otherOne[j].basedata === "2") {
+              this.menuList.value = "2";
+              this.menuList.label = 2;
+            }
+            if (response.otherOne[j].type === "1") {
+              let user = getUserInfo(response.otherOne[j].user_id);
+              if (user) {
+                response.otherOne[j].user_id = user.userinfo.customername;
+                response.otherOne[j].department_id = user.userinfo.centername;
+              }
+              if (
+                response.otherOne[j].sex !== null &&
+                response.otherOne[j].sex !== ""
+              ) {
+                if (this.$i18n) {
+                  if (response.otherOne[j].sex === "0") {
+                    response.otherOne[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_BOY"
+                    );
+                  } else {
+                    response.otherOne[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_GRIL"
+                    );
+                  }
+                }
+              }
+              if (
+                response.otherOne[j].workdate !== null &&
+                response.otherOne[j].workdate !== ""
+              ) {
+                response.otherOne[j].workdate = moment(
+                  response.otherOne[j].workdate
+                ).format("YYYY-MM-DD");
+              }
+              if (
+                response.otherOne[j].reststart !== null &&
+                response.otherOne[j].reststart !== ""
+              ) {
+                response.otherOne[j].reststart = moment(
+                  response.otherOne[j].reststart
+                ).format("YYYY-MM-DD");
+              }
+              if (
+                response.otherOne[j].restend !== null &&
+                response.otherOne[j].restend !== ""
+              ) {
+                response.otherOne[j].restend = moment(
+                  response.otherOne[j].restend
+                ).format("YYYY-MM-DD");
+              }
+
+              //添加对其他1的处理-lxx
+              // let other1 = "0";
+              // if (response.otherOne[j].other1.indexOf(",") !== -1) {
+              //   if (response.otherOne[j].basedata === "1") {
+              //     other1 = response.otherOne[j].other1.split(",")[0];
+              //   }
+              //   if (response.otherOne[j].basedata === "2") {
+              //     other1 = response.otherOne[j].other1.split(",")[1];
+              //   }
+              // }
+              //添加对其他1的处理-lxx
+              lettableQT1Woman.push({
+                otherone_id: response.otherOne[j].otherone_id,
+                giving_id: response.otherOne[j].giving_id,
+                rowindex: response.otherOne[j].rowindex,
+                department_id: response.otherOne[j].department_id,
+                user_id: response.otherOne[j].user_id,
+                sex: response.otherOne[j].sex,
+                workdate: response.otherOne[j].workdate,
+                reststart: response.otherOne[j].reststart,
+                restend: response.otherOne[j].restend,
+                attendance: response.otherOne[j].attendance,
+                // other1: other1,
+                basedata: response.otherOne[j].basedata
+                //对其他1结果存储-lxx
+                // temp: response.otherOne[j].other1
+                //对其他1结果存储-lxx
+              });
+              this.ListOtherOneSex = 1;
+            } else if (response.otherOne[j].type === "2") {
+              let user = getUserInfo(response.otherOne[j].user_id);
+              if (user) {
+                response.otherOne[j].user_id = user.userinfo.customername;
+                response.otherOne[j].department_id = user.userinfo.centername;
+              }
+              if (
+                response.otherOne[j].sex !== null &&
+                response.otherOne[j].sex !== ""
+              ) {
+                if (this.$i18n) {
+                  if (response.otherOne[j].sex === "0") {
+                    response.otherOne[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_BOY"
+                    );
+                  } else {
+                    response.otherOne[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_GRIL"
+                    );
+                  }
+                }
+              }
+              if (
+                response.otherOne[j].workdate !== null &&
+                response.otherOne[j].workdate !== ""
+              ) {
+                response.otherOne[j].workdate = moment(
+                  response.otherOne[j].workdate
+                ).format("YYYY-MM-DD");
+              }
+              if (
+                response.otherOne[j].startdate !== null &&
+                response.otherOne[j].startdate !== ""
+              ) {
+                response.otherOne[j].startdate = moment(
+                  response.otherOne[j].startdate
+                ).format("YYYY-MM-DD");
+              }
+              if (
+                response.otherOne[j].enddate !== null &&
+                response.otherOne[j].enddate !== ""
+              ) {
+                response.otherOne[j].enddate = moment(
+                  response.otherOne[j].enddate
+                ).format("YYYY-MM-DD");
+              }
+              lettableQT1Man.push({
+                rowindex: response.otherOne[j].rowindex,
+                department_id: response.otherOne[j].department_id,
+                user_id: response.otherOne[j].user_id,
+                sex: response.otherOne[j].sex,
+                workdate: response.otherOne[j].workdate,
+                startdate: response.otherOne[j].startdate,
+                enddate: response.otherOne[j].enddate,
+                vacation: response.otherOne[j].vacation,
+                handsupport: response.otherOne[j].handsupport
+              });
+              this.ListOtherOneSex = 2;
+            }
+            if (this.ListOtherOneSex === 1) {
+              this.totaldataOtherOneWoman = lettableQT1Woman;
+            } else if (this.ListOtherOneSex === 2) {
+              this.totaldataOtherOneMan = lettableQT1Man;
+            }
+            this.tableQT1Woman = lettableQT1Woman;
+            this.tableQT1Man = lettableQT1Man;
+            this.ListOtherOne = 2;
+            this.getList();
+          }
+          for (let a = 0; a < response.otherTwo.length; a++) {
+            let user = getUserInfo(response.otherTwo[a].user_id);
+            if (user) {
+              response.otherTwo[a].user_id = getUserInfo(
+                response.otherTwo[a].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.otherTwo[a].rootknot !== null &&
+              response.otherTwo[a].rootknot !== ""
+            ) {
+              let letErrortype = getDictionaryInfo(
+                response.otherTwo[a].rootknot
+              );
+              if (letErrortype != null) {
+                response.otherTwo[a].rootknot = letErrortype.value1;
+              }
+            }
+            let Obj = {};
+            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
+            Obj.user_id = response.otherTwo[a].user_id;
+            Obj.moneys = response.otherTwo[a].moneys;
+            Obj.rootknot = response.otherTwo[a].rootknot;
+            Obj.type = response.otherTwo[a].type;
+            Obj.giving_id = response.otherTwo[a].giving_id;
+            Obj.rowindex = a + 1;
+            datalist[a] = Obj;
+            this.tableQT2 = datalist;
+            this.totaldataQT2 = datalist;
+            this.ListQt2 = 3;
+            this.getList();
+          }
+          // region 月度赏与 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.appreciation) {
+            for (let j = 0; j < response.appreciation.length; j++) {
+              let user = getUserInfo(response.appreciation[j].user_id);
+              if (user) {
+                response.appreciation[j].user_id = getUserInfo(
+                  response.appreciation[j].user_id
+                ).userinfo.customername;
+              }
+              this.tableYDSY = response.appreciation;
+              this.totaldataYDSY = response.appreciation;
+              this.ListYDSY = 10;
+              this.getList();
+            }
+          }
+          // endregion
+
+          for (let j = 0; j < response.otherFour.length; j++) {
+            let user = getUserInfo(response.otherFour[j].user_id);
+            if (user) {
+              response.otherFour[j].user_id = getUserInfo(
+                response.otherFour[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT4 = response.otherFour;
+            this.totaldataQT4 = response.otherFour;
+            this.ListQT4 = 4;
+            this.getList();
+          }
+
+          // region 附加控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.addiTional) {
+            for (let j = 0; j < response.addiTional.length; j++) {
+              let user = getUserInfo(response.addiTional[j].user_id);
+              if (user) {
+                response.addiTional[j].user_id = getUserInfo(
+                  response.addiTional[j].user_id
+                ).userinfo.customername;
+              }
+              this.tableFJKC = response.addiTional;
+              this.totaldataFJKC = response.addiTional;
+              this.ListFJKC = 13;
+              this.getList();
+            }
+          }
+          // endregion
+
+          for (let j = 0; j < response.otherFive.length; j++) {
+            let user = getUserInfo(response.otherFive[j].user_id);
+            if (user) {
+              response.otherFive[j].user_id = getUserInfo(
+                response.otherFive[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT5 = response.otherFive;
+            this.totaldataQT5 = response.otherFive;
+            this.ListQt5 = 5;
+            this.getList();
+          }
+          for (let j = 0; j < response.entryVo.length; j++) {
+            let user = getUserInfo(response.entryVo[j].user_id);
+            if (user) {
+              response.entryVo[j].user_id = getUserInfo(
+                response.entryVo[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableRZ = response.entryVo;
+            this.totaldataRZ = response.entryVo;
+            this.ListRZ = 6;
+            this.getList();
+          }
+          for (let j = 0; j < response.base.length; j++) {
+            if (response.base[j].type === "1") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
+            } else if (response.base[j].type === "4") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
+            } else if (response.base[j].type === "2") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
+            } else if (response.base[j].type === "3") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
+            }
+            let user = getUserInfo(response.base[j].user_id);
+            if (user) {
+              response.base[j].user_id = user.userinfo.customername;
+              response.base[j].department_id = user.userinfo.centername;
+            }
+            if (response.base[j].rn !== null && response.base[j].rn !== "") {
+              let letErrortype = getDictionaryInfo(response.base[j].rn);
+              if (letErrortype != null) {
+                response.base[j].rn = letErrortype.value1;
+              }
+            }
+            if (
+              response.base[j].workdate !== null &&
+              response.base[j].workdate !== ""
+            ) {
+              response.base[j].workdate = moment(
+                response.base[j].workdate
+              ).format("YYYY-MM-DD");
+            }
+            if (response.base[j].sex !== null && response.base[j].sex !== "") {
+              if (this.$i18n) {
+                if (response.base[j].sex === "0") {
+                  response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                } else {
+                  response.base[j].sex = this.$t(
+                    "label.PFANS2002FORMVIEW_GRIL"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].registered !== null &&
+              response.base[j].registered !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].registered === "1") {
+                  response.base[j].registered = this.$t("label.yes");
+                } else {
+                  response.base[j].registered = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].bonus !== null &&
+              response.base[j].bonus !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].bonus === "1") {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_NEWSTAFF"
+                  );
+                } else {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_OLDSTAFF"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].onlychild !== null &&
+              response.base[j].onlychild !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].onlychild === "1") {
+                  response.base[j].onlychild = this.$t("label.yes");
+                } else {
+                  response.base[j].onlychild = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].sociology !== null &&
+              response.base[j].sociology !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].sociology === "1") {
+                  response.base[j].sociology = this.$t("label.yes");
+                } else {
+                  response.base[j].sociology = this.$t("label.no");
+                }
+              }
+            }
+            this.tableJS = response.base;
+            this.totaldataBase = response.base;
+            this.listBase = 1;
+            this.getList();
+          }
+          for (let j = 0; j < response.contrast.length; j++) {
+            let user = getUserInfo(response.contrast[j].user_id);
+            if (user) {
+              response.contrast[j].user_id = user.userinfo.customername;
+              response.contrast[j].department_id = user.userinfo.centername;
+            }
+            let obj = {};
+            obj.contrast_id = response.contrast[j].contrast_id;
+            obj.department_id = response.contrast[j].department_id;
+            obj.user_id = response.contrast[j].user_id;
+            obj.thismonth = response.contrast[j].thismonth;
+            obj.lastmonth = response.contrast[j].lastmonth;
+            obj.reason = response.contrast[j].reason;
+            obj.rowindex = response.contrast[j].rowindex;
+            if (
+              response.contrast[j].thismonth != null &&
+              response.contrast[j].lastmonth != null
+            ) {
+              obj.difference =
+                response.contrast[j].lastmonth - response.contrast[j].thismonth;
+            }
+            datalistgrdb[j] = obj;
+            this.tableGRDB = datalistgrdb;
+            this.totaldataContrast = datalistgrdb;
+            this.listContrast = 16;
+            this.getList();
+          }
+          // region 累计税金 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.accumulatedTaxVo) {
+            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
+              let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
+              if (user) {
+                response.accumulatedTaxVo[j].user_id = getUserInfo(
+                  response.accumulatedTaxVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.accumulatedTaxVo[j].user_id;
+              obj.january = response.accumulatedTaxVo[j].january;
+              obj.february = response.accumulatedTaxVo[j].february;
+              obj.march = response.accumulatedTaxVo[j].march;
+              obj.april = response.accumulatedTaxVo[j].april;
+              obj.may = response.accumulatedTaxVo[j].may;
+              obj.june = response.accumulatedTaxVo[j].june;
+              obj.july = response.accumulatedTaxVo[j].july;
+              obj.august = response.accumulatedTaxVo[j].august;
+              obj.september = response.accumulatedTaxVo[j].september;
+              obj.october = response.accumulatedTaxVo[j].october;
+              obj.november = response.accumulatedTaxVo[j].november;
+              obj.december = response.accumulatedTaxVo[j].december;
+              obj.sumThis = response.accumulatedTaxVo[j].sumThis;
+              obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
+              obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
+              obj.balance = response.accumulatedTaxVo[j].balance;
+              datalistljsj[j] = obj;
+              this.tableLJSJ = datalistljsj;
+              this.totaldataAccumulatedTax = datalistljsj;
+              this.listAccumulatedTax = 15;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 免税 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.dutyfreeVo) {
+            for (let j = 0; j < response.dutyfreeVo.length; j++) {
+              let user = getUserInfo(response.dutyfreeVo[j].user_id);
+              if (user) {
+                response.dutyfreeVo[j].user_id = getUserInfo(
+                  response.dutyfreeVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.dutyfreeVo[j].user_id;
+              obj.january = response.dutyfreeVo[j].january;
+              obj.february = response.dutyfreeVo[j].february;
+              obj.march = response.dutyfreeVo[j].march;
+              obj.april = response.dutyfreeVo[j].april;
+              obj.may = response.dutyfreeVo[j].may;
+              obj.june = response.dutyfreeVo[j].june;
+              obj.july = response.dutyfreeVo[j].july;
+              obj.august = response.dutyfreeVo[j].august;
+              obj.september = response.dutyfreeVo[j].september;
+              obj.october = response.dutyfreeVo[j].october;
+              obj.november = response.dutyfreeVo[j].november;
+              obj.december = response.dutyfreeVo[j].december;
+              obj.total = response.dutyfreeVo[j].total;
+              datalistms[j] = obj;
+              this.tableMS = datalistms;
+              this.totaldataDutyfreeVo = datalistms;
+              this.listDutyfreeVo = 14;
+              this.getList();
+            }
+          }
+          // endregion
+          //region  综合收入 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.comprehensiveVo) {
+            for (let j = 0; j < response.comprehensiveVo.length; j++) {
+              let user = getUserInfo(response.comprehensiveVo[j].user_id);
+              if (user) {
+                response.comprehensiveVo[j].user_id = getUserInfo(
+                  response.comprehensiveVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.comprehensiveVo[j].user_id;
+              obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
+              obj.month1wages = response.comprehensiveVo[j].month1wages;
+              obj.month1appreciation =
+                response.comprehensiveVo[j].month1appreciation;
+              obj.month2wages = response.comprehensiveVo[j].month2wages;
+              obj.month2appreciation =
+                response.comprehensiveVo[j].month2appreciation;
+              obj.month3wages = response.comprehensiveVo[j].month3wages;
+              obj.month3appreciation =
+                response.comprehensiveVo[j].month3appreciation;
+              obj.month4wages = response.comprehensiveVo[j].month4wages;
+              obj.month4appreciation =
+                response.comprehensiveVo[j].month4appreciation;
+              obj.month5wages = response.comprehensiveVo[j].month5wages;
+              obj.month5appreciation =
+                response.comprehensiveVo[j].month5appreciation;
+              obj.month6wages = response.comprehensiveVo[j].month6wages;
+              obj.month6appreciation =
+                response.comprehensiveVo[j].month6appreciation;
+              obj.month7wages = response.comprehensiveVo[j].month7wages;
+              obj.month7appreciation =
+                response.comprehensiveVo[j].month7appreciation;
+              obj.month8wages = response.comprehensiveVo[j].month8wages;
+              obj.month8appreciation =
+                response.comprehensiveVo[j].month8appreciation;
+              obj.month9wages = response.comprehensiveVo[j].month9wages;
+              obj.month9appreciation =
+                response.comprehensiveVo[j].month9appreciation;
+              obj.month10wages = response.comprehensiveVo[j].month10wages;
+              obj.month10appreciation =
+                response.comprehensiveVo[j].month10appreciation;
+              obj.month11wages = response.comprehensiveVo[j].month11wages;
+              obj.month11appreciation =
+                response.comprehensiveVo[j].month11appreciation;
+              obj.month12wages = response.comprehensiveVo[j].month12wages;
+              obj.month12appreciation =
+                response.comprehensiveVo[j].month12appreciation;
+              obj.appreciationtotal =
+                response.comprehensiveVo[j].appreciationtotal;
+              obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
+              obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
+              datalistzhsr[j] = obj;
+              this.tableZHSR = datalistzhsr;
+              this.totaldataZHSR = datalistzhsr;
+              this.ListZHSR = 11;
+              this.getList();
+            }
+          }
+          //endregion
+        });
+      this.loading = false;
+    },
+    UploadUrlfjkc: function() {
+      return (
+        process.env.BASE_API +
+        "/giving/importUseradditional?givingid=" +
+        this.Giving
+      );
+    },
+    UploadUrlothertwo: function() {
+      return (
+        process.env.BASE_API +
+        "/giving/importUserothertwo?givingid=" +
+        this.Giving
+      );
+    },
+    UploadUrlotherfour: function() {
+      return (
+        process.env.BASE_API +
+        "/giving/importUserotherfour?givingid=" +
+        this.Giving
+      );
+    },
+    UploadUrlotherfive: function() {
+      return (
+        process.env.BASE_API +
+        "/giving/importUserotherfive?givingid=" +
+        this.Giving
+      );
+    },
+    UploadUrlappreciation: function() {
+      return (
+        process.env.BASE_API +
+        "/giving/importUserappreciation?givingid=" +
+        this.Giving
+      );
+    },
+    handleSizeChangeYDSY(val) {
+      this.listQueryListYDSY.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeYDSY(val) {
+      this.listQueryListYDSY.page = val;
+      this.getList();
+    },
+    handleSizeChangeZHSR(val) {
+      this.listQueryListZHSR.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeZHSR(val) {
+      this.listQueryListZHSR.page = val;
+      this.getList();
+    },
+    handleSizeChangeZXKC(val) {
+      this.listQueryListZXKC.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeZXKC(val) {
+      this.listQueryListZXKC.page = val;
+      this.getList();
+    },
+    handleSizeChangeFJKC(val) {
+      this.listQueryListFJKC.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeFJKC(val) {
+      this.listQueryListFJKC.page = val;
+      this.getList();
+    },
+    handleSizeChangeMS(val) {
+      this.listQueryListMS.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeMS(val) {
+      this.listQueryListMS.page = val;
+      this.getList();
+    },
+    handleSizeChangeLJSJ(val) {
+      this.listQueryListLJSJ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeLJSJ(val) {
+      this.listQueryListLJSJ.page = val;
+      this.getList();
+    },
+    handleSizeChangeGRDB(val) {
+      this.listQueryListGRDB.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeGRDB(val) {
+      this.listQueryListGRDB.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT1Woman(val) {
+      this.listQueryListQT1Woman.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT1Woman(val) {
+      this.listQueryListQT1Woman.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT2(val) {
+      this.listQueryListQT2.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT2(val) {
+      this.listQueryListQT2.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT4(val) {
+      this.listQueryListQT4.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT4(val) {
+      this.listQueryListQT4.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT5(val) {
+      this.listQueryListQT5.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT5(val) {
+      this.listQueryListQT5.page = val;
+      this.getList();
+    },
+    handleSizeChangeRZ(val) {
+      this.listQueryListRZ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeRZ(val) {
+      this.listQueryListRZ.page = val;
+      this.getList();
+    },
+    handleSizeChangeQQ(val) {
+      this.listQueryListQQ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQQ(val) {
+      this.listQueryListQQ.page = val;
+      this.getList();
+    },
+    handleSizeChangeCY(val) {
+      this.listQueryListCY.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeCY(val) {
+      this.listQueryListCY.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT1Man(val) {
+      this.listQueryListQT1Man.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT1Man(val) {
+      this.listQueryListQT1Man.page = val;
+      this.getList();
+    },
+    handleSizeChangeJS(val) {
+      this.listQueryListJS.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeJS(val) {
+      this.listQueryListJS.page = val;
+      this.getList();
+    },
+    handleSizeChangeimprot(val) {
+      this.listQuery.limit = val;
+      this.getListimprot();
+    },
+    handleCurrentChangeimprot(val) {
+      this.listQuery.page = val;
+      this.getListimprot();
+    },
+    getList() {
+      this.loading = true;
+      if (this.tab === "0") {
+      }
+      if (this.listBase === 1 || this.tab === "1") {
+        let start =
+          (this.listQueryListJS.page - 1) * this.listQueryListJS.limit;
+        let end = this.listQueryListJS.page * this.listQueryListJS.limit;
+        if (this.totaldataBase) {
+          let pListBase = this.totaldataBase.slice(start, end);
+          this.tableJS = pListBase;
+          this.totalBase = this.totaldataBase.length;
+        }
+      }
+      if (this.ListOtherOne === 2 || this.tab === "2") {
+        if (this.totaldataOtherOneWoman || this.totaldataOtherOneMan) {
+          if (this.ListOtherOneSex === 1) {
+            let start =
+              (this.listQueryListQT1Woman.page - 1) *
+              this.listQueryListQT1Woman.limit;
+            let end =
+              this.listQueryListQT1Woman.page *
+              this.listQueryListQT1Woman.limit;
+            let pListWoman = this.totaldataOtherOneWoman.slice(start, end);
+            this.tableQT1Woman = pListWoman;
+            this.totalOtherOne = this.totaldataOtherOneWoman.length;
+          } else if (this.ListOtherOneSex === 2) {
+            let start =
+              (this.listQueryListQT1Man.page - 1) *
+              this.listQueryListQT1Man.limit;
+            let end =
+              this.listQueryListQT1Man.page * this.listQueryListQT1Man.limit;
+            let pListMan = this.totaldataOtherOneMan.slice(start, end);
+            this.tableQT1Man = pListMan;
+            this.totalOtherOneMan = this.totaldataOtherOneMan.length;
+          }
+        }
+      }
+      if (this.ListQt2 === 3 || this.tab === "3") {
+        let start =
+          (this.listQueryListQT2.page - 1) * this.listQueryListQT2.limit;
+        let end = this.listQueryListQT2.page * this.listQueryListQT2.limit;
+        if (this.totaldataQT2) {
+          let pListQT2 = this.totaldataQT2.slice(start, end);
+          this.tableQT2 = pListQT2;
+          this.totalQT2 = this.totaldataQT2.length;
+        }
+      }
+      if (this.ListQT4 === 4 || this.tab === "4") {
+        let start =
+          (this.listQueryListQT4.page - 1) * this.listQueryListQT4.limit;
+        let end = this.listQueryListQT4.page * this.listQueryListQT4.limit;
+        if (this.totaldataQT4) {
+          let pListQT4 = this.totaldataQT4.slice(start, end);
+          this.tableQT4 = pListQT4;
+          this.totalQT4 = this.totaldataQT4.length;
+        }
+      }
+      if (this.ListQt5 === 5 || this.tab === "5") {
+        let start =
+          (this.listQueryListQT5.page - 1) * this.listQueryListQT5.limit;
+        let end = this.listQueryListQT5.page * this.listQueryListQT5.limit;
+        if (this.totaldataQT5) {
+          let pListQT5 = this.totaldataQT5.slice(start, end);
+          this.tableQT5 = pListQT5;
+          this.totalQT5 = this.totaldataQT5.length;
+        }
+      }
+      if (this.ListRZ === 6 || this.tab === "6") {
+        let start =
+          (this.listQueryListRZ.page - 1) * this.listQueryListRZ.limit;
+        let end = this.listQueryListRZ.page * this.listQueryListRZ.limit;
+        if (this.totaldataRZ) {
+          let pListRZ = this.totaldataRZ.slice(start, end);
+          this.tableRZ = pListRZ;
+          this.tableRZ = this.totaldataRZ.length;
+        }
+      }
+      if (this.tab === "7") {
+      }
+      if (this.ListQQ === 8 || this.tab === "8") {
+        let start =
+          (this.listQueryListQQ.page - 1) * this.listQueryListQQ.limit;
+        let end = this.listQueryListQQ.page * this.listQueryListQQ.limit;
+        if (this.totaldataQQ) {
+          let pListQQ = this.totaldataQQ.slice(start, end);
+          this.tableQQ = pListQQ;
+          this.totalQQ = this.totaldataQQ.length;
+        }
+      }
+      if (this.ListCY === 9 || this.tab === "9") {
+        let start =
+          (this.listQueryListCY.page - 1) * this.listQueryListCY.limit;
+        let end = this.listQueryListCY.page * this.listQueryListCY.limit;
+        if (this.totaldataCY) {
+          let pListCY = this.totaldataCY.slice(start, end);
+          this.tableCY = pListCY;
+          this.totalCY = this.totaldataCY.length;
+        }
+      }
+      if (this.ListYDSY === 10 || this.tab === "10") {
+        let start =
+          (this.listQueryListYDSY.page - 1) * this.listQueryListYDSY.limit;
+        let end = this.listQueryListYDSY.page * this.listQueryListYDSY.limit;
+        if (this.totaldataYDSY) {
+          let pListYDSY = this.totaldataYDSY.slice(start, end);
+          this.tableYDSY = pListYDSY;
+          this.totalYDSY = this.totaldataYDSY.length;
+        }
+      }
+      if (this.ListZHSR === 11 || this.tab === "11") {
+        let start =
+          (this.listQueryListZHSR.page - 1) * this.listQueryListZHSR.limit;
+        let end = this.listQueryListZHSR.page * this.listQueryListZHSR.limit;
+        if (this.totaldataZHSR) {
+          let pListZHSR = this.totaldataZHSR.slice(start, end);
+          this.tableZHSR = pListZHSR;
+          this.totalZHSR = this.totaldataZHSR.length;
+        }
+      }
+      if ((this.ListZXKC = 12 || this.tab === "12")) {
+        let start =
+          (this.listQueryListZXKC.page - 1) * this.listQueryListZXKC.limit;
+        let end = this.listQueryListZXKC.page * this.listQueryListZXKC.limit;
+        if (this.totaldataZXKC) {
+          let pListZXKC = this.totaldataZXKC.slice(start, end);
+          this.tableZXKC = pListZXKC;
+          this.totalZXKC = this.totaldataZXKC.length;
+        }
+      }
+      if ((this.ListFJKC = 13 || this.tab === "13")) {
+        let start =
+          (this.listQueryListFJKC.page - 1) * this.listQueryListFJKC.limit;
+        let end = this.listQueryListFJKC.page * this.listQueryListFJKC.limit;
+        if (this.totaldataFJKC) {
+          let pListFJKC = this.totaldataFJKC.slice(start, end);
+          this.tableFJKC = pListFJKC;
+          this.totalFJKC = this.totaldataFJKC.length;
+        }
+      }
+      if (this.listDutyfreeVo === 14 || this.tab === "14") {
+        let start =
+          (this.listQueryListMS.page - 1) * this.listQueryListMS.limit;
+        let end = this.listQueryListMS.page * this.listQueryListMS.limit;
+        if (this.totaldataDutyfreeVo) {
+          let pListDutyfreeVo = this.totaldataDutyfreeVo.slice(start, end);
+          this.tableMS = pListDutyfreeVo;
+          this.totalDutyfreeVo = this.totaldataDutyfreeVo.length;
+        }
+      }
+      if (this.listAccumulatedTax === 15 || this.tab === "15") {
+        let start =
+          (this.listQueryListLJSJ.page - 1) * this.listQueryListLJSJ.limit;
+        let end = this.listQueryListLJSJ.page * this.listQueryListLJSJ.limit;
+        if (this.totaldataAccumulatedTax) {
+          let pListAccumulatedTax = this.totaldataAccumulatedTax.slice(
+            start,
+            end
+          );
+          this.tableLJSJ = pListAccumulatedTax;
+          this.totalAccumulatedTax = this.totaldataAccumulatedTax.length;
+        }
+      }
+      if (this.listContrast === 16 || this.tab === "16") {
+        let start =
+          (this.listQueryListGRDB.page - 1) * this.listQueryListGRDB.limit;
+        let end = this.listQueryListGRDB.page * this.listQueryListGRDB.limit;
+        if (this.totaldataContrast) {
+          let pListContrast = this.totaldataContrast.slice(start, end);
+          this.tableGRDB = pListContrast;
+          this.totalContrast = this.totaldataContrast.length;
+        }
+      }
+      this.loading = false;
+    },
+    getListimprot() {
+      this.loading = true;
+      let start = (this.listQuery.page - 1) * this.listQuery.limit;
+      let end = this.listQuery.page * this.listQuery.limit;
+      if (this.totaldataimprot) {
+        let pList = this.totaldataimprot.slice(start, end);
+        this.message = pList;
+        this.total = this.totaldataimprot.length;
+      }
+      this.loading = false;
+    },
+    handleClick(tab, event) {
+      this.tab = tab.index;
+      if (
+        tab.index === "3" ||
+        tab.index === "4" ||
+        tab.index === "5" ||
+        tab.index === "10" ||
+        tab.index === "13"
+      ) {
+        this.buttonList[1].disabled = false;
+      } else if (
+        tab.index === "0" ||
+        tab.index === "1" ||
+        tab.index === "2" ||
+        tab.index === "6" ||
+        tab.index === "7" ||
+        tab.index === "8" ||
+        tab.index === "9" ||
+        tab.index === "11" ||
+        tab.index === "12" ||
+        tab.index === "14" ||
+        tab.index === "15" ||
+        tab.index === "16"
+      ) {
+        this.buttonList[1].disabled = true;
+      }
+      if (tab.index === "16" || tab.index === "2" || tab.index === "3") {
+        this.buttonList[0].disabled = false;
+      } else if (
+        tab.index === "0" ||
+        tab.index === "4" ||
+        tab.index === "5" ||
+        tab.index === "6" ||
+        tab.index === "7" ||
+        tab.index === "8" ||
+        tab.index === "9" ||
+        tab.index === "10" ||
+        tab.index === "11" ||
+        tab.index === "12" ||
+        tab.index === "13" ||
+        tab.index === "14" ||
+        tab.index === "15" ||
+        tab.index === "1"
+      ) {
+        this.buttonList[0].disabled = true;
+      }
+    },
+    getSummaries(param) {
+      const { columns, data } = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
+          return;
+        }
+        const values = data.map(item => Number(item[column.property]));
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr);
+            if (!isNaN(value)) {
+              return prev + curr;
+            } else {
+              return prev;
+            }
+          }, 0);
+          sums[index] += " ";
+        }
+      });
+      return sums;
+    },
+    handleChange(file, fileList) {
+      this.clear(true);
+    },
+    handleSuccess(response, file, fileList) {
+      if (response.code !== 0) {
+        this.cuowu = response.message;
+        if (this.tab === "3") {
+          this.Messageothertwo = true;
+        }
+        if (this.tab === "4") {
+          this.Messageotherfour = true;
+        }
+        if (this.tab === "5") {
+          this.Messageotherfive = true;
+        }
+        if (this.tab === "10") {
+          this.Messageappreciation = true;
+        }
+        if (this.tab === "13") {
+          this.Messagefjkc = true;
+        }
+      } else {
+        let datalist = [];
+        for (let c = 0; c < response.data.length; c++) {
+          let error = response.data[c];
+          error = error.substring(0, 3);
+          if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+            this.errorCount = response.data[c].substring(4);
+            if (this.tab === "3") {
+              this.resultShowothertwo = true;
+            }
+            if (this.tab === "4") {
+              this.resultShowotherfour = true;
+            }
+            if (this.tab === "5") {
+              this.resultShowotherfive = true;
+            }
+            if (this.tab === "10") {
+              this.resultShowappreciation = true;
+            }
+            if (this.tab === "13") {
+              this.resultShowfjkc = true;
+            }
+          }
+          if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+            this.successCount = response.data[c].substring(4);
+            if (this.tab === "3") {
+              this.resultShowothertwo = true;
+            }
+            if (this.tab === "4") {
+              this.resultShowotherfour = true;
+            }
+            if (this.tab === "5") {
+              this.resultShowotherfive = true;
+            }
+            if (this.tab === "10") {
+              this.resultShowappreciation = true;
+            }
+            if (this.tab === "13") {
+              this.resultShowfjkc = true;
+            }
+          }
+          if (error === this.$t("label.PFANS2017VIEW_D")) {
+            let obj = {};
+            var str = response.data[c];
+            var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
+            var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
+            var r = str.substr(aPos + 1, bPos - aPos - 1);
+            obj.hang = r;
+            obj.error = response.data[c].substring(6);
+            datalist[c] = obj;
+          }
+          this.message = datalist;
+          this.getListdata();
+          this.totaldataimprot = this.message;
+          this.getListimprot();
+          if (this.errorCount === "0") {
+            if (this.tab === "3") {
+              this.resultothertwo = false;
+            }
+            if (this.tab === "4") {
+              this.resultotherfour = false;
+            }
+            if (this.tab === "5") {
+              this.resultotherfive = false;
+            }
+            if (this.tab === "10") {
+              this.resultappreciation = false;
+            }
+            if (this.tab === "13") {
+              this.resultfjkc = false;
+            }
+          } else {
+            if (this.tab === "3") {
+              this.resultothertwo = true;
+            }
+            if (this.tab === "4") {
+              this.resultotherfour = true;
+            }
+            if (this.tab === "5") {
+              this.resultotherfive = true;
+            }
+            if (this.tab === "10") {
+              this.resultappreciation = true;
+            }
+            if (this.tab === "13") {
+              this.resultfjkc = true;
+            }
+          }
+        }
+      }
+    },
+    clear(safe) {
+      this.file = null;
+      if (this.tab === "3") {
+        this.resultothertwo = false;
+        this.Messageothertwo = false;
+        this.resultShowothertwo = false;
+      }
+      if (this.tab === "4") {
+        this.resultotherfour = false;
+        this.Messageotherfour = false;
+        this.resultShowotherfour = false;
+      }
+      if (this.tab === "5") {
+        this.resultotherfive = false;
+        this.Messageotherfive = false;
+        this.resultShowotherfive = false;
+      }
+      if (this.tab === "10") {
+        this.resultappreciation = false;
+        this.Messageappreciation = false;
+        this.resultShowappreciation = false;
+      }
+      if (this.tab === "13") {
+        this.resultfjkc = false;
+        this.Messagefjkc = false;
+        this.resultShowfjkc = false;
+      }
+      if (!safe) {
+        this.$refs.uploader.clearFiles();
+      }
+    },
+    // getRowClass({row, column, rowIndex, columnIndex}) {
+    //   if (column.level === 1 && columnIndex === 0) {
+    //     return {
+    //       color: 'white',
+    //       background: '#ec8989',
+    //       'border-top': '1px solid #ea5555',
+    //       'border-bottom': '1px solid #ea5555',
+    //       'border-right': '1px solid #ec8989',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
+    //     return {
+    //       color: 'white',
+    //       background: '#ec8989',
+    //       'border-bottom': '1px solid #ea5555',
+    //       'border-right': '1px solid #ec8989',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 1) {
+    //     return {
+    //       color: 'white',
+    //       background: '#569df1',
+    //       'border-top': '1px solid #005baa',
+    //       'border-bottom': '1px solid #005baa',
+    //       'border-right': '1px solid #569df1',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 10 && columnIndex < 21) {
+    //     return {
+    //       color: 'white',
+    //       background: '#569df1',
+    //       'border-bottom': '1px solid #005baa',
+    //       'border-right': '1px solid #569df1',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 2) {
+    //     return {
+    //       color: 'white',
+    //       background: '#3dd1d6',
+    //       'border-top': '1px solid #0499af',
+    //       'border-bottom': '1px solid #0499af',
+    //       'border-right': '1px solid #3dd1d6',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 21 && columnIndex < 35) {
+    //     return {
+    //       color: 'white',
+    //       background: '#3dd1d6',
+    //       'border-bottom': '1px solid #0499af',
+    //       'border-right': '1px solid #3dd1d6',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 3) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4c4040',
+    //       'border-right': '1px solid #4c4040',
+    //       'border-bottom': '1px solid #4c4040',
+    //       'border-top': '1px solid #4c4040',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 4) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4282c1',
+    //       'border-top': '1px solid #005baa',
+    //       'border-bottom': '1px solid #005baa',
+    //       'border-right': '1px solid #4282c1',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 35 && columnIndex < 38) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4282c1',
+    //       'border-right': '1px solid #4282c1',
+    //       'border-bottom': '1px solid #005baa',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 5) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4c4040',
+    //       'border-right': '1px solid #4c4040',
+    //       'border-bottom': '1px solid #4c4040',
+    //       'border-top': '1px solid #4c4040',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 6) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4282c1',
+    //       'border-bottom': '1px solid #005baa',
+    //       'border-right': '1px solid #4282c1',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 38 && columnIndex < 41) {
+    //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
+    //   }
+    //   if (column.level === 1 && columnIndex === 7) {
+    //     return {color: 'white', background: '#4c4040'};
+    //   }
+    //   if (column.level === 1 && columnIndex === 8) {
+    //     return {color: 'white', background: '#ec8989'};
+    //   }
+    //   if (column.level === 1 && columnIndex >= 9 && columnIndex < 15) {
+    //     return {color: 'white', background: '#4c4040'};
+    //   }
+    //   if (column.level === 1 && columnIndex === 15) {
+    //     return {
+    //       color: 'white',
+    //       background: '#4282c1',
+    //       'border-bottom': '1px solid #005baa',
+    //       'border-right': '1px solid #4282c1',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 41 && columnIndex < 44) {
+    //     return {color: 'white', background: '#4282c1', 'border-right': '1px solid #4282c1'};
+    //   }
+    //   if (column.level === 1 && columnIndex >= 16 && columnIndex < 19) {
+    //     return {color: 'white', background: '#4c4040'};
+    //   }
+    //   if (column.level === 1 && columnIndex === 20) {
+    //     return {color: 'white', background: '#ec8989'};
+    //   }
+    //   if (column.level === 1 && (columnIndex === 19 || columnIndex === 21)) {
+    //     return {color: 'white', background: '#4c4040'};
+    //   }
+    //   if (column.level === 1 && columnIndex === 22) {
+    //     return {
+    //       color: 'white',
+    //       background: '#f5b038',
+    //       'border-bottom': '1px solid #ecc40c',
+    //       'border-right': '1px solid #f5b038',
+    //       'border-right': '1px solid #f5b038',
+    //     };
+    //   }
+    //   if (column.level === 2 && columnIndex >= 44 && columnIndex < 52) {
+    //     return {
+    //       color: 'white',
+    //       background: '#f5b038',
+    //       'border-right': '1px solid #f5b038',
+    //       'border-bottom': '1px solid #ecc40c',
+    //     };
+    //   }
+    //   if (column.level === 1 && columnIndex === 23) {
+    //     return {color: 'white', background: '#ec8989'};
+    //   }
+    //   if (column.level === 1 && columnIndex >= 24 && columnIndex < 30) {
+    //     return {color: 'white', background: '#4c4040'};
+    //   }
+    // },
+    buttonClick(val) {
+      if (val === "import") {
+        if (this.tab === "3") {
+          this.OTherTwo.giving_id = this.Giving;
+          this.OTherTwo.type = "0";
+          this.$store
+            .dispatch("PFANS2005Store/deleteothertwo", {
+              type: "1",
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruothertwo = true;
+            });
+        }
+        if (this.tab === "4") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteotherfour", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruotherfour = true;
+            });
+        }
+        if (this.tab === "5") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteFive", { giving_id: this.Giving })
+            .then(response => {
+              this.daoruotherfive = true;
+            });
+        }
+        if (this.tab === "10") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteteappreciation", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruappreciation = true;
+            });
+        }
+        if (this.tab === "13") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteadditional", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daorufjkc = true;
+            });
+        }
+      } else if (val === "save") {
+        this.loading = true;
+        this.baseInfo = {};
+        this.baseInfo.strFlg = this.tab;
+        this.baseInfo.otherOne = [];
+        this.baseInfo.contrast = [];
+        this.baseInfo.otherTwo = [];
+        if (this.tab === "2") {
+          for (let i = 0; i < this.tableQT1Woman.length; i++) {
+            this.baseInfo.otherOne.push({
+              otherone_id: this.tableQT1Woman[i].otherone_id,
+              basedata: this.tableQT1Woman[i].basedata
+            });
+          }
+        } else if (this.tab === "3") {
+          for (let i = 0; i < this.tableQT2.length; i++) {
+            this.baseInfo.otherTwo.push({
+              othertwo_id: this.tableQT2[i].othertwo_id,
+              rootknot: this.tableQT2[i].rootknot,
+              giving_id: this.tableQT2[i].giving_id
+            });
+          }
+        } else if (this.tab === "16") {
+          for (let i = 0; i < this.tableGRDB.length; i++) {
+            this.baseInfo.contrast.push({
+              contrast_id: this.tableGRDB[i].contrast_id,
+              reason: this.tableGRDB[i].reason
+            });
+          }
+        }
+        this.$store
+          .dispatch("PFANS2005Store/save", this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t("normal.success_02"),
+              type: "success",
+              duration: 5 * 1000
+            });
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
+      }
+    }
+  }
+};
 </script>
 <style scoped>
 </style>

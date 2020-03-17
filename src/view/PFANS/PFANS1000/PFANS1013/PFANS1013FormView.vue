@@ -2801,174 +2801,249 @@
         if (val === 'save') {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-              this.baseInfo = {};
-              this.form.user_id = this.userlist;
-              this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.trafficdetails = [];
-              this.baseInfo.accommodationdetails = [];
-              this.baseInfo.otherdetails = [];
-              this.baseInfo.currencyexchanges = [];
-              for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                  || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
-                  this.baseInfo.trafficdetails.push(
-                    {
-                      trafficdetails_id: this.tableT[i].trafficdetails_id,
-                      evectionid: this.tableT[i].evectionid,
-                      publicexpenseid: this.tableT[i].publicexpenseid,
-                      trafficdate: this.tableT[i].trafficdate,
-                      invoicenumber: this.tableT[i].invoicenumber,
-                      departmentname: this.tableT[i].departmentname,
-                      budgetcoding: this.tableT[i].departmentname,
-                      taxes: this.tableT[i].taxes,
-                      costitem: this.tableT[i].costitem,
-                      taxrate: this.tableT[i].taxrate,
-                      region: this.tableT[i].region,
-                      vehicle: this.tableT[i].vehicle,
-                      startingpoint: this.tableT[i].startingpoint,
-                      rmb: this.tableT[i].rmb,
-                      foreigncurrency: this.tableT[i].foreigncurrency,
-                      annexno: this.tableT[i].annexno,
-                    },
-                  );
-                }
-              }
-              for (let i = 0; i < this.tableA.length; i++) {
-                if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
-                  || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
-                  || this.tableA[i].annexno !== ''
-                  || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
-                  var varvehiclein;
-                  var varfacilitytypein;
-                  if (this.form.type === '0') {
-                    varvehiclein = this.tableA[i].vehicleon;
-                    varfacilitytypein = this.tableA[i].facilitytypeon;
-                  } else {
-                    varvehiclein = this.tableA[i].vehiclein;
-                    varfacilitytypein = this.tableA[i].facilitytypein;
-                  }
-                  this.baseInfo.accommodationdetails.push(
-                    {
-                      accommodationdetails_id: this.tableA[i].accommodationdetails_id,
-                      evectionid: this.tableA[i].evectionid,
-                      accommodationdate: moment(this.tableA[i].accommodationdate[0]).format("YYYY-MM-DD") +"~"+ moment(this.tableA[i].accommodationdate[1]).format("YYYY-MM-DD"),
-                      // nextday: this.tableA[i].nextday,
-                      activitycontent: this.tableA[i].activitycontent,
-                      vehicle: varvehiclein,
-                      region: this.tableA[i].region,
-                      movementtime: this.tableA[i].movementtime,
-                      city: this.tableA[i].city,
-                      budgetcoding: this.tableA[i].budgetcoding,
-                      subjectnumber: this.tableA[i].subjectnumber,
-                      facilitytype: varfacilitytypein,
-                      facilityname: this.tableA[i].facilityname,
-                      accommodationallowance: this.tableA[i].accommodationallowance,
-                      accommodation: this.tableA[i].accommodation,
-                      travelallowance: this.tableA[i].travelallowance,
-                      travel: this.tableA[i].travel,
-                      // relatives: this.tableA[i].facilitytype,
-                      invoicenumber: this.tableA[i].invoicenumber,
-                      departmentname: this.tableA[i].departmentname,
-                      taxes: this.tableA[i].taxes,
-                      costitem: this.tableA[i].costitem,
-                      annexno: this.tableA[i].annexno,
-                    },
-                  );
-                }
-              }
-              for (let i = 0; i < this.tableR.length; i++) {
-                if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-                  || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
-                  this.baseInfo.otherdetails.push(
-                    {
-                      otherdetails_id: this.tableR[i].otherdetails_id,
-                      evectionid: this.tableR[i].evectionid,
-                      otherdetailsdate: this.tableR[i].otherdetailsdate,
-                      costitem: this.tableR[i].costitem,
-                      remarks: this.tableR[i].remarks,
-                      rmb: this.tableR[i].rmb,
-                      budgetcoding: this.tableR[i].budgetcoding,
-                      subjectnumber: this.tableR[i].subjectnumber,
-                      remarks: this.tableR[i].remarks,
-                      invoicenumber: this.tableR[i].invoicenumber,
-                      departmentname: this.tableR[i].departmentname,
-                      taxes: this.tableR[i].taxes,
-                      foreigncurrency: this.tableR[i].foreigncurrency,
-                      annexno: this.tableR[i].annexno,
-                    },
-                  );
-                }
-              }
-              for (let i = 0; i < this.tableW.length; i++) {
-                if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
-                  || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
-                  this.baseInfo.currencyexchanges.push(
-                    {
-                      evectionid: this.tableW[i].evectionid,
-                      currencyexchangeid: this.tableW[i].currencyexchangeid,
-                      currency: this.tableW[i].currency,
-                      amount: this.tableW[i].amount,
-                      exchangerate: this.tableW[i].exchangerate,
-                      exchangermb: this.tableW[i].exchangermb,
-                      currencyexchangerate: this.tableW[i].currencyexchangerate,
-                    },
-                  );
-                }
-              }
-              if (this.$route.params._id) {
-                this.baseInfo.evection.evectionid = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1013Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
+                this.baseInfo = {};
                 this.form.user_id = this.userlist;
-                this.$store
-                  .dispatch('PFANS1013Store/create', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    this.$message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
+                this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.trafficdetails = [];
+                this.baseInfo.accommodationdetails = [];
+                this.baseInfo.otherdetails = [];
+                this.baseInfo.invoice = [];
+                this.baseInfo.currencyexchanges = [];
+                for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
+                        || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                        this.baseInfo.trafficdetails.push(
+                            {
+                                trafficdetails_id: this.tableT[i].trafficdetails_id,
+                                evectionid: this.tableT[i].evectionid,
+                                publicexpenseid: this.tableT[i].publicexpenseid,
+                                trafficdate: this.tableT[i].trafficdate,
+                                invoicenumber: this.tableT[i].invoicenumber,
+                                departmentname: this.tableT[i].departmentname,
+                                budgetcoding: this.tableT[i].departmentname,
+                                taxes: this.tableT[i].taxes,
+                                costitem: this.tableT[i].costitem,
+                                taxrate: this.tableT[i].taxrate,
+                                region: this.tableT[i].region,
+                                vehicle: this.tableT[i].vehicle,
+                                startingpoint: this.tableT[i].startingpoint,
+                                rmb: this.tableT[i].rmb,
+                                foreigncurrency: this.tableT[i].foreigncurrency,
+                                annexno: this.tableT[i].annexno,
+                            },
+                        );
                     }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
+                }
+                for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                        || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
+                        || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                        || this.tableA[i].annexno !== ''
+                        || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                        var varvehiclein;
+                        var varfacilitytypein;
+                        if (this.form.type === '0') {
+                            varvehiclein = this.tableA[i].vehicleon;
+                            varfacilitytypein = this.tableA[i].facilitytypeon;
+                        } else {
+                            varvehiclein = this.tableA[i].vehiclein;
+                            varfacilitytypein = this.tableA[i].facilitytypein;
+                        }
+                        this.baseInfo.accommodationdetails.push(
+                            {
+                                accommodationdetails_id: this.tableA[i].accommodationdetails_id,
+                                evectionid: this.tableA[i].evectionid,
+                                accommodationdate: moment(this.tableA[i].accommodationdate[0]).format("YYYY-MM-DD") + "~" + moment(this.tableA[i].accommodationdate[1]).format("YYYY-MM-DD"),
+                                // nextday: this.tableA[i].nextday,
+                                activitycontent: this.tableA[i].activitycontent,
+                                vehicle: varvehiclein,
+                                region: this.tableA[i].region,
+                                movementtime: this.tableA[i].movementtime,
+                                city: this.tableA[i].city,
+                                budgetcoding: this.tableA[i].budgetcoding,
+                                subjectnumber: this.tableA[i].subjectnumber,
+                                facilitytype: varfacilitytypein,
+                                facilityname: this.tableA[i].facilityname,
+                                accommodationallowance: this.tableA[i].accommodationallowance,
+                                accommodation: this.tableA[i].accommodation,
+                                travelallowance: this.tableA[i].travelallowance,
+                                travel: this.tableA[i].travel,
+                                // relatives: this.tableA[i].facilitytype,
+                                invoicenumber: this.tableA[i].invoicenumber,
+                                departmentname: this.tableA[i].departmentname,
+                                taxes: this.tableA[i].taxes,
+                                costitem: this.tableA[i].costitem,
+                                annexno: this.tableA[i].annexno,
+                            },
+                        );
+                    }
+                }
+                for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+                        || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
+                        || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                        this.baseInfo.otherdetails.push(
+                            {
+                                otherdetails_id: this.tableR[i].otherdetails_id,
+                                evectionid: this.tableR[i].evectionid,
+                                otherdetailsdate: this.tableR[i].otherdetailsdate,
+                                costitem: this.tableR[i].costitem,
+                                remarks: this.tableR[i].remarks,
+                                rmb: this.tableR[i].rmb,
+                                budgetcoding: this.tableR[i].budgetcoding,
+                                subjectnumber: this.tableR[i].subjectnumber,
+                                remarks: this.tableR[i].remarks,
+                                invoicenumber: this.tableR[i].invoicenumber,
+                                departmentname: this.tableR[i].departmentname,
+                                taxes: this.tableR[i].taxes,
+                                foreigncurrency: this.tableR[i].foreigncurrency,
+                                annexno: this.tableR[i].annexno,
+                            },
+                        );
+                    }
+                }
+                for (let i = 0; i < this.tableW.length; i++) {
+                    if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
+                        || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
+                        this.baseInfo.currencyexchanges.push(
+                            {
+                                evectionid: this.tableW[i].evectionid,
+                                currencyexchangeid: this.tableW[i].currencyexchangeid,
+                                currency: this.tableW[i].currency,
+                                amount: this.tableW[i].amount,
+                                exchangerate: this.tableW[i].exchangerate,
+                                exchangermb: this.tableW[i].exchangermb,
+                                currencyexchangerate: this.tableW[i].currencyexchangerate,
+                            },
+                        );
+                    }
+                }
+                for (let i = 0; i < this.tableF.length; i++) {
+                    if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
+                        || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                        this.baseInfo.invoice.push(
+                            {
+                                invoice_id: this.tableF[i].invoice_id,
+                                publicexpenseid: this.tableF[i].publicexpenseid,
+                                invoicenumber: this.tableF[i].invoicenumber,
+                                invoicetype: this.tableF[i].invoicetype,
+                                invoiceamount: this.tableF[i].invoiceamount,
+                                taxrate: this.tableF[i].taxrate,
+                                excludingtax: this.tableF[i].excludingtax,
+                                facetax: this.tableF[i].facetax,
+                            },
+                        );
+                    }
+                }
+                let error = 0;
+                for (let j = 0; j < this.tableF.length; j++) {
+                    let summoney = 0;
+                    let summoneyT = 0;
+                    let sumMoney = 0;
+                    let sumout = 0;
+                    for (let i = 0; i < this.tableT.length; i++) {
+                        if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                            || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
+                            || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                            if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                if (this.tableT[i].rmb != '0') {
+                                    summoneyT += this.tableT[i].rmb
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    for (let i = 0; i < this.tableA.length; i++) {
+                        if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                            || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
+                            || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                            || this.tableA[i].annexno !== ''
+                            || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                            if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                if (this.tableA[i].travelallowance != '0') {
+                                    summoney += this.tableA[i].travelallowance
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    for (let i = 0; i < this.tableR.length; i++) {
+                        if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
+                            || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
+                            || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                            if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                                if (this.tableR[i].rmb != '0') {
+                                    sumMoney += this.tableR[i].rmb
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                    sumout = summoney + sumMoney + summoneyT;
+                    if (sumout != this.tableF[j].invoiceamount) {
+                        error = error + 1;
+                        Message({
+                            message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        break;
+                    }
+                }
+                if (error == '0') {
+                if (this.$route.params._id) {
+                    this.baseInfo.evection.evectionid = this.$route.params._id;
+                    this.$store
+                        .dispatch('PFANS1013Store/update', this.baseInfo)
+                        .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            if (val !== 'update') {
+                                Message({
+                                    message: this.$t('normal.success_02'),
+                                    type: 'success',
+                                    duration: 5 * 1000,
+                                });
+                                if (this.$store.getters.historyUrl) {
+                                    this.$router.push(this.$store.getters.historyUrl);
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                } else {
+                    this.form.user_id = this.userlist;
+                    this.$store
+                        .dispatch('PFANS1013Store/create', this.baseInfo)
+                        .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            this.$message({
+                                message: this.$t('normal.success_01'),
+                                type: 'success',
+                                duration: 5 * 1000,
+                            });
+                            if (this.$store.getters.historyUrl) {
+                                this.$router.push(this.$store.getters.historyUrl);
+                            }
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }
+            }
             }
           });
         }
