@@ -208,7 +208,7 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item>
-                    <el-input :disabled="true" ></el-input>
+                    <el-input :disabled="true" v-model="ratios[0]"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -278,7 +278,7 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item>
-                    <el-input :disabled="true"></el-input>
+                    <el-input :disabled="true" v-model="ratios[4]"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -348,7 +348,7 @@
               <el-table-column :label="$t('label.PFANS2027VIEW_RATIO')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-form-item>
-                    <el-input :disabled="true"></el-input>
+                    <el-input :disabled="true" v-model="ratios[8]"></el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -455,26 +455,29 @@
                 loading: false,
                 year: new Date(),
                 multipleSelection:[],
-                flag: [true],
+                flag: [],
+                ratios:[],
                 form1:{
                     evaluationday: new Date(),
                     evaluatenum:'PJ104',
                     subjectmon:'PJ103',
                     subject:'',
-                    examinationobject_id: '',
+                    lunarbonus_id:'',
+                    examinationobject_id: '1',
                     user_id: this.$store.getters.userinfo.userid,
                 },
-                examinationobjects: [],
+                name:'',
+                examinationobjects: [{examinationobject_id:'',name:''}],
                /* category: '',*/
                 titleType:'',
                 title: "title.PFANS2027VIEW_VIEW",
                 buttonList: [],
                 disabled: false,
-                lunardetailid:{
+                /*lunardetailid:{
                     // lunardetail_id: '',
                     lunarbonus_id: '',
                     examinationobject_id: '1'
-                },
+                },*/
                 lunardetail:{
                     lunardetail_id: '',
                     lunarbonus_id: '',
@@ -555,7 +558,6 @@
                     this.update();
                 }
             }
-
         },
         methods: {
             handleSelectionChange(val) {
@@ -575,10 +577,10 @@
             view(){
                 this.show = this.$route.params.show;
                 this.disabled = true;
-                this.lunardetailid.lunarbonus_id = this.$route.params._id;
+                this.form1.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
                 this.$store
-                    .dispatch("PFANS2027Store/getLunardetails", this.lunardetailid)
+                    .dispatch("PFANS2027Store/getLunardetails", this.form1)
                     .then(response => {
                         debugger;
                         console.log(response);
@@ -687,7 +689,7 @@
             update(){
                 this.show = this.$route.params.show;
                 this.disabled = false;
-                this.lunardetailid.lunarbonus_id = this.$route.params._id;
+                this.form1.lunarbonus_id = this.$route.params._id;
                 console.log(this.$route.params._id);
                 this.$store
                     .dispatch("PFANS2027Store/getLunardetails", this.lunardetailid)
@@ -791,6 +793,22 @@
                         });
                     });
                 this.$store
+                    .dispatch("PFANS2027Store/getExaminationobject")
+                    .then(response => {
+                        for(let i=0;i<response.length;i++){
+                            examinationobjects[i].examinationobject_id = response[i].examinationobject_id;
+                            examinationobjects[i].name = response[i].name;
+                        }
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        Message({
+                            message: err,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                    });
+                this.$store
                     .dispatch("PFANS2027Store/getStatus", this.lunardetailid.examinationobject_id)
                     .then(response => {
                       for(let i=0;i<response.length;i++){
@@ -799,6 +817,7 @@
                          }else{
                              this.flag.put(true);
                          }
+                         this.ratios.push(response[i].ratio);
                       }
                     })
                     .catch(err => {
@@ -1012,6 +1031,26 @@
                                     }
                                 }
                                 this.loading = false;
+                            })
+                            .catch(err => {
+                                this.loading = false;
+                                Message({
+                                    message: err,
+                                    type: "error",
+                                    duration: 5 * 1000
+                                });
+                            });
+                        this.$store
+                            .dispatch("PFANS2027Store/getStatus", this.lunardetailid.examinationobject_id)
+                            .then(response => {
+                                for(let i=0;i<response.length;i++){
+                                    if(response[i].state === '1'){
+                                        this.flag.put(false);
+                                    }else{
+                                        this.flag.put(true);
+                                    }
+                                    this.ratios.push(response[i].ratio);
+                                }
                             })
                             .catch(err => {
                                 this.loading = false;
