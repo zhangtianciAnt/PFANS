@@ -756,6 +756,7 @@
                                         type="daterange"
                                         unlink-panels
                                         v-model.trim="scope.row.accommodationdate"
+                                        @change="getTravel(scope.row)"
                         ></el-date-picker>
                       </template>
                     </el-table-column>
@@ -827,7 +828,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code9"
                                    :data="scope.row.region"
-                                   :disabled="!disable"
+                                   :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getexitarea">
@@ -866,8 +867,7 @@
                                    :data="scope.row.accommodationallowance"
                                    :disabled="true"
                                    :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getaccommodationallowance">
+                                   :no="scope.row">
                         </dicselect>
                       </template>
                     </el-table-column>
@@ -882,6 +882,7 @@
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.travel"
+                          @change="changeTravel(scope.row)"
                         ></el-input-number>
                       </template>
                     </el-table-column>
@@ -2244,10 +2245,17 @@
       getvehicle(val, row) {
         row.vehicle = val;
       },
-      getaccommodationallowance(val, row) {
-        row.accommodationallowance = val;
+      changeTravel(val, row) {
+        row.travel = val;
         this.getTravel(row);
       },
+      // changeAccdate(val, row) {
+      //   debugger;
+      //   row.accommodationdate = val;
+      //   var diffDate1 = moment(row.accommodationdate[1]).diff(moment(row.accommodationdate[0]), 'days');
+      //   alert(diffDate1);
+      //   this.getTravel(row);
+      // },
       getexitarea(val, row) {
         row.region = val;
         this.getTravel(row);
@@ -2296,7 +2304,8 @@
           jpregion11 = jpregioninfo2.value5;
           jpregion12 = jpregioninfo2.value8;
         }
-        var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
+        // var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
+        var diffDate = moment(row.accommodationdate[1]).diff(moment(row.accommodationdate[0]), 'days');
         if (this.form.type === '0') {
           if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
@@ -2348,6 +2357,7 @@
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
           }
         } else if (this.form.type === '1') {
+          debugger;
           var accfig;
           var regionflg;
           if(row.region === 'PJ017001' || row.region === 'PJ017002'){
@@ -2415,10 +2425,10 @@
                 }
               }
             }
-            // if (accfig !== '' && accfig !== undefined) {
+            if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
               // row.travel = Number(jpvalueflg) * diffDate;
-              row.travelallowance = row.travel * accfig;
-            // }
+              row.travelallowance = row.travel / accfig;
+            }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
               jpvalueflg2 = Number(jpregion12) + 100;
@@ -2672,7 +2682,7 @@
                 }
               }
               for (let i = 0; i < this.tableA.length; i++) {
-                if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
                   || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
                   || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
                   || this.tableA[i].annexno !== ''
@@ -2683,7 +2693,6 @@
                       evectionid: this.tableA[i].evectionid,
                       accommodationdate: moment(this.tableA[i].accommodationdate[0]).format('YYYY-MM-DD') + '~' + moment(this.tableA[i].accommodationdate[1]).format('YYYY-MM-DD'),
                       activitycontent: this.tableA[i].activitycontent,
-                      vehicle: varvehiclein,
                       region: this.tableA[i].region,
                       movementtime: this.tableA[i].movementtime,
                       city: this.tableA[i].city,
@@ -2783,7 +2792,7 @@
                   }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].vehicle !== '' || this.tableA[i].region !== ''
+                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
                     || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
                     || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
                     || this.tableA[i].annexno !== ''
