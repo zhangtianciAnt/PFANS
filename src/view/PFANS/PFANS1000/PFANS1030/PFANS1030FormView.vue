@@ -579,26 +579,6 @@
           return callback();
         }
       };
-      var checktelephone = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          }
-          if(this.form.telephone == null && this.form.telephone == ''){
-                  this.errortelephone = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_TELEPHONE');
-                  return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_TELEPHONE')));
-          }else{
-                  this.errortelephone = '';
-                  callback();
-          }
-
-        } else {
-            this.errortelephone = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_TELEPHONE');
-          callback();
-        }
-      };
-
         var checkcustojapanese = (rule, value, callback) => {
             if (!this.form.custojapanese || this.form.custojapanese === '' || this.form.custojapanese === "undefined") {
                 this.errorcustojapanese = this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE');
@@ -949,7 +929,7 @@
           }],
           telephone: [{
             required: true,
-            validator: checktelephone,
+            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'change'
           }],
           custojapanese: [{

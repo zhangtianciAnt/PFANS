@@ -173,17 +173,6 @@
           this.error = '';
         }
       };
-      var validateTel = (rule, value, callback) => {
-        if (this.form.insideline !== null && this.form.insideline !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3003VIEW_INSIDELINE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       var checkemail = (rule, value, callback) => {
         if (this.form.email !== null && this.form.email !== '') {
           if (!validateEmail(value)) {
@@ -271,8 +260,7 @@
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_INSIDELINE"),
             trigger: "blur"
-          },
-            {validator: validateTel, trigger: 'blur'}],
+          }],
           email: [{
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.email"),
