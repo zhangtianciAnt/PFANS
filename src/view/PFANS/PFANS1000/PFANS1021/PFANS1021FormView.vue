@@ -142,6 +142,19 @@
                   </dicselect>
                 </template>
               </el-table-column>
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_SHOWROOM')" align="center" prop="fbbuilding"  width="200">
+                <template slot-scope="scope">
+                  <dicselect
+                    :no="scope.row"
+                    :code="code2"
+                    :data="scope.row.showroom"
+                    :multiple="multiple"
+                    @change="getshowroom"
+                    style="width: 11rem"
+                    :disabled="!disabled">
+                  </dicselect>
+                </template>
+              </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="200">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"
@@ -287,6 +300,7 @@
                   startdate: '',
                   fabuilding: ' ',
                   fbbuilding: ' ',
+                  showroom: ' ',
                   entrymanager: '',
               },
           ],
@@ -453,6 +467,9 @@
         getFbbuilding(val,row) {
             row.fbbuilding = val;
         },
+        getshowroom(val,row) {
+            row.showroom = val;
+        },
         workflowState(val) {
           if (val.state === '1') {
             this.form.status = '3';
@@ -486,6 +503,7 @@
                         startdate: '',
                         fabuilding: ' ',
                         fbbuilding: ' ',
+                        showroom: ' ',
                         entrymanager: '',
                     },
                 ]
@@ -504,6 +522,7 @@
                 startdate: '',
                 fabuilding:' ',
                 fbbuilding:' ',
+                showroom: ' ',
                 entrymanager:'',
             });
         },
@@ -532,6 +551,7 @@
                                 startdate: this.tableD[i].startdate,
                                 fabuilding: this.tableD[i].fabuilding,
                                 fbbuilding: this.tableD[i].fbbuilding,
+                                showroom: this.tableD[i].showroom,
                                 entrymanager: this.tableD[i].entrymanager,
                             },
                         );
