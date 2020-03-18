@@ -31,48 +31,48 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')">
+                    <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')" :error="errorcustojapanese" prop="custojapanese">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.custojapanese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')">
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')" :error="errorcustochinese" prop="custochinese">
                       <el-input  :disabled="true"style="width:20vw" v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
+                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')" :error="errorplacejapanese" prop="placejapanese">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.placejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')">
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')" :error="errorplacechinese" prop="placechinese">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.placechinese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')">
+                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" :error="errordeployment" prop="deployment">
                       <el-input  :disabled="true"style="width:20vw" v-model="form.deployment"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')" :error="errorpjnamejapanese" prop="pjnamejapanese">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')" :error="errorpjnamechinese" prop="pjnamechinese">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" :error="errorclaimdatetimeStart" prop="claimdatetimeStart">
                       <el-date-picker
                         v-model="form.claimdatetimeStart"
                         :disabled="true"
@@ -82,7 +82,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" :error="errorclaimdatetimeEnd" prop="claimdatetimeEnd">
                       <el-date-picker
                         v-model="form.claimdatetimeEnd"
                         :disabled="true"
@@ -92,7 +92,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" :error="errorcurrencyposition" prop="currencyposition">
                       <dicselect :code="code3"
                                  :data="form.currencyposition"
                                  :disabled="true"
@@ -105,7 +105,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')">
+                    <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" :error="errorclaimamount" prop="claimamount">
                       <el-input  :disabled="true" style="width:20vw" v-model="form.claimamount"></el-input>
                     </el-form-item>
                   </el-col>
@@ -148,7 +148,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" :error="errortelephone" prop="telephone">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
@@ -175,7 +175,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')" :error="errorvaluation" prop="valuation">
                       <dicselect :code="code2"
                                  :data="form.valuation"
                                  :disabled="!disable"
@@ -186,7 +186,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_INDIVIDUAL')">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_INDIVIDUAL')" :error="errorindividual" prop="individual">
                       <dicselect :code="code2"
                                  :data="form.individual"
                                  :disabled="!disable"
@@ -216,7 +216,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan"   prop="plan">
                       <dicselect :code="code4"
                                  :data="form.plan"
                                  :disabled="!disable"
@@ -579,22 +579,161 @@
           return callback();
         }
       };
-      var checktele = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
+        var checkcustojapanese = (rule, value, callback) => {
+            if (!this.form.custojapanese || this.form.custojapanese === '' || this.form.custojapanese === "undefined") {
+                this.errorcustojapanese = this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')));
+            } else {
+                this.errorcustojapanese = "";
+                return callback();
+            }
+        };
+
+        var checkcustochinese = (rule, value, callback) => {
+            if (!this.form.custochinese || this.form.custochinese === '' || this.form.custochinese === "undefined") {
+                this.errorcustochinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')));
+            } else {
+                this.errorcustochinese = "";
+                return callback();
+            }
+        };
+
+        var checkplacejapanese = (rule, value, callback) => {
+            if (!this.form.placejapanese || this.form.placejapanese === '' || this.form.placejapanese === "undefined") {
+                this.errorplacejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')));
+            } else {
+                this.errorplacejapanese = "";
+                return callback();
+            }
+        };
+
+        var checkplacechinese = (rule, value, callback) => {
+            if (!this.form.placechinese || this.form.placechinese === '' || this.form.placechinese === "undefined") {
+                this.errorplacechinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')));
+            } else {
+                this.errorplacechinese = "";
+                return callback();
+            }
+        };
+
+        var checkdeployment = (rule, value, callback) => {
+            if (!this.form.deployment || this.form.deployment === '' || this.form.deployment === "undefined") {
+                this.errordeployment = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT')));
+            } else {
+                this.errordeployment = "";
+                return callback();
+            }
+        };
+
+        var checkpjnamejapanese = (rule, value, callback) => {
+            if (!this.form.pjnamejapanese || this.form.pjnamejapanese === '' || this.form.pjnamejapanese === "undefined") {
+                this.errorpjnamejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE')));
+            } else {
+                this.errorpjnamejapanese = "";
+                return callback();
+            }
+        };
+        var checkpjnamechinese = (rule, value, callback) => {
+            if (!this.form.pjnamechinese || this.form.pjnamechinese === '' || this.form.pjnamechinese === "undefined") {
+                this.errorpjnamechinese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE')));
+            } else {
+                this.errorpjnamechinese = "";
+                return callback();
+            }
+        };
+        var checkclaimdatetimeStart = (rule, value, callback) => {
+            if (!this.form.claimdatetimeStart || this.form.claimdatetimeStart === '' || this.form.claimdatetimeStart === "undefined") {
+                this.errorclaimdatetimeStart = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE')));
+            } else {
+                this.errorclaimdatetimeStart = "";
+                return callback();
+            }
+        };
+
+        var checkclaimdatetimeEnd = (rule, value, callback) => {
+            if (!this.form.claimdatetimeEnd || this.form.claimdatetimeEnd === '' || this.form.claimdatetimeEnd === "undefined") {
+                this.errorclaimdatetimeEnd = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE')));
+            } else {
+                this.errorclaimdatetimeEnd = "";
+                return callback();
+            }
+        };
+
+        var checkcurrencyposition = (rule, value, callback) => {
+            if (!this.form.currencyposition || this.form.currencyposition === '' || this.form.currencyposition === "undefined") {
+                this.errorcurrencyposition = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT')));
+            } else {
+                this.errorcurrencyposition = "";
+                return callback();
+            }
+        };
+
+        var checkclaimamount = (rule, value, callback) => {
+            if (!this.form.claimamount || this.form.claimamount === '' || this.form.claimamount === "undefined") {
+                this.errorclaimamount = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT');
+                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT')));
+            } else {
+                this.errorclaimamount = "";
+                return callback();
+            }
+        };
+        var checkplan = (rule, value, callback) => {
+            if (!this.form.plan || this.form.plan === '' || this.form.plan === "undefined") {
+                this.errorplan = this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN')));
+            } else {
+                this.errorplan = "";
+                return callback();
+            }
+        };
+        var checkvaluation = (rule, value, callback) => {
+            if (!this.form.valuation || this.form.valuation === '' || this.form.valuation === "undefined") {
+                this.errorvaluation = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION')));
+            } else {
+                this.errorvaluation = "";
+                return callback();
+            }
+        };
+
+        var checkindividual = (rule, value, callback) => {
+            if (!this.form.individual || this.form.individual === '' || this.form.individual === "undefined") {
+                this.errorindividual = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL')));
+            } else {
+                this.errorindividual = "";
+                return callback();
+            }
+        };
+
       return {
         activeName: 'first',
         disabled: true,
-        error: '',
+        errorcustojapanese: '',
+          errorcustochinese: '',
+          errorplacejapanese: '',
+          errorplacechinese: '',
+          errordeployment: '',
+          errorpjnamejapanese: '',
+          errorpjnamechinese: '',
+          error: '',
+          errorcurrencyposition: '',
+          errorclaimamount: '',
+          errorclaimdatetimeStart: '',
+          errorclaimdatetimeEnd: '',
+          errortelephone: '',
+          errorplan:'',
+          errorvaluation:'',
+          errorindividual:'',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
@@ -789,9 +928,80 @@
             trigger: 'change'
           }],
           telephone: [{
-            validator: checktele,
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'change'
           }],
+          custojapanese: [{
+                required: true,
+                validator: checkcustojapanese,
+                trigger: 'change'
+          }],
+            custochinese: [{
+                required: true,
+                validator: checkcustochinese,
+                trigger: 'change'
+            }],
+            placejapanese: [{
+                required: true,
+                validator: checkplacejapanese,
+                trigger: 'change'
+            }],
+            placechinese: [{
+                required: true,
+                validator: checkplacechinese,
+                trigger: 'change'
+            }],
+            deployment: [{
+                required: true,
+                validator: checkdeployment,
+                trigger: 'change'
+            }],
+            pjnamejapanese: [{
+                required: true,
+                validator: checkpjnamejapanese,
+                trigger: 'change'
+            }],
+            pjnamechinese: [{
+                required: true,
+                validator: checkpjnamechinese,
+                trigger: 'change'
+            }],
+            claimdatetimeStart: [{
+                required: true,
+                validator: checkclaimdatetimeStart,
+                trigger: 'change'
+            }],
+            claimdatetimeEnd: [{
+                required: true,
+                validator: checkclaimdatetimeEnd,
+                trigger: 'change'
+            }],
+            currencyposition: [{
+                required: true,
+                validator: checkcurrencyposition,
+                trigger: 'change'
+            }],
+            claimamount: [{
+                required: true,
+                validator: checkclaimamount,
+                trigger: 'change'
+            }],
+            plan: [{
+                required: true,
+                validator: checkplan,
+                trigger: 'change'
+            }],
+            valuation: [{
+                required: true,
+                validator: checkvaluation,
+                trigger: 'change'
+            }],
+            individual: [{
+                required: true,
+                validator: checkindividual,
+                trigger: 'change'
+            }],
         },
         buttonList: []
       }
@@ -820,7 +1030,7 @@
               this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
             }
             if (response.awardDetail.length > 0) {
-              this.tableT = response.awardDetail
+              this.tableT = response.awardDetail;
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist=this.tableT[i].depart;
               }
@@ -845,7 +1055,7 @@
                 let deliverydate = response.numbercounts[i].deliverydate;
                 let completiondate = response.numbercounts[i].completiondate;
                 let claimdate = response.numbercounts[i].claimdate;
-                let supportdate = response.numbercounts[i].supportdate
+                let supportdate = response.numbercounts[i].supportdate;
 
                 if ( deliverydate !== "" && deliverydate!=null) {
                   response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
@@ -861,7 +1071,7 @@
                 }
               }
             }
-            this.tableS = response.numbercounts
+            this.tableS = response.numbercounts;
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));

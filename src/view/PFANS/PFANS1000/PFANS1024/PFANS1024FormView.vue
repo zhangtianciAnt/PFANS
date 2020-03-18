@@ -91,12 +91,13 @@
                              width="50"></el-table-column>
             <el-table-column :label="$t('label.department')" align="center" width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.department'" :error="errordepartment">
                   <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--开发部门-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deployment'" :rules='rules.deployment'>
@@ -105,16 +106,18 @@
                 </el-form-item>
               </template>
             </el-table-column>
+
             <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200"
                              :error="erroruser">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'" :rules='rules.applicant'>
                   <user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType"
                         :userlist="scope.row.user_id"
                         @getUserids="getUserids" style="width: 10.15rem"></user>
                 </el-form-item>
               </template>
             </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"
                              width="200">
               <template slot-scope="scope">
@@ -190,7 +193,7 @@
                   <el-date-picker unlink-panels
                                   class="bigWidth"
                                   :disabled="!disabled"
-                                  v-model.trim="scope.row.contractdate"
+                                  v-model="scope.row.contractdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -542,7 +545,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
-                            return
+
                         }
                     });
                     callback();
@@ -677,7 +680,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
-                            return
+
                         }
                     });
                     callback();
@@ -733,6 +736,7 @@
             }
           };
             return {
+                errordepartment:'',
                 makeintoBaseInfo: {},
                 titleType: '',
                 titleType1: this.$t('label.PFANS1024VIEW_INTERNTECHNOLOGY'),
@@ -1249,7 +1253,7 @@
                                 letcontractnumber.push(tabledata[i].contractnumber);
                             }
                         }
-                        var arr = new Array();
+                        var arr = [];
                         let o;
                         for (var i = 0; i < letcontractnumber.length; i++) {
                             if (arr.indexOf(letcontractnumber[i]) == -1) {
@@ -1297,7 +1301,7 @@
             getChecked(val) {
                 this.checked = val;
                 if (val === true) {
-                    this.form.contractnumber = this.letcontractnumber
+                    this.form.contractnumber = this.letcontractnumber;
                     this.disabled1 = true;
                     this.disabled2 = false;
                 } else {
@@ -1540,7 +1544,7 @@
                 let isClone = false;
                 if (this.checked) {
                     for (let i = 0; i < this.form.tabledata.length; i++) {
-                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         if (this.form.tabledata[0].deliverycondition == 'HT009002') {
                             isClone = true;
                         }
@@ -1605,7 +1609,7 @@
                         duration: 5 * 1000
                     });
                     this.loading = false;
-                    this.dialogBook = false
+                    this.dialogBook = false;
                     return;
                 }
                 this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
@@ -1823,7 +1827,7 @@
                 }
                 if (val === "cancellation") {
                     for (let i = 0; i < this.form.tabledata.length; i++) {
-                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         this.form.tabledata[i].entrycondition = 'HT004001';
                     }
                     this.handleSave("cancellation");

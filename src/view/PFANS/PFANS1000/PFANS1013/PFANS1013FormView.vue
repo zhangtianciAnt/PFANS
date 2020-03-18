@@ -761,7 +761,7 @@
                                         class="bigWidth"
                                         type="daterange"
                                         unlink-panels
-                                        v-model.trim="scope.row.accommodationdate"
+                                        v-model="scope.row.accommodationdate"
                                         @change="getTravel(scope.row)"
                         ></el-date-picker>
                       </template>
@@ -1134,18 +1134,6 @@
           return callback();
         }
       };
-      var checktele = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
         error: '',
@@ -1383,7 +1371,8 @@
             trigger: 'change',
           }],
           telephone: [{
-            validator: checktele,
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'change',
           }],
           business_id: [{

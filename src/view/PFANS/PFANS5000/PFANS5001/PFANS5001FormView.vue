@@ -878,7 +878,7 @@
                       <el-date-picker unlink-panels
                                       class="bigWidth"
                                       :disabled="true"
-                                      v-model.trim="scope.row.workinghours"
+                                      v-model="scope.row.workinghours"
                                       type="daterange"
                                       :end-placeholder="$t('label.enddate')"
                                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
