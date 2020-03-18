@@ -215,18 +215,18 @@ export default {
           disabled: true,
           icon: "el-icon-edit"
         },
-        {
-          key: 'import',
-          name: 'button.import',
-          disabled: false,
-          icon: 'el-icon-download'
-        },
-        {
-          key: 'export',
-          name: 'button.export',
-          disabled: false,
-          icon: 'el-icon-upload2'
-        },
+        // {
+        //   key: 'import',
+        //   name: 'button.import',
+        //   disabled: false,
+        //   icon: 'el-icon-download'
+        // },
+        // {
+        //   key: 'export',
+        //   name: 'button.export',
+        //   disabled: false,
+        //   icon: 'el-icon-upload2'
+        // },
       ],
       departmentname: "",
       loading: false,

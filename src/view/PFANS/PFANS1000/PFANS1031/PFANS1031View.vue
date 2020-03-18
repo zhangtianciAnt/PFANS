@@ -120,8 +120,7 @@
           },
         ],
         buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'}
         ],
         rowid: '',
         row: 'napalm_id',

@@ -538,7 +538,9 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
-        year: moment(new Date()).format("YYYY"),
+        aaa: '',
+        bbb: '',
+        year: '',
         row: '',
         form: {
           year: "",
@@ -594,10 +596,10 @@
       };
     },
     methods: {
-      getList(year) {
+      getList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6006Store/getYears', {year: year})
+          .dispatch('PFANS6006Store/getYears', {'year': this.year})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].managerid !== null && response[j].managerid !== '') {
@@ -696,17 +698,9 @@
             this.loading = false;
           })
       },
-      // getYear(){
-      //   debugger;
-      //   let thisDate_d = new Date();
-      //   let thisMonth_i = parseInt(thisDate_d.format("MM"));
-      //   if(thisMonth_i < 4){
-      //     var thisYears = moment(parseInt(new Date()) - 1);
-      //   }
-      // },
       yearChange(value) {
         this.year = moment(value).format('YYYY');
-        this.getList(this.year);
+        this.getList();
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
@@ -719,9 +713,6 @@
             this.updateDeleginformation();
           }
         }
-        // if (val === 'generate') {
-        //   this.createDeleginformation();
-        // }
       },
       updateDeleginformation() {
         this.loading = true;
@@ -781,112 +772,16 @@
           };
         }
       },
-      getDelegainformation() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6006Store/getDelegainformation', {})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].managerid !== null && response[j].managerid !== '') {
-                let rst = getUserInfo(response[j].managerid)
-                if (rst) {
-                  response[j].managerid = rst.userinfo.customername;
-                }
-              }
-              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                if (supplierInfo) {
-                  response[j].suppliernameid = supplierInfo.supchinese;
-                }
-              }
-              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
-                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
-              }
-              if (response[j].exitime !== null && response[j].exitime !== '') {
-                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
-                let letStage = getDictionaryInfo(response[j].jobclassification);
-                if (letStage != null) {
-                  response[j].jobclassification = letStage.value1;
-                }
-              }
-              if (response[j].operationform !== null && response[j].operationform !== '') {
-                let letStage = getDictionaryInfo(response[j].operationform);
-                if (letStage != null) {
-                  response[j].operationform = letStage.value1;
-                }
-              }
-              if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                let letStage = getDictionaryInfo(response[j].alltechnology);
-                if (letStage != null) {
-                  response[j].alltechnology = letStage.value1;
-                }
-              }
-              if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
-                let letStage = getDictionaryInfo(response[j].sitevaluation);
-                if (letStage != null) {
-                  response[j].sitevaluation = letStage.value1;
-                }
-              }
-              if (response[j].exitreason !== null && response[j].exitreason !== '') {
-                let letStage = getDictionaryInfo(response[j].exitreason);
-                if (letStage != null) {
-                  response[j].exitreason = letStage.value1;
-                }
-              }
-              if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
-                let letStage = getDictionaryInfo(response[j].businessimpact);
-                if (letStage != null) {
-                  response[j].businessimpact = letStage.value1;
-                }
-              }
-              if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                let letStage = getDictionaryInfo(response[j].countermeasure);
-                if (letStage != null) {
-                  response[j].countermeasure = letStage.value1;
-                }
-              }
-              if (response[j].venuetarget == "是") {
-                let arr = [
-                  response[j].april,
-                  response[j].may,
-                  response[j].june,
-                  response[j].july,
-                  response[j].august,
-                  response[j].september,
-                  response[j].october,
-                  response[j].november,
-                  response[j].december,
-                  response[j].january,
-                  response[j].february,
-                  response[j].march
-                ];
-                var h = 0;
-                for (let i = 0; i < arr.length; i++) {
-                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
-                    h++;
-                  }
-                }
-                response[j].monthlength = h;
-              }
-            }
-            this.tableData = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      }
+
     },
     mounted() {
-      this.getList(this.year);
-      // this.getDelegainformation();
+      debugger
+      this.aaa = moment(new Date()).format('YYYY') - 1,
+
+        this.bbb = moment(new Date()).format('YYYY'),
+        console.log("aaa", this.year)
+      this.year = moment(new Date()).format('MM') < 4 ? this.aaa : this.bbb;
+      this.getList();
     },
   }
 </script>
