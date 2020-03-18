@@ -213,7 +213,15 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-                <!--外???-->
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <!--外币兑换-->
                 <el-row v-show="show2">
                   <el-collapse>
                     <el-collapse-item>
@@ -229,7 +237,7 @@
                                        :disabled="!disable"
                                        :multiple="multiple"
                                        :no="scope.row"
-                                       @change="getCurrency"
+                                       @change="getcurrency"
                                        style="width: 100%">
                             </dicselect>
                           </template>
@@ -856,7 +864,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code19"
                                    :data="scope.row.accommodationallowance"
-                                   :disabled="!disable"
+                                   :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getaccommodationallowance">
@@ -881,13 +889,14 @@
                                      prop="travelallowance" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="scope.row.accountcode === 'PJ119001' || 'PJ132001' ? false : true"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.travelallowance"
+                          @change="changelowance(scope.row)"
                         ></el-input-number>
                       </template>
                     </el-table-column>
@@ -1238,6 +1247,7 @@
           dollarfxrate: '',
           otherfxrate: '',
           usexchangerate: getDictionaryInfo('PJ003001').value2,
+          reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
         },
         buttonList: [
           {
@@ -1248,7 +1258,7 @@
           },
         ],
         tableF: [{
-          publicexpenseid: '',
+          evectionid: '',
           invoicenumber: '1',
           invoicetype: '',
           invoiceamount: '',
@@ -1443,6 +1453,7 @@
                   response.accommodationdetails[i].accommodationdate = [starttime, endtime];
                 }
               }
+              debugger;
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
                 if (this.$route.params.method === 'view') {
@@ -1513,6 +1524,9 @@
             }
             if (response.currencyexchanges.length > 0) {
               this.tableW = response.currencyexchanges;
+            }
+            if (response.invoice.length > 0) {
+              this.tableF = response.invoice;
             }
             if (this.form.type === '0') {
               this.getBusInside();
@@ -1997,7 +2011,7 @@
         }
         this.tableF.push({
           invoice_id: '',
-          publicexpenseid: '',
+          evectionid: '',
           invoicenumber: b,
           invoicetype: '',
           invoiceamount: '',
@@ -2070,6 +2084,12 @@
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
               this.form.place = cityinfo.value1;
+              this.tableA[i].region = cityinfo.value1;
+              if(cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002'){
+                this.tableA[i].accommodationallowance = 'PJ003002';
+              } else if(cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004'){
+                this.tableA[i].accommodationallowance = 'PJ003001';
+              }
             }
             this.rank = this.relations[i].level;
             let dict = getDictionaryInfo(this.relations[i].level);
@@ -2088,31 +2108,7 @@
             this.tableA[1].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
             this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           }
-
         }
-        // } else {
-        //   for(var i = 0;i<this.relations.length;i++) {
-        //     if(this.relations[i].value === val) {
-        //       this.rank = this.relations[i].level;
-        //         let dict = getDictionaryInfo(this.relations[i].level);
-        //         if (dict) {
-        //           this.form.level = dict.value1;
-        //         }
-        //         this.form.abroadbusiness = this.relations[i].abroadbusiness;
-        //         let cityinfo = getDictionaryInfo(this.relations[i].city);
-        //         if(cityinfo){
-        //           this.form.place = cityinfo.value1;
-        //         }
-        //         this.form.startdate = this.relations[i].startdate;
-        //         this.form.enddate = this.relations[i].enddate;
-        //         this.form.datenumber = this.relations[i].datenumber;
-        //         this.tableT[0].trafficdate = this.form.startdate;
-        //         this.tableR[0].otherdetailsdate = this.form.startdate;
-        //         this.tableA[0].accommodationdate = [this.relations[i].startdate,this.relations[i].enddate];
-        //         this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-        //     }
-        //   }
-        // }
       },
       change2(val) {
         this.form.loanamount = '';
@@ -2302,23 +2298,22 @@
         }
         var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
         if (this.form.type === '0') {
-          if (this.Redirict == '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
                   if (row.travelallowance / diffDate > jpregion1) {
-                    alert("111111");
-                    // Message({
-                    //   message: this.$t('1111111'),
-                    //   type: 'error',
-                    //   duration: 5 * 1000,
-                    // });
+                    Message({
+                      message: this.$t('输入人民币金额已经超过上限'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
                   }
                 } else {
                   if (row.travelallowance / diffDate > jpregion2) {
                     Message({
-                      message: this.$t('22222'),
+                      message: this.$t('输入人民币金额已经超过上限'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2330,17 +2325,16 @@
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
                   if (row.travelallowance / diffDate > jpregion8) {
-                    alert("111111");
-                    // Message({
-                    //   message: this.$t('1111111'),
-                    //   type: 'error',
-                    //   duration: 5 * 1000,
-                    // });
+                    Message({
+                      message: this.$t('输入人民币金额已经超过上限'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
                   }
                 } else {
                   if (row.travelallowance / diffDate > jpregion9) {
                     Message({
-                      message: this.$t('22222'),
+                      message: this.$t('输入人民币金额已经超过上限'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2348,52 +2342,98 @@
                 }
               }
             }
-          } else if (this.Redirict == '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
+          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             row.travelallowance = 150 * diffDate;
-          } else if (this.Redirict == '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
+          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
           }
         } else if (this.form.type === '1') {
           var accfig;
-          let accinfo = getDictionaryInfo(row.accommodationallowance);
+          var regionflg;
+          if(row.region === 'PJ017001' || row.region === 'PJ017002'){
+            regionflg = 'PJ003002'
+          } else if(row.region === 'PJ017003' || row.region === 'PJ017004'){
+            regionflg = 'PJ003001'
+          }
+          let accinfo = getDictionaryInfo(regionflg);
           if (accinfo) {
             accfig = accinfo.value2;
           }
-          if (row.costitem === 'PJ126001') {
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
               if (row.region === 'PJ017001') {
-                jpvalueflg = jpregion3;
+                if(row.travel / diffDate > jpregion3){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
+                // row.travel = Number(jpvalueflg) * diffDate;
+                // jpvalueflg = jpregion3;
               } else if (row.region === 'PJ017002') {
-                jpvalueflg = jpregion4;
+                if(row.travel / diffDate > jpregion4){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               } else if (row.region === 'PJ017003') {
-                jpvalueflg = jpregion5;
+                if(row.travel / diffDate > jpregion5){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               } else if (row.region === 'PJ017004') {
-                jpvalueflg = jpregion6;
+                if(row.travel / diffDate > jpregion6){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               }
             } else if (row.facilitytype === 'PJ035002') {
               if (row.region === 'PJ017001') {
-                jpvalueflg = jpregion10;
+                if(row.travel / diffDate > jpregion10){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               } else if (row.region === 'PJ017002') {
-                jpvalueflg = jpregion11;
+                if(row.travel / diffDate > jpregion11){
+                  Message({
+                    message: this.$t('输入外币金额已经超过上限'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               }
             }
-            if (jpvalueflg !== '' && jpvalueflg !== undefined) {
-              row.travel = Number(jpvalueflg) * diffDate;
+            // if (accfig !== '' && accfig !== undefined) {
+              // row.travel = Number(jpvalueflg) * diffDate;
               row.travelallowance = row.travel * accfig;
-            }
-          } else if (row.costitem === 'PJ126002') {
+            // }
+          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
               jpvalueflg2 = Number(jpregion12) + 100;
             } else {
               jpvalueflg2 = Number(jpregion12);
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.travel = Number(jpvalueflg2) * diffDate;
-              row.travelallowance = row.travel * accfig;
+              row.travelallowance = Number(jpvalueflg2) * diffDate;
+              // row.travelallowance = row.travel * accfig;
             }
-          } else if (row.costitem === 'PJ126003') {
-            row.travel = Number(jpvalueflg2 + 100) * diffDate;
-            row.travelallowance = row.travel * accfig;
+          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
+            if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
+              row.travelallowance = Number(jpvalueflg2 + 100) * diffDate;
+            }
+            // row.travelallowance = row.travel * accfig;
           }
           // var varbusiness;
           // if (this.rank === 'PJ016001') {
@@ -2426,7 +2466,6 @@
         if (this.form.type === '1') {
           this.form.totalcurrency = sums[5] + this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13] + this.tableRValue[4];
         }
-
       },
       getMoney(sums) {
         if (this.form.type === '0') {
@@ -2510,8 +2549,12 @@
           }
         }
       },
-      getCurrency(val, row) {
+        getcurrency(val,row) {
         row.currency = val;
+        let curinfo = getDictionaryInfo(val);
+        if(curinfo){
+          row.currencyexchangerate = curinfo.value2;
+        }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -2530,6 +2573,7 @@
         this.buttonClick('save');
       },
       changelowance(newValue) {
+        this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.travelallowance !== '') {
@@ -2550,8 +2594,6 @@
           }
         }
       },
-
-
       changeRMB(newValue) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
@@ -2582,24 +2624,6 @@
       changeForeigncurrency(newValue) {
         if (newValue.foreigncurrency > 0) {
           newValue.rmb = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
-        }
-      },
-      changeaccommodationallowance(newValue) {
-        if (newValue.accommodationallowance > 0) {
-          newValue.accommodation = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
-        }
-      },
-      changeaccommodation(newValue) {
-        if (newValue.accommodation > 0) {
-          newValue.accommodationallowance = '';
           newValue.display = false;
           this.$nextTick(() => {
             newValue.display = true;
@@ -2653,21 +2677,11 @@
                   || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
                   || this.tableA[i].annexno !== ''
                   || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
-                  var varvehiclein;
-                  var varfacilitytypein;
-                  if (this.form.type === '0') {
-                    varvehiclein = this.tableA[i].vehicleon;
-                    varfacilitytypein = this.tableA[i].facilitytypeon;
-                  } else {
-                    varvehiclein = this.tableA[i].vehiclein;
-                    varfacilitytypein = this.tableA[i].facilitytypein;
-                  }
                   this.baseInfo.accommodationdetails.push(
                     {
                       accommodationdetails_id: this.tableA[i].accommodationdetails_id,
                       evectionid: this.tableA[i].evectionid,
                       accommodationdate: moment(this.tableA[i].accommodationdate[0]).format('YYYY-MM-DD') + '~' + moment(this.tableA[i].accommodationdate[1]).format('YYYY-MM-DD'),
-                      // nextday: this.tableA[i].nextday,
                       activitycontent: this.tableA[i].activitycontent,
                       vehicle: varvehiclein,
                       region: this.tableA[i].region,
@@ -2677,13 +2691,12 @@
                       subjectnumber: this.tableA[i].subjectnumber,
                       plsummary: this.tableA[i].plsummary,
                       accountcode: this.tableA[i].accountcode,
-                      facilitytype: varfacilitytypein,
+                      facilitytype: this.tableA[i].facilitytype,
                       facilityname: this.tableA[i].facilityname,
                       accommodationallowance: this.tableA[i].accommodationallowance,
                       accommodation: this.tableA[i].accommodation,
                       travelallowance: this.tableA[i].travelallowance,
                       travel: this.tableA[i].travel,
-                      // relatives: this.tableA[i].facilitytype,
                       invoicenumber: this.tableA[i].invoicenumber,
                       departmentname: this.tableA[i].departmentname,
                       taxes: this.tableA[i].taxes,
@@ -2740,7 +2753,7 @@
                   this.baseInfo.invoice.push(
                     {
                       invoice_id: this.tableF[i].invoice_id,
-                      publicexpenseid: this.tableF[i].publicexpenseid,
+                      evectionid: this.tableF[i].evectionid,
                       invoicenumber: this.tableF[i].invoicenumber,
                       invoicetype: this.tableF[i].invoicetype,
                       invoiceamount: this.tableF[i].invoiceamount,
