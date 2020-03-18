@@ -1454,7 +1454,6 @@
                   response.accommodationdetails[i].accommodationdate = [starttime, endtime];
                 }
               }
-              debugger;
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
                 if (this.$route.params.method === 'view') {
@@ -2357,7 +2356,6 @@
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
           }
         } else if (this.form.type === '1') {
-          debugger;
           var accfig;
           var regionflg;
           if(row.region === 'PJ017001' || row.region === 'PJ017002'){
