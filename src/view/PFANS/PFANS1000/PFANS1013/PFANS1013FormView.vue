@@ -237,7 +237,7 @@
                                        :disabled="!disable"
                                        :multiple="multiple"
                                        :no="scope.row"
-                                       @change="getCurrency(scope.row)"
+                                       @change="getcurrency"
                                        style="width: 100%">
                             </dicselect>
                           </template>
@@ -2549,8 +2549,7 @@
           }
         }
       },
-      getCurrency(val, row) {
-        debugger;
+        getcurrency(val,row) {
         row.currency = val;
         let curinfo = getDictionaryInfo(val);
         if(curinfo){
