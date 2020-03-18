@@ -278,22 +278,27 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" name="second">
               <el-row>
-                <!--                <el-col :span="8">-->
-                <!--                  <el-form-item-->
-                <!--                    :error="errorLeader"-->
-                <!--                    :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-                <!--                    prop="leaderid"-->
-                <!--                  >-->
-                <!--                    <user-->
-                <!--                      :disabled="!disable"-->
-                <!--                      :error="errorLeader"-->
-                <!--                      :selectType="selectType"-->
-                <!--                      :userlist="userlist"-->
-                <!--                      @getUserids="getUserids"-->
-                <!--                      style="width: 20vw"-->
-                <!--                    ></user>-->
-                <!--                  </el-form-item>-->
-                <!--                </el-col>-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
+                    <el-switch
+                      active-color="#13ce66"
+                      inactive-color="#13ce66"
+                      active-value="1"
+                      inactive-value="0"
+                      active-text="内采"
+                      inactive-text="通常"
+                      v-model="form.toolstype">
+                    </el-switch>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row v-show="form.toolstype === '1'">
+                <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
+                  <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="3" @getOrgids="setToolsorgs"
+                       style="width:20vw"></org>
+                </el-form-item>
+              </el-row>
+              <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
                   <el-form-item :error="errorLeader" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                                 prop="errorLeader">
@@ -349,7 +354,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
+              <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
                   <el-form-item
                     :label="$t('label.PFANS5001FORMVIEW_INTELLIGENCE')"
@@ -793,7 +798,7 @@
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
                 <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
-                          style="width: 90vw">
+                          style="width: 90vw" v-show="form.toolstype === '0' || !form.toolstype">
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center">
@@ -894,6 +899,69 @@
                       <el-button
                         :disabled="!disable"
                         @click="addRow3()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <el-table :data="tableclaimtype" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="width: 90vw" v-show="form.toolstype === '1'">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
+                    <template slot-scope="scope">
+                        <el-input :disabled="!disable" v-model="scope.row.claimtype">
+                        </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
+                                   width="170">
+                    <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
+                                        style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
+                                   width="170">
+                    <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
+                                        style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
+                    <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
+                                        style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
+                                   width="170">
+                    <template slot-scope="scope">
+                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
+                                        style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
+                                   width="190">
+                    <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
+                                         :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="!disable"
+                        @click.native.prevent="deleteRowClaim(scope.$index, tableclaimtype)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}
+                      </el-button>
+                      <el-button
+                        :disabled="!disable"
+                        @click="addRowClaim()"
                         plain
                         size="small"
                         type="primary"
@@ -1044,6 +1112,14 @@
             }
           };
             return {
+              tableclaimtype:[{
+                claimtype: '',
+                deliverydate: '',
+                completiondate: '',
+                claimdate: '',
+                supportdate: '',
+                claimamount:0
+              }],//内采合同
                 // centerorglist: '',
                 // grouporglist: '',
                 // teamorglist: '',
@@ -1534,6 +1610,12 @@
                             }
                             this.tableD = tabled;
                         }
+                        //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
+                        if (response.contractnumbercount.length > 0) {
+                          this.tableclaimtype = response.contractnumbercount;
+                        }
+                        //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
+
                         // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
                         // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
                         if (this.form.uploadfile != null) {
@@ -1600,6 +1682,9 @@
             }
         },
         methods: {
+          setToolsorgs(val){
+            this.form.toolsorgs = val;
+          },
             getcontract() {
                 this.contractapplication = {};
                 this.contractapplication.entrycondition = [];
@@ -2063,6 +2148,33 @@
                     }];
                 }
             },
+            //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
+          addRowClaim() {
+            this.tableclaimtype.push({
+              claimtype: '',
+              deliverydate: '',
+              completiondate: '',
+              claimdate: '',
+              supportdate: '',
+              claimamount: '',
+            });
+          },
+          //合同
+          deleteRowClaim(index, rows) {
+            if (rows.length > 1) {
+              rows.splice(index, 1);
+            } else {
+              this.tableclaimtype = [{
+                claimtype: '',
+                deliverydate: '',
+                completiondate: '',
+                claimdate: '',
+                supportdate: '',
+                claimamount: '',
+              }];
+            }
+          },
+          //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
             // //计划合计
             // getTsummaries(param) {
             //   const {columns, data} = param;
@@ -2104,8 +2216,8 @@
                             vote1.expname = response[i].expname;
                             vote1.suppliername = response[i].suppliername;
                             vote1.post = response[i].post;
-                            vote1.suppliernameid = response[i].expatriatesinfor_id;
-                            this.gridData1.push(vote1);
+                          vote1.suppliernameid = response[i].supplierinfor_id;
+                          this.gridData1.push(vote1);
                         }
                         this.centerorglist = this.form.center_id;
                         this.grouporglist = this.form.group_id;
@@ -2292,13 +2404,18 @@
                                 });
                             }
                         }
+
+                      //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
+                      this.baseInfo.contractnumbercount = this.tableclaimtype;
+                      //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
+
                         let error = 0;
                         for (let i = 0; i < this.tableD.length; i++) {
                             if (this.tableD[i].contract == '') {
                                 error = error + 1;
                             }
                         }
-                        if (error != '') {
+                        if (error != 0 && this.form.toolstype !== '1') {
                             this.loading = false;
                             Message({
                                 message: this.$t('normal.error_08') +

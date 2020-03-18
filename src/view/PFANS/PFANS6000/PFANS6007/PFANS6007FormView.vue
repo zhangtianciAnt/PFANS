@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"  ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -72,10 +73,10 @@
                 <el-input :disabled="true" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                  <el-input :disabled="true" style="width:20vw" v-model="form.bpclubname"></el-input>
-                </el-form-item>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
+                <el-input :disabled="true" style="width:20vw" v-model="form.bpclubname"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
           <!--2-->
@@ -157,6 +158,7 @@
   import moment from "moment";
   import {valfloat} from '@/utils/validate';
   import {getUserInfo} from '@/utils/customize';
+
   export default {
     name: 'PFANS6007FormView',
     components: {
@@ -226,11 +228,11 @@
         options1: [],
         loading: false,
         error_pjname: '',
-        error_bpclubname:'',
-        error_year:'',
-        error_plmonthplan:'',
-        error_typeoffees:'',
-        error_payment:'',
+        error_bpclubname: '',
+        error_year: '',
+        error_plmonthplan: '',
+        error_typeoffees: '',
+        error_payment: '',
         selectType: "Single",
         title: "title.PFANS6007VIEW_TITLE",
         buttonList: [],
@@ -238,16 +240,16 @@
         gridData: [],
         multiple: false,
         form: {
-          variousfunds_id:'',
-          pjname:'',
-          psdcdwindow:'',
-          bpclubname:'',
-          bpplayer:'',
-          plmonthplan:'',
-          typeoffees:'',
-          payment:'',
-          remarks:'',
-          year:'',
+          variousfunds_id: '',
+          pjname: '',
+          psdcdwindow: '',
+          bpclubname: '',
+          bpplayer: '',
+          plmonthplan: '',
+          typeoffees: '',
+          payment: '',
+          remarks: '',
+          year: '',
         },
         code2: 'BP013',
         code3: 'BP014',
@@ -299,7 +301,7 @@
       };
     },
     mounted() {
-      this.getCompanyProject();
+      this.getPjnameList();
       if (this.$route.params._id) {//查看详情
         this.loading = true;
         this.$store
@@ -332,10 +334,11 @@
       }
     },
     methods: {
-      getCompanyProject() {
+      getPjnameList() {
         this.$store
-          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .dispatch('PFANS6007Store/getPjnameList', {})
           .then(response => {
+            console.log(response)
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               this.gridData = [];
@@ -364,14 +367,14 @@
             this.loading = false;
           });
       },
-      changeOption(val){
-          for(let i=0;i < this.options1.length;i++){
-              if(this.options1[i].project_name === val){
-                  this.form.psdcdwindow = this.options1[i].username;
-                  this.form.bpclubname = this.options1[i].bpclubname;
-                  this.form.bpplayer = this.options1[i].bpplayer;
-              }
+      changeOption(val) {
+        for (let i = 0; i < this.options1.length; i++) {
+          if (this.options1[i].project_name === val) {
+            this.form.psdcdwindow = this.options1[i].username;
+            this.form.bpclubname = this.options1[i].bpclubname;
+            this.form.bpplayer = this.options1[i].bpplayer;
           }
+        }
       },
       getYear(val) {
         this.form.year = val;

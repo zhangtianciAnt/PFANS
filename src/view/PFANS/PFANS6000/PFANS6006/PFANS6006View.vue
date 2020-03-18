@@ -13,7 +13,7 @@
                     @change="yearChange"
                     format="yyyy"
                     type="year"
-                    v-model="years">
+                    v-model="year">
                   </el-date-picker>
                 </div>
               </el-col>
@@ -21,7 +21,13 @@
             <el-row style="padding-top: 10px">
               <el-table :data="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
+                        @selection-change="handleSelectionChange"
                         style="width: 100%">
+                <!--checkbox-->
+                <el-table-column
+                  type="selection"
+                  width="55">
+                </el-table-column>
                 <!-- 序号-->
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -188,6 +194,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -205,6 +212,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -222,6 +230,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -239,6 +248,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -256,6 +266,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -273,6 +284,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -290,6 +302,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -307,6 +320,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -324,6 +338,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -341,6 +356,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -358,6 +374,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -375,6 +392,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -406,7 +424,7 @@
                     width="200">
                     <template slot-scope="scope">
                       <el-input
-                        :disabled="!disabled"
+                        :disabled="disable"
                         :rows="1"
                         style="width: 10vw"
                         type="textarea"
@@ -506,7 +524,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor} from '../../../../utils/customize';
+  import {getDictionaryInfo, getSupplierinfor, getUserInfo} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -520,8 +538,13 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
-        years: moment(new Date()).format("YYYY"),
+        aaa: '',
+        bbb: '',
+        year: '',
         row: '',
+        form: {
+          year: "",
+        },
         tableData: [{
           project_name: '',
           managerid: '',
@@ -554,46 +577,158 @@
           countermeasure: '',
         }],
         data: [],
+        userlist: "",
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
+        disable: true,
         buttonList: [
           {
             'key': 'save',
             'name': 'button.save',
             'disabled': false,
           },
-          {
-            'key': 'generate',
-            'name': 'button.generate',
-            'disabled': false
-          },
+          // {
+          //   'key': 'generate',
+          //   'name': 'button.generate',
+          //   'disabled': false
+          // },
         ],
       };
     },
     methods: {
+      getList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6006Store/getYears', {'year': this.year})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].managerid !== null && response[j].managerid !== '') {
+                let rst = getUserInfo(response[j].managerid)
+                if (rst) {
+                  response[j].managerid = rst.userinfo.customername;
+                }
+              }
+              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
+                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+                if (supplierInfo) {
+                  response[j].suppliernameid = supplierInfo.supchinese;
+                }
+              }
+              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
+                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
+              }
+              if (response[j].exitime !== null && response[j].exitime !== '') {
+                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
+              }
+              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
+                let letStage = getDictionaryInfo(response[j].jobclassification);
+                if (letStage != null) {
+                  response[j].jobclassification = letStage.value1;
+                }
+              }
+              if (response[j].operationform !== null && response[j].operationform !== '') {
+                let letStage = getDictionaryInfo(response[j].operationform);
+                if (letStage != null) {
+                  response[j].operationform = letStage.value1;
+                }
+              }
+              if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                let letStage = getDictionaryInfo(response[j].alltechnology);
+                if (letStage != null) {
+                  response[j].alltechnology = letStage.value1;
+                }
+              }
+              if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
+                let letStage = getDictionaryInfo(response[j].sitevaluation);
+                if (letStage != null) {
+                  response[j].sitevaluation = letStage.value1;
+                }
+              }
+              if (response[j].exitreason !== null && response[j].exitreason !== '') {
+                let letStage = getDictionaryInfo(response[j].exitreason);
+                if (letStage != null) {
+                  response[j].exitreason = letStage.value1;
+                }
+              }
+              if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
+                let letStage = getDictionaryInfo(response[j].businessimpact);
+                if (letStage != null) {
+                  response[j].businessimpact = letStage.value1;
+                }
+              }
+              if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                let letStage = getDictionaryInfo(response[j].countermeasure);
+                if (letStage != null) {
+                  response[j].countermeasure = letStage.value1;
+                }
+              }
+              if (response[j].venuetarget == "是") {
+                let arr = [
+                  response[j].april,
+                  response[j].may,
+                  response[j].june,
+                  response[j].july,
+                  response[j].august,
+                  response[j].september,
+                  response[j].october,
+                  response[j].november,
+                  response[j].december,
+                  response[j].january,
+                  response[j].february,
+                  response[j].march
+                ];
+                var h = 0;
+                for (let i = 0; i < arr.length; i++) {
+                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
+                    h++;
+                  }
+                }
+                response[j].monthlength = h;
+              }
+            }
+            this.tableData = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       yearChange(value) {
-        this.years = moment(value).format('YYYY');
-        // this.getDelegainformation(value);
+        this.year = moment(value).format('YYYY');
+        this.getList();
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        this.disable = false;
       },
       buttonClick(val) {
         if (val === 'save') {
-          this.updateexpatriatesinfor();
-        }
-        if (val === 'generate') {
-          this.createDeleginformation();
+          this.loading = true;
+          for (let i of this.multipleSelection) {
+            this.updateDeleginformation();
+          }
         }
       },
-      updateexpatriatesinfor() {
+      updateDeleginformation() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/updateexpatriatesinfor', this.tableData)
+          .dispatch('PFANS6006Store/updateDeleginformation', this.tableData)
           .then(response => {
+            this.data = response;
+            this.getList(this.year);
             Message({
               message: this.$t("normal.success_02"),
               type: "success",
               duration: 5 * 1000
             });
-            this.data = response;
+            this.$router.push({
+              name: 'PFANS6006View',
+            });
             this.loading = false;
           })
           .catch(error => {
@@ -637,103 +772,16 @@
           };
         }
       },
-      createDeleginformation() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6006Store/createDeleginformation', {})
-          .then(response => {
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      },
-      getDelegainformation() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6006Store/getDelegainformation', {})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].suppliernameid !== null && response[j].suppliernameid !== '') {
-                let supplierInfo = getSupplierinfor(response[j].suppliernameid);
-                if (supplierInfo) {
-                  response[j].suppliernameid = supplierInfo.supchinese;
-                }
-              }
-              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
-                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
-              }
-              if (response[j].exitime !== null && response[j].exitime !== '') {
-                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
-                let letStage = getDictionaryInfo(response[j].jobclassification);
-                if (letStage != null) {
-                  response[j].jobclassification = letStage.value1;
-                }
-              }
-              if (response[j].operationform !== null && response[j].operationform !== '') {
-                let letStage = getDictionaryInfo(response[j].operationform);
-                if (letStage != null) {
-                  response[j].operationform = letStage.value1;
-                }
-              }
-              if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
-                let letStage = getDictionaryInfo(response[j].distriobjects);
-                if (letStage != null) {
-                  response[j].distriobjects = letStage.value1;
-                }
-              }
-              if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                let letStage = getDictionaryInfo(response[j].alltechnology);
-                if (letStage != null) {
-                  response[j].alltechnology = letStage.value1;
-                }
-              }
-              if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
-                let letStage = getDictionaryInfo(response[j].sitevaluation);
-                if (letStage != null) {
-                  response[j].sitevaluation = letStage.value1;
-                }
-              }
-              if (response[j].exitreason !== null && response[j].exitreason !== '') {
-                let letStage = getDictionaryInfo(response[j].exitreason);
-                if (letStage != null) {
-                  response[j].exitreason = letStage.value1;
-                }
-              }
-              if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
-                let letStage = getDictionaryInfo(response[j].businessimpact);
-                if (letStage != null) {
-                  response[j].businessimpact = letStage.value1;
-                }
-              }
-              if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                let letStage = getDictionaryInfo(response[j].countermeasure);
-                if (letStage != null) {
-                  response[j].countermeasure = letStage.value1;
-                }
-              }
-            }
-            this.tableData = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      }
+
     },
     mounted() {
-      this.getDelegainformation();
+      debugger
+      this.aaa = moment(new Date()).format('YYYY') - 1,
+
+        this.bbb = moment(new Date()).format('YYYY'),
+        console.log("aaa", this.year)
+      this.year = moment(new Date()).format('MM') < 4 ? this.aaa : this.bbb;
+      this.getList();
     },
   }
 </script>

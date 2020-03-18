@@ -49,7 +49,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
               <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
                    :disabled="!disabled2"></org>
             </el-form-item>
@@ -335,7 +335,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
+                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -350,12 +350,10 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
-                  <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
-                  <!--</el-input>-->
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
                     <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
                              v-model="scope.row.conchinese"
-                             @change="changePro">
+                             @change="changePro" :disabled="!disabled">
                     </project>
                   </el-form-item>
                 </template>
@@ -399,7 +397,7 @@
                              width="120">
               <template slot-scope="scope">
                 <el-form-item>
-                  <el-input v-model="scope.row.papercontract">
+                  <el-input v-model="scope.row.papercontract" :disabled="!disabled">
                   </el-input>
                 </el-form-item>
               </template>
@@ -444,12 +442,6 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center" prop="state" width="200">
-              <template slot-scope="scope">
-                <el-form-item>
-                  <el-input v-model="scope.row.state">
-                  </el-input>
-                </el-form-item>
-              </template>
             </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
@@ -732,6 +724,14 @@
                     callback();
                 }
             };
+          var groupId = (rule, value, callback) => {
+            if (!this.form.group_id || this.form.group_id === "") {
+              callback(new Error(this.$t("normal.error_08") + "group"));
+              this.error = this.$t("normal.error_08") + "group";
+            } else {
+              callback();
+            }
+          };
             return {
                 makeintoBaseInfo: {},
                 titleType: '',
@@ -766,12 +766,20 @@
                 disabled1: false,
                 disabled2: true,
                 disabled3: false,
+                disabled4: false,
                 ruleSet: {
                     'save': ['contractnumber'],
                     'makeinto': ['contractnumber'],
                     '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
                 },
                 rules: {
+                  group: [
+                    {
+                      required: true,
+                      validator: groupId,
+                      trigger: "change"
+                    }
+                  ],
                     deployment: [
                         {validator: validateDeployment}
                     ],

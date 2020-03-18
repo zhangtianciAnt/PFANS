@@ -1,15 +1,16 @@
 import {
-  createDeleginformation,getDelegainformation
+  updateDeleginformation, getYears
 } from './PFANS6006Api'
+
 
 const PFANS6006Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getDelegainformation() {
+    getYears({commit}, data) {
       return new Promise((resolve, reject) => {
-        getDelegainformation().then(response => {
+        getYears(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -20,9 +21,9 @@ const PFANS6006Store = {
         })
       })
     },
-    createDeleginformation({commit}, data) {
+    updateDeleginformation({commit}, data) {
       return new Promise((resolve, reject) => {
-        createDeleginformation(data).then(response => {
+        updateDeleginformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

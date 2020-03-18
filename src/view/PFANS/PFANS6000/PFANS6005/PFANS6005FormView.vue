@@ -691,7 +691,7 @@
                         'border-right': '1px solid #73CC73',
                     };
                 }
-                if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
+              if (column.level === 1 && columnIndex >= 0 && columnIndex < 26) {
                     return {
                         color: 'white',
                         background: '#005BAA !important',

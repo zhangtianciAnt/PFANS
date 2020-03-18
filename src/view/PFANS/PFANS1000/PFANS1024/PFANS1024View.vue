@@ -59,7 +59,7 @@
                     },
                     {
                         code: 'state',
-                        label: 'label.approval_status',
+                        label: 'label.PFANS1024VIEW_STATE',
                         width: 120,
                         fix: false,
                         filter: true,

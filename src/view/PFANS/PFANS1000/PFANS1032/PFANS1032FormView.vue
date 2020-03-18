@@ -148,6 +148,7 @@
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {Message} from 'element-ui'
+  import moment from "moment";
   import dicselect from '../../../components/dicselect';
 
   export default {
@@ -183,7 +184,7 @@
           claimnumber: '',
           claimtype: '',
           currencyposition: '',
-          claimdatetime: [],
+          // claimdatetime: [],
           remarks: '',
         },
         rules: {},
@@ -196,7 +197,7 @@
           .dispatch('PFANS1032Store/one', {"petition_id": this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (response.claimdatetime !== null && response.claimdatetime !== "") {
+            if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
@@ -227,6 +228,9 @@
     },
     methods: {
       buttonClick(val) {
+        if(this.form.openingdate!=="" && this.form.enddate!==""){
+          this.form.claimdatetime=moment(this.form.openingdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
+        }
         // this.$refs["reff"].validate(valid =>{
         //   if(valid){
         //     this.loading = true;

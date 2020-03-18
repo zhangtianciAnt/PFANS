@@ -78,37 +78,6 @@
                 <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
               </el-form-item>
             </el-col>
-            <!--            编号-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.number">
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <!--            職務-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.post">
-                </el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--          第四行-->
-          <el-row>
-            <!--            所属部门-->
-            <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="2" style="width:20vw"></org>
-              </el-form-item>
-            </el-col>
-
             <!--            技术分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
@@ -133,6 +102,36 @@
                   @change="changern"
                   style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--          第四行-->
+          <el-row>
+            <!--            所属部门-->
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
+            <!--            编号-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number">
+                </el-input>
+              </el-form-item>
+            </el-col>
+            <!--            職務-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.post">
+                </el-input>
               </el-form-item>
             </el-col>
 
@@ -514,8 +513,6 @@
         code21: 'BP025',
         result1: "",
         disabled: true,
-        dialogTableVisible: false,
-        dialogTableVisible1: false,
         rules: {
           // 姓名
           expname: [
@@ -681,7 +678,6 @@
       };
     },
     mounted() {
-      this.getExpnameList();
       if (this.$route.params._id) {
         this.selectById();
       }
@@ -690,9 +686,10 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
+            console.log(response)
             this.form = response;
-            this.grouporglist = this.form.interviewdep;
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
+            this.grouporglist = this.form.group_id;
             this.loading = false;
             if (this.form.exits === '1') {
               this.show = false;
@@ -741,14 +738,6 @@
       }
     },
     methods: {
-      getSuppliername(val) {
-        this.form.suppliername = val;
-        if (!this.form.suppliername || this.form.suppliername === '' || val === 'undefined') {
-          this.suppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-        } else {
-          this.errorsuppliername = '';
-        }
-      },
       changesex(val) {
         this.form.sex = val;
       },
@@ -816,116 +805,6 @@
           this.rules.businessimpact[0].required = true;
           this.rules.countermeasure[0].required = true;
         }
-      },
-      submit1() {
-        let lst = this.currentRow;
-        let lst1 = this.currentRow2;
-        let lst2 = this.currentRow3;
-        let lst4 = this.currentRow5;
-        let lst5 = this.currentRow6;
-        let lst6 = this.currentRow7;
-        let lst7 = this.currentRow8;
-        let lst8 = this.currentRow9;
-        let lst9 = this.currentRow10;
-        let lst10 = this.currentRow11;
-        let lst11 = this.currentRow12;
-        let lst12 = this.currentRow13;
-        let lst13 = this.currentRow14;
-        let lst14 = this.currentRow15;
-        let lst15 = this.currentRow16;
-        let lst16 = this.currentRow17;
-        let lst17 = this.currentRow18;
-
-        this.dialogTableVisible1 = false;
-
-        this.form.expname = lst;
-        this.form.sex = lst1;
-        this.form.contactinformation = lst2;
-        this.form.age = lst4;
-        this.form.suppliername = lst5;
-        this.form.graduateschool = lst6;
-        this.form.education = lst7;
-        this.form.graduation_year = lst8;
-        this.form.speciality = lst9;
-        this.form.interview_date = lst10;
-        this.form.result = lst11;
-        this.form.technology = lst12;
-        this.form.rn = lst13;
-        this.form.whetherentry = lst14;
-        this.form.remarks = lst15;
-        this.form.cooperuserid = lst16;
-        this.form.suppliernameid = lst17;
-        this.errorexpname = '';
-        this.errorgraduateschool = '';
-      },
-      handleClickChange1(val) {
-        this.currentRow = val.expname;
-        this.currentRow2 = val.sex;
-        this.currentRow3 = val.contactinformation;
-        this.currentRow5 = val.age;
-        this.currentRow6 = val.suppliername;
-        this.currentRow7 = val.graduateschool;
-        this.currentRow8 = val.education;
-        this.currentRow9 = val.graduation_year;
-        this.currentRow10 = val.speciality;
-        this.currentRow11 = val.interview_date;
-        this.currentRow12 = val.result;
-        this.currentRow13 = val.technology;
-        this.currentRow14 = val.rn;
-        this.currentRow15 = val.whetherentry;
-        this.currentRow16 = val.remarks;
-        this.currentRow17 = val.cooperuserid;
-        this.currentRow18 = val.suppliernameid;
-      },
-      getExpnameList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6001Store/getcooperinterview', {})
-          .then(response => {
-            console.log(response);
-            this.gridData1 = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              if (response[i].cooperinterview_id !== null && response[i].cooperinterview_id !== '') {
-                let cooperInfo = getCooperinterviewList(response[i].cooperinterview_id);
-                console.log(cooperInfo)
-                if (cooperInfo) {
-                  vote.expname = cooperInfo.coopername;
-                }
-              }
-              vote.cooperuserid = response[i].cooperinterview_id;
-              vote.sex = getDictionaryInfo(response[i].sex).value1;
-              vote.contactinformation = response[i].contactinformation;
-              vote.age = response[i].age;
-              if (response[i].supplierinfor_id !== null && response[i].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[i].supplierinfor_id);
-                if (supplierInfo) {
-                  vote.suppliername = supplierInfo.supchinese;
-                }
-              }
-              vote.suppliernameid = response[i].suppliernameid;
-              vote.graduateschool = response[i].graduateschool;
-              vote.education = getDictionaryInfo(response[i].education).value1;
-              vote.graduation_year = response[i].graduation_year;
-              vote.speciality = response[i].speciality;
-              vote.interview_date = moment(response[i].interview_date).format('YYYY-MM-DD');
-              vote.result = getDictionaryInfo(response[i].result).value1;
-              vote.technology = getDictionaryInfo(response[i].technology).value1;
-              vote.rn = getDictionaryInfo(response[i].rn).value1;
-              vote.whetherentry = getDictionaryInfo(response[i].whetherentry).value1;
-              vote.remarks = response[i].remarks;
-              this.gridData1.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       },
       selectById(val) {
         this.loading = true;
