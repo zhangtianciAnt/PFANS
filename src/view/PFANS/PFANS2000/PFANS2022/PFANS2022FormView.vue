@@ -347,6 +347,7 @@
                 show5: true,
                 canStart: false,
                 twoclass: '',
+                firstclass: '',
                 fileList: [],
                 upload: uploadUrl(),
             };
@@ -514,6 +515,7 @@
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
+                    this.show5 = true;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -522,7 +524,13 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = true;
                 } else if (val === "PR024002") {
+                  let dictionaryInfo = getDictionaryInfo(val);
+                  if (dictionaryInfo) {
+                    this.firstclass = dictionaryInfo.value3;
+                    this.form.amoutmoney = dictionaryInfo.value3;
+                  }
                     this.code1 = ' ';
                     this.disable = true;
                     this.show1 = false;
@@ -547,6 +555,7 @@
                     this.show2 = false;
                     this.show3 = false;
                     this.show4 = true;
+                    this.show5 = true;
                     this.rules.nominees[0].required = true;
                     this.rules.nomineerelationship[0].required = true;
                     this.rules.joiningday[0].required = true;
@@ -555,6 +564,7 @@
                     this.rules.reginstrationday[0].required = true;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = true;
                 } else if (val === "PR024004") {
                     this.code1 = 'PR035';
                     this.gettwoclass("PR035001");
@@ -563,6 +573,7 @@
                     this.show2 = true;
                     this.show3 = true;
                     this.show4 = false;
+                    this.show5 = true;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -571,6 +582,7 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = true;
                     this.rules.spousename[0].required = true;
+                    this.rules.twoclass[0].required = true;
                 } else if (val === "PR024005") {
                     this.code1 = 'PR036';
                     this.gettwoclass("PR036001");
@@ -579,6 +591,7 @@
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
+                    this.show5 = true;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -587,6 +600,7 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = true;
                 } else if (val === "PR024006") {
                     this.code1 = 'PR037';
                     this.gettwoclass("PR037001");
@@ -595,6 +609,7 @@
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
+                    this.show5 = true;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -603,6 +618,7 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = true;
                 } else if (val === "PR024007") {
                     this.code1 = 'PR038';
                     this.gettwoclass("PR038001");
@@ -611,6 +627,7 @@
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
+                    this.show5 = true;
                     this.rules.nominees[0].required = false;
                     this.rules.nomineerelationship[0].required = false;
                     this.rules.joiningday[0].required = false;
@@ -619,6 +636,7 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = true;
                 }
             },
             gettwoclass(val) {
