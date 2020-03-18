@@ -2314,7 +2314,7 @@
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
                   if (row.travelallowance / diffDate > jpregion1) {
                     Message({
-                      message: this.$t('输入人民币金额已经超过上限'),
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2322,7 +2322,7 @@
                 } else {
                   if (row.travelallowance / diffDate > jpregion2) {
                     Message({
-                      message: this.$t('输入人民币金额已经超过上限'),
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2335,7 +2335,7 @@
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
                   if (row.travelallowance / diffDate > jpregion8) {
                     Message({
-                      message: this.$t('输入人民币金额已经超过上限'),
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2343,7 +2343,7 @@
                 } else {
                   if (row.travelallowance / diffDate > jpregion9) {
                     Message({
-                      message: this.$t('输入人民币金额已经超过上限'),
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
@@ -2374,7 +2374,7 @@
               if (row.region === 'PJ017001') {
                 if(row.travel / diffDate > jpregion3){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2384,7 +2384,7 @@
               } else if (row.region === 'PJ017002') {
                 if(row.travel / diffDate > jpregion4){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2392,7 +2392,7 @@
               } else if (row.region === 'PJ017003') {
                 if(row.travel / diffDate > jpregion5){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2400,7 +2400,7 @@
               } else if (row.region === 'PJ017004') {
                 if(row.travel / diffDate > jpregion6){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2410,7 +2410,7 @@
               if (row.region === 'PJ017001') {
                 if(row.travel / diffDate > jpregion10){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2418,7 +2418,7 @@
               } else if (row.region === 'PJ017002') {
                 if(row.travel / diffDate > jpregion11){
                   Message({
-                    message: this.$t('输入外币金额已经超过上限'),
+                    message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
