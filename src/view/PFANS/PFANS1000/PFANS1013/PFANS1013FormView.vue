@@ -220,6 +220,12 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <!--外币兑换-->
                 <el-row v-show="show2">
@@ -406,168 +412,168 @@
                     </el-collapse-item>
                   </el-collapse>
                 </el-row>
-                <el-row>
-                  <el-collapse>
-                    <el-collapse-item>
-                      <template slot="title">
-                        <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_SUBTOTAL')}}</span>
-                      </template>
-                      <el-col :span="24">
-                        <el-table :data="tableData"
-                                  :summary-method="getDsummaries"
-                                  border
-                                  header-cell-class-name="sub_bg_color_blue"
-                                  show-summary
-                                  stripe style="width: 46vw"
-                                  v-if="showdata">
-                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">
-                            <template slot-scope="scope">
-                              <dicselect :code="code14"
-                                         :data="scope.row.costitem"
-                                         :disabled="!disable"
-                                         :multiple="multiple"
-                                         :no="scope.row"
-                                         @change="getcostitem">
-                              </dicselect>
-                            </template>
-                          </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"
-                                           width="200">
-                            <template slot-scope="scope">
-                              <el-input-number
-                                :disabled="true"
-                                :precision="2"
-                                controls-position="right"
-                                style="width: 100%"
-                                v-model="scope.row.taxes">
-                              </el-input-number>
-                            </template>
-                          </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">
-                            <template slot-scope="scope">
-                              <el-input-number
-                                :disabled="true"
-                                :precision="2"
-                                @change="getValue"
-                                controls-position="right"
-                                style="width: 100%"
-                                v-model="scope.row.rmb">
-                              </el-input-number>
-                            </template>
-                          </el-table-column>
-                        </el-table>
-                      </el-col>
-                      <el-row>
-                        <el-col :span="24">
-                          <el-table :data="tableData2"
-                                    :summary-method="getsummaries"
-                                    border
-                                    header-cell-class-name="sub_bg_color_blue"
-                                    show-summary
-                                    stripe style="width: 70vw"
-                                    v-if="showdata2">
-                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">
-                              <template slot-scope="scope">
-                                <dicselect :code="code14"
-                                           :data="scope.row.costitem"
-                                           :disabled="!disable"
-                                           :multiple="multiple"
-                                           :no="scope.row"
-                                           @change="getcostitem">
-                                </dicselect>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"
-                                             prop="ratecurrency"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :no="scope.row"
-                                  :precision="2"
-                                  @change="getValue2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.ratecurrency">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"
-                                             prop="usdcurrency"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :no="scope.row"
-                                  :precision="2"
-                                  @change="getValue2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.usdcurrency">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"
-                                             prop="jpycurrency"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :no="scope.row"
-                                  :precision="2"
-                                  @change="getValue2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.jpycurrency">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :no="scope.row"
-                                  :precision="2"
-                                  @change="getValue2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.rmb">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :precision="2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.taxes">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total"
-                                             width="200">
-                              <template slot-scope="scope">
-                                <el-input-number
-                                  :disabled="true"
-                                  :no="scope.row"
-                                  :precision="2"
-                                  @change="getValue2"
-                                  controls-position="right"
-                                  style="width: 100%"
-                                  v-model="scope.row.total">
-                                </el-input-number>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-collapse-item>
-                  </el-collapse>
-                </el-row>
+<!--                <el-row>-->
+<!--                  <el-collapse>-->
+<!--                    <el-collapse-item>-->
+<!--                      <template slot="title">-->
+<!--                        <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_SUBTOTAL')}}</span>-->
+<!--                      </template>-->
+<!--                      <el-col :span="24">-->
+<!--                        <el-table :data="tableData"-->
+<!--                                  :summary-method="getDsummaries"-->
+<!--                                  border-->
+<!--                                  header-cell-class-name="sub_bg_color_blue"-->
+<!--                                  show-summary-->
+<!--                                  stripe style="width: 46vw"-->
+<!--                                  v-if="showdata">-->
+<!--                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <dicselect :code="code14"-->
+<!--                                         :data="scope.row.costitem"-->
+<!--                                         :disabled="!disable"-->
+<!--                                         :multiple="multiple"-->
+<!--                                         :no="scope.row"-->
+<!--                                         @change="getcostitem">-->
+<!--                              </dicselect>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
+<!--                          <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"-->
+<!--                                           width="200">-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <el-input-number-->
+<!--                                :disabled="true"-->
+<!--                                :precision="2"-->
+<!--                                controls-position="right"-->
+<!--                                style="width: 100%"-->
+<!--                                v-model="scope.row.taxes">-->
+<!--                              </el-input-number>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
+<!--                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <el-input-number-->
+<!--                                :disabled="true"-->
+<!--                                :precision="2"-->
+<!--                                @change="getValue"-->
+<!--                                controls-position="right"-->
+<!--                                style="width: 100%"-->
+<!--                                v-model="scope.row.rmb">-->
+<!--                              </el-input-number>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
+<!--                        </el-table>-->
+<!--                      </el-col>-->
+<!--                      <el-row>-->
+<!--                        <el-col :span="24">-->
+<!--                          <el-table :data="tableData2"-->
+<!--                                    :summary-method="getsummaries"-->
+<!--                                    border-->
+<!--                                    header-cell-class-name="sub_bg_color_blue"-->
+<!--                                    show-summary-->
+<!--                                    stripe style="width: 70vw"-->
+<!--                                    v-if="showdata2">-->
+<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <dicselect :code="code14"-->
+<!--                                           :data="scope.row.costitem"-->
+<!--                                           :disabled="!disable"-->
+<!--                                           :multiple="multiple"-->
+<!--                                           :no="scope.row"-->
+<!--                                           @change="getcostitem">-->
+<!--                                </dicselect>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"-->
+<!--                                             prop="ratecurrency"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :no="scope.row"-->
+<!--                                  :precision="2"-->
+<!--                                  @change="getValue2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.ratecurrency">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"-->
+<!--                                             prop="usdcurrency"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :no="scope.row"-->
+<!--                                  :precision="2"-->
+<!--                                  @change="getValue2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.usdcurrency">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"-->
+<!--                                             prop="jpycurrency"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :no="scope.row"-->
+<!--                                  :precision="2"-->
+<!--                                  @change="getValue2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.jpycurrency">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :no="scope.row"-->
+<!--                                  :precision="2"-->
+<!--                                  @change="getValue2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.rmb">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :precision="2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.taxes">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total"-->
+<!--                                             width="200">-->
+<!--                              <template slot-scope="scope">-->
+<!--                                <el-input-number-->
+<!--                                  :disabled="true"-->
+<!--                                  :no="scope.row"-->
+<!--                                  :precision="2"-->
+<!--                                  @change="getValue2"-->
+<!--                                  controls-position="right"-->
+<!--                                  style="width: 100%"-->
+<!--                                  v-model="scope.row.total">-->
+<!--                                </el-input-number>-->
+<!--                              </template>-->
+<!--                            </el-table-column>-->
+<!--                          </el-table>-->
+<!--                        </el-col>-->
+<!--                      </el-row>-->
+<!--                    </el-collapse-item>-->
+<!--                  </el-collapse>-->
+<!--                </el-row>-->
               </div>
             </el-tab-pane>
             <!--            第二页-->
@@ -1105,7 +1111,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1249,6 +1255,7 @@
           otherfxrate: '',
           usexchangerate: getDictionaryInfo('PJ003001').value2,
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
+          personalcode: getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode,
         },
         buttonList: [
           {
@@ -1420,7 +1427,7 @@
         showAinner: true,
         showAout: false,
         showdata: true,
-        showdata2: false,
+        showdata2: true,
         showforeigncurrency: false,
         canStart: false,
         rank: '',
@@ -1801,6 +1808,7 @@
       },
       getUserids(val) {
         this.form.userid = val;
+        this.form.personalcode = getUserInfo(val).userinfo.personalcode;
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
         this.form.centerid = lst.centerNmae;
@@ -2069,10 +2077,10 @@
             sums[index] = '--';
           }
         });
-        this.getforeign(sums);
+        // this.getforeign(sums);
         this.getMoney(sums);
-        this.getValue(sums);
-        this.getValue2(sums);
+        // this.getValue(sums);
+        // this.getValue2(sums);
         return sums;
       },
       changebusiness(val) {
@@ -2467,96 +2475,88 @@
           // row.travel = varbusiness;
         }
       },
-      getforeign(sums) {
-        if (this.form.type === '0') {
-          this.form.totalcurrency = null;
-        }
-        if (this.form.type === '1') {
-          this.form.totalcurrency = sums[5] + this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13] + this.tableRValue[4];
-        }
-      },
+      // getforeign(sums) {
+      //   if (this.form.type === '0') {
+      //     this.form.totalcurrency = null;
+      //   }
+      //   if (this.form.type === '1') {
+      //     this.form.totalcurrency = sums[5] + this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13] + this.tableRValue[4];
+      //   }
+      // },
       getMoney(sums) {
         if (this.form.type === '0') {
-          if (this.accountcodeValue !== '') {
-            this.form.totalpay = sums[9] + this.tableRValue[8] + this.tableAValue[13] + this.tableAValue[14];
-          } else {
-            this.form.totalpay = sums[9] + this.tableRValue[7] + this.tableAValue[13] + this.tableAValue[14];
-          }
+          this.form.totalpay = sums[10] + this.tableRValue[10] + this.tableAValue[11]
         } else if (this.form.type === '1') {
-          if (this.accountcodeValue !== '') {
-            this.form.totalpay = sums[9] + this.tableRValue[8] + this.tableAValue[13];
-          } else {
-            this.form.totalpay = sums[9] + this.tableRValue[7] + this.tableAValue[13];
-          }
+          this.form.totalpay = sums[10] + this.tableRValue[10] + this.tableAValue[13];
         }
         this.form.balance = this.form.loanamount - this.form.totalpay;
       },
-      getValue(sums) {
-        this.tableData[0].rmb = sums[9];
-        this.tableData[1].rmb = this.tableAValue[10];
-        this.tableData[2].rmb = this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13];
-        if (this.accountcodeValue !== '') {
-          this.tableData[3].rmb = this.tableRValue[8];
-        } else {
-          this.tableData[3].rmb = this.tableRValue[7];
-        }
-
-      },
-      getValue2(sums) {
-        this.tableData2[0].rmb = sums[9];
-        this.tableData2[1].rmb = this.tableAValue[11];
-        if (this.accountcodeValue !== '') {
-          this.tableData2[3].rmb = this.tableRValue[8];
-        } else {
-          this.tableData2[3].rmb = this.tableRValue[7];
-        }
-        for (var i = 0; i < this.tableData2.length; i++) {
-          this.tableData2[i].total = this.tableData2[i].rmb;
-        }
-        if (this.form.currency === 'PJ003001') {
-          this.tableData2[0].usdcurrency = sums[10];
-          this.tableData2[1].usdcurrency = this.tableAValue[11];
-          this.tableData2[2].usdcurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue !== '') {
-            this.tableData2[3].usdcurrency = this.tableRValue[9];
-          } else {
-            this.tableData2[3].usdcurrency = this.tableRValue[8];
-          }
-          for (var i = 0; i < this.tableData2.length; i++) {
-            this.tableData2[i].jpycurrency = '';
-            this.tableData2[i].ratecurrency = '';
-            this.tableData2[i].total = this.tableData2[i].usdcurrency * this.form.dollarfxrate + this.tableData2[i].rmb;
-          }
-        } else if (this.form.currency === 'PJ003002') {
-          this.tableData2[0].jpycurrency = sums[10];
-          this.tableData2[1].jpycurrency = this.tableAValue[11];
-          this.tableData2[2].jpycurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue !== '') {
-            this.tableData2[3].jpycurrency = this.tableRValue[9];
-          } else {
-            this.tableData2[3].jpycurrency = this.tableRValue[8];
-          }
-          for (var i = 0; i < this.tableData2.length; i++) {
-            this.tableData2[i].usdcurrency = '';
-            this.tableData2[i].ratecurrency = '';
-            this.tableData2[i].total = this.tableData2[i].jpycurrency * this.form.jpyfxrate + this.tableData2[i].rmb;
-          }
-        } else if (this.form.currency === 'PJ003003') {
-          this.tableData2[0].ratecurrency = sums[10];
-          this.tableData2[1].ratecurrency = this.tableAValue[11];
-          this.tableData2[2].ratecurrency = this.tableAValue[12] + this.tableAValue[13];
-          if (this.accountcodeValue !== '') {
-            this.tableData2[3].ratecurrency = this.tableRValue[9];
-          } else {
-            this.tableData2[3].ratecurrency = this.tableRValue[8];
-          }
-          for (var i = 0; i < this.tableData2.length; i++) {
-            this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
-            this.tableData2[i].usdcurrency = '';
-            this.tableData2[i].jpycurrency = '';
-          }
-        }
-      },
+      // getValue(sums) {
+      //   this.tableData[0].rmb = sums[9];
+      //   this.tableData[1].rmb = this.tableAValue[10];
+      //   this.tableData[2].rmb = this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13];
+      //   if (this.accountcodeValue !== '') {
+      //     this.tableData[3].rmb = this.tableRValue[8];
+      //   } else {
+      //     this.tableData[3].rmb = this.tableRValue[7];
+      //   }
+      //
+      // },
+      // getValue2(sums) {
+      //   this.tableData2[0].rmb = sums[9];
+      //   this.tableData2[1].rmb = this.tableAValue[11];
+      //   if (this.accountcodeValue !== '') {
+      //     this.tableData2[3].rmb = this.tableRValue[8];
+      //   } else {
+      //     this.tableData2[3].rmb = this.tableRValue[7];
+      //   }
+      //   for (var i = 0; i < this.tableData2.length; i++) {
+      //     this.tableData2[i].total = this.tableData2[i].rmb;
+      //   }
+      //   if (this.form.currency === 'PJ003001') {
+      //     this.tableData2[0].usdcurrency = sums[10];
+      //     this.tableData2[1].usdcurrency = this.tableAValue[11];
+      //     this.tableData2[2].usdcurrency = this.tableAValue[12] + this.tableAValue[13];
+      //     if (this.accountcodeValue !== '') {
+      //       this.tableData2[3].usdcurrency = this.tableRValue[9];
+      //     } else {
+      //       this.tableData2[3].usdcurrency = this.tableRValue[8];
+      //     }
+      //     for (var i = 0; i < this.tableData2.length; i++) {
+      //       this.tableData2[i].jpycurrency = '';
+      //       this.tableData2[i].ratecurrency = '';
+      //       this.tableData2[i].total = this.tableData2[i].usdcurrency * this.form.dollarfxrate + this.tableData2[i].rmb;
+      //     }
+      //   } else if (this.form.currency === 'PJ003002') {
+      //     this.tableData2[0].jpycurrency = sums[10];
+      //     this.tableData2[1].jpycurrency = this.tableAValue[11];
+      //     this.tableData2[2].jpycurrency = this.tableAValue[12] + this.tableAValue[13];
+      //     if (this.accountcodeValue !== '') {
+      //       this.tableData2[3].jpycurrency = this.tableRValue[9];
+      //     } else {
+      //       this.tableData2[3].jpycurrency = this.tableRValue[8];
+      //     }
+      //     for (var i = 0; i < this.tableData2.length; i++) {
+      //       this.tableData2[i].usdcurrency = '';
+      //       this.tableData2[i].ratecurrency = '';
+      //       this.tableData2[i].total = this.tableData2[i].jpycurrency * this.form.jpyfxrate + this.tableData2[i].rmb;
+      //     }
+      //   } else if (this.form.currency === 'PJ003003') {
+      //     this.tableData2[0].ratecurrency = sums[10];
+      //     this.tableData2[1].ratecurrency = this.tableAValue[11];
+      //     this.tableData2[2].ratecurrency = this.tableAValue[12] + this.tableAValue[13];
+      //     if (this.accountcodeValue !== '') {
+      //       this.tableData2[3].ratecurrency = this.tableRValue[9];
+      //     } else {
+      //       this.tableData2[3].ratecurrency = this.tableRValue[8];
+      //     }
+      //     for (var i = 0; i < this.tableData2.length; i++) {
+      //       this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
+      //       this.tableData2[i].usdcurrency = '';
+      //       this.tableData2[i].jpycurrency = '';
+      //     }
+      //   }
+      // },
         getcurrency(val,row) {
         row.currency = val;
         let curinfo = getDictionaryInfo(val);
