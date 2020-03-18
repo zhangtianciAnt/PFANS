@@ -284,10 +284,8 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
-                      <!--</el-input>-->
                       <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
-                               @change="changePro">
+                               @change="changePro" :disabled="!disabled">
                       </project>
                     </template>
                   </el-table-column>
@@ -319,7 +317,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center"  prop="papercontract" width="120">
                   <template slot-scope="scope">
-                    <el-input   v-model="scope.row.papercontract">
+                    <el-input   v-model="scope.row.papercontract" :disabled="!disabled">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -354,10 +352,6 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state" width="200">
-                  <template slot-scope="scope">
-                    <el-input   v-model="scope.row.state">
-                    </el-input>
-                  </template>
                 </el-table-column>
               </el-table>
           <el-table :data="tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
