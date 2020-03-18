@@ -518,7 +518,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                                       :disabled="!disable">
                               <el-option
                                 v-for="item in optionsdata"
                                 :key="item.value"
@@ -532,6 +533,7 @@
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
                                  orgtype="2"
+                                 :disabled="!disable"
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
@@ -736,9 +738,9 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                                       :disabled="!disable">
                               <el-option
-                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -938,9 +940,9 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable>
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                                       :disabled="!disable">
                               <el-option
-                                :disabled="!disable"
                                 v-for="item in optionsdata"
                                 :key="item.value"
                                 :label="item.lable"
@@ -2021,7 +2023,7 @@
                             this.code16 = 'PJ137';
                     }
                 }
-                
+
             },
             getcode(val, row) {
                 row.accountcode = val;
@@ -2156,25 +2158,124 @@
             },
             getCurrency(val, row) {
                 row.currency = val;
-                if (val === 'PJ003001') {
-                    this.disablecurr = false;
-                    let dictionaryInfo = getDictionaryInfo(val);
-                    if (dictionaryInfo) {
-                        row.currencyrate = dictionaryInfo.value2;
+                let error = 0;
+                if (this.form.type === 'PJ001001') {
+                    if (this.tableT.length > 1) {
+                        for (let i = 0; i < this.tableT.length; i++) {
+                            for (let j = 1; j < this.tableT.length; j++) {
+                                if (this.tableT[i].currency != this.tableT[j].currency) {
+                                    error = error + 1
+                                    Message({
+                                        message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    break;
+                                }
+                                continue
+                            }
+                            break
+                        }
                     }
-                } else if (val === 'PJ003002') {
-                    this.disablecurr = false;
-                    let dictionaryInfo = getDictionaryInfo(val);
-                    if (dictionaryInfo) {
-                        row.currencyrate = dictionaryInfo.value2;
+                } else if (this.form.type === 'PJ001002') {
+                    if (this.tableP.length > 1) {
+                        for (let i = 0; i < this.tableP.length; i++) {
+                            for (let j = 1; j < this.tableP.length; j++) {
+                                if (this.tableP[i].currency != this.tableP[j].currency) {
+                                    error = error + 1
+                                    Message({
+                                        message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    break;
+                                }
+                                continue
+                            }
+                            break
+                        }
                     }
-                } else if (val === 'PJ003003') {
-                    this.disablecurr = true;
-                    row.currencyrate = '';
+                    if (error == '0') {
+                        if (this.tableP.length > 1) {
+                            for (let i = 0; i < this.tableP.length; i++) {
+                                if (this.tableR[0].currency != '') {
+                                    for (let j = 0; j < this.tableR.length; j++) {
+                                        if (this.tableP[i].currency != this.tableR[j].currency) {
+                                            error = error + 1
+                                            Message({
+                                                message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            break;
+                                        }
+                                    }
+                                }
+                                break
+                            }
+                        }
+                    }
+                    if (error == '0') {
+                        if (this.tableR.length > 1) {
+                            for (let i = 0; i < this.tableR.length; i++) {
+                                if (this.tableP[0].currency != '') {
+                                    for (let j = 0; j < this.tableP.length; j++) {
+                                        if (this.tableR[i].currency != this.tableP[j].currency) {
+                                            error = error + 1
+                                            Message({
+                                                message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            break;
+                                        }
+                                    }
+                                    break
+                                }
+                            }
+                        }
+                    }
+                    if (error == '0') {
+                        if (this.tableR.length > 1) {
+                            for (let i = 0; i < this.tableR.length; i++) {
+                                for (let j = 1; j < this.tableR.length; j++) {
+                                    if (this.tableR[i].currency != this.tableR[j].currency) {
+                                        error = error + 1
+                                        Message({
+                                            message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        break;
+                                    }
+                                    continue
+                                }
+                                break
+                            }
+                        }
+                    }
                 }
-                row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
-                this.tormbT = Number(this.tormbT) + row.tormb;
-                this.form.tormb = this.tormbT;
+                if (error == '0') {
+                    if (val === 'PJ003001') {
+                        this.disablecurr = false;
+                        let dictionaryInfo = getDictionaryInfo(val);
+                        if (dictionaryInfo) {
+                            row.currencyrate = dictionaryInfo.value2;
+                        }
+                    } else if (val === 'PJ003002') {
+                        this.disablecurr = false;
+                        let dictionaryInfo = getDictionaryInfo(val);
+                        if (dictionaryInfo) {
+                            row.currencyrate = dictionaryInfo.value2;
+                        }
+                    } else if (val === 'PJ003003') {
+                        this.disablecurr = true;
+                        row.currencyrate = '';
+                    }
+                    row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
+                    this.tormbT = Number(this.tormbT) + row.tormb;
+                    this.form.tormb = this.tormbT;
+                }
             },
             getCurrencyrate(row) {
                 row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;

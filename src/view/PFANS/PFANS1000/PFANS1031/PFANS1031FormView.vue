@@ -252,6 +252,10 @@
           .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
+              this.form.openingdate = this.form.claimdatetime.slice(0, 10);
+              this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+            }
             if (response.depositjapanese !== null && response.depositjapanese !== "") {
               let letUser = getUserInfo(response.depositjapanese);
               if (letUser != null) {
@@ -273,6 +277,9 @@
     },
     methods: {
       buttonClick(val) {
+        if(this.form.openingdate!=="" && this.form.enddate!==""){
+          this.form.claimdatetime=moment(this.form.openingdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
+        }
         // this.$refs['refform'].validate(valid => {
         //   if (valid) {
         //     this.loading = true;

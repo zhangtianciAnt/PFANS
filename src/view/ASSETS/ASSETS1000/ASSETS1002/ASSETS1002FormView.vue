@@ -42,7 +42,7 @@
                 <!--<el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">-->
                 <!--</el-table-column>-->
               <!--</el-table>-->
-              <EasyNormalTable :columns="columns" :data="tableD" :rowid="row_id" :buttonShow="buttonShow"
+              <EasyNormalTable :columns="columns" :data="tableD" :rowid="row_id" :buttonShow="buttonShow" :titleShow="titleShow"
                                :showSelection="showSelection" @rowClick="rowClick" :buttonList="buttonList"
                                ref="roletable">
                 <el-select @change="changed" slot="customize" v-model="department">
@@ -125,6 +125,7 @@
         department: '',
         options: [],
         buttonShow:false,
+        titleShow:false,
         loading: false,
         error: '',
         row_id: 'assets_id',
