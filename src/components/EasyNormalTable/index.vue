@@ -1,11 +1,11 @@
 <template>
   <div class="EasyNormalTable" style="min-height: 100%" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
-      <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
+      <div class="clearfix" slot="header" style="height: 20px" v-if="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
-      <div align="right" class="filter-container">
+      <div align="right" class="filter-container" v-if="titleShow">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
@@ -142,6 +142,10 @@
         }
       },
       buttonShow:{
+        type:Boolean,
+        default:true
+      },
+      titleShow:{
         type:Boolean,
         default:true
       },
