@@ -3,7 +3,7 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="dialogFormVisible" @closed="close">
+    <el-dialog :visible.sync="dialogFormVisible" @closed="close" v-loading="loading">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
                ref="refform" style="padding: 2vw">
         <el-row>
@@ -209,6 +209,7 @@
       click() {
         this.$refs['refform'].validate(valid => {
             if (valid) {
+              this.loading = true;
               this.$store
                 .dispatch("PFANS2027Store/insertLunarbonus", this.form)
                 .then(response => {

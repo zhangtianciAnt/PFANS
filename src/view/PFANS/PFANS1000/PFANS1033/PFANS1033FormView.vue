@@ -48,7 +48,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -415,6 +415,14 @@
          project
         },
       data(){
+        var groupId = (rule, value, callback) => {
+          if (!this.form.group_id || this.form.group_id === "") {
+            callback(new Error(this.$t("normal.error_08") + "group"));
+            this.error = this.$t("normal.error_08") + "group";
+          } else {
+            callback();
+          }
+        };
         return{
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
@@ -455,7 +463,15 @@
           disabled2: true,
           disabled3: false,
           disabled4: false,
-          rules: {},
+          rules: {
+            group: [
+              {
+                required: true,
+                validator: groupId,
+                trigger: "change"
+              }
+            ],
+          },
           buttonList:[
             {
               key: 'application',

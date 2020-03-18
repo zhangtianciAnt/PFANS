@@ -1454,7 +1454,6 @@
                   response.accommodationdetails[i].accommodationdate = [starttime, endtime];
                 }
               }
-              debugger;
               this.tableA = response.accommodationdetails;
               for (var i = 0; i < this.tableA.length; i++) {
                 if (this.$route.params.method === 'view') {
@@ -1713,7 +1712,7 @@
           accommodationdate: [],
           invoicenumber: '',
           plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-          accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
+          accountcode: this.Redirict === '0' ? 'PJ119001' : 'PJ132001',
           budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
@@ -1739,7 +1738,7 @@
             accommodationdate: [],
             invoicenumber: '',
             plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-            accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
+            accountcode: this.Redirict === '0' ? 'PJ119005' : 'PJ132005',
             budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
             subjectnumber: '',
             departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
@@ -1820,7 +1819,7 @@
         row.invoicetype = val;
       },
       changeSum(row) {
-        if (row.taxrate == '') {
+        if (row.taxrate === '') {
           row.facetax = '';
         } else {
           row.facetax = row.invoiceamount - row.excludingtax;
@@ -2060,10 +2059,10 @@
                 return prev;
               }
             }, 0);
-            if (index == 4) {
+            if (index === 4) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 5) {
+            if (index === 5) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2137,13 +2136,13 @@
                 return prev;
               }
             }, 0);
-            if (index == 7) {
+            if (index === 7) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 8) {
+            if (index === 8) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 10) {
+            if (index === 10) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2171,10 +2170,10 @@
                 return prev;
               }
             }, 0);
-            if (index == 3) {
+            if (index === 3) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 4) {
+            if (index === 4) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2202,7 +2201,7 @@
                 return prev;
               }
             }, 0);
-            if (index == 1) {
+            if (index === 1) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2357,7 +2356,6 @@
             row.travelallowance = Number(row.travelallowance + 100) * diffDate;
           }
         } else if (this.form.type === '1') {
-          debugger;
           var accfig;
           var regionflg;
           if(row.region === 'PJ017001' || row.region === 'PJ017002'){
