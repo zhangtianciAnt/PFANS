@@ -91,13 +91,6 @@
             width: 120,
             fix: false,
             filter: true
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true
           }
         ],
         buttonList: [
