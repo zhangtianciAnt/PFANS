@@ -109,7 +109,7 @@
                                   class="bigWidth"
                                   :disabled="!disabled"
                                   :readonly="!scope.row.dis"
-                                  v-model.trim="scope.row.startdate"
+                                  v-model="scope.row.startdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"

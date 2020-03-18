@@ -59,7 +59,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
                 <el-input :disabled="!disable" maxlength="11" style="width:20vw"
-                          v-model.trim="form.mobilephone"></el-input>
+                          v-model="form.mobilephone"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -100,19 +100,19 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.origin"></el-input>
+                          v-model="form.origin"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_TRANSFERSTATION')" prop="transferstation">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.transferstation"></el-input>
+                          v-model="form.transferstation"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DESTINATION')" prop="destination">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.destination"></el-input>
+                          v-model="form.destination"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -121,7 +121,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber" v-show="show2">
                   <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                            v-model.trim="form.flightnumber"></el-input>
+                            v-model="form.flightnumber"></el-input>
                 </el-form-item>
               </template>
             </el-col>
@@ -141,7 +141,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity" v-show="show2">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.departurecity"></el-input>
+                          v-model="form.departurecity"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -176,7 +176,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERSNAME')" v-show="show" prop="fellowmembersname">
                 <el-input :disabled="!disable" maxlength='36' style="width:20vw"
-                          v-model.trim="form.fellowmembersname" ></el-input>
+                          v-model="form.fellowmembersname" ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -185,7 +185,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname" v-show="show2">
                   <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                            v-model.trim="form.guestname"></el-input>
+                            v-model="form.guestname"></el-input>
                 </el-form-item>
               </template>
             </el-col>
@@ -193,7 +193,7 @@
               <el-form-item :label="$t('label.PFANS3006VIEW_USENUMBER')" prop="usenumber">
                 <el-input-number :disabled="!disable" controls-position="right" :precision="0" :step="1" :min="0"
                                  :max="999" style="width:20vw"
-                                 v-model.trim="form.usenumber"></el-input-number>
+                                 v-model="form.usenumber"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>

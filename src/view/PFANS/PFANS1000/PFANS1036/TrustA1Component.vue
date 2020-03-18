@@ -13,7 +13,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money4">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="(currentValue, oldValue) => changeSum(scope.row,4,oldValue,currentValue)" :step="1"
-                           v-model.trim="scope.row.money4">
+                           v-model="scope.row.money4">
           </el-input-number>
         </template>
       </el-table-column>
@@ -22,7 +22,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money5">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1" @change="changeSum(scope.row,5)" :step="1"
-                           v-model.trim="scope.row.money5"></el-input-number>
+                           v-model="scope.row.money5"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -30,7 +30,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money6">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,6)" :step="1"
-                           v-model.trim="scope.row.money6"></el-input-number>
+                           v-model="scope.row.money6"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -38,7 +38,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money7">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,7)" :step="1"
-                           v-model.trim="scope.row.money7"></el-input-number>
+                           v-model="scope.row.money7"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -46,7 +46,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money8">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,8)" :step="1"
-                           v-model.trim="scope.row.money8"></el-input-number>
+                           v-model="scope.row.money8"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -54,7 +54,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money9">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,9)" :step="1"
-                           v-model.trim="scope.row.money9"></el-input-number>
+                           v-model="scope.row.money9"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -66,7 +66,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money10">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,10)" :step="1"
-                           v-model.trim="scope.row.money10"></el-input-number>
+                           v-model="scope.row.money10"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -74,7 +74,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money11">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0" :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,11)" :step="1"
-                           v-model.trim="scope.row.money11"></el-input-number>
+                           v-model="scope.row.money11"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -82,7 +82,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money12">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,12)" :step="1"
-                           v-model.trim="scope.row.money12"></el-input-number>
+                           v-model="scope.row.money12"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -90,7 +90,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money1">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,1)" :step="1"
-                           v-model.trim="scope.row.money1"></el-input-number>
+                           v-model="scope.row.money1"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -98,7 +98,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money2">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,2)" :step="1"
-                           v-model.trim="scope.row.money2"></el-input-number>
+                           v-model="scope.row.money2"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>
@@ -106,7 +106,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money3">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="scope.$index === 0"  :min="0" controls-position="right" :precision="1"  @change="changeSum(scope.row,3)" :step="1"
-                           v-model.trim="scope.row.money3"></el-input-number>
+                           v-model="scope.row.money3"></el-input-number>
         </template>
       </el-table-column>
     </el-table-column>

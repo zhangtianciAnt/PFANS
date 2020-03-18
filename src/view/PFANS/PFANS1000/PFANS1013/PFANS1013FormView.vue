@@ -755,7 +755,7 @@
                                         class="bigWidth"
                                         type="daterange"
                                         unlink-panels
-                                        v-model.trim="scope.row.accommodationdate"
+                                        v-model="scope.row.accommodationdate"
                                         @change="getTravel(scope.row)"
                         ></el-date-picker>
                       </template>

@@ -201,7 +201,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.april">
+                        v-model="scope.row.april">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -219,7 +219,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.may">
+                        v-model="scope.row.may">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -237,7 +237,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.june">
+                        v-model="scope.row.june">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -255,7 +255,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.july">
+                        v-model="scope.row.july">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -273,7 +273,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.august">
+                        v-model="scope.row.august">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -291,7 +291,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.september">
+                        v-model="scope.row.september">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -309,7 +309,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.october">
+                        v-model="scope.row.october">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -327,7 +327,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.november">
+                        v-model="scope.row.november">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -345,7 +345,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.december">
+                        v-model="scope.row.december">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -363,7 +363,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.january">
+                        v-model="scope.row.january">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -381,7 +381,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.february">
+                        v-model="scope.row.february">
                       </el-input-number>
                     </template>
                   </el-table-column>
@@ -399,7 +399,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:8vw"
-                        v-model.trim="scope.row.march">
+                        v-model="scope.row.march">
                       </el-input-number>
                     </template>
                   </el-table-column>

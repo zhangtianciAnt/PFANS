@@ -94,7 +94,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_YYFS')" prop="printscore">
                 <el-input-number :disabled="!disable" :min="0" :step="1" :max="9999999999" :precision="0" style="width:20vw"
-                                 v-model.trim="form.printscore"></el-input-number>
+                                 v-model="form.printscore"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">

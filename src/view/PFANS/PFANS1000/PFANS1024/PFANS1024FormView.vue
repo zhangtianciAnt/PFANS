@@ -190,7 +190,7 @@
                   <el-date-picker unlink-panels
                                   class="bigWidth"
                                   :disabled="!disabled"
-                                  v-model.trim="scope.row.contractdate"
+                                  v-model="scope.row.contractdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
