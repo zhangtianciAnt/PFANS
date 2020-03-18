@@ -198,7 +198,6 @@
                     this.$store
                         .dispatch('PFANS1012Store/gettotalcost', this.selectedList)
                         .then(response => {
-                            debugger
                             this.selectedlist = this.$refs.roletable.selectedList;
                             let sum = 0;
                             let invoiceamountvalue = 0;
