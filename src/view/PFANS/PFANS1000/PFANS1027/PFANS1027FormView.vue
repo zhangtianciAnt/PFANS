@@ -674,7 +674,6 @@
                         }
                       }
                       this.tablefirst = response.numbercounts;
-                      debugger;
                       if (response.personfee.length > 0) {
                         for (let index = 0; index < response.personfee.length; index++) {
                           response.personfee[index].name1 = this.tablethird1[index].name1;
