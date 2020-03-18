@@ -77,20 +77,20 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'openingdate',
-            label: 'label.PFANS1025VIEW_OPENINGDATE',
-            width: 140,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'enddate',
-            label: 'label.PFANS1025VIEW_ENDDATE',
-            width: 140,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'openingdate',
+          //   label: 'label.PFANS1025VIEW_OPENINGDATE',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true
+          // },
+          // {
+          //   code: 'enddate',
+          //   label: 'label.PFANS1025VIEW_ENDDATE',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'deliveryfinshdate',
             label: 'label.PFANS1024VIEW_DELIVERYFINSHDATE',
@@ -98,17 +98,9 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true
-          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
         row_id: 'petition_id'

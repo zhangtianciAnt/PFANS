@@ -13,15 +13,8 @@ export function getYears(data) {
   return request({
     url: 'delegainformation/getYears',
     method: 'get',
-    data: data,
+    params: data,
   });
 }
 
-export function getDelegainformation(data) {
-  return request({
-    url: 'delegainformation/get',
-    method: 'get',
-    params: data
-  })
-}
 

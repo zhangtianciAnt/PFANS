@@ -48,7 +48,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
               <org  :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId" :disabled="!disabled2"></org>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -272,7 +272,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
+                      <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -415,6 +415,14 @@
          project
         },
       data(){
+        var groupId = (rule, value, callback) => {
+          if (!this.form.group_id || this.form.group_id === "") {
+            callback(new Error(this.$t("normal.error_08") + "group"));
+            this.error = this.$t("normal.error_08") + "group";
+          } else {
+            callback();
+          }
+        };
         return{
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
@@ -454,7 +462,16 @@
           disabled1: false,
           disabled2: true,
           disabled3: false,
-          rules: {},
+          disabled4: false,
+          rules: {
+            group: [
+              {
+                required: true,
+                validator: groupId,
+                trigger: "change"
+              }
+            ],
+          },
           buttonList:[
             {
               key: 'application',
