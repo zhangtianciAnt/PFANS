@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">
+  <div style="min-height: 100%" class="dpSupIndex">
     <EasyNormalContainer :buttonList="buttonList"
                          @buttonClick="buttonClick"
                          ref="container"
@@ -18,14 +18,124 @@
               </el-col>
             </el-row>
             <el-row style="padding-top: 20px">
-              <EasyNormalTable :buttonShow="buttonShow" :columns="columns" :data="data" :titleShow="titleShow">
-              </EasyNormalTable>
+              <el-table header-cell-class-name="sub_bg_color_blue" :data="data1" ref="eltable1" stripe border :cell-class-name = "rowheight">
+              </el-table>
             </el-row>
           </el-tab-pane>
           <el-tab-pane :label="title2" name="second">
-            <EasyNormalTable :buttonShow="buttonShow" :titleShow="titleShow" :data="data2" :columns="columns2">
-
-            </EasyNormalTable>
+           <el-table header-cell-class-name="sub_bg_color_blue" :data="data2" ref="eltable2" stripe border :cell-class-name = "rowheight" :span-method="spanmethod2">
+             <el-table-column prop="title1" :label="$t('label.PFANS1027FORMVIEW_COL1')" width="120">
+             </el-table-column>
+             <el-table-column prop="title2" :label="$t('label.PFANS1027FORMVIEW_COL2')" width="120">
+             </el-table-column>
+             <el-table-column prop="title3" :label="$t('label.PFANS1027FORMVIEW_COL3')" width="150" :formatter="formatter" show-overflow-tooltip>
+             </el-table-column>
+             <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL4T')">
+               <el-table-column prop="title4T1" :label="$t('label.PFANS1027FORMVIEW_COL4T1')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T2" :label="$t('label.PFANS1027FORMVIEW_COL4T2')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T3" :label="$t('label.PFANS1027FORMVIEW_COL4T3')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T4" :label="$t('label.PFANS1027FORMVIEW_COL4T4')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T5" :label="$t('label.PFANS1027FORMVIEW_COL4T5')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T6" :label="$t('label.PFANS1027FORMVIEW_COL4T6')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T7" :label="$t('label.PFANS1027FORMVIEW_COL4T7')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+               <el-table-column prop="title4T8" :label="$t('label.PFANS1027FORMVIEW_COL4T8')" width="120" :formatter="formatter" show-overflow-tooltip>
+               </el-table-column>
+             </el-table-column>
+             <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T')">
+               <el-table-column prop="r5" :label="$t('label.PFANS1027FORMVIEW_COL5T1')" width="120">
+                 <template slot-scope="scope">
+                   <el-select v-model="scope.row.r5">
+                     <el-option
+                       v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+                     </el-option>
+                   </el-select>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r5rate" :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="150">
+                 <template slot-scope="scope">
+                   <el-input-number v-model="scope.row.r5rate" controls-position="right" :min="0" :max="100" :step="5" size="mini"></el-input-number>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r6" :label="$t('label.PFANS1027FORMVIEW_COL5T2')" width="120">
+                 <template slot-scope="scope">
+                   <el-select v-model="scope.row.r6">
+                     <el-option
+                       v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+                     </el-option>
+                   </el-select>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r6rate" :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="150">
+                 <template slot-scope="scope">
+                   <el-input-number v-model="scope.row.r6rate" controls-position="right" :min="0" :max="100" :step="5" size="mini"></el-input-number>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r81" :label="$t('label.PFANS1027FORMVIEW_COL5T3')" width="120">
+                 <template slot-scope="scope">
+                   <el-select v-model="scope.row.r81">
+                     <el-option
+                       v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+                     </el-option>
+                   </el-select>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r81rate" :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="150">
+                 <template slot-scope="scope">
+                   <el-input-number v-model="scope.row.r81rate" controls-position="right" :min="0" :max="100" :step="5" size="mini"></el-input-number>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r82" :label="$t('label.PFANS1027FORMVIEW_COL5T4')" width="120">
+                 <template slot-scope="scope">
+                   <el-select v-model="scope.row.r82">
+                     <el-option
+                       v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+                     </el-option>
+                   </el-select>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r82rate" :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="150">
+                 <template slot-scope="scope">
+                   <el-input-number v-model="scope.row.r82rate" controls-position="right" :min="0" :max="100" :step="5" size="mini"></el-input-number>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r83" :label="$t('label.PFANS1027FORMVIEW_COL5T5')" width="160">
+                 <template slot-scope="scope">
+                   <el-select v-model="scope.row.r83">
+                     <el-option
+                       v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+                     </el-option>
+                   </el-select>
+                 </template>
+               </el-table-column>
+               <el-table-column prop="r83rate" :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="150">
+                 <template slot-scope="scope">
+                   <el-input-number v-model="scope.row.r83rate" controls-position="right" :min="0" :max="100" :step="5" size="mini"></el-input-number>
+                 </template>
+               </el-table-column>
+             </el-table-column>
+           </el-table>
           </el-tab-pane>
         </el-tabs>
 
@@ -56,23 +166,209 @@
         code14: 'PJ103',
         buttonShow:false,
         titleShow:false,
-        columns:[
+        data2:[
           {
-            code: 'filename',
-            label: 'label.ASSETS1001VIEW_FILENAME',
-            width: 120,
-            fix: false,
-            filter: false,
+            index:"1",
+            title1:"経営・運営成果",
+            title2:"系统联动",
+            code:"PJ08901",
+            r5:"0",
+            r5rate:"0",
+            r6:"0",
+            r6rate:"0",
+            r81:"0",
+            r81rate:"0",
+            r82:"0",
+            r82rate:"0",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"2",
+            title1:"経営・運営成果",
+            title2:"系统联动",
+            code:"PJ08902",
+            r5:"0",
+            r5rate:"0",
+            r6:"0",
+            r6rate:"0",
+            r81:"0",
+            r81rate:"0",
+            r82:"0",
+            r82rate:"0",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"3",
+            title1:"経営・運営成果",
+            title2:"系统联动",
+            code:"PJ08903",
+            r5:"0",
+            r5rate:"0",
+            r6:"0",
+            r6rate:"0",
+            r81:"1",
+            r81rate:"20",
+            r82:"0",
+            r82rate:"0",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"4",
+            title1:"経営・運営成果",
+            title2:"系统联动",
+            code:"PJ08904",
+            r5:"0",
+            r5rate:"0",
+            r6:"0",
+            r6rate:"0",
+            r81:"1",
+            r81rate:"20",
+            r82:"0",
+            r82rate:"0",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"5",
+            title1:"PJ管理",
+            title2:"系统联动",
+            code:"PJ08905",
+            r5:"1",
+            r5rate:"60",
+            r6:"1",
+            r6rate:"60",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"60",
+            r83:"1",
+            r83rate:"20",
+          },
+          {
+            index:"6",
+            title1:"PJ管理",
+            title2:"系统联动",
+            code:"PJ08906",
+            r5:"1",
+            r5rate:"60",
+            r6:"1",
+            r6rate:"60",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"60",
+            r83:"0",
+            r83rate:"0",
+          },
+          {
+            index:"7",
+            title1:"PJ管理",
+            title2:"系统联动",
+            code:"PJ08907",
+            r5:"1",
+            r5rate:"60",
+            r6:"1",
+            r6rate:"60",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"60",
+            r83:"0",
+            r83rate:"0",
+          },
+          {
+            index:"8",
+            title1:"PJ管理",
+            title2:"系统联动",
+            code:"PJ08908",
+            r5:"1",
+            r5rate:"60",
+            r6:"1",
+            r6rate:"60",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"60",
+            r83:"0",
+            r83rate:"0",
+          },
+          {
+            index:"9",
+            title1:"意欲",
+            title2:"系统联动",
+            code:"PJ08909",
+            r5:"1",
+            r5rate:"40",
+            r6:"1",
+            r6rate:"40",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"40",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"10",
+            title1:"意欲",
+            title2:"系统联动",
+            code:"PJ08910",
+            r5:"1",
+            r5rate:"40",
+            r6:"1",
+            r6rate:"40",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"40",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"11",
+            title1:"意欲",
+            title2:"系统联动",
+            code:"PJ08911",
+            r5:"1",
+            r5rate:"40",
+            r6:"1",
+            r6rate:"40",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"40",
+            r83:"1",
+            r83rate:"40",
+          },
+          {
+            index:"12",
+            title1:"意欲",
+            title2:"系统联动",
+            code:"PJ08912",
+            r5:"1",
+            r5rate:"40",
+            r6:"1",
+            r6rate:"40",
+            r81:"1",
+            r81rate:"40",
+            r82:"1",
+            r82rate:"40",
+            r83:"1",
+            r83rate:"40",
           },
         ],
-        columns2:[
+        options:[
           {
-            code: 'title1',
-            label: 'label.ASSETS1001VIEW_FILENAME',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: "0",
+            label: "-"
           },
+          {
+            value: "1",
+            label: "○"
+          }
         ]
       }
     },
@@ -90,27 +386,182 @@
       }
     },
     mounted() {
+      this.loading = true;
+      this.$store
+        .dispatch("PFANS2027Store/getOne", {"lunarbonus_id": this.$route.params._id})
+        .then(response => {
 
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+          Message({
+            message: err,
+            type: "error",
+            duration: 5 * 1000
+          });
+        });
     },
-    methods: {}
+    methods: {
+      formatter(row, column) {
+        if (column.property === "title3") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value1;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T1") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value2;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T2") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value3;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T3") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value4;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T4") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value5;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T5") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value6;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T6") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value7;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T7") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value8;
+            }else{
+              return "";
+            }
+          }
+        }if (column.property === "title4T8") {
+          if (row.code) {
+            let dic = getDictionaryInfo(row.code);
+            if(dic){
+              return dic.value9;
+            }else{
+              return "";
+            }
+          }
+        }
+      },
+      rowheight({row, column, rowIndex, columnIndex}){
+        let val = row[column.columnKey];
+        return 'row_height_left';
+      },
+      spanmethod2({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 0 || columnIndex === 12 || columnIndex === 14 || columnIndex === 16 || columnIndex === 18 || columnIndex === 20) {
+          if (rowIndex === 0) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          }else if (rowIndex === 4) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          }else if (rowIndex === 8) {
+            return {
+              rowspan: 4,
+              colspan: 1
+            };
+          }else{
+            return {
+              rowspan: 0,
+              colspan: 0
+            };
+          }
+        }
+      },
+      changeType(){
+
+      }
+    },
+    watch:{
+      data2: {
+        handler() {
+          for(let i=0;i<this.data2.length;i++){
+            if(i === 0 || i === 4 || i === 8){
+              this.data2[i+1].r5rate = this.data2[i].r5rate;
+              this.data2[i+2].r5rate = this.data2[i].r5rate;
+              this.data2[i+3].r5rate = this.data2[i].r5rate;
+
+              this.data2[i+1].r6rate = this.data2[i].r6rate;
+              this.data2[i+2].r6rate = this.data2[i].r6rate;
+              this.data2[i+3].r6rate = this.data2[i].r6rate;
+
+              this.data2[i+1].r81rate = this.data2[i].r81rate;
+              this.data2[i+2].r81rate = this.data2[i].r81rate;
+              this.data2[i+3].r81rate = this.data2[i].r81rate;
+
+              this.data2[i+1].r82rate = this.data2[i].r82rate;
+              this.data2[i+2].r82rate = this.data2[i].r82rate;
+              this.data2[i+3].r82rate = this.data2[i].r82rate;
+
+              this.data2[i+1].r83rate = this.data2[i].r83rate;
+              this.data2[i+2].r83rate = this.data2[i].r83rate;
+              this.data2[i+3].r83rate = this.data2[i].r83rate;
+            }
+          }
+        },
+        immediate: true,  //刷新加载 立马触发一次handler
+          deep: true  // 可以深度检测到 person 对象的属性值的变化
+      },
+    }
   }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
   .dpSupIndex {
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
-
-    .bg {
-      background: white;
-      border-width: 1px;
+    .row_height_left {
+      height: 40px;
+      font-size: 0.75rem;
+      padding: 0px;
+      text-align: left;
+      background-color: transparent !important;
     }
   }
 </style>
