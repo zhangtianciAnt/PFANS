@@ -13,7 +13,7 @@
                     @change="yearChange"
                     format="yyyy"
                     type="year"
-                    v-model="years">
+                    v-model="year">
                   </el-date-picker>
                 </div>
               </el-col>
@@ -21,7 +21,13 @@
             <el-row style="padding-top: 10px">
               <el-table :data="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
+                        @selection-change="handleSelectionChange"
                         style="width: 100%">
+                <!--checkbox-->
+                <el-table-column
+                  type="selection"
+                  width="55">
+                </el-table-column>
                 <!-- 序号-->
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -188,6 +194,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -205,6 +212,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -222,6 +230,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -239,6 +248,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -256,6 +266,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -273,6 +284,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -290,6 +302,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -307,6 +320,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -324,6 +338,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -341,6 +356,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -358,6 +374,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -375,6 +392,7 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
+                        :disabled="disable"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -406,6 +424,7 @@
                     width="200">
                     <template slot-scope="scope">
                       <el-input
+                        :disabled="disable"
                         :rows="1"
                         style="width: 10vw"
                         type="textarea"
@@ -519,8 +538,11 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
-        years: moment(new Date()).format("YYYY"),
+        year: moment(new Date()).format("YYYY"),
         row: '',
+        form: {
+          year: "",
+        },
         tableData: [{
           project_name: '',
           managerid: '',
@@ -556,6 +578,7 @@
         userlist: "",
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
+        disable: true,
         buttonList: [
           {
             'key': 'save',
@@ -571,29 +594,58 @@
       };
     },
     methods: {
+      getList(year) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6006Store/getYears', {year: year})
+          .then(response => {
+            console.log(response)
+            this.tableData = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       yearChange(value) {
-        this.years = moment(value).format('YYYY');
-        // this.getDelegainformation(value);
+        this.year = moment(value).format('YYYY');
+        this.getList(this.year);
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        this.disable = false;
       },
       buttonClick(val) {
         if (val === 'save') {
-          this.updateexpatriatesinfor();
+          this.loading = true;
+          for (let i of this.multipleSelection) {
+            this.updateDeleginformation();
+          }
         }
         // if (val === 'generate') {
         //   this.createDeleginformation();
         // }
       },
-      updateexpatriatesinfor() {
+      updateDeleginformation() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/updateexpatriatesinfor', this.tableData)
+          .dispatch('PFANS6006Store/updateDeleginformation', this.tableData)
           .then(response => {
+            this.data = response;
+            this.getList(this.year);
             Message({
               message: this.$t("normal.success_02"),
               type: "success",
               duration: 5 * 1000
             });
-            this.data = response;
+            this.$router.push({
+              name: 'PFANS6006View',
+            });
             this.loading = false;
           })
           .catch(error => {
@@ -636,20 +688,6 @@
             background: '#005BAA !important',
           };
         }
-      },
-      createDeleginformation() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6006Store/createDeleginformation', {})
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.getDelegainformation();
-            this.loading = false;
-          })
       },
       getDelegainformation() {
         this.loading = true;
@@ -734,7 +772,7 @@
                 ];
                 var h = 0;
                 for (let i = 0; i < arr.length; i++) {
-                  if (arr[i] != null && arr[i] != "0.00") {
+                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
                     h++;
                   }
                 }
@@ -755,7 +793,8 @@
       }
     },
     mounted() {
-      this.getDelegainformation();
+      this.getList(this.year);
+      // this.getDelegainformation();
     },
   }
 </script>
