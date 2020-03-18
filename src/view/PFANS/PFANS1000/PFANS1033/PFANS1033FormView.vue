@@ -272,7 +272,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
+                      <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -454,6 +454,7 @@
           disabled1: false,
           disabled2: true,
           disabled3: false,
+          disabled4: false,
           rules: {},
           buttonList:[
             {
