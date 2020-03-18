@@ -1547,6 +1547,11 @@
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
+            if (this.$route.params._type === 'PJ001001') {
+                this.buttonList[1].disabled = false;
+            } else if (this.$route.params._type === 'PJ001002') {
+                this.buttonList[1].disabled = true;
+            }
             this.IDname = this.$route.params._id
             if (this.IDname) {
                 this.loading = true;
