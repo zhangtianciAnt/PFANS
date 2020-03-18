@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%" class="user_view">
     <el-container class="container" style="width: 100%"  v-loading="loading" element-loading-spinner="el-icon-loading">
-      <el-aside width="20rem" style="overflow: hidden"   v-show="false">
+      <el-aside width="20rem" style="overflow: hidden" v-show="false">
         <EasyTree
           :defaultlist="data"
           :defaultProps="defaultProps"
@@ -21,9 +21,10 @@
           :columns="columns"
           :data="tableList"
           :buttonList="buttonList"
+          ref="roletable"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
-
+          :showSelection="isShow"
         ></EasyNormalTable>
         <el-dialog :visible.sync="daoru" width="50%">
           <div>
@@ -82,20 +83,30 @@ export default {
   },
   data() {
     return {
+      totaldata: [],
+      cuowu: '',
       daoru: false,
       successCount: 0,
       errorCount: 0,
       authHeader: {'x-auth-token': getToken()},
       postAction: process.env.BASE_API + '/user/importUser',
       resultShow: false,
+      message: [{hang: '', error: '',}],
       Message: false,
+      addActionUrl: '',
       result: false,
       data: [],
       tableList: [],
+      downloadLoading: false,
+      file: null,
       title: "label.PFANSUSERVIEW_USER",
       rowData: [],
+      checkTableData: [],
+      transferData: [],
+      selectedlist: [],
       org: {},
       departmentData: {},
+      isShow:true,
       columns: [
         {
           code: "customername",
@@ -208,6 +219,12 @@ export default {
           key: 'import',
           name: 'button.import',
           disabled: false,
+          icon: 'el-icon-download'
+        },
+        {
+          key: 'export',
+          name: 'button.export',
+          disabled: false,
           icon: 'el-icon-upload2'
         },
       ],
@@ -270,7 +287,29 @@ export default {
         }
       }
     },
+    formatJson(filterVal, jsonData) {
+      debugger
+      return jsonData.map(v => filterVal.map(j => {
+        if (j === 'timestamp') {
+          return parseTime(v[j])
+        } else {
+          return v[j]
+        }
+      }))
+    },
     buttonClick(val) {
+      if (val === 'export') {
+        debugger
+        this.selectedlist = this.$refs.roletable.selectedList;
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),  this.$t('label.PFANS2002VIEW_BIRTHDAY'),  this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];
+          const filterVal = ['customername','adfield', 'birthday', 'nationality', 'nation', 'register', 'address', 'graduation', 'specialty'];
+          const list = this.selectedlist;
+          debugger
+          const data = this.formatJson(filterVal, list);
+          excel.export_json_to_excel(tHeader, data,  this.$t('menu.PERSONNEL'));
+        })
+      }
       if (val === 'import') {
       this.daoru = true;
       this.clear(false);
@@ -455,7 +494,6 @@ export default {
       this.$store
         .dispatch("usersStore/getUserTableList", params)
         .then(response => {
-          debugger
           let _tableList = [];
           if (response.length > 0) {
             response.map(d => {
