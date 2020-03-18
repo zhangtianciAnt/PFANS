@@ -49,7 +49,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2022VIEW_SECONDARY')" prop="twoclass">
+              <el-form-item :label="$t('label.PFANS2022VIEW_SECONDARY')" prop="twoclass" v-show="show5">
                 <dicselect
                   :code="code1"
                   :data="form.twoclass"
@@ -344,6 +344,7 @@
                 show2: false,
                 show3: false,
                 show4: false,
+                show5: true,
                 canStart: false,
                 twoclass: '',
                 fileList: [],
@@ -371,6 +372,11 @@
                         if (this.form.firstclass === 'PR024001') {
                             this.show3 = true;
                             this.rules.weddingday[0].required = false;
+                        }
+                        if (this.form.firstclass === 'PR024002') {
+                            this.show5 = false;
+                            this.rules.weddingday[0].required = false;
+                            this.rules.twoclass[0].required = false;
                         }
                         if (this.form.firstclass === 'PR024004') {
                             this.show3 = true;
@@ -516,7 +522,24 @@
                     this.rules.reginstrationday[0].required = false;
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
-                } else if (val === "PR024003") {
+                } else if (val === "PR024002") {
+                    this.code1 = ' ';
+                    this.disable = true;
+                    this.show1 = false;
+                    this.show2 = false;
+                    this.show3 = true;
+                    this.show4 = false;
+                    this.show5 = false;
+                    this.rules.nominees[0].required = false;
+                    this.rules.nomineerelationship[0].required = false;
+                    this.rules.joiningday[0].required = false;
+                    this.rules.enteringform[0].required = false;
+                    this.rules.recommendationday[0].required = false;
+                    this.rules.reginstrationday[0].required = false;
+                    this.rules.weddingday[0].required = false;
+                    this.rules.spousename[0].required = false;
+                    this.rules.twoclass[0].required = false;
+              } else if (val === "PR024003") {
                     this.code1 = 'PR034';
                     this.gettwoclass("PR034001");
                     this.disable = true;
@@ -714,6 +737,20 @@
                             this.form.spousename = ' ';
                             this.rules.weddingday[0].required = false;
                         }
+                        if(this.form.firstclass === 'PR024002'){
+                            this.form.nominees = ' ';
+                            this.form.nomineerelationship = ' ';
+                            this.form.joiningday = ' ';
+                            this.form.enteringform = ' ';
+                            this.form.recommendationday = ' ';
+                            this.form.reginstrationday = ' ';
+                            this.form.weddingday = ' ';
+                            this.form.spousename = ' ';
+                            this.form.twoclass = ' ';
+                            this.show5 = false;
+                            this.rules.weddingday[0].required = false;
+                            this.rules.twoclass[0].required = false;
+                      }
                         if(this.form.firstclass === 'PR024003'){
                             this.form.remarks = ' ';
                             this.form.weddingday = ' ';
