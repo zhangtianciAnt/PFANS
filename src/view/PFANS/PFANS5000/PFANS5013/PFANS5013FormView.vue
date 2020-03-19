@@ -928,36 +928,36 @@
                         },
                     ],
                     // 委托元部署
-                    deployment: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                            trigger: 'blur',
-                        },
-                    ],
+                    // deployment: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                    //         trigger: 'blur',
+                    //     },
+                    // ],
                     // 事业国别
-                    country: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                            trigger: 'blur',
-                        },
-                    ],
+                    // country: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                    //         trigger: 'blur',
+                    //     },
+                    // ],
                     // 车载
-                    caron: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                            trigger: 'blur',
-                        },
-                    ],
-                  center_id: [
-                    {
-                      required: true,
-                      validator: centerId,
-                      trigger: "blur"
-                    }
-                  ],
+                  //   caron: [
+                  //       {
+                  //           required: true,
+                  //           message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                  //           trigger: 'blur',
+                  //       },
+                  //   ],
+                  // center_id: [
+                  //   {
+                  //     required: true,
+                  //     validator: centerId,
+                  //     trigger: "blur"
+                  //   }
+                  // ],
                 },
                 baseInfo: {},
                 form: {
@@ -1058,7 +1058,7 @@
                 this.$store
                     .dispatch('PFANS5013Store/selectById', {comproject_id: this.$route.params._id})
                     .then(response => {
-                        debugger
+
                         this.form = response.comproject;
                         this.userlist = this.form.leaderid;
                         this.userlist1 = this.form.managerid;
@@ -1400,12 +1400,12 @@
                 this.dialogTableVisible2 = false;
             },
             //合同
-            handleClickChange2(val) {
-                this.currentRow = val.contract;
-                this.themeRow= val.theme;
-                this.workinghoursRow= val.claimdatetime;
-                this.getCompanyprojects();
-            },
+            // handleClickChange2(val) {
+            //     this.currentRow = val.contract;
+            //     this.themeRow= val.theme;
+            //     this.workinghoursRow= val.claimdatetime;
+            //     this.getCompanyprojects();
+            // },
             submit2(row) {
                 row.contract = this.currentRow;
                 row.theme = this.themeRow;
@@ -1744,46 +1744,46 @@
                     });
             },
             //上传附件
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t("normal.error_04"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.uploadfile += item.name + "," + item.url + ";"
-                }
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
-
-            },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.form.uploadfile += o.name + "," + o.url + ";"
-                }
-            },
+            // fileError(err, file, fileList) {
+            //     Message({
+            //         message: this.$t("normal.error_04"),
+            //         type: 'error',
+            //         duration: 5 * 1000
+            //     });
+            // },
+            // fileRemove(file, fileList) {
+            //     this.fileList = [];
+            //     this.form.uploadfile = "";
+            //     for (var item of fileList) {
+            //         let o = {};
+            //         o.name = item.name;
+            //         o.url = item.url;
+            //         this.fileList.push(o);
+            //         this.form.uploadfile += item.name + "," + item.url + ";"
+            //     }
+            // },
+            // fileDownload(file) {
+            //     if (file.url) {
+            //         var url = downLoadUrl(file.url);
+            //         window.open(url);
+            //     }
+            //
+            // },
+            // fileSuccess(response, file, fileList) {
+            //     this.fileList = [];
+            //     this.form.uploadfile = "";
+            //     for (var item of fileList) {
+            //         let o = {};
+            //         o.name = item.name;
+            //         if (!item.url) {
+            //             o.url = item.response.info;
+            //         } else {
+            //             o.url = item.url;
+            //         }
+            //         this.fileList.push(o);
+            //         this.form.uploadfile += o.name + "," + o.url + ";"
+            //     }
+            // },
             getCompanyprojects() {
                 if (this.Numbers == 1) {
                     this.$store
@@ -1959,12 +1959,11 @@
                                     this.loading = false;
                                 });
                         } else {
-                             // this.getCompanyprojects()
                             this.$store
                                 .dispatch('PFANS5013Store/insert', this.baseInfo)
                                 .then(response => {
                                     this.data = response;
-                                    debugger
+
                                     this.loading = false;
                                     this.$message({
                                         message: this.$t('normal.success_01'),
