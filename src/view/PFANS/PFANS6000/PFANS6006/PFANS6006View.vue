@@ -21,14 +21,15 @@
             <el-row style="padding-top: 10px">
               <el-table :data="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
-                        @selection-change="handleSelectionChange()"
+                        @selection-change="handleSelectionChange()" @row-click="handleRowClick"
                         style="width: 100%">
 
                 <!--checkbox-->
                 <el-table-column
                   width="55">
                   <el-checkbox
-                    type="selection"></el-checkbox>
+                    type="selection"
+                  ></el-checkbox>
                 </el-table-column>
 
                 <!-- 序号-->
@@ -589,11 +590,6 @@
             'name': 'button.save',
             'disabled': false,
           },
-          // {
-          //   'key': 'generate',
-          //   'name': 'button.generate',
-          //   'disabled': false
-          // },
         ],
       };
     },
@@ -699,6 +695,9 @@
             });
             this.loading = false;
           })
+      },
+      handleRowClick(val) {
+        this.disabled = false;
       },
       yearChange(value) {
         this.year = moment(value).format('YYYY');
