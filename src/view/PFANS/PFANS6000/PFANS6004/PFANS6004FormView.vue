@@ -351,9 +351,6 @@
   import {
     getDictionaryInfo,
     getUserInfo,
-    getCooperinterviewList,
-    getSupplierinfor,
-    getOrgInfoByUserId,
     getorgGroupList
   } from '../../../../utils/customize';
   import org from '../../../components/org';
@@ -686,7 +683,6 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
-            console.log(response)
             this.form = response;
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.grouporglist = this.form.group_id;
@@ -882,7 +878,7 @@
             }
             if (this.$route.params._id) {
               this.$store
-                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
+                .dispatch('PFANS6004Store/updateexpatriatesinfor', this.form)
                 .then(response => {
                   this.data = response;
                   this.loading = false;
