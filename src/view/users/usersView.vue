@@ -11,7 +11,6 @@
           maxheight="20rem"
           minheight="100%"
           ref="treeCom"
-
           :renderContent="renderContent"
         ></EasyTree>
       </el-aside>
@@ -25,7 +24,17 @@
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           :showSelection="isShow"
-        ></EasyNormalTable>
+        >
+          <el-date-picker unlink-panels
+                          class="bigWidth"
+                          v-model="workinghours"
+                          type="daterange"
+                          :end-placeholder="$t('label.enddate')"
+                          :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                          :start-placeholder="$t('label.startdate')"
+                          @change="clickdata"
+          ></el-date-picker>
+        </EasyNormalTable>
         <el-dialog :visible.sync="daoru" width="50%">
           <div>
             <div style="margin-top: 1rem;margin-left: 28%">
@@ -85,6 +94,10 @@ export default {
     return {
       totaldata: [],
       cuowu: '',
+      working: '',
+      workinghours: '',
+      starttime: '',
+      endTime: "",
       daoru: false,
       successCount: 0,
       errorCount: 0,
@@ -234,6 +247,43 @@ export default {
     };
   },
   methods: {
+      getworkinghours(workinghours) {
+          if (workinghours != null) {
+              if (workinghours.length > 0) {
+                  return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
+              } else {
+                  return '';
+              }
+          } else {
+              return '';
+          }
+      },
+      clickdata() {
+          this.working = this.getworkinghours(this.workinghours);
+          this.starttime =  this.working.substring(0,10),
+          this.endTime = this.working.substring(13,23)
+          let tabledate = [];
+          if (this.tableList != '') {
+              for (let i = 0; i < this.tableList.length; i++) {
+                  if (this.starttime < this.tableList[i].enterday && this.tableList[i].enterday < this.endTime) {
+                      tabledate.push({
+                          customername: this.tableList[i].customername,
+                          jobnumber: this.tableList[i].jobnumber,
+                          centername: this.tableList[i].centername,
+                          groupname: this.tableList[i].groupname,
+                          teamname: this.tableList[i].teamname,
+                          enterday: this.tableList[i].enterday,
+                          post: this.tableList[i].post,
+                          rank: this.tableList[i].rank,
+                          sex: this.tableList[i].sex,
+                          budgetunit: this.tableList[i].budgetunit,
+                          birthday: this.tableList[i].birthday,
+                      })
+                  }
+              }
+              this.tableList = tabledate
+          }
+      },
     handleChange(file, fileList) {
       this.clear(true);
     },
@@ -288,7 +338,6 @@ export default {
       }
     },
     formatJson(filterVal, jsonData) {
-      debugger
       return jsonData.map(v => filterVal.map(j => {
         if (j === 'timestamp') {
           return parseTime(v[j])
@@ -299,13 +348,11 @@ export default {
     },
     buttonClick(val) {
       if (val === 'export') {
-        debugger
         this.selectedlist = this.$refs.roletable.selectedList;
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),  this.$t('label.PFANS2002VIEW_BIRTHDAY'),  this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];
           const filterVal = ['customername','adfield', 'birthday', 'nationality', 'nation', 'register', 'address', 'graduation', 'specialty'];
           const list = this.selectedlist;
-          debugger
           const data = this.formatJson(filterVal, list);
           excel.export_json_to_excel(tHeader, data,  this.$t('menu.PERSONNEL'));
         })

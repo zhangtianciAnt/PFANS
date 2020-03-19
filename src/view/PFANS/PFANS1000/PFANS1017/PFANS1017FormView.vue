@@ -306,18 +306,6 @@
           callback();
         }
       };
-        var validateTel = (rule, value, callback) => {
-            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-            if (this.form.extension !== null && this.form.extension !== '') {
-                if (!this.regExp.test(value)) {
-                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
-                } else {
-                    callback();
-                }
-            } else {
-                callback();
-            }
-        };
       return {
         buttonList: [],
         baseInfo: {},
@@ -382,7 +370,8 @@
           email: [
             {validator: checkemail, trigger: 'change'}],
           extension: [
-            {validator: validateTel, trigger: 'change'}],
+            {   required: true,
+                message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'), trigger: 'change'}],
           idtype: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),

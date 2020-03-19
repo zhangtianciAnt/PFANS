@@ -308,17 +308,6 @@
           callback();
         }
       };
-      var validateTel = (rule, value, callback) => {
-        if (this.form.extension !== null && this.form.extension !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         pickerOptions: {
           shortcuts: [{
@@ -413,7 +402,8 @@
           email: [
             {validator: checkemail, trigger: 'blur'}],
           extension: [
-            {validator: validateTel, trigger: 'blur'}],
+            {   required: true,
+                message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'), trigger: 'blur'}],
           reason: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1016FORMVIEW_REASON'),
