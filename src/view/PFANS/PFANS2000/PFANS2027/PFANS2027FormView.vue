@@ -20,8 +20,78 @@
             <el-row style="padding-top: 20px">
               <el-table :cell-class-name="rowheight" :data="data1" border header-cell-class-name="sub_bg_color_blue"
                         ref="eltable1" stripe>
-                <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL1')" prop="title1" width="120">
+                <el-table-column :label="$t('label.PFANS2027VIEW_NAME')" prop="userName" width="120">
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_DATE')" prop="enterdayFormat" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_GROUP2')" prop="groupName" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_TEAM')" prop="teamName" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_FORM')" prop="differenceName" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_GIVE')" prop="salary" width="150">
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_ATTENDANCE')" prop="workrate" width="150">
+                  <template slot-scope="scope">
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     v-model="scope.row.workrate"></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_2018YEAR')" prop="bonussign" width="80">
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.bonussign" size="mini"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_LASTMONTHS')" prop="lastsymbol" width="80">
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.lastsymbol" size="mini"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS2027VIEW_RESULT')">
+                  <el-table-column v-for="(item,index) in data2" v-if="index <= 3 &&
+                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
+                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
+                                   :label="getTableColumnName(item.code)" :key="item.index" width="140">
+                    <template slot-scope="scope">
+                      <el-select :v-model="index === 0 ?scope.row.tatebai:(index === 1?scope.row.satoshi:(index === 2?scope.row.organization:scope.row.systematics))" size="mini">
+                        <el-option
+                          :key="op.value"
+                          :label="op.label"
+                          :value="op.value"
+                          v-for="op in optionsScore">
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')"width="50">
+                    {{ShowType === 'PJ101004'?data2[0].r5rate:(ShowType === 'PJ101003'?data2[0].r6rate:(ShowType === 'PJ101002'?data2[0].r81rate:(ShowType === 'PJ101001'?data2[0].r83rate:0)))}}%
+                  </el-table-column>
+                </el-table-column>
+
+                <el-table-column :label="$t('menu.PFANSPJ')">
+                  <el-table-column v-for="(item,index) in data2" v-if="(index > 3  && index<= 7)&&
+                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
+                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
+                                   :label="getTableColumnName(item.code)" :key="item.index" width="180">
+                    <template slot-scope="scope">
+                      <el-select :v-model="index === 4 ?scope.row.manpower:(index === 5?scope.row.scale:(index === 6?scope.row.achievement:scope.row.degree))" size="mini">
+                        <el-option
+                          :key="op.value"
+                          :label="op.label"
+                          :value="op.value"
+                          v-for="op in optionsScore">
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')"width="50">
+                    {{ShowType === 'PJ101004'?data2[4].r5rate:(ShowType === 'PJ101003'?data2[4].r6rate:(ShowType === 'PJ101002'?data2[4].r81rate:(ShowType === 'PJ101001'?data2[4].r83rate:0)))}}%
+                  </el-table-column>
+                </el-table-column>
+
               </el-table>
             </el-row>
           </el-tab-pane>
@@ -177,13 +247,14 @@
     },
     data() {
       return {
+        ShowType:"",
         activeName: 'first',
         title: this.$t("title.PFANS2027VIEW_VIEW"),
         title2: this.$t("title.PFANS2027VIEW_VIEW2"),
         loading: false,
         buttonList: [],
         disabled: false,
-        code14: 'PJ103',
+        code14: 'PJ101',
         buttonShow: false,
         titleShow: false,
         data1: [],
@@ -198,7 +269,7 @@
             r6: "0",
             r6rate: "0",
             r81: "0",
-            r81rate: "0",
+            r81rate: "20",
             r82: "0",
             r82rate: "0",
             r83: "1",
@@ -214,7 +285,7 @@
             r6: "0",
             r6rate: "0",
             r81: "0",
-            r81rate: "0",
+            r81rate: "20",
             r82: "0",
             r82rate: "0",
             r83: "1",
@@ -391,48 +462,39 @@
             label: "○"
           }
         ],
-        columns: [
+        listData1:[],
+        optionsScore:[
           {
-            code: 'userName',
-            label: 'label.PFANS2027VIEW_NAME',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 0,
+            label: "0"
           },
           {
-            code: 'rnName',
-            label: 'label.PFANS2027VIEW_RN',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 1,
+            label: "1"
           },
           {
-            code: 'enterdayFormat',
-            label: 'label.PFANS2027VIEW_DATE',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 2,
+            label: "2"
           },
           {
-            code: 'groupName',
-            label: 'label.PFANS2027VIEW_GROUP2',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 3,
+            label: "3"
           },
           {
-            code: 'teamName',
-            label: 'label.PFANS2027VIEW_TEAM',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 4,
+            label: "4"
           },
           {
-            code: 'differenceName',
-            label: 'label.PFANS2027VIEW_FORM',
-            width: 120,
-            fix: false,
-            filter: false,
+            value: 5,
+            label: "5"
+          },
+          {
+            value: 6,
+            label: "6"
+          },
+          {
+            value: 7,
+            label: "7"
           },
         ]
       }
@@ -483,7 +545,7 @@
 
             item.enterdayFormat = moment(item.enterday).format('YYYY-MM-DD')
           }
-          this.data1 = response.lunardetail;
+          this.listData1 = response.lunardetail;
           this.loading = false;
         })
         .catch(err => {
@@ -617,10 +679,29 @@
           }
         }
       },
-      changeType() {
-
+      changeType(val) {
+        this.ShowType = val;
+        if(this.ShowType === 'PJ101004'){
+          this.data1 = this.listData1.filter(item =>(item.rn <= 'PR021003'))
+        }else if(this.ShowType === 'PJ101003'){
+          this.data1 = this.listData1.filter(item =>(
+            item.rn === 'PR021004' || item.rn === 'PR021005' || (item.rn >= 'PR021006' && item.occupationtype === 'PR055001')))
+        }else if(this.ShowType === 'PJ101002'){
+          this.data1 = this.listData1.filter(item =>(item.rn >= 'PR021006' && item.occupationtype === 'PR055002'))
+        }else if(this.ShowType === 'PJ101001'){
+          this.data1 = this.listData1.filter(item =>(item.rn >= 'PR021006' && item.occupationtype === 'PR055003'))
+        }
       },
       buttonClick(val) {
+
+      },
+      getTableColumnName(val){
+        let dic = getDictionaryInfo(val)
+        if(dic){
+          return dic.value1;
+        }else{
+          return "";
+        }
 
       }
     },
