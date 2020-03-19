@@ -26,7 +26,7 @@
         columns: [
           {
             code: 'year',
-            label: 'label.FANS1036FORMVIEW_BUSINESSYEAR',
+            label: 'label.PFANS1036FORMVIEW_BUSINESSYEAR',
             width: 150,
             fix: false,
             filter: true

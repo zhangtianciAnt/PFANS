@@ -1806,6 +1806,32 @@
              val => {
                 if(val.code === "PJ111001"){
                      Object.assign(this.tableP[11],val)
+                }else if(val.code === "PJ111002"){
+                     Object.assign(this.tableP[16],val)
+                }else if(val.code === "PJ111003"){
+                      Object.assign(this.tableP[17],val)
+                }else if(val.code === "PJ111004"){
+                     Object.assign(this.tableP[18],val)
+                }else if(val.code === "PJ111005"){
+                     Object.assign(this.tableP[19],val)
+                }else if(val.code === "PJ111006"){
+                      Object.assign(this.tableP[21],val)
+                }else if(val.code === "PJ111007"){
+                      Object.assign(this.tableP[31],val)
+                }else if(val.code === "PJ111008"){
+                     Object.assign(this.tableP[32],val)
+                }else if(val.code === "PJ111009"){
+                  Object.assign(this.tableP[33],val)
+                }else if(val.code === "PJ111010"){
+                  Object.assign(this.tableP[34],val)
+                }else if(val.code === "PJ111011"){
+                  Object.assign(this.tableP[35],val)
+                }else if(val.code === "PJ111012"){
+                  Object.assign(this.tableP[36],val)
+                }else if(val.code === "PJ111013"){
+                  Object.assign(this.tableP[37],val)
+                }else if(val.code === "PJ111014"){
+                  Object.assign(this.tableP[38],val)
                 }
              }
            )
@@ -2061,6 +2087,7 @@
           }else{
             this.tableP[24]["money" + this.arr[i]] = "0.00";
           }
+
           this.tableP[25]["money" + this.arr[i]] = "0.00";
           this.tableP[26]["money" + this.arr[i]] = (Number(this.tableP[21]["money" + this.arr[i]]) + Number(this.tableP[22]["money" + this.arr[i]]) + Number(this.tableP[23]["money" + this.arr[i]])+ Number(this.tableP[24]["money" + this.arr[i]])+ Number(this.tableP[25]["money" + this.arr[i]])).toFixed(2);
           this.tableP[27]["money" + this.arr[i]] = (Number(getDictionaryInfo("PJ110001").value2) * Number(this.tableP[51]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110002").value2) * Number(this.tableP[52]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110003").value2) * Number(this.tableP[53]["money" + this.arr[i]])).toFixed(2);
