@@ -1021,6 +1021,7 @@ module.exports = {
     PFANS1024VIEW_GROUP: '社内组織',
     PFANS1024VIEW_OTHERGROUP: '先方组織',
     PFANS1024VIEW_SIDEGROUP: '先方组織',
+    PFANS1024FORMVIEW_DDZDH: ' 请输入担当者电话',
     PFANS1025VIEW_ENTRUST: '委託先',
     PFANS1025VIEW_ENTRUSTPLACE: '委託先場所',
     PFANS1025VIEW_PJNAME: 'PJ名',
@@ -1107,9 +1108,6 @@ module.exports = {
     PFANS1026FORMVIEW_QXSCZQSCDQYS: '请先删除之前生成的契约书',
     PFANS1026FORMVIEW_DDZYW: ' 请输入担当者英文',
     PFANS1026FORMVIEW_DDZZW: ' 请输入担当者中文',
-
-    PFANS1024FORMVIEW_DDZDH: ' 请输入担当者电话',
-
     PFANS1027VIEW_DETAILS: '报价详细',
     PFANS1027VIEW_SYSTEM: '開発体制',
     PFANS1027VIEW_ESTIMATION: '見積根拠',
@@ -2003,6 +2001,9 @@ module.exports = {
     PFANS2006VIEW_INCOME: '累计应纳税所得额',
     PFANS2006VIEW_THISMONTH: '本月应扣缴所得税',
     PFANS2006VIEW_ACTUAL: '当月实发工资',
+    PFANS2006VIEW_PENSION: '養老・失業・工傷保険基数',
+    PFANS2006VIEW_MEDICALAA: '医療・生育保険基数',
+    PFANS2006VIEW_BIRTHREST: '産休出勤日数(看護休暇日数)',
     PFANS2007VIEW_NUMBER: '番号',
     PFANS2007VIEW_YEAR: '年度',
     PFANS2007VIEW_NAME: '名前',
