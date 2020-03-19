@@ -172,139 +172,139 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">
-              <el-table :data="source"
-                        border
-                        header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.number"></el-input>
-                  </template>
-                </el-table-column>
-                <!--姓名-->
-                <el-table-column :label="$t('label.user_name')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.name"></el-input>
-                  </template>
-                </el-table-column>
-                <!--社员外协-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.type"></el-input>
-                  </template>
-                  <!--稼働率-->
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.croprate"></el-input>
-                  </template>
-                </el-table-column>
-                <!--PJ稼働率-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.pjcroprate"></el-input>
-                  </template>
-                </el-table-column>
-                <!--直接稼働率-->
-                <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.dicroprate"></el-input>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-tab-pane>
+<!--            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">-->
+<!--              <el-table :data="source"-->
+<!--                        border-->
+<!--                        header-cell-class-name="sub_bg_color_blue" stripe>-->
+<!--                <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.number"></el-input>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+<!--                &lt;!&ndash;姓名&ndash;&gt;-->
+<!--                <el-table-column :label="$t('label.user_name')" align="center" width="150">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.name"></el-input>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+<!--                &lt;!&ndash;社员外协&ndash;&gt;-->
+<!--                <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.type"></el-input>-->
+<!--                  </template>-->
+<!--                  &lt;!&ndash;稼働率&ndash;&gt;-->
+<!--                </el-table-column>-->
+<!--                <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.croprate"></el-input>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+<!--                &lt;!&ndash;PJ稼働率&ndash;&gt;-->
+<!--                <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.pjcroprate"></el-input>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+<!--                &lt;!&ndash;直接稼働率&ndash;&gt;-->
+<!--                <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input :disabled="true" maxlength="20" v-model="scope.row.dicroprate"></el-input>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+<!--              </el-table>-->
+<!--            </el-tab-pane>-->
 
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">
-              <el-form-item>
-                <el-row>
-                  <el-col :span="24">
-                    <el-table :data="stage" border header-cell-class-name="sub_bg_color_blue" stripe
-                              style="width: 70vw">
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code1"
-                            :data="scope.row.phase"
-                            :disabled="true"
-                            :multiple="multiple"
-                            :no="scope.row"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"
-                        align="center"
-                      >
-                        <template slot-scope="scope">
-                          <dicselect
-                            :code="code5"
-                            :data="scope.row.stageproduct"
-                            :disabled="true"
-                            :multiple="multiple"
-                            :no="scope.row"
-                          ></dicselect>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
-                        align="center">
-                        <template slot-scope="scope">
-                          <el-input
-                            :disabled="true"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.estimatedwork">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')"
-                        align="center"
-                        width="160vm"
-                      >
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            :disabled="true"
-                            style="width: 100%"
-                            type="date"
-                            v-model="scope.row.estimatedstarttime"
-                          ></el-date-picker>
-                        </template>
-                      </el-table-column>
+<!--            <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">-->
+<!--              <el-form-item>-->
+<!--                <el-row>-->
+<!--                  <el-col :span="24">-->
+<!--                    <el-table :data="stage" border header-cell-class-name="sub_bg_color_blue" stripe-->
+<!--                              style="width: 70vw">-->
+<!--                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <dicselect-->
+<!--                            :code="code1"-->
+<!--                            :data="scope.row.phase"-->
+<!--                            :disabled="true"-->
+<!--                            :multiple="multiple"-->
+<!--                            :no="scope.row"-->
+<!--                          ></dicselect>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
+<!--                      <el-table-column-->
+<!--                        :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"-->
+<!--                        align="center"-->
+<!--                      >-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <dicselect-->
+<!--                            :code="code5"-->
+<!--                            :data="scope.row.stageproduct"-->
+<!--                            :disabled="true"-->
+<!--                            :multiple="multiple"-->
+<!--                            :no="scope.row"-->
+<!--                          ></dicselect>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
+<!--                      <el-table-column-->
+<!--                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"-->
+<!--                        align="center">-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <el-input-->
+<!--                            :disabled="true"-->
+<!--                            :no="scope.row"-->
+<!--                            style="width: 100%"-->
+<!--                            v-model="scope.row.estimatedwork">-->
+<!--                          </el-input>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
+<!--                      <el-table-column-->
+<!--                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDSTARTTIME')"-->
+<!--                        align="center"-->
+<!--                        width="160vm"-->
+<!--                      >-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <el-date-picker-->
+<!--                            :disabled="true"-->
+<!--                            style="width: 100%"-->
+<!--                            type="date"-->
+<!--                            v-model="scope.row.estimatedstarttime"-->
+<!--                          ></el-date-picker>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
 
-                      <el-table-column
-                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')"
-                        align="center"
-                        width="160vm"
-                      >
-                        <template slot-scope="scope">
-                          <el-date-picker
-                            :disabled="true"
-                            style="width: 100%"
-                            type="date"
-                            v-model="scope.row.estimatedendtime"
-                          >
-                          </el-date-picker>
-                        </template>
-                      </el-table-column>
-                      <el-table-column
-                        :label="$t('label.PFANS5009FORMVIEW_REMARKS')"
-                        align="center">
-                        <template slot-scope="scope">
-                          <el-input
-                            :disabled="true"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.remarks">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </el-col>
-                </el-row>
-              </el-form-item>
-            </el-tab-pane>
+<!--                      <el-table-column-->
+<!--                        :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDENDTIME')"-->
+<!--                        align="center"-->
+<!--                        width="160vm"-->
+<!--                      >-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <el-date-picker-->
+<!--                            :disabled="true"-->
+<!--                            style="width: 100%"-->
+<!--                            type="date"-->
+<!--                            v-model="scope.row.estimatedendtime"-->
+<!--                          >-->
+<!--                          </el-date-picker>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
+<!--                      <el-table-column-->
+<!--                        :label="$t('label.PFANS5009FORMVIEW_REMARKS')"-->
+<!--                        align="center">-->
+<!--                        <template slot-scope="scope">-->
+<!--                          <el-input-->
+<!--                            :disabled="true"-->
+<!--                            :no="scope.row"-->
+<!--                            style="width: 100%"-->
+<!--                            v-model="scope.row.remarks">-->
+<!--                          </el-input>-->
+<!--                        </template>-->
+<!--                      </el-table-column>-->
+<!--                    </el-table>-->
+<!--                  </el-col>-->
+<!--                </el-row>-->
+<!--              </el-form-item>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
         </el-form>
       </div>
