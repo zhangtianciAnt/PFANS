@@ -834,7 +834,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code9"
                                    :data="scope.row.region"
-                                   :disabled="true"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getexitarea">
@@ -871,7 +871,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.accommodationallowance"
-                                   :disabled="true"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row">
                         </dicselect>
@@ -2088,11 +2088,14 @@
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
               this.form.place = cityinfo.value1;
-              this.tableA[i].region = cityinfo.value1;
+              this.tableA[0].region = cityinfo.value1;
+              this.tableA[1].region = cityinfo.value1;
               if(cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002'){
-                this.tableA[i].accommodationallowance = 'PJ003002';
+                this.tableA[0].accommodationallowance = 'PJ003002';
+                this.tableA[1].accommodationallowance = 'PJ003002';
               } else if(cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004'){
-                this.tableA[i].accommodationallowance = 'PJ003001';
+                this.tableA[0].accommodationallowance = 'PJ003001';
+                this.tableA[1].accommodationallowance = 'PJ003001';
               }
             }
             this.rank = this.relations[i].level;
