@@ -181,7 +181,7 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .dispatch('PFANS6004Store/getexpatriates')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].suppliername !== null && response[j].suppliername !== '') {
