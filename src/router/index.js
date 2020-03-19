@@ -960,9 +960,9 @@ const routes = [
         component: PFANS5013View
       },
       {
-        path: '/PFANS5014FormView',
-        name: 'PFANS5014FormView',
-        component: PFANS5014FormView
+        path: '/PFANS5013FormView',
+        name: 'PFANS5013FormView',
+        component: PFANS5013FormView
       },
       {
         path: '/PFANS5014View',
@@ -970,9 +970,9 @@ const routes = [
         component: PFANS5014View
       },
       {
-        path: '/PFANS5012FormView',
-        name: 'PFANS5012FormView',
-        component: PFANS5012FormView
+        path: '/PFANS5014FormView',
+        name: 'PFANS5014FormView',
+        component: PFANS5014FormView
       },
       {
         path: '/PFANS6001View',
