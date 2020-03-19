@@ -416,6 +416,7 @@
         totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf));
         totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf));
         this.tableNewYearTotal = [totalExpect, totalActual];
+        this.$emit("travel", this.tableNewYearTotal);
       },
       deleteRowF2(index, rows) {
         if (rows.length > 2) {

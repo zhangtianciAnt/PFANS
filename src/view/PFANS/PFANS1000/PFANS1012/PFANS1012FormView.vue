@@ -141,7 +141,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select v-model="form.project_id" :disabled="!disable" style="width: 16vw" clearable>
+                      <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
                         <el-option
                           v-for="item in optionsdate"
                           :key="item.value"
@@ -238,13 +238,8 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
+                      <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1135,7 +1130,7 @@
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user.vue';
     import dicselect from '../../../components/dicselect';
-    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from 'moment';
     import json2csv from 'json2csv';
@@ -1416,8 +1411,7 @@
                     payeecode: '',
                     payeebankaccountnumber: '',
                     payeebankaccount: '',
-                    name: '',
-                    code: '',
+                    code: getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode,
                     type: '',
                     judgement: '',
                     judgement_name: '',
@@ -2054,6 +2048,7 @@
                 }
             },
             getUserids(val) {
+                this.form.code = getUserInfo(val).userinfo.personalcode;
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
@@ -2090,7 +2085,6 @@
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = false;
-                    this.form.name = '';
                     this.form.code = '';
                     this.form.accountnumber = '';
                     this.form.receivables = '';
@@ -2120,7 +2114,6 @@
                     this.form.payeecode = '';
                     this.form.payeebankaccountnumber = '';
                     this.form.payeebankaccount = '';
-                    this.form.name = '';
                     this.form.code = '';
                     this.form.loan = '';
                     this.form.fullname = '';
@@ -2134,7 +2127,6 @@
                     this.form.payeecode = '';
                     this.form.payeebankaccountnumber = '';
                     this.form.payeebankaccount = '';
-                    this.form.name = '';
                     this.form.code = '';
                     this.form.receivables = '';
                     this.form.fullname = '';
@@ -2149,7 +2141,6 @@
                     this.form.payeecode = '';
                     this.form.payeebankaccountnumber = '';
                     this.form.payeebankaccount = '';
-                    this.form.name = '';
                     this.form.code = '';
                     this.form.receivables = '';
                     this.form.loan = '';

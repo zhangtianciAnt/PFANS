@@ -34,7 +34,7 @@
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
-                <el-input v-model.trim="form.ecenter" :disabled="!disable" style="width:20vw"
+                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
                           maxlength="20"></el-input>
               </el-form-item>
             </el-col>
@@ -46,7 +46,7 @@
             </el-col>
             <el-col :span="8">
             <el-form-item :label="$t('label.PFANS3003VIEW_EUSER_ID')" prop="euser_id">
-              <el-input v-model.trim="form.euser_id" :disabled="!disable" style="width:20vw"
+              <el-input v-model="form.euser_id" :disabled="!disable" style="width:20vw"
                         maxlength="20"></el-input>
             </el-form-item>
             </el-col>
@@ -55,7 +55,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
-                  <el-input v-model.trim="form.occupational" :disabled="!disable" style="width:20vw"
+                  <el-input v-model="form.occupational" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -63,7 +63,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_EOCCUPATIONAL')" prop="eoccupational">
-                  <el-input v-model.trim="form.eoccupational" :disabled="!disable" style="width:20vw"
+                  <el-input v-model="form.eoccupational" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -71,7 +71,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
-                  <el-input v-model.trim="form.insideline" :disabled="!disable" style="width:20vw"
+                  <el-input v-model="form.insideline" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -81,7 +81,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
-                  <el-input type="email" v-model.trim="form.email" :disabled="!disable" style="width:20vw"
+                  <el-input type="email" v-model="form.email" :disabled="!disable" style="width:20vw"
                             maxlength="50"></el-input>
                 </el-form-item>
               </template>
@@ -173,17 +173,6 @@
           this.error = '';
         }
       };
-      var validateTel = (rule, value, callback) => {
-        if (this.form.insideline !== null && this.form.insideline !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3003VIEW_INSIDELINE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       var checkemail = (rule, value, callback) => {
         if (this.form.email !== null && this.form.email !== '') {
           if (!validateEmail(value)) {
@@ -271,8 +260,7 @@
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_INSIDELINE"),
             trigger: "blur"
-          },
-            {validator: validateTel, trigger: 'blur'}],
+          }],
           email: [{
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.email"),

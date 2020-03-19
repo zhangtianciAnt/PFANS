@@ -470,19 +470,6 @@
           return callback();
         }
       };
-      var checktele = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
-
       return {
         activeName1: 'first',
         activeName2: 'third',
@@ -575,7 +562,8 @@
             trigger: 'change'
           }],
           telephone: [{
-            validator: checktele,
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'change'
           }],
         },
