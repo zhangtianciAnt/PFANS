@@ -696,6 +696,18 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                     prop="accommodationallowance"
+                                     v-if="this.form.type === '0'? false : true" width="200">
+                      <template slot-scope="scope">
+                        <dicselect :code="code3"
+                                   :data="scope.row.accommodationallowance"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
                                      v-if="showforeigncurrency" width="200">
@@ -1054,6 +1066,18 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                     prop="accommodationallowance"
+                                     v-if="this.form.type === '0'? false : true" width="200">
+                      <template slot-scope="scope">
+                        <dicselect :code="code3"
+                                   :data="scope.row.accommodationallowance"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
                                      v-if="showforeigncurrency" width="200">
@@ -1290,6 +1314,7 @@
           rmb: '',
           taxrate: '',
           foreigncurrency: '',
+          accommodationallowance: '',
           annexno: '',
           rowindex: '',
         }],
@@ -1362,6 +1387,7 @@
           foreigncurrency: '',
           annexno: '',
           taxes: '',
+          accommodationallowance: '',
           rowindex: '',
         }],
         rules: {
@@ -1848,6 +1874,7 @@
             startingpoint: '',
             rmb: '',
             taxrate: '',
+            accommodationallowance: '',
             foreigncurrency: '',
             annexno: '',
             rowindex: '',
@@ -1892,6 +1919,7 @@
             budgetcoding: '',
             foreigncurrency: '',
             annexno: '',
+            accommodationallowance: '',
           }];
         }
       },
@@ -1944,6 +1972,7 @@
           startingpoint: '',
           rmb: '',
           taxrate: '',
+          accommodationallowance: '',
           foreigncurrency: '',
           annexno: '',
           rowindex: '',
@@ -2005,6 +2034,7 @@
           foreigncurrency: '',
           annexno: '',
           taxes: '',
+          accommodationallowance: '',
           rowindex: '',
         });
       },
@@ -2652,7 +2682,8 @@
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                   || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                  || this.tableT[i].taxes !== '' || this.tableT[i].accommodationallowance !== '' || this.tableT[i].costitem !== '') {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2668,6 +2699,7 @@
                       taxes: this.tableT[i].taxes,
                       costitem: this.tableT[i].costitem,
                       taxrate: this.tableT[i].taxrate,
+                      accommodationallowance: this.tableT[i].accommodationallowance,
                       region: this.tableT[i].region,
                       vehicle: this.tableT[i].vehicle,
                       startingpoint: this.tableT[i].startingpoint,
@@ -2715,7 +2747,8 @@
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                   || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                  || this.tableR[i].subjectnumber !== '' || this.tableR[i].accommodationallowance !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2727,6 +2760,7 @@
                       rmb: this.tableR[i].rmb,
                       budgetcoding: this.tableR[i].budgetcoding,
                       subjectnumber: this.tableR[i].subjectnumber,
+                      accommodationallowance: this.tableR[i].accommodationallowance,
                       remarks: this.tableR[i].remarks,
                       invoicenumber: this.tableR[i].invoicenumber,
                       departmentname: this.tableR[i].departmentname,
@@ -2779,7 +2813,8 @@
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                     || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                    || this.tableT[i].taxes !== '' || this.tableT[i].accommodationallowance !== '' || this.tableT[i].costitem !== '') {
                     if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableT[i].rmb != '0') {
                         summoneyT += this.tableT[i].rmb;
@@ -2805,7 +2840,8 @@
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                     || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accommodationallowance !== ''
+                    || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
                     if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableR[i].rmb != '0') {
                         sumMoney += this.tableR[i].rmb;
