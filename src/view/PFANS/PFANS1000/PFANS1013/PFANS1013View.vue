@@ -19,6 +19,7 @@
     import {Message} from 'element-ui'
     import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
     import moment from "moment";
+    import json2csv from 'json2csv';
 
     export default {
         name: "PFANS1013View",
@@ -29,6 +30,7 @@
         data() {
             return {
                 travelcostvalue: [],
+                startoption: [],
                 selectedlist: [],
                 selectedList: [],
                 isShow: true,
@@ -184,6 +186,15 @@
             rowClick(row) {
                 this.rowid = row.evectionid;
             },
+          formatJson(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => {
+              if (j === 'timestamp') {
+                return parseTime(v[j])
+              } else {
+                return v[j]
+              }
+            }))
+          },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path)
                 if (val === 'update') {
@@ -234,7 +245,7 @@
                     this.selectedlist = this.$refs.roletable.selectedList;
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         this.selectedList.travelcost.push({
-                            publicexpenseid: this.selectedlist[i].publicexpenseid
+                            evectionid: this.selectedlist[i].evectionid
                         })
                     }
                     this.loading = true;
@@ -247,7 +258,7 @@
                             for (let m = 0; m < response.length; m++) {
                                 sum = sum + 1;
                                 for (let i = 0; i < this.selectedlist.length; i++) {
-                                    if (response[m].publicexpenseid == this.selectedlist[i].publicexpenseid) {
+                                    if (response[m].evectionid == this.selectedlist[i].evectionid) {
                                         let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                                         if (letErrortype != null) {
                                             this.selectedlist[i].paymentmethod = letErrortype.value1;
@@ -352,7 +363,7 @@
                                             vatnumber: '',
                                             taxCode: '0%',
                                             paymentterms: '00/00/00',
-                                            remark: response[m].remark,
+                                            remarks: response[m].remarks,
                                             source: 'OPEN_IF',
                                             paymentmethods: 'WIRE',
                                             type: ',',
@@ -380,12 +391,13 @@
                                 vatnumber: '',
                                 taxCode: '',
                                 paymentterms: '',
-                                remark: '',
+                                remarks: '',
                                 source: '',
                                 paymentmethods: '',
                                 type: '',
                             })
                             this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
+                            console.log("this.startoptionvalue",this.startoptionvalue);
                             let csvData = [];
                             for (let i = 0; i < this.startoptionvalue.length; i++) {
                                 let obj = this.startoptionvalue[i];
@@ -409,7 +421,7 @@
                                     [[16]]: obj.vatnumber,
                                     [[17]]: obj.taxCode,
                                     [[18]]: obj.paymentterms,
-                                    [[19]]: obj.remark,
+                                    [[19]]: obj.remarks,
                                     [[20]]: obj.source,
                                     [[21]]: obj.paymentmethods,
                                     [[22]]: obj.type,
@@ -417,12 +429,12 @@
                             }
                             let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                 'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
-                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
+                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remarks', 'source', 'paymentmethods', 'type'];
                             const result = json2csv.parse(csvData, {
                                 excelStrings: true
                             });
-                            let aaa = result.substring(220);
-                            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
+                            let resultflg = result.substring(220);
+                            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + resultflg;
                             const link = document.createElement("a");
                             link.href = csvContent;
                             link.download = this.$t('AP') + this.$t('title.PFANS1013VIEW') + '.csv';

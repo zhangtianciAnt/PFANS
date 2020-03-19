@@ -259,7 +259,7 @@
                         <el-table-column :label="$t('label.PFANS1004VIEW_AMOUNT')" align="center" width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             :precision="2" :step="1" @change="changeamount(scope.row)"
                                              controls-position="right" style="width: 100%" v-model="scope.row.amount">
                             </el-input-number>
                           </template>
@@ -267,7 +267,7 @@
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERATE')" align="center" width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             :precision="2" :step="1" @change="changeamount(scope.row)"
                                              controls-position="right" style="width: 100%" v-model="scope.row.exchangerate">
                             </el-input-number>
                           </template>
@@ -276,7 +276,7 @@
                                          width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeSum(scope.row)"
+                                             :precision="2" :step="1"
                                              controls-position="right" style="width: 100%" v-model="scope.row.exchangermb">
                             </el-input-number>
                           </template>
@@ -869,7 +869,7 @@
                                      prop="accommodationallowance"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
-                        <dicselect :code="code19"
+                        <dicselect :code="code3"
                                    :data="scope.row.accommodationallowance"
                                    :disabled="true"
                                    :multiple="multiple"
@@ -1150,9 +1150,9 @@
         activeName: 'first',
         loading: false,
         disabled: false,
-        disaccommod: false,
-        showtick: true,
-        checkStatus: false,
+        // disaccommod: false,
+        // showtick: true,
+        // checkStatus: false,
         tableTValue: '',
         tableAValue: '',
         tableRValue: '',
@@ -1316,8 +1316,8 @@
           rowindex: '',
           taxes: '',
           costitem: '',
-          disaccommod: false,
-          showtick: true,
+          // disaccommod: false,
+          // showtick: true,
         },
           {
             evectionid: '',
@@ -1342,8 +1342,8 @@
             rowindex: '',
             taxes: '',
             costitem: '',
-            disaccommod: false,
-            showtick: true,
+            // disaccommod: false,
+            // showtick: true,
           }],
         tableR: [{
           evectionid: '',
@@ -1389,34 +1389,34 @@
         code1: 'PG002',
         code3: 'PJ003',
         code4: 'PJ024',
-        code5: 'PJ025',
-        code6: 'PJ026',
-        code7: 'PJ027',
-        code8: 'PJ020',
+        // code5: 'PJ025',
+        // code6: 'PJ026',
+        // code7: 'PJ027',
+        // code8: 'PJ020',
         code9: 'PJ017',
         code10: 'PJ035',
-        code11: 'PJ036',
+        // code11: 'PJ036',
         code12: 'PJ068',
         code13: 'PJ071',
-        code14: 'PJ126',
+        // code14: 'PJ126',
         code15: 'PJ083',
-        code16: 'PJ084',
-        code17: 'PJ085',
-        code18: 'PJ057',
-        code19: 'PJ003',
+        // code16: 'PJ084',
+        // code17: 'PJ085',
+        // code18: 'PJ057',
+        // code19: 'PJ003',
         code20: this.Redirict == '0' ? 'PJ119' : 'PJ132',
         multiple: false,
-        show1: true,
+        // show1: true,
         show2: false,
-        show: false,
-        showrow: true,
-        showrow2: false,
-        showrow3: true,
-        showrow4: false,
-        showAinner: true,
+        // show: false,
+        // showrow: true,
+        // showrow2: false,
+        // showrow3: true,
+        // showrow4: false,
+        // showAinner: true,
         showAout: false,
-        showdata: true,
-        showdata2: true,
+        // showdata: true,
+        // showdata2: true,
         showforeigncurrency: false,
         canStart: false,
         rank: '',
@@ -1457,18 +1457,18 @@
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
-                    this.showrow4 = true;
+                    // this.showrow4 = true;
                     // this.tableA[i].vehicleon = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = true;
                     // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    this.tableA[i].showtick = true;
-                    this.tableA[i].disaccommod = true;
+                    // this.tableA[i].showtick = true;
+                    // this.tableA[i].disaccommod = true;
                   } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
-                    this.showrow4 = true;
+                    // this.showrow4 = true;
                     // this.tableA[i].vehiclein = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = true;
@@ -1480,7 +1480,7 @@
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = false;
                     this.showrow3 = true;
-                    this.showrow4 = false;
+                    // this.showrow4 = false;
                     // this.tableA[i].vehicleon = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = false;
@@ -1496,7 +1496,7 @@
                     this.tableA[i].showAinner = false;
                     this.tableA[i].showAout = true;
                     this.showrow3 = false;
-                    this.showrow4 = true;
+                    // this.showrow4 = true;
                     // this.tableA[i].vehiclein = this.tableA[i].vehicle;
                     this.showrow = false;
                     this.showrow2 = true;
@@ -1506,16 +1506,16 @@
               }
             }
             if (response.otherdetails.length > 0) {
-              for (let i = 0; i < response.otherdetails.length; i++) {
-                this.orglist = response.otherdetails[i].departmentname;
-                if (response.otherdetails[i].costitem === 'PJ057001') {
-                  this.checkStatus = true;
-                } else if (response.otherdetails[i].costitem === 'PJ057015') {
-                  this.checkStatus = true;
-                } else if (response.otherdetails[i].costitem === 'PJ057016') {
-                  this.checkStatus = true;
-                }
-              }
+              // for (let i = 0; i < response.otherdetails.length; i++) {
+              //   this.orglist = response.otherdetails[i].departmentname;
+              //   if (response.otherdetails[i].costitem === 'PJ057001') {
+              //     this.checkStatus = true;
+              //   } else if (response.otherdetails[i].costitem === 'PJ057015') {
+              //     this.checkStatus = true;
+              //   } else if (response.otherdetails[i].costitem === 'PJ057016') {
+              //     this.checkStatus = true;
+              //   }
+              // }
               this.tableR = response.otherdetails;
             }
             if (response.currencyexchanges.length > 0) {
@@ -1526,15 +1526,15 @@
             }
             if (this.form.type === '0') {
               this.getBusInside();
-              this.showdata = true;
-              this.showdata2 = false;
-              this.showAinner = true;
+              // this.showdata = true;
+              // this.showdata2 = false;
+              // this.showAinner = true;
               this.showAout = false;
               this.show = true;
               this.show2 = false;
-              this.showdata = true;
-              this.showdata2 = false;
-              this.showAinner = true;
+              // this.showdata = true;
+              // this.showdata2 = false;
+              // this.showAinner = true;
               this.showAout = false;
               this.showforeigncurrency = false;
               this.showrow = true;
@@ -1543,9 +1543,9 @@
               this.showrow4 = false;
             } else {
               this.getBusOuter();
-              this.showdata = false;
-              this.showdata2 = true;
-              this.showAinner = false;
+              // this.showdata = false;
+              // this.showdata2 = true;
+              // this.showAinner = false;
               this.showAout = true;
               this.show = false;
               this.show2 = true;
@@ -1553,7 +1553,7 @@
               this.showrow = false;
               this.showrow2 = true;
               this.showrow3 = false;
-              this.showrow4 = true;
+              // this.showrow4 = true;
             }
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
@@ -1582,14 +1582,14 @@
           this.form.userid = this.$store.getters.userinfo.userid;
         }
         if (this.form.type === '0') {
-          this.showdata = true;
-          this.showdata2 = false;
-          this.showAinner = true;
+          // this.showdata = true;
+          // this.showdata2 = false;
+          // this.showAinner = true;
           this.showAout = false;
         } else {
-          this.showdata = false;
-          this.showdata2 = true;
-          this.showAinner = false;
+          // this.showdata = false;
+          // this.showdata2 = true;
+          // this.showAinner = false;
           this.showAout = true;
         }
       }
@@ -1725,8 +1725,8 @@
           rowindex: '',
           taxes: '',
           costitem: '',
-          disaccommod: false,
-          showtick: true,
+          // disaccommod: false,
+          // showtick: true,
         },
           {
             evectionid: '',
@@ -1751,8 +1751,8 @@
             rowindex: '',
             taxes: '',
             costitem: '',
-            disaccommod: false,
-            showtick: true,
+            // disaccommod: false,
+            // showtick: true,
           }],
           this.activeName = 'first',
           this.form.type = val;
@@ -1766,13 +1766,13 @@
           this.form.datenumber = '';
           this.show = true;
           this.show2 = false;
-          this.showdata = true;
-          this.showdata2 = false;
-          this.showAinner = true;
+          // this.showdata = true;
+          // this.showdata2 = false;
+          // this.showAinner = true;
           this.showAout = false;
           this.showforeigncurrency = false;
           this.showrow3 = true;
-          this.showrow4 = false;
+          // this.showrow4 = false;
           this.showrow = true;
           this.showrow2 = false;
         } else {
@@ -1784,13 +1784,13 @@
           this.form.datenumber = '';
           this.show = false;
           this.show2 = true;
-          this.showdata = false;
-          this.showdata2 = true;
-          this.showAinner = false;
+          // this.showdata = false;
+          // this.showdata2 = true;
+          // this.showAinner = false;
           this.showAout = true;
           this.showforeigncurrency = true;
           this.showrow3 = false;
-          this.showrow4 = true;
+          // this.showrow4 = true;
           this.showrow = false;
           this.showrow2 = true;
         }
@@ -1814,6 +1814,13 @@
       },
       getPaymentinvoicetype(val, row) {
         row.invoicetype = val;
+      },
+      changeamount(row){
+        if(row.amount !== '' && row.exchangerate > 0){
+          row.exchangermb = row.amount / row.exchangerate;
+        } else {
+          row.exchangermb = 0.00;
+        }
       },
       changeSum(row) {
         if (row.taxrate === '') {
@@ -1975,8 +1982,8 @@
           rowindex: '',
           taxes: '',
           costitem: '',
-          disaccommod: false,
-          showtick: true,
+          // disaccommod: false,
+          // showtick: true,
         });
       },
       addRow4() {
@@ -2474,9 +2481,9 @@
       // },
       getMoney(sums) {
         if (this.form.type === '0') {
-          this.form.totalpay = sums[10] + this.tableRValue[10] + this.tableAValue[11]
+          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[11]
         } else if (this.form.type === '1') {
-          this.form.totalpay = sums[10] + this.tableRValue[10] + this.tableAValue[13];
+          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[13];
         }
         this.form.balance = this.form.loanamount - this.form.totalpay;
       },
