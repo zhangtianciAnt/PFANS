@@ -4399,6 +4399,10 @@
               }
             }, 0);
             sums[index] += " ";
+          }else{
+            //非合计项显示空 -- lxx
+            sums[index] = " ";
+            //非合计项显示空 -- lxx
           }
         });
         return sums;
