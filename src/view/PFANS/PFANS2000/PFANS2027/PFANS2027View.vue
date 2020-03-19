@@ -247,16 +247,16 @@
           .dispatch('PFANS2027Store/getLunarbonus', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].user_id !== null && response[j].user_id !== "") {
+              // if (response[j].user_id !== null && response[j].user_id !== "") {
 
-                let lst = getOrgInfoByUserId(response[j].user_id);
-                if (lst) {
-                  response[j].group_id = lst.groupNmae;
-                }
-                let rst = getUserInfo(response[j].user_id);
-                if (rst) {
-                  response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-                }
+                // let lst = getOrgInfoByUserId(response[j].user_id);
+                // if (lst) {
+                //   response[j].group_id = lst.groupNmae;
+                // }
+                // let rst = getUserInfo(response[j].user_id);
+                // if (rst) {
+                //   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                // }
                 if (response[j].subjectmon !== null && response[j].subjectmon !== "") {
                   let letUsetype = getDictionaryInfo(response[j].subjectmon);
                   if (letUsetype != null) {
@@ -283,7 +283,7 @@
                 if (response[j].status !== null && response[j].status !== "") {
                   response[j].status = getStatus(response[j].status);
                 }
-              }
+              // }
             }
             this.data = response;
             this.loading = false;
