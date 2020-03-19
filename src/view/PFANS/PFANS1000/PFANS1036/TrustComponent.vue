@@ -9,7 +9,7 @@
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center"
                        width="140" prop="commission">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:7vw" :disabled="disabled" :min="0" controls-position="right"  @change="changeSum(scope.row)"
+          <el-input-number size="small" style="width:7vw"  :min="0" controls-position="right"  @change="changeSum(scope.row)"
                            :step="1000" v-model.trim="scope.row.commission" ></el-input-number>
         </template>
       </el-table-column>
