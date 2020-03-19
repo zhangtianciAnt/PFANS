@@ -4,6 +4,7 @@
                          @buttonClick="buttonClick" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
+          
           <el-form-item>
             <el-row>
               <el-col :span="24">
@@ -195,10 +196,12 @@
                   <el-table-column
                     :label="$t('label.April')"
                     align="center"
-                    width="170">
+                    width="170"
+                    prop="april">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        :disabled="false"
+                        v-if="scope.row.type == '1'"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -207,6 +210,18 @@
                         style="width:8vw"
                         v-model.trim="scope.row.april">
                       </el-input-number>
+                      <el-input-number
+                        :disabled="true"
+                        v-if="scope.row.type == '0'"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.april">
+                      </el-input-number>
+
                     </template>
                   </el-table-column>
                   <!--五月-->
@@ -216,7 +231,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.may">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -234,7 +261,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.june">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -252,7 +291,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.july">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -270,7 +321,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.august">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -288,7 +351,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.september">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -306,7 +381,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.october">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -324,7 +411,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.november">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -342,7 +441,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.december">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -360,7 +471,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.january">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -378,7 +501,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.february">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -396,7 +531,19 @@
                     width="170">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disable"
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:8vw"
+                        v-model.trim="scope.row.march">
+                      </el-input-number>
+                      <el-input-number
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -428,7 +575,16 @@
                     width="200">
                     <template slot-scope="scope">
                       <el-input
-                        :disabled="disable"
+                        v-if="scope.row.type == '1'"
+                        :disabled="false"
+                        :rows="1"
+                        style="width: 10vw"
+                        type="textarea"
+                        v-model="scope.row.remarks">
+                      </el-input>
+                      <el-input
+                        v-if="scope.row.type == '0'"
+                        :disabled="true"
                         :rows="1"
                         style="width: 10vw"
                         type="textarea"
@@ -548,6 +704,7 @@
           year: "",
         },
         tableData: [{
+          type: '',
           project_name: '',
           managerid: '',
           expname: '',
@@ -599,6 +756,7 @@
         this.$store
           .dispatch('PFANS6006Store/getYears', {'year': this.year})
           .then(response => {
+              let tabledate = [];
             for (let j = 0; j < response.length; j++) {
               if (response[j].managerid !== null && response[j].managerid !== '') {
                 let rst = getUserInfo(response[j].managerid)
@@ -683,8 +841,41 @@
                 }
                 response[j].monthlength = h;
               }
+                tabledate.push({
+                    type: 0,
+                    project_name: response[j].project_name,
+                    managerid: response[j].managerid,
+                    expname: response[j].expname,
+                    suppliernameid: response[j].suppliernameid,
+                    admissiontime: response[j].admissiontime,
+                    exitime: response[j].exitime,
+                    operationform: response[j].operationform,
+                    jobclassification: response[j].jobclassification,
+                    distriobjects: response[j].distriobjects,
+                    venuetarget: response[j].venuetarget,
+                    january: response[j].january,
+                    february: response[j].february,
+                    march: response[j].march,
+                    april: response[j].april,
+                    may: response[j].may,
+                    june: response[j].june,
+                    july: response[j].july,
+                    august: response[j].august,
+                    september: response[j].september,
+                    october: response[j].october,
+                    november: response[j].november,
+                    december: response[j].december,
+                    monthlength: response[j].monthlength,
+                    remarks: response[j].remarks,
+                    alltechnology: response[j].alltechnology,
+                    sitevaluation: response[j].sitevaluation,
+                    exitreason: response[j].exitreason,
+                    businessimpact:response[j].businessimpact,
+                    countermeasure: response[j].countermeasure,
+                })
             }
-            this.tableData = response;
+
+            this.tableData = tabledate;
             this.loading = false;
           })
           .catch(error => {
@@ -696,8 +887,8 @@
             this.loading = false;
           })
       },
-      handleRowClick(val) {
-        this.disabled = false;
+      handleRowClick(row) {
+         row.type='1'
       },
       yearChange(value) {
         this.year = moment(value).format('YYYY');
