@@ -79,7 +79,7 @@
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="200">
             <template slot-scope="scope">
               <el-input  maxlength="20" style="width: 100%"
-                         v-model.trim="scope.row.assetsname"></el-input>
+                         v-model="scope.row.assetsname"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -100,7 +100,7 @@
         <el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="150">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.prices" controls-position="right"  @change="handleChange(scope.row)"  :min="0" :max="10" style="width:8vw"></el-input-number>
+              <el-input-number v-model="scope.row.prices" controls-position="right"  @change="handleChange(scope.row)"  :min="0"  style="width:8vw"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -385,7 +385,7 @@
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="200">
             <template slot-scope="scope">
               <el-input  maxlength="20" style="width: 100%"
-                         v-model.trim="scope.row.assetsname"></el-input>
+                         v-model="scope.row.assetsname"></el-input>
             </template>
           </el-table-column>
         </el-table-column>
@@ -406,7 +406,7 @@
         <el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="150">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.prices" controls-position="right"  @change="handleLastYearChange(scope.row)"  :min="0" :max="10" style="width:8vw"></el-input-number>
+              <el-input-number v-model="scope.row.prices" controls-position="right"  @change="handleLastYearChange(scope.row)"  :min="0"  style="width:8vw"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>

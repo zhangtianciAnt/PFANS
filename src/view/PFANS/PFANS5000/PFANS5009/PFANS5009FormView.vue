@@ -161,7 +161,7 @@
                       :step="1"
                       controls-position="right"
                       style="width:20vw"
-                      v-model.trim="form.work">
+                      v-model="form.work">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -223,7 +223,7 @@
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PRODUCTSTATUS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="!disabled" :no="scope.row" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.productstatus"></el-input>
+                                    v-model="scope.row.productstatus"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')" align="center" width="150">
@@ -237,7 +237,7 @@
                             :step="1"
                             controls-position="right"
                             style="width:100%"
-                            v-model.trim="scope.row.estimatedwork">
+                            v-model="scope.row.estimatedwork">
                           </el-input-number>
                         </template>
                       </el-table-column>
@@ -252,7 +252,7 @@
                             :step="1"
                             controls-position="right"
                             style="width:100%"
-                            v-model.trim="scope.row.actualwork">
+                            v-model="scope.row.actualwork">
                           </el-input-number>
                         </template>
                       </el-table-column>
@@ -285,7 +285,7 @@
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_REMARKS')" align="center" width="100">
                         <template slot-scope="scope">
                           <el-input :disabled="!disabled" :no="scope.row" maxlength="20" style="width: 100%;"
-                                    v-model.trim="scope.row.remarks"></el-input>
+                                    v-model="scope.row.remarks"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_ACTUALSTARTTIME')" align="center"
@@ -321,7 +321,7 @@
                             @change="getProduct(scope.row)"
                             active-value="1"
                             inactive-value="0"
-                            v-model.trim="scope.row.product"
+                            v-model="scope.row.product"
                           >
                           </el-switch>
                         </template>
@@ -651,7 +651,7 @@
                       <el-date-picker unlink-panels
                                       class="bigWidth"
                                       :disabled="true"
-                                      v-model.trim="scope.row.workinghours"
+                                      v-model="scope.row.workinghours"
                                       type="daterange"
                                       :end-placeholder="$t('label.enddate')"
                                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"

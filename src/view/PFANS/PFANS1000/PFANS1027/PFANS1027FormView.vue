@@ -374,18 +374,6 @@
             org
         },
         data() {
-          var checktele = (rule, value, callback) => {
-            this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-            if (this.form.tel !== null && this.form.tel !== '') {
-              if (!this.regExp.test(value)) {
-                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-              } else {
-                callback();
-              }
-            } else {
-              callback();
-            }
-          };
             return {
                 radio1: 1,
                 radio2: 1,
@@ -584,7 +572,8 @@
                 menuList: [],
                 rules: {
                   tel: [{
-                    validator: checktele,
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
                     trigger: 'change'
                   }],
                 },
@@ -613,6 +602,10 @@
                     .dispatch('PFANS1027Store/selectById', {"quotationid": this.$route.params._id})
                     .then(response => {
                       this.form = response.quotation;
+                      if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
+                        this.form.startdate = this.form.claimdatetime.slice(0, 10);
+                        this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+                      }
                       this.centerorglist = this.form.deploy;
                       if (this.form.batch === '1') {
                         this.radio1 = 1;
@@ -835,6 +828,9 @@
             return sums;
           },
             buttonClick(val) {
+              if(this.form.startdate!=="" && this.form.enddate!==""){
+                this.form.claimdatetime=moment(this.form.startdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
+              }
               if (val === 'export1') {
                 this.loading = true;
                 this.$store

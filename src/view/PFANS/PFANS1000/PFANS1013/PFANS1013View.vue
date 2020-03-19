@@ -4,6 +4,8 @@
     :columns="columns"
     :data="data"
     :rowid="row_id"
+    ref="roletable"
+    :showSelection="isShow"
     :buttonList="buttonList"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
@@ -17,6 +19,7 @@
     import {Message} from 'element-ui'
     import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
     import moment from "moment";
+    import json2csv from 'json2csv';
 
     export default {
         name: "PFANS1013View",
@@ -26,6 +29,11 @@
         },
         data() {
             return {
+                travelcostvalue: [],
+                startoption: [],
+                selectedlist: [],
+                selectedList: [],
+                isShow: true,
                 loading: false,
                 title: "title.PFANS1013VIEW",
                 data: [],
@@ -95,13 +103,13 @@
                         fix: false,
                         filter: true
                     },
-                  {
-                    code: 'status',
-                    label: 'label.approval_status',
-                    width: 120,
-                    fix: false,
-                    filter: true
-                  }
+                    {
+                        code: 'status',
+                        label: 'label.approval_status',
+                        width: 120,
+                        fix: false,
+                        filter: true
+                    }
                 ],
                 buttonList: [
                     {
@@ -122,6 +130,12 @@
                         disabled: false,
                         icon: 'el-icon-edit'
                     },
+                    {
+                        key: 'export',
+                        name: 'button.export',
+                        disabled: false,
+                        icon: 'el-icon-upload2'
+                    }
                 ],
                 rowid: '',
                 row_id: 'evectionid'
@@ -149,9 +163,9 @@
                         if (response[j].startdate !== null && response[j].startdate !== "") {
                             response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
                         }
-                      if (response[j].status !== null && response[j].status !== "") {
-                        response[j].status = getStatus(response[j].status);
-                      }
+                        if (response[j].status !== null && response[j].status !== "") {
+                            response[j].status = getStatus(response[j].status);
+                        }
                         if (response[j].enddate !== null && response[j].enddate !== "") {
                             response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
                         }
@@ -169,8 +183,17 @@
                 })
         },
         methods: {
-          rowClick(row) {
-            this.rowid = row.evectionid;
+            rowClick(row) {
+                this.rowid = row.evectionid;
+            },
+          formatJson(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => {
+              if (j === 'timestamp') {
+                return parseTime(v[j])
+              } else {
+                return v[j]
+              }
+            }))
           },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path)
@@ -188,10 +211,10 @@
                         params: {
                             _id: this.rowid,
                             disabled: true,
-                            method:"update"
+                            method: "update"
                         }
                     })
-                } else  if (val === 'insert') {
+                } else if (val === 'insert') {
                     this.$router.push({
                         name: 'PFANS1013FormView',
                         params: {
@@ -213,9 +236,221 @@
                         params: {
                             _id: this.rowid,
                             disabled: false,
-                          method:"view"
+                            method: "view"
                         }
                     })
+                }else if (val === 'export') {
+                    this.selectedList = {};
+                    this.selectedList.travelcost = [];
+                    this.selectedlist = this.$refs.roletable.selectedList;
+                    for (let i = 0; i < this.selectedlist.length; i++) {
+                        this.selectedList.travelcost.push({
+                            evectionid: this.selectedlist[i].evectionid
+                        })
+                    }
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS1013Store/gettravelcostvo', this.selectedList)
+                        .then(response => {
+                            this.selectedlist = this.$refs.roletable.selectedList;
+                            let sum = 0;
+                            let invoiceamountvalue = 0;
+                            for (let m = 0; m < response.length; m++) {
+                                sum = sum + 1;
+                                for (let i = 0; i < this.selectedlist.length; i++) {
+                                    if (response[m].evectionid == this.selectedlist[i].evectionid) {
+                                        let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
+                                        if (letErrortype != null) {
+                                            this.selectedlist[i].paymentmethod = letErrortype.value1;
+                                            if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_ONLINEPAYMENT") || this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_TRANSFERCHECK")) {
+                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
+                                            } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
+                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                                            } else if (this.selectedlist[i].paymentmethod === '') {
+                                                this.selectedlist[i].paymentmethod = ''
+                                            }
+                                        }
+                                        let letError = getDictionaryInfo(this.selectedlist[i].currency);
+                                        if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
+                                            this.selectedlist[i].currencyrate = letError.value1;
+                                            response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
+                                        } else if (letError.value1 == null) {
+                                            this.selectedlist[i].currencyrate = ''
+                                            response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
+                                        }
+                                        if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
+                                            let date;
+                                            let invoiceDate = moment(response[m].invoicedate).format("MM");
+                                            if (invoiceDate == '01') {
+                                                date = 'Jan'
+                                            } else if (invoiceDate == '02') {
+                                                date = 'Feb'
+                                            } else if (invoiceDate == '03') {
+                                                date = 'Mar'
+                                            } else if (invoiceDate == '04') {
+                                                date = 'Apr'
+                                            } else if (invoiceDate == '05') {
+                                                date = 'May'
+                                            } else if (invoiceDate == '06') {
+                                                date = 'June'
+                                            } else if (invoiceDate == '07') {
+                                                date = 'July'
+                                            } else if (invoiceDate == '08') {
+                                                date = 'Aug'
+                                            } else if (invoiceDate == '09') {
+                                                date = 'Sept'
+                                            } else if (invoiceDate == '10') {
+                                                date = 'Oct'
+                                            } else if (invoiceDate == '11') {
+                                                date = 'Nov'
+                                            } else if (invoiceDate == '12') {
+                                                date = 'Dec'
+                                            }
+                                            let invoiceDat = moment(response[m].invoicedate).format("DD");
+                                            let invoicedat = moment(response[m].invoicedate).format("YYYY");
+                                            response[m].invoicedate = invoiceDat+date+invoicedat;
+                                        }
+                                        if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
+                                            let Date;
+                                            let conditionDate = moment(response[m].conditiondate).format("MM");
+                                            if (conditionDate == '01') {
+                                                Date = 'Jan'
+                                            } else if (conditionDate == '02') {
+                                                Date = 'Feb'
+                                            } else if (conditionDate == '03') {
+                                                Date = 'Mar'
+                                            } else if (conditionDate == '04') {
+                                                Date = 'Apr'
+                                            } else if (conditionDate == '05') {
+                                                Date = 'May'
+                                            } else if (conditionDate == '06') {
+                                                Date = 'June'
+                                            } else if (conditionDate == '07') {
+                                                Date = 'July'
+                                            } else if (conditionDate == '08') {
+                                                Date = 'Aug'
+                                            } else if (conditionDate == '09') {
+                                                Date = 'Sept'
+                                            } else if (conditionDate == '10') {
+                                                Date = 'Oct'
+                                            } else if (conditionDate == '11') {
+                                                Date = 'Nov'
+                                            } else if (conditionDate == '12') {
+                                                Date = 'Dec'
+                                            }
+                                            let conditionDat = moment(response[m].invoicedate).format("DD");
+                                            let conditiondat = moment(response[m].invoicedate).format("YYYY");
+                                            response[m].conditiondate = conditionDat+Date+conditiondat;
+                                        }
+                                        invoiceamountvalue += parseFloat(response[m].lineamount);
+                                        this.travelcostvalue.push({
+                                            invoicenumber: response[m].invoicenumber,
+                                            number: response[m].number,
+                                            invoicetype: 'STANDARD',
+                                            rowtype: 'ITEM',
+                                            invoicedate: response[m].invoicedate,
+                                            conditiondate: response[m].conditiondate,
+                                            vendorcode: response[m].vendorcode,
+                                            paymentmethod: this.selectedlist[i].paymentmethod,
+                                            currency: response[m].currency,
+                                            invoiceamount: response[m].invoiceamount,
+                                            lineamount: response[m].lineamount,
+                                            currencyrate: this.selectedlist[i].currencyrate,
+                                            companysegment: '01',
+                                            budgetcoding: response[m].budgetcoding,
+                                            subjectnumber: response[m].subjectnumber,
+                                            productsegment: '00000',
+                                            vatnumber: '',
+                                            taxCode: '0%',
+                                            paymentterms: '00/00/00',
+                                            remarks: response[m].remarks,
+                                            source: 'OPEN_IF',
+                                            paymentmethods: 'WIRE',
+                                            type: ',',
+                                        })
+                                    }
+                                }
+                            }
+                            this.startoption.push({
+                                invoicenumber: 'LAST',
+                                number: '9999',
+                                invoicetype: '',
+                                rowtype: '',
+                                invoicedate: '',
+                                conditiondate: '',
+                                vendorcode: '',
+                                paymentmethod: '',
+                                currency: '',
+                                invoiceamount: sum,
+                                lineamount: invoiceamountvalue,
+                                currencyrate: '',
+                                companysegment: '',
+                                budgetcoding: '',
+                                subjectnumber: '',
+                                productsegment: '',
+                                vatnumber: '',
+                                taxCode: '',
+                                paymentterms: '',
+                                remarks: '',
+                                source: '',
+                                paymentmethods: '',
+                                type: '',
+                            })
+                            this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
+                            console.log("this.startoptionvalue",this.startoptionvalue);
+                            let csvData = [];
+                            for (let i = 0; i < this.startoptionvalue.length; i++) {
+                                let obj = this.startoptionvalue[i];
+                                csvData.push({
+                                    [[0]]: obj.invoicenumber,
+                                    [[1]]: obj.number,
+                                    [[2]]: obj.invoicetype,
+                                    [[3]]: obj.rowtype,
+                                    [[4]]: obj.invoicedate,
+                                    [[5]]: obj.conditiondate,
+                                    [[6]]: obj.vendorcode,
+                                    [[7]]: obj.paymentmethod,
+                                    [[8]]: obj.currency,
+                                    [[9]]: obj.invoiceamount,
+                                    [[10]]: obj.lineamount,
+                                    [[11]]: obj.currencyrate,
+                                    [[12]]: obj.companysegment,
+                                    [[13]]: obj.budgetcoding,
+                                    [[14]]: obj.subjectnumber,
+                                    [[15]]: obj.productsegment,
+                                    [[16]]: obj.vatnumber,
+                                    [[17]]: obj.taxCode,
+                                    [[18]]: obj.paymentterms,
+                                    [[19]]: obj.remarks,
+                                    [[20]]: obj.source,
+                                    [[21]]: obj.paymentmethods,
+                                    [[22]]: obj.type,
+                                })
+                            }
+                            let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
+                                'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
+                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remarks', 'source', 'paymentmethods', 'type'];
+                            const result = json2csv.parse(csvData, {
+                                excelStrings: true
+                            });
+                            let resultflg = result.substring(220);
+                            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + resultflg;
+                            const link = document.createElement("a");
+                            link.href = csvContent;
+                            link.download = this.$t('AP') + this.$t('title.PFANS1013VIEW') + '.csv';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
+                            this.loading = false;
+                        })
                 }
             },
         }

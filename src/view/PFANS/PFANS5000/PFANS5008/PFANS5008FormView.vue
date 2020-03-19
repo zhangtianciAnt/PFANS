@@ -457,6 +457,57 @@
                       this.DataList = datalist;
                     });
                 });
+            }else if(this.data.has_project === '02'){
+                this.companyform = this.data;
+                this.$store
+                    .dispatch('PFANS5008Store/getProjectList', {})
+                    .then(response => {
+                        const data = [];
+                        for (let i = 0; i < response.length; i++) {
+                            data.push({
+                                key: response[i].project_id,
+                                label: response[i].project_name,
+                            });
+                        }
+                        this.transferData = data;
+                        this.$store
+                            .dispatch('PFANS5008Store/getDataList', {})
+                            .then(response => {
+                                let datalist = [];
+                                for (let k = 0; k < response.length; k++) {
+                                    if (moment(this.data.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                                        for (let i = 0; i < this.transferData.length; i++) {
+                                            if (this.transferData[i].key === response[k].project_id) {
+                                                response[k].project_id = this.transferData[i].label;
+                                            }
+                                        }
+                                        if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                            let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                            if (letErrortype != null) {
+                                                response[k].work_phase = letErrortype.value1;
+                                            }
+                                        }
+                                        if (response[k].behavior_breakdown !== null && response[k].behavior_breakdown !== '') {
+                                            let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                            if (letErrortype != null) {
+                                                response[k].behavior_breakdown = letErrortype.value1;
+                                            }
+                                        }
+                                        let obj = {};
+                                        obj.start_time = response[k].time_start;
+                                        obj.work_phase = response[k].work_phase;
+                                        obj.behavior_breakdown = response[k].behavior_breakdown;
+                                        obj.project_id = response[k].project_id;
+                                        this.xsTable = true;
+                                        obj.logmanagementid = response[k].logmanagement_id;
+                                        datalist[k] = obj;
+                                        this.xsTable = true;
+                                    }
+
+                                }
+                                this.DataList = datalist;
+                            });
+                    });
             }
             this.loading = false;
           });

@@ -1,4 +1,5 @@
-import {create, get, selectById, update,getdate,getLoanApplication} from './PFANS1013Api'
+import {create, get, selectById,gettravelcostvo, update,getdate,getLoanApplication} from './PFANS1013Api'
+import {gettotalcost} from "../PFANS1012/PFANS1012Api";
 
 const PFANS1013Store = {
   namespaced: true,
@@ -19,6 +20,21 @@ const PFANS1013Store = {
         })
       })
     },
+
+    gettravelcostvo({commit}, data) {
+      return new Promise((resolve, reject) => {
+        gettravelcostvo(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     //获取详细
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {

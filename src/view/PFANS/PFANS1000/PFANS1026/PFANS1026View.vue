@@ -59,7 +59,7 @@
                     },
                     {
                         code: 'state',
-                        label: 'label.approval_status',
+                        label: 'label.PFANS1024VIEW_STATE',
                         width: 120,
                         fix: false,
                         filter: true,
@@ -162,7 +162,7 @@
                     this.$router.push({
                         name: 'PFANS1026FormView',
                         params: {
-                            _id: this.rowid,
+                            _id: this.contractnumber,
                             disabled: false
                         }
                     })

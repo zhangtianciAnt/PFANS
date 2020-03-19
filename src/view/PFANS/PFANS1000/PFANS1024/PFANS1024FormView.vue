@@ -49,7 +49,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
               <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
                    :disabled="!disabled2"></org>
             </el-form-item>
@@ -91,12 +91,13 @@
                              width="50"></el-table-column>
             <el-table-column :label="$t('label.department')" align="center" width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.department'" :error="errordepartment">
                   <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--开发部门-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deployment'" :rules='rules.deployment'>
@@ -105,16 +106,18 @@
                 </el-form-item>
               </template>
             </el-table-column>
+
             <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200"
                              :error="erroruser">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'" :rules='rules.applicant'>
                   <user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType"
                         :userlist="scope.row.user_id"
                         @getUserids="getUserids" style="width: 10.15rem"></user>
                 </el-form-item>
               </template>
             </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"
                              width="200">
               <template slot-scope="scope">
@@ -190,7 +193,7 @@
                   <el-date-picker unlink-panels
                                   class="bigWidth"
                                   :disabled="!disabled"
-                                  v-model.trim="scope.row.contractdate"
+                                  v-model="scope.row.contractdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -335,7 +338,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
+                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -350,12 +353,10 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
-                  <!--<el-input :disabled="!disabled" v-model="scope.row.conchinese">-->
-                  <!--</el-input>-->
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
                     <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
                              v-model="scope.row.conchinese"
-                             @change="changePro">
+                             @change="changePro" :disabled="!disabled">
                     </project>
                   </el-form-item>
                 </template>
@@ -399,7 +400,7 @@
                              width="120">
               <template slot-scope="scope">
                 <el-form-item>
-                  <el-input v-model="scope.row.papercontract">
+                  <el-input v-model="scope.row.papercontract" :disabled="!disabled">
                   </el-input>
                 </el-form-item>
               </template>
@@ -444,12 +445,6 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center" prop="state" width="200">
-              <template slot-scope="scope">
-                <el-form-item>
-                  <el-input v-model="scope.row.state">
-                  </el-input>
-                </el-form-item>
-              </template>
             </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
@@ -550,7 +545,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
-                            return
+
                         }
                     });
                     callback();
@@ -685,7 +680,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
-                            return
+
                         }
                     });
                     callback();
@@ -732,7 +727,16 @@
                     callback();
                 }
             };
+          var groupId = (rule, value, callback) => {
+            if (!this.form.group_id || this.form.group_id === "") {
+              callback(new Error(this.$t("normal.error_08") + "group"));
+              this.error = this.$t("normal.error_08") + "group";
+            } else {
+              callback();
+            }
+          };
             return {
+                errordepartment:'',
                 makeintoBaseInfo: {},
                 titleType: '',
                 titleType1: this.$t('label.PFANS1024VIEW_INTERNTECHNOLOGY'),
@@ -766,12 +770,20 @@
                 disabled1: false,
                 disabled2: true,
                 disabled3: false,
+                disabled4: false,
                 ruleSet: {
                     'save': ['contractnumber'],
                     'makeinto': ['contractnumber'],
-                    '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'conjapanese', 'conchinese', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
+                    '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
                 },
                 rules: {
+                  group: [
+                    {
+                      required: true,
+                      validator: groupId,
+                      trigger: "change"
+                    }
+                  ],
                     deployment: [
                         {validator: validateDeployment}
                     ],
@@ -1241,7 +1253,7 @@
                                 letcontractnumber.push(tabledata[i].contractnumber);
                             }
                         }
-                        var arr = new Array();
+                        var arr = [];
                         let o;
                         for (var i = 0; i < letcontractnumber.length; i++) {
                             if (arr.indexOf(letcontractnumber[i]) == -1) {
@@ -1289,7 +1301,7 @@
             getChecked(val) {
                 this.checked = val;
                 if (val === true) {
-                    this.form.contractnumber = this.letcontractnumber
+                    this.form.contractnumber = this.letcontractnumber;
                     this.disabled1 = true;
                     this.disabled2 = false;
                 } else {
@@ -1532,7 +1544,7 @@
                 let isClone = false;
                 if (this.checked) {
                     for (let i = 0; i < this.form.tabledata.length; i++) {
-                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         if (this.form.tabledata[0].deliverycondition == 'HT009002') {
                             isClone = true;
                         }
@@ -1597,7 +1609,7 @@
                         duration: 5 * 1000
                     });
                     this.loading = false;
-                    this.dialogBook = false
+                    this.dialogBook = false;
                     return;
                 }
                 this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
@@ -1815,7 +1827,7 @@
                 }
                 if (val === "cancellation") {
                     for (let i = 0; i < this.form.tabledata.length; i++) {
-                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                        this.form.tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         this.form.tabledata[i].entrycondition = 'HT004001';
                     }
                     this.handleSave("cancellation");

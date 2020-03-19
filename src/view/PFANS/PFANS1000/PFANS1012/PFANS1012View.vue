@@ -11,6 +11,7 @@
     import {Message} from 'element-ui'
     import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
     import json2csv from 'json2csv';
+    import moment from "moment";
 
     export default {
         name: "PFANS1012View",
@@ -24,7 +25,6 @@
                 selectedList: [],
                 startoption: [],
                 startoptionvalue: [],
-                invoiceamountvalue: '',
                 loading: false,
                 title: "title.PFANS1012VIEW",
                 // 表格数据源
@@ -200,6 +200,7 @@
                         .then(response => {
                             this.selectedlist = this.$refs.roletable.selectedList;
                             let sum = 0;
+                            let invoiceamountvalue = 0;
                             for (let m = 0; m < response.length; m++) {
                                 sum = sum + 1;
                                 for (let i = 0; i < this.selectedlist.length; i++) {
@@ -211,15 +212,85 @@
                                                 this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
                                             } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
                                                 this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                                            } else if (this.selectedlist[i].paymentmethod === '') {
+                                                this.selectedlist[i].paymentmethod = ''
                                             }
                                         }
                                         let letError = getDictionaryInfo(this.selectedlist[i].currency);
-                                        if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
-                                            this.selectedlist[i].currencyrate = letError.value1;
-                                        } else if (letError.value1 == null) {
-                                            this.selectedlist[i].currencyrate = ''
+                                        if (letError != null) {
+                                            if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
+                                                this.selectedlist[i].currencyrate = letError.value1;
+                                                response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
+                                            } else if (letError.value1 == null) {
+                                                this.selectedlist[i].currencyrate = ''
+                                                response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
+                                            }
                                         }
-                                        this.invoiceamountvalue = response[m].invoiceamount;
+                                        if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
+                                            let date;
+                                            let invoiceDate = moment(response[m].invoicedate).format("MM");
+                                            if (invoiceDate == '01') {
+                                                date = 'Jan'
+                                            } else if (invoiceDate == '02') {
+                                                date = 'Feb'
+                                            } else if (invoiceDate == '03') {
+                                                date = 'Mar'
+                                            } else if (invoiceDate == '04') {
+                                                date = 'Apr'
+                                            } else if (invoiceDate == '05') {
+                                                date = 'May'
+                                            } else if (invoiceDate == '06') {
+                                                date = 'June'
+                                            } else if (invoiceDate == '07') {
+                                                date = 'July'
+                                            } else if (invoiceDate == '08') {
+                                                date = 'Aug'
+                                            } else if (invoiceDate == '09') {
+                                                date = 'Sept'
+                                            } else if (invoiceDate == '10') {
+                                                date = 'Oct'
+                                            } else if (invoiceDate == '11') {
+                                                date = 'Nov'
+                                            } else if (invoiceDate == '12') {
+                                                date = 'Dec'
+                                            }
+                                            let invoiceDat = moment(response[m].invoicedate).format("DD");
+                                            let invoicedat = moment(response[m].invoicedate).format("YYYY");
+                                            response[m].invoicedate = invoiceDat+date+invoicedat;
+                                        }
+                                        if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
+                                            let Date;
+                                            let conditionDate = moment(response[m].conditiondate).format("MM");
+                                            if (conditionDate == '01') {
+                                                Date = 'Jan'
+                                            } else if (conditionDate == '02') {
+                                                Date = 'Feb'
+                                            } else if (conditionDate == '03') {
+                                                Date = 'Mar'
+                                            } else if (conditionDate == '04') {
+                                                Date = 'Apr'
+                                            } else if (conditionDate == '05') {
+                                                Date = 'May'
+                                            } else if (conditionDate == '06') {
+                                                Date = 'June'
+                                            } else if (conditionDate == '07') {
+                                                Date = 'July'
+                                            } else if (conditionDate == '08') {
+                                                Date = 'Aug'
+                                            } else if (conditionDate == '09') {
+                                                Date = 'Sept'
+                                            } else if (conditionDate == '10') {
+                                                Date = 'Oct'
+                                            } else if (conditionDate == '11') {
+                                                Date = 'Nov'
+                                            } else if (conditionDate == '12') {
+                                                Date = 'Dec'
+                                            }
+                                            let conditionDat = moment(response[m].invoicedate).format("DD");
+                                            let conditiondat = moment(response[m].invoicedate).format("YYYY");
+                                            response[m].conditiondate = conditionDat+Date+conditiondat;
+                                        }
+                                        invoiceamountvalue += parseFloat(response[m].lineamount);
                                         this.totalcostvalue.push({
                                             invoicenumber: response[m].invoicenumber,
                                             number: response[m].number,
@@ -259,7 +330,7 @@
                                 paymentmethod: '',
                                 currency: '',
                                 invoiceamount: sum,
-                                lineamount: this.invoiceamountvalue,
+                                lineamount: invoiceamountvalue,
                                 currencyrate: '',
                                 companysegment: '',
                                 budgetcoding: '',
@@ -313,7 +384,7 @@
                             let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
                             const link = document.createElement("a");
                             link.href = csvContent;
-                            link.download = this.$t('APXXXX') + '.csv';
+                            link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
                             document.body.appendChild(link);
                             link.click();
                             document.body.removeChild(link);

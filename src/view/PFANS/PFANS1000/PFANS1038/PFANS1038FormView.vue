@@ -26,7 +26,7 @@
               </el-table-column>
               <el-table-column
                 prop="suppliername"
-                label="PFANS1038VIEW_STATIONED"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="180"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
@@ -84,7 +84,7 @@
               </el-table-column>
               <el-table-column
                 prop="supchinese"
-                label="PFANS1038VIEW_STATIONED"
+                :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="160"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
@@ -160,7 +160,7 @@
               </el-table-column>
               <el-table-column
                 prop="isoutside"
-                label="PFANS1038VIEW_WHETHER"
+                :label="$t('label.PFANS1038VIEW_WHETHER')"
                 width="100"
                 align="center"
                 v-if="this.$route.params.type === 0 ? false : true">
@@ -278,7 +278,6 @@
         }
       },
       getNextYearLevel:function () {
-        debugger
         return (parseInt(this.getThisYearLevel) + 1) + "";
       }
     },
@@ -311,7 +310,6 @@
         this.$store
           .dispatch('PFANS1038Store/getCustomerInfo', id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response.map(
                 res => {
@@ -332,7 +330,6 @@
         this.$store
           .dispatch('PFANS1038Store/getExpatriatesinfor',id)
           .then(response => {
-            debugger
             if (response.length > 0) {
               this.tableData = response;
             }
@@ -369,7 +366,6 @@
           .then(response => {
             this.loading = false;
             this.form = response;
-            debugger
             console.log(JSON.parse(this.form.employed));
             this.tableData = JSON.parse(this.form.employed);
             this.newTableData = JSON.parse(this.form.newentry);
@@ -386,7 +382,6 @@
       formatterDic(row, column) {
         if (column.property === "thisyear" && this.$route.params.type === 0) {
           if (row[column.property]) {
-            debugger
             let dic = getDictionaryInfo(row[column.property]);
             return dic === null ? "-" : dic.value1;
           } else {
@@ -412,7 +407,6 @@
         this.newTableData.push({"isoutside":false,"entermouth":null});
       },
       changeOption(val, row) {
-        debugger
         if (val) {
           if(this.i18n){
             row.entermouth = this.$t('label.PFANS1038VIEW_OUTSIDE');

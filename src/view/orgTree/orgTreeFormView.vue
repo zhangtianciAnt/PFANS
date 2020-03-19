@@ -31,6 +31,19 @@
           <el-form-item label="组织负责人" prop="user">
             <user selectType="Single" @getUserids="getUserids"  style="width:20vw" :userlist="userlist"></user>
           </el-form-item>
+          <el-form-item
+            label="是否直属组织"
+            prop="redirict"
+          >
+            <el-switch
+              :width="50"
+              active-color="#13ce66"
+              active-value="0"
+              inactive-color="#ff4949"
+              inactive-value="1"
+              v-model="companyform.redirict">
+            </el-switch>
+          </el-form-item>
         </el-form>
 
         <el-form :model="companyform" class="demo-ruleForm" label-width="8vw"
@@ -57,6 +70,20 @@
           <el-form-item label="组织负责人" prop="user">
             <user selectType="Single" @getUserids="getUserids"  style="width:20vw" :userlist="userlist"></user>
           </el-form-item>
+          <el-form-item
+            label="是否直属组织"
+            prop="redirict"
+          >
+            <el-switch
+              :width="50"
+              active-color="#13ce66"
+              active-value="0"
+              inactive-color="#ff4949"
+              inactive-value="1"
+              v-model="companyform.redirict">
+            </el-switch>
+          </el-form-item>
+
           <el-form-item
             label="状态"
             prop="status"
@@ -98,7 +125,8 @@
         orgTree: this.$route.params.orgTree,
         companyform: {
           _id: getUUID(36, 16),
-          status: '0'
+          status: '0',
+          redirict: '0'
         },
         upcompany: this.$route.params.currentNode.type === '1' ?
           this.$route.params.currentNode.companyshortname :

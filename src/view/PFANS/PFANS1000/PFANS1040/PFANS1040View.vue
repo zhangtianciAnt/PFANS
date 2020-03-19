@@ -34,7 +34,7 @@
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="230">
                     <template slot-scope="scope">
                       <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                v-model.trim="scope.row.theme"></el-input>
+                                v-model="scope.row.theme"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
@@ -103,7 +103,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel191"></el-input>
+                                  v-model="scope.row.personnel191"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -119,7 +119,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel192"></el-input>
+                                  v-model="scope.row.personnel192"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -135,7 +135,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel193"></el-input>
+                                  v-model="scope.row.personnel193"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -152,7 +152,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel4"></el-input>
+                                  v-model="scope.row.personnel4"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -168,7 +168,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel5"></el-input>
+                                  v-model="scope.row.personnel5"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -184,7 +184,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel6"></el-input>
+                                  v-model="scope.row.personnel6"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -200,7 +200,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel7"></el-input>
+                                  v-model="scope.row.personnel7"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -216,7 +216,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel8"></el-input>
+                                  v-model="scope.row.personnel8"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -232,7 +232,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel9"></el-input>
+                                  v-model="scope.row.personnel9"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -248,7 +248,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel10"></el-input>
+                                  v-model="scope.row.personnel10"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -264,7 +264,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel11"></el-input>
+                                  v-model="scope.row.personnel11"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -280,7 +280,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel12"></el-input>
+                                  v-model="scope.row.personnel12"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -296,7 +296,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel1"></el-input>
+                                  v-model="scope.row.personnel1"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -312,7 +312,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel2"></el-input>
+                                  v-model="scope.row.personnel2"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -328,7 +328,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel3"></el-input>
+                                  v-model="scope.row.personnel3"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -381,7 +381,7 @@
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_THEME')" align="center" width="230">
                     <template slot-scope="scope">
                       <el-input :disabled="gettrue(scope.row)" :no="scope.row" maxlength="20" style="width: 100%"
-                                v-model.trim="scope.row.theme"></el-input>
+                                v-model="scope.row.theme"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
@@ -450,7 +450,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel191"></el-input>
+                                  v-model="scope.row.personnel191"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -466,7 +466,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel192"></el-input>
+                                  v-model="scope.row.personnel192"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -482,7 +482,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel193"></el-input>
+                                  v-model="scope.row.personnel193"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -499,7 +499,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[0].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel4"></el-input>
+                                  v-model="scope.row.personnel4"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -515,7 +515,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[1].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel5"></el-input>
+                                  v-model="scope.row.personnel5"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -531,7 +531,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[2].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel6"></el-input>
+                                  v-model="scope.row.personnel6"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -547,7 +547,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[3].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel7"></el-input>
+                                  v-model="scope.row.personnel7"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -563,7 +563,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[4].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel8"></el-input>
+                                  v-model="scope.row.personnel8"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -579,7 +579,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[5].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel9"></el-input>
+                                  v-model="scope.row.personnel9"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -595,7 +595,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[6].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel10"></el-input>
+                                  v-model="scope.row.personnel10"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -611,7 +611,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[7].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel11"></el-input>
+                                  v-model="scope.row.personnel11"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -627,7 +627,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[8].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel12"></el-input>
+                                  v-model="scope.row.personnel12"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -643,7 +643,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[9].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel1"></el-input>
+                                  v-model="scope.row.personnel1"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -659,7 +659,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[10].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel2"></el-input>
+                                  v-model="scope.row.personnel2"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
@@ -675,7 +675,7 @@
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="gettrue(scope.row)? true:arrays[11].disabled" maxlength="20" style="width: 100%"
-                                  v-model.trim="scope.row.personnel3"></el-input>
+                                  v-model="scope.row.personnel3"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="150">
