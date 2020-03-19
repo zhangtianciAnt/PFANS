@@ -194,7 +194,7 @@
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1032Store/one', {"petition_id": this.$route.params._id})
+          .dispatch('PFANS1032Store/one', {"petition_id" : this.$route.params._id})
           .then(response => {
             this.form = response;
             if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {

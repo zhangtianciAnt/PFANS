@@ -714,7 +714,7 @@
                             if (response[j].user_id !== null && response[j].user_id !== "") {
                                 let cooperInfo = getCooperinterviewList(response[j].user_id);
                                 if (cooperInfo) {
-                                    response[j].user_id = cooperInfo.coopername;
+                                    response[j].user_id = cooperInfo.expname;
                                 }
                             }
                             this.arr[j] = [];

@@ -318,6 +318,35 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
+              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
+                               width="200">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
+                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    </el-input>
+                  </el-form-item>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
+                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
+                             v-model="scope.row.conchinese"
+                             @change="changePro" :disabled="!disabled">
+                    </project>
+                  </el-form-item>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
+                    <el-input :disabled="!disabled" v-model="scope.row.conenglish">
+                    </el-input>
+                  </el-form-item>
+                </template>
+              </el-table-column>
+            </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese"
                                width="200" :error="errorcusto">
@@ -471,34 +500,13 @@
                 </template>
               </el-table-column>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
-              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
-                               width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
-                    </el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
-                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
-                             v-model="scope.row.conchinese"
-                             @change="changePro" :disabled="!disabled">
-                    </project>
-                  </el-form-item>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input :disabled="!disabled" v-model="scope.row.conenglish">
-                    </el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center" prop="qingremarks" width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.qingremarks'">
+                  <el-input :disabled="!disabled" v-model="scope.row.qingremarks">
+                  </el-input>
+                </el-form-item>
+              </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarks" width="200">
               <template slot-scope="scope">
@@ -1557,7 +1565,7 @@
                         'border-right': '1px solid #73B9FF',
                     };
                 }
-                if (column.level === 2 && columnIndex >= 2 && columnIndex < 4) {
+                if (column.level === 2 && columnIndex >= 2 && columnIndex < 3) {
                     return {
                         color: 'white',
                         background: '#99CC99',
@@ -1565,7 +1573,7 @@
                         'border-right': '1px solid #73CC73',
                     };
                 }
-                if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
+                if (column.level === 2 && columnIndex >= 3 && columnIndex < 8) {
                     return {
                         color: 'white',
                         background: '#CC99FF',
@@ -1664,7 +1672,8 @@
                         type: '1',
                         maketype: '',
                         theme: '',
-                        temaid: ''
+                        temaid: '',
+                        qingremarks: ''
                     };
                     this.form.tabledata.push(o);
 //                this.tabledata.push(o);
