@@ -53,7 +53,13 @@
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getUserInfo, getOrgInfo, getDictionaryInfo, getCooperinterviewList} from '@/utils/customize';
+  import {
+    getUserInfo,
+    getOrgInfo,
+    getDictionaryInfo,
+    getCooperinterviewList,
+    getSupplierinfor,
+  } from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -184,10 +190,10 @@
           .dispatch('PFANS6004Store/getexpatriates')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].suppliername !== null && response[j].suppliername !== '') {
-                let suppliername = getUserInfo(response[j].suppliername);
+              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
+                let suppliername = getSupplierinfor(response[j].supplierinfor_id);
                 if (suppliername) {
-                  response[j].suppliername = user.userinfo.customername;
+                  response[j].suppliername = supplierInfor.supchinese;
                 }
               }
               if (response[j].expname !== null && response[j].expname !== '') {
