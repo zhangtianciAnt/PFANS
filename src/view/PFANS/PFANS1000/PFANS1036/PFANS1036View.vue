@@ -9,6 +9,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+  import {getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: "PFANS1036View",
@@ -24,6 +25,13 @@
         // 列属性
         columns: [
           {
+            code: 'year',
+            label: 'label.FANS1036FORMVIEW_BUSINESSYEAR',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
             code: 'user_id',
             label: 'label.applicant',
             width: 100,
@@ -31,22 +39,15 @@
             filter: true
           },
           {
-            code: 'center_name',
+            code: 'center',
             label: 'label.center',
             width: 150,
             fix: false,
             filter: true
           },
           {
-            code: 'group_name',
+            code: 'group',
             label: 'label.group',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'team_name',
-            label: 'label.team',
             width: 150,
             fix: false,
             filter: true
@@ -75,13 +76,13 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
+              debugger
               let rst = getUserInfo(response[j].user_id);
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;
+                response[j].center = rst.userinfo.centername;
+                response[j].group = rst.userinfo.groupname;
               }
-              response[j].center_name = response[j].centerid;
-              response[j].group_name = response[j].centerid;
-              response[j].team_name = response[j].centerid;
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
               }

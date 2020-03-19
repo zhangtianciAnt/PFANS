@@ -170,35 +170,12 @@
                         filter: true,
                     },
                     {
-                        code: '',
+                        code: 'absenteeism',
                         label: 'label.PFANS2010VIEW_ABSENCE',
                         labelClass: 'pfans2010view_column_7',
-                        child: [
-                            {
-                                code: 'late',
-                                label: 'label.PFANS2010VIEW_LATE',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 100,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'leaveearly',
-                                label: 'label.PFANS2010VIEW_LEAVEEARLY',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 100,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'absenteeism',
-                                label: 'label.PFANS2010VIEW_ABSENTEEISM',
-                                labelClass: 'pfans2010view_column_8',
-                                width: 120,
-                                fix: false,
-                                filter: true,
-                            },
-                        ],
+                        width: 120,
+                        fix: false,
+                        filter: true,
                     },
                     {
                         code: 'recognitionstate',
@@ -269,6 +246,7 @@
                 this.$store
                     .dispatch('PFANS2010Store/getAttendancelist', parameter)
                     .then(response => {
+
                         for (let j = 0; j < response.length; j++) {
                             response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
                             if(response[j].recognitionstate === "0"){
@@ -281,6 +259,20 @@
                                     response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                                 }
                             }
+
+                            if(response[j].absenteeism === null || response[j].absenteeism === "")
+                            {
+                                response[j].absenteeism = response[j].tabsenteeism;
+                            }
+                            if(response[j].shortsickleave === null || response[j].shortsickleave === "")
+                            {
+                                response[j].shortsickleave = response[j].tshortsickleave;
+                            }
+                            if(response[j].longsickleave === null || response[j].longsickleave === "")
+                            {
+                                response[j].longsickleave = response[j].tlongsickleave;
+                            }
+
                         }
                         this.data = response;
                         this.loading = false;
@@ -336,10 +328,9 @@
     color: #ffffff;
   }
   .pfans2010view_column_7 {
-    height: 40px;
+    height: 81px;
     background: #E5575E;
     color: #ffffff;
-    text-align: center;
   }
   .pfans2010view_column_8 {
     height: 40px;
