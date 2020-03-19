@@ -3,9 +3,9 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="dialogFormVisible" @closed="close" v-loading="loading">
+    <el-dialog :visible.sync="dialogFormVisible" @closed="close" >
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
-               ref="refform" style="padding: 2vw">
+               ref="refform" style="padding: 2vw" v-loading="loading">
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" prop="evaluationday">
