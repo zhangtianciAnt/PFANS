@@ -1,25 +1,16 @@
-import {
-  getexpatriatesinfor,
-  getexpatriatesinforApplyOne,
-  getexpatriatesinforthisyear,
-  updateexpatriatesinforApply,
-  createexpatriatesinforApply,
-  updateexpatriatesinfor,
-  getSupplierNameList,
-  download,
-  getCompanyProject,
-  getexpatriates
-} from './PFANS6004Api'
+import {getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2} from './PFANS5013Api'
 
 
-const PFANS6004Store = {
+const PFANS5013Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getexpatriatesinfor() {
+    //创建流程
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
-        getexpatriatesinfor().then(response => {
+        insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -30,9 +21,10 @@ const PFANS6004Store = {
         })
       })
     },
-    getexpatriates() {
+    //更新流程
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
-        getexpatriates().then(response => {
+        update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -43,9 +35,10 @@ const PFANS6004Store = {
         })
       })
     },
-    getexpatriatesinforthisyear() {
+    //获取流程
+    getFpans5013List({commit},data) {
       return new Promise((resolve, reject) => {
-        getexpatriatesinforthisyear().then(response => {
+        getFpans5013List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -56,9 +49,9 @@ const PFANS6004Store = {
         })
       })
     },
-    getexpatriatesinforApplyOne({commit}, data) {
+    selectById({ commit },data) {
       return new Promise((resolve, reject) => {
-        getexpatriatesinforApplyOne(data).then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -69,9 +62,9 @@ const PFANS6004Store = {
         })
       })
     },
-    updateexpatriatesinforApply({commit}, data) {
+    select({ commit },data) {
       return new Promise((resolve, reject) => {
-        updateexpatriatesinforApply(data).then(response => {
+        select(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -82,24 +75,9 @@ const PFANS6004Store = {
         })
       })
     },
-
-    updateexpatriatesinfor({commit}, data) {
+    getcustomer({commit}, data) {
       return new Promise((resolve, reject) => {
-        updateexpatriatesinfor(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    createexpatriatesinforApply({commit}, data) {
-      return new Promise((resolve, reject) => {
-        createexpatriatesinforApply(data).then(response => {
+        getcustomer(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -111,23 +89,9 @@ const PFANS6004Store = {
       })
     },
 
-    // setexpatriatesinforApply({commit}, data) {
-    //   return new Promise((resolve, reject) => {
-    //     setexpatriatesinforApply(data).then(response => {
-    //       if (response.code === 0) {
-    //         resolve(response.data);
-    //       } else {
-    //         reject(response.message)
-    //       }
-    //     }).catch(error => {
-    //       reject(error);
-    //     })
-    //   })
-    // },
-
-    getSupplierNameList({commit}, data) {
+    getexpat({commit}, data) {
       return new Promise((resolve, reject) => {
-        getSupplierNameList(data).then(response => {
+        getexpat(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -138,19 +102,74 @@ const PFANS6004Store = {
         })
       })
     },
-    download({commit}, data) {
+    getPjList({commit}, data) {
       return new Promise((resolve, reject) => {
-        download(data).then(response => {
-          resolve(response);
+        getPjList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
         }).catch(error => {
           reject(error);
         })
       })
     },
-
-    getCompanyProject({commit},data) {
+    getList2({commit}, data) {
       return new Promise((resolve, reject) => {
-        getCompanyProject(data).then(response => {
+        getList2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getProjectList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getProjectList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getGroupTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getGroupTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    updateTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updateTimestart(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -165,4 +184,4 @@ const PFANS6004Store = {
   }
 };
 
-export default PFANS6004Store;
+export default PFANS5013Store;

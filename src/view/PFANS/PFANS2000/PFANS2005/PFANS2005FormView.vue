@@ -692,8 +692,8 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
               <div>
-                <el-collapse>
-                  <el-collapse-item>
+                <el-collapse value="women">
+                  <el-collapse-item name="women">
                     <template slot="title">
                       <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_FEMALELEAVE')}}</span>
                     </template>
@@ -897,13 +897,8 @@
                       prop="moneys"
                     >
                       <template slot-scope="scope">
-                        <div v-if="scope.row.type === '0'">
-                          {{scope.row.moneys}}
-                        </div>
-                        <el-input
-                          v-if="scope.row.type === '1'"
-                          v-model="scope.row.moneys"
-                        ></el-input>
+                        <div v-if="scope.row.type === '0'">{{scope.row.moneys}}</div>
+                        <el-input v-if="scope.row.type === '1'" v-model="scope.row.moneys"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -912,13 +907,8 @@
                       prop="rootknot"
                     >
                       <template slot-scope="scope">
-                        <div v-if="scope.row.type === '0'">
-                          {{scope.row.rootknot}}
-                        </div>
-                        <el-input
-                          v-if="scope.row.type === '1'"
-                          v-model="scope.row.rootknot"
-                        ></el-input>
+                        <div v-if="scope.row.type === '0'">{{scope.row.rootknot}}</div>
+                        <el-input v-if="scope.row.type === '1'" v-model="scope.row.rootknot"></el-input>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1464,6 +1454,7 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
+                loading="qqLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -1571,7 +1562,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisdiligencetry"></el-input>
+                      <el-input
+                        v-model="scope.row.thisdiligencetry"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1583,7 +1577,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisshortdeficiencytry"></el-input>
+                      <el-input
+                        v-model="scope.row.thisshortdeficiencytry"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1595,7 +1592,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thischronicdeficiencytry"></el-input>
+                      <el-input
+                        v-model="scope.row.thischronicdeficiencytry"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1607,7 +1607,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisdiligenceformal"></el-input>
+                      <el-input
+                        v-model="scope.row.thisdiligenceformal"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1619,7 +1622,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisshortdeficiencyformal"></el-input>
+                      <el-input
+                        v-model="scope.row.thisshortdeficiencyformal"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1631,7 +1637,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thischronicdeficiencyformal"></el-input>
+                      <el-input
+                        v-model="scope.row.thischronicdeficiencyformal"
+                        @change="thisMonthLacktimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1639,9 +1648,13 @@
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_QQH')"
                     align="center"
-                    prop="thisdiligencetry"
+                    prop="thisdiligence"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template
+                      slot-scope="scope"
+                    >{{parseFloat(scope.row.thisdiligencetry) + parseFloat(scope.row.thisdiligenceformal)}}</template>
+                  </el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠（H）-->
                   <el-table-column
@@ -1649,7 +1662,11 @@
                     align="center"
                     prop="thisshortdeficiency"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template
+                      slot-scope="scope"
+                    >{{parseFloat(scope.row.thisshortdeficiencytry) + parseFloat(scope.row.thisshortdeficiencyformal)}}</template>
+                  </el-table-column>
                   <!--                  endregion-->
                   <!--                  region 长病欠（H）-->
                   <el-table-column
@@ -1657,7 +1674,12 @@
                     align="center"
                     prop="thischronicdeficiency"
                     width="150%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      {{parseFloat(scope.row.thischronicdeficiencytry) +
+                      parseFloat(scope.row.thischronicdeficiencyformal)}}
+                    </template>
+                  </el-table-column>
                   <!--                  endregion-->
                   <!--                  region 合计（元）-->
                   <el-table-column
@@ -1708,6 +1730,7 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
+                laoding="cyLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -1773,7 +1796,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisweekdays"></el-input>
+                      <el-input
+                        v-model="scope.row.thisweekdays"
+                        @change="thisMonthOvertimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1783,7 +1809,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisrestDay"></el-input>
+                      <el-input
+                        v-model="scope.row.thisrestDay"
+                        @change="thisMonthOvertimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1793,7 +1822,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thislegal"></el-input>
+                      <el-input
+                        v-model="scope.row.thislegal"
+                        @change="thisMonthOvertimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1803,7 +1835,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisreplace"></el-input>
+                      <el-input
+                        v-model="scope.row.thisreplace"
+                        @change="thisMonthOvertimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1813,7 +1848,10 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.thisreplace3"></el-input>
+                      <el-input
+                        v-model="scope.row.thisreplace3"
+                        @change="thisMonthOvertimeChange(scope.row)"
+                      ></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1821,7 +1859,13 @@
                     align="center"
                     prop="thistotalh"
                     width="110%"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      {{parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
+                      parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
+                      parseFloat(scope.row.thisreplace3)}}
+                    </template>
+                  </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
@@ -3212,7 +3256,10 @@ export default {
           reason: ""
         }
       ],
-      baseInfo: {}
+      baseInfo: {},
+      qqLoading: false,
+      cyLoading: false,
+      givingVo: {}
     };
   },
   created() {},
@@ -4366,6 +4413,10 @@ export default {
             }
           }, 0);
           sums[index] += " ";
+        } else {
+          //非合计项显示空 -- lxx
+          sums[index] = " ";
+          //非合计项显示空 -- lxx
         }
       });
       return sums;
@@ -4766,6 +4817,48 @@ export default {
             this.loading = false;
           });
       }
+    },
+    //本月加班数据变更时，重新计算加班费合计
+    thisMonthOvertimeChange(val) {
+      this.givingVo.residual = this.tableCY;
+      this.givingVo.base = this.tableJS;
+      const index = JSON.stringify(this.tableCY).indexOf(JSON.stringify(val));
+      this.cyLoading = true;
+      this.$store
+        .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
+        .then(response => {
+          this.tableCY[index] = response;
+          this.cyLoading = false;
+        })
+        .catch(err => {
+          this.cyLoading = false;
+          Message({
+            message: err,
+            type: "error",
+            duration: 5 * 1000
+          });
+        });
+    },
+    //本月欠勤数据变更时，重新计算欠勤费合计
+    thisMonthLacktimeChange(val) {
+      this.givingVo.lackattendance = this.tableQQ;
+      this.givingVo.base = this.tableJS;
+      this.qqLoading = true;
+      const index = JSON.stringify(this.tableQQ).indexOf(JSON.stringify(val));
+      this.$store
+        .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
+        .then(response => {
+          this.tableQQ[index] = response;
+          this.qqLoading = false;
+        })
+        .catch(err => {
+          this.qqLoading = false;
+          Message({
+            message: err,
+            type: "error",
+            duration: 5 * 1000
+          });
+        });
     }
   }
 };

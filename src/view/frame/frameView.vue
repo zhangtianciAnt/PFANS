@@ -316,11 +316,36 @@
               if (response.menuids.indexOf(menu._id) > -1) {
                 let temp = Object.assign({}, menu);
                 this.$set(temp, "children", []);
-                menu.children.map(info => {
-                  if (response.menuids.indexOf(info._id) > -1) {
-                    temp.children.push(info);
+                for(let index1 = 0 ;index1<menu.children.length;index1++){
+                  if (response.menuids.indexOf(menu.children[index1]._id) > -1) {
+                    if(menu.children[index1].children.length > 0){
+                      temp.children.push([]);
+                      Object.assign(temp.children[temp.children.length - 1], menu.children[index1])
+                      this.$set(temp.children[temp.children.length - 1], "children", []);
+                      for(let index2 = 0 ;index2<menu.children[index1].children.length;index2++){
+                        if (response.menuids.indexOf(menu.children[index1].children[index2]._id) > -1) {
+                          if(menu.children[index1].children[index2].children.length > 0){
+                            temp.children[temp.children.length - 1].push([]);
+                            Object.assign(temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1], menu.children[index1].children[index2])
+                            this.$set(temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1], "children", []);
+                            for(let index3 = 0 ;index3<menu.children[index1].children[index2].length;index3++){
+                              if (response.menuids.indexOf(menu.children[index1].children[index2].children[index3]._id) > -1) {
+                                temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1].children.push(menu.children[index1].children[index2].children[index3]);
+                              }
+                            }
+                          }else{
+                            temp.children[temp.children.length - 1].children.push(menu.children[index1].children[index2]);
+                          }
+                        }
+                      }
+                    }else{
+                      temp.children.push(menu.children[index1]);
+                    }
                   }
-                });
+                }
+
+
+
                 tempdata.push(temp);
               }
             });
@@ -475,7 +500,7 @@
       },
       //协力人员
       getCooperinterviewList() {
-          this.$store.dispatch('PFANS6001Store/getcooperinterview').then(response => {
+          this.$store.dispatch('PFANS6004Store/getexpatriatesinfor').then(response => {
               this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           }).catch(err => {
               Message({

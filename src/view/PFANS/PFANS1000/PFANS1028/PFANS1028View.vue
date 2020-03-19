@@ -100,13 +100,6 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true
-          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},

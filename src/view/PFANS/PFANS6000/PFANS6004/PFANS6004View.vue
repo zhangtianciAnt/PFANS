@@ -181,7 +181,7 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .dispatch('PFANS6004Store/getexpatriates')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].suppliername !== null && response[j].suppliername !== '') {
@@ -193,7 +193,7 @@
               if (response[j].expname !== null && response[j].expname !== '') {
                 let expname = getCooperinterviewList(response[j].expname);
                 if (expname) {
-                  response[j].expname = expname.coopername;
+                  response[j].expname = expname.expname;
                 }
               }
               if (response[j].group_id !== null && response[j].group_id !== '') {
