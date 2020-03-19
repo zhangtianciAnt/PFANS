@@ -475,7 +475,7 @@
       },
       //协力人员
       getCooperinterviewList() {
-          this.$store.dispatch('PFANS6001Store/getcooperinterview').then(response => {
+          this.$store.dispatch('PFANS6004Store/getexpatriatesinfor').then(response => {
               this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           }).catch(err => {
               Message({

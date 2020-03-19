@@ -268,7 +268,7 @@ export function getCooperinterviewList(cooperuserid) {
   let info = null;
   if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
     for (let cooperinterview of store.getters.cooperinterviewList) {
-      if (cooperinterview.cooperuserid === cooperuserid) {
+      if (cooperinterview.expatriatesinfor_id === cooperuserid) {
         info = cooperinterview;
         break
       }
