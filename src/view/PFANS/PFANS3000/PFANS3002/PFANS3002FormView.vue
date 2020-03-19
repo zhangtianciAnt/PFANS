@@ -38,18 +38,18 @@
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAME')" prop="name">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.name"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAMEROME')" prop="namerome">
                 <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                          v-model.trim="form.namerome"></el-input>
+                          v-model="form.namerome"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_HOTEL')" prop="hotel">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model.trim="form.hotel"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.hotel"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

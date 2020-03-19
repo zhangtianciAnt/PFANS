@@ -84,3 +84,21 @@ export function deleteotherfour(data) {
     data: data,
   });
 }
+
+// 本月加班数据变更时，重新计算加班费合计
+export function thisMonthOvertimeChange(data) {
+  return request({
+    url: 'giving/thisMonthOvertimeChange',
+    method: 'post',
+    data: data,
+  });
+}
+
+// 本月欠勤数据变更时，重新计算欠勤费合计
+export function thisMonthLacktimeChange(data) {
+  return request({
+    url: 'giving/thisMonthLacktimeChange',
+    method: 'post',
+    data: data,
+  });
+}

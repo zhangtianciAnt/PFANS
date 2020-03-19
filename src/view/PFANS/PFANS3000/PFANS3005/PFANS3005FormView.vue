@@ -351,18 +351,6 @@
           return callback();
         }
       };
-      var validateTel = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.linenumber !== null && this.form.linenumber !== '') {
-          if (!this.regExp.test((value))) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3005VIEW_LINENUMBER')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         regExp: [],
         multiple: false,
@@ -447,10 +435,9 @@
           linenumber: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_LINENUMBER'),
+              message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3005VIEW_LINENUMBER'),
               trigger: 'change',
-            },
-            {validator: validateTel, trigger: 'blur'}],
+            }],
           setplace: [
             {
               required: true,

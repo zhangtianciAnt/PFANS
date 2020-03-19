@@ -21,13 +21,17 @@
             <el-row style="padding-top: 10px">
               <el-table :data="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
-                        @selection-change="handleSelectionChange"
+                        @selection-change="handleSelectionChange()" @row-click="handleRowClick"
                         style="width: 100%">
+
                 <!--checkbox-->
                 <el-table-column
-                  type="selection"
                   width="55">
+                  <el-checkbox
+                    type="selection"
+                  ></el-checkbox>
                 </el-table-column>
+
                 <!-- 序号-->
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -79,7 +83,7 @@
                         :disabled="!disabled"
                         :no="scope.row"
                         style="width: 100%"
-                        v-model="scope.row.company">
+                        v-model="scope.row.suppliernameid">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -93,7 +97,7 @@
                         :disabled="!disabled"
                         :no="scope.row"
                         style="width: 100%"
-                        v-model="scope.row.suppliernameid">
+                        v-model="scope.row.expname">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -538,9 +542,7 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
-        aaa: '',
-        bbb: '',
-        year: '',
+        year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         row: '',
         form: {
           year: "",
@@ -548,7 +550,7 @@
         tableData: [{
           project_name: '',
           managerid: '',
-          company: '',
+          expname: '',
           suppliernameid: '',
           admissiontime: '',
           exitime: '',
@@ -577,6 +579,7 @@
           countermeasure: '',
         }],
         data: [],
+        multipleSelection: [],
         userlist: "",
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
@@ -587,11 +590,6 @@
             'name': 'button.save',
             'disabled': false,
           },
-          // {
-          //   'key': 'generate',
-          //   'name': 'button.generate',
-          //   'disabled': false
-          // },
         ],
       };
     },
@@ -698,47 +696,43 @@
             this.loading = false;
           })
       },
+      handleRowClick(val) {
+        this.disabled = false;
+      },
       yearChange(value) {
         this.year = moment(value).format('YYYY');
         this.getList();
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
-        this.disable = false;
       },
       buttonClick(val) {
         if (val === 'save') {
           this.loading = true;
-          for (let i of this.multipleSelection) {
-            this.updateDeleginformation();
-          }
+          this.$store
+            .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+            .then(response => {
+              this.data = response;
+              this.getList(this.year);
+              Message({
+                message: this.$t("normal.success_02"),
+                type: "success",
+                duration: 5 * 1000
+              });
+              this.$router.push({
+                name: 'PFANS6006View',
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
-      },
-      updateDeleginformation() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6006Store/updateDeleginformation', this.tableData)
-          .then(response => {
-            this.data = response;
-            this.getList(this.year);
-            Message({
-              message: this.$t("normal.success_02"),
-              type: "success",
-              duration: 5 * 1000
-            });
-            this.$router.push({
-              name: 'PFANS6006View',
-            });
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
         if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
@@ -775,12 +769,6 @@
 
     },
     mounted() {
-      debugger
-      this.aaa = moment(new Date()).format('YYYY') - 1,
-
-        this.bbb = moment(new Date()).format('YYYY'),
-        console.log("aaa", this.year)
-      this.year = moment(new Date()).format('MM') < 4 ? this.aaa : this.bbb;
       this.getList();
     },
   }

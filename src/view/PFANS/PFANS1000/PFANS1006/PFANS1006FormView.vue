@@ -291,18 +291,6 @@
           this.error = '';
         }
       };
-      var validateTel = (rule, value, callback) => {
-        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-        if (this.form.telephone !== null && this.form.telephone !== '') {
-          if (!this.regExp.test((value))) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       var varreimbursement = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
           this.rules.reasonfordelay[0].required = false;
@@ -416,8 +404,7 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'blur',
-          },
-            {validator: validateTel, trigger: 'blur'}],
+          }],
           budgetunit: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.budgetunit'),

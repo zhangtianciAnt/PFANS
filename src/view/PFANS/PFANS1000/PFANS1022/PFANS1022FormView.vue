@@ -109,7 +109,7 @@
                                   class="bigWidth"
                                   :disabled="!disabled"
                                   :readonly="!scope.row.dis"
-                                  v-model.trim="scope.row.startdate"
+                                  v-model="scope.row.startdate"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -189,18 +189,6 @@
                     return callback();
                 }
             };
-            var validateExtensionnumber = (rule, value, callback) => {
-                this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-                if (this.form.extension !== null && this.form.extension !== '') {
-                    if (!this.regExp.test((value))) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            };
             return {
                 index: "",
                 baseInfo: {},
@@ -261,12 +249,11 @@
                             trigger: 'change'
                         },
                     ],
-                    extension: [//{
-                    //     required: true,
-                    //     message: this.$t('normal.error_08') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
-                    //     trigger: 'blur',
-                    // },
-                        {validator: validateExtensionnumber, trigger: 'change'}],
+                    extension: [{
+                         required: true,
+                         message:  this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1018FORMVIEW_INSIDENUMBER'),
+                         trigger: 'blur',
+                     }],
                 },
                 canStart: false,
             };

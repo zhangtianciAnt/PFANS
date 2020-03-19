@@ -109,7 +109,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PERIOD')" prop="duringdate">
                 <el-date-picker
-                  v-model.trim="form.duringdate"
+                  v-model="form.duringdate"
                   class="bigWidth"
                   :disabled="!disable"
                   type="daterange"

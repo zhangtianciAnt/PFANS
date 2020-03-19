@@ -274,7 +274,7 @@
                 else{
                   let co = getCooperinterviewList(response[i].createby);
                   if(co){
-                    letdata.name = co.coopername;
+                    letdata.name = co.expname;
                     letdata.company = co.suppliername;
                     if (this.$i18n) {
                       letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_OUTCOMMUNITY");

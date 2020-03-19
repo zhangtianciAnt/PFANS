@@ -102,7 +102,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CONDOMINIUMCOMPANY1')" prop="condominiumcompany">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.condominiumcompany"></el-input>
+                                v-model="form.condominiumcompany"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -121,7 +121,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CITY1')" prop="city">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.city"></el-input>
+                                v-model="form.city"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -208,7 +208,7 @@
                     <el-form-item :label="$t('label.PFANS1002VIEW_OBJECTIVETYPEOTHER')" prop="objectivetypeother"
                                   v-if="show">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model.trim="form.objectivetypeother"></el-input>
+                                v-model="form.objectivetypeother"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -232,7 +232,7 @@
                                      width="370">
                       <template slot-scope="scope">
                         <el-date-picker
-                          v-model.trim="scope.row.duringdate"
+                          v-model="scope.row.duringdate"
                           class="bigWidth"
                           :disabled="!disable"
                           type="daterange"
@@ -248,13 +248,13 @@
                     <el-table-column :label="$t('label.PFANS1002VIEW_PLACE2')" align="center">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
-                                  v-model.trim="scope.row.place"></el-input>
+                                  v-model="scope.row.place"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1002VIEW_CONTENT2')" align="center">
                       <template slot-scope="scope">
                         <el-input :disabled="!disable" maxlength="20" style="width: 100%;"
-                                  v-model.trim="scope.row.content"></el-input>
+                                  v-model="scope.row.content"></el-input>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -348,7 +348,7 @@
                         :step="1"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.moneys">
+                        v-model="form.moneys">
                       </el-input-number>
                     </el-form-item>
                   </el-col>
@@ -362,7 +362,7 @@
                         :step="1"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.foreigncurrency"
+                        v-model="form.foreigncurrency"
                         @change="getforeigncurrency">
                       </el-input-number>
                     </el-form-item>
@@ -399,7 +399,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.otherfxrate"
+                        v-model="form.otherfxrate"
                         @change="getotherfxrate">
                       </el-input-number>
                     </el-form-item>
@@ -471,7 +471,7 @@
                         :step="1"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.loanmoney">
+                        v-model="form.loanmoney">
                       </el-input-number>
                     </el-form-item>
                   </el-col>
@@ -515,7 +515,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSPORTNO')" prop="passportno">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.passportno"></el-input>
+                                v-model="form.passportno"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -606,7 +606,7 @@
                         :step="1"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.scheduled">
+                        v-model="form.scheduled">
                       </el-input-number>
                       {{$t('label.day')}}
                     </el-form-item>
@@ -655,7 +655,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_JUDGMENTNO')" prop="judgmentno" v-if="show8">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.judgmentno"></el-input>
+                                v-model="form.judgmentno"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -676,7 +676,7 @@
                     <el-form-item :label="$t('label.PFANS1002VIEW_FIXEDASSETSNO1')" prop="fixedassetsno"
                                   v-if="show9">
                       <el-input :disabled="!disable" maxlength="20" style="width: 20vw"
-                                v-model.trim="form.fixedassetsno"></el-input>
+                                v-model="form.fixedassetsno"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -707,7 +707,7 @@
                         :step="1"
                         controls-position="right"
                         style="width: 20vw"
-                        v-model.trim="form.regulations">
+                        v-model="form.regulations">
                       </el-input-number>
                       {{$t('label.yuan')}}
                     </el-form-item>

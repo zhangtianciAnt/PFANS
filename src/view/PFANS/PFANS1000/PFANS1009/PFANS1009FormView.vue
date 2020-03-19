@@ -176,7 +176,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_REPAIR')">
                 <el-date-picker
-                  v-model.trim="form.repair"
+                  v-model="form.repair"
                   class="bigWidth"
                   :disabled="!disable"
                   type="daterange"

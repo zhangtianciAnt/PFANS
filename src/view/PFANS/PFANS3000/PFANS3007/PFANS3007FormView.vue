@@ -41,13 +41,13 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_BUSINESSCITY')" prop="businesscity">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.businesscity"></el-input>
+                          v-model="form.businesscity"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_TRAVELCLUBPLACE')" prop="travelclubplace">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.travelclubplace"></el-input>
+                          v-model="form.travelclubplace"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -121,7 +121,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_HOUSENUMBER')" prop="housenumber">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model.trim="form.housenumber"></el-input>
+                          v-model="form.housenumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -213,7 +213,7 @@
                 <el-form-item :label="$t('label.PFANS3007VIEW_TOTALCOST')" prop="totalcost">
                   <el-input-number :disabled="!disable" @change="changetotalcost" maxlength='20' style="width:20vw"
                                    controls-position="right" :max="9999999999" :min="0" :precision="2"
-                                   v-model.trim="form.totalcost"></el-input-number>
+                                   v-model="form.totalcost"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>
               </template>
@@ -360,7 +360,7 @@
                 <el-form-item :label="$t('label.PFANS3007FORMVIEW_USEMONEY')" prop="usemoney">
                   <el-input-number :disabled="!disable" controls-position="right" :min="0" :max="9999999999"
                                    @change="changeusemoneys" style="width:20vw"
-                                   v-model.trim="form.usemoney"></el-input-number>
+                                   v-model="form.usemoney"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>
               </template>
@@ -370,7 +370,7 @@
                 <el-form-item :label="$t('label.PFANS3007FORMVIEW_PAYMONEY')" prop="paymoney">
                   <el-input-number :disabled="true" controls-position="right" :precision="0" :step="1" :min="0"
                                    :max="9999999999" style="width:20vw"
-                                   v-model.trim="form.paymoney"></el-input-number>
+                                   v-model="form.paymoney"></el-input-number>
                   {{$t('label.PFANS3007FORMVIEW_YEN')}}
                 </el-form-item>
               </template>

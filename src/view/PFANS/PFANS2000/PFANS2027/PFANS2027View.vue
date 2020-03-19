@@ -3,9 +3,9 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="dialogFormVisible" @closed="close" v-loading="loading">
+    <el-dialog :visible.sync="dialogFormVisible" @closed="close" >
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
-               ref="refform" style="padding: 2vw">
+               ref="refform" style="padding: 2vw" v-loading="loading">
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')" prop="evaluationday">
@@ -247,16 +247,16 @@
           .dispatch('PFANS2027Store/getLunarbonus', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].user_id !== null && response[j].user_id !== "") {
+              // if (response[j].user_id !== null && response[j].user_id !== "") {
 
-                let lst = getOrgInfoByUserId(response[j].user_id);
-                if (lst) {
-                  response[j].group_id = lst.groupNmae;
-                }
-                let rst = getUserInfo(response[j].user_id);
-                if (rst) {
-                  response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-                }
+                // let lst = getOrgInfoByUserId(response[j].user_id);
+                // if (lst) {
+                //   response[j].group_id = lst.groupNmae;
+                // }
+                // let rst = getUserInfo(response[j].user_id);
+                // if (rst) {
+                //   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                // }
                 if (response[j].subjectmon !== null && response[j].subjectmon !== "") {
                   let letUsetype = getDictionaryInfo(response[j].subjectmon);
                   if (letUsetype != null) {
@@ -283,7 +283,7 @@
                 if (response[j].status !== null && response[j].status !== "") {
                   response[j].status = getStatus(response[j].status);
                 }
-              }
+              // }
             }
             this.data = response;
             this.loading = false;

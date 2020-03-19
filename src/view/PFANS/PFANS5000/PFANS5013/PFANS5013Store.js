@@ -1,15 +1,83 @@
-import {creategiving,deleteFive,givinglist,deleteteappreciation, getDataList,getCasgiftApply,deleteothertwo,
-  deleteotherfour,save,deleteadditional,thisMonthLacktimeChange,thisMonthOvertimeChange
-} from './PFANS2005Api'
-import {updateNewUser} from "../../PFANS5000/PFANS5008/PFANS5008Api";
-const PFANS2005Store = {
+import {getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2} from './PFANS5013Api'
+
+
+const PFANS5013Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    creategiving({commit}, data) {
+    //创建流程
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
-        creategiving(data).then(response => {
+        insert(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //更新流程
+    update({commit}, data) {
+      return new Promise((resolve, reject) => {
+        update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //获取流程
+    getFpans5013List({commit},data) {
+      return new Promise((resolve, reject) => {
+        getFpans5013List(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectById({ commit },data) {
+      return new Promise((resolve, reject) => {
+        selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    select({ commit },data) {
+      return new Promise((resolve, reject) => {
+        select(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getcustomer({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getcustomer(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -21,9 +89,9 @@ const PFANS2005Store = {
       })
     },
 
-    deleteothertwo({ commit },data) {
+    getexpat({commit}, data) {
       return new Promise((resolve, reject) => {
-        deleteothertwo(data).then(response => {
+        getexpat(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -34,10 +102,9 @@ const PFANS2005Store = {
         })
       })
     },
-
-    deleteadditional({ commit },data) {
+    getPjList({commit}, data) {
       return new Promise((resolve, reject) => {
-        deleteadditional(data).then(response => {
+        getPjList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -48,10 +115,9 @@ const PFANS2005Store = {
         })
       })
     },
-
-    deleteotherfour({ commit },data) {
+    getList2({commit}, data) {
       return new Promise((resolve, reject) => {
-        deleteotherfour(data).then(response => {
+        getList2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -62,9 +128,9 @@ const PFANS2005Store = {
         })
       })
     },
-    deleteteappreciation({ commit },data) {
+    getProjectList({commit}, data) {
       return new Promise((resolve, reject) => {
-        deleteteappreciation(data).then(response => {
+        getProjectList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -75,9 +141,9 @@ const PFANS2005Store = {
         })
       })
     },
-    givinglist({ commit },data) {
+    getTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
-        givinglist(data).then(response => {
+        getTimestart(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -88,9 +154,9 @@ const PFANS2005Store = {
         })
       })
     },
-    deleteFive({ commit },data) {
+    getGroupTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
-        deleteFive(data).then(response => {
+        getGroupTimestart(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -101,9 +167,9 @@ const PFANS2005Store = {
         })
       })
     },
-    getCasgiftApply() {
+    updateTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
-        getCasgiftApply().then(response => {
+        updateTimestart(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -114,66 +180,8 @@ const PFANS2005Store = {
         })
       })
     },
-    getDataList() {
-      return new Promise((resolve, reject) => {
-        getDataList().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    //更新
-    save({commit}, data) {
-      return new Promise((resolve, reject) => {
-        save(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //本月加班数据变更时，重新计算加班费合计
-    thisMonthOvertimeChange({commit}, data) {
-      return new Promise((resolve, reject) => {
-        thisMonthOvertimeChange(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    //本月欠勤数据变更时，重新计算欠勤费合计
-    thisMonthLacktimeChange({commit}, data) {
-      return new Promise((resolve, reject) => {
-        thisMonthLacktimeChange(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-
 
   }
 };
 
-export default PFANS2005Store;
+export default PFANS5013Store;

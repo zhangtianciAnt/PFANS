@@ -374,18 +374,6 @@
             org
         },
         data() {
-          var checktele = (rule, value, callback) => {
-            this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-            if (this.form.tel !== null && this.form.tel !== '') {
-              if (!this.regExp.test(value)) {
-                callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-              } else {
-                callback();
-              }
-            } else {
-              callback();
-            }
-          };
             return {
                 radio1: 1,
                 radio2: 1,
@@ -584,7 +572,8 @@
                 menuList: [],
                 rules: {
                   tel: [{
-                    validator: checktele,
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
                     trigger: 'change'
                   }],
                 },
