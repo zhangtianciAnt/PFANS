@@ -200,18 +200,6 @@
       dicselect,
     },
     data() {
-      var validateExtensionnumber = (rule, value, callback) => {
-        this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-        if (this.form.extensionnumber !== null && this.form.extensionnumber !== '') {
-          if (!this.regExp.test((value))) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       var validateIdCard = (rule, value, callback) => {
         if (this.form.idcard !== null && this.form.idcard !== '') {
           if (!idcardNumber(value)) {
@@ -386,8 +374,7 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
             trigger: 'blur',
-          },
-            {validator: validateExtensionnumber, trigger: 'blur'}],
+          },],
           idcard: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARD'),

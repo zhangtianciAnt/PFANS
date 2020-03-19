@@ -16,7 +16,7 @@
             <el-table
               :data="tableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'51vw':'62.3vw'),marginLeft:(this.$route.params.type === 0?'17%':'11%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'800px':'995px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -262,7 +262,7 @@
         tableData:[],
         activeName:"first",
         buttonList:[],
-        titles: this.$route.params.type === 0 ? "社员计划" : "外驻计划",
+        titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
         form:{
           years:""
         }
