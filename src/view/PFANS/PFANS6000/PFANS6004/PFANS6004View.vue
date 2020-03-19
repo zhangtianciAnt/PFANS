@@ -191,8 +191,8 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let suppliername = getSupplierinfor(response[j].supplierinfor_id);
-                if (suppliername) {
+                let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
+                if (supplierInfor) {
                   response[j].suppliername = supplierInfor.supchinese;
                 }
               }
