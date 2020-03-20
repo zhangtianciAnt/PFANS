@@ -282,6 +282,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
                     <el-switch
+                      :disabled="!disable"
                       active-color="#13ce66"
                       inactive-color="#13ce66"
                       active-value="1"
@@ -1130,7 +1131,7 @@
                 gridData1: [],
                 gridData2: [],
                 gridData3: [],
-                disable: false,
+                disable: true,
                 customerinfor: [],
                 checkList: [],
                 checkboxs: [],
@@ -1515,6 +1516,7 @@
             this.getcontract();
             if (this.$route.params._id) {
                 this.Numbers = 0;
+                this.disable = this.$route.params.disabled;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
@@ -1634,8 +1636,8 @@
                                 }
                             }
                         }
-                        if (this.form.status === '2') {
-                            this.disable = false;
+                        if (this.form.status === '4') {
+                            this.disabled = true;
                         }
                         this.loading = false;
                     })
@@ -1677,12 +1679,13 @@
         },
 
         created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }
