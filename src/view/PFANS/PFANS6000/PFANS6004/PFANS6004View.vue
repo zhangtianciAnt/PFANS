@@ -172,6 +172,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+          {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
@@ -459,6 +460,30 @@
               disabled: true,
             },
           });
+        }
+        if(val === 'crAccount'){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6004Store/crAccount', this.$refs.roletable.selectedList)
+            .then(response => {
+
+              this.$refs.roletable.$refs.eltable.clearSelection();
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       },
     },

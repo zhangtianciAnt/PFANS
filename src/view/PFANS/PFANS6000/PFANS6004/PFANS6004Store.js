@@ -8,6 +8,7 @@ import {
   getSupplierNameList,
   download,
   getCompanyProject,
+  crAccount
 } from './PFANS6004Api'
 
 
@@ -149,6 +150,19 @@ const PFANS6004Store = {
       })
     },
 
+    crAccount({commit},data) {
+      return new Promise((resolve, reject) => {
+        crAccount(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 
