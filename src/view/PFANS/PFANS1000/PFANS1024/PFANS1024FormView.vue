@@ -1904,6 +1904,7 @@
                 let rowCount = that.form.tabledata.length || 0;
                 let rowCount2 = that.form.tableclaimtype.length || 0;
                 let myRule = this.ruleSet[type] || [];
+
                 console.log("vrules", myRule);
                 if (myRule.length <= 0) {
                     cb(true);
@@ -1913,6 +1914,7 @@
                 myRule.forEach(function (item, index, array) {
                     let dataName = "tabledata";
                     let maxCount = rowCount;
+                  debugger
                     if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
                         dataName = "tableclaimtype";
                         maxCount = rowCount2;

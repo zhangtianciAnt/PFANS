@@ -297,7 +297,8 @@
                 }
             };
             return {
-                tabledata1: "",
+                arr: [],
+                timeend: "",
                 closingtimeend: "",
                 display: true,
                 workflowCode: "W0001",
@@ -394,7 +395,7 @@
                 show: false,
                 disactualovertime: false,
                 dataList: [],
-                punchcardrecord:{
+                punchcardrecord: {
                     user_id: "",
                 }
             };
@@ -487,16 +488,26 @@
             }
         },
         methods: {
-            getTime(val){
-                debugger
-
+            getTime(val) {
+                let sum = val * 60;
+                let hours = Math.floor(sum / 60);
+                let minute = sum % 60;
+                let sumTime = hours * 100 + minute
+                let starttime = this.closingtimeend.replace(":", "");
+                let endtime = moment(this.timeend).format("HHmm");
+                if (Number(starttime) + sumTime > endtime) {
+                    Message({
+                        message: this.$t("label.PFANS2011FROMVIEW_CHECHERROR"),
+                        type: 'error',
+                        duration: 5 * 1000
+                    });
+                }
             },
-            getAttendance(){
+            getAttendance() {
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2018Store/getFpans2018List', {})
                     .then(response => {
-                        debugger
                         this.closingtimeend = response[0].closingtime_end;
                         this.loading = false;
                     })
@@ -513,18 +524,11 @@
                 this.punchcardrecord.user_id = this.$store.getters.userinfo.userid;
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2011Store/getDataList',{})
+                    .dispatch('PFANS2011Store/getDataList', {})
                     .then(response => {
-                        let datalist = [];
-                        for(let i=0;i<response.length;i++){
-                            if(this.$store.getters.userinfo.userid===response[i].user_id && moment(this.form.applicationdate).format('YYYY-MM-DD')=== moment(response[i].punchcardrecord_date).format('YYYY-MM-DD')){
-                                {
-                                    datalist.push({
-                                        time_end :response[i].time_end
-
-                                    })
-                                }
-                                this.tabledata1 = datalist;
+                        for (let i = 0; i < response.length; i++) {
+                            if (this.$store.getters.userinfo.userid === response[i].user_id && moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[i].punchcardrecord_date).format('YYYY-MM-DD')) {
+                                this.timeend = response[i].time_end
                             }
                         }
                         this.loading = false;
