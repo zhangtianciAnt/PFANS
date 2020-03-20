@@ -123,7 +123,6 @@
           if(response.length > 0){
             response.forEach(
               res => {
-                debugger
                 userinfo = getUserInfo(res.createby).userinfo;
                 res.createby  = userinfo.customername;
                 res.center = userinfo.centername;
@@ -154,7 +153,6 @@
         this.id = row.personnelplanid;
       },
       buttonClick(val) {
-        debugger;
         this.$store.commit("global/SET_HISTORYURL", this.$route.path);
         if ("update" === val) {
           if (!this.id) {
