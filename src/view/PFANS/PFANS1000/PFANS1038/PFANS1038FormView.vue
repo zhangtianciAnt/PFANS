@@ -168,6 +168,7 @@
                     size="small"
                     v-if="!scope.row.isoutside">
                   </el-date-picker>
+                  <span v-else>{{$t('label.PFANS1038VIEW_OUTSIDE')}}</span>
                 </template>
               </el-table-column>
               <el-table-column
