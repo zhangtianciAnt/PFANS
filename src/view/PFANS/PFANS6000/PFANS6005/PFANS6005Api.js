@@ -3,7 +3,7 @@ import request from '../../../../utils/request'
 export function getpriceset(data) {
   return request({
     url: 'priceset/list',
-    method: 'post',
+    method: 'get',
     data: data
   })
 }

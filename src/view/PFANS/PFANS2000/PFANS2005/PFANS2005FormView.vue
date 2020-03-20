@@ -4824,7 +4824,6 @@
       },
       //本月加班数据变更时，重新计算加班费合计
       thisMonthOvertimeChange(val) {
-        // Todo By Skaixx At 2020/3/19 :  如何获取当前操作行的base和residual数据
         this.givingVo.residual = [];
         this.givingVo.residual.push(val);
         this.givingVo.base = this.totaldataBase;
@@ -4847,18 +4846,18 @@
       },
       //本月欠勤数据变更时，重新计算欠勤费合计
       thisMonthLacktimeChange(val) {
-        this.givingVo.lackattendance = this.tableQQ;
-        this.givingVo.base = this.tableJS;
+        this.givingVo.lackattendance = [];
+        this.givingVo.lackattendance.push(val);
+        this.givingVo.base = this.totaldataBase;
         this.qqLoading = true;
-        const index = JSON.stringify(this.tableQQ).indexOf(JSON.stringify(val));
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
-            this.tableQQ[index] = response;
-            this.qqLoading = false;
+            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = response.thistotal;
+            this.cyLoading = false;
           })
           .catch(err => {
-            this.qqLoading = false;
+            this.cyLoading = false;
             Message({
               message: err,
               type: "error",
