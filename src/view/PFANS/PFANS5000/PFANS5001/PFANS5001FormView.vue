@@ -1130,7 +1130,7 @@
                 gridData1: [],
                 gridData2: [],
                 gridData3: [],
-                disable: false,
+                disable: true,
                 customerinfor: [],
                 checkList: [],
                 checkboxs: [],
@@ -1634,8 +1634,8 @@
                                 }
                             }
                         }
-                        if (this.form.status === '2') {
-                            this.disable = false;
+                        if (this.form.status === '4') {
+                            this.disabled = true;
                         }
                         this.loading = false;
                     })
@@ -1677,12 +1677,13 @@
         },
 
         created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }
