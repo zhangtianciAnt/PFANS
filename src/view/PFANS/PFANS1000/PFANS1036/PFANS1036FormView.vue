@@ -1411,7 +1411,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div class="test">
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"  height="800" :cell-class-name="rowClass">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"  height="800" :row-class-name="rowClass">
                           <el-table-column prop="name" :formatter="formatterDir" align="center" width="70" fixed>
                       </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="250" prop="name1" :formatter="formatterDir" fixed>
@@ -1423,7 +1423,7 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money4">
                             <template slot-scope="scope">
                             <el-input-number :precision="2"  size="small" v-model="scope.row.money4" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
-                              <span :style="{color:(Number(scope.row.money4) > 0?'red':'black')}" v-else>{{scope.row.money4}}</span>
+                              <span v-else>{{scope.row.money4}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"  width="110" prop="actual4">
@@ -1806,6 +1806,32 @@
              val => {
                 if(val.code === "PJ111001"){
                      Object.assign(this.tableP[11],val)
+                }else if(val.code === "PJ111002"){
+                     Object.assign(this.tableP[16],val)
+                }else if(val.code === "PJ111003"){
+                      Object.assign(this.tableP[17],val)
+                }else if(val.code === "PJ111004"){
+                     Object.assign(this.tableP[18],val)
+                }else if(val.code === "PJ111005"){
+                     Object.assign(this.tableP[19],val)
+                }else if(val.code === "PJ111006"){
+                      Object.assign(this.tableP[21],val)
+                }else if(val.code === "PJ111007"){
+                      Object.assign(this.tableP[31],val)
+                }else if(val.code === "PJ111008"){
+                     Object.assign(this.tableP[32],val)
+                }else if(val.code === "PJ111009"){
+                  Object.assign(this.tableP[33],val)
+                }else if(val.code === "PJ111010"){
+                  Object.assign(this.tableP[34],val)
+                }else if(val.code === "PJ111011"){
+                  Object.assign(this.tableP[35],val)
+                }else if(val.code === "PJ111012"){
+                  Object.assign(this.tableP[36],val)
+                }else if(val.code === "PJ111013"){
+                  Object.assign(this.tableP[37],val)
+                }else if(val.code === "PJ111014"){
+                  Object.assign(this.tableP[38],val)
                 }
              }
            )
@@ -2061,6 +2087,7 @@
           }else{
             this.tableP[24]["money" + this.arr[i]] = "0.00";
           }
+
           this.tableP[25]["money" + this.arr[i]] = "0.00";
           this.tableP[26]["money" + this.arr[i]] = (Number(this.tableP[21]["money" + this.arr[i]]) + Number(this.tableP[22]["money" + this.arr[i]]) + Number(this.tableP[23]["money" + this.arr[i]])+ Number(this.tableP[24]["money" + this.arr[i]])+ Number(this.tableP[25]["money" + this.arr[i]])).toFixed(2);
           this.tableP[27]["money" + this.arr[i]] = (Number(getDictionaryInfo("PJ110001").value2) * Number(this.tableP[51]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110002").value2) * Number(this.tableP[52]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110003").value2) * Number(this.tableP[53]["money" + this.arr[i]])).toFixed(2);
@@ -2121,7 +2148,6 @@
         }
         this.tableP[50]["money6"] = ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2);
 
-
       },
       getTravel(val){
         this.travel = val;
@@ -2150,34 +2176,13 @@
       getSumA2(val){
         this.sumA2 =  val;
       },
-      rowClass({ row, column, rowIndex, columnIndex }){
-            if (rowIndex === 6) {
-               return  '#74979c';
-          } else if ( [43,47,48,49,50].includes(rowIndex)) {
-            return {
-              background: '#dc9986'
-            }
-          } else if ([44,45,46].includes(rowIndex)) {
-            return {
-              background: '#8bbba5'
-            }
-          } else if (rowIndex === 51) {
-            return {
-              backgroundColor: '#de7557'
-            }
-          } else if (rowIndex === 54) {
-            return {
-              background: '#e6d67d'
-            }
-          } else if (rowIndex === 58) {
-            return {
-              background: '#729d71'
-            }
-          } else {
-            return {
-              background: '#7084a4'
-            };
+      rowClass({row, rowIndex}){
+          if ([3,4,5,13,20,26,30,41].includes(rowIndex)) {
+            return  'row1';
           }
+       else if ([42].includes(rowIndex)) {
+          return  'row2';
+        }
       },
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
@@ -2564,9 +2569,8 @@
               this.form.tableO3 = JSON.stringify(this.tableO3);
               this.form.tableO = JSON.stringify(this.tableO);
               if (this.$route.params._id) {
-                this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
+                  .dispatch('PFANS1036Store/updateBusinessplan', this.form)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -2729,7 +2733,18 @@
     }
   };
 </script>
+
+
 <style rel="stylesheet/scss" lang="scss">
+
+  .el-table .row1 {
+    color: #6d9fd1;
+  }
+
+  .el-table .row2 {
+    color: red;
+  }
+
   .el-table {
     overflow-x: auto;
   }

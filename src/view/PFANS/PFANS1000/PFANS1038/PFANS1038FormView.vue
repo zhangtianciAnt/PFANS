@@ -51,7 +51,10 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :placeholder = "$t('normal.error_09')">
+                  <el-select size="small"
+                             v-model="scope.row.nextyear"
+                             :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -89,14 +92,15 @@
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                <el-select size="small" v-model="scope.row.supchinese" :placeholder= "$t('normal.error_09')">
-                  <el-option
-                    v-for="item in externalOption"
-                    :key="item.supplierinfor_id"
-                    :label="item.supchinese"
-                    :value="item.supplierinfor_id">
-                  </el-option>
-                </el-select>
+                  <el-select size="small" v-model="scope.row.supchinese" :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
+                    <el-option
+                      v-for="item in externalOption"
+                      :key="item.supplierinfor_id"
+                      :label="item.supchinese"
+                      :value="item.supplierinfor_id">
+                    </el-option>
+                  </el-select>
                 </template>
               </el-table-column>
               <el-table-column
@@ -105,7 +109,7 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                  <el-input size="small" v-model="scope.row.name"></el-input>
+                  <el-input size="small" v-model="scope.row.name" :disabled="!disabled"></el-input>
                 </template>
               </el-table-column>
               <el-table-column
@@ -114,7 +118,12 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.thisyear" :placeholder= "$t('normal.error_09')">
+                  <el-select
+                    size="small"
+                    v-model="scope.row.thisyear"
+                    :placeholder="$t('normal.error_09')"
+                    :disabled="true"
+                  >
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -131,7 +140,8 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :placeholder= "$t('normal.error_09')">
+                  <el-select size="small" v-model="scope.row.nextyear" :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -147,15 +157,16 @@
                 width="200"
                 align="center"
               >
-                <template slot-scope="scope" >
+                <template slot-scope="scope">
                   <el-date-picker
                     v-model="scope.row.entermouth"
                     type="month"
                     style="width:10vw"
+                    :disabled="!disabled"
                     size="small"
                     v-if="!scope.row.isoutside">
                   </el-date-picker>
-                  <span v-else >{{scope.row.entermouth}}</span>
+                  <span v-else>{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -167,6 +178,7 @@
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
+                    :disabled="!disabled"
                     @change="val => changeOption(val,scope.row)">
                   </el-switch>
                 </template>
@@ -177,6 +189,7 @@
                     @click.native.prevent="deleteRow(scope.$index, newTableData)"
                     type="danger"
                     size="small"
+                    :disabled="!disabled"
                     plain
                   >{{$t('button.delete')}}
                   </el-button>
@@ -184,6 +197,7 @@
                     @click="addRow"
                     type="primary"
                     size="small"
+                    :disabled="!disabled"
                     plain
                   >{{$t('button.insert')}}
                   </el-button>
@@ -203,6 +217,7 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from "moment";
   import {getDictionaryInfo} from "../../../../utils/customize";
+
   export default {
     name: 'PFANS1038FormView',
     components: {
@@ -210,74 +225,75 @@
     },
     data() {
       return {
-        options:[{
+        disabled: "true",
+        options: [{
           value: 'PR021001',
           label: 'R3'
-        },{
+        }, {
           value: 'PR021002',
           label: 'R4'
-        },{
+        }, {
           value: 'PR021003',
           label: 'R5'
-        },{
+        }, {
           value: 'PR021004',
           label: 'R6'
-        },{
+        }, {
           value: 'PR021005',
           label: 'R7'
-        },{
+        }, {
           value: 'PR021006',
           label: 'R8A'
-        },{
+        }, {
           value: 'PR021007',
           label: 'R8B'
-        },{
+        }, {
           value: 'PR021008',
           label: 'R8C'
-        },{
+        }, {
           value: 'PR021009',
           label: 'R9A'
-        },{
+        }, {
           value: 'PR021010',
           label: 'R9B'
-        },{
+        }, {
           value: 'PR021011',
           label: 'R10'
-        },{
+        }, {
           value: 'PR021012',
           label: 'R11A'
-        },{
+        }, {
           value: 'PR021013',
           label: 'R11B'
-        },{
+        }, {
           value: 'PJ053001',
           label: this.$t("label.PFANS1036FORMVIEW_COUNSELORUP")
-        },{
+        }, {
           value: 'PJ053002',
           label: this.$t("label.PFANS1036FORMVIEW_CHANCELLORDOWN")
         }],
-        loading:false,
-        externalOption:"",
-        newTableData:[{"isoutside":false,"entermouth":null}],
-        tableData:[],
-        activeName:"first",
-        buttonList:[],
+        loading: false,
+        externalOption: "",
+        newTableData: [{"isoutside": false, "entermouth": null}],
+        tableData: [],
+        activeName: "first",
+        buttonList: [],
         titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
-        form:{
-          years:""
+        form: {
+          years: ""
         }
       };
     },
-    computed:{
-      getThisYearLevel:function () {
-        if(this.form.year){
+    computed: {
+      getThisYearLevel: function () {
+        if (this.form.year) {
           return this.form.years + "";
-        }else{
-          this.form.years = moment().subtract(3,'M').format('YYYY');
+        } else {
+          this.form.years = moment().subtract(3, 'M').format('YYYY');
           return this.form.years + "";
         }
       },
-      getNextYearLevel:function () {
+      getNextYearLevel: function () {
         return (parseInt(this.getThisYearLevel) + 1) + "";
       }
     },
@@ -297,11 +313,11 @@
       this.getExternal();
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
-      }else{
+      } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.$route.params.type === 0?this.getCustomerInfo(rst.groupId||""):this.getExpatriatesinfor(rst.groupId||"");
+          this.$route.params.type === 0 ? this.getCustomerInfo(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "");
         }
       }
     },
@@ -328,7 +344,7 @@
       },
       getExpatriatesinfor(id) {
         this.$store
-          .dispatch('PFANS1038Store/getExpatriatesinfor',id)
+          .dispatch('PFANS1038Store/getExpatriatesinfor', id)
           .then(response => {
             if (response.length > 0) {
               this.tableData = response;
@@ -388,13 +404,13 @@
             return "-";
           }
         } else if (column.property === "entermouth") {
-          if(row[column.property] === "BP025004"){
-            if(this.i18n){
-              return  this.$t('label.PFANS1038VIEW_OUTSIDE')
+          if (row[column.property] === "BP025004") {
+            if (this.i18n) {
+              return this.$t('label.PFANS1038VIEW_OUTSIDE')
             }
           }
           return "-";
-        }else{
+        } else {
           return row[column.property];
         }
       },
@@ -404,14 +420,14 @@
         }
       },
       addRow() {
-        this.newTableData.push({"isoutside":false,"entermouth":null});
+        this.newTableData.push({"isoutside": false, "entermouth": null});
       },
       changeOption(val, row) {
         if (val) {
-          if(this.i18n){
+          if (this.i18n) {
             row.entermouth = this.$t('label.PFANS1038VIEW_OUTSIDE');
           }
-        }else{
+        } else {
           row.entermouth = null;
         }
       },

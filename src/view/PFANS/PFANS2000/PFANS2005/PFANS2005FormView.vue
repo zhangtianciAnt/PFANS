@@ -1454,7 +1454,6 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
-                loading="qqLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -1732,7 +1731,6 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
-                laoding="cyLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -3259,8 +3257,6 @@
           }
         ],
         baseInfo: {},
-        qqLoading: false,
-        cyLoading: false,
         givingVo: {}
       };
     },
@@ -4406,14 +4402,14 @@
             sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
             return;
           }
-          const values = data.map(item => Number(item[column.property]));
+          const values = data.map(item => parseFloat(item[column.property]));
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
+              const value = parseFloat(curr);
               if (!isNaN(value)) {
-                return prev + curr;
+                return (parseFloat(prev) + parseFloat(curr)).toFixed(2);
               } else {
-                return prev;
+                return parseFloat(prev).toFixed(2);
               }
             }, 0);
             sums[index] += " ";
@@ -4827,16 +4823,16 @@
         this.givingVo.residual = [];
         this.givingVo.residual.push(val);
         this.givingVo.base = this.totaldataBase;
-        this.cyLoading = true;
+        this.loading = true;
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
             console.log("this.tableCY.find(item => item.rowindex === val.rowindex)", this.tableCY.find(item => item.rowindex === val.rowindex));
             this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = response.thistotaly;
-            this.cyLoading = false;
+            this.loading = false;
           })
           .catch(err => {
-            this.cyLoading = false;
+            this.loading = false;
             Message({
               message: err,
               type: "error",
@@ -4849,15 +4845,15 @@
         this.givingVo.lackattendance = [];
         this.givingVo.lackattendance.push(val);
         this.givingVo.base = this.totaldataBase;
-        this.qqLoading = true;
+        this.loading = true;
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
             this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = response.thistotal;
-            this.cyLoading = false;
+            this.loading = false;
           })
           .catch(err => {
-            this.cyLoading = false;
+            this.loading = false;
             Message({
               message: err,
               type: "error",
