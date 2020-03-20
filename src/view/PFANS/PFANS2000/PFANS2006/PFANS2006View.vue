@@ -1,14 +1,14 @@
 <template>
   <div>
-<!--    <el-date-picker unlink-panels-->
-<!--                    class="bigWidth"-->
-<!--                    v-model="workinghours"-->
-<!--                    type="daterange"-->
-<!--                    :end-placeholder="$t('label.enddate')"-->
-<!--                    :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-<!--                    :start-placeholder="$t('label.startdate')"-->
-<!--                    @change="clickdata"-->
-<!--    ></el-date-picker>-->
+    <el-date-picker unlink-panels
+                    class="bigWidth"
+                    v-model="workinghours"
+                    type="daterange"
+                    :end-placeholder="$t('label.enddate')"
+                    :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                    :start-placeholder="$t('label.startdate')"
+                    @change="clickdata"
+    ></el-date-picker>
 
     <EasyNormalTable :buttonList="buttonList" @buttonClick="buttonClick" :columns="columns1" :data="data" :title="title" v-loading="loading"
                      v-show="showTable1" ref="roletable" :showSelection="isShow">
@@ -854,138 +854,138 @@
                     }
                 }
             },
-            // getworkinghours(workinghours) {
-            //     if (workinghours != null) {
-            //         if (workinghours.length > 0) {
-            //             return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
-            //         } else {
-            //             return '';
-            //         }
-            //     } else {
-            //         return '';
-            //     }
-            // },
-            // clickdata() {
-            //     if (this.Taxestotal === 1) {
-            //         this.working = '',
-            //             this.starttime = '',
-            //             this.endTime = '',
-            //             this.working = this.getworkinghours(this.workinghours);
-            //         this.starttime = this.working.substring(0, 10),
-            //             this.endTime = this.working.substring(13, 23)
-            //         let tabledate = [];
-            //         if (this.data != '') {
-            //             for (let i = 0; i < this.data.length; i++) {
-            //                 if (this.starttime < this.data[i].workdate && this.data[i].workdate < this.endTime) {
-            //                     tabledate.push({
-            //                         rowindex: this.data[i].rowindex,
-            //                         department_id: this.data[i].department_id,
-            //                         user_id: this.data[i].user_id,
-            //                         workdate: this.data[i].workdate,
-            //                         sex: this.data[i].sex,
-            //                         onlychild: this.data[i].onlychild,
-            //                         type: this.data[i].type,
-            //                         bonus: this.data[i].bonus,
-            //                         sociology: this.data[i].sociology,
-            //                         registered: this.data[i].registered,
-            //                         pension: this.data[i].pension,
-            //                         medical: this.data[i].medical,
-            //                         accumulation: this.data[i].accumulation,
-            //                         lastmonth: this.data[i].lastmonth,
-            //                         thismonth: this.data[i].thismonth,
-            //                         birthrest: this.data[i].birthrest,
-            //                         thismonthbasic: this.data[i].thismonthbasic,
-            //                         shortillness: this.data[i].shortillness,
-            //                         owediligence: this.data[i].owediligence,
-            //                         owingcontrol: this.data[i].owingcontrol,
-            //                         actualamount: this.data[i].actualamount,
-            //                         supplement: this.data[i].supplement,
-            //                         telephonesubsidy: this.data[i].telephonesubsidy,
-            //                         housingsubsidy: this.data[i].housingsubsidy,
-            //                         lunchsubsidy: this.data[i].lunchsubsidy,
-            //                         overtimesubsidy: this.data[i].overtimesubsidy,
-            //                         other1: this.data[i].other1,
-            //                         total1: this.data[i].total1,
-            //                         traffic: this.data[i].traffic,
-            //                         washingtheory: this.data[i].washingtheory,
-            //                         other2: this.data[i].other2,
-            //                         appreciation: this.data[i].appreciation,
-            //                         other3: this.data[i].other3,
-            //                         total2: this.data[i].total2,
-            //                         taxestotal: this.data[i].taxestotal,
-            //                         heating: this.data[i].heating,
-            //                         onlychildmoney: this.data[i].onlychildmoney,
-            //                         total3: this.data[i].total3,
-            //                         totalwages: this.data[i].totalwages,
-            //                         endowmentinsurance: this.data[i].endowmentinsurance,
-            //                         medicalinsurance: this.data[i].medicalinsurance,
-            //                         unemploymentinsurance: this.data[i].unemploymentinsurance,
-            //                         socialinsurance: this.data[i].socialinsurance,
-            //                         accumulationfund: this.data[i].accumulationfund,
-            //                         disciplinarycontrol: this.data[i].disciplinarycontrol,
-            //                         thismonthterm: this.data[i].thismonthterm,
-            //                         thismonthadditional: this.data[i].thismonthadditional,
-            //                         thismonthdutyfree: this.data[i].thismonthdutyfree,
-            //                         lastdutyfree: this.data[i].lastdutyfree,
-            //                         housingmoneys: this.data[i].housingmoneys,
-            //                         other4: this.data[i].other4,
-            //                         other5: this.data[i].other5,
-            //                         shouldwages: this.data[i].shouldwages,
-            //                         shouldcumulative: this.data[i].shouldcumulative,
-            //                         shouldpaytaxes: this.data[i].shouldpaytaxes,
-            //                         thismonthadjustment: this.data[i].thismonthadjustment,
-            //                         realwages: this.data[i].realwages,
-            //                         comendowmentinsurance: this.data[i].comendowmentinsurance,
-            //                         commedicalinsurance: this.data[i].commedicalinsurance,
-            //                         comunemploymentinsurance: this.data[i].comunemploymentinsurance,
-            //                         cominjuryinsurance: this.data[i].cominjuryinsurance,
-            //                         combirthinsurance: this.data[i].combirthinsurance,
-            //                         comheating: this.data[i].comheating,
-            //                         comaccumulationfund: this.data[i].comaccumulationfund,
-            //                         total: this.data[i].total,
-            //                         labourunionbase: this.data[i].labourunionbase,
-            //                         labourunionfunds: this.data[i].labourunionfunds,
-            //                         comtotalwages: this.data[i].comtotalwages,
-            //                         bonusmoney: this.data[i].bonusmoney,
-            //                         totalbonus: this.data[i].totalbonus,
-            //                         other6: this.data[i].other6,
-            //                     })
-            //                 }
-            //             }
-            //             this.data = tabledate
-            //         }
-            //     } else if (this.Bonus === 1) {
-            //         this.working = '',
-            //             this.starttime = '',
-            //             this.endTime = '',
-            //             this.working = this.getworkinghours(this.workinghours);
-            //         this.starttime = this.working.substring(0, 4),
-            //             this.endTime = this.working.substring(13, 17)
-            //         let tableDate = [];
-            //         for (let i = 0; i < this.datatada.length; i++) {
-            //             if (this.datatada[i].years != '') {
-            //                 if (this.starttime <= this.datatada[i].years && this.datatada[i].years <= this.endTime) {
-            //                     tableDate.push({
-            //                         years: this.datatada[i].years,
-            //                         user_id: this.datatada[i].user_id,
-            //                         totalbonus1: this.datatada[i].totalbonus1,
-            //                         method: this.datatada[i].method,
-            //                         taxable: this.datatada[i].taxable,
-            //                         amount: this.datatada[i].amount,
-            //                         payable: this.datatada[i].payable,
-            //                         income: this.datatada[i].income,
-            //                         taxrate: this.datatada[i].taxrate,
-            //                         deductions: this.datatada[i].deductions,
-            //                         bonustax: this.datatada[i].bonustax,
-            //                         received: this.datatada[i].received,
-            //                         remarks: this.datatada[i].remarks,
-            //                     })
-            //                 }
-            //             }
-            //         }
-            //         this.datatada = tableDate
-            //     }
-            // },
+            getworkinghours(workinghours) {
+                if (workinghours != null) {
+                    if (workinghours.length > 0) {
+                        return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
+                    } else {
+                        return '';
+                    }
+                } else {
+                    return '';
+                }
+            },
+            clickdata() {
+                if (this.Taxestotal === 1) {
+                    this.working = '',
+                        this.starttime = '',
+                        this.endTime = '',
+                        this.working = this.getworkinghours(this.workinghours);
+                    this.starttime = this.working.substring(0, 10),
+                        this.endTime = this.working.substring(13, 23)
+                    let tabledate = [];
+                    if (this.data != '') {
+                        for (let i = 0; i < this.data.length; i++) {
+                            if (this.starttime < this.data[i].workdate && this.data[i].workdate < this.endTime) {
+                                tabledate.push({
+                                    rowindex: this.data[i].rowindex,
+                                    department_id: this.data[i].department_id,
+                                    user_id: this.data[i].user_id,
+                                    workdate: this.data[i].workdate,
+                                    sex: this.data[i].sex,
+                                    onlychild: this.data[i].onlychild,
+                                    type: this.data[i].type,
+                                    bonus: this.data[i].bonus,
+                                    sociology: this.data[i].sociology,
+                                    registered: this.data[i].registered,
+                                    pension: this.data[i].pension,
+                                    medical: this.data[i].medical,
+                                    accumulation: this.data[i].accumulation,
+                                    lastmonth: this.data[i].lastmonth,
+                                    thismonth: this.data[i].thismonth,
+                                    birthrest: this.data[i].birthrest,
+                                    thismonthbasic: this.data[i].thismonthbasic,
+                                    shortillness: this.data[i].shortillness,
+                                    owediligence: this.data[i].owediligence,
+                                    owingcontrol: this.data[i].owingcontrol,
+                                    actualamount: this.data[i].actualamount,
+                                    supplement: this.data[i].supplement,
+                                    telephonesubsidy: this.data[i].telephonesubsidy,
+                                    housingsubsidy: this.data[i].housingsubsidy,
+                                    lunchsubsidy: this.data[i].lunchsubsidy,
+                                    overtimesubsidy: this.data[i].overtimesubsidy,
+                                    other1: this.data[i].other1,
+                                    total1: this.data[i].total1,
+                                    traffic: this.data[i].traffic,
+                                    washingtheory: this.data[i].washingtheory,
+                                    other2: this.data[i].other2,
+                                    appreciation: this.data[i].appreciation,
+                                    other3: this.data[i].other3,
+                                    total2: this.data[i].total2,
+                                    taxestotal: this.data[i].taxestotal,
+                                    heating: this.data[i].heating,
+                                    onlychildmoney: this.data[i].onlychildmoney,
+                                    total3: this.data[i].total3,
+                                    totalwages: this.data[i].totalwages,
+                                    endowmentinsurance: this.data[i].endowmentinsurance,
+                                    medicalinsurance: this.data[i].medicalinsurance,
+                                    unemploymentinsurance: this.data[i].unemploymentinsurance,
+                                    socialinsurance: this.data[i].socialinsurance,
+                                    accumulationfund: this.data[i].accumulationfund,
+                                    disciplinarycontrol: this.data[i].disciplinarycontrol,
+                                    thismonthterm: this.data[i].thismonthterm,
+                                    thismonthadditional: this.data[i].thismonthadditional,
+                                    thismonthdutyfree: this.data[i].thismonthdutyfree,
+                                    lastdutyfree: this.data[i].lastdutyfree,
+                                    housingmoneys: this.data[i].housingmoneys,
+                                    other4: this.data[i].other4,
+                                    other5: this.data[i].other5,
+                                    shouldwages: this.data[i].shouldwages,
+                                    shouldcumulative: this.data[i].shouldcumulative,
+                                    shouldpaytaxes: this.data[i].shouldpaytaxes,
+                                    thismonthadjustment: this.data[i].thismonthadjustment,
+                                    realwages: this.data[i].realwages,
+                                    comendowmentinsurance: this.data[i].comendowmentinsurance,
+                                    commedicalinsurance: this.data[i].commedicalinsurance,
+                                    comunemploymentinsurance: this.data[i].comunemploymentinsurance,
+                                    cominjuryinsurance: this.data[i].cominjuryinsurance,
+                                    combirthinsurance: this.data[i].combirthinsurance,
+                                    comheating: this.data[i].comheating,
+                                    comaccumulationfund: this.data[i].comaccumulationfund,
+                                    total: this.data[i].total,
+                                    labourunionbase: this.data[i].labourunionbase,
+                                    labourunionfunds: this.data[i].labourunionfunds,
+                                    comtotalwages: this.data[i].comtotalwages,
+                                    bonusmoney: this.data[i].bonusmoney,
+                                    totalbonus: this.data[i].totalbonus,
+                                    other6: this.data[i].other6,
+                                })
+                            }
+                        }
+                        this.data = tabledate
+                    }
+                } else if (this.Bonus === 1) {
+                    this.working = '',
+                        this.starttime = '',
+                        this.endTime = '',
+                        this.working = this.getworkinghours(this.workinghours);
+                    this.starttime = this.working.substring(0, 4),
+                        this.endTime = this.working.substring(13, 17)
+                    let tableDate = [];
+                    for (let i = 0; i < this.datatada.length; i++) {
+                        if (this.datatada[i].years != '') {
+                            if (this.starttime <= this.datatada[i].years && this.datatada[i].years <= this.endTime) {
+                                tableDate.push({
+                                    years: this.datatada[i].years,
+                                    user_id: this.datatada[i].user_id,
+                                    totalbonus1: this.datatada[i].totalbonus1,
+                                    method: this.datatada[i].method,
+                                    taxable: this.datatada[i].taxable,
+                                    amount: this.datatada[i].amount,
+                                    payable: this.datatada[i].payable,
+                                    income: this.datatada[i].income,
+                                    taxrate: this.datatada[i].taxrate,
+                                    deductions: this.datatada[i].deductions,
+                                    bonustax: this.datatada[i].bonustax,
+                                    received: this.datatada[i].received,
+                                    remarks: this.datatada[i].remarks,
+                                })
+                            }
+                        }
+                    }
+                    this.datatada = tableDate
+                }
+            },
             getTaxestotal() {
                 this.loading = true;
                 this.$store
