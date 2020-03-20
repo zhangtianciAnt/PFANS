@@ -595,7 +595,6 @@
     },
     methods: {
       getUserids(val) {
-        debugger;
         this.form.user_id = val;
         let rst = getUserInfo(val);
         let lst = getOrgInfoByUserId(val);

@@ -397,7 +397,6 @@
                 paymentmethods: '',
                 type: '',
               });
-              debugger;
               this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
               console.log("this.startoptionvalue", this.startoptionvalue);
               let csvData = [];

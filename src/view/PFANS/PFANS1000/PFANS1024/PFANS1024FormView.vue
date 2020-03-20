@@ -1915,7 +1915,6 @@
                 myRule.forEach(function (item, index, array) {
                     let dataName = "tabledata";
                     let maxCount = rowCount;
-                  debugger
                     if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
                         dataName = "tableclaimtype";
                         maxCount = rowCount2;
